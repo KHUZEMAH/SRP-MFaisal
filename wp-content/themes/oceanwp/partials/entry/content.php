@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'ocean_before_blog_entry_content' ); ?>
 
 <div class="blog-entry-summary clr"<?php oceanwp_schema_markup( 'entry_content' ); ?>>
+
 	<?php
 	// Display excerpt.
 	if ( '500' !== get_theme_mod( 'ocean_blog_entry_excerpt_length', '30' ) ) :
@@ -23,13 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>
 			<?php
 			// Display custom excerpt.
-			if ( !is_post_type_archive( 'testimonial' ) ) {
-			
 			echo oceanwp_excerpt( get_theme_mod( 'ocean_blog_entry_excerpt_length', '30' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}else{
-				the_content();
-
-			}
 			?>
 		</p>
 

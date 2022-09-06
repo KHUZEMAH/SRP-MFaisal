@@ -93,13 +93,18 @@ if ( $link_target == 'blank' ) {
 
 		    }
 
-		    // Else
-		    else {
+			// Else
+			else {
 
-		        // Display template content
-		        echo do_shortcode( $get_content );
+				// If Gutenberg.
+				if ( ocean_is_block_template( $get_id ) ) {
+					$get_content = apply_filters( 'oceanwp_social_menu_content', do_blocks( $get_content ) );
+				}
 
-		    }
+				// Display template content.
+				echo do_shortcode( $get_content );
+
+			}
 
 		// Display social
 		} else { ?>

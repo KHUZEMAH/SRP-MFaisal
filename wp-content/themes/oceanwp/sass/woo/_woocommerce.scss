@@ -15,6 +15,11 @@
     cursor: not-allowed;
   }
 
+  .button:focus {
+    background-color: #0b7cac;
+    color: #fff;
+  }
+
   button {
     &.button {
       padding: 12px 20px;
@@ -611,6 +616,7 @@
       margin: 0 -10px;
     }
     .product {
+      position: relative;
       overflow: hidden;
       padding-bottom: 20px;
     }
@@ -1975,7 +1981,7 @@
     width: 48%;
   }
 }
-@media only screen and(min-width: 481px) and(max-width: 768px) {
+@media only screen and (min-width: 481px) and (max-width: 768px) {
   .tablet-col .col.first {
     clear: none;
   }
@@ -2029,7 +2035,7 @@
     }
   }
 }
-@media only screen and(max-width: 480px) {
+@media only screen and (max-width: 480px) {
   .mobile-col .col.first {
     clear: none;
   }
@@ -2281,6 +2287,10 @@
     background-color: #13aff0;
 
     &:hover {
+      background-color: #0b7cac;
+      color: #fff;
+    }
+    &:focus {
       background-color: #0b7cac;
       color: #fff;
     }
@@ -3324,8 +3334,6 @@ form.checkout {
   letter-spacing: normal;
   font-weight: 600;
   text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .distraction-free .medium-header .col-1,

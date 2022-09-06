@@ -61,18 +61,7 @@ get_header(); ?>
 						} else {
 							?>
 						<div id="blog-entries" class="<?php oceanwp_blog_wrap_classes(); ?>">
-						   <?php
-							if ( is_post_type_archive( 'testimonial' ) ) { ?>
-							<div class="filter-bar">
-							<!-- <form id="sort_form" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" method="GET">
-							<select name="order_by">
-								<option value="date-desc" selected>Latest Testimonial</option>
-								<option value="date-asc">Oldest Testimonial</option>
-							</select>
-							</form>-->
-							<a href="<?php the_permalink(2055); ?>" class="btn-white float-right"><i class="fas fa-pencil-alt"></i>&nbsp;WRITE A TESTIMONIAL</a>
-							</div>
-							<?php  }?>
+
 							<?php
 							// Define counter for clearing floats.
 							$oceanwp_count = 0;

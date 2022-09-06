@@ -4065,6 +4065,10 @@ if ( ! function_exists( 'oceanwp_social_options' ) ) {
 					'label'      => esc_html__( 'QQ', 'oceanwp' ),
 					'icon_class' => oceanwp_icon( 'qq', false ),
 				),
+				'discord'          => array(
+					'label'      => esc_html__( 'Discord', 'oceanwp' ),
+					'icon_class' => oceanwp_icon( 'discord', false ),
+				),
 			)
 		);
 	}
@@ -4765,7 +4769,7 @@ function oceanwp_mobile_search_form_html() {
 		$mobile_search_content = '';
 		ob_start();
 		?>
-		<form role="search" method="get" class="mobile-searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+		<form method="get" class="mobile-searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<span class="screen-reader-text"><?php oceanwp_theme_strings( 'owp-string-search-form-label' ); ?></span>
 			<input aria-label="<?php oceanwp_theme_strings( 'owp-string-search-field' ); ?>" type="text" class="field" name="s" placeholder="<?php oceanwp_theme_strings( 'owp-string-search-text', 'oceanwp' ); ?>">
 			<?php
@@ -4783,7 +4787,7 @@ function oceanwp_mobile_search_form_html() {
 		ob_start();
 		?>
 		<div class="container clr">
-			<form role="search" method="get" class="mobile-searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<form method="get" class="mobile-searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<a href="#" class="search-overlay-close" aria-label="<?php oceanwp_theme_strings( 'owp-string-close-search-form' ); ?>"><span></span></a>
 				<span class="screen-reader-text"><?php oceanwp_theme_strings( 'owp-string-search-form-label' ); ?></span>
 				<input aria-label="<?php oceanwp_theme_strings( 'owp-string-mobile-submit-search' ); ?>" class="mobile-search-overlay-input" type="search" name="s" autocomplete="off" value="">
@@ -4829,3 +4833,133 @@ function mobile_menu_search_icon() {
 
 }
 add_action( 'wp', 'mobile_menu_search_icon' );
+
+add_action( 'admin_init', 'oceanwp_includes' );
+function oceanwp_includes() {
+	//Include theme panel.
+	if ( is_admin() ) {
+		require_once OCEANWP_THEME_DIR . '/inc/themepanel/theme-panel.php';
+	}
+
+}
+
+add_filter( 'gettext', 'oceanwp_white_labels_translate', 1, 3 );
+function oceanwp_white_labels_translate( $translation, $text, $domain ) {
+	$white_label_active = get_option( 'oceanwp_whitelabel_oceanwp_panel', false );
+	$white_label_val = get_option( 'oceanwp_theme_name' );
+	if( $white_label_active && $white_label_val && strpos($text, 'OceanWP') !== false ) {
+		$translation = str_replace( 'OceanWP', $white_label_val, $text );
+	}
+	return $translation;
+}
+
+/**
+ * Register theme page.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function oceanwp_register_theme_page() {
+
+	if ( class_exists( 'Ocean_Extra' ) ) {
+		add_menu_page(
+			__('OceanWP Panel', 'oceanwp'),
+			__('OceanWP', 'oceanwp'),
+			'manage_options',
+			'oceanwp',
+			'ocean_admin_page_contents',
+			get_template_directory_uri() . '/inc/themepanel/assets/images/themepanel-icon.svg',
+			4
+		);
+		add_submenu_page(
+			'oceanwp',
+			__('OceanWP Panel', 'oceanwp'),
+			__('OceanWP Panel', 'oceanwp'),
+			'manage_options',
+			'oceanwp',
+			'',
+			1
+		);
+	} else {
+		add_theme_page(
+			__('OceanWP', 'oceanwp'),
+			__('OceanWP', 'oceanwp'),
+			'edit_theme_options',
+			'oceanwp',
+			function() {
+				include_once OCEANWP_THEME_PANEL_DIR . '/views/layout/master.php';
+			}
+		);
+	}
+}
+add_action( 'admin_menu', 'oceanwp_register_theme_page', 0 );
+
+function ocean_admin_page_contents() {
+	include_once OCEANWP_THEME_PANEL_DIR . '/views/layout/master.php';
+}
+
+/**
+ * Admin menu logo styles.
+ *
+ * @return void
+ */
+function oceanwp_admin_menu_logo_styles() {
+		$owp_tp_logo_style = '<style>#adminmenu #toplevel_page_oceanwp .wp-menu-image img { width: 25px; height: 25px; padding: 5px; }</style>';
+		echo $owp_tp_logo_style;
+	}
+add_action('admin_head', 'oceanwp_admin_menu_logo_styles');
+
+/**
+ * Display Notice when Ocean Extra is outdated.
+ *
+ * @return void
+ */
+function ocean_oe_is_outdated_admin_notice() {
+	if ( file_exists( WP_PLUGIN_DIR . '/ocean-extra/ocean-extra.php' ) ) {
+		if ( current_user_can( 'install_plugins' ) ) {
+			$current_oe_version  = oceanwp_theme_panel()->get_current_plugin_version( 'ocean-extra/ocean-extra.php' );
+			$required_oe_version = '2.0.0';
+
+			if ( ! empty( $current_oe_version ) && ! empty( $required_oe_version ) && version_compare( $current_oe_version, $required_oe_version , '<' ) ) :
+			?>
+			<div class="notice notice-warning is-dismissible">
+				<p><?php esc_html_e( 'We made changes to our Theme Panel. To complete the installation and enjoy both old and new features, please make sure the OceanWP theme and all Ocean plugins are up to date.', 'oceanwp' ); ?></p>
+				<a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>"><?php esc_html_e( 'Update and get the new Theme Panel', 'oceanwp' ); ?></a>
+				<br><br>
+			</div>
+			<?php
+			endif;
+		}
+	}
+}
+add_action('admin_notices', 'ocean_oe_is_outdated_admin_notice');
+
+/**
+ * Check if a template is Gutenberg.
+ *
+ * @since 3.3.1
+ * @var int $get_id  Post ID.
+ */
+function ocean_is_block_template( $get_id ) {
+
+	if ( ! $get_id ) {
+		return;
+	}
+
+	$template = get_post( $get_id );
+	$blocks   = array();
+
+	if ( $template && ! is_wp_error( $template ) ) {
+		$blocks = parse_blocks( $template->post_content );
+	}
+
+	// check for Gutenberg page.
+	$is_gutenberg = ( ! empty( $blocks ) && '' !== $blocks[0]['blockName'] );
+
+    if ( $is_gutenberg ) {
+        return true;
+    } else {
+        return false;
+    }
+}

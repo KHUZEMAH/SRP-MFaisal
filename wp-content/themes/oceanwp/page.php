@@ -12,17 +12,9 @@
 get_header(); ?>
 
 	<?php do_action( 'ocean_before_content_wrap' ); ?>
-      
-      <?php if (is_page(1850) ):?>
-	
-	<div class="clr">
-	 
-	 <?php else : ?>
-      
-      <div id="content-wrap" class="container clr">
-     
-     <?php endif; ?>
-		
+
+	<div id="content-wrap" class="container clr">
+
 		<?php do_action( 'ocean_before_primary' ); ?>
 
 		<div id="primary" class="content-area clr">
