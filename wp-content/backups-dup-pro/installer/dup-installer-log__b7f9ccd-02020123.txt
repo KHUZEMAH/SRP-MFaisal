@@ -1,0 +1,2529 @@
+********************************************************************************
+* DUPLICATOR-PRO: Install-Log
+* STEP-0 START @ 02:21:28
+* VERSION: 3.8.6.2
+* NOTICE: Do NOT post to public sites or forums!!
+********************************************************************************
+PACKAGE INFO________ CURRENT SERVER                         |ORIGINAL SERVER
+PHP VERSION_________: 7.4.25                                |7.4.19
+OS__________________: Linux                                 |WINNT
+CREATED_____________: 2022-09-02 02:01:23
+WP VERSION__________: 5.9.3
+DUP VERSION_________: 3.8.6.2
+DB__________________: 10.3.34
+DB TABLES___________: 178
+DB ROWS_____________: 294879
+DB FILE SIZE________: 646250496
+********************************************************************************
+SERVER INFO
+PHP_________________: 7.4.19 | SAPI: apache2handler
+PHP MEMORY__________: 4294967296 | SUHOSIN: disabled
+SERVER______________: Apache/2.4.47 (Win64) OpenSSL/1.1.1k PHP/7.4.19
+DOC ROOT____________: "C:/laragon/www/faisal"
+LOG FILE 644________: false
+REQUEST URL_________: "http://localhost/faisal/dup-installer/main.installer.php"
+********************************************************************************
+INSTALLER INFO
+PATH_NEW____________: "C:/laragon/www/faisal"
+URL_NEW_____________: "http://localhost/faisal"
+********************************************************************************
+
+--------------------------------------
+ARCHIVE SETUP
+--------------------------------------
+NAME________________: "C:/laragon/www/faisal/20220902_slowrisepizzaco_b7f9ccd723c1bd062601_20220902020123_archive.zip"
+SIZE________________: 1.17GB
+
+VALUE TO INFO KEY: url_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud"
+VALUE TO INFO KEY: path_old VALUE "/www/slowrisepizza_805/public"
+VALUE TO INFO KEY: siteurl_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud"
+VALUE TO INFO KEY: path_cont_old VALUE "/www/slowrisepizza_805/public/wp-content"
+VALUE TO INFO KEY: url_cont_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud/wp-content"
+VALUE TO INFO KEY: path_upl_old VALUE "/www/slowrisepizza_805/public/wp-content/uploads"
+VALUE TO INFO KEY: url_upl_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud/wp-content/uploads"
+VALUE TO INFO KEY: path_plug_old VALUE "/www/slowrisepizza_805/public/wp-content/plugins"
+VALUE TO INFO KEY: url_plug_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud/wp-content/plugins"
+VALUE TO INFO KEY: path_muplug_old VALUE "/www/slowrisepizza_805/public/wp-content/mu-plugins"
+VALUE TO INFO KEY: url_muplug_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud/wp-content/mu-plugins"
+********************************************************************************
+* DUPLICATOR-PRO: Install-Log
+* STEP-1 START @ 02:21:34
+* NOTICE: Do NOT post to public sites or forums!!
+********************************************************************************
+USER INPUTS
+ARCHIVE ENGINE______: "ziparchivechunking"
+CLIENT KICKOFF______: false
+SET DIR PERMS_______: false
+DIR PERMS VALUE_____: 755
+SET FILE PERMS______: false
+FILE PERMS VALUE____: 644
+SAFE MODE___________: 0
+LOGGING_____________: 1
+WP CONFIG___________: "modify"
+HTACCESS CONFIG_____: "new"
+OTHER CONFIG________: "new"
+FILE TIME___________: "current"
+REMOVE RENDUNDANT___: false
+********************************************************************************
+
+
+
+START ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 0
+Expected total archive extract time: 43.287067210454
+Total extraction elapsed time until now: 43.287067210454
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 6827
+Expected total archive extract time: 83.275916331263
+Total extraction elapsed time until now: 83.275916331263
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 7814
+Expected total archive extract time: 72.286706973216
+Total extraction elapsed time until now: 72.286706973216
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 8855
+Expected total archive extract time: 92.298262798974
+Total extraction elapsed time until now: 92.298262798974
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 10463
+Expected total archive extract time: 107.15150760364
+Total extraction elapsed time until now: 107.15150760364
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 11833
+Expected total archive extract time: 126.54804139365
+Total extraction elapsed time until now: 126.54804139365
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 13412
+Expected total archive extract time: 119.09813367861
+Total extraction elapsed time until now: 119.09813367861
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 14877
+Expected total archive extract time: 134.45332920185
+Total extraction elapsed time until now: 134.45332920185
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 15952
+Expected total archive extract time: 139.78153803797
+Total extraction elapsed time until now: 139.78153803797
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 17047
+Expected total archive extract time: 119.7157364573
+Total extraction elapsed time until now: 119.7157364573
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 18680
+Expected total archive extract time: 105.97519741735
+Total extraction elapsed time until now: 105.97519741735
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 20699
+Expected total archive extract time: 114.77302089371
+Total extraction elapsed time until now: 114.77302089371
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 21565
+Expected total archive extract time: 122.27546985522
+Total extraction elapsed time until now: 122.27546985522
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 22725
+Expected total archive extract time: 130.97506804713
+Total extraction elapsed time until now: 130.97506804713
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 23800
+Expected total archive extract time: 136.52111772532
+Total extraction elapsed time until now: 136.52111772532
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 25042
+Expected total archive extract time: 144.40933961938
+Total extraction elapsed time until now: 144.40933961938
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 25824
+Expected total archive extract time: 152.2303171032
+Total extraction elapsed time until now: 152.2303171032
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 27074
+Expected total archive extract time: 159.79936765748
+Total extraction elapsed time until now: 159.79936765748
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 28310
+Expected total archive extract time: 167.42303650527
+Total extraction elapsed time until now: 167.42303650527
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 29292
+Expected total archive extract time: 174.09300827974
+Total extraction elapsed time until now: 174.09300827974
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 30425
+Expected total archive extract time: 181.07788106461
+Total extraction elapsed time until now: 181.07788106461
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 31257
+Expected total archive extract time: 188.38682974957
+Total extraction elapsed time until now: 188.38682974957
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 32379
+Expected total archive extract time: 195.07249403996
+Total extraction elapsed time until now: 195.07249403996
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 33198
+Expected total archive extract time: 203.01088065956
+Total extraction elapsed time until now: 203.01088065956
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 33966
+Expected total archive extract time: 209.39354664337
+Total extraction elapsed time until now: 209.39354664337
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 35231
+Expected total archive extract time: 216.11989848946
+Total extraction elapsed time until now: 216.11989848946
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 37030
+Expected total archive extract time: 222.60682182785
+Total extraction elapsed time until now: 222.60682182785
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 37961
+Expected total archive extract time: 230.20032968133
+Total extraction elapsed time until now: 230.20032968133
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 38879
+Expected total archive extract time: 232.68494059503
+Total extraction elapsed time until now: 232.68494059503
+
+
+CONTINUE ZIP FILE EXTRACTION CHUNKING >>> 
+ARCHIVE OFFSET 40669
+Archive just got done processing last file in list of 40952
+Expected total archive extract time: 230.5023745021
+Total extraction elapsed time until now: 230.5023745021
+
+WEB SERVER CONFIGURATION FILE STATUS:
+- .htaccess file was not reset or backed up.
+- .user.ini file was not reset or backed up.
+- web.config file was not reset or backed up.
+
+STEP-1 COMPLETE @ 02:26:54 - RUNTIME: 320.3715 sec.
+
+-------------------------
+AJAX ACTION dbtest
+
+
+
+********************************************************************************
+* DUPLICATOR PRO INSTALL-LOG
+* STEP-2 START @ 02:27:33
+* NOTICE: Do NOT post to public sites or forums!!
+********************************************************************************
+USER INPUTS
+VIEW MODE___________: "basic"
+DB ACTION___________: "empty"
+DB HOST_____________: "**OBSCURED**"
+DB NAME_____________: "**OBSCURED**"
+DB PASS_____________: "**OBSCURED**"
+DB PORT_____________: "**OBSCURED**"
+MYSQL MODE__________: "DEFAULT"
+MYSQL MODE OPTS_____: ""
+NON-BREAKING SPACES_: false
+CHARSET_____________: "utf8"
+CHARSET FB__________: false
+CHARSET FB VAL______: "big5"
+COLLATE_____________: "utf8_general_ci"
+COLLATE FB__________: false
+COLLATE FB VAL______: "big5_chinese_ci"
+CUNKING_____________: true
+VIEW CREATION_______: true
+STORED PROCEDURE____: true
+********************************************************************************
+
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+DATABASE-ENVIRONMENT
+--------------------------------------
+MYSQL VERSION:	This Server: 5.7.33 -- Build Server: 10.3.34
+FILE SIZE:	dup-database__b7f9ccd-02020123.sql (492.68MB)
+TIMEOUT:	5000
+MAXPACK:	536870912
+SQLMODE-GLOBAL:	ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+SQLMODE-SESSION:NO_AUTO_VALUE_ON_ZERO
+COLLATE FB:	Off
+DB CHUNKING:	enabled
+DB VIEWS:	enabled
+DB PROCEDURES:	enabled
+
+NOTICE: This servers version [5.7.33] is less than the build version [10.3.34].  
+If you find issues after testing your site please referr to this FAQ item.
+https://snapcreek.com/duplicator/docs/faqs-tech/#faq-installer-260-q
+--------------------------------------
+DATABASE RESULTS
+--------------------------------------
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 0
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 4616
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 71003
+Auto Commit set to false successfully
+DB QUERY [ERROR][C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php:684] MSG: Cannot add foreign key constraint
+	SQL: CREATE TABLE `wphs_wc_download_log` (
+  `download_log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` datetime NOT NULL,
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  PRIMARY KEY (`download_log_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `timestamp` (`timestamp`),
+  CONSTRAINT `fk_wphs_wc_download_log_permission_id` FOREIGN KEY (`permission_id`) REFERE
+#0  DUPX_DB::mysqli_query(mysqli Object ([affected_rows] => ,[client_info] => ,[client_version] => ,[connect_errno] => ,[connect_error] => ,[errno] => ,[error] => ,[error_list] => ,[field_count] => ,[host_info] => ,[info] => ,[insert_id] => ,[server_info] => ,[server_version] => ,[sqlstate] => ,[protocol_version] => ,[thread_id] => ,[warning_count] => ), CREATE TABLE `wphs_wc_download_log` (
+  `download_log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` datetime NOT NULL,
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  PRIMARY KEY (`download_log_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `timestamp` (`timestamp`),
+  CONSTRAINT `fk_wphs_wc_download_log_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `wphs_woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;) called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php:684]
+#1  DUPX_DBInstall->writeQueryInDB(CREATE TABLE `wphs_wc_download_log` (
+  `download_log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` datetime NOT NULL,
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  PRIMARY KEY (`download_log_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `timestamp` (`timestamp`),
+  CONSTRAINT `fk_wphs_wc_download_log_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `wphs_woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;) called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php:341]
+#2  DUPX_DBInstall->writeInChunks() called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.base.php:163]
+#3  require_once(C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.base.php) called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.base.php:151]
+#4  DUPX_CTRL::mainController() called at [C:\laragon\www\faisal\dup-installer\main.installer.php:75]
+
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 1722241
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 50339183
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 147297789
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 247225871
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 349756773
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 390692672
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 482723275
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+--------------------------------------
+** DATABASE CHUNK install start
+--------------------------------------
+DATABASE CHUNK SEEK POSITION: 511083328
+Auto Commit set to false successfully
+Auto Commit set to true successfully
+--------------------------------------
+** DATABASE CHUNK install end
+--------------------------------------
+[PHP ERR][NOTICE] MSG:Undefined index: dbcharset [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:74]
+[PHP ERR][NOTICE] MSG:Undefined index: dbcollate [CODE:8|FILE:C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php|LINE:75]
+DB QUERY [ERROR][C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php:491] MSG: Table 'srp.wphs_wc_download_log' doesn't exist
+	SQL: SELECT count(*) as cnt FROM `wphs_wc_download_log`
+#0  DUPX_DB::mysqli_query(mysqli Object ([affected_rows] => ,[client_info] => ,[client_version] => ,[connect_errno] => ,[connect_error] => ,[errno] => ,[error] => ,[error_list] => ,[field_count] => ,[host_info] => ,[info] => ,[insert_id] => ,[server_info] => ,[server_version] => ,[sqlstate] => ,[protocol_version] => ,[thread_id] => ,[warning_count] => ), SELECT count(*) as cnt FROM `wphs_wc_download_log`) called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.dbinstall.php:491]
+#1  DUPX_DBInstall->getRowCountMisMatchTables() called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.base.php:167]
+#2  require_once(C:\laragon\www\faisal\dup-installer\ctrls\ctrl.s2.base.php) called at [C:\laragon\www\faisal\dup-installer\ctrls\ctrl.base.php:151]
+#3  DUPX_CTRL::mainController() called at [C:\laragon\www\faisal\dup-installer\main.installer.php:75]
+
+Starting Cleanup Routine...
+Cleanup Routine Complete
+ERRORS FOUND:	0
+DROPPED TABLES:	0
+RENAMED TABLES:	0
+QUERIES RAN:	0
+
+TABLES ROWS
+
+TABLE "wphs_actionscheduler_actions"____________________[ROWS:   220]
+TABLE "wphs_actionscheduler_claims"_____________________[ROWS:     0]
+TABLE "wphs_actionscheduler_groups"_____________________[ROWS:     7]
+TABLE "wphs_actionscheduler_logs"_______________________[ROWS:   640]
+TABLE "wphs_commentmeta"________________________________[ROWS:     7]
+TABLE "wphs_comments"___________________________________[ROWS:  5056]
+TABLE "wphs_duplicator_pro_entities"____________________[ROWS:     5]
+TABLE "wphs_duplicator_pro_packages"____________________[ROWS:     0]
+TABLE "wphs_e_events"___________________________________[ROWS:     0]
+TABLE "wphs_ff_scheduled_actions"_______________________[ROWS:     0]
+TABLE "wphs_fluentform_entry_details"___________________[ROWS:     1]
+TABLE "wphs_fluentform_form_analytics"__________________[ROWS:     0]
+TABLE "wphs_fluentform_form_meta"_______________________[ROWS:     2]
+TABLE "wphs_fluentform_forms"___________________________[ROWS:     1]
+TABLE "wphs_fluentform_logs"____________________________[ROWS:     0]
+TABLE "wphs_fluentform_submission_meta"_________________[ROWS:     0]
+TABLE "wphs_fluentform_submissions"_____________________[ROWS:     1]
+TABLE "wphs_links"______________________________________[ROWS:     0]
+TABLE "wphs_lws_webhooks_events"________________________[ROWS:     0]
+TABLE "wphs_lws_wr_achieved_log"________________________[ROWS:     0]
+TABLE "wphs_lws_wr_historic"____________________________[ROWS:  4942]
+TABLE "wphs_lws_wr_tinyurls"____________________________[ROWS:     0]
+TABLE "wphs_lws_wr_userbadge"___________________________[ROWS:     0]
+TABLE "wphs_mailchimp_carts"____________________________[ROWS:     4]
+TABLE "wphs_mailchimp_jobs"_____________________________[ROWS:   703]
+TABLE "wphs_mailpoet_custom_fields"_____________________[ROWS:     0]
+TABLE "wphs_mailpoet_dynamic_segment_filters"___________[ROWS:     0]
+TABLE "wphs_mailpoet_feature_flags"_____________________[ROWS:     0]
+TABLE "wphs_mailpoet_forms"_____________________________[ROWS:     2]
+TABLE "wphs_mailpoet_log"_______________________________[ROWS:     0]
+TABLE "wphs_mailpoet_mapping_to_external_entities"______[ROWS:     0]
+TABLE "wphs_mailpoet_newsletter_links"__________________[ROWS:     0]
+TABLE "wphs_mailpoet_newsletter_option"_________________[ROWS:     0]
+TABLE "wphs_mailpoet_newsletter_option_fields"__________[ROWS:    20]
+TABLE "wphs_mailpoet_newsletter_posts"__________________[ROWS:     0]
+TABLE "wphs_mailpoet_newsletter_segment"________________[ROWS:     0]
+TABLE "wphs_mailpoet_newsletter_templates"______________[ROWS:    74]
+TABLE "wphs_mailpoet_newsletters"_______________________[ROWS:     0]
+TABLE "wphs_mailpoet_scheduled_task_subscribers"________[ROWS:     0]
+TABLE "wphs_mailpoet_scheduled_tasks"___________________[ROWS:    82]
+TABLE "wphs_mailpoet_segments"__________________________[ROWS:     3]
+TABLE "wphs_mailpoet_sending_queues"____________________[ROWS:     0]
+TABLE "wphs_mailpoet_settings"__________________________[ROWS:    34]
+TABLE "wphs_mailpoet_statistics_clicks"_________________[ROWS:     0]
+TABLE "wphs_mailpoet_statistics_forms"__________________[ROWS:    49]
+TABLE "wphs_mailpoet_statistics_newsletters"____________[ROWS:     0]
+TABLE "wphs_mailpoet_statistics_opens"__________________[ROWS:     0]
+TABLE "wphs_mailpoet_statistics_unsubscribes"___________[ROWS:     0]
+TABLE "wphs_mailpoet_statistics_woocommerce_purchases"__[ROWS:     0]
+TABLE "wphs_mailpoet_stats_notifications"_______________[ROWS:     0]
+TABLE "wphs_mailpoet_subscriber_custom_field"___________[ROWS:     0]
+TABLE "wphs_mailpoet_subscriber_ips"____________________[ROWS:     5]
+TABLE "wphs_mailpoet_subscriber_segment"________________[ROWS:    54]
+TABLE "wphs_mailpoet_subscribers"_______________________[ROWS:    53]
+TABLE "wphs_mailpoet_user_flags"________________________[ROWS:     1]
+TABLE "wphs_mycred_log"_________________________________[ROWS:   123]
+TABLE "wphs_newsletter"_________________________________[ROWS:     1]
+TABLE "wphs_newsletter_emails"__________________________[ROWS:     0]
+TABLE "wphs_newsletter_sent"____________________________[ROWS:     0]
+TABLE "wphs_newsletter_stats"___________________________[ROWS:     0]
+TABLE "wphs_newsletter_user_logs"_______________________[ROWS:     0]
+TABLE "wphs_options"____________________________________[ROWS:  1160]
+TABLE "wphs_pmpro_discount_codes"_______________________[ROWS:   146]
+TABLE "wphs_pmpro_discount_codes_levels"________________[ROWS:   155]
+TABLE "wphs_pmpro_discount_codes_uses"__________________[ROWS:   431]
+TABLE "wphs_pmpro_group_discount_codes"_________________[ROWS:  4091]
+TABLE "wphs_pmpro_groups"_______________________________[ROWS:     1]
+TABLE "wphs_pmpro_membership_levelmeta"_________________[ROWS:     6]
+TABLE "wphs_pmpro_membership_levels"____________________[ROWS:     4]
+TABLE "wphs_pmpro_membership_levels_groups"_____________[ROWS:     3]
+TABLE "wphs_pmpro_membership_orders"____________________[ROWS:   692]
+TABLE "wphs_pmpro_memberships_categories"_______________[ROWS:     4]
+TABLE "wphs_pmpro_memberships_pages"____________________[ROWS:     7]
+TABLE "wphs_pmpro_memberships_users"____________________[ROWS:   593]
+TABLE "wphs_pmxe_exports"_______________________________[ROWS:     1]
+TABLE "wphs_pmxe_google_cats"___________________________[ROWS:  5371]
+TABLE "wphs_pmxe_posts"_________________________________[ROWS:     1]
+TABLE "wphs_pmxe_templates"_____________________________[ROWS:     0]
+TABLE "wphs_pmxi_files"_________________________________[ROWS:     1]
+TABLE "wphs_pmxi_hash"__________________________________[ROWS:     0]
+TABLE "wphs_pmxi_history"_______________________________[ROWS:     0]
+TABLE "wphs_pmxi_images"________________________________[ROWS:    60]
+TABLE "wphs_pmxi_imports"_______________________________[ROWS:     1]
+TABLE "wphs_pmxi_posts"_________________________________[ROWS:     2]
+TABLE "wphs_pmxi_templates"_____________________________[ROWS:     0]
+TABLE "wphs_postmeta"___________________________________[ROWS:146734]
+TABLE "wphs_posts"______________________________________[ROWS:  8110]
+TABLE "wphs_psninja_amdd"_______________________________[ROWS: 13541]
+TABLE "wphs_psninja_amdd_cache"_________________________[ROWS:    84]
+TABLE "wphs_psninja_urls"_______________________________[ROWS:    55]
+TABLE "wphs_smush_dir_images"___________________________[ROWS:     0]
+TABLE "wphs_term_relationships"_________________________[ROWS:   279]
+TABLE "wphs_term_taxonomy"______________________________[ROWS:    77]
+TABLE "wphs_termmeta"___________________________________[ROWS:    39]
+TABLE "wphs_terms"______________________________________[ROWS:    77]
+TABLE "wphs_usermeta"___________________________________[ROWS: 28288]
+TABLE "wphs_users"______________________________________[ROWS:   798]
+TABLE "wphs_wc_admin_note_actions"______________________[ROWS:   106]
+TABLE "wphs_wc_admin_notes"_____________________________[ROWS:    96]
+TABLE "wphs_wc_category_lookup"_________________________[ROWS:    11]
+TABLE "wphs_wc_customer_lookup"_________________________[ROWS:   707]
+TABLE "wphs_wc_order_coupon_lookup"_____________________[ROWS:    83]
+TABLE "wphs_wc_order_product_lookup"____________________[ROWS:  1239]
+TABLE "wphs_wc_order_stats"_____________________________[ROWS:  1236]
+TABLE "wphs_wc_order_tax_lookup"________________________[ROWS:     0]
+TABLE "wphs_wc_product_attributes_lookup"_______________[ROWS:     0]
+TABLE "wphs_wc_product_download_directories"____________[ROWS:     0]
+TABLE "wphs_wc_product_meta_lookup"_____________________[ROWS:    40]
+TABLE "wphs_wc_rate_limits"_____________________________[ROWS:     0]
+TABLE "wphs_wc_reserved_stock"__________________________[ROWS:     1]
+TABLE "wphs_wc_tax_rate_classes"________________________[ROWS:     2]
+TABLE "wphs_wc_webhooks"________________________________[ROWS:     0]
+TABLE "wphs_wfblockediplog"_____________________________[ROWS:   262]
+TABLE "wphs_wfblocks7"__________________________________[ROWS:     2]
+TABLE "wphs_wfconfig"___________________________________[ROWS:   264]
+TABLE "wphs_wfcrawlers"_________________________________[ROWS:    38]
+TABLE "wphs_wffilechanges"______________________________[ROWS:     0]
+TABLE "wphs_wffilemods"_________________________________[ROWS: 23182]
+TABLE "wphs_wfhits"_____________________________________[ROWS:   682]
+TABLE "wphs_wfhoover"___________________________________[ROWS:     0]
+TABLE "wphs_wfissues"___________________________________[ROWS:    45]
+TABLE "wphs_wfknownfilelist"____________________________[ROWS: 23182]
+TABLE "wphs_wflivetraffichuman"_________________________[ROWS:     0]
+TABLE "wphs_wflocs"_____________________________________[ROWS:     1]
+TABLE "wphs_wflogins"___________________________________[ROWS:  2006]
+TABLE "wphs_wfls_2fa_secrets"___________________________[ROWS:     0]
+TABLE "wphs_wfls_settings"______________________________[ROWS:    25]
+TABLE "wphs_wfnotifications"____________________________[ROWS:    47]
+TABLE "wphs_wfpendingissues"____________________________[ROWS:     0]
+TABLE "wphs_wfreversecache"_____________________________[ROWS:   151]
+TABLE "wphs_wfsnipcache"________________________________[ROWS:     1]
+TABLE "wphs_wfstatus"___________________________________[ROWS:   953]
+TABLE "wphs_wftrafficrates"_____________________________[ROWS:     0]
+TABLE "wphs_woocommerce_api_keys"_______________________[ROWS:     0]
+TABLE "wphs_woocommerce_attribute_taxonomies"___________[ROWS:     0]
+TABLE "wphs_woocommerce_downloadable_product_permissions"[ROWS:     0]
+TABLE "wphs_woocommerce_log"____________________________[ROWS:     0]
+TABLE "wphs_woocommerce_order_itemmeta"_________________[ROWS: 19604]
+TABLE "wphs_woocommerce_order_items"____________________[ROWS:  2183]
+TABLE "wphs_woocommerce_payment_tokenmeta"______________[ROWS:   176]
+TABLE "wphs_woocommerce_payment_tokens"_________________[ROWS:    44]
+TABLE "wphs_woocommerce_sessions"_______________________[ROWS:     5]
+TABLE "wphs_woocommerce_shipping_zone_locations"________[ROWS:     0]
+TABLE "wphs_woocommerce_shipping_zone_methods"__________[ROWS:     0]
+TABLE "wphs_woocommerce_shipping_zones"_________________[ROWS:     0]
+TABLE "wphs_woocommerce_tax_rate_locations"_____________[ROWS:     0]
+TABLE "wphs_woocommerce_tax_rates"______________________[ROWS:     0]
+TABLE "wphs_wpfm_backup"________________________________[ROWS:     0]
+TABLE "wphs_wpforms_tasks_meta"_________________________[ROWS:    82]
+TABLE "wphs_wpmailsmtp_debug_events"____________________[ROWS:     0]
+TABLE "wphs_wpmailsmtp_tasks_meta"______________________[ROWS:   490]
+TABLE "wphs_wpmm_subscribers"___________________________[ROWS:     0]
+TABLE "wphs_wps_collections_custom"_____________________[ROWS:     0]
+TABLE "wphs_wps_collections_smart"______________________[ROWS:     0]
+TABLE "wphs_wps_collects"_______________________________[ROWS:     0]
+TABLE "wphs_wps_images"_________________________________[ROWS:     5]
+TABLE "wphs_wps_options"________________________________[ROWS:     3]
+TABLE "wphs_wps_products"_______________________________[ROWS:     3]
+TABLE "wphs_wps_settings_connection"____________________[ROWS:     1]
+TABLE "wphs_wps_settings_general"_______________________[ROWS:     1]
+TABLE "wphs_wps_settings_license"_______________________[ROWS:     0]
+TABLE "wphs_wps_settings_syncing"_______________________[ROWS:     1]
+TABLE "wphs_wps_shop"___________________________________[ROWS:     1]
+TABLE "wphs_wps_tags"___________________________________[ROWS:    14]
+TABLE "wphs_wps_variants"_______________________________[ROWS:     8]
+TABLE "wphs_wt_iew_action_history"______________________[ROWS:     6]
+TABLE "wphs_wt_iew_cron"________________________________[ROWS:     0]
+TABLE "wphs_wt_iew_ftp"_________________________________[ROWS:     0]
+TABLE "wphs_wt_iew_mapping_template"____________________[ROWS:     0]
+TABLE "wphs_yoast_indexable"____________________________[ROWS:  2908]
+TABLE "wphs_yoast_indexable_hierarchy"__________________[ROWS:  1709]
+TABLE "wphs_yoast_migrations"___________________________[ROWS:    23]
+TABLE "wphs_yoast_primary_term"_________________________[ROWS:    43]
+TABLE "wphs_yoast_seo_links"____________________________[ROWS:   644]
+TABLE "wphs_yoast_seo_meta"_____________________________[ROWS:  7288]
+TABLE "wphs_zoom"_______________________________________[ROWS:  1006]
+TABLE "wphs_zoom_test"__________________________________[ROWS:    28]
+
+DATABASE CACHE/TRANSITIENT [ROWS:   596]
+
+INSERT DATA RUNTIME: 0.8899 sec.
+STEP-2 COMPLETE @ 02:29:22 - RUNTIME: 1.5293 sec.
+VALUE TO INFO KEY: url_old VALUE "https://staging-slowrisepizza.temp513.kinsta.cloud"
+VALUE TO INFO KEY: url_new VALUE "http://localhost/faisal"
+VALUE TO INFO KEY: path_old VALUE "/www/slowrisepizza_805/public"
+VALUE TO INFO KEY: path_new VALUE "C:/laragon/www/faisal"
+
+====================================
+SET SEARCH AND REPLACE LIST
+====================================
+
+
+********************************************************************************
+DUPLICATOR PRO INSTALL-LOG
+STEP-3 START @ 02:29:42
+NOTICE: Do NOT post to public sites or forums
+********************************************************************************
+CHARSET SERVER:	"utf8"
+CHARSET CLIENT:	"utf8"
+********************************************************************************
+OPTIONS:
+blogname______________: "Slow Rise Pizza Co"
+url_old_______________: "https://staging-slowrisepizza.temp513.kinsta.cloud"
+url_new_______________: "http://localhost/faisal"
+siteurl_______________: "http://localhost/faisal"
+path_new______________: "C:/laragon/www/faisal"
+path_old______________: "/www/slowrisepizza_805/public"
+replace_mode__________: "legacy"
+empty_schedule_storage: true
+mode_chunking_________: 1
+wp_username___________: ""
+wp_mail_______________: ""
+wp_nickname___________: ""
+wp_first_name_________: ""
+wp_last_name__________: ""
+cross_search__________: true
+postguid______________: false
+fullsearch____________: false
+replaceMail___________: false
+maxSerializeStrlen____: 4000000
+auth_keys_and_salts___: false
+action_mu_mode________: -1
+DISALLOW_FILE_EDIT____: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+AUTOSAVE_INTERVAL_____: Array
+(
+    [value] => 60
+    [inWpConfig] => 
+)
+
+WP_POST_REVISIONS_____: Array
+(
+    [value] => 1
+    [inWpConfig] => 
+)
+
+FORCE_SSL_ADMIN_______: Array
+(
+    [value] => 1
+    [inWpConfig] => 
+)
+
+WP_AUTO_UPDATE_CORE___: Array
+(
+    [value] => false
+    [inWpConfig] => 1
+)
+
+WP_CACHE______________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+WPCACHEHOME___________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+WP_DEBUG______________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+WP_DEBUG_LOG__________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+WP_DEBUG_DISPLAY______: Array
+(
+    [value] => 1
+    [inWpConfig] => 
+)
+
+SCRIPT_DEBUG__________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+SAVEQUERIES___________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+COOKIE_DOMAIN_________: Array
+(
+    [value] => 
+    [inWpConfig] => 
+)
+
+WP_MEMORY_LIMIT_______: Array
+(
+    [value] => 40M
+    [inWpConfig] => 
+)
+
+WP_MAX_MEMORY_LIMIT___: Array
+(
+    [value] => 256M
+    [inWpConfig] => 
+)
+
+********************************************************************************
+
+
+====================================
+RUN SEARCH AND REPLACE
+====================================
+
+EVALUATE TABLE: "wphs_actionscheduler_actions"____________________[ROWS:   220][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_actionscheduler_claims"_____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_actionscheduler_groups"_____________________[ROWS:     7][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_actionscheduler_logs"_______________________[ROWS:   640][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_commentmeta"________________________________[ROWS:     7][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_comments"___________________________________[ROWS:  5056][PG:   2][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_duplicator_pro_entities"____________________[ROWS:     5][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_duplicator_pro_packages"____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_e_events"___________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_ff_scheduled_actions"_______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_fluentform_entry_details"___________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_fluentform_form_analytics"__________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_fluentform_form_meta"_______________________[ROWS:     2][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_fluentform_forms"___________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_fluentform_logs"____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_fluentform_submission_meta"_________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_fluentform_submissions"_____________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_links"______________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_lws_webhooks_events"________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_lws_wr_achieved_log"________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_lws_wr_historic"____________________________[ROWS:  4942][PG:   2][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_lws_wr_tinyurls"____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_lws_wr_userbadge"___________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailchimp_carts"____________________________[ROWS:     4][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailchimp_jobs"_____________________________[ROWS:   703][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_custom_fields"_____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_dynamic_segment_filters"___________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_feature_flags"_____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_forms"_____________________________[ROWS:     2][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_log"_______________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_mapping_to_external_entities"______[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_links"__________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_option"_________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_option_fields"__________[ROWS:    20][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_posts"__________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_segment"________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_newsletter_templates"______________[ROWS:    74][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_newsletters"_______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_scheduled_task_subscribers"________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_scheduled_tasks"___________________[ROWS:    82][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_segments"__________________________[ROWS:     3][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_sending_queues"____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_settings"__________________________[ROWS:    34][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_clicks"_________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_forms"__________________[ROWS:    49][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_newsletters"____________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_opens"__________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_unsubscribes"___________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_statistics_woocommerce_purchases"__[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_stats_notifications"_______________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_subscriber_custom_field"___________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_mailpoet_subscriber_ips"____________________[ROWS:     5][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_subscriber_segment"________________[ROWS:    54][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_subscribers"_______________________[ROWS:    53][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_mailpoet_user_flags"________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_newsletter"_________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_newsletter_emails"__________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_newsletter_sent"____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_newsletter_stats"___________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_newsletter_user_logs"_______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_options"____________________________________[ROWS:  1160][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_discount_codes"_______________________[ROWS:   146][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_discount_codes_levels"________________[ROWS:   155][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_discount_codes_uses"__________________[ROWS:   431][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_group_discount_codes"_________________[ROWS:  4091][PG:   2][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_groups"_______________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_membership_levelmeta"_________________[ROWS:     6][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_membership_levels"____________________[ROWS:     4][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_membership_levels_groups"_____________[ROWS:     3][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_membership_orders"____________________[ROWS:   692][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_memberships_categories"_______________[ROWS:     4][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_memberships_pages"____________________[ROWS:     7][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmpro_memberships_users"____________________[ROWS:   593][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxe_exports"_______________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxe_google_cats"___________________________[ROWS:  5371][PG:   2][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxe_posts"_________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxe_templates"_____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_pmxi_files"_________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxi_hash"__________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_pmxi_history"_______________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_pmxi_images"________________________________[ROWS:    60][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxi_imports"_______________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxi_posts"_________________________________[ROWS:     2][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_pmxi_templates"_____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_postmeta"___________________________________[ROWS:146734][PG:  42][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_posts"______________________________________[ROWS:  8110][PG:   3][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_psninja_amdd"_______________________________[ROWS: 13541][PG:   4][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_psninja_amdd_cache"_________________________[ROWS:    84][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_psninja_urls"_______________________________[ROWS:    55][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_smush_dir_images"___________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_term_relationships"_________________________[ROWS:   279][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_term_taxonomy"______________________________[ROWS:    77][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_termmeta"___________________________________[ROWS:    39][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_terms"______________________________________[ROWS:    77][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_usermeta"___________________________________[ROWS: 28288][PG:   9][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_users"______________________________________[ROWS:   798][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_admin_note_actions"______________________[ROWS:   106][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_admin_notes"_____________________________[ROWS:    96][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_category_lookup"_________________________[ROWS:    11][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_customer_lookup"_________________________[ROWS:   707][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_order_coupon_lookup"_____________________[ROWS:    83][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_order_product_lookup"____________________[ROWS:  1239][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_order_stats"_____________________________[ROWS:  1236][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_order_tax_lookup"________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wc_product_attributes_lookup"_______________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wc_product_download_directories"____________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wc_product_meta_lookup"_____________________[ROWS:    40][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_rate_limits"_____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wc_reserved_stock"__________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_tax_rate_classes"________________________[ROWS:     2][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wc_webhooks"________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wfblockediplog"_____________________________[ROWS:   262][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfblocks7"__________________________________[ROWS:     2][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfconfig"___________________________________[ROWS:   264][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfcrawlers"_________________________________[ROWS:    38][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wffilechanges"______________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wffilemods"_________________________________[ROWS: 23182][PG:   7][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfhits"_____________________________________[ROWS:   682][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfhoover"___________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wfissues"___________________________________[ROWS:    45][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfknownfilelist"____________________________[ROWS: 23182][PG:   7][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wflivetraffichuman"_________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wflocs"_____________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wflogins"___________________________________[ROWS:  2006][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfls_2fa_secrets"___________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wfls_settings"______________________________[ROWS:    25][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfnotifications"____________________________[ROWS:    47][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfpendingissues"____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wfreversecache"_____________________________[ROWS:   151][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfsnipcache"________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wfstatus"___________________________________[ROWS:   953][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wftrafficrates"_____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_api_keys"_______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_attribute_taxonomies"___________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_downloadable_product_permissions"[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_log"____________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_order_itemmeta"_________________[ROWS: 19604][PG:   6][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_woocommerce_order_items"____________________[ROWS:  2183][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_woocommerce_payment_tokenmeta"______________[ROWS:   176][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_woocommerce_payment_tokens"_________________[ROWS:    44][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_woocommerce_sessions"_______________________[ROWS:     5][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_woocommerce_shipping_zone_locations"________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_shipping_zone_methods"__________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_shipping_zones"_________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_tax_rate_locations"_____________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_woocommerce_tax_rates"______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wpfm_backup"________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wpforms_tasks_meta"_________________________[ROWS:    82][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wpmailsmtp_debug_events"____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wpmailsmtp_tasks_meta"______________________[ROWS:   490][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wpmm_subscribers"___________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wps_collections_custom"_____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wps_collections_smart"______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wps_collects"_______________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wps_images"_________________________________[ROWS:     5][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_options"________________________________[ROWS:     3][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_products"_______________________________[ROWS:     3][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_settings_connection"____________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_settings_general"_______________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_settings_license"_______________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wps_settings_syncing"_______________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_shop"___________________________________[ROWS:     1][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_tags"___________________________________[ROWS:    14][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wps_variants"_______________________________[ROWS:     8][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wt_iew_action_history"______________________[ROWS:     6][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_wt_iew_cron"________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wt_iew_ftp"_________________________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_wt_iew_mapping_template"____________________[ROWS:     0][PG:   0][SCAN:no columns  ]
+
+EVALUATE TABLE: "wphs_yoast_indexable"____________________________[ROWS:  2908][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_yoast_indexable_hierarchy"__________________[ROWS:  1709][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_yoast_migrations"___________________________[ROWS:    23][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_yoast_primary_term"_________________________[ROWS:    43][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_yoast_seo_links"____________________________[ROWS:   644][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_yoast_seo_meta"_____________________________[ROWS:  7288][PG:   3][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_zoom"_______________________________________[ROWS:  1006][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+
+EVALUATE TABLE: "wphs_zoom_test"__________________________________[ROWS:    28][PG:   1][SCAN:text columns]
+	SEARCH  1:"/www/slowrisepizza_805/public/" ==================> "C:/laragon/www/faisal/"
+	SEARCH  2:"\/www\/slowrisepizza_805\/public\/" ==============> "C:\/laragon\/www\/faisal\/"
+	SEARCH  3:"%2Fwww%2Fslowrisepizza_805%2Fpublic%2F" ==========> "C%3A%2Flaragon%2Fwww%2Ffaisal%2F"
+	SEARCH  4:"\www\slowrisepizza_805\public" ===================> "C:/laragon/www/faisal"
+	SEARCH  5:"\\www\\slowrisepizza_805\\public" ================> "C:\/laragon\/www\/faisal"
+	SEARCH  6:"%5Cwww%5Cslowrisepizza_805%5Cpublic" =============> "C%3A%2Flaragon%2Fwww%2Ffaisal"
+	SEARCH  7:"//staging-slowrisepizza.temp513.kinsta.cloud" ====> "//localhost/faisal"
+	SEARCH  8:"\/\/staging-slowrisepizza.temp513.kinsta.cloud" ==> "\/\/localhost\/faisal"
+	SEARCH  9:"%2F%2Fstaging-slowrisepizza.temp513.kinsta.cloud" => "%2F%2Flocalhost%2Ffaisal"
+	SEARCH 10:"https://localhost/faisal" ========================> "http://localhost/faisal"
+	SEARCH 11:"https:\/\/localhost\/faisal" =====================> "http:\/\/localhost\/faisal"
+	SEARCH 12:"https%3A%2F%2Flocalhost%2Ffaisal" ================> "http%3A%2F%2Flocalhost%2Ffaisal"
+--------------------------------------
+SCANNED:	Tables:176 	|	 Rows:313417 	|	 Cells:1790812 
+UPDATED:	Tables:24 	|	 Rows:16054 	|	 Cells:20320 
+ERRORS:		0 
+RUNTIME:	234.432500 sec
+
+====================================
+REMOVE MAINTENANCE MODE
+====================================
+
+====================================
+REMOVE LICENSE KEY
+====================================
+
+====================================
+CREATE NEW ADMIN USER
+====================================
+
+====================================
+CONFIGURATION FILE UPDATES
+====================================
+	UPDATE DB_NAME ""srp""
+	UPDATE DB_USER ""root""
+	UPDATE DB_PASSWORD "** OBSCURED **"
+	UPDATE DB_HOST ""localhost""
+	WP CONFIG UPDATE WP_AUTO_UPDATE_CORE false
+	
+*** UPDATED WP CONFIG FILE ***
+
+====================================
+HTACCESS UPDATE
+====================================
+
+WEB SERVER CONFIGURATION FILE UPDATED:
+- Preparing .htaccess file with basic setup.
+- Successfully updated the .htaccess file setting.
+
+====================================
+GENERAL UPDATES
+====================================
+
+====================================
+MANAGE PLUGINS
+====================================
+Activated plugins listed here will be deactivated: Array
+(
+)
+
+
+====================================
+GENERAL CLEANUP
+====================================
+- Removed '0' schedule storage items
+
+====================================
+NOTICES TEST
+====================================
+No General Notices Found
+
+
+====================================
+CLEANUP TMP FILES
+====================================
+
+====================================
+FINAL REPORT NOTICES
+====================================
+
+STEP-3 COMPLETE @ 02:33:37 - RUNTIME: 234.7278 sec. 
+
+
+====================================
+FINAL REPORT NOTICES LIST
+====================================
+-----------------------
+[INFO] No general notices
+	SECTIONS: general
+
+-----------------------
+[INFO] No errors in database
+	SECTIONS: database
+
+-----------------------
+[INFO] No files extraction errors
+	SECTIONS: files
+
+-----------------------
+[WARNING] Table wphs_myCRED_log don't exists in database
+	SECTIONS: search_replace
+	LONG MSG: The table could not be found in the database.
+If the "Manual SQL Execution (Advanced)" option was chosen in step 2, make sure you insert the database manually before continuing to step 3.
+                   
+Also, verify the database that was inserted contains the urls and paths of the original site before step 3 for proper migration.
+
+-----------------------
+[WARNING] Table wphs_wc_download_log don't exists in database
+	SECTIONS: search_replace
+	LONG MSG: The table could not be found in the database.
+If the "Manual SQL Execution (Advanced)" option was chosen in step 2, make sure you insert the database manually before continuing to step 3.
+                   
+Also, verify the database that was inserted contains the urls and paths of the original site before step 3 for proper migration.
+
+====================================

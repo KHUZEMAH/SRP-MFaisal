@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<couponid><![CDATA[5525]]></couponid>
+		<couponcode><![CDATA[TestCode]]></couponcode>
+		<coupondescription><![CDATA[]]></coupondescription>
+		<discounttype><![CDATA[fixed_cart]]></discounttype>
+		<couponamount><![CDATA[50]]></couponamount>
+		<expirydate><![CDATA[]]></expirydate>
+		<freeshipping><![CDATA[no]]></freeshipping>
+		<excludesaleitems><![CDATA[no]]></excludesaleitems>
+		<status><![CDATA[publish]]></status>
+		<authorid><![CDATA[1]]></authorid>
+		<authorusername><![CDATA[1]]></authorusername>
+		<authoremail><![CDATA[1]]></authoremail>
+		<authorfirstname><![CDATA[1]]></authorfirstname>
+		<authorlastname><![CDATA[1]]></authorlastname>
+		<slug><![CDATA[testcode]]></slug>
+		<date><![CDATA[2021-04-23 05:23:40]]></date>
+		<posttype><![CDATA[shop_coupon]]></posttype>
+		<individual_use><![CDATA[yes]]></individual_use>
+		<product_ids><![CDATA[5294]]></product_ids>
+		<usage_limit><![CDATA[12]]></usage_limit>
+		<usage_limit_per_user><![CDATA[1]]></usage_limit_per_user>
+		<limit_usage_to_x_items><![CDATA[0]]></limit_usage_to_x_items>
+		<usage_count><![CDATA[0]]></usage_count>
+		<date_expires><![CDATA[1619247600]]></date_expires>
+		<_wcs_number_payments><![CDATA[]]></_wcs_number_payments>
+		<ondemandclasses><![CDATA[]]></ondemandclasses>
+		<classespagetitle><![CDATA[]]></classespagetitle>
+		<videoondemandclassestitle><![CDATA[]]></videoondemandclassestitle>
+		<videoondemandclassestext><![CDATA[]]></videoondemandclassestext>
+		<giftaclasstitle><![CDATA[]]></giftaclasstitle>
+		<giftaclasstext><![CDATA[]]></giftaclasstext>
+		<level1><![CDATA[]]></level1>
+		<level2><![CDATA[]]></level2>
+		<level3><![CDATA[]]></level3>
+	</node>
+</data>

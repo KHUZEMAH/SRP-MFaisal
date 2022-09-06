@@ -1,0 +1,906 @@
+04-28-2021 @ 03:43:48 - ---[ New import started at 2021-04-28 10:43:48 ] PHP Memory: 512 MB, WP Memory: 40 MB
+04-28-2021 @ 03:43:48 - Preparing for import.
+04-28-2021 @ 03:43:48 - Row :1 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :1 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:48 - > &#8220;408&#8221;User imported successfully. ID:408
+04-28-2021 @ 03:43:48 - > Finished importing user 408
+04-28-2021 @ 03:43:48 - Row :1 - User imported successfully.
+04-28-2021 @ 03:43:48 - Row :2 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :2 - Parsing failed. Reason: User with same Email already exists. Email: junaiddar1@gmail.com
+04-28-2021 @ 03:43:48 - Row :3 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :3 - Parsing failed. Reason: User with same Email already exists. Email: drricci@me.com
+04-28-2021 @ 03:43:48 - Row :4 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :4 - Parsing failed. Reason: User with same Email already exists. Email: acspalding@gmail.com
+04-28-2021 @ 03:43:48 - Row :5 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :5 - Parsing failed. Reason: User with same Email already exists. Email: adamtkrause@gmail.com
+04-28-2021 @ 03:43:48 - Row :6 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :6 - Parsing failed. Reason: User with same Email already exists. Email: ads.andrew@gmail.com
+04-28-2021 @ 03:43:48 - Row :7 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :7 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:48 - > &#8220;409&#8221;User imported successfully. ID:409
+04-28-2021 @ 03:43:48 - > Finished importing user 409
+04-28-2021 @ 03:43:48 - Row :7 - User imported successfully.
+04-28-2021 @ 03:43:48 - Row :8 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :8 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:48 - > &#8220;410&#8221;User imported successfully. ID:410
+04-28-2021 @ 03:43:48 - > Finished importing user 410
+04-28-2021 @ 03:43:48 - Row :8 - User imported successfully.
+04-28-2021 @ 03:43:48 - Row :9 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :9 - Parsing failed. Reason: User with same Email already exists. Email: aponzo@theroyalhotel.ca
+04-28-2021 @ 03:43:48 - Row :10 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :10 - Parsing failed. Reason: User with same Email already exists. Email: ale.mantega4@gmail.com
+04-28-2021 @ 03:43:48 - Row :11 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :11 - Parsing failed. Reason: User with same Email already exists. Email: alexdeutschland84@gmail.com
+04-28-2021 @ 03:43:48 - Row :12 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :12 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:48 - > &#8220;411&#8221;User imported successfully. ID:411
+04-28-2021 @ 03:43:48 - > Finished importing user 411
+04-28-2021 @ 03:43:48 - Row :12 - User imported successfully.
+04-28-2021 @ 03:43:48 - Row :13 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :13 - Parsing failed. Reason: User with same Email already exists. Email: agcircus@aol.com
+04-28-2021 @ 03:43:48 - Row :14 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :14 - Parsing failed. Reason: User with same Email already exists. Email: agorton@towerpr.com
+04-28-2021 @ 03:43:48 - Row :15 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :15 - Parsing failed. Reason: User with same Email already exists. Email: andrewg@iquestinc.com
+04-28-2021 @ 03:43:48 - Row :16 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :16 - Parsing failed. Reason: User with same Email already exists. Email: andrew@tennishockey.com
+04-28-2021 @ 03:43:48 - Row :17 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :17 - Parsing failed. Reason: User with same Email already exists. Email: leeatwellking@gmail.com
+04-28-2021 @ 03:43:48 - Row :18 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :18 - Parsing failed. Reason: User with same Email already exists. Email: ari@unidencellular.com
+04-28-2021 @ 03:43:48 - Row :19 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :19 - Parsing failed. Reason: User with same Email already exists. Email: armstrongacp@gmail.com
+04-28-2021 @ 03:43:48 - Row :20 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :20 - Parsing failed. Reason: User with same Email already exists. Email: alex.johnson@scvi-k12.org
+04-28-2021 @ 03:43:48 - Row :21 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :21 - Parsing failed. Reason: User with same Email already exists. Email: muhammad.asad@rezaid.co.uk
+04-28-2021 @ 03:43:48 - Row :22 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :22 - Parsing failed. Reason: User with same Email already exists. Email: asadtesting1234@gmail.com
+04-28-2021 @ 03:43:48 - Row :23 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :23 - Parsing failed. Reason: User with same Email already exists. Email: asadasadasad@gmail.com
+04-28-2021 @ 03:43:48 - Row :24 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :24 - Parsing failed. Reason: User with same Email already exists. Email: atoneworks@gmail.com
+04-28-2021 @ 03:43:48 - Row :25 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :25 - Parsing failed. Reason: User with same Email already exists. Email: zalkin.alex@gmail.com
+04-28-2021 @ 03:43:48 - Row :26 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :26 - Parsing failed. Reason: User with same Email already exists. Email: barbarawatson33@gmail.com
+04-28-2021 @ 03:43:48 - Row :27 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :27 - Parsing failed. Reason: User with same Email already exists. Email: bathani514@gmail.com
+04-28-2021 @ 03:43:48 - Row :28 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :28 - Parsing failed. Reason: User with same Email already exists. Email: lstott@windstream.net
+04-28-2021 @ 03:43:48 - Row :29 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :29 - Parsing failed. Reason: User with same Email already exists. Email: bensbreadseattle@gmail.com
+04-28-2021 @ 03:43:48 - Row :30 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :30 - Parsing failed. Reason: User with same Email already exists. Email: bilal.nasir@rezaid.co.uk
+04-28-2021 @ 03:43:48 - Row :31 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :31 - Parsing failed. Reason: User with same Email already exists. Email: leroy.shannendoherty@gmail.com
+04-28-2021 @ 03:43:48 - Row :32 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :32 - Parsing failed. Reason: User with same Email already exists. Email: brad.rosa@gmail.com
+04-28-2021 @ 03:43:48 - Row :33 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :33 - Parsing failed. Reason: User with same Email already exists. Email: briaboyington@gmail.com
+04-28-2021 @ 03:43:48 - Row :34 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :34 - Parsing failed. Reason: User with same Email already exists. Email: briancc@optonline.net
+04-28-2021 @ 03:43:48 - Row :35 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :35 - Parsing failed. Reason: User with same Email already exists. Email: braisedandinfused@gmail.com
+04-28-2021 @ 03:43:48 - Row :36 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :36 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:48 - > &#8220;412&#8221;User imported successfully. ID:412
+04-28-2021 @ 03:43:48 - > Finished importing user 412
+04-28-2021 @ 03:43:48 - Row :36 - User imported successfully.
+04-28-2021 @ 03:43:48 - Row :37 - Parsing item.
+04-28-2021 @ 03:43:48 - Row :37 - Processing item.
+04-28-2021 @ 03:43:48 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;413&#8221;User imported successfully. ID:413
+04-28-2021 @ 03:43:49 - > Finished importing user 413
+04-28-2021 @ 03:43:49 - Row :37 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :38 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :38 - Parsing failed. Reason: User with same Email already exists. Email: max.lanman@gmail.com
+04-28-2021 @ 03:43:49 - Row :39 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :39 - Parsing failed. Reason: User with same Email already exists. Email: asdf@debsmail.com
+04-28-2021 @ 03:43:49 - Row :40 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :40 - Parsing failed. Reason: User with same Email already exists. Email: chas@burratapizza.com
+04-28-2021 @ 03:43:49 - Row :41 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :41 - Parsing failed. Reason: User with same Email already exists. Email: cheaprewardspdx@gmail.com
+04-28-2021 @ 03:43:49 - Row :42 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :42 - Parsing failed. Reason: User with same Email already exists. Email: thechef101@hotmail.com
+04-28-2021 @ 03:43:49 - Row :43 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :43 - Parsing failed. Reason: User with same Email already exists. Email: chefdmurphy@gmail.com
+04-28-2021 @ 03:43:49 - Row :44 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :44 - Parsing failed. Reason: User with same Email already exists. Email: joshuaplaysviola@gmail.com
+04-28-2021 @ 03:43:49 - Row :45 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :45 - Parsing failed. Reason: User with same Email already exists. Email: Chefshanemac@gmail.com
+04-28-2021 @ 03:43:49 - Row :46 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :46 - Parsing failed. Reason: User with same Email already exists. Email: asliceofnj@gmail.com
+04-28-2021 @ 03:43:49 - Row :47 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :47 - Parsing failed. Reason: User with same Email already exists. Email: chiphazewski@gmail.com
+04-28-2021 @ 03:43:49 - Row :48 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :48 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;414&#8221;User imported successfully. ID:414
+04-28-2021 @ 03:43:49 - > Finished importing user 414
+04-28-2021 @ 03:43:49 - Row :48 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :49 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :49 - Parsing failed. Reason: User with same Email already exists. Email: chuppert@midmark.com
+04-28-2021 @ 03:43:49 - Row :50 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :50 - Parsing failed. Reason: User with same Email already exists. Email: cjpn318@gmail.com
+04-28-2021 @ 03:43:49 - Row :51 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :51 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;415&#8221;User imported successfully. ID:415
+04-28-2021 @ 03:43:49 - > Finished importing user 415
+04-28-2021 @ 03:43:49 - Row :51 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :52 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :52 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;416&#8221;User imported successfully. ID:416
+04-28-2021 @ 03:43:49 - > Finished importing user 416
+04-28-2021 @ 03:43:49 - Row :52 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :53 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :53 - Parsing failed. Reason: User with same Email already exists. Email: corbettkb@yahoo.com
+04-28-2021 @ 03:43:49 - Row :54 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :54 - Parsing failed. Reason: User with same Email already exists. Email: cordecker@gmail.com
+04-28-2021 @ 03:43:49 - Row :55 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :55 - Parsing failed. Reason: User with same Email already exists. Email: cosmicpiepizza@gmail.com
+04-28-2021 @ 03:43:49 - Row :56 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :56 - Parsing failed. Reason: User with same Email already exists. Email: chad.f.peters@gmail.com
+04-28-2021 @ 03:43:49 - Row :57 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :57 - Parsing failed. Reason: User with same Email already exists. Email: csewell88@gmail.com
+04-28-2021 @ 03:43:49 - Row :58 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :58 - Parsing failed. Reason: User with same Email already exists. Email: cskoch88@gmail.com
+04-28-2021 @ 03:43:49 - Row :59 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :59 - Parsing failed. Reason: User with same Email already exists. Email: cwoflinn@gmail.com
+04-28-2021 @ 03:43:49 - Row :60 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :60 - Parsing failed. Reason: User with same Email already exists. Email: clarazavani@gmail.com
+04-28-2021 @ 03:43:49 - Row :61 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :61 - Parsing failed. Reason: User with same Email already exists. Email: d.f.walker01@gmail.com
+04-28-2021 @ 03:43:49 - Row :62 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :62 - Parsing failed. Reason: User with same Email already exists. Email: dan_lorenzini@hotmail.com
+04-28-2021 @ 03:43:49 - Row :63 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :63 - Parsing failed. Reason: User with same Email already exists. Email: dannyboy_perez@hotmail.com
+04-28-2021 @ 03:43:49 - Row :64 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :64 - Parsing failed. Reason: User with same Email already exists. Email: dan@razzanj.com
+04-28-2021 @ 03:43:49 - Row :65 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :65 - Parsing failed. Reason: User with same Email already exists. Email: davereeves84@gmail.com
+04-28-2021 @ 03:43:49 - Row :66 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :66 - Parsing failed. Reason: User with same Email already exists. Email: work@workalicious.com
+04-28-2021 @ 03:43:49 - Row :67 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :67 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;417&#8221;User imported successfully. ID:417
+04-28-2021 @ 03:43:49 - > Finished importing user 417
+04-28-2021 @ 03:43:49 - Row :67 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :68 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :68 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;418&#8221;User imported successfully. ID:418
+04-28-2021 @ 03:43:49 - > Finished importing user 418
+04-28-2021 @ 03:43:49 - Row :68 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :69 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :69 - Parsing failed. Reason: User with same Email already exists. Email: dfderay@gmail.com
+04-28-2021 @ 03:43:49 - Row :70 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :70 - Parsing failed. Reason: User with same Email already exists. Email: daviddyke88@gmail.com
+04-28-2021 @ 03:43:49 - Row :71 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :71 - Parsing failed. Reason: User with same Email already exists. Email: davidmzucker@gmail.com
+04-28-2021 @ 03:43:49 - Row :72 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :72 - Parsing failed. Reason: User with same Email already exists. Email: bizarrebrewing@gmail.com
+04-28-2021 @ 03:43:49 - Row :73 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :73 - Parsing failed. Reason: User with same Email already exists. Email: bcdwilliams@cyg.net
+04-28-2021 @ 03:43:49 - Row :74 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :74 - Parsing failed. Reason: User with same Email already exists. Email: chrisdegregorio@gmail.com
+04-28-2021 @ 03:43:49 - Row :75 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :75 - Parsing failed. Reason: User with same Email already exists. Email: muhfaisal90@hotmail.com
+04-28-2021 @ 03:43:49 - Row :76 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :76 - Parsing failed. Reason: User with same Email already exists. Email: coryrosenberg@gmail.com
+04-28-2021 @ 03:43:49 - Row :77 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :77 - Parsing failed. Reason: User with same Email already exists. Email: mikejonesphoto@gmail.com
+04-28-2021 @ 03:43:49 - Row :78 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :78 - Parsing failed. Reason: User with same Email already exists. Email: dimpap800@gmail.com
+04-28-2021 @ 03:43:49 - Row :79 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :79 - Parsing failed. Reason: User with same Email already exists. Email: djkimmich@gmail.com
+04-28-2021 @ 03:43:49 - Row :80 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :80 - Parsing failed. Reason: User with same Email already exists. Email: drewbehnke@gmail.com
+04-28-2021 @ 03:43:49 - Row :81 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :81 - Parsing failed. Reason: User with same Email already exists. Email: drrmrich@yahoo.com
+04-28-2021 @ 03:43:49 - Row :82 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :82 - Parsing failed. Reason: User with same Email already exists. Email: duaa.khan@rezaid.co.uk
+04-28-2021 @ 03:43:49 - Row :83 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :83 - Processing item.
+04-28-2021 @ 03:43:49 - Processing users.
+04-28-2021 @ 03:43:49 - > &#8220;419&#8221;User imported successfully. ID:419
+04-28-2021 @ 03:43:49 - > Finished importing user 419
+04-28-2021 @ 03:43:49 - Row :83 - User imported successfully.
+04-28-2021 @ 03:43:49 - Row :84 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :84 - Parsing failed. Reason: User with same Email already exists. Email: efip331@gmail.com
+04-28-2021 @ 03:43:49 - Row :85 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :85 - Parsing failed. Reason: User with same Email already exists. Email: ejl1956@gmail.com
+04-28-2021 @ 03:43:49 - Row :86 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :86 - Parsing failed. Reason: User with same Email already exists. Email: emilsevega@hotmail.com
+04-28-2021 @ 03:43:49 - Row :87 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :87 - Parsing failed. Reason: User with same Email already exists. Email: erica@erica-henderson.com
+04-28-2021 @ 03:43:49 - Row :88 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :88 - Parsing failed. Reason: User with same Email already exists. Email: erincarmen1@gmail.com
+04-28-2021 @ 03:43:49 - Row :89 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :89 - Parsing failed. Reason: User with same Email already exists. Email: evanscott5@me.com
+04-28-2021 @ 03:43:49 - Row :90 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :90 - Parsing failed. Reason: User with same Email already exists. Email: muhfaisal88@hotmail.com
+04-28-2021 @ 03:43:49 - Row :91 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :91 - Parsing failed. Reason: User with same Email already exists. Email: muhammad.faisal@rezaid.co.uk
+04-28-2021 @ 03:43:49 - Row :92 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :92 - Parsing failed. Reason: User with same Email already exists. Email: faisal.hameed@rezaid.co.uk
+04-28-2021 @ 03:43:49 - Row :93 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :93 - Parsing failed. Reason: User with same Email already exists. Email: testtesttest@mailinator.com
+04-28-2021 @ 03:43:49 - Row :94 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :94 - Parsing failed. Reason: User with same Email already exists. Email: nathan@elevatedgastronomy.com
+04-28-2021 @ 03:43:49 - Row :95 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :95 - Parsing failed. Reason: User with same Email already exists. Email: 1414glendale@gmail.com
+04-28-2021 @ 03:43:49 - Row :96 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :96 - Parsing failed. Reason: User with same Email already exists. Email: fluxgroup@gmail.com
+04-28-2021 @ 03:43:49 - Row :97 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :97 - Parsing failed. Reason: User with same Email already exists. Email: frankorga2479@yahoo.com
+04-28-2021 @ 03:43:49 - Row :98 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :98 - Parsing failed. Reason: User with same Email already exists. Email: fred@theinterestco.com
+04-28-2021 @ 03:43:49 - Row :99 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :99 - Parsing failed. Reason: User with same Email already exists. Email: fsccorn@gmail.com
+04-28-2021 @ 03:43:49 - Row :100 - Parsing item.
+04-28-2021 @ 03:43:49 - Row :100 - Parsing failed. Reason: User with same Email already exists. Email: fscoorn@gmail.com
+04-28-2021 @ 03:43:51 - Preparing for import.
+04-28-2021 @ 03:43:51 - Row :101 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :101 - Parsing failed. Reason: User with same Email already exists. Email: gagasgrandmapies@gmail.com
+04-28-2021 @ 03:43:51 - Row :102 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :102 - Parsing failed. Reason: User with same Email already exists. Email: richard@schooldev.us
+04-28-2021 @ 03:43:51 - Row :103 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :103 - Parsing failed. Reason: User with same Email already exists. Email: giaramita@gmail.com
+04-28-2021 @ 03:43:51 - Row :104 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :104 - Parsing failed. Reason: User with same Email already exists. Email: ginnybliss@gmail.com
+04-28-2021 @ 03:43:51 - Row :105 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :105 - Parsing failed. Reason: User with same Email already exists. Email: go4itanak@gmail.com
+04-28-2021 @ 03:43:51 - Row :106 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :106 - Parsing failed. Reason: User with same Email already exists. Email: gene.oliva@gmail.com
+04-28-2021 @ 03:43:51 - Row :107 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :107 - Parsing failed. Reason: User with same Email already exists. Email: danavinson@gmail.com
+04-28-2021 @ 03:43:51 - Row :108 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :108 - Parsing failed. Reason: User with same Email already exists. Email: gregory.sturgis@gmail.com
+04-28-2021 @ 03:43:51 - Row :109 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :109 - Parsing failed. Reason: User with same Email already exists. Email: gregoryshope@gmail.com
+04-28-2021 @ 03:43:51 - Row :110 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :110 - Parsing failed. Reason: User with same Email already exists. Email: gregoryshopd@yahoo.com
+04-28-2021 @ 03:43:51 - Row :111 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :111 - Parsing failed. Reason: User with same Email already exists. Email: gregoryshope@yahoo.com
+04-28-2021 @ 03:43:51 - Row :112 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :112 - Parsing failed. Reason: User with same Email already exists. Email: heath.corson@gmail.com
+04-28-2021 @ 03:43:51 - Row :113 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :113 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;420&#8221;User imported successfully. ID:420
+04-28-2021 @ 03:43:51 - > Finished importing user 420
+04-28-2021 @ 03:43:51 - Row :113 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :114 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :114 - Parsing failed. Reason: User with same Email already exists. Email: gejeigbri@gmail.com
+04-28-2021 @ 03:43:51 - Row :115 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :115 - Parsing failed. Reason: User with same Email already exists. Email: adrianatribin@yahoo.com
+04-28-2021 @ 03:43:51 - Row :116 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :116 - Parsing failed. Reason: User with same Email already exists. Email: hiasad1234@gmail.com
+04-28-2021 @ 03:43:51 - Row :117 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :117 - Parsing failed. Reason: User with same Email already exists. Email: hiasads123@gmail.com
+04-28-2021 @ 03:43:51 - Row :118 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :118 - Parsing failed. Reason: User with same Email already exists. Email: Dagstani@gmail.com
+04-28-2021 @ 03:43:51 - Row :119 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :119 - Parsing failed. Reason: User with same Email already exists. Email: holyhansolo@gmail.com
+04-28-2021 @ 03:43:51 - Row :120 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :120 - Parsing failed. Reason: User with same Email already exists. Email: honestcrustpizza@gmail.com
+04-28-2021 @ 03:43:51 - Row :121 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :121 - Parsing failed. Reason: User with same Email already exists. Email: dan@verrazzanopizza.com
+04-28-2021 @ 03:43:51 - Row :122 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :122 - Parsing failed. Reason: User with same Email already exists. Email: 1hollyberry@att.net
+04-28-2021 @ 03:43:51 - Row :123 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :123 - Parsing failed. Reason: User with same Email already exists. Email: ianalexandergold@gmail.com
+04-28-2021 @ 03:43:51 - Row :124 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :124 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;421&#8221;User imported successfully. ID:421
+04-28-2021 @ 03:43:51 - > Finished importing user 421
+04-28-2021 @ 03:43:51 - Row :124 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :125 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :125 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;422&#8221;User imported successfully. ID:422
+04-28-2021 @ 03:43:51 - > Finished importing user 422
+04-28-2021 @ 03:43:51 - Row :125 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :126 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :126 - Parsing failed. Reason: User with same Email already exists. Email: jobermaier1231@gmail.com
+04-28-2021 @ 03:43:51 - Row :127 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :127 - Parsing failed. Reason: User with same Email already exists. Email: damien@jackknife.beer
+04-28-2021 @ 03:43:51 - Row :128 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :128 - Parsing failed. Reason: User with same Email already exists. Email: jacobtcarr@outlook.com
+04-28-2021 @ 03:43:51 - Row :129 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :129 - Parsing failed. Reason: User with same Email already exists. Email: jacopobeni@gmail.com
+04-28-2021 @ 03:43:51 - Row :130 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :130 - Parsing failed. Reason: User with same Email already exists. Email: jagercola@gmail.com
+04-28-2021 @ 03:43:51 - Row :131 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :131 - Parsing failed. Reason: User with same Email already exists. Email: josealbertini@gmail.com
+04-28-2021 @ 03:43:51 - Row :132 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :132 - Parsing failed. Reason: User with same Email already exists. Email: jroajr24@gmail.com
+04-28-2021 @ 03:43:51 - Row :133 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :133 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;423&#8221;User imported successfully. ID:423
+04-28-2021 @ 03:43:51 - > Finished importing user 423
+04-28-2021 @ 03:43:51 - Row :133 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :134 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :134 - Parsing failed. Reason: User with same Email already exists. Email: jared.guzick@yahoo.com
+04-28-2021 @ 03:43:51 - Row :135 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :135 - Parsing failed. Reason: User with same Email already exists. Email: jaszmom3@gmail.com
+04-28-2021 @ 03:43:51 - Row :136 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :136 - Parsing failed. Reason: User with same Email already exists. Email: josh@blackbirdwoodfiredpizza.com
+04-28-2021 @ 03:43:51 - Row :137 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :137 - Parsing failed. Reason: User with same Email already exists. Email: jbiberkraut@gmail.com
+04-28-2021 @ 03:43:51 - Row :138 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :138 - Parsing failed. Reason: User with same Email already exists. Email: jblakely10@gmail.com
+04-28-2021 @ 03:43:51 - Row :139 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :139 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;424&#8221;User imported successfully. ID:424
+04-28-2021 @ 03:43:51 - > Finished importing user 424
+04-28-2021 @ 03:43:51 - Row :139 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :140 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :140 - Parsing failed. Reason: User with same Email already exists. Email: test78666@gmail.com
+04-28-2021 @ 03:43:51 - Row :141 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :141 - Parsing failed. Reason: User with same Email already exists. Email: test1t@gmail.com
+04-28-2021 @ 03:43:51 - Row :142 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :142 - Parsing failed. Reason: User with same Email already exists. Email: jeanhsong@gmail.com
+04-28-2021 @ 03:43:51 - Row :143 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :143 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;425&#8221;User imported successfully. ID:425
+04-28-2021 @ 03:43:51 - > Finished importing user 425
+04-28-2021 @ 03:43:51 - Row :143 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :144 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :144 - Parsing failed. Reason: User with same Email already exists. Email: jnpiersma@gmail.com
+04-28-2021 @ 03:43:51 - Row :145 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :145 - Parsing failed. Reason: User with same Email already exists. Email: clausheidejesse@gmail.com
+04-28-2021 @ 03:43:51 - Row :146 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :146 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;426&#8221;User imported successfully. ID:426
+04-28-2021 @ 03:43:51 - > Finished importing user 426
+04-28-2021 @ 03:43:51 - Row :146 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :147 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :147 - Parsing failed. Reason: User with same Email already exists. Email: jayson@mastermindtalks.com
+04-28-2021 @ 03:43:51 - Row :148 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :148 - Parsing failed. Reason: User with same Email already exists. Email: jay@pizzabuzz.com
+04-28-2021 @ 03:43:51 - Row :149 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :149 - Parsing failed. Reason: User with same Email already exists. Email: john@kindredpizza.com
+04-28-2021 @ 03:43:51 - Row :150 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :150 - Parsing failed. Reason: User with same Email already exists. Email: jilla21@msn.com
+04-28-2021 @ 03:43:51 - Row :151 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :151 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;427&#8221;User imported successfully. ID:427
+04-28-2021 @ 03:43:51 - > Finished importing user 427
+04-28-2021 @ 03:43:51 - Row :151 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :152 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :152 - Parsing failed. Reason: User with same Email already exists. Email: gbanar@mac.com
+04-28-2021 @ 03:43:51 - Row :153 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :153 - Parsing failed. Reason: User with same Email already exists. Email: drbanarbjj@gmail.com
+04-28-2021 @ 03:43:51 - Row :154 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :154 - Parsing failed. Reason: User with same Email already exists. Email: jiudough215@gmail.com
+04-28-2021 @ 03:43:51 - Row :155 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :155 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;428&#8221;User imported successfully. ID:428
+04-28-2021 @ 03:43:51 - > Finished importing user 428
+04-28-2021 @ 03:43:51 - Row :155 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :156 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :156 - Parsing failed. Reason: User with same Email already exists. Email: alboizms@gmail.com
+04-28-2021 @ 03:43:51 - Row :157 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :157 - Parsing failed. Reason: User with same Email already exists. Email: johnwick@gmail.com
+04-28-2021 @ 03:43:51 - Row :158 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :158 - Parsing failed. Reason: User with same Email already exists. Email: jonbutler84@gmail.com
+04-28-2021 @ 03:43:51 - Row :159 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :159 - Parsing failed. Reason: User with same Email already exists. Email: joninalbany@gmail.com
+04-28-2021 @ 03:43:51 - Row :160 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :160 - Parsing failed. Reason: User with same Email already exists. Email: jpvoelksen@gmail.com
+04-28-2021 @ 03:43:51 - Row :161 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :161 - Parsing failed. Reason: User with same Email already exists. Email: jansanderson70@gmail.com
+04-28-2021 @ 03:43:51 - Row :162 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :162 - Parsing failed. Reason: User with same Email already exists. Email: jessicaschupack@gmail.com
+04-28-2021 @ 03:43:51 - Row :163 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :163 - Parsing failed. Reason: User with same Email already exists. Email: test@gmail.com
+04-28-2021 @ 03:43:51 - Row :164 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :164 - Parsing failed. Reason: User with same Email already exists. Email: junaid123456@gmail.com
+04-28-2021 @ 03:43:51 - Row :165 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :165 - Parsing failed. Reason: User with same Email already exists. Email: junaiddd1234@gmail.com
+04-28-2021 @ 03:43:51 - Row :166 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :166 - Parsing failed. Reason: User with same Email already exists. Email: justindray@gmail.com
+04-28-2021 @ 03:43:51 - Row :167 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :167 - Parsing failed. Reason: User with same Email already exists. Email: jwbluelabel9@gmail.com
+04-28-2021 @ 03:43:51 - Row :168 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :168 - Parsing failed. Reason: User with same Email already exists. Email: jzplatt@gmail.com
+04-28-2021 @ 03:43:51 - Row :169 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :169 - Parsing failed. Reason: User with same Email already exists. Email: kagman555@gmail.com
+04-28-2021 @ 03:43:51 - Row :170 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :170 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;429&#8221;User imported successfully. ID:429
+04-28-2021 @ 03:43:51 - > Finished importing user 429
+04-28-2021 @ 03:43:51 - Row :170 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :171 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :171 - Parsing failed. Reason: User with same Email already exists. Email: k4artz@gmail.com
+04-28-2021 @ 03:43:51 - Row :172 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :172 - Parsing failed. Reason: User with same Email already exists. Email: katiecal63@gmail.com
+04-28-2021 @ 03:43:51 - Row :173 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :173 - Parsing failed. Reason: User with same Email already exists. Email: wilson@wilsonsbread.com
+04-28-2021 @ 03:43:51 - Row :174 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :174 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;430&#8221;User imported successfully. ID:430
+04-28-2021 @ 03:43:51 - > Finished importing user 430
+04-28-2021 @ 03:43:51 - Row :174 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :175 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :175 - Parsing failed. Reason: User with same Email already exists. Email: kirw6@hotmail.com
+04-28-2021 @ 03:43:51 - Row :176 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :176 - Parsing failed. Reason: User with same Email already exists. Email: ken@hamsandwichhospitality.com
+04-28-2021 @ 03:43:51 - Row :177 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :177 - Parsing failed. Reason: User with same Email already exists. Email: kpradhant@gmail.com
+04-28-2021 @ 03:43:51 - Row :178 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :178 - Parsing failed. Reason: User with same Email already exists. Email: kylegentry@gmail.com
+04-28-2021 @ 03:43:51 - Row :179 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :179 - Parsing failed. Reason: User with same Email already exists. Email: lacotter2@gmail.com
+04-28-2021 @ 03:43:51 - Row :180 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :180 - Parsing failed. Reason: User with same Email already exists. Email: largejustin@gmail.com
+04-28-2021 @ 03:43:51 - Row :181 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :181 - Parsing failed. Reason: User with same Email already exists. Email: lauracarlsonmn@gmail.com
+04-28-2021 @ 03:43:51 - Row :182 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :182 - Parsing failed. Reason: User with same Email already exists. Email: lbuchmann@comcast.net
+04-28-2021 @ 03:43:51 - Row :183 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :183 - Parsing failed. Reason: User with same Email already exists. Email: lilyaanderson@me.com
+04-28-2021 @ 03:43:51 - Row :184 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :184 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;431&#8221;User imported successfully. ID:431
+04-28-2021 @ 03:43:51 - > Finished importing user 431
+04-28-2021 @ 03:43:51 - Row :184 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :185 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :185 - Parsing failed. Reason: User with same Email already exists. Email: linzymay@gmail.com
+04-28-2021 @ 03:43:51 - Row :186 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :186 - Parsing failed. Reason: User with same Email already exists. Email: lisa@lisashotland.com
+04-28-2021 @ 03:43:51 - Row :187 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :187 - Parsing failed. Reason: User with same Email already exists. Email: littlebrewguy@gmail.com
+04-28-2021 @ 03:43:51 - Row :188 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :188 - Parsing failed. Reason: User with same Email already exists. Email: austintanker@gmail.com
+04-28-2021 @ 03:43:51 - Row :189 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :189 - Parsing failed. Reason: User with same Email already exists. Email: livenew@test.com
+04-28-2021 @ 03:43:51 - Row :190 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :190 - Parsing failed. Reason: User with same Email already exists. Email: rezaid@debsmail.com
+04-28-2021 @ 03:43:51 - Row :191 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :191 - Parsing failed. Reason: User with same Email already exists. Email: live@tester.com
+04-28-2021 @ 03:43:51 - Row :192 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :192 - Parsing failed. Reason: User with same Email already exists. Email: 307pizza@gmail.com
+04-28-2021 @ 03:43:51 - Row :193 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :193 - Parsing failed. Reason: User with same Email already exists. Email: lorettaramos@gmail.com
+04-28-2021 @ 03:43:51 - Row :194 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :194 - Parsing failed. Reason: User with same Email already exists. Email: lynn.thelelandgroup@gmail.com
+04-28-2021 @ 03:43:51 - Row :195 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :195 - Parsing failed. Reason: User with same Email already exists. Email: aa@email-list.online
+04-28-2021 @ 03:43:51 - Row :196 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :196 - Parsing failed. Reason: User with same Email already exists. Email: mad.k.gold@gmail.com
+04-28-2021 @ 03:43:51 - Row :197 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :197 - Parsing failed. Reason: User with same Email already exists. Email: salar@maipai.ca
+04-28-2021 @ 03:43:51 - Row :198 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :198 - Processing item.
+04-28-2021 @ 03:43:51 - Processing users.
+04-28-2021 @ 03:43:51 - > &#8220;432&#8221;User imported successfully. ID:432
+04-28-2021 @ 03:43:51 - > Finished importing user 432
+04-28-2021 @ 03:43:51 - Row :198 - User imported successfully.
+04-28-2021 @ 03:43:51 - Row :199 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :199 - Parsing failed. Reason: User with same Email already exists. Email: markfuller@outlook.com
+04-28-2021 @ 03:43:51 - Row :200 - Parsing item.
+04-28-2021 @ 03:43:51 - Row :200 - Parsing failed. Reason: User with same Email already exists. Email: marydumont@gmail.com
+04-28-2021 @ 03:43:53 - Preparing for import.
+04-28-2021 @ 03:43:53 - Row :201 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :201 - Parsing failed. Reason: User with same Email already exists. Email: matt@avagodigital.com
+04-28-2021 @ 03:43:53 - Row :202 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :202 - Parsing failed. Reason: User with same Email already exists. Email: matthewjamesduffy@gmail.com
+04-28-2021 @ 03:43:53 - Row :203 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :203 - Parsing failed. Reason: User with same Email already exists. Email: mattisvs@telenet.be
+04-28-2021 @ 03:43:53 - Row :204 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :204 - Parsing failed. Reason: User with same Email already exists. Email: mculverchimenti@gmail.com
+04-28-2021 @ 03:43:53 - Row :205 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :205 - Parsing failed. Reason: User with same Email already exists. Email: mcirinelli@cox.net
+04-28-2021 @ 03:43:53 - Row :206 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :206 - Parsing failed. Reason: User with same Email already exists. Email: md@theyumyumtree.in
+04-28-2021 @ 03:43:53 - Row :207 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :207 - Parsing failed. Reason: User with same Email already exists. Email: meanpiespizza@gmail.com
+04-28-2021 @ 03:43:53 - Row :208 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :208 - Parsing failed. Reason: User with same Email already exists. Email: Melina635@aol.com
+04-28-2021 @ 03:43:53 - Row :209 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :209 - Parsing failed. Reason: User with same Email already exists. Email: jammu922@gmail.com
+04-28-2021 @ 03:43:53 - Row :210 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :210 - Parsing failed. Reason: User with same Email already exists. Email: mike@noblepiepizza.com
+04-28-2021 @ 03:43:53 - Row :211 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :211 - Parsing failed. Reason: User with same Email already exists. Email: Mikedowney17@gmail.com
+04-28-2021 @ 03:43:53 - Row :212 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :212 - Parsing failed. Reason: User with same Email already exists. Email: mike.hj.rice@gmail.com
+04-28-2021 @ 03:43:53 - Row :213 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :213 - Parsing failed. Reason: User with same Email already exists. Email: mrmikeoliver@gmail.com
+04-28-2021 @ 03:43:53 - Row :214 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :214 - Parsing failed. Reason: User with same Email already exists. Email: mike@thecrustpizza.ca
+04-28-2021 @ 03:43:53 - Row :215 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :215 - Parsing failed. Reason: User with same Email already exists. Email: misterschell@schellz.com
+04-28-2021 @ 03:43:53 - Row :216 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :216 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;433&#8221;User imported successfully. ID:433
+04-28-2021 @ 03:43:53 - > Finished importing user 433
+04-28-2021 @ 03:43:53 - Row :216 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :217 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :217 - Parsing failed. Reason: User with same Email already exists. Email: drews.chris@gmail.com
+04-28-2021 @ 03:43:53 - Row :218 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :218 - Parsing failed. Reason: User with same Email already exists. Email: mariapatti1@yahoo.com
+04-28-2021 @ 03:43:53 - Row :219 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :219 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;434&#8221;User imported successfully. ID:434
+04-28-2021 @ 03:43:53 - > Finished importing user 434
+04-28-2021 @ 03:43:53 - Row :219 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :220 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :220 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;435&#8221;User imported successfully. ID:435
+04-28-2021 @ 03:43:53 - > Finished importing user 435
+04-28-2021 @ 03:43:53 - Row :220 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :221 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :221 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;436&#8221;User imported successfully. ID:436
+04-28-2021 @ 03:43:53 - > Finished importing user 436
+04-28-2021 @ 03:43:53 - Row :221 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :222 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :222 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;437&#8221;User imported successfully. ID:437
+04-28-2021 @ 03:43:53 - > Finished importing user 437
+04-28-2021 @ 03:43:53 - Row :222 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :223 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :223 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;438&#8221;User imported successfully. ID:438
+04-28-2021 @ 03:43:53 - > Finished importing user 438
+04-28-2021 @ 03:43:53 - Row :223 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :224 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :224 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;439&#8221;User imported successfully. ID:439
+04-28-2021 @ 03:43:53 - > Finished importing user 439
+04-28-2021 @ 03:43:53 - Row :224 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :225 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :225 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;440&#8221;User imported successfully. ID:440
+04-28-2021 @ 03:43:53 - > Finished importing user 440
+04-28-2021 @ 03:43:53 - Row :225 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :226 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :226 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:53 - > &#8220;441&#8221;User imported successfully. ID:441
+04-28-2021 @ 03:43:53 - > Finished importing user 441
+04-28-2021 @ 03:43:53 - Row :226 - User imported successfully.
+04-28-2021 @ 03:43:53 - Row :227 - Parsing item.
+04-28-2021 @ 03:43:53 - Row :227 - Processing item.
+04-28-2021 @ 03:43:53 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;442&#8221;User imported successfully. ID:442
+04-28-2021 @ 03:43:54 - > Finished importing user 442
+04-28-2021 @ 03:43:54 - Row :227 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :228 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :228 - Parsing failed. Reason: User with same Email already exists. Email: neelp3@gmail.com
+04-28-2021 @ 03:43:54 - Row :229 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :229 - Parsing failed. Reason: User with same Email already exists. Email: neilcline@gmail.com
+04-28-2021 @ 03:43:54 - Row :230 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :230 - Parsing failed. Reason: User with same Email already exists. Email: james007m@sbcglobal.net
+04-28-2021 @ 03:43:54 - Row :231 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :231 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;443&#8221;User imported successfully. ID:443
+04-28-2021 @ 03:43:54 - > Finished importing user 443
+04-28-2021 @ 03:43:54 - Row :231 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :232 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :232 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;444&#8221;User imported successfully. ID:444
+04-28-2021 @ 03:43:54 - > Finished importing user 444
+04-28-2021 @ 03:43:54 - Row :232 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :233 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :233 - Parsing failed. Reason: User with same Email already exists. Email: nick@allen.net
+04-28-2021 @ 03:43:54 - Row :234 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :234 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;445&#8221;User imported successfully. ID:445
+04-28-2021 @ 03:43:54 - > Finished importing user 445
+04-28-2021 @ 03:43:54 - Row :234 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :235 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :235 - Parsing failed. Reason: User with same Email already exists. Email: nixoward@gmail.com
+04-28-2021 @ 03:43:54 - Row :236 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :236 - Parsing failed. Reason: User with same Email already exists. Email: ninisarna@gmail.com
+04-28-2021 @ 03:43:54 - Row :237 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :237 - Parsing failed. Reason: User with same Email already exists. Email: pcventures538@gmail.com
+04-28-2021 @ 03:43:54 - Row :238 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :238 - Parsing failed. Reason: User with same Email already exists. Email: pizzazoom2020@gmail.com
+04-28-2021 @ 03:43:54 - Row :239 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :239 - Parsing failed. Reason: User with same Email already exists. Email: noel.brohner@gmail.com
+04-28-2021 @ 03:43:54 - Row :240 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :240 - Parsing failed. Reason: User with same Email already exists. Email: odedpf@gmail.com
+04-28-2021 @ 03:43:54 - Row :241 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :241 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;446&#8221;User imported successfully. ID:446
+04-28-2021 @ 03:43:54 - > Finished importing user 446
+04-28-2021 @ 03:43:54 - Row :241 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :242 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :242 - Parsing failed. Reason: User with same Email already exists. Email: omikhail@gmail.com
+04-28-2021 @ 03:43:54 - Row :243 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :243 - Parsing failed. Reason: User with same Email already exists. Email: oskar.montano@gmail.com
+04-28-2021 @ 03:43:54 - Row :244 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :244 - Parsing failed. Reason: User with same Email already exists. Email: p1zz4pr0@protonmail.com
+04-28-2021 @ 03:43:54 - Row :245 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :245 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;447&#8221;User imported successfully. ID:447
+04-28-2021 @ 03:43:54 - > Finished importing user 447
+04-28-2021 @ 03:43:54 - Row :245 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :246 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :246 - Parsing failed. Reason: User with same Email already exists. Email: palwashae.malik@rezaid.co.uk
+04-28-2021 @ 03:43:54 - Row :247 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :247 - Parsing failed. Reason: User with same Email already exists. Email: shaminay+6@gmail.com
+04-28-2021 @ 03:43:54 - Row :248 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :248 - Parsing failed. Reason: User with same Email already exists. Email: aaa@debsmail.com
+04-28-2021 @ 03:43:54 - Row :249 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :249 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;448&#8221;User imported successfully. ID:448
+04-28-2021 @ 03:43:54 - > Finished importing user 448
+04-28-2021 @ 03:43:54 - Row :249 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :250 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :250 - Parsing failed. Reason: User with same Email already exists. Email: bwolff2005@hotmail.com
+04-28-2021 @ 03:43:54 - Row :251 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :251 - Parsing failed. Reason: User with same Email already exists. Email: ordersforelise@gmail.com
+04-28-2021 @ 03:43:54 - Row :252 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :252 - Parsing failed. Reason: User with same Email already exists. Email: filipporappa@gmail.com
+04-28-2021 @ 03:43:54 - Row :253 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :253 - Parsing failed. Reason: User with same Email already exists. Email: kimberly.a.griffith@gmail.com
+04-28-2021 @ 03:43:54 - Row :254 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :254 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;449&#8221;User imported successfully. ID:449
+04-28-2021 @ 03:43:54 - > Finished importing user 449
+04-28-2021 @ 03:43:54 - Row :254 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :255 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :255 - Parsing failed. Reason: User with same Email already exists. Email: c3concepts@gmail.com
+04-28-2021 @ 03:43:54 - Row :256 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :256 - Parsing failed. Reason: User with same Email already exists. Email: francisco.sierra412@gmail.com
+04-28-2021 @ 03:43:54 - Row :257 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :257 - Parsing failed. Reason: User with same Email already exists. Email: rbkeene@gmail.com
+04-28-2021 @ 03:43:54 - Row :258 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :258 - Parsing failed. Reason: User with same Email already exists. Email: rauccis@gmail.com
+04-28-2021 @ 03:43:54 - Row :259 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :259 - Parsing failed. Reason: User with same Email already exists. Email: rbennett@msn.com
+04-28-2021 @ 03:43:54 - Row :260 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :260 - Parsing failed. Reason: User with same Email already exists. Email: rccbcp@gmail.com
+04-28-2021 @ 03:43:54 - Row :261 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :261 - Parsing failed. Reason: User with same Email already exists. Email: spencer@diomiopasta.com
+04-28-2021 @ 03:43:54 - Row :262 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :262 - Parsing failed. Reason: User with same Email already exists. Email: restaurant110@yahoo.com
+04-28-2021 @ 03:43:54 - Row :263 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :263 - Parsing failed. Reason: User with same Email already exists. Email: rezaidtestuser2@gmail.com
+04-28-2021 @ 03:43:54 - Row :264 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :264 - Parsing failed. Reason: User with same Email already exists. Email: rezaidtestuser3@gmail.com
+04-28-2021 @ 03:43:54 - Row :265 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :265 - Parsing failed. Reason: User with same Email already exists. Email: rezaiduser4@gmail.com
+04-28-2021 @ 03:43:54 - Row :266 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :266 - Parsing failed. Reason: User with same Email already exists. Email: hello@rich-howell.com
+04-28-2021 @ 03:43:54 - Row :267 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :267 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;450&#8221;User imported successfully. ID:450
+04-28-2021 @ 03:43:54 - > Finished importing user 450
+04-28-2021 @ 03:43:54 - Row :267 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :268 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :268 - Parsing failed. Reason: User with same Email already exists. Email: rjessier@gmail.com
+04-28-2021 @ 03:43:54 - Row :269 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :269 - Parsing failed. Reason: User with same Email already exists. Email: ryandeussing@gmail.com
+04-28-2021 @ 03:43:54 - Row :270 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :270 - Parsing failed. Reason: User with same Email already exists. Email: ryanhaywoodj@gmail.com
+04-28-2021 @ 03:43:54 - Row :271 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :271 - Parsing failed. Reason: User with same Email already exists. Email: benjirockwell@gmail.com
+04-28-2021 @ 03:43:54 - Row :272 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :272 - Parsing failed. Reason: User with same Email already exists. Email: sam@cornellyseattle.com
+04-28-2021 @ 03:43:54 - Row :273 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :273 - Parsing failed. Reason: User with same Email already exists. Email: saritagallegos@gmail.com
+04-28-2021 @ 03:43:54 - Row :274 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :274 - Parsing failed. Reason: User with same Email already exists. Email: saschrot@aol.com
+04-28-2021 @ 03:43:54 - Row :275 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :275 - Parsing failed. Reason: User with same Email already exists. Email: scollingwood31@gmail.com
+04-28-2021 @ 03:43:54 - Row :276 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :276 - Parsing failed. Reason: User with same Email already exists. Email: scottboxenbaum@gmail.com
+04-28-2021 @ 03:43:54 - Row :277 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :277 - Parsing failed. Reason: User with same Email already exists. Email: secunda@gmail.com
+04-28-2021 @ 03:43:54 - Row :278 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :278 - Parsing failed. Reason: User with same Email already exists. Email: akardias@serveautomation.com
+04-28-2021 @ 03:43:54 - Row :279 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :279 - Processing item.
+04-28-2021 @ 03:43:54 - Processing users.
+04-28-2021 @ 03:43:54 - > &#8220;451&#8221;User imported successfully. ID:451
+04-28-2021 @ 03:43:54 - > Finished importing user 451
+04-28-2021 @ 03:43:54 - Row :279 - User imported successfully.
+04-28-2021 @ 03:43:54 - Row :280 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :280 - Parsing failed. Reason: User with same Email already exists. Email: testinggggg123@gmail.com
+04-28-2021 @ 03:43:54 - Row :281 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :281 - Parsing failed. Reason: User with same Email already exists. Email: fishytesting1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :282 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :282 - Parsing failed. Reason: User with same Email already exists. Email: shaminay.khan@rezaid.co.uk
+04-28-2021 @ 03:43:54 - Row :283 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :283 - Parsing failed. Reason: User with same Email already exists. Email: testtesttest1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :284 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :284 - Parsing failed. Reason: User with same Email already exists. Email: testestest1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :285 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :285 - Parsing failed. Reason: User with same Email already exists. Email: testesting1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :286 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :286 - Parsing failed. Reason: User with same Email already exists. Email: testtest123456@gmail.com
+04-28-2021 @ 03:43:54 - Row :287 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :287 - Parsing failed. Reason: User with same Email already exists. Email: testingtest1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :288 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :288 - Parsing failed. Reason: User with same Email already exists. Email: testtesting1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :289 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :289 - Parsing failed. Reason: User with same Email already exists. Email: shaminaytestingorder1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :290 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :290 - Parsing failed. Reason: User with same Email already exists. Email: shaminay+2@gmail.com
+04-28-2021 @ 03:43:54 - Row :291 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :291 - Parsing failed. Reason: User with same Email already exists. Email: testingshaminay1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :292 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :292 - Parsing failed. Reason: User with same Email already exists. Email: testingtes12@gmail.com
+04-28-2021 @ 03:43:54 - Row :293 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :293 - Parsing failed. Reason: User with same Email already exists. Email: testingtes1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :294 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :294 - Parsing failed. Reason: User with same Email already exists. Email: testinggtm1234@gmail.com
+04-28-2021 @ 03:43:54 - Row :295 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :295 - Parsing failed. Reason: User with same Email already exists. Email: shaun_howells@hotmail.com
+04-28-2021 @ 03:43:54 - Row :296 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :296 - Parsing failed. Reason: User with same Email already exists. Email: shilling10@gmail.com
+04-28-2021 @ 03:43:54 - Row :297 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :297 - Parsing failed. Reason: User with same Email already exists. Email: SteveJMiles@gmail.com
+04-28-2021 @ 03:43:54 - Row :298 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :298 - Parsing failed. Reason: User with same Email already exists. Email: skardina@verizon.net
+04-28-2021 @ 03:43:54 - Row :299 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :299 - Parsing failed. Reason: User with same Email already exists. Email: eshepard@slower.net
+04-28-2021 @ 03:43:54 - Row :300 - Parsing item.
+04-28-2021 @ 03:43:54 - Row :300 - Parsing failed. Reason: User with same Email already exists. Email: rr@gmail.com
+04-28-2021 @ 03:43:56 - Preparing for import.
+04-28-2021 @ 03:43:56 - Row :301 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :301 - Parsing failed. Reason: User with same Email already exists. Email: test1234567@gmail.com
+04-28-2021 @ 03:43:56 - Row :302 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :302 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;452&#8221;User imported successfully. ID:452
+04-28-2021 @ 03:43:56 - > Finished importing user 452
+04-28-2021 @ 03:43:56 - Row :302 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :303 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :303 - Parsing failed. Reason: User with same Email already exists. Email: scottfmartin@gmail.com
+04-28-2021 @ 03:43:56 - Row :304 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :304 - Parsing failed. Reason: User with same Email already exists. Email: ingram.nate@gmail.com
+04-28-2021 @ 03:43:56 - Row :305 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :305 - Parsing failed. Reason: User with same Email already exists. Email: nbhsinchon@gmail.com
+04-28-2021 @ 03:43:56 - Row :306 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :306 - Parsing failed. Reason: User with same Email already exists. Email: stefan@catapult-management.com
+04-28-2021 @ 03:43:56 - Row :307 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :307 - Parsing failed. Reason: User with same Email already exists. Email: tulipano.stefano@gmail.com
+04-28-2021 @ 03:43:56 - Row :308 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :308 - Parsing failed. Reason: User with same Email already exists. Email: jjpizzo69@gmail.com
+04-28-2021 @ 03:43:56 - Row :309 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :309 - Parsing failed. Reason: User with same Email already exists. Email: mike.r.shafer@gmail.com
+04-28-2021 @ 03:43:56 - Row :310 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :310 - Parsing failed. Reason: User with same Email already exists. Email: suveersarna@gmail.com
+04-28-2021 @ 03:43:56 - Row :311 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :311 - Parsing failed. Reason: User with same Email already exists. Email: tony@cuda.org
+04-28-2021 @ 03:43:56 - Row :312 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :312 - Parsing failed. Reason: User with same Email already exists. Email: testuser2@testuser.com
+04-28-2021 @ 03:43:56 - Row :313 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :313 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;453&#8221;User imported successfully. ID:453
+04-28-2021 @ 03:43:56 - > Finished importing user 453
+04-28-2021 @ 03:43:56 - Row :313 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :314 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :314 - Parsing failed. Reason: User with same Email already exists. Email: rezaidmcr@gmail.com
+04-28-2021 @ 03:43:56 - Row :315 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :315 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;454&#8221;User imported successfully. ID:454
+04-28-2021 @ 03:43:56 - > Finished importing user 454
+04-28-2021 @ 03:43:56 - Row :315 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :316 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :316 - Parsing failed. Reason: User with same Email already exists. Email: test1234@gmail.com
+04-28-2021 @ 03:43:56 - Row :317 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :317 - Parsing failed. Reason: User with same Email already exists. Email: test1@gmail.com
+04-28-2021 @ 03:43:56 - Row :318 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :318 - Parsing failed. Reason: User with same Email already exists. Email: test123456@gmail.com
+04-28-2021 @ 03:43:56 - Row :319 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :319 - Parsing failed. Reason: User with same Email already exists. Email: test786@gmail.com
+04-28-2021 @ 03:43:56 - Row :320 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :320 - Parsing failed. Reason: User with same Email already exists. Email: test999@gmail.com
+04-28-2021 @ 03:43:56 - Row :321 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :321 - Parsing failed. Reason: User with same Email already exists. Email: tesafweght@gmail.com
+04-28-2021 @ 03:43:56 - Row :322 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :322 - Parsing failed. Reason: User with same Email already exists. Email: shaminay+5@gmail.com
+04-28-2021 @ 03:43:56 - Row :323 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :323 - Parsing failed. Reason: User with same Email already exists. Email: tedatuten@email-list.online
+04-28-2021 @ 03:43:56 - Row :324 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :324 - Parsing failed. Reason: User with same Email already exists. Email: shaminaytest+3@gmail.com
+04-28-2021 @ 03:43:56 - Row :325 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :325 - Parsing failed. Reason: User with same Email already exists. Email: shaminaytest+5@gmail.com
+04-28-2021 @ 03:43:56 - Row :326 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :326 - Parsing failed. Reason: User with same Email already exists. Email: qaaqq@debsmail.com
+04-28-2021 @ 03:43:56 - Row :327 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :327 - Parsing failed. Reason: User with same Email already exists. Email: testuser@testuser.com
+04-28-2021 @ 03:43:56 - Row :328 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :328 - Parsing failed. Reason: User with same Email already exists. Email: testuser@gmail.com
+04-28-2021 @ 03:43:56 - Row :329 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :329 - Parsing failed. Reason: User with same Email already exists. Email: picktheflick0+5@gmail.com
+04-28-2021 @ 03:43:56 - Row :330 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :330 - Parsing failed. Reason: User with same Email already exists. Email: teterj2@gmail.com
+04-28-2021 @ 03:43:56 - Row :331 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :331 - Parsing failed. Reason: User with same Email already exists. Email: test123@gmail.com
+04-28-2021 @ 03:43:56 - Row :332 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :332 - Parsing failed. Reason: User with same Email already exists. Email: sthayse@aol.com
+04-28-2021 @ 03:43:56 - Row :333 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :333 - Parsing failed. Reason: User with same Email already exists. Email: billydeanm@gmail.com
+04-28-2021 @ 03:43:56 - Row :334 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :334 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;455&#8221;User imported successfully. ID:455
+04-28-2021 @ 03:43:56 - > Finished importing user 455
+04-28-2021 @ 03:43:56 - Row :334 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :335 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :335 - Parsing failed. Reason: User with same Email already exists. Email: thezaman162@aol.com
+04-28-2021 @ 03:43:56 - Row :336 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :336 - Parsing failed. Reason: User with same Email already exists. Email: tony.bass@kingarthurflour.com
+04-28-2021 @ 03:43:56 - Row :337 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :337 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;456&#8221;User imported successfully. ID:456
+04-28-2021 @ 03:43:56 - > Finished importing user 456
+04-28-2021 @ 03:43:56 - Row :337 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :338 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :338 - Parsing failed. Reason: User with same Email already exists. Email: travisjheitkamp@gmail.com
+04-28-2021 @ 03:43:56 - Row :339 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :339 - Parsing failed. Reason: User with same Email already exists. Email: runawaygray@gmail.com
+04-28-2021 @ 03:43:56 - Row :340 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :340 - Parsing failed. Reason: User with same Email already exists. Email: tyepalonen@gmail.com
+04-28-2021 @ 03:43:56 - Row :341 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :341 - Parsing failed. Reason: User with same Email already exists. Email: valsafran@yahoo.com
+04-28-2021 @ 03:43:56 - Row :342 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :342 - Parsing failed. Reason: User with same Email already exists. Email: varuntuli@gmail.com
+04-28-2021 @ 03:43:56 - Row :343 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :343 - Parsing failed. Reason: User with same Email already exists. Email: vince@gaetanosonline.com
+04-28-2021 @ 03:43:56 - Row :344 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :344 - Parsing failed. Reason: User with same Email already exists. Email: vincegiuliano@yahoo.com
+04-28-2021 @ 03:43:56 - Row :345 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :345 - Parsing failed. Reason: User with same Email already exists. Email: waqasgcu1@gmail.com
+04-28-2021 @ 03:43:56 - Row :346 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :346 - Parsing failed. Reason: User with same Email already exists. Email: wavehook@gmail.com
+04-28-2021 @ 03:43:56 - Row :347 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :347 - Parsing failed. Reason: User with same Email already exists. Email: test12345@gmail.com
+04-28-2021 @ 03:43:56 - Row :348 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :348 - Parsing failed. Reason: User with same Email already exists. Email: p_hasbargen@msn.com
+04-28-2021 @ 03:43:56 - Row :349 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :349 - Processing item.
+04-28-2021 @ 03:43:56 - Processing users.
+04-28-2021 @ 03:43:56 - > &#8220;457&#8221;User imported successfully. ID:457
+04-28-2021 @ 03:43:56 - > Finished importing user 457
+04-28-2021 @ 03:43:56 - Row :349 - User imported successfully.
+04-28-2021 @ 03:43:56 - Row :350 - Parsing item.
+04-28-2021 @ 03:43:56 - Row :350 - Parsing failed. Reason: User with same Email already exists. Email: woodmang@hotmail.co.uk
+04-28-2021 @ 03:43:56 - ---[ Import ended at 2021-04-28 10:43:56]---

@@ -1,0 +1,5 @@
+wp-config
+.idea
+mailchimp-marketing-php
+/wp-content/wflogs
+*.zip

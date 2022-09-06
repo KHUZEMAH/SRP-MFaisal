@@ -1,0 +1,12 @@
+# This file was updated by Duplicator Pro on 2022-09-06 14:33:37.
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /faisal/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /faisal/index.php [L]
+</IfModule>
+# END WordPress

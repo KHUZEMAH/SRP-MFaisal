@@ -1,0 +1,24 @@
+stdClass Object
+(
+    [event] => webinar.ended
+    [payload] => stdClass Object
+        (
+            [account_id] => TrAHIyrwR-2U-wgI42GKxA
+            [object] => stdClass Object
+                (
+                    [duration] => 60
+                    [start_time] => 2022-08-31T17:01:57Z
+                    [timezone] => Asia/Tashkent
+                    [end_time] => 2022-08-31T17:08:06Z
+                    [topic] => Test Webinar Rezaid
+                    [id] => 83523865939
+                    [type] => 5
+                    [uuid] => J54CUP5oT1uABIy+TZZoAQ==
+                    [host_id] => Oy3kY1aYSA2EJZzbwCtjLQ
+                )
+
+        )
+
+    [event_ts] => 1661965686405
+)
+

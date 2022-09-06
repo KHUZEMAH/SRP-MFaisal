@@ -1,0 +1,56 @@
+2022-08-16T00:35:10+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1297
+2022-08-16T00:35:12+00:00 NOTICE member.sync :: Subscribed Member tes1221t@gmail.com :: Array
+(
+    [status_if_new] => 1
+    [merge_fields] => Array
+        (
+        )
+
+)
+
+2022-08-16T00:37:12+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1298
+2022-08-16T00:37:14+00:00 NOTICE member.sync :: Subscribed Member testing23@gmail.com :: Array
+(
+    [status_if_new] => 1
+    [merge_fields] => Array
+        (
+        )
+
+)
+
+2022-08-16T16:25:18+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update queued :: obj_id 1d356adb0ff1e7b54d71d9c93a04c7d6
+2022-08-16T16:26:09+00:00 ERROR abandoned_cart.error :: email: rgutierrez@ranchomed.com :: attempting product update :: Resource Not FoundThe requested resource could not be found.
+2022-08-16T16:26:09+00:00 NOTICE product_submit.error :: addStoreProduct :: #5291 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 1965 in /www/slowrisepizza_805/public/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php
+2022-08-16T16:26:09+00:00 ERROR abandoned_cart.error :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 1965 in /www/slowrisepizza_805/public/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php
+2022-08-16T17:29:19+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1299
+2022-08-16T17:29:19+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 16345
+2022-08-16T17:29:22+00:00 NOTICE member.sync :: Subscribed Member rgutierrez@ranchomed.com :: Array
+(
+    [status_if_new] => 1
+    [merge_fields] => Array
+        (
+            [FNAME] => Rolando
+            [LNAME] => gutierrez
+        )
+
+)
+
+2022-08-16T17:29:27+00:00 NOTICE debug :: Order ID 16345 was pending and is now processing :: Array
+(
+    [new_order] => 1
+    [tracking] => Array
+        (
+            [campaign_id] => 
+            [landing_site] => https://www.slowrisepizza.com/
+        )
+
+)
+
+2022-08-16T17:29:28+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1299
+2022-08-16T17:29:32+00:00 NOTICE debug :: Order ID 16345 was processing and is now completed :: Array
+(
+    [new_order] => 
+    [tracking] => 
+)
+
+2022-08-16T17:31:22+00:00 ERROR order_submit.error :: addStoreOrder :: #16345 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 1965 in /www/slowrisepizza_805/public/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php
