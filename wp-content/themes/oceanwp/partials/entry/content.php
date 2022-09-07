@@ -24,7 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>
 			<?php
 			// Display custom excerpt.
-			echo oceanwp_excerpt( get_theme_mod( 'ocean_blog_entry_excerpt_length', '30' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			if ( !is_post_type_archive( 'testimonial' ) ) {
+				echo oceanwp_excerpt( get_theme_mod( 'ocean_blog_entry_excerpt_length', '30' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}else{
+				the_content();
+
+			}
 			?>
 		</p>
 

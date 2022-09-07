@@ -75,18 +75,22 @@ if ( 'thumbnail-entry' === $style ) {
 
 				// Read more button.
 				if ( 'read_more' === $element ) {
-
-					get_template_part( 'partials/entry/readmore' );
-
+					
+					if ( !is_post_type_archive( 'testimonial' ) ) {
+						
+						get_template_part( 'partials/entry/readmore' );
+				   
+					}
+				   
 				}
 			}
 			?>
 
 			<?php
-			$oe_disable_edit_post_active_status = get_option( 'oe_disable_edit_post_active_status', 'no' );
-			if( $oe_disable_edit_post_active_status == 'no' ) {
-				ocean_edit_post();
-			}
+			// $oe_disable_edit_post_active_status = get_option( 'oe_disable_edit_post_active_status', 'no' );
+			// if( $oe_disable_edit_post_active_status == 'no' ) {
+			// 	ocean_edit_post();
+			// }
 			?>
 
 		</div><!-- .blog-entry-inner -->
