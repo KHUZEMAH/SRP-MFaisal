@@ -92,13 +92,13 @@ if ( ! class_exists( 'OceanWP_Demos' ) ) {
 		 */
 		public static function scripts( $hook_suffix ) {
 
-			if ( 'theme-panel_page_oceanwp-panel-install-demos' == $hook_suffix ) {
+			if ( 'theme-panel_page_oceanwp-panel-install-demos' == $hook_suffix || 'toplevel_page_oceanwp' == $hook_suffix ) {
 
 				// CSS
 				wp_enqueue_style( 'owp-demos-style', plugins_url( '/assets/css/demos.min.css', __FILE__ ) );
 
 				// JS
-				wp_enqueue_script( 'owp-demos-js', plugins_url( '/assets/js/demos.min.js', __FILE__ ), array( 'jquery', 'wp-util', 'updates' ), '1.0', true );
+				wp_enqueue_script( 'owp-demos-js', plugins_url( '/assets/js/demos.min.js', __FILE__ ), array( 'jquery', 'wp-util', 'updates' ), '1.1', true );
 
 				wp_localize_script( 'owp-demos-js', 'owpDemos', array(
 					'ajaxurl' 					=> admin_url( 'admin-ajax.php' ),
@@ -941,8 +941,9 @@ if ( ! class_exists( 'OceanWP_Demos' ) ) {
 	    	global $pagenow;
 
 	        // Display on the demos pages
-	        if ( ( 'admin.php' == $pagenow && 'oceanwp-panel-install-demos' == $_GET['page'] )
-	            || ( 'admin.php' == $pagenow && 'oceanwp-panel-pro-demos' == $_GET['page'] ) ) { ?>
+	        if ( ( 'admin.php' == $pagenow && 'oceanwp-panel-install-demos' && isset( $_GET['page'] ) == $_GET['page'] )
+	            || ( 'admin.php' == $pagenow && 'oceanwp-panel-pro-demos' && isset( $_GET['page'] )  == $_GET['page'] )
+				|| ( 'admin.php' == $pagenow && 'oceanwp' && isset( $_GET['page'] )  == $_GET['page'] ) ) { ?>
 		        
 		        <div id="owp-demo-popup-wrap">
 					<div class="owp-demo-popup-container">

@@ -5,7 +5,7 @@ var wt_iew_basic_export=(function( $ ) {
 		ajax_data:{},
 		selected_template:0,
 		selected_template_name:'',
-		to_export:'user',
+		to_export:( wt_iew_export_basic_params.to_export !== '' ) ?  wt_iew_export_basic_params.to_export : 'user',
 		to_export_title:'',
 		export_method:'',
 		current_step:'',
@@ -629,6 +629,9 @@ var wt_iew_basic_export=(function( $ ) {
 			if(this.to_export!="" && this.to_export_title=='')
 			{
 				$('[name="wt_iew_export_post_type"]').val(this.to_export);
+                                if(wt_iew_export_basic_params.to_export !== ''){
+                                    $('[name="wt_iew_export_post_type"]').trigger('change');
+                                }
 				this.to_export_title=$('[name="wt_iew_export_post_type"] option:selected').text();
 			}
 			$('.wt_iew_step_head_post_type_name').html(this.to_export_title);

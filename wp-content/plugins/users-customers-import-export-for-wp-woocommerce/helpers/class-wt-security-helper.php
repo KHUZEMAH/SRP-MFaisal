@@ -60,6 +60,12 @@ if(!class_exists('Wt_Iew_Sh'))
 			    case 'url_arr':
 			        $val = self::sanitize_arr($val, 'url');
 			        break;
+				case 'sanitize_title_with_dashes':
+					$val = sanitize_title_with_dashes($val);
+			        break;				
+				case 'sanitize_title_with_dashes_arr':
+					$val = self::sanitize_arr($val, 'sanitize_title_with_dashes');
+			        break;					
 			    case 'textarea':
 			        $val=sanitize_textarea_field($val);
 			        break;    

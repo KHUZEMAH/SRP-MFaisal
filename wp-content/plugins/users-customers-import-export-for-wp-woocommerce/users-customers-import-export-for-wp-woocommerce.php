@@ -1,14 +1,14 @@
 <?php
 /*
-  Plugin Name: WordPress Users & WooCommerce Customers Import Export(BASIC)
+  Plugin Name: Import Export WordPress Users and WooCommerce Customers
   Plugin URI: https://wordpress.org/plugins/users-customers-import-export-for-wp-woocommerce/
   Description: Export and Import User/Customers details From and To your WordPress/WooCommerce.
   Author: WebToffee
   Author URI: https://www.webtoffee.com/product/wordpress-users-woocommerce-customers-import-export/
-  Version: 2.2.9
-  WC tested up to: 6.3
+  Version: 2.3.4
   Text Domain: users-customers-import-export-for-wp-woocommerce
   Domain Path: /languages
+  WC tested up to: 6.8
   Requires at least: 3.0
   Requires PHP: 5.6
   License: GPLv3
@@ -48,7 +48,7 @@ if (!defined('WT_IEW_DEBUG_BASIC_TROUBLESHOOT')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('WT_U_IEW_VERSION', '2.2.9');
+define('WT_U_IEW_VERSION', '2.3.4');
 
 /**
  * The code that runs during plugin activation.
@@ -209,14 +209,17 @@ function wt_user_addon_basic_gopro_content() {
 	if ( defined( 'WT_IEW_PLUGIN_ID_BASIC' ) ) {
     ?>
                 <div class="wt-ier-user wt-ier-gopro-cta wt-ierpro-features" style="display: none;">                    
-                    <ul class="ticked-list wt-ierpro-allfeat">
-                        <li><?php _e('Supports CSV/XML file formats.'); ?></li>
-                        <li><?php _e('Import and export custom fields and hidden metadata.'); ?></li> 
-                        <li><?php _e('Export and import guest users.'); ?></li>
-                        <li><?php _e('Run scheduled exports via FTP/SFTP.'); ?></li>
-                        <li><?php _e('Run scheduled imports via URL/FTP/SFTP.'); ?></li>
-                        <li><?php _e('Option to send email notifications to users/customers after import.'); ?></li>
-                        <li><?php _e('Tested compatibility with various third-party plugins.'); ?></li>
+                    <ul class="ticked-list wt-ierpro-allfeat">                        
+						<li><?php _e('Import and export in XLS and XLSX formats'); ?><span class="wt-iew-upgrade-to-pro-new-feature"><?php esc_html_e( 'New' ); ?></span></li>
+						<li><?php _e('All free version features'); ?></li>
+						<li><?php _e('XML file type support'); ?></li>	
+                        <li><?php _e('Export and import custom fields and third-party plugin fields'); ?></li> 
+                        <li><?php _e('Option to send emails to new users on import'); ?></li>
+						<li><?php _e('Customize email send to new users on import'); ?></li>
+                        <li><?php _e('Import from URL, FTP/SFTP'); ?></li>
+                        <li><?php _e('Export to FTP/SFTP'); ?></li>
+						<li><?php _e('Run scheduled automatic import and export '); ?></li>
+                        <li><?php _e('Tested compatibility with major third-party plugins.'); ?></li>
                     </ul>    
                     <div class="wt-ierpro-btn-wrapper"> 
                         <a href="<?php echo "https://www.webtoffee.com/product/wordpress-users-woocommerce-customers-import-export/?utm_source=free_plugin_revamp&utm_medium=basic_revamp&utm_campaign=User_Import_Export&utm_content=" . WT_U_IEW_VERSION; ?>" target="_blank"  class="wt-ierpro-outline-btn"><?php _e('UPGRADE TO PREMIUM'); ?></a>
@@ -227,3 +230,18 @@ function wt_user_addon_basic_gopro_content() {
 	}
 }
 
+/**
+ * Add Export to CSV link in users listing page near the filter button.
+ * 
+ * @param string $which The location of the extra table nav markup: 'top' or 'bottom'.
+ */
+function export_csv_linkin_user_listing_page($which) {
+
+	$currentScreen = get_current_screen();
+
+	if ('users' === $currentScreen->id && !is_plugin_active( 'wt-import-export-for-woo/wt-import-export-for-woo.php' ) ) {
+		echo '<a target="_blank" href="' . admin_url('admin.php?page=wt_import_export_for_woo_basic_export&wt_to_export=user') . '" class="button" >' . __('Export to CSV') . ' </a>';
+	}
+}
+
+add_filter('manage_users_extra_tablenav', 'export_csv_linkin_user_listing_page');

@@ -112,11 +112,11 @@ class PayPalApiException extends RuntimeException {
 	}
 
 	/**
-	 * Returns response issues.
+	 * The HTTP status code.
 	 *
-	 * @return array
+	 * @return int
 	 */
-	public function issues(): array {
-		return $this->response->issues ?? array();
+	public function status_code(): int {
+		return $this->status_code;
 	}
 }

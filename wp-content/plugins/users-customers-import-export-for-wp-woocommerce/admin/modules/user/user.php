@@ -58,10 +58,64 @@ class Wt_Import_Export_For_Woo_basic_User {
         add_filter('wt_iew_exporter_do_export_basic', array($this, 'exporter_do_export'), 10, 7);
         add_filter('wt_iew_importer_do_import_basic', array($this, 'importer_do_import'), 10, 8);
 
-        add_filter('wt_iew_importer_steps_basic', array($this, 'importer_steps'), 10, 2);                
+        add_filter('wt_iew_importer_steps_basic', array($this, 'importer_steps'), 10, 2);  
+		
+		add_action('admin_footer', array($this, 'wt_add_user_bulk_actions'));
+        add_action('load-users.php', array($this, 'wt_process_user_bulk_actions'));  
         
     }
 
+	
+	
+     public function wt_add_user_bulk_actions() {
+        
+        global $post_type, $post_status;
+
+        $screen = get_current_screen();
+
+        if ( "users" === $screen->id && !is_plugin_active( 'wt-import-export-for-woo/wt-import-export-for-woo.php' ) ){  // Only add to users.php page
+
+        ?>
+		<script type="text/javascript">
+			jQuery(document).ready(function ($) {
+				var $downloadUsers = $('<option>').val('wt_ier_download_users').text('<?php _e('Export to CSV') ?>');
+				$('select[name^="action"]').append($downloadUsers);
+			});
+		</script>
+        <?php
+		}
+    }
+
+    /**
+     * user page bulk export action
+     * 
+     */
+    public function wt_process_user_bulk_actions() {                
+        global $typenow;
+
+        $wp_list_table = _get_list_table('WP_Posts_List_Table');
+        $action = $wp_list_table->current_action();
+        if (!in_array($action, array('wt_ier_download_users'))) {
+            return;
+        }
+        // security check
+       
+        check_admin_referer('bulk-users');
+        
+        if (isset($_REQUEST['users'])) {
+            $user_ids = array_map('absint', $_REQUEST['users']);
+        }
+        if (empty($user_ids)) {
+            return;
+        }
+
+        if ($action == 'wt_ier_download_users') {
+            include_once( 'export/class-wt-customerimpexpcsv-basic-exporter.php' );
+            Wt_Import_Export_For_Woo_Basic_User_Bulk_Export::do_export($user_ids);
+        }
+       
+    }
+    
     /**
     *   Altering advanced step description
     */
@@ -165,13 +219,13 @@ class Wt_Import_Export_For_Woo_basic_User {
 		
 		$arr['user'] = __('Users');
 		if (class_exists('woocommerce')) {
-			$arr['order'] = __('Order');
-			$arr['coupon'] = __('Coupon');
-			$arr['product'] = __('Product');
-			$arr['product_review'] = __('Product Review');
-			$arr['product_categories'] = __('Product Categories');
-			$arr['product_tags'] = __('Product Tags');
-			$arr['user'] = __('User/Customer');
+			$arr['order'] = __('Order', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['coupon'] = __('Coupon', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['product'] = __('Product', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['product_review'] = __('Product Review', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['product_categories'] = __('Product Categories', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['product_tags'] = __('Product Tags', 'users-customers-import-export-for-wp-woocommerce');
+			$arr['user'] = __('User/Customer', 'users-customers-import-export-for-wp-woocommerce');
 		}
 		return $arr;
     }
@@ -548,12 +602,23 @@ class Wt_Import_Export_For_Woo_basic_User {
     }
     
     public function get_item_by_id($id) {
-        $post['edit_url']=get_edit_user_link($id);
+		$post = array();
+        $post['edit_url'] = get_edit_user_link($id);
         $user_info = get_userdata($id);
-        if($user_info)
-        $post['title'] = $user_info->user_login;        
+        if($user_info){
+			$post['title'] = $user_info->user_login;   
+		}
         return $post; 
     }
+    public static function get_item_link_by_id($id) {
+		$post = array();
+        $post['edit_url'] = get_edit_user_link($id);
+        $user_info = get_userdata($id);
+        if($user_info){
+			$post['title'] = $user_info->user_login;   
+		}
+        return $post; 
+    }	
     
 }
 }

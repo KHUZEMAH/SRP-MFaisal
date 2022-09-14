@@ -163,7 +163,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 				'type'=>'text',
 				'value'=>$this->default_batch_count,
 				'field_name'=>'batch_count',
-				'help_text'=>__('The number of records that the server will process for every iteration within the configured timeout interval. If the export fails due to timeout you can lower this number accordingly and try again.'),
+				'help_text'=>__('The number of records that the server will process for every iteration within the configured timeout interval. If the import fails due to timeout you can lower this number accordingly and try again.'),
 				'validation_rule'=>array('type'=>'absint'),
 			)
 		);
@@ -410,6 +410,40 @@ class Wt_Import_Export_For_Woo_Basic_Import
 				'upload_done'=>sprintf(__('%s Done.'), '<span class="dashicons dashicons-yes-alt" style="color:#3fa847;"></span>'),
 				'remove'=>__('Remove'),
 			),
+			'addons' => array(
+				'product' => array(
+					'text' => __( 'View Products' ),
+					'page_link' => admin_url('edit.php?post_type=product')
+				),
+				'product_categories' => array(
+					'text' => __( 'View Product categories' ),
+					'page_link' => admin_url('edit-tags.php?taxonomy=product_cat&post_type=product')
+				),
+				'product_tags' => array(
+					'text' => __( 'View Product tags' ),
+					'page_link' => admin_url('edit-tags.php?taxonomy=product_tag&post_type=product')
+				),
+				'product_review' => array(
+					'text' => __( 'View Product reviews' ),
+					'page_link' => admin_url('edit-comments.php')
+				),
+				'order' => array(
+					'text' => __( 'View Orders' ),
+					'page_link' => admin_url('edit.php?post_type=shop_order')
+				),
+				'coupon' => array(					
+					'text' => __( 'View Coupons' ),
+					'page_link' => admin_url('edit.php?post_type=shop_coupon')
+				),
+				'user' => array(
+					'text' => __( 'View Users' ),
+					'page_link' => admin_url('users.php')
+				),
+				'subscription' => array(
+					'text' => __( 'View Subscriptions' ),
+					'page_link' => admin_url('edit.php?post_type=shop_subscription')
+				)				
+			)
 		);
 		wp_localize_script($this->module_id, 'wt_iew_import_basic_params', $params);
 
@@ -946,6 +980,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		/* checking action is finshed */
 		$is_last_offset=false;
 		$new_offset=$input_data['offset']; //increase the offset
+		$out['total_percent']= ceil(($new_offset/$total_records)*100);
 		if($new_offset>=$total_records) //finished
 		{
 			$is_last_offset=true;
@@ -969,7 +1004,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
                     if(empty($form_data['mapping_form_data']['mapping_fields'])){
                         $msg='Invalid data/Delimter not right';					
 			//no need to add translation function in message
-			Wt_Import_Export_For_Woo_History::record_failure($import_id, $msg);
+			Wt_Import_Export_For_Woo_Basic_History::record_failure($import_id, $msg);
                         $out['msg']=__($msg);
                         return $out;
                         
@@ -988,7 +1023,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		);
 					
 		$import_response=apply_filters('wt_iew_importer_do_import_basic', $input_data['data_arr'], $to_process, $step, $form_data, $this->selected_template_data, $this->import_method, $offset_count, $is_last_offset); 		 		
-
+		$out['log_data'] = $import_response['log_data'];
 		/**
 		*	Writing import log to file
 		*/
@@ -1034,6 +1069,14 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			$log_summary_msg=$this->generate_log_summary($out, $is_last_offset);
 
 			$out['finished']=1; //finished
+			$log_file_name = '';
+			$log_path=Wt_Import_Export_For_Woo_Basic_Log::$log_dir;
+			$log_files = glob($log_path.'/'.$out['history_id'].'_*'.'.log');  
+			if(is_array($log_files) && count($log_files)>0)
+			{
+				$log_file_name=basename($log_files[0]);				
+			}
+			$out['log_file'] = $log_file_name;						
 			$out['msg']=$log_summary_msg;
 			
 			/* updating finished status */

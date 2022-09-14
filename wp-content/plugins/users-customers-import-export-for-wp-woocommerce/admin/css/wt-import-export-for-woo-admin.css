@@ -242,6 +242,159 @@ span.wt_iew_mapping_field_val::after {
 /* popup */
 .wt_iew_overlay{ position:fixed; z-index:100000000; width:100%; height:100%; background-color:rgba(0,0,0,.5); left:0px; top:0px; display:none;}
 .wt_iew_popup{position:fixed; z-index:100000001; background:#fff; border:solid 1px #eee; text-align:center; box-shadow:0px 2px 5px #333; left:50%; display:none;}
+
+
+
+
+
+
+.wt_iew_import_progress_wrap{
+  position: fixed;
+  overflow: scroll;
+  display: none;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  /*max-width: 580px;*/
+  height: 700px;
+  margin-left: -260px;
+  background: #ffffff;
+  border-radius: 3px;
+  z-index: 100000001;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+}
+.wt_iew_import_progress_wrap.open {
+  display: flex;
+  flex-direction: column;
+}
+.wt_iew_import_progress_content{
+    height: 100%;
+    overflow-y: auto;
+    /*padding: 10px;*/
+}
+.wt_iew_import_progress_header{
+      padding: 15px;
+        top: 15px;
+  border-radius: 3px 3px 0 0;
+}
+.wt_iew_import_progress_wrap th, .wt_iew_import_progress_wrap td{text-align: center}
+.wt_iew_import_progress{border: none !important;}
+
+
+
+
+.wt_iew_import_progress table, .wt_iew_import_progress td {
+  border-collapse: collapse;
+  /*border: 1px solid #000;*/
+}
+
+.wt_iew_import_progress thead {
+  display: table; /* to take the same width as tr */
+  width: 100%;
+}
+
+.wt_iew_import_progress tbody {
+  display: block; /* to enable vertical scrolling */
+  max-height: 430px; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+.wt_iew_import_progress th, .wt_iew_import_progress td {
+  /*width: 33.33%;*/
+  /* to enable "word-break: break-all" */
+  padding: 5px;
+  word-break: break-all; /* 4. */
+}
+
+.wt_iew_import_progress tr {
+  display: table; /* display purpose; th's border */
+  width: 100%;
+  box-sizing: border-box; /* because of the border (Chrome needs this line, but not FF) */
+}
+
+.wt_iew_import_progress td {
+  text-align: center;
+  border-bottom: none;
+  border-left: none;
+}
+
+progress {
+  height: 30px;
+  border-radius: 30px;
+  width:100%;
+}
+progress[value]::-webkit-progress-bar {
+  background-color: #EDEDED;
+  border-radius: 40px;
+}
+progress[value]::-moz-progress-bar {
+  background-color: #008000;
+  border-radius: 40px;
+}
+progress[value]::-webkit-progress-value {
+  border-radius: 40px;
+  background-color:#008000;
+}
+
+.wt-iew-import-result-row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.wt-iew-import-result-column {
+    display: table-cell;
+    padding-bottom: 20px;
+}
+.wt-iew-import-completed .dashicons-yes:before{color: green;}
+
+#wt_iew_import_progress .dashicons-dismiss:before {color: red;}
+#wt_iew_import_progress .dashicons-yes-alt:before {color: green;}
+
+.wt_iew_view_imported_items:focus, .wt_iew_view_imported_items:visited{
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.progressa {
+    border-radius: 50px !important;
+    line-height: 36px;
+    font-size: 14px;
+    overflow: hidden;
+    margin-bottom: 45px;
+    background-color: #dadada80;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    line-height: 30px;
+    height: 40px;
+    font-size: 14px;
+    /*border: 3px solid transparent;*/
+    margin-left:25px;
+    width:95%;
+}
+.progressab {
+    /*background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+    */
+    -webkit-background-size: 40px 40px;
+    background-size: 40px 40px;
+    -webkit-transition: width .25s ease,height .25s ease,font-size .25s ease;
+    -moz-transition: width .25s ease,height .25s ease,font-size .25s ease;
+    -ms-transition: width .25s ease,height .25s ease,font-size .25s ease;
+    -o-transition: width .25s ease,height .25s ease,font-size .25s ease;
+    transition: width .25s ease,height .25s ease,font-size .25s ease;
+    width: 0;
+    color: #fff;
+    text-align: center;
+    font-family: 'Open Sans',sans-serif !important;
+	animation: progress-bar-stripes 2s linear infinite reverse;
+}
+
+
+
+
+
 .wt_iew_popup_hd{display:inline-block; width:100%; box-sizing:border-box; font-weight:bold; background-color:#f3f3f3; height:40px; text-align:left; line-height:40px; padding:0px 20px;}
 .wt_iew_popup_close{float:right; width:40px; height:40px; text-align:right; line-height:40px; cursor:pointer;}
 .wt_iew_popup_footer{width:100%; text-align:right; margin-top:10px;}
@@ -615,7 +768,8 @@ img.tips {
   color: #001A69;
   list-style: none;
   position: relative;
-  padding-left: 49px;
+  padding-left: 35px;
+  padding-right: 5px;  
   margin: 0 0 15px 0;
   display: flex;
   align-items: center;
@@ -634,8 +788,8 @@ img.tips {
 .wt-ierpro-allfeat li:before{
   content: '';
   position: absolute;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   background-image: url(../../assets/images/gopro/tick.svg);
   background-size: contain;
   background-repeat: no-repeat;
@@ -976,7 +1130,7 @@ ul.wt-ierpro-newfeat li {
 }
 .wt-ier-table tr td li{
     text-align: left;
-    list-style: inside;
+    list-style: none;
 }
 
 @media (min-width: 992px){
@@ -1020,3 +1174,4 @@ ul.wt-ierpro-newfeat li {
     }
 }
 /* end marketing */
+.wt-iew-upgrade-to-pro-new-feature{ display:inline-block; width:60px; height:21px; background: url(../../assets/images/gopro/new_flag.svg) no-repeat; color:#fff; text-align:center; font-weight:normal; padding-left:4px; line-height:20px; font-size:12px; text-shadow:0px 2px 4px rgba(0, 0, 0, 0.35);}

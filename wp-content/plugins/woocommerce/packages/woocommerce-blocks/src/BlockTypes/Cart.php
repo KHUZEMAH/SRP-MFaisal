@@ -19,6 +19,13 @@ class Cart extends AbstractBlock {
 	protected $block_name = 'cart';
 
 	/**
+	 * Chunks build folder.
+	 *
+	 * @var string
+	 */
+	protected $chunks_folder = 'cart-blocks';
+
+	/**
 	 * Get the editor script handle for this block type.
 	 *
 	 * @param string $key Data to get, or default to everything.
@@ -227,7 +234,6 @@ class Cart extends AbstractBlock {
 	protected function hydrate_from_api() {
 		$this->asset_data_registry->hydrate_api_request( '/wc/store/v1/cart' );
 	}
-
 	/**
 	 * Register script and style assets for the block type before it is registered.
 	 *
@@ -235,15 +241,36 @@ class Cart extends AbstractBlock {
 	 */
 	protected function register_block_type_assets() {
 		parent::register_block_type_assets();
-		$blocks = [
-			'cart-blocks/express-payment--checkout-blocks/express-payment--checkout-blocks/payment',
-			'cart-blocks/line-items',
-			'cart-blocks/order-summary',
-			'cart-blocks/order-summary--checkout-blocks/billing-address--checkout-blocks/shipping-address',
-			'cart-blocks/checkout-button',
-			'cart-blocks/express-payment',
+		$chunks        = $this->get_chunks_paths( $this->chunks_folder );
+		$vendor_chunks = $this->get_chunks_paths( 'vendors--cart-blocks' );
+
+		$this->register_chunk_translations( array_merge( $chunks, $vendor_chunks ) );
+	}
+
+	/**
+	 * Get list of Cart block & its inner-block types.
+	 *
+	 * @return array;
+	 */
+	public static function get_cart_block_types() {
+		return [
+			'Cart',
+			'CartOrderSummaryTaxesBlock',
+			'CartOrderSummarySubtotalBlock',
+			'FilledCartBlock',
+			'EmptyCartBlock',
+			'CartTotalsBlock',
+			'CartItemsBlock',
+			'CartLineItemsBlock',
+			'CartOrderSummaryBlock',
+			'CartExpressPaymentBlock',
+			'ProceedToCheckoutBlock',
+			'CartAcceptedPaymentMethodsBlock',
+			'CartOrderSummaryCouponFormBlock',
+			'CartOrderSummaryDiscountBlock',
+			'CartOrderSummaryFeeBlock',
+			'CartOrderSummaryHeadingBlock',
+			'CartOrderSummaryShippingBlock',
 		];
-		$chunks = preg_filter( '/$/', '-frontend', $blocks );
-		$this->register_chunk_translations( $chunks );
 	}
 }

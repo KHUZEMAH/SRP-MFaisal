@@ -31,17 +31,17 @@ class OWP_Install_Demos {
 
 		// If Pro Demos activated
 		if ( class_exists( 'Ocean_Pro_Demos' ) ) {
-			$title = '<span style="color: #36c786">' . esc_html__( 'Install Demos', 'ocean-pro-demos' ) . '</span>';
+			$title = '<span style="color: #36c786">' . esc_html__( 'Install Demos', 'ocean-extra' ) . '</span>';
 		} else {
 			$title = esc_html__( 'Install Demos', 'ocean-extra' );
 		}
 
 		add_submenu_page(
-			'oceanwp-panel',
+			'oceanwp',
 			esc_html__( 'Install Demos', 'ocean-extra' ),
 			$title,
 			'manage_options',
-			'oceanwp-panel-install-demos',
+			'oceanwp#install-demos',
 			array( $this, 'create_admin_page' )
 		);
 	}

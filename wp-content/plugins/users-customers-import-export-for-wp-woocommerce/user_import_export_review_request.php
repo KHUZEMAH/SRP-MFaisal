@@ -14,7 +14,7 @@ class User_import_export_Review_Request
     /**
      * config options 
      */
-    private $plugin_title               =   "WordPress Users & WooCommerce Customers Import Export(BASIC)";
+    private $plugin_title               =   "Import Export WordPress Users and WooCommerce Customers";
     private $review_url                 =   "https://wordpress.org/support/plugin/users-customers-import-export-for-wp-woocommerce/reviews/#new-post";  
     private $plugin_prefix              =   "wt_u_iew_basic"; /* must be unique name */
     private $activation_hook            =   "wt_u_iew_basic_activate"; /* hook for activation, to store activated date */

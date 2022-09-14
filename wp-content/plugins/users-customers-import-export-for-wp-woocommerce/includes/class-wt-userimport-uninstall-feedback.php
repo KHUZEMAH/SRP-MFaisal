@@ -21,6 +21,12 @@ if (!class_exists('WT_UserImport_Uninstall_Feedback')) :
                         'placeholder' => __('Have used it successfully and aint in need of it anymore', 'users-customers-import-export-for-wp-woocommerce')
                     ),
                 array(
+                    'id' => 'temporary-deactivation',
+                    'text' => __('Temporary deactivation', 'users-customers-import-export-for-wp-woocommerce'),
+                    'type' => '',
+                    'placeholder' => __('Temporary de-activation. Will re-activate later.', 'users-customers-import-export-for-wp-woocommerce')
+                ),					
+                array(
                     'id' => 'could-not-understand',
                     'text' => __('I couldn\'t understand how to make it work', 'users-customers-import-export-for-wp-woocommerce'),
                     'type' => 'textarea',

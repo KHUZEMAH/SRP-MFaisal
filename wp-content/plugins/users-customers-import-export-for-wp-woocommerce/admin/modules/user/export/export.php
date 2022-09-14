@@ -195,7 +195,11 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
             if ($key == 'session_tokens') {
                 $customer_data[$key] = !empty($user->{$key}) ? base64_encode(json_encode(maybe_unserialize($user->{$key}))) : '';
                 continue;
-            }            
+            }
+            if ( 'total_spent' === $key ) {
+                $customer_data[$key] = !empty($user->ID) ? wc_get_customer_total_spent($user->ID) : '';
+                continue;
+            }			
             if($key == $wpdb->prefix.'user_level'){
                 $customer_data[$key] = (!empty($user->{$key})) ? $user->{$key} : 0;
                 continue;

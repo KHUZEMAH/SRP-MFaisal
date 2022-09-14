@@ -120,7 +120,7 @@ class Wt_Import_Export_For_Woo_Basic_Export
 			'label'=>__("Default Export method"),
 			'type'=>'select',
 			'sele_vals'=>$export_methods,
-                        'value' =>'quick',
+            'value' =>'new',
 			'field_name'=>'default_export_method',
 			'field_group'=>'advanced_field',
 			'help_text'=>__('Select the default method of export.'),
@@ -282,8 +282,7 @@ class Wt_Import_Export_For_Woo_Basic_Export
 			}
 		}
 
-
-		
+		$delimiter_default = isset($advanced_form_data['wt_iew_delimiter']) ? $advanced_form_data['wt_iew_delimiter'] : ",";
 		//add `is_advanced` field to group it as advanced tab section
 		$advanced_screen_fields=array(
 
@@ -295,6 +294,18 @@ class Wt_Import_Export_For_Woo_Basic_Export
 				'field_name'=>'batch_count',
 				'help_text'=>__('The number of records that the server will process for every iteration within the configured timeout interval. If the export fails due to timeout you can lower this number accordingly and try again'),
 				'validation_rule'=>array('type'=>'absint'),
+			),
+			'delimiter'=>array(
+				'label'=>__( 'Delimiter' ),
+				'type'=>'select',
+				'value'=>",",
+				'css_class'=>"wt_iew_delimiter_preset",
+				'tr_id'=>'delimiter_tr',
+				'field_name'=>'delimiter_preset',
+				'sele_vals'=>Wt_Iew_IE_Basic_Helper::_get_csv_delimiters(),
+				'help_text'=>__( 'Separator for differentiating the columns in the CSV file. Assumes ‘,’ by default.' ),
+				'validation_rule'=>array('type'=>'skip'),
+				'after_form_field'=>'<input type="text" class="wt_iew_custom_delimiter" name="wt_iew_delimiter" value="'.$delimiter_default.'" maxlength = "1" />',
 			)
 		);
 
@@ -369,7 +380,7 @@ class Wt_Import_Export_For_Woo_Basic_Export
 			'item_type'=>'',
 			'steps'=>$this->steps,
 			'rerun_id'=>$this->rerun_id,
-			'to_export'=>$this->to_export,
+			'to_export'=> isset( $_GET['wt_to_export'] ) ? sanitize_text_field( $_GET['wt_to_export'] ) : $this->to_export,
 			'export_method'=>$this->export_method,
 			'msgs'=>array(
 				'choosed_template'=>__('Choosed template: '),

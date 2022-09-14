@@ -1,6 +1,8 @@
 <?php
 namespace Automattic\WooCommerce\Blocks\BlockTypes;
 
+use Automattic\WooCommerce\Blocks\Package;
+
 /**
  * Checkout class.
  *
@@ -13,6 +15,13 @@ class Checkout extends AbstractBlock {
 	 * @var string
 	 */
 	protected $block_name = 'checkout';
+
+	/**
+	 * Chunks build folder.
+	 *
+	 * @var string
+	 */
+	protected $chunks_folder = 'checkout-blocks';
 
 	/**
 	 * Get the editor script handle for this block type.
@@ -392,7 +401,6 @@ class Checkout extends AbstractBlock {
 		}
 		return $list_item;
 	}
-
 	/**
 	 * Register script and style assets for the block type before it is registered.
 	 *
@@ -400,20 +408,39 @@ class Checkout extends AbstractBlock {
 	 */
 	protected function register_block_type_assets() {
 		parent::register_block_type_assets();
-		$blocks = [
-			'checkout-blocks/express-payment',
-			'checkout-blocks/contact-information',
-			'checkout-blocks/shipping-address',
-			'checkout-blocks/billing-address--checkout-blocks/shipping-address',
-			'checkout-blocks/billing-address',
-			'checkout-blocks/shipping-methods',
-			'checkout-blocks/payment',
-			'checkout-blocks/order-note',
-			'checkout-blocks/actions',
-			'checkout-blocks/terms',
-			'checkout-blocks/order-summary',
+		$chunks        = $this->get_chunks_paths( $this->chunks_folder );
+		$vendor_chunks = $this->get_chunks_paths( 'vendors--cart-blocks' );
+		$shared_chunks = [ 'cart-blocks/order-summary-shipping--checkout-blocks/order-summary-shipping-frontend' ];
+		$this->register_chunk_translations( array_merge( $chunks, $vendor_chunks, $shared_chunks ) );
+	}
+
+	/**
+	 * Get list of Checkout block & its inner-block types.
+	 *
+	 * @return array;
+	 */
+	public static function get_checkout_block_types() {
+		return [
+			'Checkout',
+			'CheckoutActionsBlock',
+			'CheckoutBillingAddressBlock',
+			'CheckoutContactInformationBlock',
+			'CheckoutExpressPaymentBlock',
+			'CheckoutFieldsBlock',
+			'CheckoutOrderNoteBlock',
+			'CheckoutOrderSummaryBlock',
+			'CheckoutOrderSummaryCartItemsBlock',
+			'CheckoutOrderSummaryCouponFormBlock',
+			'CheckoutOrderSummaryDiscountBlock',
+			'CheckoutOrderSummaryFeeBlock',
+			'CheckoutOrderSummaryShippingBlock',
+			'CheckoutOrderSummarySubtotalBlock',
+			'CheckoutOrderSummaryTaxesBlock',
+			'CheckoutPaymentBlock',
+			'CheckoutShippingAddressBlock',
+			'CheckoutShippingMethodsBlock',
+			'CheckoutTermsBlock',
+			'CheckoutTotalsBlock',
 		];
-		$chunks = preg_filter( '/$/', '-frontend', $blocks );
-		$this->register_chunk_translations( $chunks );
 	}
 }

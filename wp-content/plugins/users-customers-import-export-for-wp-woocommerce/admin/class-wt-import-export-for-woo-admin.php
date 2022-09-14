@@ -469,7 +469,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 	
 	public function tools_wtexport_text(){
 
-		echo "<p><b>" . sprintf( __( 'Export WordPress users and WooCommerce customers in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export' ) ) . "</b></p>";
+		echo "<p><b>" . sprintf( __( 'Export WordPress users and WooCommerce customers in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export&wt_to_export=user' ) ) . "</b></p>";
 		if( !is_plugin_active( 'order-import-export-for-woocommerce/order-import-export-for-woocommerce.php' ) ){
 			echo "<p><b>" . sprintf(
 						/* translators: %s: Order Import Export for WooCommerce plugin  URL */
@@ -477,7 +477,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 						admin_url('plugin-install.php?tab=plugin-information&plugin=order-import-export-for-woocommerce')
 					) . "</b></p>";
 		 }else{
-			 echo "<p><b>" . sprintf( __( 'Export WooCommerce orders and coupons in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export' ) ) . "</b></p>";
+			 echo "<p><b>" . sprintf( __( 'Export WooCommerce orders and coupons in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export&wt_to_export=order' ) ) . "</b></p>";
 		 }
 		 
 		if( !is_plugin_active( 'product-import-export-for-woo/product-import-export-for-woo.php' ) ){
@@ -487,7 +487,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 						admin_url('plugin-install.php?tab=plugin-information&plugin=product-import-export-for-woo')
 					) . "</b></p>";
 		 }else{
-			 echo "<p><b>" . sprintf( __( 'Export WooCommerce products, product categories, product tags and product reviews in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export' ) ) . "</b></p>";
+			 echo "<p><b>" . sprintf( __( 'Export WooCommerce products, product categories, product tags and product reviews in CSV format using <a href="%s">this exporter</a>.' ), admin_url( 'admin.php?page=wt_import_export_for_woo_basic_export&wt_to_export=product' ) ) . "</b></p>";
 		 }
 	}
 	

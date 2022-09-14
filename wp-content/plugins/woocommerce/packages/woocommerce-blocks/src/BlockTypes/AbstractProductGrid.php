@@ -82,6 +82,15 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		}
 
 		/**
+		 * Override product description to prevent infinite loop.
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-blocks/pull/6849
+		 */
+		foreach ( $products as $product ) {
+			$product->set_description( '' );
+		}
+
+		/**
 		 * Product List Render event.
 		 *
 		 * Fires a WP Hook named `experimental__woocommerce_blocks-product-list-render` on render so that the client
@@ -131,6 +140,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		return array(
 			'type'       => 'object',
 			'properties' => array(
+				'image'  => $this->get_schema_boolean( true ),
 				'title'  => $this->get_schema_boolean( true ),
 				'price'  => $this->get_schema_boolean( true ),
 				'rating' => $this->get_schema_boolean( true ),
@@ -167,6 +177,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 			'categories'        => array(),
 			'catOperator'       => 'any',
 			'contentVisibility' => array(
+				'image'  => true,
 				'title'  => true,
 				'price'  => true,
 				'rating' => true,
@@ -517,6 +528,9 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 	 * @return string
 	 */
 	protected function get_image_html( $product ) {
+		if ( array_key_exists( 'image', $this->attributes['contentVisibility'] ) && false === $this->attributes['contentVisibility']['image'] ) {
+			return '';
+		}
 
 		$attr = array(
 			'alt' => '',

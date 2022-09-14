@@ -14,6 +14,14 @@ class MessageRenderer {
             placement: this.config.placement,
             style: this.config.style
         }).render(this.config.wrapper);
+
+        jQuery(document.body).on('updated_cart_totals', () => {
+            paypal.Messages({
+                amount: this.config.amount,
+                placement: this.config.placement,
+                style: this.config.style
+            }).render(this.config.wrapper);
+        });
     }
 
     renderWithAmount(amount) {
@@ -43,6 +51,15 @@ class MessageRenderer {
         if (! document.querySelector(this.config.wrapper)) {
             return false;
         }
+        return true;
+    }
+
+    hideMessages() {
+        const domElement = document.querySelector(this.config.wrapper);
+        if (! domElement ) {
+            return false;
+        }
+        domElement.style.display = 'none';
         return true;
     }
 }

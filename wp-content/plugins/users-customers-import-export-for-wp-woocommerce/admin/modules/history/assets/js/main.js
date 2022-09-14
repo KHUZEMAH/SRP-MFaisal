@@ -11,21 +11,22 @@ var wt_iew_basic_history=(function( $ ) {
 		},
 		reg_view_log:function()
 		{
-			jQuery(document).on('click', ".wt_iew_view_log_btn", function(){					
-				wt_iew_basic_history.show_log_popup();
-				var history_id=$(this).attr('data-history-id');
-				if(history_id>0)
-				{
-					wt_iew_basic_history.log_offset=0;
-					wt_iew_basic_history.load_page(history_id);
-				}else
-				{
-					var log_file=$(this).attr('data-log-file');
-					if(log_file!="")
-					{
-						wt_iew_basic_history.view_raw_log(log_file);
-					}
-				}
+			jQuery(document).on('click', ".wt_iew_view_log_btn", function(){
+                            jQuery('.wt_iew_overlay, .wt_iew_popup').hide();
+                            wt_iew_basic_history.show_log_popup();
+                            var history_id=$(this).attr('data-history-id');
+                            if(history_id>0)
+                            {
+                                    wt_iew_basic_history.log_offset=0;
+                                    wt_iew_basic_history.load_page(history_id);
+                            }else
+                            {
+                                    var log_file=$(this).attr('data-log-file');
+                                    if(log_file!="")
+                                    {
+                                            wt_iew_basic_history.view_raw_log(log_file);
+                                    }
+                            }
 			});
 		},
 		view_raw_log:function(log_file)
@@ -185,6 +186,24 @@ var wt_iew_basic_history=(function( $ ) {
 					}
 				}
 			});
+                        $('.wt_iew_bulk_action_logs_btn').click(function(){
+				if($('.wt_iew_history_checkbox_sub:checked').length>0 && $('.wt_iew_bulk_action option:selected').val()!="")
+				{
+					var cr_action=$('.wt_iew_bulk_action option:selected').val();
+					if(cr_action=='delete')
+					{
+						if(confirm(wt_iew_history_basic_params.msgs.sure))
+						{
+							var id_arr=new Array();
+							$('.wt_iew_history_checkbox_sub:checked').each(function(){
+								id_arr.push($(this).val());
+							});
+							var delete_url=wt_iew_history_basic_params.delete_url.replace('_log_file_', id_arr.join(','));
+							window.location.href=delete_url;
+						}
+					}
+				}
+			});                        
 		}
 	}
 	return wt_iew_basic_history;

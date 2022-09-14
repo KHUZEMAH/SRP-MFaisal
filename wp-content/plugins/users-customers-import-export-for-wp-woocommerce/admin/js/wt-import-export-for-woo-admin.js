@@ -268,6 +268,15 @@ wt_iew_popup={
 		popup_elm.find('.wt_iew_popup_body').css({'max-height':ph+'px','overflow':'auto'});
 		jQuery('.wt_iew_overlay').show();
 	},
+        showimportPopup:function(popup_elm)
+	{
+		var pw=popup_elm.outerWidth();
+		var wh=jQuery(window).height();
+		var ph=wh-150;
+		popup_elm.css({'margin-left':((pw/2)*-1),'display':'block','top':'50px'});
+		popup_elm.find('.wt_iew_popup_body').css({'max-height':ph+'px','overflow':'auto'});
+		jQuery('.wt_iew_overlay').show();
+	},
 	hidePopup:function()
 	{
 		jQuery('.wt_iew_popup_close').click();
@@ -280,7 +289,7 @@ wt_iew_popup={
 				wt_iew_popup.hidePopup();
 			}
 		});
-		jQuery('.wt_iew_popup_close, .wt_iew_popup_cancel').unbind('click').click(function(){
+		jQuery('.wt_iew_popup_close, .wt_iew_popup_cancel, .wt_iew_popup_close_btn').unbind('click').click(function(){
 			jQuery('.wt_iew_overlay, .wt_iew_popup').hide();
 		});
 	}

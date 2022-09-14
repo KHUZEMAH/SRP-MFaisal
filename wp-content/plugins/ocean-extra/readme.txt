@@ -2,8 +2,8 @@
 Contributors: oceanwp, apprimit, wpfleek
 Tags: widgets, meta box, metaboxes, metabox, oceanwp
 Requires at least: 5.6
-Tested up to: 5.9.1
-Stable tag: 1.9.4
+Tested up to: 6.0.1
+Stable tag: 2.0.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,43 @@ This plugin will only function with the [OceanWP](https://oceanwp.org/) theme.
 3. Custom CSS.
 
 == Changelog ==
+
+= 2.0.4 =
+- Fixed: Fatal error: Cannot redeclare oceanwp_webfonts_enqueue()
+
+= 2.0.3 =
+- NEW: OceanWP News Notification system.
+- Added: Tyopgraphy: Host Google Fonts Locally. New option to appear in Customizer > Typography > General. Disabled by default.
+- Added: Typography: Host Elementor Fonts Locally. New option to appear in Customizer > Typography > General. Disabled by default.
+- Added: Option to install the OceanWP Child Theme. Option will appear in the OceanWP Panel.
+
+= 2.0.2 =
+- Fixed: My Library: Custom Template: dynamic blocks is not rendering in custom template.
+- Fixed: Upgrade Notice Condition Fix.
+- Fixed: Shortcode output fix.
+
+= 2.0.1 =
+- Fixed: Custom Templates: Content display issues when templates used on Elementor pages.
+- Fixed: Clicking the "Opt in to make Ocean_Plugin_Name Better" link leads to old theme panel.
+- Fixed: Warning: Use of undefined constant OCEANWP_THEME_VERSION.
+
+= 2.0.0 =
+- New: Theme Status: OceanWP theme update available notification.
+- New: SVG Support for Media Library.
+- New: Customizer Reset option.
+- New: OceanWP Theme Changelog option.
+- New: System Info option.
+- New: Install default OceanWP child theme option.
+- Added: Multiple OceanWP Theme Panel functionality.
+- Added: OceanWP Theme Panel: Customizer Control: disable / enable Customizer sections created by Ocean free and pro extensions.
+- Improved: OceanWP Theme Panel styling.
+- Fixed: My Library: Shortcodes: Custom Template render issue with custom locations.
+- Fixed: My Library: Import Wizard: Uncaught Error: Call to undefined function es_attr().
+- Removed: Outdated non-standard CSS #349
+
+= 1.9.5 =
+- Fixed: Import Wizard: Code revision.
+- Fixed: Import Wizard: Potential vulnerability patch: WPScan report #5224125.
 
 = 1.9.4 =
 - Updated: Freemius SDK.

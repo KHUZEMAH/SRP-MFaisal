@@ -1,3 +1,27 @@
+##### [Version 2.5.1](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.5.0...v2.5.1) (2022-09-08)
+
+- Fixes a bug which was causing error on some instances
+
+#### [Version 2.5.0](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.4.7...v2.5.0) (2022-09-08)
+
+- New Feature: Adds compatibility with Block Editor or any page builder for building the maintenance mode page.
+- New Feature: Adds coming soon and maintenance mode starting templates.
+
+##### [Version 2.4.7](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.4.6...v2.4.7) (2022-08-08)
+
+##### Fixes
+* Fix login form display
+* Fix email collecting by the bot
+* Improve accessibility of the maintenance page thanks to @SophieWeb
+
+##### [Version 2.4.6](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.4.5...v2.4.6) (2022-06-15)
+
+* Improve data sanitizations for custom css and contact module
+
+##### [Version 2.4.5](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.4.4...v2.4.5) (2022-06-15)
+
+* Harden security and improve release process
+
 ##### [Version 2.4.4](https://github.com/Codeinwp/wp-maintenance-mode/compare/v2.4.3...v2.4.4) (2022-02-10)
 
 Update dependencies
