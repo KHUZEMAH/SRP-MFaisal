@@ -42,13 +42,28 @@ if (!class_exists('LAE_Theme_Builder_Init')):
 
         private function hooks() {
 
+            add_action('plugins_loaded', array($this, 'enhancement_hooks'));
+        }
+
+        /**
+         * @return void
+         */
+        public function enhancement_hooks() {
+
             add_action('elementor_pro/init', array($this, 'initialize_documents'));
 
             add_action('elementor/theme/register_locations', array($this, 'register_locations'));
 
             add_action('elementor/documents/register', array($this, 'register_documents'));
 
-            add_action('elementor/widgets/widgets_registered', array($this, 'register_widgets'));
+            if (defined('ELEMENTOR_VERSION')) {
+                if (version_compare(ELEMENTOR_VERSION, '3.5.0', '>=')) {
+                    add_action('elementor/widgets/register', array($this, 'register_widgets'));
+                }
+                else {
+                    add_action('elementor/widgets/widgets_registered', array($this, 'register_widgets'));
+                }
+            }
         }
 
         public function initialize_documents() {
@@ -99,7 +114,12 @@ if (!class_exists('LAE_Theme_Builder_Init')):
 
             require_once LAE_THEME_BUILDER_DIR . 'widgets/grid-item.php';
 
-            Plugin::instance()->widgets_manager->register_widget_type(new Grid_Item_Widget());
+            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '>=')) {
+                Plugin::instance()->widgets_manager->register(new Grid_Item_Widget());
+            }
+            else {
+                Plugin::instance()->widgets_manager->register_widget_type(new Grid_Item_Widget());
+            }
 
         }
 

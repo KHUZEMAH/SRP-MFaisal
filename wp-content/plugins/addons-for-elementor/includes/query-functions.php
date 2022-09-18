@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *  Get all the registered posts types. We use this to display the list of available
+ * post types in the database. The user can choose one or more of these to
+ * filter the posts returned for display in a posts grid or a posts carousel or posts sliders
+ * @return array The list of post type name and post type label pairs
+ */
 function lae_get_all_post_type_options() {
 
     $post_types = get_post_types(array('public' => true), 'objects');
@@ -14,7 +20,10 @@ function lae_get_all_post_type_options() {
 }
 
 /**
- * Action to handle searching taxonomy terms.
+ * Get all the registered taxonomies. We use this to display the list of available
+ * taxonomies in the database. The user can choose one or more of these to
+ * filter the posts returned for display in a posts grid or a posts carousel or posts slider
+ * @return array List of all registered taxonomies in the system
  */
 function lae_get_all_taxonomy_options() {
 
@@ -30,6 +39,12 @@ function lae_get_all_taxonomy_options() {
     return apply_filters('lae_taxonomy_options', $results);
 }
 
+/**
+ * An important function that builds the posts query from the options chosen by the user in the widget settings.
+ * Applicable to widgets that display custom posts like the posts carousel, posts block, posts grid, posts slider etc.
+ * @param $settings The settings object which captures the posts query options set by the user
+ * @return array A list of posts query options like post type, post instances, taxonomies etc.
+ */
 function lae_build_query_args($settings) {
 
     if ($settings['query_type'] == 'current_query') {
@@ -140,6 +155,11 @@ function lae_build_query_args($settings) {
     return apply_filters('lae_posts_query_args', $query_args, $settings);
 }
 
+/**
+ * The default posts query arguments used in posts grid, posts block, posts sliders and carousels
+ * @param $settings The settings object which captures the posts query options set by the user
+ * @return array A default list of posts query options
+ */
 function lae_default_query_args($settings) {
 
     $query_args = [

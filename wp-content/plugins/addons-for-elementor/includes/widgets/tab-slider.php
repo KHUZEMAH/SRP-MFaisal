@@ -19,38 +19,73 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Exit if accessed directly
+/**
+ * Class for Tab Slider widget that displays tabbed content as a touch enabled responsive slider.
+ */
 class LAE_Tab_Slider_Widget extends LAE_Widget_Base
 {
+    /**
+     * Get the name for the widget
+     * @return string
+     */
     public function get_name()
     {
         return 'lae-tab-slider';
     }
     
+    /**
+     * Get the widget title
+     * @return string|void
+     */
     public function get_title()
     {
         return __( 'Tab Slider', 'livemesh-el-addons' );
     }
     
+    /**
+     * Get the widget icon
+     * @return string
+     */
     public function get_icon()
     {
         return 'lae-icon-tab-slider1';
     }
     
+    /**
+     * Retrieve the list of categories the widget belongs to.
+     *
+     * Used to determine where to display the widget in the editor.
+     *
+     * @return string[]
+     */
     public function get_categories()
     {
         return array( 'livemesh-addons' );
     }
     
+    /**
+     * Get the widget documentation URL
+     * @return string
+     */
     public function get_custom_help_url()
     {
         return 'https://livemeshelementor.com/docs/livemesh-addons/';
     }
     
+    /**
+     * Obtain the scripts required for the widget to function
+     * @return string[]
+     */
     public function get_script_depends()
     {
         return [ 'lae-jquery-slick', 'lae-frontend-scripts', 'lae-tab-slider-scripts' ];
     }
     
+    /**
+     * Register the controls for the widget
+     * Adds fields that help configure and customize the widget
+     * @return void
+     */
     protected function register_controls()
     {
         $this->start_controls_section( 'section_tabs', [
@@ -346,6 +381,13 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base
         ] );
     }
     
+    /**
+     * Render HTML widget output on the frontend.
+     *
+     * Written in PHP and used to generate the final HTML.
+     *
+     * @return void
+     */
     protected function render()
     {
         $settings = $this->get_settings_for_display();
@@ -355,6 +397,10 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base
         lae_get_template_part( 'addons/tab-slider/loop', $args );
     }
     
+    /**
+     * Render the widget output in the editor.
+     * @return void
+     */
     protected function content_template()
     {
     }

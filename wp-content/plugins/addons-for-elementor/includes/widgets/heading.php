@@ -2,7 +2,7 @@
 
 /*
 Widget Name: Heading
-Description: Display one or more heading depicting a percentage value in a multi-column grid.
+Description: Display headings in multiple styles.
 Author: LiveMesh
 Author URI: https://www.livemeshthemes.com
 */
@@ -17,38 +17,73 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Exit if accessed directly
+/**
+ * Class for Heading widget that displays headings in multiple styles.
+ */
 class LAE_Heading_Widget extends LAE_Widget_Base
 {
+    /**
+     * Get the name for the widget
+     * @return string
+     */
     public function get_name()
     {
         return 'lae-heading';
     }
     
+    /**
+     * Get the widget title
+     * @return string|void
+     */
     public function get_title()
     {
         return __( 'Heading', 'livemesh-el-addons' );
     }
     
+    /**
+     * Get the widget icon
+     * @return string
+     */
     public function get_icon()
     {
         return 'lae-icon-heading';
     }
     
+    /**
+     * Retrieve the list of categories the widget belongs to.
+     *
+     * Used to determine where to display the widget in the editor.
+     *
+     * @return string[]
+     */
     public function get_categories()
     {
         return array( 'livemesh-addons' );
     }
     
+    /**
+     * Get the widget documentation URL
+     * @return string
+     */
     public function get_custom_help_url()
     {
         return 'https://livemeshelementor.com/docs/livemesh-addons/core-addons/heading-addon/';
     }
     
+    /**
+     * Obtain the scripts required for the widget to function
+     * @return string[]
+     */
     public function get_script_depends()
     {
         return [ 'lae-waypoints', 'lae-frontend-scripts' ];
     }
     
+    /**
+     * Register the controls for the widget
+     * Adds fields that help configure and customize the widget
+     * @return void
+     */
     protected function register_controls()
     {
         $this->start_controls_section( 'section_heading', [
@@ -216,6 +251,13 @@ class LAE_Heading_Widget extends LAE_Widget_Base
         $this->end_controls_section();
     }
     
+    /**
+     * Render HTML widget output on the frontend.
+     *
+     * Written in PHP and used to generate the final HTML.
+     *
+     * @return void
+     */
     protected function render()
     {
         $settings = $this->get_settings_for_display();
@@ -225,6 +267,10 @@ class LAE_Heading_Widget extends LAE_Widget_Base
         lae_get_template_part( "addons/heading/{$settings['style']}", $args );
     }
     
+    /**
+     * Render the widget output in the editor.
+     * @return void
+     */
     protected function content_template()
     {
     }

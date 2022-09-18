@@ -19,12 +19,12 @@ if (typeof (jQuery) != 'undefined') {
                 setup_animations: function () {
 
                     /* Hide the elements if required to prepare for animation */
-                    $(".lae-visible-on-scroll:not(.animated)").css('opacity', 0);
+                    $(".lae-visible-on-scroll:not(.lae-animated)").css('opacity', 0);
 
                     "function" != typeof window.lae_animate_widgets && (window.lae_animate_widgets = function () {
-                        "undefined" != typeof $.fn.livemeshWaypoint && $(".lae-animate-on-scroll:not(.animated)").livemeshWaypoint(function () {
+                        "undefined" != typeof $.fn.livemeshWaypoint && $(".lae-animate-on-scroll:not(.lae-animated)").livemeshWaypoint(function () {
                             var animateClass = $(this.element).data("animation");
-                            $(this.element).addClass("animated " + animateClass).css('opacity', 1);
+                            $(this.element).addClass("lae-animated " + animateClass).css('opacity', 1);
                         }, {
                             offset: "85%"
                         })

@@ -4,10 +4,10 @@ Plugin URI: https://livemeshelementor.com
 Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor
-Requires at least: 5.0
-Tested up to: 5.9
+Requires at least: 5.2
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable Tag: 7.1.6
+Stable Tag: 7.2.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -258,6 +258,32 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.2.3 =
+* Added - New Marquee Text widget with plenty of customization options
+
+= 7.2.2 =
+* Added - New Animated Text widget with 6 text animations
+
+= 7.2.1 =
+* Fixed - Elementor editor would not load on certain sites when plugin is activated
+* Fixed - JS errors seen in console when Elementor 3.7 is loaded on the site
+
+= 7.2.0 =
+* Added - Documentation for several important functions part of the plugin
+
+= 7.1.9 =
+* Added - Gradient background for Posts Slider, Posts Multislider and Posts Gridbox Slider
+* Fixed - Some styles of Posts Slider, Posts Multislider and Posts Gridbox Slider displaying unwanted background overlay
+* Updated - Freemius SDK 2.4.4 update
+
+= 7.1.8 =
+* Added - Documentation for Posts Slider, Posts Multislider and Posts Gridbox Slider
+* Added - Code documentation for widgets
+
+= 7.1.7 =
+* Fixed - Elementor dropdown menu displaying incorrectly when Livemesh Addons is activated
+* Update - Compatibility with Elementor 3.7
 
 = 7.1.6 =
 * Fixed - Deprecated warning in Elementor 3.6

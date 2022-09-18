@@ -12,6 +12,8 @@ $custom_css = lae_get_option( 'lae_custom_css', '' );
 $deactivate_element_carousel = lae_get_option( 'lae_deactivate_element_carousel', false );
 $deactivate_element_clients = lae_get_option( 'lae_deactivate_element_clients', false );
 $deactivate_element_heading = lae_get_option( 'lae_deactivate_element_heading', false );
+$deactivate_element_animated_text = lae_get_option( 'lae_deactivate_element_animated_text', false );
+$deactivate_element_marquee_text = lae_get_option( 'lae_deactivate_element_marquee_text', false );
 $deactivate_element_odometers = lae_get_option( 'lae_deactivate_element_odometers', false );
 $deactivate_element_piecharts = lae_get_option( 'lae_deactivate_element_piecharts', false );
 $deactivate_element_portfolio = lae_get_option( 'lae_deactivate_element_portfolio', false );
@@ -227,6 +229,48 @@ echo  $deactivate_element_heading ;
 echo  checked( !empty($deactivate_element_heading), 1, false ) ;
 ?>>
                                     <label for="lae_deactivate_element_heading"></label>
+                                </div>
+                            </div>
+
+                            <div class="lae-row lae-type-checkbox lae-field">
+                                <label class="lae-label"><?php 
+echo  __( 'Deactivate Animated Text', 'livemesh-el-addons' ) ;
+?></label>
+                                <p class="lae-desc"><?php 
+echo  __( 'Deactivate the animated text element.', 'livemesh-el-addons' ) ;
+?></p>
+                                <div class="lae-spacer" style="height: 5px"></div>
+                                <div class="lae-toggle">
+                                    <input type="checkbox" class="lae-checkbox"
+                                           name="lae_deactivate_element_animated_text"
+                                           id="lae_deactivate_element_animated_text" data-default=""
+                                           value="<?php 
+echo  $deactivate_element_animated_text ;
+?>" <?php 
+echo  checked( !empty($deactivate_element_animated_text), 1, false ) ;
+?>>
+                                    <label for="lae_deactivate_element_animated_text"></label>
+                                </div>
+                            </div>
+
+                            <div class="lae-row lae-type-checkbox lae-field">
+                                <label class="lae-label"><?php 
+echo  __( 'Deactivate Marquee Text', 'livemesh-el-addons' ) ;
+?></label>
+                                <p class="lae-desc"><?php 
+echo  __( 'Deactivate the marquee text element.', 'livemesh-el-addons' ) ;
+?></p>
+                                <div class="lae-spacer" style="height: 5px"></div>
+                                <div class="lae-toggle">
+                                    <input type="checkbox" class="lae-checkbox"
+                                           name="lae_deactivate_element_marquee_text"
+                                           id="lae_deactivate_element_marquee_text" data-default=""
+                                           value="<?php 
+echo  $deactivate_element_marquee_text ;
+?>" <?php 
+echo  checked( !empty($deactivate_element_marquee_text), 1, false ) ;
+?>>
+                                    <label for="lae_deactivate_element_marquee_text"></label>
                                 </div>
                             </div>
 

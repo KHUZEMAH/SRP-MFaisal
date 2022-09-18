@@ -20,38 +20,73 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Exit if accessed directly
+/**
+ * Class for Message Box widget that displays messages to the user that can be dismissed.
+ */
 class LAE_Message_Box_Widget extends LAE_Widget_Base
 {
+    /**
+     * Get the name for the widget
+     * @return string
+     */
     public function get_name()
     {
         return 'lae-message-box';
     }
     
+    /**
+     * Get the widget title
+     * @return string|void
+     */
     public function get_title()
     {
         return __( 'Message Box', 'livemesh-el-addons' );
     }
     
+    /**
+     * Get the widget icon
+     * @return string
+     */
     public function get_icon()
     {
         return 'eicon-alert';
     }
     
+    /**
+     * Retrieve the list of categories the widget belongs to.
+     *
+     * Used to determine where to display the widget in the editor.
+     *
+     * @return string[]
+     */
     public function get_categories()
     {
         return array( 'livemesh-addons' );
     }
     
+    /**
+     * Get the widget documentation URL
+     * @return string
+     */
     public function get_custom_help_url()
     {
         return 'https://livemeshelementor.com/docs/livemesh-addons/core-addons/message-box-addon/';
     }
     
+    /**
+     * Obtain the scripts required for the widget to function
+     * @return string[]
+     */
     public function get_script_depends()
     {
         return [ 'lae-frontend-scripts', 'lae-message-box-scripts' ];
     }
     
+    /**
+     * Register the controls for the widget
+     * Adds fields that help configure and customize the widget
+     * @return void
+     */
     protected function register_controls()
     {
         $this->start_controls_section( 'section_message_box', [
@@ -251,9 +286,9 @@ class LAE_Message_Box_Widget extends LAE_Widget_Base
             'size_units' => [ 'px', '%', 'em' ],
             'range'      => [
             'px' => [
-            'min' => 10,
-            'min' => 10,
-            'max' => 300,
+            'min'  => 10,
+            'step' => 1,
+            'max'  => 300,
         ],
         ],
             'selectors'  => [
@@ -330,6 +365,13 @@ class LAE_Message_Box_Widget extends LAE_Widget_Base
         $this->end_controls_section();
     }
     
+    /**
+     * Render HTML widget output on the frontend.
+     *
+     * Written in PHP and used to generate the final HTML.
+     *
+     * @return void
+     */
     protected function render()
     {
         $settings = $this->get_settings_for_display();
@@ -339,6 +381,10 @@ class LAE_Message_Box_Widget extends LAE_Widget_Base
         lae_get_template_part( 'addons/message-box/content', $args );
     }
     
+    /**
+     * Render the widget output in the editor.
+     * @return void
+     */
     protected function content_template()
     {
     }
