@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Events Gutenberg Assets
  *
@@ -27,7 +28,7 @@ class Tribe__Tickets_Plus__Editor__Assets {
 			/**
 			 * @todo revise this dependencies
 			 */
-			array(
+			[
 				'react',
 				'react-dom',
 				'thickbox',
@@ -36,14 +37,14 @@ class Tribe__Tickets_Plus__Editor__Assets {
 				'wp-i18n',
 				'wp-element',
 				'wp-editor',
-			),
+			],
 			'enqueue_block_editor_assets',
-			array(
+			[
 				'in_footer'    => false,
-				'localize'     => array(),
-				'conditionals' => tribe_callback( 'tickets.editor', 'current_type_support_tickets' ),
+				'localize'     => [],
+				'conditionals' => tribe_callback( 'tickets.editor', 'current_post_supports_tickets' ),
 				'priority'     => 200,
-			)
+			]
 		);
 	}
 }

@@ -6,7 +6,7 @@
 
 use Tribe__Utils__Array as Arr;
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__Filter' ) ) {
 		/**
 		 * @var array The query args the filter should add.
 		 */
-		public $queryArgs = array();
+		public $queryArgs = [];
 
 		public $joinClause = '';
 		public $whereClause = '';
@@ -181,6 +181,10 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__Filter' ) ) {
 		 * @return string The new WHERE clause.
 		 */
 		public function addQueryWhere( $posts_where, $query ) {
+			if ( empty( $this->whereClause ) ) {
+				return $posts_where;
+			}
+
 			if (
 				// We did not add this filter WHERE clause already.
 				false === strpos( $posts_where, $this->whereClause )
@@ -206,9 +210,14 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__Filter' ) ) {
 		 * @return string The new JOIN clause.
 		 */
 		public function addQueryJoin( $posts_join, $query ) {
+			if ( empty( $this->joinClause ) ) {
+				return $posts_join;
+			}
+
 			if (
+				! empty( $posts_join )
 				// We did not add this filter JOIN clause already.
-				false === strpos( $posts_join, $this->joinClause )
+				&& false === strpos( $posts_join, $this->joinClause )
 				&& (
 					// Make sure it's an events query or a repository (ORM) query.
 					$query->tribe_is_event

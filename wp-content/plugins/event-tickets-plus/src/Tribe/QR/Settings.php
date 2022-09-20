@@ -1,4 +1,5 @@
 <?php
+use \Tribe\Tickets\Admin\Settings as ET_Settings;
 
 /**
  * Adds settings relating directly to handling of ticket QR codes to the
@@ -83,7 +84,7 @@ class Tribe__Tickets_Plus__QR__Settings {
 					'type' => 'html',
 					'html' => '<fieldset class="tribe-field tribe-field-html">
 							<legend>' . esc_html__( 'Generate Key', 'event-tickets-plus' ) . '</legend>
-							<div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url(
+							<div class="tribe-field-wrap"><a href="' . tribe( ET_Settings::class )->get_url(
 							[
 								'page' => 'event-tickets-plus',
 								'tab'  => 'event-tickets',

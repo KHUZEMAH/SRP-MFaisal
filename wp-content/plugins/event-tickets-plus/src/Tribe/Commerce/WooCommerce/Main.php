@@ -415,6 +415,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	 *
 	 * @since 5.3.3
 	 *
+	 * @since 5.5.2 Fixed sync of WooCommerce product stock with ticket stock.
+	 *
 	 * @param int $attendee_id              the ticket which has been moved.
 	 * @param int $src_ticket_type_id       the ticket type it belonged to originally.
 	 * @param int $tgt_ticket_type_id       the ticket type it now belongs to.
@@ -476,6 +478,17 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 
 		$order->save();
 
+		// Sync Product stock with ticket inventory.
+		$from_ticket = $this->get_ticket( $src_event_id, $src_ticket_type_id );
+		$to_ticket   = $this->get_ticket( $tgt_event_id, $tgt_ticket_type_id );
+
+		$from_product->set_stock_quantity( $from_ticket->inventory() );
+		$from_product->save();
+
+		$to_product->set_stock_quantity( $to_ticket->inventory() );
+		$to_product->save();
+
+		// Reset caches.
 		$this->reset_attendees_cache( $order->get_id() );
 		$this->reset_attendees_cache( $new_order->get_id() );
 
@@ -489,7 +502,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		$stylesheet_url = $this->plugin_url . 'src/resources/css/wootickets.css';
 
 		// Get minified CSS if it exists
-		$stylesheet_url = Tribe__Template_Factory::getMinFile( $stylesheet_url, true );
+		$stylesheet_url = Tribe__Assets::maybe_get_min_file( $stylesheet_url, true );
 
 		// apply filters
 		$stylesheet_url = apply_filters( 'tribe_wootickets_stylesheet_url', $stylesheet_url );

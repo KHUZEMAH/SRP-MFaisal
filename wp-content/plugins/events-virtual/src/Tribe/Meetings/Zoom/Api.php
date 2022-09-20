@@ -19,7 +19,7 @@ use Tribe\Events\Virtual\Template_Modifications;
  *
  * @since  1.0.0
  * @since  1.5.0 - Extends Account_API Class to support multiple accounts.
- * @since 1.9.0 - Extends Request_Api Class a shared class for connections to an API.
+ * @since  1.9.0 - Extends Request_Api Class a shared class for connections to an API.
  *
  * @package Tribe\Events\Virtual\Meetings\Zoom
  */
@@ -74,29 +74,19 @@ class Api extends Account_API {
 	 * @since 1.4.0  - Add encryption handler.
 	 * @since 1.5.0 - Add Account_API to support multiple accounts.
 	 * @since 1.9.0 - Move request methods to a new class and load through construct.
+	 * @since 1.13.0 - Add the Action class.
 	 *
-	 * @param Encryption $encryption An instance of the Encryption handler.
+	 * @param Encryption             $encryption             An instance of the Encryption handler.
+	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.
+	 * @param Actions                $actions                An instance of the Actions name handler.
 	 */
-	public function __construct( Encryption $encryption, Template_Modifications $template_modifications ) {
-		$this->encryption    = ( ! empty( $encryption ) ? $encryption : tribe( Encryption::class ) );
+	public function __construct( Encryption $encryption, Template_Modifications $template_modifications, Actions $actions ) {
+		$this->encryption             = ( ! empty( $encryption ) ? $encryption : tribe( Encryption::class ) );
 		$this->template_modifications = $template_modifications;
+		$this->actions                = $actions;
 
 		// Attempt to load an account.
 		$this->load_account();
-	}
-
-	/**
-	 * Checks whether the current Zoom API integration is authorized or not.
-	 *
-	 * The check is made on the existence of the refresh token, with it the token can be fetched on demand when
-	 * required.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool Whether the current Zoom API integration is authorized or not.
-	 */
-	public function is_authorized() {
-		return ! empty( $this->refresh_token );
 	}
 
 	/**
@@ -106,7 +96,7 @@ class Api extends Account_API {
 		$refreshed = false;
 
 		$this->post(
-			OAuth::$token_request_url,
+			Url::$refresh_url,
 			[
 				'body'    => [
 					'grant_type'    => 'refresh_token',
@@ -117,13 +107,9 @@ class Api extends Account_API {
 		)->then(
 			function ( array $response ) use ( &$id, &$refreshed ) {
 
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['access_token'], $body['refresh_token'], $body['expires_in'] )
-					)
-				) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = $this->has_proper_response_body( $body, [ 'access_token', 'refresh_token', 'expires_in' ] );
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Zoom API access token refresh response is malformed.',
@@ -169,6 +155,7 @@ class Api extends Account_API {
 				'headers' => [
 					'Authorization' => $this->get_token_authorization_header(),
 					'Content-Type'  => 'application/json; charset=utf-8',
+					'accept'        => 'application/json;',
 				],
 				'body'    => null,
 			],
@@ -176,13 +163,9 @@ class Api extends Account_API {
 		)->then(
 			function ( array $response ) use ( &$data ) {
 
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['join_url'] )
-					)
-				) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = $this->has_proper_response_body( $body, [ 'join_url' ] );
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Zoom API meetings settings response is malformed.',
@@ -225,21 +208,17 @@ class Api extends Account_API {
 				'headers' => [
 					'Authorization' => $this->get_token_authorization_header( $access_token ),
 					'Content-Type'  => 'application/json; charset=utf-8',
+					'accept'        => 'application/json;',
 				],
 				'body'    => null,
 			],
 			200
 		)->then(
 			static function ( array $response ) use ( &$data ) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = self::has_proper_response_body( $body );
 
-				$body = json_decode( $response['body'] );
-
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-					)
-				) {
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Zoom API user response is malformed.',
@@ -353,22 +332,17 @@ class Api extends Account_API {
 				'headers' => [
 					'Authorization' => $this->get_token_authorization_header(),
 					'Content-Type'  => 'application/json; charset=utf-8',
+					'accept'        => 'application/json;',
 				],
 				'body'    => ! empty( $args ) ? $args : null,
 			],
 			200
 		)->then(
 			static function ( array $response ) use ( &$data ) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = self::has_proper_response_body( $body, [ 'users' ] );
 
-				$body = json_decode( $response['body'] );
-
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['users'] )
-					)
-				) {
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Zoom API users response is malformed.',
@@ -431,7 +405,7 @@ class Api extends Account_API {
 		}
 
 		// All video sources are checked on the first autodetect run, only prevent checking of this source if it is set.
-		if ( ! empty( $video_source ) && Zoom_Meta::$key_zoom_source_id !== $video_source ) {
+		if ( ! empty( $video_source ) && Zoom_Meta::$key_source_id !== $video_source ) {
 			return $autodetect;
 		}
 
@@ -452,7 +426,7 @@ class Api extends Account_API {
 			return $autodetect;
 		}
 
-		$autodetect['guess'] = Zoom_Meta::$key_zoom_source_id;
+		$autodetect['guess'] = Zoom_Meta::$key_source_id;
 
 		// Use the zoom-account if available, otherwise try with the first account stored in the site.
 		$accounts = $this->get_list_of_accounts();
@@ -487,17 +461,17 @@ class Api extends Account_API {
 
 		// Set as virtual event and video source to zoom.
 		update_post_meta( $event->ID, Virtual_Events_Meta::$key_virtual, true );
-		update_post_meta( $event->ID, Virtual_Events_Meta::$key_video_source, Zoom_Meta::$key_zoom_source_id );
-		$event->virtual_video_source = Zoom_Meta::$key_zoom_source_id;
+		update_post_meta( $event->ID, Virtual_Events_Meta::$key_video_source, Zoom_Meta::$key_source_id );
+		$event->virtual_video_source = Zoom_Meta::$key_source_id;
 
 		// Save Zoom data.
 		$new_response['body'] = json_encode( $data );
 		tribe( Meetings::class )->process_meeting_connection_response( $new_response, $event->ID );
 
 		// Set Zoom as the autodetect source and set up success data and send back to smart url ui.
-		update_post_meta( $event->ID, Virtual_Events_Meta::$key_autodetect_source, Zoom_Meta::$key_zoom_source_id );
+		update_post_meta( $event->ID, Virtual_Events_Meta::$key_autodetect_source, Zoom_Meta::$key_source_id );
 		$autodetect['detected']          = true;
-		$autodetect['autodetect-source'] = Zoom_Meta::$key_zoom_source_id;
+		$autodetect['autodetect-source'] = Zoom_Meta::$key_source_id;
 		$autodetect['message']           = _x( 'Zoom meeting successfully connected!', 'Zoom meeting/webinar connected success message.', 'events-virtual' );
 		$autodetect['html'] = tribe( Classic_Editor::class )->get_meeting_details( $event, false, $account_id, false );
 
@@ -526,5 +500,27 @@ class Api extends Account_API {
 			'events-virtual'
 			)
 		);
+	}
+
+	/**
+	 * Filters the API error message.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param string              $api_message The API error message.
+	 * @param array<string,mixed> $body        The json_decoded request body.
+	 * @param Api_Response        $response    The response that will be returned. A non `null` value
+	 *                                         here will short-circuit the response.
+	 *
+	 * @return string              $api_message        The API error message.
+	 */
+	public function filter_api_error_message( $api_message, $body, $response ) {
+		if ( ! isset( $body['errors'][0]['message'] ) ) {
+			return $api_message;
+		}
+
+		$api_message .=  ' API Error: ' . $body['errors'][0]['message'];
+
+		return $api_message;
 	}
 }

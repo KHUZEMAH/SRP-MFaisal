@@ -55,6 +55,7 @@ class Hooks extends tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
+		add_filter( 'tec_tickets_commerce_settings_top_level', [ $this, 'filter_tc_settings' ] );
 	}
 
 	/**
@@ -108,5 +109,24 @@ class Hooks extends tad_DI52_ServiceProvider {
 		$namespace_map[ $main->template_namespace ] = $main->plugin_path;
 
 		return $namespace_map;
+	}
+
+	/**
+	 * Remove the promotional wording from TC settings since plus is already installed.
+	 *
+	 * @since 5.5.2
+	 *
+	 * @param array   $settings Associative array of setting from Tickets Commerce.
+	 *
+	 * @return array  Filtered settings.
+	 */
+	public function filter_tc_settings( $settings ) {
+		// If setting doesn't exist, bail.
+		if ( ! isset( $settings['tickets-commerce-description'] ) ) {
+			return $settings;
+		}
+		$new_description = esc_html_x( 'Tickets Commerce provides a simple and flexible ecommerce checkout for purchasing tickets. Just choose your payment gateway and configure checkout options and you\'re all set.', 'about Tickets Commerce', 'event-tickets-plus' );
+		$settings['tickets-commerce-description']['html'] = '<div class="tec-tickets__admin-settings-tickets-commerce-description">' . $new_description . '</div>';
+		return $settings;
 	}
 }

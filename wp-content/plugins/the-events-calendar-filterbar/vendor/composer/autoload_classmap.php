@@ -6,6 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'TEC\\Filter_Bar\\Custom_Tables\\V1\\Builder_Where_Contract' => $baseDir . '/src/Filter_Bar/Custom_Tables/V1/Builder_Where_Contract.php',
+    'TEC\\Filter_Bar\\Custom_Tables\\V1\\Filtering_Refs_Collector' => $baseDir . '/src/Filter_Bar/Custom_Tables/V1/Filtering_Refs_Collector.php',
+    'TEC\\Filter_Bar\\Custom_Tables\\V1\\Provider' => $baseDir . '/src/Filter_Bar/Custom_Tables/V1/Provider.php',
+    'TEC\\Filter_Bar\\Custom_Tables\\V1\\Query_Filters_Redirector' => $baseDir . '/src/Filter_Bar/Custom_Tables/V1/Query_Filters_Redirector.php',
+    'Tribe\\Events\\Filterbar\\Compatibility\\Divi\\Scripts' => $baseDir . '/src/Tribe/Compatibility/Divi/Scripts.php',
+    'Tribe\\Events\\Filterbar\\Compatibility\\Divi\\Service_Provider' => $baseDir . '/src/Tribe/Compatibility/Divi/Service_Provider.php',
     'Tribe\\Events\\Filterbar\\Service_Providers\\Context' => $baseDir . '/src/Tribe/Service_Providers/Context.php',
     'Tribe\\Events\\Filterbar\\Views\\V2\\Assets' => $baseDir . '/src/Tribe/Views/V2/Assets.php',
     'Tribe\\Events\\Filterbar\\Views\\V2\\Body_Classes' => $baseDir . '/src/Tribe/Views/V2/Body_Classes.php',

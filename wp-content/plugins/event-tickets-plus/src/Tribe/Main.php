@@ -12,7 +12,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '5.4.4.1';
+		const VERSION = '5.6.0';
 
 		/**
 		 * Used to store the version history.
@@ -131,7 +131,6 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			add_action( 'init', [ $this, 'csv_import_support' ], 6 );
 			add_filter( 'tribe_support_registered_template_systems', [ $this, 'add_template_updates_check' ] );
 			add_action( 'tribe_events_tickets_attendees_event_details_top', [ $this, 'setup_attendance_totals' ], 5 );
-			add_filter( 'tribe_tickets_settings_tab_fields', [ $this, 'tribe_tickets_plus_settings' ] );
 
 			// Unique ticket identifiers
 			add_action( 'event_tickets_rsvp_attendee_created', [ Tribe__Tickets_Plus__Meta__Unique_ID::instance(), 'assign_unique_id' ], 10, 2 );
@@ -473,36 +472,6 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			}
 
 			return apply_filters( 'tribe_events_tickets_template_' . $template, $file );
-		}
-
-		/**
-		 * Filter the tickets settings tab to include tickets plus settings
-		 *
-		 * @param $settings array Field settings for the tickets settings tab in the dashboard.
-		 *
-		 * @since 4.11.0
-		 */
-		public function tribe_tickets_plus_settings( $settings ) {
-			include $this->plugin_path . 'src/admin-views/ticket-settings.php';
-
-			return $settings;
-		}
-
-		/**
-		 * Add additional ticket settings to define slug and choose the template for the attendee info page.
-		 *
-		 * @deprecated 4.11.0
-		 *
-		 * @since 4.10.1
-		 *
-		 * @param array $tickets_fields List of ticket fields.
-		 *
-		 * @return array List of ticket fields with additional setting fields added.
-		 */
-		public function additional_ticket_settings( $tickets_fields ) {
-			_deprecated_function( __METHOD__, '4.11.0', 'tribe_tickets_plus_settings' );
-
-			$this->tribe_tickets_plus_settings( $tickets_fields );
 		}
 
 		/**

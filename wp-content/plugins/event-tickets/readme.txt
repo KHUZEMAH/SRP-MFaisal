@@ -2,10 +2,10 @@
 
 Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra, moraleida.me
 Tags: tickets, registration, event registration, RSVP, ticket sales, attendee management
-Requires at least: 5.6
-Tested up to: 5.9.3
-Stable tag: 5.3.4.1
-Requires PHP: 7.1
+Requires at least: 5.8.4
+Tested up to: 6.0.2
+Stable tag: 5.5.0
+Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,7 +119,7 @@ Event Tickets is translated into multiple languages, including German, Danish, a
 3. When the popup appears select the event-tickets.x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful.
-6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses.
+6. For access to new updates, make sure you have added your valid License Key under Tickets --> Settings --> Licenses.
 
 == Screenshots ==
 
@@ -188,6 +188,86 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 == Changelog ==
 
+= [5.5.0] 2022-09-06 =
+
+* Version - Event Tickets 5.5.0 is only compatible with The Events Calendar 6.0.0 and higher.
+* Version - Event Tickets 5.5.0 is only compatible with Event Tickets Plus 5.6.0 and higher.
+* Enhancement - Adds a compatibility layer to work with the new Recurrence Backend Engine in TEC/ECP.
+* Language - 4 new strings added, 49 updated, 0 fuzzied, and 3 obsoleted
+
+= [5.4.4] 2022-08-15 =
+
+* Fix - Tickets/RSVP blocks appear in wrong place on non-events when block editor is disabled in The Events Calendar. [ET-1544]
+* Fix - Fixed searching attendees by purchaser name and email for Tickets Commerce attendees. [ET-1543]
+* Fix - Fixed concurrent RSVP booking not showing error messages for out of stock tickets. [ET-1506]
+* Fix - Fixed showing proper ticket unavailable message for past events. [ET-1146]
+* Fix - Fixed Shared Capacity calculation with capped tickets. [ETP-801]
+* Fix - Fixed logic that was causing fatal errors when using Elementor. [ET-1561]
+* Enhancement - Sorting support added on Tickets Commerce Order Report page columns. [ET-1527]
+* Enhancement - Sorting support added on Attendee Report page for Ticket, Security Code, and Check In columns. [ET-1526]
+* Enhancement - Added section about Tickets Commerce on the Tickets Home page. [ET-1539]
+* Enhancement - Tickets Commerce Stripe gateway now shows additional purchaser info metadata in Stripe dashboard. [ET-1542]
+* Enhancement - Update REST API Endpoints to have access via API KEY and remove the restriction to be using Event Tickets Plus to access the `attendees` endpoint. [ET-1559]
+* Enhancement - Allow filtering of Events Archive REST API using `ticketed` parameter to filter Ticketed and Non-ticketed events. [TEC-4439]
+* Language - 6 new strings added, 162 updated, 0 fuzzied, and 9 obsoleted
+
+= [5.4.3.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [5.4.3] 2022-07-20 =
+
+* Tweak - update TCMN to match TEC 5.16.3 [TEC-4433]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
+= [5.4.2.1] 2022-07-12 =
+
+* Fix - Fixes compatibility with Elementor-based themes. [ET-1554]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
+= [5.4.2] 2022-07-05 =
+
+* Enhancement - Unify CSS class names for many admin elements. [ET-1536]
+* Enhancement - Add a `Currency Position` setting for Tickets Commerce. [ET-1534]
+* Tweak - Added helpful heading labels for Tickets Commerce Payments settings tab fields. [ET-1529]
+* Fix - Fixed changing of Shared Capacity stock when a single ticket stock is updated. [ETP-800]
+* Fix - Cannot edit events with Elementor on The Events Calendar with Event Tickets activated. [ET-1538]
+* Fix - Remove duplicate `Total Event Capacity` wording when ET+ is activated. [ET-1535]
+* Fix - When using Event Tickets as a standalone plugin, the SelectWoo asset was not being properly loaded. [ET-1531]
+* Fix - Some CSS issues within the tickets block in the block editor. [ET-1530]
+* Fix - The wrong `Ticket #` was being sent in attendee emails for Ticket Commerce tickets. [ET-1537]
+* Fix - Allow price block to override the string that is dynamically created from ticket values. [ET-1524]
+* Language - 9 new strings added, 177 updated, 0 fuzzied, and 1 obsoleted.
+
+= [5.4.1] 2022-06-08 =
+
+* Enhancement - Expanded list of supported currencies for Tickets Commerce, for details visit: https://evnt.is/tec-tc-currencies. [ET-1454, ET-1455, ET-1456]
+* Fix - In the blocks editor, the ticket sale start/end times always load as midnight. [ET-1518]
+* Fix - Encoding issue in the block editor's price block of The Events Calendar events. [ET-1434]
+* Fix - Add India to the list of countries ET cannot process fees from. [ET-1522]
+* Fix - Avoid loading PayPal partner JS script on all admin pages. [ET-1520]
+* Fix - Disable saving Stripe Webhook Signing Secret before validation. [ET-1497]
+* Enhancement - Add a new notice to set up permalinks to something different than "Plain" in order to use Tickets Commerce. [ET-1521]
+* Enhancement - Add links to "Settings" and "Getting started" on the plugin action links. [ET-1525]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 3 obsoleted
+
+= [5.4.0.2] 2022-06-06 =
+
+* Fix - Adds a safety check to avoid issuing tickets for late-declined purchases in PayPal, when the Order status returned is valid. [ET-1533]
+* Tweak - Added filters: `tec_tickets_commerce_cart_order_hash`
+* Language - 1 new strings added, 15 updated, 0 fuzzied, and 0 obsoleted.
+
+= [5.4.0.1] 2022-05-23 =
+
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
+= [5.4.0] 2022-05-19 =
+
+* Version - Event Tickets 5.4.0 is only compatible with The Events Calendar 5.15.0 and higher
+* Version - Event Tickets 5.4.0 is only compatible with Event Tickets Plus 5.5.0 and higher
+* Feature - Introducing the new Tickets menu on the WordPress admin. [ET-1335]
+* Language - 6 new strings added, 171 updated, 1 fuzzied, and 2 obsoleted
+
 = [5.3.4.1] 2022-05-12 =
 
 * Version - Event Tickets 5.3.4.1 is only compatible with Event Tickets Plus 5.4.4.1 and higher
@@ -195,15 +275,15 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 = [5.3.4] 2022-05-11 =
 
+* Enhancement - Added availability dates and icons to ticket listing in classic editor. [ET-1494]
+* Enhancement - Notify users of the Manual Addition of Attendees feature that is available. [ET-1492]
+* Enhancement - Notify users of Capacity and Attendee Registration Field features that are available. [ET-1493]
 * Fix - Typo was causing a JS `setAttribute` error in `vue.min.js`. [ET-1504]
 * Fix - Fatal error when exporting attendees in PHP 8. [ET-1502]
 * Fix - Tickets Commerce manual attendee's ticket price is set to 0. [ETP-781]
-* Enhancement - Notify users of the Manual Addition of Attendees feature that is available. [ET-1492]
-* Enhancement - Notify users of Capacity and Attendee Registration Field features that are available. [ET-1493]
 * Fix - RSVP title is being encoded within the block editor fields. [ET-1478]
 * Fix - Tickets Commerce manual attendee's ticket price is set to 0. [ETP-781]
 * Fix - Fixed template override path for a few templates. [ET-1491]
-* Enhancement - Added availability dates and icons to ticket listing in classic editor. [ET-1494]
 * Tweak - Lighten color of disabled "Get Tickets" button text when using the Genesis theme. [ET-1435]
 * Tweak - Added actions: `tec_tickets_attendees_event_summary_table_extra`
 * Tweak - Changed views: `blocks/tickets/opt-out-hidden`, `blocks/tickets/registration/summary/content`, `registration-js/attendees/fields/number`, `v2/tickets/commerce/fields/tribe-commerce`, `v2/tickets/item/extra/description-toggle`, `v2/tickets/submit/must-login`.

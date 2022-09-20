@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f
+class ComposerStaticInit09a30edff1bad47ad8b1b41aa95174f3
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -186,6 +186,8 @@ class ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f
         'Tribe\\Admin\\Notice\\Marketing\\Stellar_Sale' => __DIR__ . '/../..' . '/src/Tribe/Admin/Notice/Marketing/Stellar_Sale.php',
         'Tribe\\Admin\\Notice\\Service_Provider' => __DIR__ . '/../..' . '/src/Tribe/Admin/Notice/Service_Provider.php',
         'Tribe\\Admin\\Notice\\WP_Version' => __DIR__ . '/../..' . '/src/Tribe/Admin/Notice/WP_Version.php',
+        'Tribe\\Admin\\Pages' => __DIR__ . '/../..' . '/src/Tribe/Admin/Pages.php',
+        'Tribe\\Admin\\Settings' => __DIR__ . '/../..' . '/src/Tribe/Admin/Settings.php',
         'Tribe\\Admin\\Troubleshooting' => __DIR__ . '/../..' . '/src/Tribe/Admin/Troubleshooting.php',
         'Tribe\\Admin\\Upsell_Notice\\Main' => __DIR__ . '/../..' . '/src/Tribe/Admin/Upsell_Notice/Main.php',
         'Tribe\\Customizer\\Control' => __DIR__ . '/../..' . '/src/Tribe/Customizer/Control.php',
@@ -268,10 +270,10 @@ class ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit98835c9d9df775e25a15a8b7d1c6b56f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit09a30edff1bad47ad8b1b41aa95174f3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit09a30edff1bad47ad8b1b41aa95174f3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit09a30edff1bad47ad8b1b41aa95174f3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit09a30edff1bad47ad8b1b41aa95174f3::$classMap;
 
         }, null, ClassLoader::class);
     }

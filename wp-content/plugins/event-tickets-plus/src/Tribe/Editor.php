@@ -17,7 +17,6 @@ class Tribe__Tickets_Plus__Editor extends Tribe__Tickets__Editor {
 	public function hook() {
 		add_action( 'tribe_events_tickets_settings_content_before', tribe_callback( 'tickets-plus.admin.views', 'template', 'editor/fieldset/settings-capacity' ) );
 		add_action( 'tribe_events_tickets_settings_content', tribe_callback( 'tickets-plus.admin.views', 'template', 'editor/settings-attendees' ) );
-		add_action( 'tribe_events_tickets_capacity', tribe_callback( 'tickets-plus.admin.views', 'template', 'editor/total-capacity' ) );
 	}
 
 	/**

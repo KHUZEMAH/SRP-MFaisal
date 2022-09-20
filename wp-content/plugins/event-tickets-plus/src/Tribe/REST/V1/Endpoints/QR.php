@@ -36,7 +36,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 	public function get( WP_REST_Request $request ) {
 		$this->serving = $request;
 
-		$ticket = get_post( $request['id'] );
+		$ticket      = get_post( $request['id'] );
 		$ticket_type = tribe( 'tickets.data_api' )->detect_by_id( $request['id'] );
 
 		$cap = get_post_type_object( $ticket_type['post_type'] )->cap->read_post;
@@ -136,7 +136,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 		$ticket_label_singular_lower = esc_html( tribe_get_ticket_label_singular_lowercase( 'rest_qr' ) );
 
 		return [
-			// QR fields
+			// QR fields.
 			'api_key'       => [
 				'required'          => true,
 				'validate_callback' => [ $this->validator, 'is_string' ],
@@ -215,7 +215,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
-		// add check attendee data
+		// Add check for attendee data.
 		$attendee = $service_provider->get_attendees_by_id( $ticket_id );
 		$attendee = reset( $attendee );
 		if ( ! is_array( $attendee ) ) {
@@ -225,7 +225,9 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
-		// Add check for completed attendee status.
+		// Get the attendee data to populate the response.
+		$attendee_id   = (int) $attendee['attendee_id'];
+		$attendee_data = tribe( 'tickets.rest-v1.attendee-repository' )->format_item( $attendee_id );
 
 		/** @var Tribe__Tickets__Status__Manager $status */
 		$status = tribe( 'tickets.status' );
@@ -242,6 +244,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 							tribe_get_ticket_label_singular_lowercase( 'rest_qr' )
 						)
 					),
+					'attendee' => $attendee_data,
 				]
 			);
 
@@ -250,10 +253,15 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
-		// check if attendee is checked in
+		// Check if the attendee is checked in.
 		$checked_status = get_post_meta( $ticket_id, '_tribe_qr_status', true );
 		if ( $checked_status ) {
-			$response = new WP_REST_Response( [ 'msg' => __( 'Already checked in!', 'event-tickets-plus' ) ] );
+			$response = new WP_REST_Response(
+				[
+					'msg'      => __( 'Already checked in!', 'event-tickets-plus' ),
+					'attendee' => $attendee_data,
+				]
+			);
 			$response->set_status( 403 );
 
 			return $response;
@@ -264,6 +272,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			$msg_arr = [
 				'msg'             => esc_html( sprintf( __( '%s not checked in!', 'event-tickets-plus' ), tribe_get_ticket_label_singular( 'rest_qr' ) ) ),
 				'tribe_qr_status' => get_post_meta( $ticket_id, '_tribe_qr_status', 1 ),
+				'attendee'        => $attendee_data,
 			];
 			$result  = array_merge( $msg_arr, $qr_arr );
 
@@ -273,7 +282,12 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
-		$response = new WP_REST_Response( [ 'msg' => __( 'Checked In!', 'event-tickets-plus' ) ] );
+		$response = new WP_REST_Response(
+			[
+				'msg'      => __( 'Checked In!', 'event-tickets-plus' ),
+				'attendee' => $attendee_data,
+			]
+		);
 		$response->set_status( 201 );
 
 		return $response;

@@ -9,6 +9,9 @@
 
 namespace Tribe\Events\Virtual\Meetings;
 
+use Tribe\Events\Virtual\Integrations\Api_Response;
+use Tribe\Events\Virtual\Meetings\Zoom\Actions;
+use Tribe\Events\Virtual\Meetings\Zoom\Email;
 use Tribe\Events\Virtual\Meetings\Zoom\Event_Export as Zoom_Event_Export;
 use Tribe\Events\Virtual\Meetings\Zoom\Classic_Editor;
 use Tribe\Events\Virtual\Meetings\Zoom\Migration;
@@ -17,7 +20,6 @@ use Tribe\Events\Virtual\Event_Meta;
 use Tribe\Events\Virtual\Meetings\Zoom\Event_Meta as Zoom_Meta;
 use Tribe\Events\Virtual\Meetings\Zoom\Api;
 use Tribe\Events\Virtual\Meetings\Zoom\Meetings;
-use Tribe\Events\Virtual\Meetings\Zoom\OAuth;
 use Tribe\Events\Virtual\Meetings\Zoom\Password;
 use Tribe\Events\Virtual\Meetings\Zoom\Template_Modifications;
 use Tribe\Events\Virtual\Meetings\Zoom\Users;
@@ -26,6 +28,7 @@ use Tribe\Events\Virtual\Plugin;
 use Tribe\Events\Virtual\Traits\With_Nonce_Routes;
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Admin__Helpers as Admin_Helpers;
+use WP_Post;
 
 /**
  * Class Zoom_Provider
@@ -145,7 +148,7 @@ class Zoom_Provider extends Meeting_Provider {
 	 * @since 1.0.4
 	 * @since 1.9.0 - moved logic to Password->check_admin_zoom_meeting().
 	 *
-	 * @param \WP_Post $event The event post object.
+	 * @param WP_Post $event The event post object.
 	 *
 	 * @return bool|void Whether the update completed.
 	 */
@@ -158,12 +161,12 @@ class Zoom_Provider extends Meeting_Provider {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WP_Post $event The event post object.
+	 * @param WP_Post $event The event post object.
 	 *
-	 * @return bool|void Whether the update completed.
+	 * @return bool|WP_Post Whether the update completed or the WP Post instance if not an event.
 	 */
 	public function update_event_for_multiple_accounts_support( $event ) {
-		if ( ! $event instanceof \WP_Post ) {
+		if ( ! $event instanceof WP_Post ) {
 			// We should only act on event posts, else bail.
 			return $event;
 		}
@@ -241,11 +244,8 @@ class Zoom_Provider extends Meeting_Provider {
 		// Event Single - Blocks.
 		add_action( 'wp', [ $this, 'hook_block_template' ] );
 
-		// The location which the template is injected depends on whether or not V2 is enabled.
-		$zoom_details_inject_action = tribe_events_single_view_v2_is_enabled() ? 'tribe_events_virtual_block_content' : 'tribe_template_after_include:events/blocks/event-datetime';
-
 		add_action(
-			$zoom_details_inject_action,
+			'tribe_events_virtual_block_content',
 			[ $this, 'action_add_event_single_zoom_details' ],
 			20,
 			0
@@ -366,6 +366,7 @@ class Zoom_Provider extends Meeting_Provider {
 	 * Conditionally inject content into ticket email templates.
 	 *
 	 * @since 1.0.0
+	 * @since 1.13.0 - Moved functionality to Emall::Class.
 	 *
 	 * @param string $template The template path, relative to src/views.
 	 * @param array  $args     The template arguments.
@@ -373,24 +374,7 @@ class Zoom_Provider extends Meeting_Provider {
 	 * @return string
 	 */
 	public function maybe_change_email_template( $template, $args ) {
-		// Just in case.
-		$event = tribe_get_event( $args['event'] );
-
-		if ( empty( $event ) ) {
-			return $template;
-		}
-
-		if (
-			empty( $event->virtual )
-			|| empty( $event->virtual_meeting )
-			|| tribe( self::class )->get_slug() !== $event->virtual_meeting_provider
-		) {
-			return $template;
-		}
-
-		$template = 'zoom/email/ticket-email-zoom-details';
-
-		return $template;
+		return $this->container->make( Email::class )->maybe_change_email_template( $template, $args );
 	}
 
 	/**
@@ -408,7 +392,7 @@ class Zoom_Provider extends Meeting_Provider {
 		}
 
 		$template_modifications = $this->container->make( Template_Modifications::class );
-		$template_modifications->add_event_single_zoom_details();
+		$template_modifications->add_event_single_api_details();
 	}
 
 	/**
@@ -464,18 +448,18 @@ class Zoom_Provider extends Meeting_Provider {
 	 * @return array<string,callable> A map from the nonce actions to the corresponding handlers.
 	 */
 	public function admin_routes() {
+		$actions = tribe( Actions::class );
+
 		return [
-			Meetings::$create_action       => $this->container->callback( Meetings::class, 'ajax_create' ),
-			Meetings::$update_action       => $this->container->callback( Meetings::class, 'ajax_update' ),
-			Meetings::$remove_action       => $this->container->callback( Meetings::class, 'ajax_remove' ),
-			Webinars::$create_action       => $this->container->callback( Webinars::class, 'ajax_create' ),
-			Webinars::$update_action       => $this->container->callback( Webinars::class, 'ajax_update' ),
-			Webinars::$remove_action       => $this->container->callback( Webinars::class, 'ajax_remove' ),
-			Users::$validate_user_action   => $this->container->callback( Users::class, 'validate_user' ),
-			Oauth::$authorize_nonce_action => $this->container->callback( OAuth::class, 'handle_auth_request' ),
-			API::$select_action            => $this->container->callback( Classic_Editor::class, 'ajax_selection' ),
-			API::$status_action            => $this->container->callback( API::class, 'ajax_status' ),
-			API::$delete_action            => $this->container->callback( API::class, 'ajax_delete' ),
+			$actions::$create_action          => $this->container->callback( Meetings::class, 'ajax_create' ),
+			$actions::$remove_action          => $this->container->callback( Meetings::class, 'ajax_remove' ),
+			$actions::$webinar_create_action  => $this->container->callback( Webinars::class, 'ajax_create' ),
+			$actions::$webinar_remove_action  => $this->container->callback( Webinars::class, 'ajax_remove' ),
+			$actions::$validate_user_action   => $this->container->callback( Users::class, 'validate_user' ),
+			$actions::$authorize_nonce_action => $this->container->callback( API::class, 'handle_auth_request' ),
+			$actions::$select_action          => $this->container->callback( Classic_Editor::class, 'ajax_selection' ),
+			$actions::$status_action          => $this->container->callback( API::class, 'ajax_status' ),
+			$actions::$delete_action          => $this->container->callback( API::class, 'ajax_delete' ),
 		];
 	}
 
@@ -493,9 +477,9 @@ class Zoom_Provider extends Meeting_Provider {
 
 		$video_sources[] = [
 			'text'     => _x( 'Zoom Account', 'The name of the video source.', 'events-virtual' ),
-			'id'       => Zoom_Meta::$key_zoom_source_id,
-			'value'    => Zoom_Meta::$key_zoom_source_id,
-			'selected' => Zoom_Meta::$key_zoom_source_id === $post->virtual_video_source,
+			'id'       => Zoom_Meta::$key_source_id,
+			'value'    => Zoom_Meta::$key_source_id,
+			'selected' => Zoom_Meta::$key_source_id === $post->virtual_video_source,
 		];
 
 		return $video_sources;
@@ -539,6 +523,24 @@ class Zoom_Provider extends Meeting_Provider {
 	}
 
 	/**
+	 * Filter the Outlook single event export url for a Zoom source event.
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string               $url             The url used to subscribe to a calendar in Outlook.
+	 * @param string               $base_url        The base url used to subscribe in Outlook.
+	 * @param array<string|string> $params          An array of parameters added to the base url.
+	 * @param Outlook_Methods      $outlook_methods An instance of the link abstract.
+	 * @param \WP_Post             $event           The WP_Post of this event.
+	 * @param boolean              $should_show     Whether to modify the export fields for the current user, default to false.
+	 *
+	 * @return string The export url used to generate an Outlook event for the single event.
+	 */
+	public function filter_outlook_single_event_export_url_by_api( $url, $base_url, $params, $outlook_methods, $event, $should_show ) {
+		return $this->container->make( Zoom_Event_Export::class )->filter_outlook_single_event_export_url_by_api( $url, $base_url, $params, $outlook_methods, $event, $should_show );
+	}
+
+	/**
 	 * Add Zoom to Autodetect Source.
 	 *
 	 * @since 1.8.0
@@ -553,9 +555,9 @@ class Zoom_Provider extends Meeting_Provider {
 
 		$autodetect_sources[] = [
 			'text'     => _x( 'Zoom', 'The name of the autodetect source.', 'events-virtual' ),
-			'id'       => Zoom_Meta::$key_zoom_source_id,
-			'value'    => Zoom_Meta::$key_zoom_source_id,
-			'selected' => Zoom_Meta::$key_zoom_source_id === $autodetect_source,
+			'id'       => Zoom_Meta::$key_source_id,
+			'value'    => Zoom_Meta::$key_source_id,
+			'selected' => Zoom_Meta::$key_source_id === $autodetect_source,
 		];
 
 		return $autodetect_sources;
@@ -577,6 +579,22 @@ class Zoom_Provider extends Meeting_Provider {
 	public function filter_virtual_autodetect_field_accounts( $autodetect_fields, $video_url, $autodetect_source, $event, $ajax_data ) {
 		return $this->container->make( Classic_Editor::class )
 		                ->classic_autodetect_video_source_accounts( $autodetect_fields, $video_url, $autodetect_source, $event, $ajax_data );
+	}
+
+	/**
+	 * Filters the API error message.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param string              $api_message The API error message.
+	 * @param array<string,mixed> $body        The json_decoded request body.
+	 * @param Api_Response        $response    The response that will be returned. A non `null` value
+	 *                                         here will short-circuit the response.
+	 *
+	 * @return string              $api_message        The API error message.
+	 */
+	public function filter_api_error_message( $api_message, $body, $response ) {
+		return $this->container->make( Api::class )->filter_api_error_message( $api_message, $body, $response );
 	}
 
 	/**
@@ -609,9 +627,11 @@ class Zoom_Provider extends Meeting_Provider {
 		add_filter( 'tribe_events_virtual_video_sources', [ $this, 'add_video_source' ], 20, 2 );
 		add_filter( 'tec_events_virtual_export_fields', [ $this, 'filter_zoom_source_google_calendar_parameters' ], 10, 5 );
 		add_filter( 'tec_events_virtual_export_fields', [ $this, 'filter_zoom_source_ical_feed_items' ], 10, 5 );
+		add_filter( 'tec_events_virtual_outlook_single_event_export_url', [ $this, 'filter_outlook_single_event_export_url_by_api' ], 10, 6 );
 		add_filter( 'tec_events_virtual_autodetect_video_sources', [ $this, 'add_autodetect_source' ], 20, 3 );
-				add_filter( 'tec_events_virtual_video_source_autodetect_field_all', [ $this, 'filter_virtual_autodetect_field_accounts' ], 20, 5 );
-				add_filter( 'tec_events_virtual_video_source_autodetect_field_zoom-accounts', [ $this, 'filter_virtual_autodetect_field_accounts' ], 20, 5 );
+		add_filter( 'tec_events_virtual_video_source_autodetect_field_all', [ $this, 'filter_virtual_autodetect_field_accounts' ], 20, 5 );
+		add_filter( 'tec_events_virtual_video_source_autodetect_field_zoom-accounts', [ $this, 'filter_virtual_autodetect_field_accounts' ], 20, 5 );
+		add_filter( 'tec_events_virtual_meetings_api_error_message', [ $this, 'filter_api_error_message' ], 20, 3 );
 	}
 
 	/**

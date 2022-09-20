@@ -375,36 +375,18 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		/**
 		 * Retrieve the Query args to fetch all the Tickets.
 		 *
+		 * @since  5.5.0 refactored to use the tickets ORM.
 		 * @since  4.6
 		 *
-		 * @param  int|WP_Post $post_id Build the args to query only
-		 *                           for tickets related to this post ID.
+		 * @param int|WP_Post $post_id Build the args to query only
+		 *                             for tickets related to this post ID.
 		 *
 		 * @return array
 		 */
 		public function get_tickets_query_args( $post_id = null ) {
-			if ( $post_id instanceof WP_Post ) {
-				$post_id = $post_id->ID;
-			}
-
-			$args = [
-				'post_type'      => [ $this->ticket_object ],
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
-				'post_status'    => 'publish',
-				'orderby'        => 'menu_order',
-				'order'          => 'ASC',
-			];
-
-			if ( ! empty( $post_id ) ) {
-				$args['meta_query'] = [
-					[
-						'key'     => $this->get_event_key(),
-						'value'   => $post_id,
-						'compare' => '=',
-					],
-				];
-			}
+			$repository = tribe_tickets( $this->orm_provider );
+			$repository->by( 'event', $post_id );
+			$args = $repository->get_query();
 
 			/**
 			 * Filters the query arguments that will be used to fetch tickets.
@@ -413,7 +395,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 *
 			 * @param array $args
 			 */
-			$args = apply_filters( 'tribe_tickets_get_tickets_query_args', $args );
+			$args = apply_filters( 'tribe_tickets_get_tickets_query_args', $args->query_vars );
 
 			return $args;
 		}
@@ -421,13 +403,19 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		/**
 		 * Retrieve the ID numbers of all tickets assigned to an event.
 		 *
+		 * @since  5.5.0 refactored to use the tickets ORM.
 		 * @since  4.6
 		 *
-		 * @param  int|WP_Post $post Only get tickets assigned to this post ID.
+		 * @param int|WP_Post $post Only get tickets assigned to this post ID.
 		 *
 		 * @return array|false
 		 */
-		public function get_tickets_ids( $post = null ) {
+		public function get_tickets_ids( $post = 0 ) {
+			$post_id = 0;
+			if ( is_numeric( $post ) ) {
+				$post_id = (int) $post;
+			}
+
 			if ( ! empty( $post ) ) {
 				if ( ! $post instanceof WP_Post ) {
 					$post = get_post( $post );
@@ -435,24 +423,17 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 				if ( ! $post instanceof WP_Post ) {
 					return false;
 				}
-				$args = $this->get_tickets_query_args( $post->ID );
-			} else {
-				$args = $this->get_tickets_query_args();
+
+				if ( class_exists( '\TEC\Events\Custom_Tables\V1\Models\Occurrence' ) ) {
+					$post_id = \TEC\Events\Custom_Tables\V1\Models\Occurrence::normalize_id( $post->ID );
+				}
 			}
 
-			// @todo Switch this into a Ticket ORM request in the future.
-			$cache = new Tribe__Cache();
-			$cache_key = $cache->make_key( $args );
-			$query = $cache->get( $cache_key );
+			$args       = $this->get_tickets_query_args( $post_id );
+			$repository = tribe_tickets( $this->orm_provider );
+			$repository->by_args( $args );
 
-			if ( $query instanceof WP_Query ) {
-				return $query->posts;
-			}
-
-			$query = new WP_Query( $args );
-			$cache->set( $cache_key, $query, Tribe__Cache::NO_EXPIRATION, 'event_tickets_after_create_ticket' );
-
-			return $query->posts;
+			return $repository->get_ids();
 		}
 
 		/**
@@ -1474,6 +1455,14 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Limit results per page.
 			if ( ! empty( $args['per_page'] ) ) {
 				$repository->per_page( absint( $args['per_page'] ) );
+			}
+
+			if ( ! empty( $args['orderby'] ) ) {
+				$repository->order_by( strval( $args['orderby'] ) );
+			}
+
+			if ( ! empty( $args['order'] ) ) {
+				$repository->order( strval( $args['order'] ) );
 			}
 		}
 
@@ -2724,6 +2713,11 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 * @return array
 		 */
 		public function get_ticket_prices( array $prices, $post_id ) {
+			// If value already exists, do not override it. Return it.
+			if ( ! empty( $prices ) ) {
+				return $prices;
+			}
+
 			// Iterate through all tickets from all providers
 			foreach ( self::get_all_event_tickets( $post_id ) as $ticket ) {
 				// No need to add the pricepoint if it is already in the array
@@ -3404,11 +3398,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			$editor = tribe( 'editor' );
 
 			// Blocks and ticket templates merged - bail if we should be seeing blocks.
-			if (
-				has_blocks( $post->ID )
-				&& $editor->should_load_blocks()
-				&& ! $editor->is_classic_editor()
-			) {
+			if ( has_blocks( $post->ID ) ) {
 				return false;
 			}
 

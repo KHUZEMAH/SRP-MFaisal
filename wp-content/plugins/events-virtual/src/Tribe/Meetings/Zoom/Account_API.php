@@ -13,6 +13,7 @@ use Tribe\Events\Virtual\Encryption;
 use Tribe\Events\Virtual\Event_Meta as Virtual_Events_Meta;
 use Tribe\Events\Virtual\Integrations\Abstract_Account_Api;
 use Tribe\Events\Virtual\Meetings\Zoom\Event_Meta as Zoom_Meta;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Account_API
@@ -23,6 +24,16 @@ use Tribe\Events\Virtual\Meetings\Zoom\Event_Meta as Zoom_Meta;
  * @package Tribe\Events\Virtual\Meetings\Zoom
  */
 abstract class Account_API extends Abstract_Account_Api {
+
+	/**
+	 * The name of the action used to generate the OAuth authentication URL.
+	 *
+	 * @since 1.13.0
+	 * @deprecated 1.13.0 - Use Actions::$authorize_nonce_action.
+	 *
+	 * @var string
+	 */
+	public static $authorize_nonce_action = 'events-virtual-meetings-zoom-oauth-authorize';
 
 	/**
 	 * Whether a Zoom account supports webinars.
@@ -73,18 +84,76 @@ abstract class Account_API extends Abstract_Account_Api {
 
 	/**
 	 * {@inheritDoc}
+	 * @deprecated 1.13.0 - Use Actions::$select_action.
 	 */
 	public static $select_action = 'events-virtual-zoom-account-setup';
 
 	/**
 	 * {@inheritDoc}
+	 * @deprecated 1.13.0 - Use Actions::$status_action.
 	 */
 	public static $status_action = 'events-virtual-meetings-zoom-settings-status';
 
 	/**
 	 * {@inheritDoc}
+	 * @deprecated 1.13.0 - Use Actions::$delete_action.
 	 */
 	public static $delete_action = 'events-virtual-meetings-zoom-settings-delete';
+
+	/**
+	 * Returns the full OAuth URL to authorize the application.
+	 *
+	 * @since 1.13.0
+	 *
+	 * @return string The full OAuth URL to authorize the application.
+	 */
+	public function authorize_url() {
+		// Use the `state` query arg as described in Zoom API documentation.
+		$authorize_url = add_query_arg(
+			[
+				'state' => wp_create_nonce( $this->actions::$authorize_nonce_action ),
+			],
+			admin_url()
+		);
+
+		return $authorize_url;
+	}
+
+	/**
+	 * Handles an OAuth authorization return request.
+	 *
+	 * The method will `wp_die` if the nonce is not valid.
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string|null $nonce The nonce string to authorize the authorization request.
+	 *
+	 * @return boolean Whether the authorization request was handled.
+	 */
+	public function handle_auth_request( $nonce = null ) {
+		if ( ! wp_verify_nonce( $nonce, $this->actions::$authorize_nonce_action ) ) {
+			wp_die( _x(
+					'You are not authorized to do this',
+					'The message shown to a user providing a wrong Zoom API OAuth authorization nonce.',
+					'events-virtual'
+				)
+			);
+		}
+
+		$handled = false;
+
+		// This is response from our OAuth proxy service.
+		$service_response_body = tribe_get_request_var( 'response_body', false );
+		if ( $service_response_body ) {
+			$this->save_account( [ 'body' => base64_decode( $service_response_body ) ] );
+
+			$handled = true;
+		}
+
+		wp_safe_redirect( Settings::admin_url() );
+
+		return $handled;
+	}
 
 	/**
 	 * Get the listing of Zoom Accounts.
@@ -186,11 +255,11 @@ abstract class Account_API extends Abstract_Account_Api {
 			Api::OAUTH_POST_RESPONSE_CODE
 		)->then(
 			function ( array $response ) use ( &$revoked ) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = $this->has_proper_response_body( $body, [ 'status' ] );
 				if (
 					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['status'] )
+						$body_set
 						&& 'success' === $body['status']
 					)
 				) {
@@ -235,12 +304,7 @@ abstract class Account_API extends Abstract_Account_Api {
 	 * {@inheritDoc}
 	 */
 	public function save_account( array $response ) {
-		if ( ! (
-			isset( $response['body'] )
-			&& ( false !== $d = json_decode( $response['body'], true ) )
-			&& isset( $d['access_token'], $d['refresh_token'], $d['expires_in'] )
-		)
-		) {
+		if ( ! $this->has_proper_credentials( $response ) ) {
 			do_action( 'tribe_log', 'error', __CLASS__, [
 				'action'  => __METHOD__,
 				'code'    => wp_remote_retrieve_response_code( $response ),
@@ -251,9 +315,10 @@ abstract class Account_API extends Abstract_Account_Api {
 		}
 
 		// Set the access token here as we have to call fetch_user immediately, to get the user information.
-		$access_token  = $d['access_token'];
-		$refresh_token = $d['refresh_token'];
-		$expiration    = $this->get_expiration_time_stamp( $d['expires_in'] );
+		$credentials   = json_decode( wp_remote_retrieve_body( $response ), true );
+		$access_token  = $credentials['access_token'];
+		$refresh_token = $credentials['refresh_token'];
+		$expiration    = $this->get_expiration_time_stamp( $credentials['expires_in'] );
 
 		// Get the user who authorized the account.
 		$user         = $this->fetch_user( 'me', false, $access_token);
@@ -284,12 +349,7 @@ abstract class Account_API extends Abstract_Account_Api {
 	 * {@inheritDoc}
 	 */
 	public function save_access_and_expiration( $id, array $response ) {
-		if ( ! (
-			isset( $response['body'] )
-			&& ( false !== $d = json_decode( $response['body'], true ) )
-			&& isset( $d['access_token'], $d['refresh_token'], $d['expires_in'] )
-		)
-		) {
+		if ( ! $this->has_proper_credentials( $response ) ) {
 			do_action( 'tribe_log', 'error', __CLASS__, [
 				'action'  => __METHOD__,
 				'code'    => wp_remote_retrieve_response_code( $response ),
@@ -299,9 +359,10 @@ abstract class Account_API extends Abstract_Account_Api {
 			return false;
 		}
 
-		$access_token  = $d['access_token'];
-		$refresh_token = $d['refresh_token'];
-		$expiration    = $this->get_expiration_time_stamp( $d['expires_in'] );
+		$credentials   = json_decode( wp_remote_retrieve_body( $response ), true );
+		$access_token  = $credentials['access_token'];
+		$refresh_token = $credentials['refresh_token'];
+		$expiration    = $this->get_expiration_time_stamp( $credentials['expires_in'] );
 
 		$this->set_account_access_by_id( $id, $access_token, $refresh_token, $expiration );
 
@@ -374,6 +435,29 @@ abstract class Account_API extends Abstract_Account_Api {
 		}
 
 		return $supports;
+	}
+
+	/**
+	 * Get password requirements for a user.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param array<string|mixed> $settings The user settings from Zoom.
+	 *
+	 * @return array<string|mixed> The password requirements for a user.
+	 */
+	public function get_password_requirements( $settings ) {
+		if ( empty( $settings['schedule_meeting']['meeting_password_requirement'] ) ) {
+			$settings['schedule_meeting']['meeting_password_requirement'] = [];
+		}
+
+		$password_requirements = $settings['schedule_meeting']['meeting_password_requirement'];
+
+		return [
+			'password_length'                 => (int) Arr::get( $password_requirements, 'length', 6 ),
+			'password_have_special_character' => (bool) Arr::get( $password_requirements, 'have_special_character', false ),
+			'password_only_allow_numeric'     => (bool) Arr::get( $password_requirements, 'only_allow_numeric', false ),
+		];
 	}
 
 	/**
@@ -471,7 +555,7 @@ abstract class Account_API extends Abstract_Account_Api {
 		$post_id = $event->ID;
 
 		// Set the video source to zoo.
-		update_post_meta( $post_id, Virtual_Events_Meta::$key_video_source, Zoom_Meta::$key_zoom_source_id );
+		update_post_meta( $post_id, Virtual_Events_Meta::$key_video_source, Zoom_Meta::$key_source_id );
 
 		// get the setup
 		$classic_editor->render_meeting_link_generator( $event, true, false, $zoom_account_id );

@@ -74,8 +74,8 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 4.8
 	 *
-	 * @param array|WP_Error  $data             The attendee data or a WP_Error if the request
-	 *                                          generated errors.
+	 * @param array|WP_Error $data             The attendee data or a WP_Error if the request
+	 *                                         generated errors.
 	 *
 	 * @return array|WP_Error  The modified attendee data.
 	 */
@@ -84,7 +84,7 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 			return $data;
 		}
 
-		if ( ! current_user_can( 'read_private_posts' ) ) {
+		if ( ! tribe( 'tickets.rest-v1.main' )->request_has_manage_access() ) {
 			return $data;
 		}
 
@@ -92,10 +92,19 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 			return $data;
 		}
 
-		$attendee_id   = $data['id'];
-		$attendee_meta = get_post_meta( $attendee_id, Tribe__Tickets_Plus__Meta::META_KEY, true );
+		/** @var \Tribe__Tickets_Plus__Meta $meta */
+		$meta      = tribe( 'tickets-plus.meta' );
+		$ticket_id = $data['ticket_id'];
+		$fields    = $meta->get_meta_fields_by_ticket( $ticket_id );
 
-		$data['information'] = empty( $attendee_meta ) ? array() : (array) $attendee_meta;
+		if ( empty( $fields ) ) {
+			return $data;
+		}
+
+		$attendee_id   = $data['id'];
+		$attendee_meta = $meta->get_attendee_meta_values( $ticket_id, $attendee_id );
+
+		$data['information'] = empty( $attendee_meta ) ? [] : (array) $attendee_meta;
 
 		return $data;
 	}
@@ -105,9 +114,9 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 5.4.2
 	 *
-	 * @param array $updated_data Data that needs to be updated.
+	 * @param array           $data Data that needs to be updated.
 	 * @param WP_REST_Request $request Request object.
-	 * @param array $attendee_data Attendee data that will be updated.
+	 * @param array           $attendee Attendee data that will be updated.
 	 *
 	 * @return array | WP_Error
 	 */
@@ -142,7 +151,7 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 5.4.2
 	 *
-	 * @param int $ticket_id Ticket ID.
+	 * @param    int $ticket_id Ticket ID.
 	 * @param array $data Ticket Data.
 	 *
 	 * @return mixed|WP_Error

@@ -91,6 +91,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * The name of the action used to get an account setup to generate use an API.
 	 *
 	 * @since 1.9.0
+	 * @deprecated 1.13.0 - Use Abstract_Actions::$select_action
 	 *
 	 * @var string
 	 */
@@ -100,6 +101,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * The name of the action used to change the status of an account to enabled or disabled.
 	 *
 	 * @since 1.9.0
+	 * @deprecated 1.13.0 - Use Abstract_Actions::$select_action
 	 *
 	 * @var string
 	 */
@@ -109,6 +111,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * The name of the action used to delete an account.
 	 *
 	 * @since 1.9.0
+	 * @deprecated 1.13.0 - Use Abstract_Actions::$select_action
 	 *
 	 * @var string
 	 */
@@ -122,6 +125,15 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * @var Template_Modifications
 	 */
 	protected $template_modifications;
+
+	/**
+	 * The Actions name handler.
+	 *
+	 * @since 1.13.0
+	 *
+	 * @var Abstract_Actions
+	 */
+	protected $actions;
 
 	/**
 	 * Checks whether the current API is ready to use.
@@ -323,6 +335,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 		$this->supports_webinars   = isset( $account['webinars'] ) ? tribe_is_truthy( $account['webinars'] ) : false;
 		$this->account_loaded      = true;
 		$this->loaded_account_name = $account['name'];
+		$this->domain              = isset( $account['domain'] ) ? $account['domain'] : '';
 	}
 
 	/**
@@ -358,6 +371,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * Get list of accounts formatted for options dropdown.
 	 *
 	 * @since 1.9.0
+	 * @since 1.11.0 - Add email to the account list.
 	 *
 	 * @param boolean $all_data Whether to return only active accounts or not.
 	 *
@@ -373,6 +387,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 		foreach ( $available_accounts as $account ) {
 			$name  = Arr::get( $account, 'name', '' );
 			$value = Arr::get( $account, 'id', '' );
+			$email = Arr::get( $account, 'email', '' );
 			$status = Arr::get( $account, 'status', false );
 
 			if ( empty( $name ) || empty( $value ) ) {
@@ -387,6 +402,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 				'text'  => (string) $name,
 				'id'    => (string) $value,
 				'value' => (string) $value,
+				'email' => (string) $email,
 			];
 		}
 
@@ -524,6 +540,39 @@ abstract class Abstract_Account_Api extends Request_Api {
 	}
 
 	/**
+	 * Check if the access token response has the proper credentials.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param array<string,array> $response      An array representing the access token request response, in the format
+	 *                                           returned by WordPress `wp_remote_` functions.
+	 * @param boolean             $check_refresh Whether to check for a refresh token, default true.
+	 *
+	 * @return bool Whether the proper credentials are found.
+	 */
+	protected function has_proper_credentials( array $response, $check_refresh = true ) {
+		if ( ! isset( $response['body'] ) ) {
+			return false;
+		}
+
+		$credentials = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( false === $credentials ) {
+			return false;
+		}
+
+		if ( ! isset( $credentials['access_token'], $credentials['expires_in'] ) ) {
+			return false;
+		}
+
+		if ( $check_refresh && ! isset( $credentials['refresh_token'] ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Save an Account.
 	 *
 	 * @since 1.9.0
@@ -650,6 +699,20 @@ abstract class Abstract_Account_Api extends Request_Api {
 	}
 
 	/**
+	 * Checks whether the current API integration is authorized or not.
+	 *
+	 * The check is made on the existence of the refresh token, with it the token can be fetched on demand when
+	 * required.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @return bool Whether the current API integration is authorized or not.
+	 */
+	public function is_authorized() {
+		return ! empty( $this->refresh_token );
+	}
+
+	/**
 	 * Get a User's information or settings.
 	 *
 	 * @since 1.9.0
@@ -716,7 +779,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * @return bool Whether the request was handled or not.
 	 */
 	public function ajax_status( $nonce = null ) {
-		if ( ! $this->check_ajax_nonce( static::$status_action, $nonce ) ) {
+		if ( ! $this->check_ajax_nonce( $this->actions::$status_action, $nonce ) ) {
 			return false;
 		}
 
@@ -815,7 +878,7 @@ abstract class Abstract_Account_Api extends Request_Api {
 	 * @return bool Whether the request was handled or not.
 	 */
 	public function ajax_delete( $nonce = null ) {
-		if ( ! $this->check_ajax_nonce( static::$delete_action, $nonce ) ) {
+		if ( ! $this->check_ajax_nonce( $this->actions::$delete_action, $nonce ) ) {
 			return false;
 		}
 

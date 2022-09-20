@@ -9,9 +9,11 @@
  *
  * @link    https://evnt.is/1amp Help article for RSVP & Ticket template files.
  *
- * @since   5.3.0
+ * @since 5.3.0
  *
- * @version 5.3.0
+ * @since 5.5.1 Fixed wrong text domain.
+ *
+ * @version 5.5.1
  *
  * @var \Tribe__Template $this             [Global] Template object.
  * @var Module           $provider         [Global] The tickets provider instance.
@@ -39,7 +41,7 @@ if ( ! empty( $iac_field_configuration ) ) {
 	<?php
 	printf(
 		// Translators: %s: The number of the attendee in cart.
-		esc_html__( 'Attendee %d', 'event-tickets' ),
+		esc_html__( 'Attendee %d', 'event-tickets-plus' ),
 		$key
 	);
 	?>

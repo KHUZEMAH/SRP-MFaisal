@@ -1291,4 +1291,62 @@ class Tribe__Tickets_Plus__Meta {
 
 		return true;
 	}
+
+	/**
+	 * Get the readable values of an attendee meta.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @param int $ticket_id The ticket ID.
+	 * @param int $attendee_id The attendee ID.
+	 *
+	 * @return array
+	 */
+	public function get_attendee_meta_values( $ticket_id, $attendee_id ) {
+		$meta_fields   = Tribe__Tickets_Plus__Main::instance()->meta()->get_meta_fields_by_ticket( $ticket_id );
+		$meta_data     = Tribe__Tickets_Plus__Meta::get_attendee_meta_fields( $ticket_id, $attendee_id );
+		$readable_meta = [];
+
+		foreach ( $meta_fields as $field ) {
+			if ( 'checkbox' === $field->type && isset( $field->extra['options'] ) ) {
+				$values = [];
+
+				foreach ( $field->extra['options'] as $option ) {
+					if ( empty( $option ) ) {
+						continue;
+					}
+
+					// Support longer options by using the hash of the string.
+					$key = $field->slug . '_' . md5( sanitize_title( $option ) );
+
+					if ( ! isset( $meta_data[ $key ] ) ) {
+						// Support existing fields that did not save with md5 hash.
+						$key = $field->slug . '_' . sanitize_title( $option );
+					} else {
+						$values[] = $meta_data[ $key ];
+					}
+				}
+
+				// There were no values for this checkbox.
+				if ( empty( $values ) ) {
+					continue;
+				}
+
+				$value = implode( ', ', $values );
+			} elseif ( isset( $meta_data[ $field->slug ] ) ) {
+				$value = $meta_data[ $field->slug ];
+			} else {
+				continue;
+			}
+
+			if ( '' === trim( $value ) ) {
+				$value = '';
+			}
+
+			$readable_meta[ wp_kses_post( $field->label ) ] = wp_kses_post( $value );
+		}
+
+		return $readable_meta;
+
+	}
 }

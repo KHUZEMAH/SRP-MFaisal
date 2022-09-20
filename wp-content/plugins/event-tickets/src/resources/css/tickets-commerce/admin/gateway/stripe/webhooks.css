@@ -28,3 +28,15 @@
 #tribe-field-tickets-commerce-stripe-webhooks-value .tribe-field-tickets-commerce-stripe-webhooks-copy span {
 			line-height: 24px;
 		}
+#tribe-field-tickets-commerce-stripe-webhooks-signing-key .dashicons.dashicons-update {
+			animation: rotate 1s infinite;
+		}
+#tribe-field-tickets-commerce-stripe-webhooks-signing-key .dashicons.dashicons-no {
+			color: var(--tec-color-icon-error);
+		}
+#tribe-field-tickets-commerce-stripe-webhooks-signing-key .dashicons.dashicons-yes {
+			color: #50b078;
+		}
+@keyframes rotate {
+		100% {transform: rotate(360deg);}
+	}

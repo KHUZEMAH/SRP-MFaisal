@@ -2,10 +2,10 @@
 
 Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra, moraleida.me
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
-Requires at least: 5.6
-Tested up to: 5.9.3
-Stable tag: 5.4.4.1
-Requires PHP: 7.1
+Requires at least: 5.8.4
+Tested up to: 6.0.2
+Stable tag: 5.6.0
+Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,7 +67,6 @@ The plugin is produced by <a href="https://evnt.is/1aor">The Events Calendar</a>
 = Current Contributors =
 
 * <a href="https://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="https://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
 * <a href="https://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
 * <a href="https://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="https://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
@@ -78,6 +77,12 @@ The plugin is produced by <a href="https://evnt.is/1aor">The Events Calendar</a>
 = Past Contributors =
 
 * <a href="https://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
+* <a href="https://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
+* <a href="https://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
+* <a href="https://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
+* <a href="https://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
+* <a href="https://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
+* <a href="https://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
 * <a href="https://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
 * <a href="https://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="https://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
@@ -88,11 +93,6 @@ The plugin is produced by <a href="https://evnt.is/1aor">The Events Calendar</a>
 * <a href="https://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="https://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="https://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="https://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
-* <a href="https://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="https://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
-* <a href="https://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
-* <a href="https://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="https://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="https://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="https://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
@@ -134,6 +134,37 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.6.0] 2022-09-06 =
+
+* Version - Event Tickets Plus 5.6.0 is only compatible with Event Tickets 5.5.0 and higher
+* Version - Event Tickets Plus 5.6.0 is only compatible with The Events Calendar 6.0.0 and higher.
+* Enhancement - Adds a compatibility layer to work with the new Recurrence Backend Engine in TEC/ECP.
+* Language - 0 new strings added, 15 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.5.3] 2022-08-15 =
+
+* Fix - Include Attendee Registration Information for authorized requests on the `attendees` REST API endpoint. [ETP-805]
+* Enhancement - Include attendee information for authorized requests on the `qr` REST API endpoint. [ETP-804]
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.5.2] 2022-07-05 =
+
+* Fix - Fixed stock sync for WooCommerce tickets when attendees are moved between tickets. [ETP-687]
+* Fix - Remove duplicate `Total Event Capacity` wording. [ET-1535]
+* Fix - Remove promotion of Event Ticket Plus on Tickets Commerce payments settings page. [ET-1528]
+* Language - 1 new strings added, 21 updated, 0 fuzzied, and 3 obsoleted.
+
+= [5.5.1] 2022-06-08 =
+
+* Enhancement - Attendee Registration settings moved to a separate tab. [ETP-797]
+* Fix - Fixed wrong text domains in few places. [ETP-795]
+
+= [5.5.0] 2022-05-19 =
+
+* Version - Event Tickets Plus 5.5.0 is only compatible with Event Tickets 5.4.0 and higher
+* Feature - Adding compatibility for the new Tickets menu on the WordPress admin. [ET-1335]
+* Language - 0 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.4.4.1] 2022-05-12 =
 

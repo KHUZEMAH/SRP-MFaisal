@@ -31,19 +31,35 @@ class Tribe__Events__Pro__Editor__Configuration implements Tribe__Editor__Config
 			)
 		);
 
+		$admin_page_url = tribe( 'tec.main' )->settings()->get_url( [ 'tab' => 'additional-fields' ] );
+
 		$editor_config['eventsPRO'] = array_merge(
 			(array) $pro,
 			$this->localize(),
-			array(
+			[
 				'additional_fields_tab' => sprintf(
 					'%s%s',
 					trailingslashit( $editor_config['common']['admin_url'] ),
-					'edit.php?page=tribe-common&tab=additional-fields&post_type=tribe_events'
+					$admin_page_url
 				),
-			)
+				'blocks_recurrence_rules' => [
+					'panel_title_text' => __( 'Recurrence Rules', 'tribe-events-calendar-pro' ),
+					'add_rule_text'    => __( 'Add Rule', 'tribe-events-calendar-pro' ),
+					'key_limit'        => 7,
+					'key_limit_type'   => 'count',
+				]
+			]
 		);
 
-		return $editor_config;
+		/**
+		 * Filters the Editor configuration.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<string,mixed> The Editor configuration, in array format, as produced
+		 *                            by The Events Calendar and previous filtering functions.
+		 */
+		return apply_filters( 'tribe_events_pro_editor_config', $editor_config );
 	}
 
 

@@ -23,7 +23,7 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 
 	public function add_menu_item() {
 		add_submenu_page(
-			Tribe__Settings::instance()->get_parent_slug(),
+			tribe( 'tickets.main' )->settings()::$parent_slug,
 			$this->plural_label,
 			$this->plural_label,
 			'edit_posts',

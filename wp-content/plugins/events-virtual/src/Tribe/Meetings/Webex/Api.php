@@ -44,29 +44,19 @@ class Api extends Account_API {
 	 * Api constructor.
 	 *
 	 * @since 1.9.0
+	 * @since 1.13.0 - Add the Action class.
 	 *
-	 * @param Encryption $encryption An instance of the Encryption handler.
+	 * @param Encryption             $encryption             An instance of the Encryption handler.
+	 * @param Template_Modifications $template_modifications An instance of the Template_Modifications handler.
+	 * @param Actions                $actions                An instance of the Actions name handler.
 	 */
-	public function __construct( Encryption $encryption, Template_Modifications $template_modifications ) {
+	public function __construct( Encryption $encryption, Template_Modifications $template_modifications, Actions $actions ) {
 		$this->encryption             = ( ! empty( $encryption ) ? $encryption : tribe( Encryption::class ) );
 		$this->template_modifications = $template_modifications;
+		$this->actions                = $actions;
 
 		// Attempt to load an account.
 		$this->load_account();
-	}
-
-	/**
-	 * Checks whether the current Webex API integration is authorized or not.
-	 *
-	 * The check is made on the existence of the refresh token, with it the token can be fetched on demand when
-	 * required.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool Whether the current Webex API integration is authorized or not.
-	 */
-	public function is_authorized() {
-		return ! empty( $this->refresh_token );
 	}
 
 	/**
@@ -76,7 +66,7 @@ class Api extends Account_API {
 		$refreshed = false;
 
 		$this->post(
-			Url::$token_request_url,
+			Url::$request_url,
 			[
 				'body'    => [
 					'grant_type'    => 'refresh_token',
@@ -87,13 +77,9 @@ class Api extends Account_API {
 		)->then(
 			function ( array $response ) use ( &$id, &$refreshed ) {
 
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['access_token'], $body['refresh_token'], $body['expires_in'] )
-					)
-				) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = $this->has_proper_response_body( $body, [ 'access_token', 'refresh_token', 'expires_in' ] );
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Webex API access token refresh response is malformed.',
@@ -142,13 +128,9 @@ class Api extends Account_API {
 		)->then(
 			function ( array $response ) use ( &$data ) {
 
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['items'] )
-					)
-				) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = $this->has_proper_response_body( $body, [ 'items' ] );
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Webex API meetings is response is malformed.',
@@ -209,13 +191,10 @@ class Api extends Account_API {
 			200
 		)->then(
 			static function ( array $response ) use ( &$data ) {
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = self::has_proper_response_body( $body );
 
-				$body = json_decode( $response['body'] );
-
-				if (
-					! isset( $response['body'] )
-					|| false === ( $body = json_decode( $response['body'], true ) )
-				) {
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Webex API user response is malformed.',
@@ -296,13 +275,10 @@ class Api extends Account_API {
 			200
 		)->then(
 			static function ( array $response ) use ( &$data ) {
-				$body = json_decode( $response['body'] );
+				$body     = json_decode( wp_remote_retrieve_body( $response ), true );
+				$body_set = self::has_proper_response_body( $body, [ 'items' ] );
 
-				if (
-					! isset( $response['body'] )
-					|| false === ( $body = json_decode( $response['body'], true ) )
-					|| ! isset( $body['items'] )
-				) {
+				if ( ! $body_set ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Webex API users response is malformed.',
@@ -348,5 +324,27 @@ class Api extends Account_API {
 			'events-virtual'
 			)
 		);
+	}
+
+	/**
+	 * Filters the API error message.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param string              $api_message The API error message.
+	 * @param array<string,mixed> $body        The json_decoded request body.
+	 * @param Api_Response        $response    The response that will be returned. A non `null` value
+	 *                                         here will short-circuit the response.
+	 *
+	 * @return string              $api_message        The API error message.
+	 */
+	public function filter_api_error_message( $api_message, $body, $response ) {
+		if ( ! isset( $body['errors'][0]['description'] ) ) {
+			return $api_message;
+		}
+
+		$api_message .=  ' API Error: ' . $body['errors'][0]['description'];
+
+		return $api_message;
 	}
 }

@@ -13,6 +13,7 @@ use Tribe\Events\Virtual\Meetings\Zoom\Api;
 use Tribe\Events\Virtual\Meetings\Zoom\Event_Meta as Zoom_Meta;
 use Tribe\Events\Virtual\Meetings\Zoom\OAuth;
 use Tribe\Events\Virtual\Meetings\Zoom\Settings;
+use Tribe\Events\Virtual\Meetings\Zoom\Url;
 use Tribe__Events__Updater;
 
 /**
@@ -93,7 +94,7 @@ class Updater extends Tribe__Events__Updater {
 	public function migrate_zoom_account( $api, $refresh_token ) {
 		$refreshed = false;
 		$api->post(
-			OAuth::$token_request_url,
+			Url::$refresh_url,
 			[
 				'body'    => [
 					'grant_type'    => 'refresh_token',
@@ -103,14 +104,8 @@ class Updater extends Tribe__Events__Updater {
 			200
 		)->then(
 			function ( array $response ) use ( &$api, &$refreshed ) {
-
-				if (
-					! (
-						isset( $response['body'] )
-						&& false !== ( $body = json_decode( $response['body'], true ) )
-						&& isset( $body['access_token'], $body['refresh_token'], $body['expires_in'] )
-					)
-				) {
+				$body = json_decode( wp_remote_retrieve_body( $response ), true );
+				if ( ! isset( $body['access_token'], $body['refresh_token'], $body['expires_in'] ) ) {
 					do_action( 'tribe_log', 'error', __CLASS__, [
 						'action'   => __METHOD__,
 						'message'  => 'Zoom account migration could not be completed, please manually add your account on the Settings/API section.',
@@ -187,8 +182,8 @@ class Updater extends Tribe__Events__Updater {
 			}
 
 			// If a virtual event has zoom as the meeting provider
-			if ( Zoom_Meta::$key_zoom_source_id === $event->virtual_meeting_provider ) {
-				update_post_meta( $event_id, Event_Meta::$key_video_source, Zoom_Meta::$key_zoom_source_id );
+			if ( Zoom_Meta::$key_source_id === $event->virtual_meeting_provider ) {
+				update_post_meta( $event_id, Event_Meta::$key_video_source, Zoom_Meta::$key_source_id );
 
 				continue;
 			}

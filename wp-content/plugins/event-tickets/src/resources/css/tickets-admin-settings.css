@@ -645,7 +645,7 @@
  * @since 5.1.10
  */
 
-.event-tickets__admin-banner {
+.tec-tickets__admin-banner {
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-left: 5px solid #50b078;
@@ -654,28 +654,28 @@
 	padding: 8px 24px 12px;
 }
 
-.event-tickets__admin-banner a {
+.tec-tickets__admin-banner a {
 		text-decoration: none;
 	}
 
-.event-tickets__admin-banner p.event-tickets__admin-banner-help-text {
+.tec-tickets__admin-banner p.tec-tickets__admin-banner-help-text {
 		max-width: 690px;
 	}
 
-.event-tickets__admin-banner-help-links-wrapper {
+.tec-tickets__admin-banner-help-links-wrapper {
 	display: flex;
 	max-width: 690px;
 }
 
-.event-tickets__admin-banner-help-links-wrapper div {
+.tec-tickets__admin-banner-help-links-wrapper div {
 		min-width: 50%;
 	}
 
-.event-tickets__admin-banner-links h3 {
+.tec-tickets__admin-banner-links h3 {
 	font-size: 14px;
 }
 
-.event-tickets__admin-banner-links-link-label--new {
+.tec-tickets__admin-banner-links-link-label--new {
 	background-color: #ffcf48;
 	border-radius: 80px;
 	color: #23282d;
@@ -686,7 +686,7 @@
 	text-transform: uppercase;
 }
 
-.event-tickets__admin-tc-banner-header-title {
+.tec-tickets__admin-tc-banner-header-title {
 	font-family: var(--tec-font-family-sans-serif);
 	font-size: var(--tec-font-size-5);
 	line-height: var(--tec-line-height-0);
@@ -694,7 +694,7 @@
 	padding: 0;
 }
 
-.event-tickets__admin-tc-banner-label--new {
+.tec-tickets__admin-tc-banner-label--new {
 	background-color: #ffcf48;
 	border-radius: 80px;
 	color: #23282d;
@@ -708,14 +708,14 @@
 	text-transform: uppercase;
 }
 
-.event-tickets__admin-tc-banner-header {
+.tec-tickets__admin-tc-banner-header {
 	align-items: center;
 	display: flex;
 	justify-content: start;
 	padding-top: var(--tec-spacer-4);
 }
 
-.event-tickets__admin-tc-banner-footer {
+.tec-tickets__admin-tc-banner-footer {
 	align-items: center;
 	display: flex;
 	justify-content: start;
@@ -723,7 +723,7 @@
 	padding-top: var(--tec-spacer-3);
 }
 
-.event-tickets__admin-tc-banner-button {
+.tec-tickets__admin-tc-banner-button {
 	color: var(--tec-color-text-primary);
 	font-family: var(--tec-font-family-sans-serif);
 	font-size: var(--tec-font-size-2);
@@ -748,21 +748,21 @@
 	padding: var(--tec-spacer-1) var(--tec-spacer-5);
 }
 
-.event-tickets__admin-tc-banner-button:active,
-	.event-tickets__admin-tc-banner-button:focus,
-	.event-tickets__admin-tc-banner-button:hover {
+.tec-tickets__admin-tc-banner-button:active,
+	.tec-tickets__admin-tc-banner-button:focus,
+	.tec-tickets__admin-tc-banner-button:hover {
 		background-color: var(--tec-color-accent-primary-hover);
 		color: #fff;
 	}
 
-a.event-tickets__admin-tc-banner-link {
+a.tec-tickets__admin-tc-banner-link {
 	color: #405bfb;
 	text-decoration: underline;
 }
 
-a.event-tickets__admin-tc-banner-link:active,
-	a.event-tickets__admin-tc-banner-link:focus,
-	a.event-tickets__admin-tc-banner-link:hover {
+a.tec-tickets__admin-tc-banner-link:active,
+	a.tec-tickets__admin-tc-banner-link:focus,
+	a.tec-tickets__admin-tc-banner-link:hover {
 		color: var(--tec-color-accent-primary-hover);
 		text-decoration: none;
 	}
@@ -1412,18 +1412,18 @@ body.events-cal .tribe-common div.tribe-dialog, body.events-cal .event-tickets d
 
 @media (min-width: 960px) {
 
-.event-tickets__admin-banner {
+.tec-tickets__admin-banner {
 		background-image: url("../images/background-tickets-notice.png");
 		background-position: top right;
 		background-repeat: no-repeat;
 		background-size: contain
 }
 
-.event-tickets__admin-tc-banner {
+.tec-tickets__admin-tc-banner {
 		background-image: url("../images/background-tc-banner.png")
 }
 
-.event-tickets__admin-tc-banner-content {
+.tec-tickets__admin-tc-banner-content {
 		max-width: calc(100% - 450px)
 }
 	}

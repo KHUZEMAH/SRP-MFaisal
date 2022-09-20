@@ -9,11 +9,13 @@
  *
  * @link    https://evnt.is/1amp Help article for RSVP & Ticket template files.
  *
- * @since   5.3.0
+ * @since 5.3.0
  *
  * @since 5.4.2 Added $attendees_with_arf template var to dynamically change the modify attendees link label.
  *
- * @version 5.4.2
+ * @since 5.5.1 Fixed wrong text domains.
+ *
+ * @version 5.5.1
  *
  * @var \Tribe__Template $this             [Global] Template object.
  * @var Module           $provider         [Global] The tickets provider instance.
@@ -37,4 +39,4 @@ if ( empty( $items ) || empty( $attendees_with_arf ) ) {
 <a
 	class="tribe-common-anchor-alt tribe-tickets__commerce-checkout-header-link-modify-attendees"
 	href="<?php echo esc_url( $attendee_registration_url ); ?>"
-><?php echo _n( 'modify attendee', 'modify attendees', $attendees_with_arf, 'event-tickets' ); ?></a>
+><?php echo _n( 'modify attendee', 'modify attendees', $attendees_with_arf, 'event-tickets-plus' ); ?></a>

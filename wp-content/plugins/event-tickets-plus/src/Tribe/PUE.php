@@ -40,7 +40,7 @@ class Tribe__Tickets_Plus__PUE {
 	/**
 	 * Gets the PUE instance used for validation.
 	 *
-	 * @since TBD
+	 * @since 4.15.0
 	 *
 	 * @return Tribe__PUE__Checker
 	 */

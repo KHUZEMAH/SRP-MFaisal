@@ -28,6 +28,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 		// Loads all of tickets commerce.
 		$this->container->register( Commerce\Provider::class );
 		$this->container->register( Commerce\Gateways\Stripe\Provider::class );
+
+		// Loads Admin Providers.
+		$this->container->register( Admin\Tabs\Provider::class );
 	}
 
 	/**
