@@ -167,7 +167,7 @@ EOT;
 					'href'  => \esc_attr(\add_query_arg(
 						array(
 							'page' => LWS_WOOREWARDS_PAGE.'.loyalty',
-							'tab' => $this->tab.'wr_upool_'.((isset($data['name']) && $data['name']) ? $data['name'] : $id),
+							'tab' => $this->tab . 'wr_upool_' . $id,
 						),
 						\admin_url('admin.php')
 					)),

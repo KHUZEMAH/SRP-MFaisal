@@ -21,11 +21,13 @@ class AvailableRewards
 	function registerScripts()
 	{
 		\wp_register_style('wr-available-rewards', LWS_WOOREWARDS_PRO_CSS . '/shortcodes/available-rewards.min.css', array(), LWS_WOOREWARDS_PRO_VERSION);
+		\wp_register_script('wr-available-rewards', LWS_WOOREWARDS_PRO_JS . '/shortcodes/reward-redeem-security.js', array('jquery'), LWS_WOOREWARDS_PRO_VERSION);
 	}
 
 	protected function enqueueScripts()
 	{
 		\wp_enqueue_style('wr-available-rewards');
+		\wp_enqueue_script('wr-available-rewards');
 	}
 
 	/** Get the shortcode admin */
@@ -128,10 +130,10 @@ class AvailableRewards
 		return $fields;
 	}
 
-	/** Shows methods to earn points
+	/** Shows redeemable rewards
 	 * [wr_available_rewards systems='poolname1, poolname2']
 	 * @param system 		→ Default: ''
-	 * 					  	  The points and rewards systems for which the methods to earn points are displayed. If empty, show all active systems
+	 * 					  	  The points and rewards systems for which the rewards points are displayed. If empty, show all active systems
 	 * 					  	  One value or several ones, comma separated
 	 * @param layout 		→ Default: 'vertical'
 	 * 					  	  Defines the presentation of the wrapper.
@@ -246,7 +248,7 @@ class AvailableRewards
 			</div>
 		</div>
 		<div class='apply-button'>
-			<a class='button' href='{$btUrl}'>$btText</a>
+			<div class='button lws-reward-redeem' data-href='{$btUrl}'>$btText</div>
 		</div>
 	</div>
 EOT;

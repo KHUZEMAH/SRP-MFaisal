@@ -32,6 +32,9 @@ class Help extends \LWS\Adminpanel\Pages\Field
 				$icon = 'lws-icon-bulb';
 				$class .= ' lws-help';
 		}
+		if (\is_array($this->content))
+			$this->content = \lws_array_to_html($this->content);
+
 		$id = \esc_attr(empty($this->id()) ? \md5($this->content) : $this->id());
 		echo <<<EOT
 <div class='{$class}' id='{$id}'>

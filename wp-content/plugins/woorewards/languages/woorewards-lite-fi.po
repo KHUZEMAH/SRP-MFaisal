@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 16:04+0100\n"
-"PO-Revision-Date: 2022-01-24 16:04+0100\n"
+"POT-Creation-Date: 2022-04-27 09:17+0200\n"
+"PO-Revision-Date: 2022-04-27 09:17+0200\n"
 "Last-Translator: mobiilihuolto <info@mobiilihuolto.com>\n"
 "Language-Team: Suomi\n"
 "Language: fi\n"
@@ -43,15 +43,15 @@ msgctxt "cooldown display"
 msgid "Max. %2$s times per %1$s"
 msgstr ""
 
-#: include/abstracts/event.php:232 include/ui/editlists/eventlist.php:16
+#: include/abstracts/event.php:233 include/ui/editlists/eventlist.php:16
 msgid "Action to perform"
 msgstr "Toimenpide"
 
-#: include/abstracts/event.php:234
+#: include/abstracts/event.php:235
 msgid "Action"
 msgstr ""
 
-#: include/abstracts/event.php:239
+#: include/abstracts/event.php:240
 #, fuzzy
 #| msgid "Action to perform"
 msgctxt "Event title"
@@ -69,18 +69,34 @@ msgctxt "Event point multiplier"
 msgid "Earned points"
 msgstr "Ansaitut pisteet"
 
-#: include/abstracts/event.php:257
+#: include/abstracts/event.php:250
+#, php-format
+msgid "Expects an integer or an expression starting by %s"
+msgstr ""
+
+#: include/abstracts/event.php:261
+msgctxt "Event point multiplier"
+msgid "Alternative points text"
+msgstr ""
+
+#: include/abstracts/event.php:262
+msgid ""
+"What Earned points value is shown to your customer instead of the formula "
+"above when the expression cannot be resolved on the fly"
+msgstr ""
+
+#: include/abstracts/event.php:278
 msgctxt "Event cooldown"
 msgid "Cooldown"
 msgstr ""
 
-#: include/abstracts/event.php:258
+#: include/abstracts/event.php:279
 msgid ""
 "Allow this event to be counted no more than X times per time interval or let "
 "it empty for no limit."
 msgstr ""
 
-#: include/abstracts/event.php:260
+#: include/abstracts/event.php:281
 #, fuzzy, php-format
 #| msgctxt "Point per money spent"
 #| msgid "%1$s %2$s / %3$s %4$s"
@@ -88,167 +104,195 @@ msgctxt "cooldown edition"
 msgid "Max %1$s times / %2$s"
 msgstr "%1$s %2$s / %3$s %4$s"
 
-#: include/abstracts/event.php:276
+#: include/abstracts/event.php:297
 #, fuzzy
 #| msgid "Points Needed"
 msgctxt "Event points delay"
 msgid "Points delay"
 msgstr "Pisteitä tarvitaan"
 
-#: include/abstracts/event.php:277
+#: include/abstracts/event.php:298
 msgid "If set, points will only be given after the delay you set here"
 msgstr ""
 
-#: include/abstracts/event.php:288
+#: include/abstracts/event.php:309
 #, fuzzy
 #| msgid "Earned points"
 msgctxt "Event points occurences"
 msgid "Repeated points"
 msgstr "Ansaitut pisteet"
 
-#: include/abstracts/event.php:289
+#: include/abstracts/event.php:310
 msgid "Set how many times points will be given and at what periodicity"
 msgstr ""
 
-#: include/abstracts/event.php:291
+#: include/abstracts/event.php:312
 #, php-format
 msgctxt "occurences edition"
 msgid "%1$s occurence(s) | one every %2$s"
 msgstr ""
 
-#: include/abstracts/event.php:337 include/ui/editlists/eventlist.php:14
+#: include/abstracts/event.php:360 include/ui/editlists/eventlist.php:14
 msgid "Earned points"
 msgstr "Ansaitut pisteet"
 
-#: include/abstracts/event.php:338 include/abstracts/event.php:551
-#: include/abstracts/unlockable.php:171 include/abstracts/unlockable.php:334
-#: include/core/pool.php:664 include/ui/legacy/pointsdisplayer.php:91
+#: include/abstracts/event.php:361 include/abstracts/event.php:590
+#, fuzzy
+#| msgid "Earned points"
+msgid "Earned points alternative text"
+msgstr "Ansaitut pisteet"
+
+#: include/abstracts/event.php:362 include/abstracts/event.php:588
+#: include/abstracts/unlockable.php:184 include/abstracts/unlockable.php:351
+#: include/core/pool.php:676 include/ui/legacy/pointsdisplayer.php:91
 msgid "Title"
 msgstr "Otsikko"
 
-#: include/abstracts/event.php:339
+#: include/abstracts/event.php:363
 msgid "Cooldown (action count)"
 msgstr ""
 
-#: include/abstracts/event.php:340
+#: include/abstracts/event.php:364
 msgid "Cooldown (period)"
 msgstr ""
 
-#: include/abstracts/event.php:341
+#: include/abstracts/event.php:365
 msgid "Delay"
 msgstr ""
 
-#: include/abstracts/event.php:342
+#: include/abstracts/event.php:366
 msgid "Occurences"
 msgstr ""
 
-#: include/abstracts/event.php:343
+#: include/abstracts/event.php:367
 msgid "Occurences (period)"
 msgstr ""
 
-#: include/abstracts/event.php:546
+#: include/abstracts/event.php:583
 msgid "Error occured during rewarding event saving."
 msgstr "Palkitsemistapahtuman tallennuksen aikana sattui virhe."
 
-#: include/abstracts/event.php:789 include/abstracts/unlockable.php:775
+#: include/abstracts/event.php:789
+#, fuzzy
+#| msgid "Variable Discount"
+msgctxt "event points expression alternative"
+msgid "Variable"
+msgstr "Alennusprosentti"
+
+#: include/abstracts/event.php:981 include/abstracts/unlockable.php:839
 msgid "Standard"
 msgstr "Vakio"
 
-#: include/abstracts/event.php:790 include/abstracts/unlockable.php:776
+#: include/abstracts/event.php:982 include/abstracts/unlockable.php:840
 #, fuzzy
 #| msgid "Levelling"
 msgid "Leveling"
 msgstr "Tasojärjestelmä"
 
-#: include/abstracts/event.php:791
+#: include/abstracts/event.php:983
 msgid "Achievement"
 msgstr "Saavutus"
 
-#: include/abstracts/event.php:792 include/abstracts/unlockable.php:777
+#: include/abstracts/event.php:984 include/abstracts/unlockable.php:841
 msgid "Events"
 msgstr "Tapahtumat"
 
-#: include/abstracts/unlockable.php:83
+#: include/abstracts/unlockable.php:85
 msgid "Reward Information"
 msgstr "Palkintotiedot"
 
-#: include/abstracts/unlockable.php:85
+#: include/abstracts/unlockable.php:87
 msgid "Reward type"
 msgstr "Palkintolaji"
 
 # Avattava otsikko
-#: include/abstracts/unlockable.php:90
+#: include/abstracts/unlockable.php:92
 msgctxt "Unlockable title"
 msgid "Title"
 msgstr "Otsikko"
 
-#: include/abstracts/unlockable.php:97
+#: include/abstracts/unlockable.php:99
 msgctxt "Unlockable title"
 msgid "Description"
 msgstr "Kuvaus"
 
-#: include/abstracts/unlockable.php:106
+#: include/abstracts/unlockable.php:108
 msgctxt "Unlockable Thumbnail"
 msgid "Featured Image"
 msgstr "Esitetty kuva"
 
-#: include/abstracts/unlockable.php:119
+#: include/abstracts/unlockable.php:121
 msgid "Reward Settings"
 msgstr "Palkintoasetukset"
 
-#: include/abstracts/unlockable.php:122
+#: include/abstracts/unlockable.php:124
 msgctxt "Unlockable cost"
 msgid "Points needed"
 msgstr "Pisteitä tarvitaan"
 
-#: include/abstracts/unlockable.php:128
+#: include/abstracts/unlockable.php:130
 msgctxt "Unlockable cost"
 msgid "Send Reward email"
 msgstr ""
 
-#: include/abstracts/unlockable.php:170
+#: include/abstracts/unlockable.php:138
+msgctxt "Unlockable max redeems"
+msgid "Max Redeems"
+msgstr ""
+
+#: include/abstracts/unlockable.php:139
+msgid ""
+"Define how many times this reward can be redeemed by customers. Leave empty "
+"or set to 0 for no limits"
+msgstr ""
+
+#: include/abstracts/unlockable.php:183
 msgid "Cost"
 msgstr "Hinta"
 
-#: include/abstracts/unlockable.php:172 include/abstracts/unlockable.php:336
+#: include/abstracts/unlockable.php:185 include/abstracts/unlockable.php:353
 #: include/ui/admin.php:97 include/ui/shortcodes/userhistory.php:162
 msgid "Description"
 msgstr "Kuvaus"
 
-#: include/abstracts/unlockable.php:173
+#: include/abstracts/unlockable.php:186
 msgid "Validity Starting Date"
 msgstr "Voimassaolon alkamispäivä"
 
-#: include/abstracts/unlockable.php:174
+#: include/abstracts/unlockable.php:187
 msgid "Validity Ending Date"
 msgstr "Voimassaolon päättymispäivä"
 
-#: include/abstracts/unlockable.php:175
+#: include/abstracts/unlockable.php:188
 msgid "Featured Image"
 msgstr "Esitetty kuva"
 
-#: include/abstracts/unlockable.php:176
+#: include/abstracts/unlockable.php:189
 msgid "Enable Reward email"
 msgstr ""
 
-#: include/abstracts/unlockable.php:177
+#: include/abstracts/unlockable.php:190
+msgid "Max Redeems"
+msgstr ""
+
+#: include/abstracts/unlockable.php:191
 msgid "Level Title"
 msgstr "Taso otsikko"
 
-#: include/abstracts/unlockable.php:329
+#: include/abstracts/unlockable.php:346
 msgid "Error occured during unlockable reward saving."
 msgstr "Lukitsemattoman palkisemisen tallennuksen aikana  sattui virhe."
 
-#: include/abstracts/unlockable.php:338
+#: include/abstracts/unlockable.php:355
 msgid "Level"
 msgstr "Taso"
 
-#: include/abstracts/unlockable.php:740
+#: include/abstracts/unlockable.php:804
 msgctxt "Cannot be redeemed"
 msgid "Not redeemable"
 msgstr "Ei lunastettavissa"
 
-#: include/abstracts/unlockable.php:742
+#: include/abstracts/unlockable.php:806
 #, php-format
 msgctxt "Out of valid date range"
 msgid "%d [Delayed]"
@@ -288,16 +332,16 @@ msgstr "Yhdistä %s"
 msgid "Lost due to inactivity"
 msgstr "Kadonnut toimettomuuden vuoksi"
 
-#: include/core/pool.php:656
+#: include/core/pool.php:668
 msgid "Error occured during reward system saving."
 msgstr "Palkitsemisjärjestelmän tallennuksen aikana sattui virhe."
 
-#: include/core/pool.php:717
+#: include/core/pool.php:729
 #, php-format
 msgid "Failed to delete the reward system <b>%s</b>/%s."
 msgstr "Ei voitu poistaa palkintojärjestelmää <b>%s</b>/%s."
 
-#: include/core/pool.php:737
+#: include/core/pool.php:749
 #, php-format
 msgid "The reward system <b>%s</b>/%s successfully deleted."
 msgstr "Palkkiojärjestelmä <b>%s</b>/%s poistettiin onnistuneesti."
@@ -330,19 +374,19 @@ msgstr ""
 msgid "Event Priority"
 msgstr ""
 
-#: include/events/firstorder.php:180 include/events/orderamount.php:316
-#: include/events/ordercompleted.php:137 include/events/productreview.php:231
-#: include/ui/admin.php:389 include/ui/admin.php:730
-#: include/unlockables/coupon.php:462
+#: include/events/firstorder.php:183 include/events/orderamount.php:320
+#: include/events/ordercompleted.php:140 include/events/productreview.php:234
+#: include/ui/admin.php:389 include/ui/admin.php:739
+#: include/unlockables/coupon.php:461
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: include/events/firstorder.php:181 include/events/orderamount.php:318
-#: include/events/ordercompleted.php:138
+#: include/events/firstorder.php:184 include/events/orderamount.php:322
+#: include/events/ordercompleted.php:141
 msgid "Order"
 msgstr "Tilaus"
 
-#: include/events/firstorder.php:188
+#: include/events/firstorder.php:191
 #, php-format
 msgid "First customer order #%s"
 msgstr "Ensimmäinen asiakastilaus #%s"
@@ -392,12 +436,12 @@ msgctxt "getDisplayType"
 msgid "Spend money"
 msgstr "Käytä rahaa"
 
-#: include/events/orderamount.php:246
+#: include/events/orderamount.php:255
 #, php-format
 msgid "Spent %1$s from order #%2$s"
 msgstr "Käytä %1$s tilauksesta #%2$s"
 
-#: include/events/orderamount.php:302
+#: include/events/orderamount.php:308
 #, fuzzy, php-format
 #| msgctxt "Point per money spent"
 #| msgid "%1$s %2$s / %3$s %4$s"
@@ -405,7 +449,7 @@ msgctxt "Point per money spent"
 msgid "%1$s / %2$s"
 msgstr "%1$s %2$s / %3$s %4$s"
 
-#: include/events/orderamount.php:317
+#: include/events/orderamount.php:321
 msgid "Money"
 msgstr "Raha"
 
@@ -422,7 +466,7 @@ msgctxt "getDisplayType"
 msgid "Place an order"
 msgstr "Välitä tilaus"
 
-#: include/events/ordercompleted.php:129
+#: include/events/ordercompleted.php:132
 #, php-format
 msgid "Order #%s completed"
 msgstr "Tilaus #%s vahvistettu"
@@ -461,12 +505,12 @@ msgctxt "getDisplayType"
 msgid "Product review"
 msgstr "Tuotteet"
 
-#: include/events/productreview.php:167
+#: include/events/productreview.php:170
 #, php-format
 msgid "Review about a product (%s)"
 msgstr ""
 
-#: include/events/productreview.php:232
+#: include/events/productreview.php:235
 #, fuzzy
 #| msgctxt "Option Group"
 #| msgid "Website"
@@ -493,27 +537,31 @@ msgstr "Sait juuri uuden palkkion!"
 msgid "Powered by MyRewards"
 msgstr "Powered by MyRewards"
 
-#: include/mails/newreward.php:51
+#: include/mails/newreward.php:41
+msgid "Enabled"
+msgstr ""
+
+#: include/mails/newreward.php:61
 msgid "That feature requires WooCommerce."
 msgstr "Tämä ominaisuus vaatii WooCommerce."
 
-#: include/mails/newreward.php:67
+#: include/mails/newreward.php:77
 msgid "Expiration Date"
 msgstr "Voimassaolopäivä"
 
-#: include/mails/newreward.php:68
+#: include/mails/newreward.php:78
 msgid "Coupon Details"
 msgstr "Kupongin lisätiedot"
 
-#: include/mails/newreward.php:69
+#: include/mails/newreward.php:79
 msgid "Coupon Code"
 msgstr "Kupongin koodi"
 
-#: include/mails/newreward.php:70
+#: include/mails/newreward.php:80
 msgid "Coupon Value"
 msgstr "Kupongin arvo"
 
-#: include/mails/newreward.php:74
+#: include/mails/newreward.php:84
 msgctxt "permanent coupon"
 msgid "(reusable)"
 msgstr "(uudelleen käytettävä)"
@@ -588,37 +636,37 @@ msgctxt "order note"
 msgid "Use <i>%1$s</i> from <i>%2$s</i> to get a discount on this order"
 msgstr ""
 
-#: include/pointdiscount.php:509
+#: include/pointdiscount.php:511
 #, fuzzy, php-format
 #| msgid "Spent %1$s from order #%2$s"
 msgid "Reward from %1$s on Order #%2$s"
 msgstr "Käytä %1$s tilauksesta #%2$s"
 
-#: include/pointdiscount.php:526
+#: include/pointdiscount.php:528
 msgid "Action control failed. Try to refresh the page."
 msgstr ""
 
-#: include/pointdiscount.php:530
+#: include/pointdiscount.php:532
 msgid "A connected user is required."
 msgstr ""
 
-#: include/pointdiscount.php:533
+#: include/pointdiscount.php:535
 msgid "Missing destination or bad format."
 msgstr ""
 
-#: include/pointdiscount.php:536
+#: include/pointdiscount.php:538
 msgid "Cannot load the Cart. Operation aborted."
 msgstr ""
 
-#: include/pointdiscount.php:540
+#: include/pointdiscount.php:542
 msgid "Points and Rewards System missing or access not granted."
 msgstr ""
 
-#: include/pointdiscount.php:542
+#: include/pointdiscount.php:544
 msgid "Points and Rewards System does not accept this kind of reward."
 msgstr ""
 
-#: include/pointdiscount.php:571
+#: include/pointdiscount.php:573
 #, fuzzy, php-format
 #| msgid "Spent %1$s from order #%2$s"
 msgid "Use %1$s from %2$s"
@@ -657,7 +705,7 @@ msgstr "Pisteiden historia"
 msgid "Date"
 msgstr "Päivämäärä"
 
-#: include/ui/admin.php:99 include/ui/admin.php:1037
+#: include/ui/admin.php:99 include/ui/admin.php:1046
 #: include/ui/legacy/pointsdisplayer.php:193
 #: include/ui/shortcodes/userhistory.php:163 woorewards.php:238
 msgid "Points"
@@ -1032,115 +1080,128 @@ msgstr ""
 "haluat käyttää sen sijaan koko tila uksen tilaa (suositellaan uudelleen), "
 "tarkista alla oleva ruutu"
 
-#: include/ui/admin.php:443
+#: include/ui/admin.php:440
+#, fuzzy
+#| msgid "Customer Email"
+msgid "Deep customer search"
+msgstr "Asiakkaan sähköposti"
+
+#: include/ui/admin.php:444
+msgid ""
+"If you have troubles with searching in WooRewards Customers administration "
+"screen, disable this option. This will speed up the search but it will take "
+"less data into account."
+msgstr ""
+
+#: include/ui/admin.php:452
 msgid "Order statuses to consume used points"
 msgstr ""
 
-#: include/ui/admin.php:444
+#: include/ui/admin.php:453
 msgid "Points used to get a discount are consumed when order status changes."
 msgstr ""
 
-#: include/ui/admin.php:448
+#: include/ui/admin.php:457
 msgid "Order statuses to pay discount"
 msgstr ""
 
-#: include/ui/admin.php:457
+#: include/ui/admin.php:466
 msgid "Order status on payment failure"
 msgstr ""
 
-#: include/ui/admin.php:462
+#: include/ui/admin.php:471
 msgid "[do nothing]"
 msgstr ""
 
-#: include/ui/admin.php:465
+#: include/ui/admin.php:474
 msgid "Change order status if points cannot be paid after all."
 msgstr ""
 
-#: include/ui/admin.php:480
+#: include/ui/admin.php:489
 msgid ""
 "Set the appearance of everything your customers will see on your website "
 "regarding loyalty systems : "
 msgstr ""
 
-#: include/ui/admin.php:481
+#: include/ui/admin.php:490
 #, fuzzy
 #| msgid "Widgets"
 msgid "Widgets :"
 msgstr "Widgetit"
 
-#: include/ui/admin.php:482
+#: include/ui/admin.php:491
 msgid "Setup the widgets/shortcodes options and appearance"
 msgstr ""
 
-#: include/ui/admin.php:483
+#: include/ui/admin.php:492
 #, fuzzy
 #| msgid "Emails"
 msgid "Emails :"
 msgstr "Sähköpostit"
 
-#: include/ui/admin.php:484
+#: include/ui/admin.php:493
 msgid "Customize emails sent to your customers"
 msgstr ""
 
-#: include/ui/admin.php:485
+#: include/ui/admin.php:494
 msgid "Popup :"
 msgstr ""
 
-#: include/ui/admin.php:486
+#: include/ui/admin.php:495
 msgid ""
 "Setup the popup that your customers see when they unlock a reward (Pro "
 "Version Only)"
 msgstr ""
 
-#: include/ui/admin.php:489 include/ui/admin.php:490
+#: include/ui/admin.php:498 include/ui/admin.php:499
 msgid "Appearance"
 msgstr ""
 
-#: include/ui/admin.php:506 include/ui/editlists/userspoints.php:148
+#: include/ui/admin.php:515
 msgid "Emails"
 msgstr "Sähköpostit"
 
-#: include/ui/admin.php:522
+#: include/ui/admin.php:531
 msgid "Manage different system related options :"
 msgstr ""
 
-#: include/ui/admin.php:523
+#: include/ui/admin.php:532
 #, fuzzy
 #| msgid "Place an order"
 msgid "Process past orders :"
 msgstr "Välitä tilaus"
 
-#: include/ui/admin.php:524
+#: include/ui/admin.php:533
 msgid ""
 "Process existing orders to give points for orders placed before the loyalty "
 "program"
 msgstr ""
 
-#: include/ui/admin.php:525
+#: include/ui/admin.php:534
 msgid "Database :"
 msgstr ""
 
-#: include/ui/admin.php:526
+#: include/ui/admin.php:535
 msgid "Manage MyRewards data in the database"
 msgstr ""
 
-#: include/ui/admin.php:529 include/ui/admin.php:530
+#: include/ui/admin.php:538 include/ui/admin.php:539
 #, fuzzy
 #| msgid "Loyalty System"
 msgid "System"
 msgstr "Kanta-asiakasjärjestelmä"
 
-#: include/ui/admin.php:544
+#: include/ui/admin.php:553
 #, fuzzy
 #| msgid "Points Management"
 msgid "Data Management"
 msgstr "Pisteiden hallinta"
 
-#: include/ui/admin.php:550
+#: include/ui/admin.php:559
 msgid "Give Points for Past orders"
 msgstr "Anna pisteitä aikaisemmille tila uksille"
 
-#: include/ui/admin.php:551
+#: include/ui/admin.php:560
 msgid ""
 "If you want to give points for orders that pre-existed your loyalty system, "
 "you can do it here"
@@ -1148,7 +1209,7 @@ msgstr ""
 "Jos haluat antaa pisteitä tila uksille, jotka ovat jo olemassa kanta-"
 "asiakkuus järjestelmääsi, voit tehdä sen täällä"
 
-#: include/ui/admin.php:552
+#: include/ui/admin.php:561
 msgid ""
 "This operation can take several minutes. Depending on you server "
 "configuration and date range, you should run this operation several times on "
@@ -1158,309 +1219,309 @@ msgstr ""
 "päivämäärä alueesta riippuen tämä toiminto kannattaa suorittaa useita "
 "kertoja lyhyiden päivä määrien rajoissa."
 
-#: include/ui/admin.php:556
+#: include/ui/admin.php:565
 msgid "Start date"
 msgstr "Aloituspäivä"
 
-#: include/ui/admin.php:567
+#: include/ui/admin.php:576
 msgid "End date"
 msgstr "Päättymispäivä"
 
-#: include/ui/admin.php:578
+#: include/ui/admin.php:587 include/ui/admin.php:1169
 msgid "Launch the procedure"
 msgstr "Käynnistä toiminto sarja"
 
-#: include/ui/admin.php:588
+#: include/ui/admin.php:597
 msgid "Delete all data"
 msgstr ""
 
-#: include/ui/admin.php:590
+#: include/ui/admin.php:599
 msgid "Remove all loyalty systems, user points and all MyRewards related data."
 msgstr ""
 
-#: include/ui/admin.php:591
+#: include/ui/admin.php:600
 msgid "Use this feature with care since this action is <b>irreversible</b>."
 msgstr ""
 
-#: include/ui/admin.php:595 include/ui/admin.php:1207
+#: include/ui/admin.php:604 include/ui/admin.php:1233
 msgid "Delete All Data"
 msgstr ""
 
-#: include/ui/admin.php:615
+#: include/ui/admin.php:624
 #, php-format
 msgid "Next CRON action planned at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:617
+#: include/ui/admin.php:626
 msgid ""
 "CRON action is not registered. To fix it, deactivate then re-activate this "
 "plugin."
 msgstr ""
 
-#: include/ui/admin.php:621
+#: include/ui/admin.php:630
 #, php-format
 msgid "Last CRON action ran at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:630 include/ui/admin.php:631 include/ui/admin.php:632
-#: include/ui/admin.php:701
+#: include/ui/admin.php:639 include/ui/admin.php:640 include/ui/admin.php:641
+#: include/ui/admin.php:710
 msgid "Pro Version"
 msgstr ""
 
-#: include/ui/admin.php:640
+#: include/ui/admin.php:649
 msgid "Discover all Pro Version features :"
 msgstr ""
 
-#: include/ui/admin.php:644
+#: include/ui/admin.php:653
 #, fuzzy
 #| msgctxt "Unlockable cost"
 #| msgid "Points needed"
 msgid "Points and Rewards Systems :"
 msgstr "Pisteitä tarvitaan"
 
-#: include/ui/admin.php:645
+#: include/ui/admin.php:654
 msgid "Create as many systems as you want, working together or separately"
 msgstr ""
 
-#: include/ui/admin.php:648
+#: include/ui/admin.php:657
 #, fuzzy
 #| msgid "Methods to earn points"
 msgid "20+ methods to earn points :"
 msgstr "Menetelmäkohdat"
 
-#: include/ui/admin.php:649
+#: include/ui/admin.php:658
 msgid ""
 "Lots of possibilities for your customers to earn points, including social "
 "media and sponsorship"
 msgstr ""
 
-#: include/ui/admin.php:652
+#: include/ui/admin.php:661
 #, fuzzy
 #| msgid "Sponsorship"
 msgid "Referrals/Sponsorship :"
 msgstr "Sponsorointi"
 
-#: include/ui/admin.php:653
+#: include/ui/admin.php:662
 msgid "Complete referral and sponsorship system to grow your customers base"
 msgstr ""
 
-#: include/ui/admin.php:656
+#: include/ui/admin.php:665
 #, fuzzy
 #| msgid "New Reward"
 msgid "New Rewards :"
 msgstr "Uusi palkkio"
 
-#: include/ui/admin.php:657
+#: include/ui/admin.php:666
 msgid ""
 "New types of rewards including free products, free shipping and custom "
 "rewards."
 msgstr ""
 
-#: include/ui/admin.php:706
+#: include/ui/admin.php:715
 msgid "Pro Version - Test if for free for 1 month !"
 msgstr ""
 
-#: include/ui/admin.php:709
+#: include/ui/admin.php:718
 msgid ""
 "Discover the features of the pro version and how it will help your online "
 "store grow."
 msgstr ""
 
-#: include/ui/admin.php:736
+#: include/ui/admin.php:745
 msgid "Cart Page Content"
 msgstr ""
 
-#: include/ui/admin.php:737
+#: include/ui/admin.php:746
 msgid ""
 "Select what and where you want to display content on the WooCommerce Cart "
 "Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:743
+#: include/ui/admin.php:752
 msgid "Checkout Page Content"
 msgstr ""
 
-#: include/ui/admin.php:744
+#: include/ui/admin.php:753
 msgid ""
 "Select what and where you want to display content on the WooCommerce "
 "Checkout Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:767 include/ui/admin.php:772 include/ui/admin.php:912
+#: include/ui/admin.php:776 include/ui/admin.php:781 include/ui/admin.php:921
 msgid "Shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:774
+#: include/ui/admin.php:783
 msgid ""
 "In this section, you will find various shortcodes you can use on your "
 "website."
 msgstr ""
 
-#: include/ui/admin.php:786
+#: include/ui/admin.php:795
 msgid "Legacy"
 msgstr ""
 
-#: include/ui/admin.php:792
+#: include/ui/admin.php:801
 #, fuzzy
 #| msgid "Points Management"
 msgid "Points On Cart"
 msgstr "Pisteiden hallinta"
 
-#: include/ui/admin.php:793
+#: include/ui/admin.php:802
 msgid ""
 "Select where the Points on Cart tool will be displayed and how it will look"
 msgstr ""
 
-#: include/ui/admin.php:797
+#: include/ui/admin.php:806
 msgid "Cart Display"
 msgstr ""
 
-#: include/ui/admin.php:804 include/ui/admin.php:830
+#: include/ui/admin.php:813 include/ui/admin.php:839
 msgid "Not displayed at all"
 msgstr ""
 
-#: include/ui/admin.php:805
+#: include/ui/admin.php:814
 msgid "Between products and totals"
 msgstr ""
 
-#: include/ui/admin.php:806
+#: include/ui/admin.php:815
 msgid "Aside from cart totals"
 msgstr ""
 
-#: include/ui/admin.php:809
+#: include/ui/admin.php:818
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the cart page"
 msgstr ""
 
-#: include/ui/admin.php:814
+#: include/ui/admin.php:823
 msgid "Reload cart page after amount modification"
 msgstr ""
 
-#: include/ui/admin.php:818 include/ui/admin.php:845
+#: include/ui/admin.php:827 include/ui/admin.php:854
 msgid ""
 "By default, changing the amount will provoke a javascript (ajax) update. "
 "Check this box if the default behavior doesn't work."
 msgstr ""
 
-#: include/ui/admin.php:823
+#: include/ui/admin.php:832
 msgid "Checkout Display"
 msgstr ""
 
-#: include/ui/admin.php:831 include/ui/woocommerce/cartcheckoutcontent.php:66
+#: include/ui/admin.php:840 include/ui/woocommerce/cartcheckoutcontent.php:66
 msgid "Top of the page"
 msgstr ""
 
-#: include/ui/admin.php:832
+#: include/ui/admin.php:841
 msgid "Before customer details"
 msgstr ""
 
-#: include/ui/admin.php:833
+#: include/ui/admin.php:842
 msgid "Before order review"
 msgstr ""
 
-#: include/ui/admin.php:836
+#: include/ui/admin.php:845
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the checkout page"
 msgstr ""
 
-#: include/ui/admin.php:841
+#: include/ui/admin.php:850
 msgid "Reload checkout page after amount modification"
 msgstr ""
 
-#: include/ui/admin.php:850
+#: include/ui/admin.php:859
 #, fuzzy
 #| msgid "Header"
 msgid "Tool Header"
 msgstr "Ylätunniste"
 
-#: include/ui/admin.php:853 include/ui/woocommerce/pointsoncart.php:519
+#: include/ui/admin.php:862 include/ui/woocommerce/pointsoncart.php:543
 #, fuzzy
 #| msgid "Loyalty points available"
 msgid "Loyalty points discount"
 msgstr "Kanta-asiakaspisteitä käytettävissä"
 
-#: include/ui/admin.php:866 include/ui/woocommerce/pointsoncart.php:118
+#: include/ui/admin.php:875 include/ui/woocommerce/pointsoncart.php:118
 msgid "Use the styling tool to change the tool's frontend appearance"
 msgstr ""
 
-#: include/ui/admin.php:880
+#: include/ui/admin.php:889
 msgid "Display Points Widget"
 msgstr "Näytä Piste Widget"
 
-#: include/ui/admin.php:882
+#: include/ui/admin.php:891
 msgid ""
 "Legacy : This widget is no longer maintained or updated. Use the points "
 "balance shortcode instead."
 msgstr ""
 
-#: include/ui/admin.php:886
+#: include/ui/admin.php:895
 msgid "Text displayed if user not connected"
 msgstr "Näytettävä teksti, jos käyttäjä ei ole yhteydessä"
 
-#: include/ui/admin.php:890 include/ui/legacy/pointsdisplayer.php:253
+#: include/ui/admin.php:899 include/ui/legacy/pointsdisplayer.php:253
 msgid "Please log in if you want to see your loyalty points"
 msgstr "Kirjaudu sisään, jos haluat nähdä kanta-asiakkuus pisteesi"
 
-#: include/ui/admin.php:901
+#: include/ui/admin.php:910
 msgid ""
 "Here you can customize the look and displayed text of the shortcode/widget"
 msgstr ""
 "Täällä voit muokata ulkoasua sekä lyhytkoodissa / widgetissä olevaa tekstiä"
 
-#: include/ui/admin.php:914
+#: include/ui/admin.php:923
 msgid ""
 "These shortcodes are deprecated and are kept here for compatibility. Try to "
 "replace them with other shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:918
+#: include/ui/admin.php:927
 #, fuzzy
 #| msgid "MyRewards Points Displayer"
 msgid "Simple Points Display"
 msgstr "MyRewards pisteiden näyttäjä"
 
-#: include/ui/admin.php:922
+#: include/ui/admin.php:931
 msgid ""
 "This simple shortcode is used to display the user's points with no "
 "decoration."
 msgstr ""
 
-#: include/ui/admin.php:923
+#: include/ui/admin.php:932
 msgid ""
 "This is very convenient if you want to display points within a phrase for "
 "example."
 msgstr ""
 
-#: include/ui/admin.php:930
+#: include/ui/admin.php:939
 #, fuzzy
 #| msgid "Display Points Widget"
 msgid "Display Points"
 msgstr "Näytä Piste Widget"
 
-#: include/ui/admin.php:934
+#: include/ui/admin.php:943
 msgid ""
 "This shortcode shows to customers the points they have on a loyalty system."
 msgstr ""
 
-#: include/ui/admin.php:938
+#: include/ui/admin.php:947
 #, fuzzy
 #| msgid "Text displayed if user not connected"
 msgid "The text displayed before the points."
 msgstr "Näytettävä teksti, jos käyttäjä ei ole yhteydessä"
 
-#: include/ui/admin.php:942
+#: include/ui/admin.php:951
 msgid ""
 "(Optional) If set, the number of points displayed will show the points "
 "currency."
 msgstr ""
 
-#: include/ui/admin.php:962 include/ui/editlists/multiformlist.php:128
+#: include/ui/admin.php:971 include/ui/editlists/multiformlist.php:128
 msgid "Information"
 msgstr "Tietoja"
 
-#: include/ui/admin.php:964
+#: include/ui/admin.php:973
 #, fuzzy
 #| msgid ""
 #| "MyRewards Standard uses WooCommerce <i>orders</i> and <i>coupons</i>.\n"
@@ -1490,33 +1551,33 @@ msgstr ""
 "sponsorointi...WooCommercen kanssa tai ilman) ja paljon uusia "
 "palkintotyyppejä ! "
 
-#: include/ui/admin.php:997
+#: include/ui/admin.php:1006
 msgid ""
 "You are now using the Free Version of WooRewards. However, we detect that "
 "you still have Premium Version settings that are not compatible with the "
 "Free Version."
 msgstr ""
 
-#: include/ui/admin.php:998
+#: include/ui/admin.php:1007
 msgid ""
 "If you buy a Premium Version License and activate it, it will restore all "
 "the Premium Version data (points and rewards systems, user points, settings)."
 msgstr ""
 
-#: include/ui/admin.php:999
+#: include/ui/admin.php:1008
 msgid ""
 "If you prefer to only use the free version, please follow the instructions "
 "below :"
 msgstr ""
 
-#: include/ui/admin.php:1006
+#: include/ui/admin.php:1015
 #, php-format
 msgid ""
 "The WooRewards default points and rewards system does not exist. Please run "
 "the <a%s>wizard</a> tool to create one."
 msgstr ""
 
-#: include/ui/admin.php:1011
+#: include/ui/admin.php:1020
 #, fuzzy
 #| msgid ""
 #| "It seems the prefab pool does not exists. Try to re-activate this plugin. "
@@ -1528,112 +1589,131 @@ msgstr ""
 "Näyttää että asetettua palvelua ei ole. Kokeile uudelleenaktivoida tämä "
 "plugin. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
 
-#: include/ui/admin.php:1017
+#: include/ui/admin.php:1026
 msgid "Loading failure"
 msgstr "Latausvirhe"
 
-#: include/ui/admin.php:1029
+#: include/ui/admin.php:1038
 msgid "General Settings"
 msgstr "Yleiset asetukset"
 
-#: include/ui/admin.php:1031
+#: include/ui/admin.php:1040
 msgid ""
 "Before activating your loyalty program, make sure you've read the "
 "documentation. You will find links to the documentation on the top right of "
 "each group."
 msgstr ""
 
-#: include/ui/admin.php:1040
+#: include/ui/admin.php:1049
 msgid "Here you can manage how your customers earn loyalty points"
 msgstr ""
 "Täällä voit hallita kuinka asiakkaasi ansaitsevat kanta-asiakaspisteitä"
 
-#: include/ui/admin.php:1052 include/ui/editlists/userspoints.php:18
+#: include/ui/admin.php:1061 include/ui/editlists/userspoints.php:18
 #: woorewards.php:379
 msgid "Rewards"
 msgstr "Palkinnot"
 
-#: include/ui/admin.php:1055
+#: include/ui/admin.php:1064
 msgid ""
 "Here you can manage the rewards for your customers. Rewards can either be "
 "automatically generated WooCommerce Coupons or points usable on cart for "
 "immediate discounts"
 msgstr ""
 
-#: include/ui/admin.php:1061
+#: include/ui/admin.php:1070
 #, fuzzy
 #| msgid "Reward type"
 msgid "Reward Type"
 msgstr "Palkintolaji"
 
-#: include/ui/admin.php:1067
+#: include/ui/admin.php:1076
 #, fuzzy
 #| msgid "WooCommerce"
 msgid "WooCommerce Coupon"
 msgstr "WooCommerce"
 
-#: include/ui/admin.php:1068 include/wizards/standard.php:125
-#: include/wizards/standard.php:306
+#: include/ui/admin.php:1077 include/wizards/standard.php:125
+#: include/wizards/standard.php:319
 #, fuzzy
 #| msgid "Points cost"
 msgid "Points on Cart"
 msgstr "Pisteiden hinta"
 
-#: include/ui/admin.php:1077
+#: include/ui/admin.php:1086
 #, php-format
 msgid "Point Value in %s"
 msgstr ""
 
-#: include/ui/admin.php:1080
+#: include/ui/admin.php:1089
 msgid ""
 "Each point spent on the cart will decrease the order total of that value"
 msgstr ""
 
-#: include/ui/admin.php:1087 include/unlockables/coupon.php:463
+#: include/ui/admin.php:1096 include/unlockables/coupon.php:462
 msgid "Coupon"
 msgstr "Kuponki"
 
-#: include/ui/admin.php:1134
+#: include/ui/admin.php:1143
 msgctxt "pool enabled switch"
 msgid "Off"
 msgstr "Ei käytössä"
 
-#: include/ui/admin.php:1135
+#: include/ui/admin.php:1144
 msgctxt "pool enabled switch"
 msgid "On"
 msgstr "Käytössä"
 
 # Aitue otsikko
-#: include/ui/admin.php:1143
+#: include/ui/admin.php:1152
 msgctxt "Pool title"
 msgid "Title"
 msgstr "Otsikko"
 
-#: include/ui/admin.php:1157 include/ui/admin.php:1158
+#: include/ui/admin.php:1168
+#, php-format
+msgid ""
+"If you really want to process pre-existing orders, check this box and click "
+"on <i>'%s'</i> again."
+msgstr ""
+
+#: include/ui/admin.php:1170
+msgid ""
+"If your loyalty program is live, this could lead to lots of rewards being "
+"generated and lots of emails being sent"
+msgstr ""
+
+#: include/ui/admin.php:1171
+msgid ""
+"Please make sure you reviewed all the settings before launching this "
+"procedure."
+msgstr ""
+
+#: include/ui/admin.php:1183 include/ui/admin.php:1184
 msgid "Dates are required"
 msgstr "Päivä määrät ovat pakollisia"
 
-#: include/ui/admin.php:1198
+#: include/ui/admin.php:1224
 #, php-format
 msgid "<b>%s</b> order(s) processed."
 msgstr "<b> %s</b> tilaus (t) käsitelty."
 
-#: include/ui/admin.php:1206
+#: include/ui/admin.php:1232
 #, php-format
 msgid ""
 "If you really want to reset all MyRewards data, check this box and click on "
 "<i>'%s'</i> again."
 msgstr ""
 
-#: include/ui/admin.php:1208
+#: include/ui/admin.php:1234
 msgid "This operation is irreversible!"
 msgstr ""
 
-#: include/ui/admin.php:1209
+#: include/ui/admin.php:1235
 msgid "Consider making a backup of your database before continue."
 msgstr ""
 
-#: include/ui/admin.php:1267
+#: include/ui/admin.php:1294
 msgid ""
 "You can now create new Points and Rewards System for your customers or "
 "uninstall MyRewards."
@@ -1644,40 +1724,40 @@ msgstr ""
 msgid "Public title"
 msgstr "Julkinen otsikko"
 
-#: include/ui/editlists/eventlist.php:51
+#: include/ui/editlists/eventlist.php:53
 #, fuzzy
 #| msgid "Action to perform"
 msgid "Action to perform to earn points"
 msgstr "Toimenpide"
 
-#: include/ui/editlists/eventlist.php:55
+#: include/ui/editlists/eventlist.php:57
 #, fuzzy
 #| msgid "Points added to user."
 #| msgid_plural "Points added to users."
 msgid "Points value and options"
 msgstr "Pisteitä lisätty käyttäjälle."
 
-#: include/ui/editlists/eventlist.php:83
+#: include/ui/editlists/eventlist.php:85
 msgctxt "Option Group"
 msgid "Orders"
 msgstr "Tilaukset"
 
-#: include/ui/editlists/eventlist.php:83
+#: include/ui/editlists/eventlist.php:85
 #, fuzzy
 #| msgid " %s extra points for the first order"
 msgid "Earn points when placing an order"
 msgstr "%s ylimääräistä pistettä ensimmäiselle tilaukselle"
 
-#: include/ui/editlists/eventlist.php:84
+#: include/ui/editlists/eventlist.php:86
 msgctxt "Option Group"
 msgid "Website"
 msgstr "Verkkosivusto"
 
-#: include/ui/editlists/eventlist.php:84
+#: include/ui/editlists/eventlist.php:86
 msgid "Earn points when performing actions on the website"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:85
+#: include/ui/editlists/eventlist.php:87
 #, fuzzy
 #| msgctxt "Option Group"
 #| msgid "Social network"
@@ -1685,67 +1765,67 @@ msgctxt "Option Group"
 msgid "Social Media"
 msgstr "Sosiaalinen verkosto"
 
-#: include/ui/editlists/eventlist.php:85
+#: include/ui/editlists/eventlist.php:87
 msgid "Earn points for social media actions"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:86
+#: include/ui/editlists/eventlist.php:88
 #, fuzzy
 #| msgid "Sponsorship"
 msgctxt "Option Group"
 msgid "Sponsorship/Referral"
 msgstr "Sponsorointi"
 
-#: include/ui/editlists/eventlist.php:86
+#: include/ui/editlists/eventlist.php:88
 msgid "Only sponsors/referrers will earn points with these"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:87
+#: include/ui/editlists/eventlist.php:89
 #: include/ui/editlists/unlockablelist.php:90
 msgctxt "Option Group"
 msgid "Miscellaneous"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:87
+#: include/ui/editlists/eventlist.php:89
 #, fuzzy
 #| msgid " %s points for each placed order"
 msgid "Earn points for various reasons"
 msgstr "%s pistettä jokaisesta tila uksesta"
 
-#: include/ui/editlists/eventlist.php:88
+#: include/ui/editlists/eventlist.php:90
 msgctxt "Option Group"
 msgid "WooVIP"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:88
+#: include/ui/editlists/eventlist.php:90
 msgid "Earn points related to the WooVIP Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:89
+#: include/ui/editlists/eventlist.php:91
 msgctxt "Option Group"
 msgid "WooVirtualWallet"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:89
+#: include/ui/editlists/eventlist.php:91
 msgid "Earn points related to the WooVirtualWallet Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:106
+#: include/ui/editlists/eventlist.php:108
 msgid "The selected Earning Points System cannot be found."
 msgstr "Valittua ansaintapistejärjestelmää ei löytynyt."
 
-#: include/ui/editlists/eventlist.php:108
+#: include/ui/editlists/eventlist.php:110
 msgid ""
 "Earning Points System Type cannot be changed. Delete this and create a new "
 "one instead."
 msgstr ""
 "Ansaintapistejärjestelmää ei voida vaihtaa. Poista ja luo uusi sen sijaan."
 
-#: include/ui/editlists/eventlist.php:114
+#: include/ui/editlists/eventlist.php:116
 msgid "The selected Earning Points System type cannot be found."
 msgstr "Valittua ansaintapistejärjestelmää ei löytynyt."
 
-#: include/ui/editlists/eventlist.php:137
+#: include/ui/editlists/eventlist.php:139
 msgid "The selected Earning Point System cannot be found."
 msgstr "Valittua ansaintapistejärjestelmää ei löytynyt."
 
@@ -1843,15 +1923,25 @@ msgstr "Valittua palkintotyyppiä ei löytynyt."
 msgid "Users"
 msgstr "Käyttäjät"
 
-#: include/ui/editlists/userspoints.php:147
-msgid "Default"
-msgstr ""
-
-#: include/ui/editlists/userspoints.php:149
-msgid "Name"
-msgstr ""
-
 #: include/ui/editlists/userspoints.php:163
+#, fuzzy
+#| msgid "User Role"
+msgid "User Login"
+msgstr "Käyttäjärooli"
+
+#: include/ui/editlists/userspoints.php:164
+#, fuzzy
+#| msgid "Emails"
+msgid "Email"
+msgstr "Sähköpostit"
+
+#: include/ui/editlists/userspoints.php:165
+#, fuzzy
+#| msgid "Display Points Widget"
+msgid "Display Name"
+msgstr "Näytä Piste Widget"
+
+#: include/ui/editlists/userspoints.php:167
 #, fuzzy, php-format
 #| msgid "Points cost"
 msgid "Points : %s"
@@ -1957,12 +2047,12 @@ msgid "Default value. Elements are displayed on top of each other"
 msgstr ""
 
 #: include/ui/shortcodes/availablecoupons.php:56
-#: include/ui/shortcodes/pointsbalance.php:118
+#: include/ui/shortcodes/pointsbalance.php:119
 msgid "Elements are displayed in row"
 msgstr ""
 
 #: include/ui/shortcodes/availablecoupons.php:60
-#: include/ui/shortcodes/pointsbalance.php:114
+#: include/ui/shortcodes/pointsbalance.php:115
 msgid "Elements are displayed in a responsive grid"
 msgstr ""
 
@@ -2001,8 +2091,13 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/availablecoupons.php:156
-#: include/ui/woocommerce/pointsoncart.php:487
+#: include/ui/woocommerce/pointsoncart.php:511
 msgid "Apply"
+msgstr ""
+
+#: include/ui/shortcodes/availablecoupons.php:167
+#, php-format
+msgid " (Expires on %s)"
 msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:41
@@ -2027,7 +2122,7 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:54
-#: include/ui/shortcodes/pointsbalance.php:110
+#: include/ui/shortcodes/pointsbalance.php:111
 msgid "Default value. Simple text without stylable elements"
 msgstr ""
 
@@ -2060,22 +2155,23 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:102
+#: include/ui/woocommerce/pointsoncart.php:152
 msgid ""
 "You can find the points and rewards systems names in WooRewards → Points and "
 "Rewards"
 msgstr ""
 
-#: include/ui/shortcodes/pointsbalance.php:106
+#: include/ui/shortcodes/pointsbalance.php:107
 msgid ""
 "(Optional) Select how the points balance elements are organized . 4 possible "
 "values :"
 msgstr ""
 
-#: include/ui/shortcodes/pointsbalance.php:122
+#: include/ui/shortcodes/pointsbalance.php:123
 msgid "Elements are displayed on top of another"
 msgstr ""
 
-#: include/ui/shortcodes/pointsbalance.php:191
+#: include/ui/shortcodes/pointsbalance.php:192
 #, php-format
 msgctxt "wr_points_balance element=\"none\""
 msgid "%s : %s"
@@ -2130,7 +2226,7 @@ msgid ""
 "rewards systems</strong>, in the <b>Shortcode Attribute</b> column."
 msgstr ""
 
-#: include/ui/shortcodes/userhistory.php:160 include/wizards/standard.php:254
+#: include/ui/shortcodes/userhistory.php:160 include/wizards/standard.php:267
 #: woorewards.php:366
 msgid "Loyalty System"
 msgstr "Kanta-asiakasjärjestelmä"
@@ -2183,47 +2279,58 @@ msgid ""
 "presented inside a stylable element"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:256
+#: include/ui/woocommerce/pointsoncart.php:151
+msgid ""
+"(Optional, comma separated) Select the points and rewards systems you want "
+"to show. If left empty, the first available system will be displayed"
+msgstr ""
+
+#: include/ui/woocommerce/pointsoncart.php:268
 #, fuzzy
 #| msgid "Loyalty System"
 msgid "Demo. System"
 msgstr "Kanta-asiakasjärjestelmä"
 
-#: include/ui/woocommerce/pointsoncart.php:485
+#: include/ui/woocommerce/pointsoncart.php:509
 #, php-format
 msgid "Your %s :"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:486
+#: include/ui/woocommerce/pointsoncart.php:510
 msgctxt "Part of Points to use as reward"
 msgid "Used Amount :"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:488
+#: include/ui/woocommerce/pointsoncart.php:512
 msgid "Use Max Amount"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:571
+#: include/ui/woocommerce/pointsoncart.php:595
 #, php-format
 msgid "Every %s you use is worth %s"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:582
+#: include/ui/woocommerce/pointsoncart.php:606
+#, php-format
+msgid "You can use a minimum of %1$s %2$s on a single cart."
+msgstr ""
+
+#: include/ui/woocommerce/pointsoncart.php:617
 #, php-format
 msgid "You can use a maximum of %1$s %2$s on a single cart."
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:593
+#: include/ui/woocommerce/pointsoncart.php:628
 #, php-format
 msgid "You can only use your %s to reduce the cart total by %s%%"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:604
+#: include/ui/woocommerce/pointsoncart.php:639
 #, php-format
 msgid "You can only use your %s to reduce the cart total to %s"
 msgstr ""
 
-#: include/ui/woocommerce/pointsoncart.php:615
+#: include/ui/woocommerce/pointsoncart.php:650
 #, php-format
 msgid "The cart subtotal needs to be over %s if you want to use %s"
 msgstr ""
@@ -2316,30 +2423,30 @@ msgstr "TESTIKOODI"
 msgid "Coupon code : %s"
 msgstr "Kuponkikoodi : %s"
 
-#: include/unlockables/coupon.php:411
+#: include/unlockables/coupon.php:410
 msgid "Customer Email"
 msgstr "Asiakkaan sähköposti"
 
-#: include/unlockables/coupon.php:442
+#: include/unlockables/coupon.php:441
 msgid "No coupon"
 msgstr "Ei kuponkia"
 
-#: include/unlockables/coupon.php:449
+#: include/unlockables/coupon.php:448
 msgid "See coupons"
 msgstr "Katso kupongit"
 
-#: include/unlockables/coupon.php:464
+#: include/unlockables/coupon.php:463
 msgctxt "unlockable category"
 msgid "Sponsored"
 msgstr "Sponsoroitu"
 
-#: include/updater.php:284 include/wizard.php:136
+#: include/updater.php:306 include/wizard.php:136
 #: include/wizards/standard.php:27 include/wizards/standard.php:56
-#: include/wizards/standard.php:255 include/wizards/standard.php:368
+#: include/wizards/standard.php:268 include/wizards/standard.php:381
 msgid "Standard System"
 msgstr "Vakiojärjestelmä"
 
-#: include/updater.php:342
+#: include/updater.php:364
 msgid ""
 "Your settings have been migrated during MyRewards update.\n"
 "We tried our best to conserve the same behavior as before but we advise you "
@@ -2455,11 +2562,11 @@ msgstr ""
 "heille alennus kuponki siinä tilaisuudessa. Todella helppo perustaa ja "
 "arvostaa asiakkaita."
 
-#: include/wizards/standard.php:29 include/wizards/standard.php:262
+#: include/wizards/standard.php:29 include/wizards/standard.php:275
 msgid "Methods to earn points"
 msgstr "Menetelmäkohdat"
 
-#: include/wizards/standard.php:31 include/wizards/standard.php:290
+#: include/wizards/standard.php:31 include/wizards/standard.php:303
 #: woorewards.php:380
 msgid "Reward"
 msgstr "Palkinto"
@@ -2643,7 +2750,7 @@ msgstr ""
 msgid "Settings Summary"
 msgstr "Asetukset"
 
-#: include/wizards/standard.php:207 include/wizards/standard.php:220
+#: include/wizards/standard.php:207 include/wizards/standard.php:233
 msgid ""
 "Do you want to start your loyalty system at the end of this wizard ? If you "
 "select No, you'll have to start it manually later."
@@ -2652,85 +2759,95 @@ msgstr ""
 "lopussa? Jos valitset ei, sinun on käynnistettävä se manuaalisesti myöhemmin."
 
 #: include/wizards/standard.php:212
-msgid "Start the program ?"
-msgstr "Käynnistä ohjelma?"
+msgid "Enable rewards emails ?"
+msgstr ""
 
-#: include/wizards/standard.php:216
+#: include/wizards/standard.php:216 include/wizards/standard.php:229
 msgid "Yes"
 msgstr "Kyllä"
 
-#: include/wizards/standard.php:217
+#: include/wizards/standard.php:217 include/wizards/standard.php:230
 msgid "No"
 msgstr "Ei"
 
-#: include/wizards/standard.php:256
+#: include/wizards/standard.php:220
+msgid ""
+"By setting this option to Yes, customers will receive an email every time "
+"they receive a new coupon reward."
+msgstr ""
+
+#: include/wizards/standard.php:225
+msgid "Start the program ?"
+msgstr "Käynnistä ohjelma?"
+
+#: include/wizards/standard.php:269
 msgid "Loyalty System Name"
 msgstr "Kanta-asiakasjärjestelmä"
 
-#: include/wizards/standard.php:265
+#: include/wizards/standard.php:278
 #, php-format
 msgid " %s points earned for each %s spent"
 msgstr "%s pistettä ansaittu kullekin %s"
 
-#: include/wizards/standard.php:266
+#: include/wizards/standard.php:279
 msgid "Spend Money"
 msgstr "Käytä rahaa"
 
-#: include/wizards/standard.php:271
+#: include/wizards/standard.php:284
 #, php-format
 msgid " %s points for each placed order"
 msgstr "%s pistettä jokaisesta tila uksesta"
 
-#: include/wizards/standard.php:272
+#: include/wizards/standard.php:285
 msgid "Place an order"
 msgstr "Välitä tilaus"
 
-#: include/wizards/standard.php:277
+#: include/wizards/standard.php:290
 #, php-format
 msgid " %s extra points for the first order"
 msgstr "%s ylimääräistä pistettä ensimmäiselle tilaukselle"
 
-#: include/wizards/standard.php:278
+#: include/wizards/standard.php:291
 msgid "Place a first order"
 msgstr "Välitä ensimmäinen tilaus"
 
-#: include/wizards/standard.php:283
+#: include/wizards/standard.php:296
 #, fuzzy, php-format
 #| msgid " %s points for each placed order"
 msgid " %s points for a product review"
 msgstr "%s pistettä jokaisesta tila uksesta"
 
-#: include/wizards/standard.php:284
+#: include/wizards/standard.php:297
 #, fuzzy
 #| msgid "Products"
 msgid "Product Review"
 msgstr "Tuotteet"
 
-#: include/wizards/standard.php:293
+#: include/wizards/standard.php:306
 #, php-format
 msgid " %s percent discount for %s points"
 msgstr "%s prosentin alennus %s-pisteistä"
 
-#: include/wizards/standard.php:294
+#: include/wizards/standard.php:307
 msgid "Percentage Discount"
 msgstr "Alennusprosentti"
 
-#: include/wizards/standard.php:299
+#: include/wizards/standard.php:312
 #, php-format
 msgid " %s%s discount for %s points"
 msgstr ""
 
-#: include/wizards/standard.php:300
+#: include/wizards/standard.php:313
 msgid "Fixed Discount"
 msgstr "Ostoskorin kiinteä alennus"
 
-#: include/wizards/standard.php:305
+#: include/wizards/standard.php:318
 #, fuzzy, php-format
 #| msgid " %s percent discount for %s points"
 msgid " %s%s discount for each point"
 msgstr "%s prosentin alennus %s-pisteistä"
 
-#: include/wizards/standard.php:320
+#: include/wizards/standard.php:333
 #, php-format
 msgid ""
 "Points for each %s spent expects numeric value greater than zero or leave "
@@ -2739,7 +2856,7 @@ msgstr ""
 "Pisteet kutakin %s varten odotti numeerista arvoa, joka on suurempi kuin "
 "nolla tai jätä tyhjäksi."
 
-#: include/wizards/standard.php:323
+#: include/wizards/standard.php:336
 msgid ""
 "Points on order placed expects numeric value greater than zero or leave "
 "blank."
@@ -2747,7 +2864,7 @@ msgstr ""
 "Tila uksen Pisteet odottaa numeerista arvoa, joka on suurempi kuin nolla, "
 "tai jätetään tyhjäksi."
 
-#: include/wizards/standard.php:326
+#: include/wizards/standard.php:339
 msgid ""
 "Extra points on first order expects numeric value greater than zero or leave "
 "blank."
@@ -2755,7 +2872,7 @@ msgstr ""
 "Ensimmäisen tila uksen lisä Pisteet odottavat numeerista arvoa, joka on "
 "suurempi kuin nolla, tai jätetään tyhjäksi."
 
-#: include/wizards/standard.php:328
+#: include/wizards/standard.php:341
 #, fuzzy
 #| msgid ""
 #| "Points for each %s spent expects numeric value greater than zero or leave "
@@ -2767,27 +2884,27 @@ msgstr ""
 "Pisteet kutakin %s varten odotti numeerista arvoa, joka on suurempi kuin "
 "nolla tai jätä tyhjäksi."
 
-#: include/wizards/standard.php:336
+#: include/wizards/standard.php:349
 msgid "Points Needed expects numeric value greater than zero."
 msgstr "Kokonaisluku, suurempi kuin 0."
 
-#: include/wizards/standard.php:341
+#: include/wizards/standard.php:354
 msgid "Please, set a reward percentage greater than 0% up to 100%."
 msgstr ""
 "Ole hyvä ja määritä palkinto prosentti, joka on suurempi kuin 0% ja enintään "
 "100%."
 
-#: include/wizards/standard.php:346
+#: include/wizards/standard.php:359
 msgid "Please, set a positive reward amount."
 msgstr "Ole hyvä, aseta positiivinen palkkio summa."
 
-#: include/wizards/standard.php:351
+#: include/wizards/standard.php:364
 #, fuzzy
 #| msgid "Please, set a positive reward amount."
 msgid "Please, set a positive point value."
 msgstr "Ole hyvä, aseta positiivinen palkkio summa."
 
-#: include/wizards/standard.php:354
+#: include/wizards/standard.php:367
 msgid "Please, select a reward type."
 msgstr "Valittua palkintotyyppiä ei löytynyt."
 

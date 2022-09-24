@@ -5,10 +5,10 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class Conveniences
 {
-	static function getOrderStatusList()
+	static function getOrderStatusList($reset=false)
 	{
 		static $orderStatusList = false;
-		if (false === $orderStatusList) {
+		if (false === $orderStatusList || $reset) {
 			if (\function_exists('\wc_get_order_statuses'))
 			{
 				$orderStatusList = array();
@@ -31,6 +31,7 @@ class Conveniences
 					array('value' => 'failed', 'label' => __("Failed", 'lws-adminpanel')),
 				);
 			}
+			$orderStatusList = \apply_filters('lws_adminpanel_order_status_list', $orderStatusList);
 		}
 		return $orderStatusList;
 	}
@@ -70,8 +71,8 @@ class Conveniences
 	{
 		if (\class_exists('\WC_Product')) {
 			$product = new \WC_Product();
-			$product->set_price($price);
-			$amount = $product->get_price();
+			$product->set_regular_price($price);
+			$amount = $product->get_regular_price();
 		} else {
 			$amount = $price;
 		}

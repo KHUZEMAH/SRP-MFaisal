@@ -5,7 +5,7 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 2.1.5
+ * Version: 2.3.1
  * Text Domain: lwsmanager
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
@@ -24,4 +24,4 @@ add_filter('lws_manager_instance', function($instance){
 		);
 	}
 	return $instance;
-}, -2001005); // priority based on version => -((major*1000 + minor)*1000) + bugfix
+}, -2003001); // priority based on version => -((major*1000 + minor)*1000) + bugfix

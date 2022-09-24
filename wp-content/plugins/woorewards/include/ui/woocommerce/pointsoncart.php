@@ -33,6 +33,7 @@ class PointsOnCart
 
 		// refresh
 		\add_action('wp_ajax_lws_woorewards_pointsoncart_bloc_refresh', array($me, 'ajaxRefresh'));
+		\add_action('wp_ajax_nopriv_lws_woorewards_pointsoncart_bloc_refresh', array($me, 'ajaxRefresh'));
 		\add_action('wp', array($me, 'formValidation')); // be sure cart is loaded AND computed
 
 		\add_action('wp_enqueue_scripts', array($me, 'registerScripts'));
@@ -105,6 +106,16 @@ class PointsOnCart
 				'shortcode' => '[wr_points_on_cart]',
 				'description' =>  __("This shortcode is used to display the Points on Cart tool.", 'woorewards-lite') . "<br/>" .
 				__("You can customize its appearance in the Widgets Tab.", 'woorewards-lite'),
+			)
+		);
+		$fields['pointsoncartheader'] = array(
+			'id' => 'lws_wooreward_points_cart_header',
+			'title' => __("Tool Header", 'woorewards-lite'),
+			'type' => 'text',
+			'extra' => array(
+				'placeholder' => __('Loyalty points discount', 'woorewards-lite'),
+				'size' => '30',
+				'wpml' => 'WooRewards - Points On Cart Action - Header',
 			)
 		);
 		$fields['pocstyle'] = array(
@@ -309,7 +320,7 @@ class PointsOnCart
 		$atts = \wp_parse_args($atts, array('system'	=> '',));
 		$userId = \get_current_user_id();
 		if( !$userId )
-			return $content;
+			return \do_shortcode($content);
 
 		if (!$atts['system']) {
 			$atts['showall'] = true;
@@ -318,11 +329,11 @@ class PointsOnCart
 		if( $pool )
 		{
 			if( $info = $this->getInfo($pool) )
-				$content = $this->getContent('shortcode', $info);
+				return $this->getContent('shortcode', $info);
 			else
-				$content = $this->getPlaceholder($pool, 'shortcode');
+				return $this->getPlaceholder($pool, 'shortcode');
 		}
-		return $content;
+		return \do_shortcode($content);
 	}
 
 	/** Echo the html bloc and die.
@@ -521,8 +532,8 @@ class PointsOnCart
 
 		$esc = array(
 			'amount' => \esc_attr($info['amount']),
-			'max'    => \esc_attr($info['max']),
-			'used'   => \esc_attr($info['used']),
+			'max'    => \esc_attr(\max(0, $info['max'])),
+			'used'   => \esc_attr(\max(0, $info['used'])),
 			'update' => \esc_attr($labels['update']),
 			'pool'  => \esc_attr($info['pool']->getName()),
 			'url'    => \esc_attr(\admin_url('/admin-ajax.php')),

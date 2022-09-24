@@ -41,23 +41,25 @@ class DateTime extends \LWS\Adminpanel\Pages\Field
 				$text = $value->format(DATE_W3C);
 			}
 			if ($value) {
-				if (\intval($tz) && \preg_match('/.{10}\s*[+-]\d+(:\d+)?$/', $text)) { // at least a date, then an offset
-					$utc = false;
-					$value->setTimeZone(\wp_timezone());
-				} else {
-					$utc = true;
-					$value->setTimeZone(new \DateTimeZone('UTC'));
+				$utc = true;
+				if (\intval($tz)) {
+					$matches = false;
+					if (\preg_match('/.{10}\s*(Z|[+-]\d+(?::\d+)?)?$/', $text, $matches)) { // at least a date, then an offset
+						$utc = (isset($matches[1]) ? !\intval(\str_replace(':', '', $matches[1])) : true);
+					}
 				}
+				$value->setTimeZone($utc ? new \DateTimeZone('UTC') : \wp_timezone());
 				$date = $value->format('Y-m-d');
 				$time = $value->format('H:i:s');
 			} else {
 				$text = '';
 			}
 		}
+		$class = $this->ignoreConfirm('lws_adm_datetime');
 
 		if (false !== $tz) {
 			$checked = ($utc ? ' checked="checked"' : '');
-			$utc = "&nbsp;(UTC<input class='lws_adm_datetime sub utc' data-for='{$id}' type='checkbox'{$checked}>)";
+			$utc = "&nbsp;(UTC<input class='{$class} sub utc' data-for='{$id}' type='checkbox'{$checked}>)";
 		} else {
 			$utc = '';
 		}
@@ -67,12 +69,12 @@ class DateTime extends \LWS\Adminpanel\Pages\Field
 		// ... build a time picker?
 		return <<<EOT
 <div class='lws-editlist-opt-multi lws-field-datetime'>
-	<input class="lws-input lws_adm_datetime sub date" data-for="{$id}" type="date" value="{$date}">
+	<input class="lws-input {$class} sub date" data-for="{$id}" type="date" value="{$date}">
 	&nbsp;–&nbsp;
-	<input class="lws-input lws_adm_datetime sub time" data-for="{$id}" type="text" size="8" value="{$time}" placeholder="hh:mm:ss">
+	<input class="lws-input {$class} sub time" data-for="{$id}" type="text" size="8" value="{$time}" placeholder="hh:mm:ss">
 	{$utc}
-	<input class="lws_adm_datetime sub offset" data-for="{$id}" type="hidden" value="{$tz}">
-	<input class="lws_adm_datetime master" type="hidden" name="{$id}" value="{$text}">
+	<input class="{$class} sub offset" data-for="{$id}" type="hidden" value="{$tz}">
+	<input class="{$class} master" type="hidden" name="{$id}" value="{$text}">
 </div>
 EOT;
 	}

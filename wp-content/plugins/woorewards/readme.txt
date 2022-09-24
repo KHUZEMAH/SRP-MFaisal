@@ -2,9 +2,9 @@
 Contributors: lwsdevelopers
 Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social medias, badges, achievements, fidélité, récompenses, bon d'achat, daily, temporary, success, badges, events, anniversary, achievements, succès, événements, referral, chinese, spanish, french, subscriptions, sponsorship,
 Requires at least: 5.3
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 7.0.0
-Stable tag: 4.9.1
+Stable tag: 4.9.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,11 @@ Try it now to take advantage of all its possibilities.
 * **WPML Compatibility** - MyRewards is officially compatible with WPML
 * **Multiple Languages** - Multiple translations are provided when you install MyRewards
 * **Ultimate Member Compatibility** - Display Loyalty information on Ultimate Member public profiles
+
+== No Intrusive ads ==
+When you download MyRewards, you won't be prompted to send information about your business.
+You won't see intrusive or repetitive ads about the pro version.
+You will get a lightweight, feature rich and functional plugin without all the usual disturbance.
 
 == The Premium version offers a lot more features ==
 * **Give points for more than 20 actions** including purchases, sponsorship, registration, birthday, referrals, product review ...
@@ -96,6 +101,70 @@ This section describes how to install the plugin and get it working.
 5. Wizard
 
 == Changelog ==
+
+= 4.9.6 =
+* MyRewards :
+	* Compatibility update
+* WooRewards Pro :
+	* Add - Method to earn points - Sponsored buys in categories
+	* Add - Method to earn points - Sponsored buys specific products
+
+= 4.9.5.2 =
+* MyRewards :
+	* Dev - Convenience methods
+* WooRewards Pro :
+	* Fix - typo
+	* Tweak - Migration namespace renamed
+
+= 4.9.5.1 =
+* Fix - checklist search field
+
+= 4.9.5 =
+* MyRewards :
+	* Update - WooCommerce tested up to 6.8
+	* Fix - email CSS inliner
+* WooRewards Pro :
+	* Add - CSS class per badges
+	* Dev - new hooks for points on cart
+	* Dev - Conveniency to run alongside lws-referral-codes
+
+= 4.9.4 =
+* MyRewards :
+	* Add - Points history shortcode - New points total column
+	* Add - Points history shortcode - Reorder columns
+* WooRewards Pro :
+	* Add - Spend Money - Removed the restriction between Categories and "Use amount after discount" options
+	* Add - Customers List - Show level in addition to points
+	* Add - Leveling systems - Display if a role replaces a previous role or adds it
+	* Add - Points expressions - Add order amount
+	* Add - API - Possibility to edit the points and rewards systems
+	* Fix - Unlock a reward - Added security to prevent quick clicks
+	* Tweak - Improved the request to increase performance on first order method to earn points
+
+= 4.9.3 =
+* MyRewards :
+	* Tweak - Points history shortcode - show all if no system set
+	* Add - Points history shortcode - Possibility to set columns headers
+	* Fix - Points on cart ajax error on cart page update for unlogged user
+* WooRewards Pro :
+	* Add - Points for spending money includind/excluding on sale products
+	* Add - Points on order events filtered by payment gateway
+	* Tweak - json export for all users, even if they have no points
+
+= 4.9.2 =
+* MyRewards :
+	* Add - Point and cart header text edition
+	* Add - New translations
+	* Fix - Prevent saving a full object in order item meta
+	* Fix - Support SQL ANSI mode
+	* Fix - Empty page after renaming a new System
+	* Fix - Scrolling	 in earning point method selection
+	* Tweak - Force to set integers or expression for points
+* WooRewards Pro :
+	* Fix - Button text style in email
+	* Fix - Sponsored orders gave no points if passed as guest
+	* Update - Inline shortcode example
+	* Update - Renamed birthday fields, user value must be in past
 
 = 4.9.1 =
 * No mails sent by default

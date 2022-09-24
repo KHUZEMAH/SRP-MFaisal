@@ -32,6 +32,8 @@ if( !defined('LWS_WOOREWARDS_FILE') ) exit();
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SocialSharing', LWS_WOOREWARDS_PRO_INCLUDES.'/events/socialsharing.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SocialBacklink', LWS_WOOREWARDS_PRO_INCLUDES.'/events/socialbacklink.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredOrderAmount', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredorderamount.php');
+\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredBuyProducts', LWS_WOOREWARDS_PRO_INCLUDES . '/events/sponsoredbuyproducts.php');
+\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredBuyInCategory', LWS_WOOREWARDS_PRO_INCLUDES . '/events/sponsoredbuyincategory.php');
 
 if (!\get_option('lws_woorewards_facebook_settings_hidden')) {
 	\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\WebHookFacebookLike', LWS_WOOREWARDS_PRO_INCLUDES.'/events/webhookfacebooklike.php');

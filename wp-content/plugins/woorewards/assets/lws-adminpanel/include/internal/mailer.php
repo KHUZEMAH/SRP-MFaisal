@@ -315,13 +315,34 @@ class Mailer
 
 	protected function inlineCSS($html, $style ='')
 	{
-		if(class_exists('WooCommerce') && class_exists('DOMDocument') && class_exists('Pelago\\Emogrifier'))
-		{
-			$emogrifier = new \Pelago\Emogrifier($html, $style);
-			$content    = $emogrifier->emogrify();
-			$html_prune = \Pelago\Emogrifier\HtmlProcessor\HtmlPruner::fromHtml( $content );
-			$html_prune -> removeElementsWithDisplayNone();
-			$html       = $html_prune->render();
+		$done = false;
+		if(class_exists('WooCommerce') && class_exists('DOMDocument')) {
+			if(class_exists('Pelago\\Emogrifier\\CssInliner')) {
+				try {
+					$inliner = \Pelago\Emogrifier\CssInliner::fromHtml($html)->inlineCss($style);
+					$document = $inliner->getDomDocument();
+					\Pelago\Emogrifier\HtmlProcessor\HtmlPruner::fromDomDocument($document)->removeElementsWithDisplayNone();
+
+					$html = \Pelago\Emogrifier\HtmlProcessor\CssToAttributeConverter::fromDomDocument($document)
+						->convertCssToVisualAttributes()
+						->render();
+
+					$done = true;
+				} catch (\Exception $e) {
+					$logger = \wc_get_logger();
+					$logger->error($e->getMessage(), array('source' => 'emogrifier'));
+				}
+			} elseif(class_exists('Pelago\\Emogrifier')) {
+				$emogrifier = new \Pelago\Emogrifier($html, $style);
+				$content    = $emogrifier->emogrify();
+				$html_prune = \Pelago\Emogrifier\HtmlProcessor\HtmlPruner::fromHtml( $content );
+				$html_prune -> removeElementsWithDisplayNone();
+				$html       = $html_prune->render();
+				$done = true;
+			}
+		}
+		if (!$done) {
+			$html = ('<style type="text/css">' . $style . '</style>' . $html);
 		}
 		return $html;
 	}

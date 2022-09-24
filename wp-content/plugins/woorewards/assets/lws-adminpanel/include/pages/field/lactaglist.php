@@ -72,7 +72,8 @@ class LacTaglist extends \LWS\Adminpanel\Pages\LAC
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
 			}
-			return "<input class='{$inputClass}' name='$name' data-value='$value'$attrs$source$spec data-lw_name='$name'>";
+			$id = isset($this->extra['id']) ? (" id='".\esc_attr($this->extra['id'])."'") : '';
+			return "<input class='{$inputClass}' name='$name' data-value='$value'$attrs$source$spec data-lw_name='$name'{$id}>";
 		}
 	}
 

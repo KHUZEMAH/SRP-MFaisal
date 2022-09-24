@@ -259,7 +259,7 @@ EOT;
 							<div class="lar-unlockable-confirm-text">{$this->labels['sure']}</div>
 							<div class="lar-unlockable-confirm-btns">
 								<div class="lar-unlockable-confirm-no">{$this->labels['cancel']}</div>
-								<a href="{$unlockLink}" class="lar-unlockable-confirm-yes">{$this->labels['yes']}</a>
+								<div data-href="{$unlockLink}" class="lar-unlockable-confirm-yes">{$this->labels['yes']}</div>
 							</div>
 						</div>
 					</div>

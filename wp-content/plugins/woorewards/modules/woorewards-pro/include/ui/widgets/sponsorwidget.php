@@ -42,10 +42,10 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 						'option' => 'button',
 						'desc' => __("The text displayed in the Submit button", 'woorewards-pro'),
 					),
-					//~ array(
-						//~ 'option' => 'unlogged',
-						//~ 'desc' => __('(Optional) If set, unlogged users will be able to use the email sponsorship.', 'woorewards-pro'),
-					//~ ),
+					array(
+						'option' => 'unlogged',
+						'desc' => __('(Optional) If set to ON, unlogged users will be able to use the email sponsorship.', 'woorewards-pro'),
+					),
 				),
 				'style_url' => \esc_attr(\add_query_arg(array('page' => LWS_WOOREWARDS_PAGE . '.settings', 'tab' => 'sp_settings'), \admin_url('admin.php'))) . '#lws_group_targetable_sponsor_widget_style',
 			)
@@ -200,7 +200,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 		$form .= "</p><div class='lwss_selectable lws_woorewards_sponsorship_form' data-type='Form'>";
 		if( empty($user = \wp_get_current_user()) || empty($user->ID) )
 		{
-			if( $atts['unlogged'] )
+			if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['unlogged']))
 			{
 				$form .= "<div  class='lwss_selectable lws_woorewards_sponsorship_input' data-type='Input'>";
 				$form .= "<input class='lwss_selectable lwss_modify lws_woorewards_sponsorship_host_field' data-type='Field' data-id='lws_woorewards_sponsor_widget_sponsor' name='sponsor_email' type='email' placeholder='$phs' />";
@@ -211,7 +211,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 				$form .= "<p>{$txt}</p>";
 			}
 		}
-		if( ($user && $user->ID) || $atts['unlogged'] )
+		if (($user && $user->ID) || \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['unlogged']))
 		{
 			$form .= $this->getNonceInput();
 			$form .= "<div class='lwss_selectable lws_woorewards_sponsorship_input' data-type='Input'>";

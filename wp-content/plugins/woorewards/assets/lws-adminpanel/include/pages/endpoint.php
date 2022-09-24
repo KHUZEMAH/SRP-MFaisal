@@ -107,14 +107,14 @@ class Endpoint
 		$pageId = \intval(\get_option($me->options['prefix'] . '_page'));
 		if ($pageId) {
 			$fields['see'] = array(
-				'id'    => 'lws_referralcodes_myaccount_see',
+				'id'    => 'lws_adminpanel_myaccount_page_edit',
 				'type'  => 'custom',
 				'extra' => array(
 					'content' => function()use($me, $pageId){
 						$href = \get_edit_post_link($pageId, 'raw');
 						if ($href) {
 							return sprintf(
-								'<a href="%s">%s</a>',
+								'<a target="_blank" href="%s">%s</a>',
 								\esc_attr($href),
 								__('Edit the page', 'lws-adminpanel')
 							);
@@ -310,9 +310,50 @@ EOT;
 		$postId = \get_option($this->options['prefix'] . '_page');
 		if ($postId) {
 			$content = \get_the_content(null, false, $postId);
+			$this->muteElementor();
 			$content = \apply_filters('the_content', $content);
+			$this->restoreElementor();
 			$content = \str_replace(']]>', ']]&gt;', $content);
 			echo $content;
+		}
+	}
+
+	/** Elementor reacts to 'the_content' even if already
+	 *	inside an Elementor template.
+	 *	This produce a duplication of WC my-account nav bar.
+	 *	So we remove elementor filters.
+	 *	@see restoreElementor() */
+	private function muteElementor()
+	{
+		$this->elementorFilters = array();
+		global $wp_filter;
+		if (isset($wp_filter['the_content'])) {
+			foreach ($wp_filter['the_content']->callbacks as $priority => $filters) {
+				foreach ($filters as $callback) {
+					if (\is_array($callback['function']) && \is_object($callback['function'][0])) {
+						if (false !== \strpos(\strtolower(\get_class($callback['function'][0])), 'elementor')) {
+							$this->elementorFilters[] = array(
+								'function' => $callback['function'],
+								'accepted_args' => $callback['accepted_args'],
+								'priority' => $priority,
+							);
+						}
+					}
+				}
+			}
+		}
+		foreach ($this->elementorFilters as $filter) {
+			\remove_filter('the_content', $filter['function'], $filter['priority']);
+		}
+	}
+
+	/** @see muteElementor() */
+	private function restoreElementor()
+	{
+		if (isset($this->elementorFilters) && $this->elementorFilters) {
+			foreach ($this->elementorFilters as $filter) {
+				\add_filter('the_content', $filter['function'], $filter['priority'], $filter['accepted_args']);
+			}
 		}
 	}
 }

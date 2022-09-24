@@ -115,7 +115,7 @@ class OrderPointsPreview
 					'showdetail' => array(
 						'option' => 'showdetail',
 						'desc' => __("(Optional) If set, for each system, a detailed list of actions that give points is displayed for each system", 'woorewards-pro'),
-						'example' => '[wr_order_points_preview applyreward="true"]'
+						'example' => '[wr_order_points_preview showdetail="true"]'
 					),
 					'force' => array(
 						'option' => 'force',
@@ -170,13 +170,14 @@ class OrderPointsPreview
 				'showdetail' => false,
 				'force' => false,
 				'showunlogged' => false,
-				'totallabel' => __("Total", 'woorewards-pro')
+				'totallabel' => __("Total", 'woorewards-pro'),
+				'sep' => '',
 			)
 		);
 		// Basic verifications
 		$cart = \WC()->cart;
 		if (!$cart) {
-			return '';
+			\do_shortcode($content);
 		}
 		if (!$atts['system']) {
 			$atts['showall'] = true;
@@ -184,8 +185,13 @@ class OrderPointsPreview
 		if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['showunlogged'])) {
 			$atts['force'] = true;
 		} else if (!\get_current_user_id()) {
-			return '';
+			\do_shortcode($content);
 		}
+		$atts['layout'] = \strtolower($atts['layout']);
+		$atts['element'] = \strtolower($atts['element']);
+		$shapePts = ('s' != \strtolower(\substr($atts['display'], 0, 1)));
+		if ($atts['element'] == 'none' && !\strlen($atts['sep']))
+			$atts['sep'] = ' ';
 
 		$this->enqueueScripts();
 
@@ -206,24 +212,37 @@ class OrderPointsPreview
 						if (!$name) {
 							$name = $event->getDescription('frontend');
 						}
-						$events[] = array('name' => $name, 'points' => \LWS_WooRewards::formatPointsWithSymbol($points, $pool->getName()));
+						$events[] = array(
+							'name' => $name,
+							'points' => ($shapePts ? \LWS_WooRewards::formatPointsWithSymbol($points, $pool->getName()) : $points),
+						);
 					}
 				}
 			}
 			if ($sum > 0) {
-				$items[] = array('system' => $system, 'points' => \LWS_WooRewards::formatPointsWithSymbol($sum, $pool->getName()), 'events' => $events);
+				$items[] = array(
+					'system' => $system,
+					'points' => ($shapePts ? \LWS_WooRewards::formatPointsWithSymbol($sum, $pool->getName()) : $sum),
+					'events' => $events,
+				);
 			}
 		}
 		$attributes = base64_encode(json_encode($atts));
+		$tag = 'div';
+		if (\substr($atts['layout'], 0, 2) == 'no'
+			&& \substr($atts['element'], 0, 2) == 'no'
+		)
+			$tag = 'span';
+
 		if ($items) {
-			return "<div class='wr_order_points_preview_main' data-atts='{$attributes}'>" . $this->getContent($atts, $items) . "</div>";
+			return "<{$tag} class='wr_order_points_preview_main' data-atts='{$attributes}'>" . $this->getContent($atts, $items) . "</{$tag}>";
 		}
-		return "<div class='wr_order_points_preview_main' data-atts='{$attributes}'>" . \do_shortcode($content) . "</div>";
+		return "<{$tag} class='wr_order_points_preview_main' data-atts='{$attributes}'>" . \do_shortcode($content) . "</{$tag}>";
 	}
 
 	protected function getContent($atts, $items)
 	{
-		$elements = '';
+		$elements = array();
 		foreach ($items as $item) {
 			$detail = '';
 			$total = '';
@@ -247,7 +266,7 @@ class OrderPointsPreview
 					$detail .= "</div>";
 					$total = "<div class='total'>{$atts['totallabel']}</div>";
 				}
-				$elements .= <<<EOT
+				$elements[] = <<<EOT
 	<div class='item {$atts['element']}'>
 		{$poolitem}
 		{$detail}
@@ -258,11 +277,12 @@ class OrderPointsPreview
 	</div>
 EOT;
 			} else {
-				$elements .= ($poolname . ' ' . $item['points']);
+				$elements[] = ($poolname ? ($poolname . ' ' . $item['points']) : $item['points']);
 			}
 		}
+		$elements = implode($atts['sep'], $elements);
 
-		switch (\strtolower(\substr($atts['layout'], 0, 3))) {
+		switch (\substr($atts['layout'], 0, 3)) {
 			case 'gri':
 				return "<div class='wr-order-points-preview wr-shortcode-grid'>$elements</div>";
 			case 'hor':

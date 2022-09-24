@@ -75,9 +75,6 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 
 	function getForm($context = 'editlist')
 	{
-		\wp_enqueue_script('lws_woorewards_orderamount', LWS_WOOREWARDS_PRO_JS . '/orderamount.js', array('jquery'), LWS_WOOREWARDS_PRO_VERSION, true);
-		\wp_enqueue_style('lws_woorewards_orderamount', LWS_WOOREWARDS_PRO_CSS . '/orderamount.css', array(), LWS_WOOREWARDS_PRO_VERSION);
-
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
 
@@ -139,6 +136,24 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		));
 		$form .= "</div>";
 
+		$label   = __("On-sale", 'woorewards-pro');
+		$tooltip = __("Give points only for on-sale products, those who are not on-sale or all of them.", 'woorewards-pro');
+		$input   = \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'onsale', array(
+			'maxwidth' => '300px',
+			'mode'	   => 'select',
+			'class'    => 'above',
+			'source'   => array(
+				array('value' => '',        'label' => __("No restriction", 'woorewards-pro')),
+				array('value' => 'regular', 'label' => __("Regular price only", 'woorewards-pro')),
+				array('value' => 'onsale',  'label' => __("On-sale price only", 'woorewards-pro')),
+			),
+		));
+		$form .= <<<EOT
+<div class='field-help'>{$tooltip}</div>
+<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-{$context}-opt-input value'>{$input}</div>
+EOT;
+
 		$form .= $this->getFieldsetEnd(3);
 		$form =  $this->filterForm($form, $prefix, $context);
 		return $this->filterSponsorshipForm($form, $prefix, $context, 10);
@@ -152,6 +167,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		$data[$prefix . 'product_neg_cat'] = base64_encode(json_encode($this->getProductExcludedCategories()));
 		$data[$prefix . 'threshold_effect'] = $this->getThresholdEffect() ? 'on' : '';
 		$data[$prefix . 'min_amount'] = $this->getMinAmount();
+		$data[$prefix . 'onsale'] = $this->getOnSaleStatus();
 		$data = $this->filterSponsorshipData($data, $prefix);
 		return $this->filterData($data, $prefix);
 	}
@@ -163,21 +179,23 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 			'post'     => ($source == 'post'),
 			'values'   => $form,
 			'format'   => array(
-				$prefix . 'product_cat' => array('D'),
-				$prefix . 'product_neg_cat' => array('D'),
+				$prefix . 'product_cat'      => array('D'),
+				$prefix . 'product_neg_cat'  => array('D'),
 				$prefix . 'threshold_effect' => 's',
-				$prefix . 'min_amount' => 'f',
+				$prefix . 'min_amount'       => 'f',
+				$prefix . 'onsale'           => 'k',
 			),
 			'defaults' => array(
-				$prefix . 'product_cat' => array(),
-				$prefix . 'product_neg_cat' => array(),
+				$prefix . 'product_cat'      => array(),
+				$prefix . 'product_neg_cat'  => array(),
 				$prefix . 'threshold_effect' => '',
-				$prefix . 'min_amount' => '',
+				$prefix . 'onsale'           => '',
 			),
 			'labels'   => array(
-				$prefix . 'product_cat'   => __("Product category", 'woorewards-pro'),
-				$prefix . 'product_neg_cat'   => __("Excluded category", 'woorewards-pro'),
-				$prefix . 'min_amount'   => __("Minimum order amount", 'woorewards-pro'),
+				$prefix . 'product_cat'     => __("Product category", 'woorewards-pro'),
+				$prefix . 'product_neg_cat' => __("Excluded category", 'woorewards-pro'),
+				$prefix . 'min_amount'      => __("Minimum order amount", 'woorewards-pro'),
+				$prefix . 'onsale'          => __("Product category", 'woorewards-pro'),
 			)
 		));
 		if (!(isset($values['valid']) && $values['valid']))
@@ -189,19 +207,31 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		if ($valid === true && ($valid = $this->optSubmit($prefix, $form, $source)) === true)
 		{
 			$this->setThresholdEffect(boolval($values['values'][$prefix . 'threshold_effect']));
-			if ($this->getAfterDiscount())
-			{
-				$this->setProductCategories(array());
-				$this->setProductExcludedCategories(array());
-			}
-			else
-			{
-				$this->setProductCategories($values['values'][$prefix . 'product_cat']);
-				$this->setProductExcludedCategories($values['values'][$prefix . 'product_neg_cat']);
-			}
+			$this->setProductCategories($values['values'][$prefix . 'product_cat']);
+			$this->setProductExcludedCategories($values['values'][$prefix . 'product_neg_cat']);
 			$this->setMinAmount($values['values'][$prefix . 'min_amount']);
+			$this->setOnSaleStatus($values['values'][$prefix . 'onsale']);
 		}
 		return $valid;
+	}
+
+	function setOnSaleStatus($status)
+	{
+		$this->onsales = $status;
+	}
+
+	function getOnSaleStatus()
+	{
+		return (isset($this->onsales) ? $this->onsales : '');
+	}
+
+	function isOnsaleStatusAllowed($product)
+	{
+		$status = $this->getOnSaleStatus();
+		if ($status)
+			return ('onsale' == $status) == $product->is_on_sale();
+		else
+			return true;
 	}
 
 	function getProductCategories()
@@ -250,6 +280,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		$this->setProductCategories(\get_post_meta($post->ID, 'wre_event_product_cat', true));
 		$this->setProductExcludedCategories(\get_post_meta($post->ID, 'wre_event_product_neg_cat', true));
 		$this->setMinAmount(\get_post_meta($post->ID, 'wre_event_min_amount', true));
+		$this->setOnSaleStatus(\get_post_meta($post->ID, 'wre_event_onsale', true));
 		$this->optFromPost($post);
 		$this->optSponsorshipFromPost($post);
 		return parent::_fromPost($post);
@@ -260,6 +291,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		\update_post_meta($id, 'wre_event_product_cat', $this->getProductCategories());
 		\update_post_meta($id, 'wre_event_product_neg_cat', $this->getProductExcludedCategories());
 		\update_post_meta($id, 'wre_event_min_amount', $this->getMinAmount());
+		\update_post_meta($id, 'wre_event_onsale', $this->getOnSaleStatus());
 		$this->optSponsorshipSave($id);
 		$this->optSave($id);
 		return parent::_save($id);
@@ -298,7 +330,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	{
 		if (!$this->acceptOrder($order->order))
 			return $order;
-		if (!$this->isValidOriginByOrder($order->order))
+		if (!$this->isValidOriginByOrder($order->order, $this->isGuestAllowed()))
 			return $order;
 		if(!$this->isValidCurrency($order->order))
 			return $order;
@@ -316,70 +348,64 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	function getOrderAmount(&$order, $round = true)
 	{
 		$amount = 0;
-		if ($this->getAfterDiscount())
-		{
-			$amount = $order->order->get_total('edit');
-			$inc_tax = !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''));
-			if (!$inc_tax)
-				$amount -= $order->order->get_total_tax('edit'); // remove shipping tax too
+		$categories = $this->getProductCategories();
+		$exclude = $this->getProductExcludedCategories();
+		$noEarning = $this->getExclusionFromOrder($order->order);
 
-			if (!$this->getShipping()) // remove shipping and shipping tax if not already done with the rest of taxes
-			{
-				$amount -= floatval($order->order->get_shipping_total('edit'));
-				if ($inc_tax)
-					$amount -= floatval($order->order->get_shipping_tax('edit'));
-			}
-			$amount = max(0, $amount);
+		$detailed = ($categories || $exclude || $noEarning || $this->getOnSaleStatus());
+		$detailed = \apply_filters('lws_woorewards_orderamount_total_detailed_computing', $detailed, $this);
+		if (!$detailed)
+		{
+			$amount = parent::getOrderAmount($order, false);
 		}
 		else
 		{
-			$categories = $this->getProductCategories();
-			$exclude = $this->getProductExcludedCategories();
-			$noEarning = $this->getExclusionFromOrder($order->order);
-
-			if (empty($categories) && empty($exclude) && empty($noEarning))
+			foreach ($order->items as $item)
 			{
-				$amount = parent::getOrderAmount($order, false);
-			}
-			else
-			{
-				$inc_tax = !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''));
-				foreach ($order->items as $item)
+				$product = \LWS\WOOREWARDS\PRO\Conveniences::instance()->getProductFromOrderItem($order->order, $item->item);
+				if ($product)
 				{
-					$product = \LWS\WOOREWARDS\PRO\Conveniences::instance()->getProductFromOrderItem($order->order, $item->item);
-					if ($product)
-					{
-						if (!empty($exclude) && $this->isProductInCategory($product, $exclude))
-							continue;
-						if (!empty($categories) && !$this->isProductInCategory($product, $categories))
-							continue;
+					$incProd = true;
+					if (!empty($exclude) && $this->isProductInCategory($product, $exclude)) {
+						$incProd = false;
+					} elseif (!empty($categories) && !$this->isProductInCategory($product, $categories)) {
+						$incProd = false;
+					} elseif (!$this->isOnsaleStatusAllowed($product)) {
+						$incProd = false;
+					}
+					if (!\apply_filters('lws_woorewards_orderamount_total_detailed_includes_product', $incProd, $product, $item, $this))
+						continue;
 
-						if (empty($noEarning))
-							$amount += $item->amount;
-						else
-						{
-							$qty = $item->item->get_quantity();
-							$qty = $this->useExclusion($noEarning, $product, $qty);
-							if ($qty > 0)
-							{
-								if ($inc_tax)
-									$amount += floatval(\wc_get_price_including_tax($product)) * $qty;
-								else
-									$amount += floatval(\wc_get_price_excluding_tax($product)) * $qty;
-							}
+					$oriQty = $qty = $item->item->get_quantity();
+					$qty = $this->useExclusion($noEarning, $product, $qty);
+					if ($qty > 0)
+					{
+						$lineAmount = 0;
+						if ($this->getAfterDiscount()) {
+							$lineAmount   += $item->item->get_total();
+							if ($order->inc_tax)
+								$lineAmount += $item->item->get_total_tax();
+						} else {
+							$lineAmount   += $item->item->get_subtotal();
+							if ($order->inc_tax)
+								$lineAmount += $item->item->get_subtotal_tax();
 						}
+						if ($oriQty != $qty) {
+							$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
+						}
+						$amount += $lineAmount;
 					}
 				}
+			}
 
-				// should be strange, but since option is still available, we Must use it if checked
-				if ($this->getShipping()) // add shipping if required, whatever category
-				{
-					$amount += floatval($order->order->get_shipping_total('edit'));
-					if ($order->inc_tax)
-						$amount += floatval($order->order->get_shipping_tax('edit'));
-				}
+			if ($this->getShipping())
+			{
+				$amount += floatval($order->order->get_shipping_total('edit'));
+				if ($order->inc_tax)
+					$amount += floatval($order->order->get_shipping_tax('edit'));
 			}
 		}
+
 		if ($amount < $this->getMinAmount())
 			$amount = 0;
 		return $round ? $this->roundPrice($amount) : $amount;
@@ -393,6 +419,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 
 		// If we find an item with a cat in our allowed cat list, the product is valid.
 		return !empty(array_intersect($product_cats, $whiteList));
+	}
+
+	function isGuestAllowed()
+	{
+		return false;
 	}
 
 	function getPointsForProduct(\WC_Product $product)
@@ -413,9 +444,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 			$valid = false;
 		if (!empty($exclude = $this->getProductExcludedCategories()) && $this->isProductInCategory($product, $exclude))
 			$valid = false;
+		if (!$this->isOnsaleStatusAllowed($product))
+			$valid = false;
 
 		$price = 0;
-		if ($valid)
+		if (\apply_filters('lws_woorewards_orderamount_is_points_for_product', $valid, $product, $this))
 		{
 			if (count($product->get_children()) > 1)
 			{
@@ -494,66 +527,69 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		$inc_tax = !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''));
 		$amount = 0;
 
-		if ($this->getAfterDiscount())
-		{
-			$amount = $cart->get_total('edit');
-			if (!$inc_tax)
-				$amount -= $cart->get_total_tax('edit'); // remove shipping tax too
+		$categories = $this->getProductCategories();
+		$exclude = $this->getProductExcludedCategories();
+		$noEarning = $this->getExclusionFromCart($cart);
 
-			if (!$this->getShipping()) // remove shipping and shipping tax if not already done with the rest of taxes
-			{
-				$amount -= floatval($cart->get_shipping_total('edit'));
-				if ($inc_tax)
-					$amount -= floatval($cart->get_shipping_tax('edit'));
-			}
-			$amount = max(0, $amount);
-		}
-		else
+		$detailed = ($categories || $exclude || $noEarning || $this->getOnSaleStatus());
+		$detailed = \apply_filters('lws_woorewards_orderamount_total_detailed_computing', $detailed, $this);
+		if (!$detailed)
 		{
-			$categories = $this->getProductCategories();
-			$exclude = $this->getProductExcludedCategories();
-			$noEarning = $this->getExclusionFromCart($cart);
+			$amount = floatval($cart->get_subtotal());
+			if ($inc_tax)
+				$amount += floatval($cart->get_subtotal_tax());
 
-			if (empty($categories) && empty($exclude) && empty($noEarning))
-			{
-				$amount = floatval($cart->get_subtotal());
+			if ($this->getShipping()) {
+				$amount += floatval($cart->get_shipping_total('edit'));
 				if ($inc_tax)
-					$amount += floatval($cart->get_subtotal_tax());
+					$amount += floatval($cart->get_shipping_tax('edit'));
 			}
-			else foreach ($cart->get_cart() as $item)
-			{
-				$pId = (isset($item['variation_id']) && $item['variation_id']) ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
+
+			if ($this->getAfterDiscount()) {
+				$amount -= $cart->get_discount_total();
+				if ($inc_tax)
+					$amount -= $cart->get_discount_tax();
+			}
+		} else {
+			foreach ($cart->get_cart() as $item) {
+				$isVar = (isset($item['variation_id']) && $item['variation_id']);
+				$pId = $isVar ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
 				if ($pId && !empty($product = \wc_get_product($pId)))
 				{
-					if (!empty($exclude) && $this->isProductInCategory($product, $exclude))
-						continue;
-					if (!empty($categories) && !$this->isProductInCategory($product, $categories))
+					$incProd = true;
+					if (!empty($exclude) && $this->isProductInCategory($product, $exclude)) {
+						$incProd = false;
+					} elseif (!empty($categories) && !$this->isProductInCategory($product, $categories)) {
+						$incProd = false;
+					} elseif (!$this->isOnsaleStatusAllowed($product)) {
+						$incProd = false;
+					}
+					if (!\apply_filters('lws_woorewards_orderamount_total_detailed_includes_product', $incProd, $product, $item, $this))
 						continue;
 
 					$oriQty = $qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
 					$qty = $this->useExclusion($noEarning, $product, $qty);
 					if ($qty > 0)
 					{
-						if ($oriQty == $qty && isset($item['line_total']) && (!$inc_tax || isset($item['line_tax'])))
-						{
-							// get already computed price
-							$amount += $item['line_total'];
+						$lineAmount = 0;
+						if ($this->getAfterDiscount()) {
+							$lineAmount += $item['line_total'];
 							if ($inc_tax)
-								$amount += $item['line_tax'];
-						}
-						else
-						{
+								$lineAmount += $item['line_tax'];
+						} else {
+							$lineAmount += $item['line_subtotal'];
 							if ($inc_tax)
-								$amount += floatval(\wc_get_price_including_tax($product)) * $qty;
-							else
-								$amount += floatval(\wc_get_price_excluding_tax($product)) * $qty;
+								$lineAmount += $item['line_subtotal_tax'];
 						}
+						if ($oriQty != $qty) {
+							$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
+						}
+						$amount += $lineAmount;
 					}
 				}
 			}
 
-			if ($this->getShipping())
-			{
+			if ($this->getShipping()) {
 				$amount += floatval($cart->get_shipping_total('edit'));
 				if ($inc_tax)
 					$amount += floatval($cart->get_shipping_tax('edit'));
@@ -582,77 +618,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		if(!$this->isValidCurrency($order))
 			return 0;
 
-		$inc_tax = !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''));
-		$amount = 0;
-		if ($this->getAfterDiscount())
-		{
-			$amount = $order->get_total('edit');
-			if (!$inc_tax)
-				$amount -= $order->get_total_tax('edit'); // remove shipping tax too
+		// build same struct than pool do
+		$parsed = \LWS\WOOREWARDS\PRO\Core\Pool::parseOrder($order->get_id(), $order);
+		$amount = $this->getOrderAmount($parsed, true);
 
-			if (!$this->getShipping()) // remove shipping and shipping tax if not already done with the rest of taxes
-			{
-				$amount -= floatval($order->get_shipping_total('edit'));
-				if ($inc_tax)
-					$amount -= floatval($order->get_shipping_tax('edit'));
-			}
-			$amount = max(0, $amount);
-		}
-		else
-		{
-			$categories = $this->getProductCategories();
-			$exclude = $this->getProductExcludedCategories();
-			$noEarning = $this->getExclusionFromOrder($order);
-
-			if (empty($categories) && empty($exclude) && empty($noEarningà))
-			{
-				$amount = floatval($order->get_subtotal());
-				if ($inc_tax)
-					$amount = floatval($order->get_total());
-			}
-			else foreach ($order->get_items() as $item)
-			{
-				$pId = (isset($item['variation_id']) && $item['variation_id']) ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
-				if ($pId && !empty($product = \wc_get_product($pId)))
-				{
-					if (!empty($exclude) && $this->isProductInCategory($product, $exclude))
-						continue;
-					if (!empty($categories) && !$this->isProductInCategory($product, $categories))
-						continue;
-
-					$oriQty = $qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
-					$qty = $this->useExclusion($noEarning, $product, $qty);
-					if ($qty > 0)
-					{
-						if ($oriQty == $qty)
-						{
-							// get already computed price
-							$amount += $item->get_subtotal();
-							if ($inc_tax)
-								$amount += $item->get_subtotal_tax();
-						}
-						else
-						{
-							if ($inc_tax)
-								$amount += floatval(\wc_get_price_including_tax($product)) * $qty;
-							else
-								$amount += floatval(\wc_get_price_excluding_tax($product)) * $qty;
-						}
-					}
-				}
-			}
-
-			if ($this->getShipping())
-			{
-				$amount += floatval($order->get_shipping_total('edit'));
-				if ($inc_tax)
-					$amount += floatval($order->get_shipping_tax('edit'));
-			}
-		}
-		if ($amount < $this->getMinAmount())
-			$amount = 0;
-		$amount = $this->roundPrice($amount);
-
+		// money to points
 		return (int)$this->getFinalGain(
 			$this->getPointsForAmount($amount),
 			array(

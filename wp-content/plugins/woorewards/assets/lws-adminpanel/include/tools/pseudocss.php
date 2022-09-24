@@ -753,6 +753,8 @@ class PseudoCss
 			$origin = 'google';
 			if( strpos($balise->Selector, '.lwss_selectable') === false )
 				$origin = 'local';
+			elseif ('lws-' == \substr(\ltrim($d['font-family'], '\'"'), 0, 4))
+				$origin = 'local';
 			else if( $this->isStandardFont($d['font-family']) )
 				$origin = 'standard';
 

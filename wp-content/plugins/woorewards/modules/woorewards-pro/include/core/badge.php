@@ -13,6 +13,7 @@ class Badge
 	protected $id = '';
 	protected $title = '';
 	protected $excerpt = '';
+	protected $slug = '';
 	protected $valid = false;
 	protected $owners = array();
 
@@ -70,6 +71,7 @@ class Badge
 			'description'   => __("Congrat your customers with badges", 'woorewards-pro'),
 			'public'        => !empty(\get_option('lws_woorewards_manage_badge_enable', 'on')),
 			'hierarchical'	=> false,
+			'show_in_rest'  => true,
 			'exclude_from_search' => true,
 			'menu_position' => 58, // just after WooCommerce Products or MyRewards main menu
 			'menu_icon'     => 'dashicons-awards',
@@ -91,7 +93,7 @@ class Badge
 			$badges[$userId] = array();
 			global $wpdb;
 			$sql = <<<EOT
-SELECT badge_id, post_title, post_excerpt, assign_date
+SELECT badge_id, post_title, post_excerpt, assign_date, post_name
 FROM {$wpdb->posts}
 INNER JOIN {$wpdb->lwsWooRewardsBadges} ON badge_id=ID AND user_id=%d
 WHERE post_type=%s
@@ -103,7 +105,7 @@ EOT;
 				foreach( $results as $result )
 				{
 					$badge = new self();
-					$badge->setData($result->badge_id, $result->post_title, $result->post_excerpt);
+					$badge->setData($result->badge_id, $result->post_title, $result->post_excerpt, true, $result->post_name);
 					$badge->owners[$userId] = $result->assign_date;
 					$badges[$userId][$badge->getId()] = $badge;
 				}
@@ -363,6 +365,11 @@ EOT;
 		return $this->id;
 	}
 
+	function getSlug()
+	{
+		return $this->slug ? $this->slug : $this->id;
+	}
+
 	function getRawTitle()
 	{
 		return $this->title;
@@ -434,17 +441,19 @@ EOT;
 			$post->ID,
 			$post->post_title,
 			$post->post_excerpt,
-			self::POST_TYPE == $post->post_type
+			self::POST_TYPE == $post->post_type,
+			$post->post_name
 		);
 	}
 
 	/** @return $this */
-	protected function setData($id, $title, $excerpt, $validate=true)
+	protected function setData($id, $title, $excerpt, $validate=true, $slug=false)
 	{
 		$this->valid = $validate;
 		$this->id = $id;
 		$this->title = $title;
 		$this->excerpt = $excerpt;
+		$this->slug = $slug;
 		unset($this->thumbnailId);
 		return $this;
 	}

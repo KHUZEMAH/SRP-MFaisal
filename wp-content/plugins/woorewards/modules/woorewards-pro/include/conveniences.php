@@ -310,7 +310,7 @@ EOT
 		if ('points:' == substr($lower, 0, 7)) {
 			$stackId = \trim(substr($placeholder, 7));
 			if (!$stackId)
-				throw new \Exception(sprintf(_x("Placeholder `%s` requires a Point reserve", 'expression', 'woorewards-pro'), $placeholder));
+				throw new \Exception(sprintf(_x("Placeholder `%s` expects a Point reserve", 'expression', 'woorewards-pro'), $placeholder));
 			if ($testMode)
 				return 1;
 
@@ -325,7 +325,7 @@ EOT
 			$badge = $badgeId ? (new \LWS\WOOREWARDS\PRO\Core\Badge($badgeId, $testMode)) : false;
 
 			if (!($badge && (!$testMode || $badge->isValid())))
-				throw new \Exception(sprintf(_x("Placeholder `%s` requires a valid Badge Id", 'expression', 'woorewards-pro'), $placeholder));
+			throw new \Exception(sprintf(_x("Placeholder `%s` expects a valid Badge Id", 'expression', 'woorewards-pro'), $placeholder));
 			if ($testMode)
 				return 1;
 
@@ -337,7 +337,7 @@ EOT
 		if ('role:' == substr($lower, 0, 5)) {
 			$role = \trim(substr($placeholder, 5));
 			if (!$role)
-				throw new \Exception(sprintf(_x("Placeholder `%s` requires a role", 'expression', 'woorewards-pro'), $placeholder));
+				throw new \Exception(sprintf(_x("Placeholder `%s` expects a role", 'expression', 'woorewards-pro'), $placeholder));
 			if ($testMode)
 				return 1;
 
@@ -350,6 +350,153 @@ EOT
 			return \in_array($role, $user->roles) ? 1 : 0;
 		}
 
+		// order
+		if ('order:' == substr($lower, 0, 6)) {
+			$property = \trim(substr($placeholder, 6));
+			if (!$property)
+				throw new \Exception(sprintf(_x("Placeholder `%s` expects a property", 'expression', 'woorewards-pro'), $placeholder));
+			if (!\function_exists('\wc_get_order'))
+				throw new \Exception(sprintf(_x("WooCommerce not installed", 'expression', 'woorewards-pro'), $placeholder));
+			if ($testMode) {
+				if ($this->getOrderProperty(strtolower($property), false, true))
+					return 1;
+				else
+					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $placeholder));
+			}
+
+			if (!$options['order'])
+				return 0;
+			$order = (\is_object($options['order']) ? $options['order'] : \wc_get_order('ID', $options['order']));
+			if (!$order)
+				return 0;
+
+			return $this->getOrderProperty(strtolower($property), $order);
+		}
+
 		return $value;
+	}
+
+	function isTaxIncluded()
+	{
+		static $taxIncluded = null;
+		if (null === $taxIncluded)
+			$taxIncluded = (bool)\get_option('lws_woorewards_order_amount_includes_taxes', '');
+		return $taxIncluded;
+	}
+
+	/** $order WC_Order|WC_Cart
+	 *	$test if true, only check if $property is supported */
+	function getOrderProperty($property, $order, $test=false)
+	{
+		if ($test) {
+			return \in_array($property, array(
+				'vat',
+				'total_vat_exc',
+				'total_vat_inc',
+				'total',
+				'subtotal',
+				'discount',
+				'fees',
+				'shipping',
+				'onsale',
+				'regular',
+			));
+		}
+
+		if (\is_a($order, '\WC_Order')) {
+			switch (strtolower($property)) {
+				case 'vat':
+					return $order->get_total_tax();
+				case 'total_vat_exc':
+					return ($order->get_total() - $order->get_total_tax());
+				case 'total_vat_inc':
+				case 'total':
+					return $order->get_total();
+				case 'subtotal':
+					return $order->get_subtotal();
+				case 'discount':
+					return $order->get_total_discount();
+				case 'fees':
+					return $order->get_total_fees();
+				case 'shipping':
+					return \floatval($order->get_shipping_total());
+				case 'onsale':
+					$sum = 0.0;
+					foreach ($order->get_items() as $item) {
+						if (\is_a($item, '\WC_Order_Item_Product')) {
+							$product = $item->get_product();
+							if ($product && $product->is_on_sale()) {
+								$sum += \floatval($order->get_line_subtotal($item, $this->isTaxIncluded(), false));
+							}
+						}
+					}
+					return $sum;
+				case 'regular':
+					$sum = 0.0;
+					foreach ($order->get_items() as $item) {
+						if (\is_a($item, '\WC_Order_Item_Product')) {
+							$product = $item->get_product();
+							if ($product && !$product->is_on_sale()) {
+								$sum += \floatval($order->get_line_subtotal($item, $this->isTaxIncluded(), false));
+							}
+						}
+					}
+					return $sum;
+				default:
+					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $placeholder));
+			}
+		} elseif (\is_a($order, '\WC_Cart')) {
+			switch (strtolower($property)) {
+				case 'vat':
+					return $order->get_total_tax('edit');
+				case 'total_vat_exc':
+					return ($order->get_total('edit') - $order->get_total_tax('edit'));
+				case 'total_vat_inc':
+				case 'total':
+					return $order->get_total('edit');
+				case 'subtotal':
+					return $order->get_subtotal();
+				case 'discount':
+					return $order->get_discount_total();
+				case 'fees':
+					return $order->get_fee_total();
+				case 'shipping':
+					return \floatval($order->get_shipping_total());
+				case 'onsale':
+					$sum = 0.0;
+					foreach ($order->get_cart() as $item) {
+						$isVar = (isset($item['variation_id']) && $item['variation_id']);
+						$pId = $isVar ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
+						if ($pId && ($product = \wc_get_product($pId))) {
+							if ($product->is_on_sale()) {
+								$qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
+								if ($this->isTaxIncluded())
+									$sum += floatval(\wc_get_price_including_tax($product)) * $qty;
+								else
+									$sum += floatval(\wc_get_price_excluding_tax($product)) * $qty;
+							}
+						}
+					}
+					return $sum;
+				case 'regular':
+					$sum = 0.0;
+					foreach ($order->get_cart() as $item) {
+						$isVar = (isset($item['variation_id']) && $item['variation_id']);
+						$pId = $isVar ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
+						if ($pId && ($product = \wc_get_product($pId))) {
+							if (!$product->is_on_sale()) {
+								$qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
+								if ($this->isTaxIncluded())
+									$sum += floatval(\wc_get_price_including_tax($product)) * $qty;
+								else
+									$sum += floatval(\wc_get_price_excluding_tax($product)) * $qty;
+							}
+						}
+					}
+					return $sum;
+				default:
+					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $placeholder));
+			}
+		}
 	}
 }

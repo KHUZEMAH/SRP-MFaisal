@@ -107,6 +107,11 @@ class Rewards
 						'desc' => __("(Optional) If set, will display the points and rewards system name before each series of rewards", 'woorewards-pro'),
 						'example' => '[wr_rewards showname="yes"]',
 					),
+					'force' => array(
+						'option' => 'force',
+						'desc' => __("(Optional) If set, possible rewards will be visible to unlogged customers", 'woorewards-pro'),
+						'example' => '[wr_rewards force="yes"]',
+					),
 				),
 				'flags' => array('current_user_id'),
 			)
@@ -130,12 +135,21 @@ class Rewards
 	 * 					  'formatted' → points are formatted with the points currency/name.
 	 * @param showname	→ Default: false
 	 * 					  Shows the name of the points and rewards system if set
+	 * @param force	→ Default: false
+	 * 					  Shows for unlogged users, acces to system users cannot
 	 */
 	public function shortcode($atts = array(), $content = '')
 	{
-		$atts = \wp_parse_args($atts, array('system' => '', 'layout' => 'none', 'element' => 'none', 'display' => 'formatted', 'showname' => ''));
+		$atts = \wp_parse_args($atts, array(
+			'system'   => '',
+			'layout'   => 'grid',
+			'element'  => 'tile',
+			'display'  => 'formatted',
+			'showname' => '',
+			'force'    => false,
+		));
 		$userId = \apply_filters('lws_woorewards_shortcode_current_user_id', \get_current_user_id(), $atts, 'wr_rewards');
-		if (!$userId) {
+		if (!($userId || $atts['force'])) {
 			return \do_shortcode($content);
 		}
 		// Basic verifications
@@ -156,7 +170,7 @@ class Rewards
 				}
 
 				$rewards = array();
-				$userPoints = $pool->getPoints($userId);
+				$userPoints = ($userId ? $pool->getPoints($userId) : 0);
 				foreach ($pool->getUnlockables()->asArray() as $unlockable) {
 					$buyable = $unlockable->isPurchasable($userPoints, $userId);
 					$rewards[$unlockable->getId()] = array(

@@ -33,11 +33,13 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 		{
 			\add_filter('pre_update_option_'.$me->getManager()->getKeyOption(), array($me, 'preUpdateKey'), 10, 3);
 			\add_filter('pre_update_option_'.$me->getActionOption(), array($me, 'preUpdateAction'), 10, 3);
+			\add_filter('pre_update_option_'.$me->getRecheckOption(), array($me, 'preUpdateRecheck'), 10, 3);
 		}
 
 		if( $def )
 			define($def, $me->getManager()->isRunning());
 		$me->getManager()->installUpdater();
+		\LWS\Manager\API::register($me->getManager(), $uuid);
 	}
 
 	static function installAddon($file, $masterSlug, $addonUuid, $def)
@@ -53,6 +55,7 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 			define($def, $me->getManager()->isRunning());
 		}
 		$me->getManager()->installUpdater();
+		\LWS\Manager\API::register($me->getManager(), $addonUuid);
 	}
 
 	static function registerAddon($file, $masterSlug, $addonUuid)
@@ -92,8 +95,40 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 				}
 				else
 				{
-					\lws_admin_add_notice_once('lws_addon_toggle', __("Please set a the extension license key to activate it."), array('level'=>'error'));
+					\lws_admin_add_notice_once('lws_addon_toggle', __("Please set a the extension license key to activate it.", 'lwsmanager'), array('level'=>'error'));
 				}
+			}
+		}
+		return '';
+	}
+
+	/** always empty the value after usage. */
+	function preUpdateRecheck($value, $old=false, $option=false)
+	{
+		if ('recheck' == $value) {
+			$result = $this->getManager()->check(null);
+			if (true === $result) {
+				if ($this->getManager()->isRunning()) {
+					\lws_admin_add_notice_once('lws_license_force_check',
+						__("License resumed. Enjoy your plugin.", 'lwsmanager'),
+						array('level'=>'success')
+					);
+				} else {
+					\lws_admin_add_notice_once('lws_license_force_check',
+						__("Cannot resume your license. Please ensure you renewed your subscription first.", 'lwsmanager'),
+						array('level'=>'notice')
+					);
+				}
+			} elseif (false === $result) {
+				\lws_admin_add_notice_once('lws_license_force_check',
+					__("Your license seems to be not active anymore. Perhaps your subscription has been cancelled.", 'lwsmanager'),
+					array('level'=>'warning')
+				);
+			} else {
+				\lws_admin_add_notice_once('lws_license_force_check',
+					__("There was a problem establishing a connection to the license service. Please retry later.", 'lwsmanager'),
+					array('level'=>'error')
+				);
 			}
 		}
 		return '';
@@ -194,6 +229,9 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 				$groups = $this->addGroupTeaseTrial($groups);
 		}
 
+		if ($this->isAlternativeEnabled()) {
+			$groups = $this->addGroupFingerprint($groups);
+		}
 		$groups = $this->addGroupAddons($groups);
 		$groups = $this->addGroupAddonTeasers($groups);
 
@@ -208,22 +246,40 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 			'icon'   => 'lws-icon-key',
 			'nosave' => true,
 			'groups' => $groups,
-			'delayedFunction' => array($this, 'logLink'),
+			'delayedFunction' => array($this, 'smallLinks'),
 		);
 		return $page;
 	}
 
-	function logLink()
+	function smallLinks()
 	{
-		$url = \esc_attr(\add_query_arg(array('lws-log'=>'lic')));
-		$label = __('Show logs', 'lwsmanager');
+		$links = array(
+			array(
+				\esc_attr(\add_query_arg(array('lws-log'=>'lic'))),
+				__('Show logs', 'lwsmanager'),
+			),
+			array(
+				\esc_attr(\add_query_arg(array('lws-alt'=>'on'))),
+				__('Alternative activation', 'lwsmanager'),
+			),
+		);
 		echo <<<EOT
 <div style='padding:20px;gap:20px;text-align:right;'>
 	<small>
-		<a href='{$url}'>{$label}</a>
+		<a href='{$links[0][0]}'>{$links[0][1]}</a>
+		/
+		<a href='{$links[1][0]}'>{$links[1][1]}</a>
 	</small>
 </div>
 EOT;
+	}
+
+	protected function isAlternativeEnabled()
+	{
+		if (isset($_GET['lws-alt']) && 'on' == $_GET['lws-alt'])
+			return true;
+		else
+			return !empty(\get_option('lws_lic_alternative_enabled', ''));
 	}
 
 	private function getServerIp()
@@ -235,6 +291,74 @@ EOT;
 				$ip = implode(', ', $ip);
 		}
 		return $ip;
+	}
+
+	/** Propose the license activation alternative. */
+	private function addGroupFingerprint($groups)
+	{
+		$manager =& $this->getManager();
+		if ($key = $manager->getKey())
+			$key = \apply_filters('lws_format_copypast', $key);
+		else
+			$key = sprintf('<b>%s</b>', __("The key you received by email with your order.", 'lwsmanager'));
+
+		$formLink = 'https://plugins.longwatchstudio.com/remote-plugin-activation/';
+		if (\defined('LWS_DEV_ALT') && LWS_DEV_ALT)
+			$formLink = LWS_DEV_ALT;
+
+		$groups['10.alt'] = array(
+			'id'     => 'addons',
+			'icon'   => 'lws-icon-click',
+			'title'  => __("Remote activation", 'lwsmanager'),
+			'color'  => '#e16921',
+			'class'  => 'onecol',
+			//~ 'class'  => 'half',
+			'text'   => implode('<br/>', array(
+				__("If your server can't reach our license server, it's probably because it's blocked by our firewall.", 'lwsmanager'),
+				__("It can happen if you use shared hosting and if another website sharing your IP address is fraudulent.", 'lwsmanager'),
+				__("You can use the following procedure to activate your license remotely. You will be notified by email when new versions are available.", 'lwsmanager'),
+				__("You'll have to update the plugin manually", 'lwsmanager'),
+				'',
+				sprintf(
+					__("Please visit %s and fill the form to register your website and activate your license.", 'lwsmanager'),
+					sprintf(
+						'<a target="_blank" href="%s">%s</a>',
+						\esc_attr($formLink),
+						__("Long Watch Studio Remote Activation", LWS_MANAGER_INCLUDES)
+					)
+				),
+			)),
+			'fields' => array(
+				array(
+					'id'    => 'lws_mgr_url',
+					'title' => __("Your website URL", 'lwsmanager'),
+					'type'  => 'custom',
+					'extra' => array(
+						'gizmo'   => true,
+						'content' => \apply_filters('lws_format_copypast', \get_home_url(\get_main_network_id())),
+					)
+				),
+				array(
+					'id'    => 'lws_mgr_url',
+					'title' => __("Your website fingerprint", 'lwsmanager'),
+					'type'  => 'custom',
+					'extra' => array(
+						'gizmo'   => true,
+						'content' => \apply_filters('lws_format_copypast', $manager->getFingerprint(true)),
+					)
+				),
+				array(
+					'id'    => 'lws_mgr_key',
+					'title' => __("Your license key", 'lwsmanager'),
+					'type'  => 'custom',
+					'extra' => array(
+						'gizmo'   => true,
+						'content' => $key,
+					)
+				),
+			),
+		);
+		return $groups;
 	}
 
 	private function addGroupLogs($groups)
@@ -541,6 +665,26 @@ EOT;
 				),
 			)
 		);
+
+		if ($expired) {
+			$button = sprintf(
+				"<button type='submit' name='%s' value='recheck' class='button'>%s</button>",
+				$this->getRecheckOption(),
+				__("Force a license check", 'lwsmanager')
+			);
+
+			$groups['12.subscript']['fields']['recheck'] = array(
+				'id'    => $this->getRecheckOption(),
+				'type'  => 'custom',
+				'extra' => array(
+					'content' => sprintf('<p>%s</p>', sprintf(
+						__("Or, if you already renewed your subscription %s.", 'lwsmanager'),
+						$button
+					)),
+				),
+			);
+		}
+
 		return $groups;
 	}
 
@@ -597,6 +741,11 @@ EOT;
 	private function getActionOption()
 	{
 		return ('lws-license-action-'.$this->getManager()->getSlug());
+	}
+
+	private function getRecheckOption()
+	{
+		return ('lws-license-recheck-'.$this->getManager()->getSlug());
 	}
 
 	/// current activated pro

@@ -16,8 +16,7 @@ class Sponsorship
 	{
 		$me = new self();
 		\add_action('wp_ajax_lws_woorewards_add_sponsorship', array($me, 'request'));
-		if( !empty(\get_option('lws_woorewards_sponsorship_allow_unlogged', '')) )
-			\add_action('wp_ajax_nopriv_lws_woorewards_add_sponsorship', array($me, 'request'));
+		\add_action('wp_ajax_nopriv_lws_woorewards_add_sponsorship', array($me, 'request'));
 		\add_filter('wpml_user_language', array($me, 'guessSponsoredLanguage'), 10, 2);
 
 		if( !empty(\get_option('lws_woorewards_event_enabled_sponsorship', 'on')) )
@@ -304,7 +303,7 @@ class Sponsorship
 		if( !($guestAllowed || $order->get_customer_id()) )
 			return (object)$users;
 		if (!$users['sponsored_id'])
-			$users['sponsored_id'] = \LWS\Adminpanel\Tools\Conveniences::getCustomer(false, $order);
+			$users['sponsored_id'] = \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order);
 
 		$meta = \get_post_meta($order->get_id(), 'lws_woorewards_sponsor_at_checkout', true);
 		if( $meta && is_object($meta) )
@@ -358,7 +357,8 @@ class Sponsorship
 	function getSponsorIdFor($sponsored)
 	{
 		$sponsor_id = false;
-		if( $userId = \intval($sponsored) )
+		$userId = \intval(\is_object($sponsored) ? $sponsored->ID : $sponsored);
+		if ($userId)
 		{
 			$sponsor_id = \intval(\get_user_meta($userId, 'lws_woorewards_sponsored_by', true));
 			if ($sponsor_id == $userId)
@@ -390,8 +390,10 @@ class Sponsorship
 	 *	Create a reward waiting for sponsored and send him a mail about it.
 	 *	@param $sponsor (int|WP_User)
 	 *	@param $sponsored (string) email (or several emails, comma or semicolon separated)
+	 *	@param $lazy (bool) do not test if guest that already ordered.
+	 *	@param $override (bool) override previous sponsorship.
 	 * @return (bool|WP_Error) */
-	public function addRelationship($sponsor, $sponsored)
+	public function addRelationship($sponsor, $sponsored, $lazy=false, $override=false)
 	{
 		if( empty($sponsor) )
 			return new \WP_Error('unauthorized', __("You must be logged in.", 'woorewards-pro'));
@@ -414,13 +416,21 @@ class Sponsorship
 
 		foreach( $emails as $email )
 		{
-			if( \is_wp_error($email = $this->isEligible($email)) )
+			if( \is_wp_error($email = $this->isEligible($email, $lazy, $override)) )
 				return $email;
 			if( $email == $sponsor->user_email )
 				return new \WP_Error('forbidden', __("You cannot sponsor yourself.", 'woorewards-pro'));
 			if( $max !== true && --$max < 0 )
 				return new \WP_Error('locked', __("Some emails was omitted, maximum sponsorship reached.", 'woorewards-pro'));
 
+			if ($override) {
+				// remove any previous one
+				global $wpdb;
+				$wpdb->query($wpdb->prepare(
+					"DELETE FROM {$wpdb->usermeta} WHERE meta_key='lws_wooreward_used_sponsorship' AND meta_value=%s",
+					$email
+				));
+			}
 			\add_user_meta($sponsor->ID, 'lws_wooreward_used_sponsorship', $email, false);
 			\do_action('lws_woorewards_sponsorship_done', $sponsor, $email);
 
@@ -450,18 +460,20 @@ class Sponsorship
 
 	/** never sponsored or registered customer.
 	 * @param $sponsored (string) email
+	 * @param $lazy (bool) do not test if guest that already ordered.
+	 * @param $override (bool) do not test previous sponsorship.
 	 * @return (WP_Error|string) the cleaned email if ok. */
-	public function isEligible($sponsored)
+	public function isEligible($sponsored, $lazy=false, $override=false)
 	{
 		$email = trim($sponsored);
 		if( !\is_email($email) )
 			return new \WP_Error('bad-format', sprintf(__("'%s' Email address is not valid.", 'woorewards-pro'), $email));
 
 		global $wpdb;
-		if ($wpdb->get_var($wpdb->prepare("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key='lws_wooreward_used_sponsorship' AND meta_value=%s LIMIT 0, 1", $email)) > 0)
+		if (!$override && $wpdb->get_var($wpdb->prepare("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key='lws_wooreward_used_sponsorship' AND meta_value=%s LIMIT 0, 1", $email)) > 0)
 			return new \WP_Error('already-sponsored', sprintf(__("%s is already sponsored.", 'woorewards-pro'), $email));
 
-		if( self::getOrderCountByEMail($email) > 0 )
+		if( !$lazy && self::getOrderCountByEMail($email) > 0 )
 			return new \WP_Error('already-customer', sprintf(__("%s is already an active customer.", 'woorewards-pro'), $email));
 
 		return $email;

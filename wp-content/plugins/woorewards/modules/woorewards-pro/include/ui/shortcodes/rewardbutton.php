@@ -12,6 +12,18 @@ class RewardButton
 		$me = new self();
 		\add_shortcode('wr_reward_button', array($me, 'shortcode'));
 		\add_filter('lws_woorewards_advanced_shortcodes', array($me, 'admin'));
+		// Scripts
+		\add_action('wp_enqueue_scripts', array($me, 'registerScripts'));
+	}
+
+	function registerScripts()
+	{
+		\wp_register_script('wr-reward-button', LWS_WOOREWARDS_PRO_JS . '/shortcodes/reward-redeem-security.js', array('jquery'), LWS_WOOREWARDS_PRO_VERSION);
+	}
+
+	protected function enqueueScripts()
+	{
+		\wp_enqueue_script('wr-reward-button');
 	}
 
 	/** Get the shortcode admin */
@@ -80,6 +92,7 @@ class RewardButton
 		}
 
 		if ($purchasable) {
+			$this->enqueueScripts();
 			$apply = \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['applyreward']) && $unlockable->isAutoApplicable();
 			$url = false;
 			if (false !== $atts['redirection']) {
@@ -90,10 +103,10 @@ class RewardButton
 
 			$href = \esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs($url, $unlockable, $user, $apply));
 			$content = \do_shortcode($content);
-			return "<a class='button lws-reward-button' href='{$href}'>{$content}</a>";
+			return "<div class='button lws-reward-redeem' data-href='{$href}'>{$content}</div>";
 		} else {
 			$atts['alt'] = \do_shortcode(false !== $atts['alt'] ? $atts['alt'] : $content);
-			return "<a class='button disabled lws-reward-button' href='#' disabled='disabled'>{$atts['alt']}</a>";
+			return "<div class='button disabled lws-reward-button' href='#' disabled='disabled'>{$atts['alt']}</div>";
 		}
 	}
 

@@ -65,7 +65,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 		// Gain
 		$label = _x("Points to add", "Point Generator", 'woorewards-pro');
-		$tooltip = sprintf(__("Expect an integer or an expression starting by %s", 'woorewards-pro'), '<b>=</b>');
+		$tooltip = sprintf(__("Expects an integer or an expression starting by %s", 'woorewards-pro'), '<b>=</b>');
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
 		$form .= "<div class='lws-$context-opt-input value'>";
@@ -93,7 +93,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			'values'   => $form,
 			'format'   => array(
 				$prefix . 'other'  => 'D',
-				$prefix . 'gain'   => '=',
+				$prefix . 'gain'   => '=d',
 				$prefix . 'try'    => 't',
 				$prefix . 'reslev' => 't',
 				$prefix . 'resrew' => 't',

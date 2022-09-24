@@ -18,14 +18,15 @@ abstract class Page
 	/** echo page content container */
 	public function page()
 	{
-		echo "<div class='lws-adminpanel'>";
-		$this->getHead()->showStickyPanel($this->getType());
+		echo sprintf("<div class='lws-adminpanel' data-adminpanel-version='%s'>", \esc_attr(LWS_ADMIN_PANEL_VERSION));
+
+		$this->getHead()->showStickyPanel($this->getType(), isset($this->data['text']) ? $this->data['text'] : false);
 		$this->getHead()->showTransientNotices();
 
-		if( isset($this->data['text']) ){
-			if( \is_array($this->data['text']) )
-				$this->data['text'] = \lws_array_to_html($this->data['text']);
-			echo "<div class='lws-description'>{$this->data['text']}</div>";
+		if( isset($this->data['subtext']) ){
+			if( \is_array($this->data['subtext']) )
+				$this->data['subtext'] = \lws_array_to_html($this->data['subtext']);
+			echo "<div class='lws-description'>{$this->data['subtext']}</div>";
 		}
 
 		$this->content();
@@ -189,6 +190,7 @@ abstract class Page
 	{
 		if( !(isset($this->built) && $this->built) )
 		{
+			$this->data = \apply_filters('lws_adminpanel_build_page_data', $this->data, $this);
 			$this->filterGraph($this->data, true);
 			$this->forceIds($this->data, true);
 			$this->mergeGraph($this->data, $this->getPath());

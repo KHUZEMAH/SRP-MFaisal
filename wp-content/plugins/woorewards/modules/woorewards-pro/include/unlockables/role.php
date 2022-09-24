@@ -201,6 +201,12 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	function getDescription($context='backend')
 	{
 		$str = sprintf(__("Assign role '%s'", 'woorewards-pro'), $this->getRoleName());
+		if ('backend' == $context) {
+			if (0 === \strpos($this->getRoleId(), self::PREFIX))
+				$str .= __(" (append role)", 'woorewards-pro');
+			else
+				$str .= __(" (replace role)", 'woorewards-pro');
+		}
 		return $str;
 	}
 

@@ -44,7 +44,7 @@ class Expression
 	protected $patternMul = '#\s*(-?[^\s@><\*/+-]+)\s*([\*/])\s*(-?[^\s@><\*/+-]+)\s*#';
 	protected $patternSum = '#\s*(-?[^\s@><\*/+-]+)\s*([+-])\s*(-?[^\s@><\*/+-]+)\s*#';
 	protected $patternCmp = '#\s*(-?[^\s@><\*/+-]+)\s*([><])\s*(-?[^\s@><\*/+-]+)\s*#';
-	protected $patternFct = '#\s*(-?[^\s@><\*/+-]+)\s*(@)\s*(-?[^\s@><\*/+-]+)\s*#';
+	protected $patternFct = '#\s*(-?[^\s@><\*/+-]+)\s*(@)\s*(-?[^\s@,><\*/+-]+(?:\s*,\s*-?[^\s@,><\*/+-]+)*)\s*#';
 
 	function val()
 	{
@@ -73,6 +73,13 @@ class Expression
 		$yes = (false !== $this->getValue($expression, $options, $cleanLastError));
 		$this->setTestMode($mode);
 		return $yes;
+	}
+
+	/** @return true if starts like an expression.
+	 *	Convenience method to make difference between usual number and expression. */
+	static function isExpr($value)
+	{
+		return ('=' == \substr(\trim($value), 0, 1));
 	}
 
 	/**	Provided to get points from litteral expression.
@@ -231,7 +238,7 @@ class Expression
 
 		$match = false;
 		if (\preg_match('/user_(integer|float|timestamp):(.*)/i', $placeholder, $match)) {
-			$userId = (($options['user'] && \is_object($options['user'])) ? $options['user']->ID : $options['user']);
+			$userId = (($this->options['user'] && \is_object($this->options['user'])) ? $this->options['user']->ID : $this->options['user']);
 			$meta = \trim($match[2]);
 			if (!$meta)
 				throw new \Exception(sprintf(_x("Placeholder `%s` requires a meta key", 'expression', LWS_WOOREWARDS_PRO_DOMAIN), $placeholder));
@@ -353,21 +360,53 @@ class Expression
 				$value = \ceil(\is_numeric($args) ? $args : $this->reduceOperators($args));
 			} elseif ('round' == $fct)  {
 				$value = \round(\is_numeric($args) ? $args : $this->reduceOperators($args));
+			} elseif ('abs' == $fct)  {
+				$value = \abs(\is_numeric($args) ? $args : $this->reduceOperators($args));
+			} elseif ('not' == $fct)  {
+				$value = ((\is_numeric($args) ? $args : $this->reduceOperators($args)) ? 0 : 1);
 			}
 
 			if (false === $value) {
-				// perhaps a third party, allow several args comma separated
+				// allow several args comma separated
 				$args = explode(',', $args);
 				foreach ($args as $i => $arg) {
 					$arg = \trim($arg);
-					$args[$i] = (\is_numeric($arg) ? $arg : $this->reduceOperators($arg));
+					if (\is_numeric($arg))
+						$args[$i] = $arg;
+					elseif ("'" == \substr($arg, 0, 1))
+						$args[$i] = \trim(\trim($arg, "'"));
+					else
+						$this->reduceOperators($arg);
 				}
-				/// @param result false means unsupported function, or number
-				/// @param the function name
-				/// @param array of argument, should be all numbers
-				$value = \apply_filters('lws_adminpanel_expression_function', false, $fct, $args, $this->options);
-				if (false === $value)
-					throw new \Exception(sprintf(_x("Unknown function `%s`", 'expression', LWS_WOOREWARDS_PRO_DOMAIN), $matches[0][0]));
+
+				// known with several args
+				if ('date' == $fct) {
+					if (2 == count($args)) {
+						$value = \date_create()->setTimestamp((int)$this->reduceOperators($args[0]))->format($args[1]);
+					}
+				} elseif ('equal' == $fct) {
+					$value = 1;
+					for ($i = 1 ; $i < count($args) ; $i++) {
+						if ($args[0] != $args[$i]) {
+							$value = 0;
+							break;
+						}
+					}
+				} elseif ('min' == $fct) {
+					$value = \min($args);
+				} elseif ('max' == $fct) {
+					$value = \max($args);
+				}
+
+				// perhaps a third party
+				if (false === $value) {
+					/// @param result false means unsupported function, or number
+					/// @param the function name
+					/// @param array of argument, should be all numbers
+					$value = \apply_filters('lws_adminpanel_expression_function', false, $fct, $args, $this->options);
+					if (false === $value)
+						throw new \Exception(sprintf(_x("Unknown function `%s` or missing arguments", 'expression', LWS_WOOREWARDS_PRO_DOMAIN), $matches[0][0]));
+				}
 			}
 
 			// replace

@@ -65,3 +65,14 @@
 .lws-history-content-table td.date{
 	width:120px;
 }
+.lws-editlist .lws-editlist-cell .lws_wre_point_history .lws-level{
+	text-align: initial;
+	font-weight: normal;
+	padding-left: .5ex;
+	font-size: 13px;
+	overflow-wrap: normal;
+}
+.lws-editlist .lws-editlist-cell .lws_wre_point_history .lws-pts{
+	text-align: initial;
+	padding-right: .5ex;
+}

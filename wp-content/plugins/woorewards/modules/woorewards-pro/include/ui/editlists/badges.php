@@ -12,6 +12,9 @@ class Badges
 		if( !empty(\get_option('lws_woorewards_manage_badge_enable', 'on')) )
 		{
 			\add_filter('lws_adminpanel_topbars', array($this, 'adminTopBar'));
+			\add_filter('lws_adm_menu_license_url', array($this, 'adminLicURL'), 10, 3);
+			\add_filter('lws_adm_menu_license_status', array($this, 'adminSettings'), 10, 3);
+
 			\add_action('add_meta_boxes_'.\LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE, array($this, 'addMetaBoxes'), 10, 1);
 			\add_action('do_meta_boxes', array($this, 'removeOriginalMetabox'));
 			\add_action('save_post', array($this, 'savePost'), 999, 1);
@@ -74,15 +77,40 @@ class Badges
 		}
 	}
 
+	function adminSettings($settings, $mainid, $pageid)
+	{
+		if ('edit-lws_badge' == $mainid) {
+			$settings = array_merge($settings, array(
+				'title'       => 'WooRewards',
+				'version'     => LWS_WOOREWARDS_PRO_VERSION,
+				'doc'         => __("https://plugins.longwatchstudio.com/docs/woorewards/", 'woorewards-pro'), // use translation from free version
+				'exact_id'    => true,
+				'lite'        => false,
+				'purchase'    => false,
+				'trial'       => false,
+				'active'      => true,
+				'expired'     => false,
+				'subscription'=>false,
+			));
+		}
+		return $settings;
+	}
+
+	function adminLicURL($url, $mainid, $pageid)
+	{
+		if ('edit-lws_badge' == $mainid) {
+			$url = \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.system', 'tab'=>'lic'), admin_url('admin.php'));
+		}
+		return $url;
+	}
+
 	function adminTopBar($bars)
 	{
 		$settings = array(
-			'title'    => 'MyRewards',
+			'title'    => 'WooRewards',
 			'version'  => LWS_WOOREWARDS_PRO_VERSION,
-			'doc'      => __("https://plugins.longwatchstudio.com/docs/woorewards/", 'woorewards-pro'), // use translation from free version
-			'licence'  => add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.settings', 'tab'=>'license'), admin_url('admin.php')),
 			'activated'=> true,
-			'exact_id' => true
+			'exact_id' => true,
 		);
 		$bars[\LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE] = $settings;
 		$bars['edit-' . \LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE] = $settings;

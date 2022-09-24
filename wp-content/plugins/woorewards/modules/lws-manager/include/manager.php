@@ -74,6 +74,8 @@ class Manager
 			define('LWS_MANAGER_JS',       \plugins_url('/js', LWS_MANAGER_FILE));
 			define('LWS_MANAGER_CSS',      \plugins_url('/styling/css', LWS_MANAGER_FILE));
 			define('LWS_MANAGER_DOMAIN',  'lwsmanager');
+
+			require_once LWS_MANAGER_INCLUDES . '/api.php';
 		}
 	}
 }

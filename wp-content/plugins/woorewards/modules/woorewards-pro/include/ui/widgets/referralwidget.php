@@ -39,7 +39,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			'title' => __("Sponsorship Link", 'woorewards-pro'),
 			'type' => 'shortcode',
 			'extra' => array(
-				'shortcode' => '[lws_sponsorship_link header="your header" display="both|qrcode|link" url="your_url"]',
+				'shortcode' => '[lws_sponsorship_link header="your header" display="link"]',
 				'description' =>  __("This shortcode shows to customers a sponsorship/referral link or QR Code.", 'woorewards-pro'),
 				'options'   => array(
 					array(

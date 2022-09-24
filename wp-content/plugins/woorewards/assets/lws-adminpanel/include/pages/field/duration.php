@@ -36,6 +36,8 @@ class Duration extends \LWS\Adminpanel\Pages\Field
 			$duration = $value;
 		elseif (\is_a($value, '\DateInterval'))
 			$duration = \LWS\Adminpanel\Tools\Duration::fromInterval($value);
+		else
+			$duration = \LWS\Adminpanel\Tools\Duration::void();
 
 		$html = '';
 		if( !$this->getExtraValue('force', false) )

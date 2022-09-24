@@ -41,8 +41,9 @@ class PointDiscount
 		if( !\WC()->cart )
 			return $discount;
 
+		$pool = \LWS\WOOREWARDS\PointDiscount::getPool($discount);
 		$points = $discount['points'];
-		$max = $this->getMaxPoints($points, $discount['rate'], $discount['pool'], $discount['user_id'], \WC()->cart);
+		$max = \apply_filters('lws_woorewards_pointdiscount_max_points', $points, $discount['rate'], $pool, $discount['user_id'], \WC()->cart);
 		if( $max <= 0 )
 			return false;
 
@@ -50,9 +51,9 @@ class PointDiscount
 			$discount['points'] = $max;
 			$discount['value'] = (float)$max * $discount['rate'];
 		}
-		$min = \intval($discount['pool']->getOption('direct_reward_min_points_on_cart'));
+		$min = \intval($pool->getOption('direct_reward_min_points_on_cart'));
 		if ($min > 0 && $points < $min) {
-			if ($min > $discount['pool']->getPoints($discount['user_id']))
+			if ($min > $pool->getPoints($discount['user_id']))
 				return false;
 			$discount['points'] = $min;
 			$discount['value'] = (float)$min * $discount['rate'];

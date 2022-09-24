@@ -266,10 +266,9 @@ EOT;
 			return $order;
 		if(!$this->isValidCurrency($order->order))
 			return $order;
-
 		if (empty($categories = $this->getProductCategories()))
 			return $order;
-		$userId = \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order->order);
+		$userId = $this->getPointsRecipient($order->order);
 		if (!$userId)
 			return $order;
 
@@ -290,20 +289,33 @@ EOT;
 			return $order;
 
 		//Take quantity ordered into account or not
-		if ($pointsCount = \apply_filters('trigger_' . $this->getType(), $this->isQtyMultiply() ? $boughtInCat : 1, $this, $order->order))
-		{
-			$reason = \LWS\WOOREWARDS\Core\Trace::byOrder($order->order)
-				->setProvider($order->order->get_customer_id('edit'))
-				->setReason(array(
-					(1 == count($categories) ? "Product bought in category %s" : "Product bought in categories %s"),
-					$this->getProductCategoriesNames($categories, 'raw')
-				), 'woorewards-pro');
+		if ($pointsCount = \apply_filters('trigger_' . $this->getType(), $this->isQtyMultiply() ? $boughtInCat : 1, $this, $order->order)) {
 			$this->addPoint(array(
 				'user'  => $userId,
 				'order' => $order->order,
-			), $reason, $pointsCount);
+			), $this->getPointsReason($order->order, $categories), $pointsCount);
 		}
 		return $order;
+	}
+
+	/** @param $order (WC_Order)
+	 * @return (int) user ID */
+	function getPointsRecipient($order)
+	{
+		return \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order);
+	}
+
+	function getPointsReason($order, $categories)
+	{
+		return \LWS\WOOREWARDS\Core\Trace::byOrder($order)
+			->setProvider($order->get_customer_id('edit'))
+			->setReason(
+				array(
+					(1 == count($categories) ? "Product bought in category %s" : "Product bought in categories %s"),
+					$this->getProductCategoriesNames($categories, 'raw')
+				),
+				LWS_WOOREWARDS_PRO_DOMAIN
+			);
 	}
 
 	/** Never call, only to have poedit/wpml able to extract the sentance. */

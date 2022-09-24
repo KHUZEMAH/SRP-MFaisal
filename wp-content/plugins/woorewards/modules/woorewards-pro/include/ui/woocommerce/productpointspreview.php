@@ -40,7 +40,7 @@ class ProductPointsPreview
 			'title' => __("Product Points Preview", 'woorewards-pro'),
 			'type' => 'shortcode',
 			'extra' => array(
-				'shortcode' => '[wr_product_points_preview id="product_id"]',
+				'shortcode' => '[wr_product_points_preview]',
 				'description' =>  __("This shortcode shows the points the customers can get if he purchases the actual product.", 'woorewards-pro'),
 				'options'   => array(
 					array(

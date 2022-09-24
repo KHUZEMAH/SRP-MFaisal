@@ -22,7 +22,17 @@ class Manager
 		$this->uuid = $uuid;
 	}
 
-	private function getSiteUrl()
+	function getFingerprint($shape=false)
+	{
+		$fp = $this->getGlobalOption('lws_licmgr_fingerprint');
+		if (!$fp) {
+			$fp = \strtolower(\wp_generate_password(16, false));
+			$this->updateGlobalOption('lws_licmgr_fingerprint', $fp);
+		}
+		return $shape ? \implode('-', \str_split($fp, 4)) : $fp;
+	}
+
+	function getSiteUrl()
 	{
 		if (defined('LWS_SITEURL') && LWS_SITEURL)
 			$url = LWS_SITEURL;
@@ -403,7 +413,7 @@ class Manager
 		return $this->minifiedSlug;
 	}
 
-	private function getId($prefix='lwslic_')
+	function getId($prefix='lwslic_')
 	{
 		$slug = $this->getSlug();
 		return $prefix.$this->getMinifiedSlug($slug).'_'.substr(\md5(\implode('.', array(
@@ -467,6 +477,11 @@ class Manager
 		$this->log('deactivate', $dataBody);
 		if( \is_array($dataBody) )
 			$dataBody = \end($dataBody);
+		return $this->deactivateFromData($dataBody, $key, true, $obsoleteKey);
+	}
+
+	function deactivateFromData($dataBody, $key=false, $notice=false, $obsoleteKey=false)
+	{
 		if( \is_object($dataBody) && isset($dataBody->status) )
 		{
 			if( $dataBody->status == 'success' )
@@ -481,7 +496,8 @@ class Manager
 				else
 					$txt[] = __("Licence Key Successfully Unassigned.", 'lwsmanager');
 
-				$this->notice(implode('</br>', $txt), $level);
+				if ($notice)
+					$this->notice(implode('</br>', $txt), $level);
 				if ($this->isSubscriptionActive())
 					$this->updateGlobalOption($this->getId('lwssupport_'), 'deactivated');
 				$this->updateGlobalOption($this->getId(), '');
@@ -501,12 +517,14 @@ class Manager
 				}
 				if( isset($dataBody->message) )
 					$txt[] = $this->serverMessage($dataBody->message, $dataBody->status_code);
-				$this->notice(implode('</br>', $txt), $level);
+				if ($notice)
+					$this->notice(implode('</br>', $txt), $level);
 			}
 		}
 		else
 		{
-			$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
+			if ($notice)
+				$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
 		}
 		return false;
 	}
@@ -589,6 +607,7 @@ class Manager
 
 		if( \is_wp_error($data) || !\in_array(\intval($data['response']['code']), array(200, 301, 302)) )
 		{
+			\update_option('lws_lic_alternative_enabled', 'on'); // let's show an alternative way
 			$this->notice(__("There was a problem establishing a connection to the license server.", 'lwsmanager'));
 			if (\is_wp_error($data))
 				$this->log('activate', $data->get_error_message());
@@ -601,6 +620,11 @@ class Manager
 		$this->log('activate', $dataBody);
 		if( \is_array($dataBody) )
 			$dataBody = \end($dataBody);
+		return $this->activateFromData($dataBody, $value, $update, $z, true);
+	}
+
+	public function activateFromData($dataBody, $key, $update=true, $z=false, $notice=false)
+	{
 		if( \is_object($dataBody) && isset($dataBody->status) )
 		{
 			/// s100 first time key activation
@@ -609,19 +633,22 @@ class Manager
 			/// s215 key is active and valid for domain
 			if( $dataBody->status == 'success' && \in_array($dataBody->status_code, array('s100', 's101', 's205', 's215')) && isset($dataBody->licence_status) )
 			{
-				$txt = array(__("Update to the premium version is now available.", 'lwsmanager'));
-				if( isset($dataBody->message) )
-					$txt[] = sprintf('<div class="lws-license-small-text">%s</div>', $this->serverMessage($dataBody->message, $dataBody->status_code));
-				$this->notice(implode('</br>', $txt), 'success');
+				\update_option('lws_lic_alternative_enabled', ''); // no need for alternative way
+
+				if ($notice) {
+					$this->notice($this->serverMessage($dataBody->message, $dataBody->status_code), 'success');
+				}
 
 				$d = (isset($dataBody->licence_expire) && $dataBody->licence_expire) ? \date_create($dataBody->licence_expire) : false;
 				if( $d )
 				{
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
-					if( $d->getTimestamp() > \time() )
-						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $value), 'warning', '-e', false);
-					else
-						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $value), 'error', '-e');
+					if ($notice) {
+						if( $d->getTimestamp() > \time() )
+							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $key), 'warning', '-e', false);
+						else
+							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key), 'error', '-e');
+					}
 				}
 				if( '4' === $z )
 					$dataBody->zombie = 'on';
@@ -639,15 +666,17 @@ class Manager
 			}
 			else
 			{
-				$txt = array(sprintf(__("There was a problem activating the license (%s).", 'lwsmanager'), $value));
+				$txt = array(sprintf(__("There was a problem activating the license (%s).", 'lwsmanager'), $key));
 				if( isset($dataBody->message) )
 					$txt[] = $this->serverMessage($dataBody->message, $dataBody->status_code);
-				$this->notice(implode('</br>', $txt));
+				if ($notice)
+					$this->notice(implode('</br>', $txt));
 			}
 		}
 		else
 		{
-			$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
+			if ($notice)
+				$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
 		}
 
 		return false;

@@ -18,6 +18,9 @@ class FilterColumnsVisibility extends Filter
 		$this->extra = $extra;
 	}
 
+	/** In the editlist's labels() function, set the third element of the item's array to true to allow show/hide
+	 *  $labels['key'] = array('column name', 'grid column definition', true);
+	 */
 	function input($above = true, $columns = array())
 	{
 		$retour = "<div class='lws-editlist-filter-box end'><div class='lws-editlist-filter-box-title'>{$this->title}</div>";

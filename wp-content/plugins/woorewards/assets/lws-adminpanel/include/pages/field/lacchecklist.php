@@ -71,18 +71,20 @@ class LacChecklist extends \LWS\Adminpanel\Pages\LAC
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
 			}
+			$id = isset($this->extra['id']) ? (" id='".\esc_attr($this->extra['id'])."'") : '';
 			$input = <<<EOT
-			<input class='{$inputClass}' name='{$name}' data-value='{$value}'$attrs$source$spec data-lw_name='{$name}'>
+			<input class='{$inputClass}' name='{$name}' data-value='{$value}'$attrs$source$spec data-lw_name='{$name}'{$id}>
 			<div class='lac-checklist-wrapper'>
 				<div class='top-line'>
 					<div class='selector'>
 						<div class='anim-icon lws-icon-nav-down'></div>
 						<div class='text'>{$placeholder}</div>
-
 					</div>
 					<div class='search-div'>
 						<div class='search-btn lws-icon-search'></div>
-						<input class='search-input' placeholder='{$inputph}'/>
+						<div class='search-input' contenteditable='true' data-placeholder='{$inputph}'>
+							<div class="lac-loading"></div>
+						</div>
 						<div class='reset-btn lws-icon-undo'></div>
 					</div>
 					<div class='close-btn lws-icon-checkmark'></div>

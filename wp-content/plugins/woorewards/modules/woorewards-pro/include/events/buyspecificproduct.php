@@ -269,7 +269,7 @@ EOT;
 			return $order;
 		if(!$this->isValidCurrency($order->order))
 			return $order;
-		$userId = \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order->order);
+		$userId = $this->getPointsRecipient($order->order);
 		if (!$userId)
 			return $order;
 
@@ -298,29 +298,40 @@ EOT;
 		if ($boughtCount > 0)
 		{
 			$pointsCount = ($this->isQtyMultiply() ? $boughtCount : 1);
-			if ($pointsCount = \apply_filters('trigger_' . $this->getType(), $pointsCount, $this, $order->order))
-			{
-				$reason = \LWS\WOOREWARDS\Core\Trace::byOrder($order->order)
-					->setProvider($order->order->get_customer_id('edit'));
-				if( $name )
-					$reason->setReason(array("Bought a %s", implode(', ',$name)), 'woorewards-pro');
-				else
-					$reason->setReason("Specific product bought", 'woorewards-pro');
-
+			if ($pointsCount = \apply_filters('trigger_' . $this->getType(), $pointsCount, $this, $order->order)) {
 				$this->addPoint(array(
 					'user'  => $userId,
 					'order' => $order->order,
-				), $reason, $pointsCount);
+				), $this->getPointsReason($order->order, $name), $pointsCount);
 			}
 		}
 		return $order;
 	}
 
+	/** @param $order (WC_Order)
+	 * @return (int) user ID */
+	function getPointsRecipient($order)
+	{
+		return \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order);
+	}
+
+	function getPointsReason($order, $name)
+	{
+		if ($name) {
+			$reason = array('Bought a %1$s on order %2$s', implode(', ', $name), $order->get_order_number());
+		} else {
+			$reason = array('Bought specific products on order %s', $order->get_order_number());
+		}
+		return \LWS\WOOREWARDS\Core\Trace::byOrder($order)
+			->setProvider($order->get_customer_id('edit'))
+			->setReason($reason, 'woorewards-pro');
+	}
+
 	/** Never call, only to have poedit/wpml able to extract the sentance. */
 	private function poeditDeclare()
 	{
-		__("Specific product bought", 'woorewards-pro');
-		__("Bought a %s", 'woorewards-pro');
+		__('Bought specific products on order %s', 'woorewards-pro');
+		__('Bought a %1$s on order %2$s', 'woorewards-pro');
 	}
 
 	/**	Event categories, used to filter out events from pool options.

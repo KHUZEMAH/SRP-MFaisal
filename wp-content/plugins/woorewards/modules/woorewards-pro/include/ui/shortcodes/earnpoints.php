@@ -107,6 +107,11 @@ class EarnPoints
 						'desc' => __("(Optional) If set, will display the points and rewards system name for each method to ear points", 'woorewards-pro'),
 						'example' => '[wr_earn_points showname="yes"]',
 					),
+					'showunlogged' => array(
+						'option' => 'showunlogged',
+						'desc' => __("(Optional) If set, methods to earn points will be visible to unlogged customers", 'woorewards-pro'),
+						'example' => '[wr_earn_points showunlogged="yes"]',
+					),
 				),
 				'flags' => array('current_user_id'),
 			)
@@ -130,12 +135,14 @@ class EarnPoints
 	 * 					  'formatted' → points are formatted with the points currency/name.
 	 * @param showname	→ Default: false
 	 * 					  Shows the name of the points and rewards system if set
+	 * @param showunlogged	→ Default: false
+	 * 					  Shows for unlogged users
 	 */
 	public function shortcode($atts = array(), $content = '')
 	{
-		$atts = \wp_parse_args($atts, array('system' => '', 'layout' => 'none', 'element' => 'none', 'display' => 'formatted', 'showname' => ''));
+		$atts = \wp_parse_args($atts, array('system' => '', 'layout' => 'none', 'element' => 'none', 'display' => 'formatted', 'showname' => '', 'showunlogged' => ''));
 		$userId = \apply_filters('lws_woorewards_shortcode_current_user_id', \get_current_user_id(), $atts, 'wr_points_balance');
-		if (!$userId) {
+		if (!$userId && !$atts['showunlogged']) {
 			return \do_shortcode($content);
 		}
 		// Basic verifications

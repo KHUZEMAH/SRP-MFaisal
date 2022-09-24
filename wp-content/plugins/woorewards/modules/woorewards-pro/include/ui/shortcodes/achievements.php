@@ -23,7 +23,7 @@ class Achievements
 			'title' => __("Achievements", 'woorewards-pro'),
 			'type'  => 'shortcode',
 			'extra' => array(
-				'shortcode'   => '[lws_achievements header=”<my Own Title>” display=”all|owned”]',
+				'shortcode'   => '[lws_achievements]',
 				'description' =>  __("This shortcode shows existing achievements.", 'woorewards-pro'),
 				'flags'       => array('current_user_id'),
 				'options'     => array(
@@ -79,6 +79,7 @@ class Achievements
 		$atts = $this->defaultArgs();
 		$achievements = array(
 			array(
+				'badge_slug'        => '',
 				'badge_thumbnail'   => LWS_WOOREWARDS_PRO_IMG.'/cat.png',
 				'badge_title'       => 'The Cat',
 				'badge_description' => "Look at me. You know I'm cute even when I break your furniture",
@@ -88,6 +89,7 @@ class Achievements
 				'done'              => '3',
 			),
 			array(
+				'badge_slug'        => '',
 				'badge_thumbnail'   => LWS_WOOREWARDS_PRO_IMG.'/horse.png',
 				'badge_title'       => 'The White Horse',
 				'badge_description' => "Arya Stark : I'm out of this s***",
@@ -97,6 +99,7 @@ class Achievements
 				'done'              => '1',
 			),
 			array(
+				'badge_slug'        => '',
 				'badge_thumbnail'   => LWS_WOOREWARDS_PRO_IMG.'/chthulu.png',
 				'badge_title'       => 'Chtulhu rules',
 				'badge_description' => "You unleashed the power of Chthulu over the world",
@@ -144,6 +147,8 @@ class Achievements
 					$labels['aprogress'], $achievement['done'], $achievement['occurences']
 				);
 			}
+			if ($achievement['badge_slug'])
+				$extraclass .= (' lws-badge-' . \esc_attr($achievement['badge_slug']));
 			$content .= <<<EOT
 	<div class='lwss_selectable lws-achievement-container{$extraclass}' data-type='Achievement Box'>
 		<div class='lwss_selectable lws-achievement-top' data-type='Top part'>
@@ -209,6 +214,7 @@ EOT;
 					continue; //  unknown value
 				}
 				$achievements[] = array(
+					'badge_slug'        => $badge->getSlug(),
 					'badge_thumbnail'   => $badge->getThumbnailUrl(),
 					'badge_title'       => $badge->getTitle(),
 					'badge_description' => $badge->getMessage(),

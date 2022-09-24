@@ -115,8 +115,9 @@ class PointDiscount
 	/** Coupon title, default use Pool title. */
 	protected function getTitle($discount)
 	{
-		if (isset($discount['pool']) && $discount['pool'])
-			return \apply_filters('lws_woorewards_pointdiscount_title', $discount['pool']->getOption('display_title'), $discount);
+		$pool = self::getPool($discount);
+		if ($pool)
+			return \apply_filters('lws_woorewards_pointdiscount_title', $pool->getOption('display_title'), $discount);
 		else
 			return $discount['pool_name'];
 	}
@@ -172,7 +173,7 @@ class PointDiscount
 
 		$discount = array(
 			'code'      => $code,
-			'pool'      => $pool,
+			'pool'      => false,
 			'pool_name' => $pool->getName(),
 			'stack_id'  => $stackId,
 			'user_id'   => $userId,
@@ -267,7 +268,7 @@ class PointDiscount
 			if (!isset($discount['paid']) || $discount['paid']) // before 4.1.1 'paid' was not set but payment done since checkout
 				continue;
 
-			$pool = $discount['pool'];
+			$pool = self::getPool($discount);
 			if (!$pool) {
 				if (!$throwException) {
 					$this->setOrderFailed($order, sprintf(__('The Reward "%s" is unknown.', 'woorewards-lite'), $discount['pool_name']));
@@ -399,15 +400,16 @@ class PointDiscount
 		{
 			foreach ($need['discounts'] as &$discount)
 			{
-				$title = $discount['pool']->getOption('display_title');
+				$pool = self::getPool($discount);
+				$title = $pool->getOption('display_title');
 
 				// pay points
 				$reason = \LWS\WOOREWARDS\Core\Trace::byReason(
 					array('Reward from %1$s on Order #%2$s', $title, $order->get_order_number()),
 					LWS_WOOREWARDS_DOMAIN
-				)->setOrigin(self::CODE_PREFIX . $discount['pool']->getName())->setOrder($orderId);
+				)->setOrigin(self::CODE_PREFIX . $pool->getName())->setOrder($orderId);
 
-				$discount['pool']->usePoints($userId, $discount['points'], $reason);
+				$pool->usePoints($userId, $discount['points'], $reason);
 				$discount['paid'] = true;
 				$discount['item']->update_meta_data('wr_discount_data', \array_merge(
 					$discount, array('pool' => false, 'item' => false,)
@@ -417,7 +419,7 @@ class PointDiscount
 				// keep note on order
 				$order->add_order_note(sprintf(
 					_x('Use <i>%1$s</i> from <i>%2$s</i> to get a discount on this order', 'order note', 'woorewards-lite'),
-					\LWS_WooRewards::formatPointsWithSymbol($discount['points'], $discount['pool']->getName()),
+					\LWS_WooRewards::formatPointsWithSymbol($discount['points'], $pool->getName()),
 					$title
 				));
 			}
@@ -463,7 +465,7 @@ class PointDiscount
 		if ($data)
 		{
 			$data['item'] = $item;
-			self::fillPool($data);
+			$data['pool'] = false;
 		}
 		return $data;
 	}
@@ -487,23 +489,20 @@ class PointDiscount
 			$data = $item->get_meta('wr_discount_data', true, 'edit');
 			if ($data)
 			{
-				self::fillPool($data);
 				return $this->getTitle($data);
 			}
 		}
 		return $code;
 	}
 
-	private static function fillPool(&$data)
+	public static function getPool($discountData)
 	{
 		static $pools = array();
-		if (!(isset($data['pool']) && $data['pool'])) {
-			$name = $data['pool_name'];
-			if (isset($pools[$name]))
-				$data['pool'] = $pools[$name];
-			else
-				$data['pool'] = $pools[$name] = \apply_filters('lws_woorewards_get_pools_by_args', false, array('system' => $name, 'force' => true), false)->last();
-		}
+		$name = $discountData['pool_name'];
+		if (isset($pools[$name]))
+			return $pools[$name];
+		else
+			return ($pools[$name] = \apply_filters('lws_woorewards_get_pools_by_args', false, array('system' => $name, 'force' => true), false)->last());
 	}
 
 	private function poedit()

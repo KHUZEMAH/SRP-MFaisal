@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.1
+ * Version: 4.9.6
  * Text Domain: woorewards-pro
  * WC requires at least: 3.7.0
- * WC tested up to: 6.4
+ * WC tested up to: 6.9
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -100,7 +100,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.1');
+		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.6');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -390,7 +390,9 @@ final class LWS_WooRewards_Pro
 		\LWS\WOOREWARDS\PRO\Ui\OrderPointInformation::register();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/woocommerce/productpointspreview.php';
 		\LWS\WOOREWARDS\PRO\Ui\ProductPointsPreview::register();
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/migration/importexport.php';
+
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/pointsflow/action.php';
+		\LWS\WOOREWARDS\PRO\PointsFlow\Action::register();
 
 		/** Popups */
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/popups/freeproductpopup.php';
@@ -398,7 +400,6 @@ final class LWS_WooRewards_Pro
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/popups/rewardpopup.php';
 		\LWS\WOOREWARDS\PRO\Ui\Popups\RewardPopup::register();
 
-		\LWS\WOOREWARDS\PRO\Migration\ImportExport::register();
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/pointdiscount.php';
 		\LWS\WOOREWARDS\PRO\PointDiscount::register();
@@ -563,18 +564,22 @@ final class LWS_WooRewards_Pro
 	function registerPostTypes()
 	{
 		\register_post_type('lws_custom_reward', array(
+			'show_in_rest' => true,
 			'labels' => array(
 				'name' => __("Custom rewards", 'woorewards-pro'),
 				'singular_name' => __("Custom reward", 'woorewards-pro')
-			)
+			),
+			'supports' => array('title', 'custom-fields'),
 		));
 		\LWS\WOOREWARDS\PRO\Core\Badge::registerPostType();
 		\register_post_type('lws-wre-achievement', array(
+			'show_in_rest' => true,
 			'hierarchical' => true,
 			'labels' => array(
 				'name' => __("Achievements", 'woorewards-pro'),
 				'singular_name' => __("Achievement", 'woorewards-pro')
-			)
+			),
+			'supports' => array('title', 'custom-fields'),
 		));
 	}
 

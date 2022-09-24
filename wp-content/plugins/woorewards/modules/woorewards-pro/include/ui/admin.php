@@ -512,6 +512,21 @@ class Admin
 									__("The user will have the possibility to set if he/she accepts to appear on the leaderboard or not.", 'woorewards-pro'),
 							)
 						),
+						'show_levels' => array(
+							'id' => 'lws_woorewards_show_levels_in_editlist',
+							'title' => __("Show levels", 'woorewards-pro'),
+							'type' => 'lacselect',
+							'extra' => array(
+								'maxwidth' => '10em;',
+								'mode'     => 'select',
+								'help'     => __("Show user level information with its points in customers admin screen.", 'woorewards-pro'),
+								'source'   => array(
+									array('value' => '', 'label' => __("Points only", 'woorewards-pro')),
+									array('value' => 'level', 'label' => __("Level only", 'woorewards-pro')),
+									array('value' => 'both', 'label' => __("Points and Level", 'woorewards-pro')),
+								),
+							)
+						),
 					)
 				),
 				'birthday' => array(
@@ -975,7 +990,7 @@ class Admin
 			'color'		=> '#a67c52',
 			'class'		=> 'half',
 			'title'    => __("Points Currency", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/advanced-mechanisms/points-currency/'),
+			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/#points-currency'),
 			'text' 	   => $currencyText,
 			'fields'   => array(
 				'point_name' => array(
@@ -1383,7 +1398,53 @@ EOT;
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/editlists/userspointsconfiscationba.php';
 		$filters['u_revoke'] = new \LWS\WOOREWARDS\PRO\Ui\Editlists\UsersPointsConfiscationBA('u_revoke');
 
+		\add_filter('lws_wre_editlist_point_amount_display', array($this, 'shapePoints'), 10, 4);
+
 		return $filters;
+	}
+
+	function shapePoints($points, $user, $poolName, $info)
+	{
+		static $mode = null;
+		if (null === $mode)
+			$mode = \get_option('lws_woorewards_show_levels_in_editlist');
+
+		if ($mode) {
+			static $levels = array();
+			if (!isset($levels[$info->post_id])) {
+				// build levels first time we ask
+				$levels[$info->post_id] = false;
+				$pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($info->post_id, false);
+				if ($pool && $pool->getOption('type') == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING) {
+					$tmp = array();
+					foreach ($pool->getUnlockables()->sort()->asArray() as $item) {
+						$tmp[\intval($item->getCost())] = $item->getGroupedTitle('view');
+					}
+					\ksort($tmp, SORT_NUMERIC);
+					$levels[$info->post_id] = $tmp;
+				}
+			}
+			// levelling only
+			if ($levels[$info->post_id]) {
+				$title = '&nbsp;';
+				foreach ($levels[$info->post_id] as $p => $t) {
+					if ($p > $points)
+						break;
+					$title = $t;
+				}
+				// format
+				if ('both' == $mode) {
+					$points = sprintf(
+						_x('%1$s - %2$s', 'points - level title', 'woorewards-pro'),
+						"<span class='lws-pts'>{$points}</span>",
+						"<span class='lws-level'>{$title}</span>"
+					);
+				} elseif ('level' == $mode) {
+					$points = $title;
+				}
+			}
+		}
+		return $points;
 	}
 
 	function getSystemPage()
@@ -1393,8 +1454,8 @@ EOT;
 
 		$system = $this->standardPages['wr_system'];
 
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/migration.php';
-		\LWS\WOOREWARDS\PRO\Ui\AdminScreens\Migration::mergeGroups($system['tabs']['data_management']['groups']);
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/pointsmanagement.php';
+		\LWS\WOOREWARDS\PRO\Ui\AdminScreens\PointsManagement::mergeGroups($system['tabs']['data_management']['groups']);
 
 		$system['tabs']['data_management']['groups']['historydel'] = array(
 			'id'    => 'historydel',
@@ -1425,14 +1486,14 @@ EOT;
 							),
 							array(
 								__("Delete All User Data", 'woorewards-pro') . ': ',
-								__("This will let users with zero points and no rewards.", 'woorewards-pro'),
+								__("This will leave users with zero points and no rewards.", 'woorewards-pro'),
 							),
 						),
 					)
 				),
 				'historydel_date_end' => array(
 					'id'    => 'historydel_date_end',
-					'title' => __("Ceil date", 'woorewards-lite'),
+					'title' => __("End date", 'woorewards-lite'),
 					'type'  => 'input',
 					'extra' => array(
 						'gizmo' => true,
@@ -1558,7 +1619,7 @@ EOT;
 			if (!$pool) {
 				return sprintf(
 					'<b style="color: #d76f00;">%s</b>',
-					__("Selected Loyalty System cannot be find back", 'woorewards-pro')
+					__("The selected points and rewards system can't be found", 'woorewards-pro')
 				);
 			}
 		}

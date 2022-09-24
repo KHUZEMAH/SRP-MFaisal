@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.1
+ * Version: 4.9.6
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
  * WC requires at least: 3.7.0
- * WC tested up to: 6.4
+ * WC tested up to: 6.9
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -116,7 +116,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '4.9.1');
+		define('LWS_WOOREWARDS_VERSION', '4.9.6');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -154,7 +154,7 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '4.9.1';
+		return '4.9.6';
 	}
 
 	public function addDocUrl($url)
@@ -360,26 +360,47 @@ final class LWS_WooRewards
 	function registerPostTypes()
 	{
 		\register_post_type(\LWS\WOOREWARDS\Core\Pool::POST_TYPE, array(
+			'show_in_rest' => true,
 			'hierarchical' => true,
 			'labels' => array(
 				'name' => __("Loyalty Systems", 'woorewards-lite'),
 				'singular_name' => __("Loyalty System", 'woorewards-lite')
-			)
+			),
+			'supports' => array('title', 'custom-fields'),
 		));
 		\register_post_type(\LWS\WOOREWARDS\Abstracts\Event::POST_TYPE, array(
+			'show_in_rest' => true,
 			'hierarchical' => true,
 			'labels' => array(
 				'name' => __("Earning Points Methods", 'woorewards-lite'),
 				'singular_name' => __("Earning Points Method", 'woorewards-lite')
-			)
+			),
+			'supports' => array('title', 'custom-fields'),
 		));
 		\register_post_type(\LWS\WOOREWARDS\Abstracts\Unlockable::POST_TYPE, array(
+			'show_in_rest' => true,
 			'hierarchical' => true,
 			'labels' => array(
 				'name' => __("Rewards", 'woorewards-lite'),
 				'singular_name' => __("Reward", 'woorewards-lite')
-			)
+			),
+			'supports' => array('title', 'custom-fields'),
 		));
+
+		$metas = \apply_filters('lws_woorewards_register_custom_post_metas', array(
+			\LWS\WOOREWARDS\Core\Pool::POST_TYPE => array(
+				'wre_pool_direct_reward_point_rate' => true,
+			),
+		));
+		foreach ($metas as $type => $meta) {
+			foreach ($meta as $key => $single) {
+				\register_meta('post', $key, array(
+					'object_subtype' => $type,
+					'show_in_rest' => true,
+					'single' => $single,
+				));
+			}
+		}
 	}
 
 	static function installPool()

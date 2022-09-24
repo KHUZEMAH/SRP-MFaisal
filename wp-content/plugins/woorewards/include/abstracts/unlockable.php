@@ -99,7 +99,13 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		$label = _x("Description", "Unlockable title", 'woorewards-lite');
 		$placeholder = \esc_attr(strip_tags(\apply_filters('the_wre_unlockable_description', $this->getDescription('edit'), $this->getId())));
 		$value = isset($this->description) ? \htmlspecialchars($this->description, ENT_QUOTES) : '';
-		$str .= "<div class='lws-$context-opt-title label lws_wru_field_descr'>$label</div>";
+		$tooltip = $this->getDescriptionTooltip();
+		if ($tooltip) {
+			$str .= "<div class='field-help'>{$tooltip}</div>";
+			$str .= "<div class='lws-$context-opt-title label lws_wru_field_descr'>$label<div class='bt-field-help'>?</div></div>";
+		} else {
+			$str .= "<div class='lws-$context-opt-title label lws_wru_field_descr'>$label</div>";
+		}
 		$str .= "<div class='value lws-$context-opt-input value lws_wru_field_descr'>";
 		$str .= "<textarea id='{$prefix}description' name='{$prefix}description' placeholder='$placeholder'>$value</textarea>";
 		$str .= "</div>";
@@ -257,6 +263,14 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		return $context == 'backend' ? $this->getDisplayType() : '';
 	}
 
+	/**	Provided to be overriden.
+	 *	@param $context usage of text. Default is 'backend' for admin, expect 'frontend' for customer.
+	 *	@return (string) what this does. */
+	function getDescriptionTooltip()
+	{
+		return '';
+	}
+
 	/** @alias for getReason('raw').
 	 *	Used to set history traces.
 	 *	@return string or \LWS\WOOREWARDS\Core\Trace instance. */
@@ -378,7 +392,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			if ($pool = $this->getPool())
 				$title = ($pool->getOption('title') . ' - ' . $title);
 			$pack['title'] = $title;
-			$pack['edit_link'] = \add_query_arg(array('page' => LWS_WOOREWARDS_PAGE . '.loyalty', 'tab' => 'wr_loyalty.wr_upool_' . $this->getPoolName()), admin_url('admin.php'));
+			$pack['edit_link'] = \add_query_arg(array('page' => LWS_WOOREWARDS_PAGE . '.loyalty', 'tab' => 'wr_loyalty.wr_upool_' . $this->getPoolId()), admin_url('admin.php'));
 		}
 		return $pack;
 	}

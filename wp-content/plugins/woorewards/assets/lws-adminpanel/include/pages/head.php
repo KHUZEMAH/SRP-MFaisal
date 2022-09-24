@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) exit();
 class Head
 {
 	const YOUTUBE = 'https://www.youtube.com/channel/UCM3iPTIcjnJzfEYxMo5hLvg';
-	const CHAT    = 'https://discord.gg/xHvjWMV';
+	const CHAT    = 'https://discord.gg/TMeQ3KX4Bf';
 	const MAILTO  = 'support@longwatchstudio.com';
 
 	function __construct(\LWS\Adminpanel\Pages\Page &$current, $resume = false)
@@ -23,6 +23,11 @@ class Head
 	function getMainId()
 	{
 		return $this->resumePage ? $this->resumePage->getID() : $this->page->getId();
+	}
+
+	function getCurrentId()
+	{
+		return $this->page->getId();
 	}
 
 	function getMainTitle()
@@ -196,7 +201,7 @@ class Head
 	}
 
 	/** Echo the sticky panel header */
-	function showStickyPanel($type)
+	function showStickyPanel($type, $middle=false)
 	{
 		/** Top Line */
 		echo "<div class='lws-sticky-panel'><div class='top-row'>";
@@ -214,9 +219,17 @@ class Head
 		}
 		echo "</ul>";
 
+		\do_action('lws_adminpanel_after_breadcrums', $this);
+
 		/** Admin Menu */
 		$this->showAdminMenu();
 		echo "</div>";
+
+		if ($middle) {
+			if (\is_array($middle))
+				$middle = \lws_array_to_html($middle);
+			echo $middle;
+		}
 
 		if ($type == 'admin') {
 			/** Second Line */
@@ -571,7 +584,7 @@ EOT;
 		), $settings);
 		$page = \LWS\Adminpanel\Pages\Page::create($pageId, $data);
 		$head = new self($page);
-		$head->showStickyPanel($pageId, $settings);
+		$head->showStickyPanel($pageId);
 		$head->showTransientNotices();
 	}
 

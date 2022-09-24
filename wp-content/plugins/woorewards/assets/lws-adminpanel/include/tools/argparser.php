@@ -131,7 +131,9 @@ class ArgParser
 	 * * K (sanitize_key) not empty string
 	 * * / start a regex (eg. look for a php string case insensitive "/php/i") (trimmed).
 	 * * = expect an expression @see \LWS\Adminpanel\Tools\Expression
+	 *		can be followed by an alternative format if expression is just a number (e.g. =D).
 	 * * =! expect a not empty expression @see \LWS\Adminpanel\Tools\Expression
+	 *		can be followed by an alternative format if expression is just a number.
 	 * * date expect a date format or nothing
 	 * * Date expect a valid date format (required)
 	 * * p expect a Duration @see DateInterval for format
@@ -216,13 +218,20 @@ class ArgParser
 				else if( $f == '=' )
 				{
 					$exp = new \LWS\Adminpanel\Tools\Expression();
-					if (!$exp->isValid($value, array('empty' => ('!' != substr($format, 1, 1)),)))
+					if (!$exp->isValid($value, array('empty' => ('!' != substr($format, 1, 1)),))) {
 						return $this->error($args, sprintf(_x('%1$s must be a valid number or an expression: %2$s', 'Input array validation', 'lws-adminpanel'), $this->label($args, $key), $exp->err()));
+					} else {
+						if (\strlen($value) && (!\LWS\Adminpanel\Tools\Expression::isExpr($value)) && \strlen(\rtrim($next = \ltrim($format, '=!')))) {
+							return $this->formatValue($args, $key, $next, $value);
+						}
+					}
 				}
 				else if( $f == '0' )
 				{
-					if( !is_numeric($value) || ($value = intval($value)) < 0 )
+					$v = $value;
+					if( !is_numeric($value) || ($v = intval($value)) < 0 )
 						return $this->error($args, sprintf(_x("%s must be equal or greater than zero", "Input array validation", 'lws-adminpanel'), $this->label($args, $key)));
+					$value = $v;
 				}
 				else if( $u == 'F' )
 				{
@@ -256,8 +265,10 @@ class ArgParser
 					{
 						if( !is_numeric($value) )
 							return $this->error($args, sprintf(_x("%s is not a number", "Input array validation", 'lws-adminpanel'), $this->label($args, $key)));
-						if( $u == $f && ($value = intval(trim($value))) <= 0 )
+						$v = \intval(\trim($value));
+						if( $u == $f && $v <= 0 )
 							return $this->error($args, sprintf(_x("%s must be greater than zero", "Input array validation", 'lws-adminpanel'), $this->label($args, $key)));
+						$value = $v;
 					}
 					else if( !is_string($value) )
 					{

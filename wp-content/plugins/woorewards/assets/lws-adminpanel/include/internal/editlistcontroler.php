@@ -118,10 +118,10 @@ class EditlistControler
 
 	/** Display list by page (default is true)
 	 * @return $this for method chaining */
-	public function setPageDisplay($yes=true)
+	public function setPageDisplay($yes=true, $butFilters=false)
 	{
 		if( $yes === false || is_null($yes) )
-			$this->m_PageDisplay = null;
+			$this->m_PageDisplay = ($butFilters ? true : null);
 		else if( $yes === true )
 			$this->m_PageDisplay = new \LWS\Adminpanel\EditList\Pager($this->m_Id);
 		else if( is_a($yes, '\LWS\Adminpanel\EditList\Pager') )
@@ -261,13 +261,14 @@ EOT;
 				}
 				$result .= "<div class='lws-editlist-filters-first-line'>{$rows}</div>";
 			}
-			if( !$limit )
-			{
-				$rcount = \apply_filters('lws_adminpanel_editlist_total_'.$this->slug, $this->m_Source->total());
-				$limit = $this->m_PageDisplay->readLimit($rcount);
-			}
 
-			$result .= $this->m_PageDisplay->navDiv($rcount, $limit, $this->m_Source->getSortColumns());
+			if (\is_object($this->m_PageDisplay)) {
+				if (!$limit) {
+					$rcount = \apply_filters('lws_adminpanel_editlist_total_'.$this->slug, $this->m_Source->total());
+					$limit = $this->m_PageDisplay->readLimit($rcount);
+				}
+				$result .= $this->m_PageDisplay->navDiv($rcount, $limit, $this->m_Source->getSortColumns());
+			}
 
 			$place = $above ? 'above' : 'below';
 			$result = "<div class='lws-editlist-filters lws-editlist-{$place} {$this->m_Id}-filters'>{$result}</div>";
@@ -451,9 +452,13 @@ EOT;
 		$firstValue = true;
 		foreach ($cells as $cell)
 		{
+			$loader = "";
 			if ($cell['key']) {
 				if ($firstValue) {
 					$firstValue = false;
+					if (!$head) {
+						$loader = "<div class='loader'><div class='animation'></div></div>";
+					}
 					// insert the small version in a cell
 					$str[] = sprintf(
 						"<div class='lws-small-media-cell lws-editlist-cell lws_deep_cell{$head}' style='grid-column:span %d;'>%s</div>",
@@ -464,7 +469,7 @@ EOT;
 				$cell['class'] .= ' large-media-cell-content';
 			}
 			$cell['atts'] .= sprintf(' style="grid-column: %d;"', ++$index);
-			$str[] = "<div class='{$cell['class']}'{$cell['atts']}><div class='cell-content'>{$cell['content']}</div></div>";
+			$str[] = "<div class='{$cell['class']}'{$cell['atts']}>{$loader}<div class='cell-content'>{$cell['content']}</div></div>";
 		}
 
 		$class = ('lws_editlist_row '.\trim($rowKind));

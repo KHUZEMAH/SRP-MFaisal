@@ -46,7 +46,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 
 		$placeholder = $this->getFieldsetPlaceholder(false, 10);
 		$label = _x("Sponsee roles", "Sponsored Order Event", 'woorewards-pro');
-		$tooltip = __("The Sponsee needs to have at least one of the selected Roles to grant points to his Referral. Leave empty for no restriction.", 'woorewards-pro');
+		$tooltip = __("The sponsee needs to have at least one of the selected roles to grant points to his referral. Leave empty for no restriction.", 'woorewards-pro');
 		$field = "<div class='field-help'>{$tooltip}</div>";
 		$field .= "<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>";
 		$field .= "<div class='lws-$context-opt-input value'>";

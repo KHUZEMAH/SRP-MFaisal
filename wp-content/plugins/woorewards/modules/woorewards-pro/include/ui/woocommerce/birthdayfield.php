@@ -49,7 +49,7 @@ class BirthdayField
 	{
 		$fields['account'][$this->getDefaultBirthdayMetaKey()] = array(
 			'type'        => 'date',
-			'label'       => __("Birthday", 'woorewards-pro'),
+			'label'       => __("Date of birth", 'woorewards-pro'),
 			'required'    => false
 		);
 		return $fields;
@@ -58,7 +58,7 @@ class BirthdayField
 	function myaccountRegisterForm()
 	{
 		$field = $this->getDefaultBirthdayMetaKey();
-		$label = __("Birthday", 'woorewards-pro');
+		$label = __("Date of birth", 'woorewards-pro');
 
 		echo "<p class='woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide'>";
 		echo "<label for='{$field}'>$label</label>";
@@ -71,7 +71,7 @@ class BirthdayField
 		$birthday = $this->grabBirthdayFromPost();
 		if( false === $birthday ){
 			$field = $this->getDefaultBirthdayMetaKey();
-			$validation_error->add($field, __("Invalid date format for birthday", 'woorewards-pro'), 'birthday');
+			$validation_error->add($field, __("Invalid date format for date of birth", 'woorewards-pro'), 'birthday');
 		}
 		return $validation_error;
 	}
@@ -86,7 +86,7 @@ class BirthdayField
 	{
 		$userId = \get_current_user_id();
 		$field = $this->getDefaultBirthdayMetaKey();
-		$label = __("Birthday", 'woorewards-pro');
+		$label = __("Date of birth", 'woorewards-pro');
 		$value = \esc_attr(\get_user_meta($userId, $field, true));
 
 		echo "<p class='woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide'>";
@@ -101,7 +101,7 @@ class BirthdayField
 		if( $birthday !== false )
 			\update_user_meta($userId, $this->getDefaultBirthdayMetaKey(), $birthday);
 		else
-			\wc_add_notice(__("Invalid date format for birthday", 'woorewards-pro'), 'error');
+			\wc_add_notice(__("Invalid date format for date of birth", 'woorewards-pro'), 'error');
 	}
 
 	function grabBirthdayFromPost()
@@ -110,9 +110,14 @@ class BirthdayField
 		$birthday = !empty($_POST[$field]) ? \wc_clean($_POST[$field]): '';
 		if( !empty($birthday) )
 		{
-			if( empty(\date_create($birthday)) )
-			{
-				\wc_add_notice(__("Invalid date format for birthday", 'woorewards-pro'), 'error');
+			$date = \date_create($birthday);
+			if (empty($date)) {
+				\wc_add_notice(__("Invalid date format for date of birth", 'woorewards-pro'), 'error');
+				$birthday = false;
+			}
+			$today = \date_create();
+			if ($date > $today) {
+				\wc_add_notice(__("You must enter your date of birth, not your next birthday", 'woorewards-pro'), 'error');
 				$birthday = false;
 			}
 		}
@@ -122,7 +127,7 @@ class BirthdayField
 	function showProfileBirthday($user)
 	{
 		$field = $this->getDefaultBirthdayMetaKey();
-		$label = __("Birthday", 'woorewards-pro');
+		$label = __("Date of birth", 'woorewards-pro');
 		$value = \esc_attr(\get_user_meta($user->ID, $field, true));
 		echo <<<EOT
 <table class="form-table">
@@ -158,9 +163,9 @@ EOT;
 				\usort($dates, function($a, $b){ // valid first, next by date ASC
 					if ($a->valid != $b->valid)
 						return ($a->valid ? -1 : 1);
-					if ($a == $b)
+					if ($a->next == $b->next)
 						return 0;
-					return ($a < $b ? -1 : 1);
+					return ($a->next < $b->next ? -1 : 1);
 				});
 				$label = __("Next Birthday point earning", 'woorewards-pro');
 				$help  = __("Dates below are estimates only, triggers can vary depending on CRON settings. In addition, point earning could be prevented by changes in User Status or Loyalty System settings.", 'woorewards-pro');

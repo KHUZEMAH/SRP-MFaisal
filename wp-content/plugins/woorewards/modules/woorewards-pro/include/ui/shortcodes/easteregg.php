@@ -47,10 +47,18 @@ class EasterEgg
 
 		\do_action('lws_woorewards_easteregg', $userId, $eggId);
 
+		if (isset($_GET['resp']) && $_GET['resp']) {
+			$text = \base64_decode(\sanitize_text_field($_GET['resp']));
+			if ($text) {
+				$text = \apply_filters('lws_woorewards_easteregg_content_found', $text, $eggId);
+				\wp_die("<div class='lws-wr-easteregg-found-textual'>{$text}</div>");
+			}
+		}
+
 		global $wpdb;
 		$imgId = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key='wre_event_visited_egg' AND post_id=%d", $eggId));
 		if( !empty($imgId) && !empty($url = \esc_attr(\wp_get_attachment_url($imgId))) )
-			\wp_die("<img src='{$url}' style='display:inline;'>");
+			\wp_die("<img src='{$url}' style='display:inline;' class='lws-wr-easteregg-found-img'>");
 		else
 			\wp_die("<span class='lws-wr-easteregg-found'></span>");
 	}
@@ -59,7 +67,13 @@ class EasterEgg
 	 *	Display a clickable easter egg image. */
 	public function shortcode($atts=array(), $content='')
 	{
-		if( !is_array($atts) || !isset($atts['p']) || empty($p = intval($atts['p'])) || $p < 0 )
+		$atts = \wp_parse_args($atts, array(
+			'text' => '',
+			'alt'  => '',
+			'p'    => '',
+			'html' => false,
+		));
+		if(empty($p = intval($atts['p'])) || $p <= 0)
 			return $content;
 		if( empty($userId = \get_current_user_id()) )
 			return $content;
@@ -73,15 +87,37 @@ class EasterEgg
 
 		if( !empty($imgId) && !empty($url = \esc_attr(\wp_get_attachment_url($imgId))) )
 		{
+			if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['html'])) {
+				$atts['alt']  = \html_entity_decode($atts['alt']);
+				$atts['text'] = \html_entity_decode($atts['text']);
+			}
+
 			if( !$visited )
 			{
+				$alt = '';
+				if ($atts['alt'])
+					$alt = sprintf(' data-resp="%s"', \esc_attr(\base64_encode($atts['alt'])));
+
 				$this->enqueueScripts();
 				$nonce = \esc_attr(\wp_create_nonce('lws_woorewards_easteregg'));
 				$e = \esc_attr(str_rot13(base64_encode('easteregg.'.$p)));
-				$content = "<img src='{$url}' data-p='{$e}' data-n='{$nonce}' class='lws_wre_ee_has' style='display:inline;'>";  /// class volontary obfuscated name to avoid a too easy research in source of page by customer
+				if ($atts['text']) {
+					$atts['text'] = \apply_filters('lws_woorewards_easteregg_content_search', $atts['text'], $p);
+					$content = "<div data-p='{$e}' data-n='{$nonce}' class='lws_wre_ee_has' style='user-select:none;cursor:pointer;'{$alt}>{$atts['text']}</div>";
+				} else {
+					/// class volontary obfuscated name to avoid a too easy research in source of page by customer
+					$content = "<img src='{$url}' data-p='{$e}' data-n='{$nonce}' class='lws_wre_ee_has' style='display:inline;'{$alt}>";
+				}
 			}
 			else
-				$content = "<img src='{$url}' style='display:inline;'>";
+			{
+				if ($atts['alt']) {
+					$atts['alt'] = \apply_filters('lws_woorewards_easteregg_content_found', $atts['alt'], $p);
+					$content = "<div class='lws-wr-easteregg-found-textual'>{$atts['alt']}</div>";
+				} else {
+					$content = "<img src='{$url}' style='display:inline;' class='lws-wr-easteregg-found-img'>";
+				}
+			}
 		}
 		return $content;
 	}
@@ -116,5 +152,3 @@ class EasterEgg
 	}
 
 }
-
-?>

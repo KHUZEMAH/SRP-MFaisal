@@ -231,23 +231,48 @@ abstract class Field
 
 	public function getExtraAttr($key, $attr, $default=false)
 	{
-		if( isset($this->extra[$key]) )
-			return " {$attr}='" . esc_attr($this->extra[$key]) . "'";
-		else if( $default !== false )
-			return " {$attr}='" . esc_attr($default) . "'";
-		else
-			return '';
+		$str = '';
+		if (isset($this->extra[$key])) {
+			if (\is_array($this->extra[$key])) {
+				foreach ($this->extra[$key] as $k => $v)
+					$str .= sprintf(" %s='%s'", $attr . $k, \esc_attr($v));
+			} else {
+				$str = sprintf(" %s='%s'", $attr, \esc_attr($this->extra[$key]));
+			}
+		} else if ($default !== false) {
+			$str = sprintf(" %s='%s'", $attr, \esc_attr($default));
+		}
+		return $str;
 	}
 
 	/** Same as getExtraAttr() but include ignoreConfirm() in one shot. */
-	public function getExtraCss($key, $attr, $default=false)
+	public function getExtraCss($key='class', $attr='class', $default=false, $merge='')
 	{
-		if( isset($this->extra[$key]) )
-			return " {$attr}='" . esc_attr($this->ignoreConfirm($this->extra[$key])) . "'";
-		else if( $default !== false )
-			return " {$attr}='" . esc_attr($this->ignoreConfirm($default)) . "'";
-		else
+		$values = array();
+		if ($merge) {
+			if (\is_array($merge))
+				$values = \array_merge($values, $merge);
+			else
+				$values[] = $merge;
+		}
+		if (isset($this->extra[$key])) {
+			if (\is_array($this->extra[$key]))
+				$values = \array_merge($values, $this->extra[$key]);
+			else
+				$values[] = $this->extra[$key];
+		} else if($default !== false) {
+			if (\is_array($default))
+				$values = \array_merge($values, $default);
+			else
+				$values[] = $default;
+		}
+
+		$values = \array_filter($values);
+		if ($values) {
+			return sprintf(" %s='%s'", $attr, esc_attr($this->ignoreConfirm(\implode(' ', $values))));
+		} else {
 			return '';
+		}
 	}
 
 	private function readExtra($default, $extra)

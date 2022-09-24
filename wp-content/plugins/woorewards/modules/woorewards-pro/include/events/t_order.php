@@ -27,6 +27,8 @@ trait T_Order
 			if (!$this->isOrderCountValid($customer ? $customer->get_billing_email() : false))
 				return false;
 		}
+		if (!$this->isValidGateway($cart))
+			return false;
 		return true;
 	}
 
@@ -41,6 +43,9 @@ trait T_Order
 			if( !empty($origin = $order->get_created_via('edit')) && $value != $origin )
 				return false;
 		}
+
+		if (!$this->isValidGateway($order))
+			return false;
 
 		if( $this->isWCS() )
 		{
@@ -75,6 +80,22 @@ trait T_Order
 	public function getWCSubscriptionsSupport()
 	{
 		return (isset($this->wcSubscriptionSupport) && $this->wcSubscriptionSupport) ? $this->wcSubscriptionSupport : 'any';
+	}
+
+	/**	A LAC source compatible list of gateway.
+	 *	@return if no WC available. Or a list (maybe empty) of gateway. */
+	public function getGatewaysList($withOptionAll=false)
+	{
+		$list = false;
+		if (\function_exists('\WC') && \WC()->payment_gateways) {
+			$list = array();
+			foreach (\WC()->payment_gateways->get_available_payment_gateways() as $method => $gateway) {
+				$list[] = array('value' => $method, 'label' => $gateway->get_method_title());
+			}
+			if ($withOptionAll)
+				\array_unshift($list, array('value' => 'any', 'label' => __("All gateways", 'woorewards-pro')));
+		}
+		return $list;
 	}
 
 	public function setWCSubscriptionsSupport($behavior)
@@ -127,12 +148,24 @@ trait T_Order
 		return $this;
 	}
 
+	public function getGateway()
+	{
+		return (isset($this->gateway) && $this->gateway) ? $this->gateway : 'any';
+	}
+
+	public function setGateway($gateway)
+	{
+		$this->gateway = $gateway;
+		return $this;
+	}
+
 	protected function filterData($data=array(), $prefix='')
 	{
 		$data[$prefix . 'currency']        = $this->getCurrency();
 		$data[$prefix . 'affected_orders'] = $this->getOrderNumbers();
 		$data[$prefix . 'created_via']     = $this->getCreatedVia();
 		$data[$prefix . 'wcs_support']     = $this->getWCSubscriptionsSupport();
+		$data[$prefix . 'gateway']         = $this->getGateway();
 		return $data;
 	}
 
@@ -153,7 +186,6 @@ trait T_Order
 				'maxwidth' => '300px',
 				'mode'     => 'research',
 				'source'   => \LWS\Adminpanel\Tools\Conveniences::getWooCommerceCurrencies(),
-				'value'    => $this->getCurrency(),
 			));
 			$str .= "</div>";
 		}
@@ -184,10 +216,27 @@ trait T_Order
 				array('value' => 'admin',    'label'=>__("Back-End Administration", 'woorewards-pro')),
 				array('value' => 'rest-api', 'label'=>__("REST API", 'woorewards-pro')),
 			),
-			'value'     => $this->getCreatedVia(),
 			'class'     => 'above'
 		));
 		$str .= "</div>";
+
+		$gateways = $this->getGatewaysList(true);
+		if (false !== $gateways) {
+			$label   = __("Payment gateway", 'woorewards-pro');
+			$tooltip = __("Earn points only if customer uses a given payment gateway.", 'woorewards-pro');
+			$input   = \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'gateway', array(
+				'maxwidth' => '300px',
+				'mode'	   => 'select',
+				'source'   => $gateways,
+				'class'    => 'above',
+				'value'    => 'any',
+			));
+			$str .= <<<EOT
+<div class='field-help'>{$tooltip}</div>
+<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-{$context}-opt-input value'>{$input}</div>
+EOT;
+		}
 
 		if( $this->isWCS() )
 		{
@@ -196,7 +245,7 @@ trait T_Order
 			$tooltip = __("WooCommerce Subscriptions plugin support. You can earn points only for some kind of orders.", 'woorewards-pro');
 			$str .= "<div class='field-help'>$tooltip</div>";
 			$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-				$str .= "<div class='lws-$context-opt-input value'>";
+			$str .= "<div class='lws-$context-opt-input value'>";
 			$str .= \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'wcs_support', array(
 				'maxwidth'	=> '300px',
 				'mode'	    => 'select',
@@ -206,7 +255,6 @@ trait T_Order
 					array('value' => 'wcs_origin',  'label'=>__("Initial Subscription", 'woorewards-pro')),
 					array('value' => 'no_wcs',      'label'=>__("Not Subscription orders", 'woorewards-pro')),
 				),
-				'value'     => $this->getWCSubscriptionsSupport(),
 				'class'     => 'above'
 			));
 			$str .= "</div>";
@@ -227,18 +275,21 @@ trait T_Order
 				$prefix . 'affected_orders' => 't',
 				$prefix . 'created_via'     => 't',
 				$prefix . 'wcs_support'     => 't',
+				$prefix . 'gateway'         => 't',
 			),
 			'defaults' => array(
 				$prefix . 'currency'        => '',
 				$prefix . 'affected_orders' => '',
 				$prefix . 'created_via'     => 'all',
 				$prefix . 'wcs_support'     => 'any',
+				$prefix . 'gateway'         => '',
 			),
 			'labels'   => array(
 				$prefix . 'currency'        => __("Currency", 'woorewards-pro'),
 				$prefix . 'affected_orders' => __("Order numbers or ranges", 'woorewards-pro'),
 				$prefix . 'created_via'     => __("Order created via", 'woorewards-pro'),
 				$prefix . 'wcs_support'     => __("Order type", 'woorewards-pro'),
+				$prefix . 'gateway'         => __("Gateway", 'woorewards-pro'),
 			)
 		));
 		if( !(isset($values['valid']) && $values['valid']) )
@@ -249,6 +300,7 @@ trait T_Order
 		$this->setCreatedVia($values['values'][$prefix.'created_via']);
 		if( $this->isWCS() )
 			$this->setWCSubscriptionsSupport($values['values'][$prefix.'wcs_support']);
+		$this->setGateway($values['values'][$prefix . 'gateway']);
 		return true;
 	}
 
@@ -258,6 +310,7 @@ trait T_Order
 		$this->setOrderNumbers(\get_post_meta($post->ID, '_affected_orders', true));
 		$this->setCreatedVia(\get_post_meta($post->ID, '_created_via', true));
 		$this->setWCSubscriptionsSupport(\get_post_meta($post->ID, '_wcs_support', true));
+		$this->setGateway(\get_post_meta($post->ID, '_gateway', true));
 		return $this;
 	}
 
@@ -267,6 +320,7 @@ trait T_Order
 		\update_post_meta($id, '_affected_orders', $this->getOrderNumbers());
 		\update_post_meta($id, '_created_via',     $this->getCreatedVia());
 		\update_post_meta($id, '_wcs_support',     $this->getWCSubscriptionsSupport());
+		\update_post_meta($id, '_gateway',         $this->getGateway());
 		return $this;
 	}
 
@@ -321,14 +375,28 @@ trait T_Order
 		return true;
 	}
 
+	public function isValidGateway($object = false)
+	{
+		$limit = $this->getGateway(); // default is 'any'
+		if ('any' == $limit)
+			return true;
+		if(\is_a($object, '\WC_Order')) {
+			return ($limit == $object->get_payment_method());
+		} else {
+			return \apply_filters('lws_woorewards_pro_gateway_restriction_idle_validity', true);
+		}
+	}
+
 	/**	@param $user (int|WP_User) */
 	protected function getOrderCount($user, $exceptOrderId = false)
 	{
 		if (!$user)
 			return 0;
 
+		$exceptOrderId = \intval($exceptOrderId);
 		$userId = 0;
-		$email = false;
+		$email = '';
+
 		if (\is_object($user)) {
 			$userId = (int)$user->ID;
 			$email = $user->user_email;
@@ -341,30 +409,42 @@ trait T_Order
 			$email = $user;
 		}
 
-		global $wpdb;
-		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
-		$query->where('p.post_type="shop_order"');
-		$query->select('COUNT(p.ID)');
+		$key = implode('/', array($userId, $exceptOrderId, $email));
+		static $cache = array();
+		if (isset($cache[$key])) {
+			return $cache[$key];
+		}
 
-		$where = array();
+		global $wpdb;
+		$queries = array();
 		if ($userId) {
-			$query->leftJoin($wpdb->postmeta, 'c', 'p.ID=c.post_id  AND c.meta_key="_customer_user"');
-			$where[] = 'c.meta_value = %d';
-			$query->arg($userId);
+			$queries[0] = <<<EOT
+SELECT c.post_id FROM `{$wpdb->postmeta}` as c
+INNER JOIN `{$wpdb->posts}` as `pc` ON pc.ID=c.post_id AND pc.post_type='shop_order' AND pc.ID!={$exceptOrderId}
+WHERE c.meta_key='_customer_user' AND c.meta_value = %s
+EOT;
+			$queries[0] = $wpdb->prepare($queries[0], $userId);
 		}
 		if ($email) {
-			$query->leftJoin($wpdb->postmeta, 'm', 'p.ID=m.post_id  AND m.meta_key="_billing_email"');
-			$where[] = 'm.meta_value = %s';
-			$query->arg($email);
-		}
-		if ($where) {
-			$where['condition'] = 'OR';
-			$query->where($where);
+			$queries[1] = <<<EOT
+SELECT m.post_id FROM `{$wpdb->postmeta}` as m
+INNER JOIN `{$wpdb->posts}` as `pm` ON pm.ID=m.post_id AND pm.post_type='shop_order' AND pm.ID!={$exceptOrderId}
+WHERE m.meta_key='_billing_email' AND m.meta_value = %s
+EOT;
+			$queries[1] = $wpdb->prepare($queries[1], $email);
 		}
 
-		if ($exceptOrderId)
-			$query->where('p.ID <> %d')->arg(\intval($exceptOrderId));
-
-		return \intval($query->getVar());
+		$count = 0;
+		if (!$queries) {
+			$count = $wpdb->get_var("SELECT COUNT(ID) FROM `{$wpdb->posts}` WHERE post_type='shop_order' AND ID!={$exceptOrderId}");
+		} elseif (count($queries) == 1) {
+			$query = reset($queries);
+			$count = $wpdb->get_var(\preg_replace('/^SELECT [cm]\.post_id/i', 'SELECT COUNT(post_id)', $query));
+		} else {
+			$query = \implode("\nUNION\n", $queries);
+			$count = $wpdb->get_var("SELECT COUNT(*) FROM ({$query}) as u");
+		}
+		$cache[$key] = $count;
+		return $count;
 	}
 }

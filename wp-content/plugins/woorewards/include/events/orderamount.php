@@ -60,10 +60,8 @@ EOT;
 
 		// compute points after discount
 		$label   = _x("Use amount after discount", "Order Amount Event", 'woorewards-lite');
-		$tooltip = __("Some options are not compatible with computing points after discount and will be disabled.", 'woorewards-lite');
-		$form .= "<div class='field-help'>$tooltip</div>";
-		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox lws_woorewards_orderamount_hide_after_discount_relative' type='checkbox' id='{$prefix}after_discount' name='{$prefix}after_discount'/></div>";
+		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
+		$form .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}after_discount' name='{$prefix}after_discount'/></div>";
 
 		$form .= $this->getFieldsetEnd(2);
 
@@ -274,28 +272,22 @@ EOT;
 
 	function getOrderAmount(&$order, $round=true)
 	{
-		$amount = $order->amount;
-		if ($this->getAfterDiscount())
-		{
-			$amount = $order->order->get_total('edit');
-			$inc_tax = !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''));
-			if (!$inc_tax)
-				$amount -= $order->order->get_total_tax('edit'); // remove shipping tax too
+		$amount = $order->amount; // subtotal (with or without tax - option) before discount
 
-			if (!$this->getShipping()) // remove shipping and shipping tax if not already done with the rest of taxes
-			{
-				$amount -= floatval($order->order->get_shipping_total('edit'));
-				if ($inc_tax)
-					$amount -= floatval($order->order->get_shipping_tax('edit'));
-			}
-			$amount = max(0, $amount);
+		if ($this->getAfterDiscount()) {
+			$amount -= $order->order->get_discount_total();
+			if ($order->inc_tax)
+				$amount -= $order->order->get_discount_tax();
 		}
-		else if ($this->getShipping())
+
+		if ($this->getShipping())
 		{
 			$amount += floatval($order->order->get_shipping_total('edit'));
 			if( $order->inc_tax )
 				$amount += floatval($order->order->get_shipping_tax('edit'));
 		}
+
+		$amount = max(0, $amount);
 		return $round ? $this->roundPrice($amount) : $amount;
 	}
 

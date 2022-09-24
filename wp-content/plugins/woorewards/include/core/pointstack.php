@@ -236,6 +236,14 @@ EOT;
 		return $this->name;
 	}
 
+	static function getUTCTimezone()
+	{
+		static $tz = null;
+		if (null === $tz)
+			$tz = new \DateTimeZone('UTC');
+		return $tz;
+	}
+
 	/** That usefull function exists since 5.3
 	 * But we keep a 4.9 compatibility. */
 	static function getSiteTimezone()
@@ -380,6 +388,7 @@ EOT;
 			'commentar'    => $reason->reason,
 			'origin'       => $reason->referral,
 			'blog_id'      => $reason->getBlog(),
+			'mvt_date'     => \gmdate('Y-m-d H:i:s', \time()),
 		);
 		$formats = array(
 			'%d',
@@ -389,6 +398,7 @@ EOT;
 			'%s',
 			'%s',
 			'%d',
+			'%s',
 		);
 		if( $reason->orderId )
 		{

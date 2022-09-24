@@ -27,22 +27,14 @@ class Checkbox extends \LWS\Adminpanel\Pages\Field
 		if( $option )
 			$value = "checked='checked'";
 
-		$class = $this->style;
-		if( isset($this->extra['class']) && is_string($this->extra['class']) && !empty($this->extra['class']) )
-			$class = (empty($class) ? '' : ' ') . $this->extra['class'];
-
-		$data = '';
-		if( isset($this->extra['data']) && is_array($this->extra['data']) )
-		{
-			foreach( $this->extra['data'] as $k=>$v )
-				$data .= " data-$k='$v'";
-		}
+		$class = $this->getExtraCss('class', 'class', false, $this->style);
+		$data = $this->getExtraAttr('data', 'data-');
 
 		$disabled = '';
 		if( $this->getExtraValue('disabled', false) )
 			$disabled = "  disabled onclick='return false;'";
 
 		$id = $this->getExtraAttr('id', 'id');
-		echo "<input class='$class' type='checkbox' name='$name' $value$data$disabled$id />";
+		echo "<input type='checkbox' name='$name' $value$class$data$disabled$id />";
 	}
 }

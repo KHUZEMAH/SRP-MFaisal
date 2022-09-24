@@ -30,13 +30,19 @@ class EventList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	private function objectToArray($item)
 	{
-		$earning = $item->getGainRaw(true);
-		$class = ('=' == substr($earning, 0, 1)) ? 'formula' : 'number';
+		$label = $earning = $item->getGainRaw(true);
+		$class = 'number';
+		if ('=' == substr($earning, 0, 1)) {
+			$class = 'formula';
+			$label = __("Formula", 'woorewards-lite');
+		}
+		$earning = \esc_attr($earning);
+
 		return array_merge(
 			array(
 				self::ROW_ID  => $item->getId(), // it is important that id is first for javascript purpose
 				'wre_type'    => $item->getType(),
-				'earning'     => "<div class='lws-wr-event-multiplier {$class}'>{$earning}</div>",
+				'earning'     => "<div class='lws-wr-event-multiplier {$class}' title='{$earning}'>{$label}</div>",
 				'title'       => "<div class='lws-wr-event-title'>" . $item->getTitle() . "</div><div class='lws-wr-event-id'>ID : " . $item->getId() . "</div>",
 				'description' => $item->getDescription()
 			),

@@ -271,7 +271,7 @@ class Double extends \LWS\WOOREWARDS\Wizards\Subwizard
 			return false;
 		else
 		{
-			return \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.wr_upool_'.$pool->getName()), admin_url('admin.php'));
+			return \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.'.$pool->getTabId()), admin_url('admin.php'));
 			//return \add_query_arg('page', LWS_WOOREWARDS_PAGE.'.loyalty', \admin_url('admin.php'));
 		}
 

@@ -247,7 +247,7 @@ abstract class Event implements ICategorisable, IRegistrable
 
 		// multiplier
 		$label = _x("Earned points", "Event point multiplier", 'woorewards-lite');
-		$tooltip = sprintf(__("Expect an integer or an expression starting by %s", 'woorewards-lite'), '<b>=</b>');
+		$tooltip = sprintf(__("Expects an integer or an expression starting by %s", 'woorewards-lite'), '<b>=</b>');
 		$str .= <<<EOT
 <div class='field-help'>$tooltip</div>
 <div for='{$prefix}multiplier' class='lws-$context-opt-title label'>
@@ -337,7 +337,7 @@ EOT;
 			'post'     => ($source == 'post'),
 			'values'   => $form,
 			'format'   => array(
-				$prefix.'multiplier'  => '=',
+				$prefix.'multiplier'  => '=0',
 				$prefix.'gain_alt'    => 't',
 				$prefix.'title'       => 't',
 				$prefix.'cooldown_c'  => '0',
@@ -608,7 +608,7 @@ EOT;
 			if( $pool = $this->getPool() )
 				$title = ($pool->getOption('title') . ' - ' . $title);
 			$pack['title'] = $title;
-			$pack['edit_link'] = \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.wr_upool_'.$this->getPoolName()), admin_url('admin.php'));
+			$pack['edit_link'] = \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.wr_upool_'.$this->getPoolId()), admin_url('admin.php'));
 		}
 		return $pack;
 	}

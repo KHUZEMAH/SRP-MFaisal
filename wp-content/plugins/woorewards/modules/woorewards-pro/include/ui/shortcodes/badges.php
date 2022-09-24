@@ -25,7 +25,7 @@ class Badges
 			'title' => __("Badges", 'woorewards-pro'),
 			'type'  => 'shortcode',
 			'extra' => array(
-				'shortcode'   => '[lws_badges header=”<my Own Title>” display=”all|owned|lack”]',
+				'shortcode'   => '[lws_badges]',
 				'description' =>  __("This shortcode shows badges to customers.", 'woorewards-pro'),
 				'flags'       => array('current_user_id'),
 				'options'     => array(
@@ -81,6 +81,7 @@ class Badges
 		$atts = $this->defaultArgs();
 		$badges = array(
 			array(
+				'slug'          => '',
 				'thumbnail'     => LWS_WOOREWARDS_PRO_IMG.'/cat.png',
 				'title'         => 'The Cat',
 				'description'   => "Look at me. You know I'm cute even when I break your furniture",
@@ -89,6 +90,7 @@ class Badges
 				'rarityLabel'   => 'Common',
 			),
 			array(
+				'slug'          => '',
 				'thumbnail'     => LWS_WOOREWARDS_PRO_IMG.'/horse.png',
 				'title'         => 'The White Horse',
 				'description'   => "Arya Stark : I'm out of this s***",
@@ -97,6 +99,7 @@ class Badges
 				'rarityLabel'   => 'Epic',
 			),
 			array(
+				'slug'          => '',
 				'thumbnail'     => LWS_WOOREWARDS_PRO_IMG.'/chthulu.png',
 				'title'         => 'Chtulhu rules',
 				'description'   => "You unleashed the power of Chthulu over the world",
@@ -140,8 +143,11 @@ class Badges
 			}
 			$owned = ($badge['unlockDate'] ? array('lws-owned-badge-container', 'Owned Badge') : array('lws-badge-container', 'Badge'));
 			$unlock = ($badge['unlockDate'] ? sprintf("<div class='lwss_selectable lws-badge-date' data-type='Unlock Date'>%s : %s</div>", $labels['unlock'], $badge['unlockDate']->format("Y-m-d H:i:s")) : '');
+			$css = $badge['slug'];
+			if ($css)
+				$css = (' lws-badge-' . esc_attr($css));
 			$content .= <<<EOT
-	<div class='lwss_selectable {$owned[0]}' data-type='{$owned[1]}'>
+	<div class='lwss_selectable {$owned[0]}{$css}' data-type='{$owned[1]}'>
 		<div class='.lwss_selectable lws-badge-imgcol' data-type='Image'><img class='lws-badge-img' src='{$badge['thumbnail']}'/></div>
 		<div class='.lwss_selectable lws-badge-contentcol' data-type='Content'>
 			<div class='.lwss_selectable lws-badge-title' data-type='Title'>{$badge['title']}</div>
@@ -181,6 +187,7 @@ EOT;
 			$rarity_info = $badge->getBadgeRarity();
 
 			$badges[] = array(
+				'slug'          => $badge->getSlug(),
 				'thumbnail'     => $badge->getThumbnailUrl(),
 				'title'         => $badge->getTitle(),
 				'description'   => $badge->getMessage(),

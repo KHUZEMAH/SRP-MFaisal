@@ -38,7 +38,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 			'title' => __("Social Share", 'woorewards-pro'),
 			'type'  => 'shortcode',
 			'extra' => array(
-				'shortcode' => '[lws_social_share header="your own header" text="your text" url="specific url"]',
+				'shortcode' => '[lws_social_share]',
 				'description' =>  __("Use this shortcode to display the social share widget on your pages.", 'woorewards-pro'),
 				'options'   => array(
 					array(
@@ -156,6 +156,10 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 				echo $args['before_title'];
 				echo \apply_filters('widget_title', $instance['title'], $instance);
 				echo $args['after_title'];
+			}
+			if (\is_array($instance)) {
+				// let reload items since it was saved with widget
+				$instance = \array_diff_key($instance, array('networks'=>'', 'showunconnected' => '', 'popup' => ''));
 			}
 			echo $this->shortcode($instance, '', 'widget');
 			echo $args['after_widget'];

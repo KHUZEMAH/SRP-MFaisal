@@ -628,7 +628,7 @@ class Pool
 		if( $full )
 		{
 			$pack['title'] = $this->getOption('title');
-			$pack['edit_link'] = \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.wr_upool_'.$this->getName()), admin_url('admin.php'));
+			$pack['edit_link'] = \add_query_arg(array('page'=>LWS_WOOREWARDS_PAGE.'.loyalty', 'tab'=>'wr_loyalty.'.$this->getTabId()), admin_url('admin.php'));
 		}
 		return $pack;
 	}
@@ -780,27 +780,32 @@ class Pool
 		if( empty(\get_post_meta($order_id, $onceKey, true)) )
 		{
 			update_post_meta($order_id, $onceKey, \date(DATE_W3C));
-
-			$action = (object)array(
-				'order_id' => $order_id,
-				'order'    => $order,
-				'items'    => array(),
-				'inc_tax'  => !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''))
-			);
-
-			$action->amount = 0.0; // compute amount since wc is not able to return tax before discount
-			foreach( $order->get_items() as $item )
-			{
-				$itemAmount = floatval($order->get_line_subtotal($item, $action->inc_tax, false));
-				$action->amount += $itemAmount;
-				$action->items[] = (object)array(
-					'item'   => $item,
-					'amount' => $itemAmount,
-				);
-			}
-
+			$action = self::parseOrder($order_id, $order);
 			\apply_filters('lws_woorewards_wc_order_done_'.$this->getName(), $action);
 		}
+	}
+
+	/** Build the historical structure casted to events for points.
+	 * @return object */
+	static public function parseOrder($order_id, $order)
+	{
+		$action = (object)array(
+			'order_id' => $order_id,
+			'order'    => $order,
+			'items'    => array(),
+			'inc_tax'  => !empty(\get_option('lws_woorewards_order_amount_includes_taxes', ''))
+		);
+		$action->amount = 0.0; // compute amount since wc is not able to return tax before discount
+		foreach( $order->get_items() as $item )
+		{
+			$itemAmount = floatval($order->get_line_subtotal($item, $action->inc_tax, false)); // this is the cost before discount.
+			$action->amount += $itemAmount;
+			$action->items[] = (object)array(
+				'item'   => $item,
+				'amount' => $itemAmount,
+			);
+		}
+		return $action;
 	}
 
 	public function getId()
@@ -815,8 +820,10 @@ class Pool
 
 	public function getTabId($prefix='wr_upool_')
 	{
-		$suffix = $this->name ? $this->name : $this->getId();
-		return $prefix.$suffix;
+		$suffix = $this->getId();
+		if (!$suffix && $this->name)
+			$suffix = $this->name;
+		return ($prefix . $suffix);
 	}
 
 	protected function get_meta_datetime($postId, $metaKey, $default=false, $midnight=true)

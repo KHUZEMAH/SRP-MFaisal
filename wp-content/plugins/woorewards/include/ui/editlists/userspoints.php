@@ -55,7 +55,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 				"<a class='lws_wre_point_history maxwidth right lws-icon-time-machine' data-stack='%s' data-user='%d'>%s</a>",
 				\esc_attr($info->stack_id),
 				(int)$user['user_id'],
-				$user[$key]
+				\apply_filters('lws_wre_editlist_point_amount_display', $user[$key], $user, $poolName, $info)
 			);
 		}
 		// user name
@@ -102,7 +102,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 		$needle = isset($_REQUEST['usersearch']) ? \trim($_REQUEST['usersearch']) : '';
 		if ($needle) {
 			global $wpdb;
-			$mask = '"%' . \esc_sql($needle) . '%"';
+			$mask = ("'%" . \esc_sql($needle) . "%'");
 			$where = array(
 				'condition' => 'OR',
 				"u.user_login LIKE {$mask}",
