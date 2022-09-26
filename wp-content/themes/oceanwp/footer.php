@@ -83,6 +83,7 @@ if ( 'fullscreen' === oceanwp_mobile_menu_style() ) {
 
 
 
+
 <script>
     jQuery(document).ready(function(){
 		jQuery('#openEventModal').click(function(){
@@ -1276,5 +1277,6 @@ jQuery(document).ready(function($) {
 
 
 		</script>
+
 </body>
 </html>

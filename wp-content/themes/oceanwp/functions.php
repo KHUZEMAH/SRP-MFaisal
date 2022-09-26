@@ -458,8 +458,9 @@ final class OCEANWP_Theme_Class {
 		// Enqueue font awesome style.
 		if ( get_theme_mod( 'ocean_performance_fontawesome', 'enabled' ) === 'enabled' ) {
 			wp_enqueue_style( 'font-awesome', OCEANWP_THEME_URI . '/assets/fonts/fontawesome/css/all.min.css', false, '5.15.1' );
-			wp_enqueue_style( 'custom', OCEANWP_THEME_URI .'/assets/css/customize.css', false, '1.1.0' );
 		}
+
+		wp_enqueue_style( 'custom', OCEANWP_THEME_URI .'/assets//css/customize.css', false, '1.67868' );
 
 		// Enqueue simple line icons style.
 		if ( get_theme_mod( 'ocean_performance_simple_line_icons', 'enabled' ) === 'enabled' ) {
@@ -1159,6 +1160,7 @@ if ( ! function_exists( 'owp_fs' ) ) {
 
 // endregion
 
+
 function add_loginout_link( $items, $args ) {
     if (is_user_logged_in() && $args->theme_location == 'main_menu') {
         $items .= '<li><a href="'. wp_logout_url() .'">Log Out</a></li> <li><a href="'. site_url('login') .'#custom_html-2" class="menu-link"><span class="subscribe-link">Subscribe Now</span></a></li>';
@@ -1170,6 +1172,7 @@ function add_loginout_link( $items, $args ) {
 }
 
 new OCEANWP_Theme_Class();
+
 
 
 /***************/
