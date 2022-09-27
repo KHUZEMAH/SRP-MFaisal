@@ -4,7 +4,7 @@ Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.4
 Tested up to: 6.0.2
-Stable tag: 5.6.0
+Stable tag: 5.6.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,12 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.6.1] 2022-09-22 =
+
+* Enhancement - Improved stability and compatibility with latest version of EDD (v3.0)
+* Version - Updated the Minimum Required Version of PHP to 7.3
+* Language - 0 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.6.0] 2022-09-06 =
 

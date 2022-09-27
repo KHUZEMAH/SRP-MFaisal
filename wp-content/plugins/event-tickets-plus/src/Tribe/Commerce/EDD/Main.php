@@ -309,7 +309,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		}
 
 		$order_data = $order->get_meta();
-		$payment_data = [
+		$purchase_data = [
 				'price'        => 0,
 				'user_email'   => $order_data['email'],
 				'purchase_key' => uniqid( 'edd-ticket-', true ),
@@ -323,6 +323,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 				'user_info'    => $order_data['user_info'],
 				'cart_details' => [
 						[
+								'name'       => $to_product->post_title,
 								'id'         => $tgt_ticket_type_id,
 								'quantity'   => 1,
 								'price_id'   => null,
@@ -336,7 +337,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		];
 
 		// Create duplicate order.
-		$new_order = edd_insert_payment( $payment_data );
+		$new_order = edd_insert_payment( $purchase_data );
 
 		// Add order meta.
 		update_post_meta( $new_order, $this->order_has_tickets, true );
@@ -2462,7 +2463,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		$email     = $user_info['email'];
 
 		// The ID of the customer who paid for the tickets.
-		$user_id = get_post_meta( $order_id, '_edd_payment_user_id', true );
+		$user_id = edd_get_payment_meta( $order_id, '_edd_payment_user_id' );
 
 		// If no EDD-provided user id is found, set to null. The record_attendee_user_id method will handle it from there.
 		if ( empty( $user_id ) ) {

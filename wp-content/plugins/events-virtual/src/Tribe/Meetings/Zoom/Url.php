@@ -153,7 +153,7 @@ class Url extends Abstract_Url {
 	 * @return string The URL to disconnect from the Zoom API.s
 	 */
 	public function to_disconnect( $current_url = null ) {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement, see Account_API class.' );
+		_deprecated_function( __METHOD__, '1.13.1', 'No replacement, see Account_API class.' );
 
 		return add_query_arg( [
 			Plugin::$request_slug => wp_create_nonce( OAuth::$deauthorize_nonce_action ),
@@ -171,7 +171,7 @@ class Url extends Abstract_Url {
 	 * @return string The URL to update the Zoom Meeting.
 	 */
 	public function to_update_meeting_link( \WP_Post $post ) {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement.' );
+		_deprecated_function( __METHOD__, '1.13.1', 'No replacement.' );
 
 		$nonce = wp_create_nonce( Meetings::$update_action );
 
@@ -194,7 +194,7 @@ class Url extends Abstract_Url {
 	 * @return string The URL to update the Zoom Webinar.
 	 */
 	public function to_update_webinar_link( \WP_Post $post ) {
-		_deprecated_function( __METHOD__, 'TBD', 'No replacement.' );
+		_deprecated_function( __METHOD__, '1.13.1', 'No replacement.' );
 
 		$nonce = wp_create_nonce( Webinars::$update_action );
 

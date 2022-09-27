@@ -2,18 +2,18 @@
 # This file is distributed under the same license as the Event Tickets Plus package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Event Tickets Plus 5.7.1\n"
+"Project-Id-Version: Event Tickets Plus 5.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/event-tickets-"
 "plus\n"
-"POT-Creation-Date: 2022-08-11 05:08:07+00:00\n"
+"POT-Creation-Date: 2022-09-14 17:27:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-08-11 05:08\n"
+"PO-Revision-Date: 2022-09-14 17:27\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#. #-#-#-#-#  event-tickets-plus.pot (Event Tickets Plus 5.7.1)  #-#-#-#-#
+#. #-#-#-#-#  event-tickets-plus.pot (Event Tickets Plus 5.6.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: event-tickets-plus.php:59 src/Tribe/Main.php:440
 msgid "Event Tickets Plus"
@@ -397,7 +397,7 @@ msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Parent order edit URL. %3$s:
 #. Parent order ID.
-#: src/Tribe/Commerce/EDD/Main.php:350
+#: src/Tribe/Commerce/EDD/Main.php:351
 #: src/Tribe/Commerce/WooCommerce/Main.php:460
 msgid ""
 "<b> Attendee Moved : </b> <br> <i>%s</i> was moved into this order from <a "
@@ -406,51 +406,51 @@ msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Copied order edit URL. %3$s:
 #. Copied order ID.
-#: src/Tribe/Commerce/EDD/Main.php:361
+#: src/Tribe/Commerce/EDD/Main.php:362
 #: src/Tribe/Commerce/WooCommerce/Main.php:472
 msgid ""
 "<b> Attendee Moved : </b> <br> <i>%s</i> is moved from this order to <a href="
 "\"%s\">Order %s</a>"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:812
+#: src/Tribe/Commerce/EDD/Main.php:813
 #: src/Tribe/Commerce/WooCommerce/Main.php:1248
 msgid "You'll receive your %s in another email."
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:1546
+#: src/Tribe/Commerce/EDD/Main.php:1547
 #: src/Tribe/Commerce/WooCommerce/Main.php:2349
 msgid "(deleted)"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:1980
+#: src/Tribe/Commerce/EDD/Main.php:1981
 #: src/Tribe/Commerce/WooCommerce/Main.php:2816
 msgid "Event sales report"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2031
+#: src/Tribe/Commerce/EDD/Main.php:2032
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:293
 msgid "Event"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2050
+#: src/Tribe/Commerce/EDD/Main.php:2051
 #: src/Tribe/Commerce/WooCommerce/Main.php:2868
 msgid "This is a %s for the event:"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2161
+#: src/Tribe/Commerce/EDD/Main.php:2162
 msgid "%s ticket is sold out"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2166
+#: src/Tribe/Commerce/EDD/Main.php:2167
 msgid "Sorry! Only %d tickets remaining for %s"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2235
+#: src/Tribe/Commerce/EDD/Main.php:2236
 msgid "Print Ticket"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2626
+#: src/Tribe/Commerce/EDD/Main.php:2627
 #: src/Tribe/Commerce/WooCommerce/Main.php:3772
 msgid "Edit attendee info"
 msgstr ""

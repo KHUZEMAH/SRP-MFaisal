@@ -89,14 +89,19 @@ class Tribe__Tickets_Plus__Commerce__EDD__Stock_Control {
 
 		// Look through the list of purchased downloads: for any that relate to tickets,
 		// determine how much inventory was purchased
-		foreach ( $payment_data['downloads'] as $purchase ) {
-			if ( ! get_post_meta( $purchase['id'], $event_key ) ) {
+		foreach ( $payment_data['downloads'] as $key => $purchase ) {
+
+			$purchase_id = $purchase instanceof WP_Post ? $purchase->ID : $purchase['id'];
+
+			if ( ! get_post_meta( $purchase_id, $event_key ) ) {
 				continue;
 			}
 
-			$ticket_payments[] = $purchase;
-			$existing_quantity = isset( $quantity[ $purchase['id'] ] ) ? $quantity[ $purchase['id'] ] : 0;
-			$quantity[ $purchase['id'] ] = $existing_quantity + $purchase['quantity'];
+			$existing_quantity = $quantity[ $purchase_id ] ?? 0;
+
+			$qty = $purchase instanceof WP_Post ? $payment_data[ 'cart_details' ][$key]['quantity'] : $purchase['quantity'];
+
+			$quantity[ $purchase_id ] = $existing_quantity + $qty;
 		}
 
 		// For each purchased ticket, record the level of inventory purchased

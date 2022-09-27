@@ -66,7 +66,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Email {
 		$commerce_edd = tribe( 'tickets-plus.commerce.edd' );
 
 		// Get the attendees for the order.
-		$attendees = $commerce_edd->get_attendees_by_id( $payment_id );
+		$attendees = $commerce_edd->get_attendees_by_order_id( $payment_id );
 
 		$send_args = [
 			'order_id'           => $payment_id,

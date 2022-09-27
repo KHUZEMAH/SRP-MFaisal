@@ -145,24 +145,24 @@ $website = tribe_get_event_website_link();
 		// Event Cost
 		if ( ! empty( $cost ) ) : ?>
 
-			<dt class="tribe-events-event-cost-label"> <?php esc_html_e( 'Price:', 'the-events-calendar' ); ?> </dt>
+			<dt class="tribe-events-event-cost-label"> <?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?> </dt>
 			<dd class="tribe-events-event-cost"> <?php echo esc_html( $cost ); ?> </dd>
 		<?php endif ?>
 
 		<?php
-		// echo tribe_get_event_categories(
-		// 	get_the_id(),
-		// 	[
-		// 		'before'       => '',
-		// 		'sep'          => ', ',
-		// 		'after'        => '',
-		// 		'label'        => null, // An appropriate plural/singular label will be provided
-		// 		'label_before' => '<dt class="tribe-events-event-categories-label">',
-		// 		'label_after'  => '</dt>',
-		// 		'wrap_before'  => '<dd class="tribe-events-event-categories">',
-		// 		'wrap_after'   => '</dd>',
-		// 	]
-		// );
+		echo tribe_get_event_categories(
+			get_the_id(),
+			[
+				'before'       => '',
+				'sep'          => ', ',
+				'after'        => '',
+				'label'        => null, // An appropriate plural/singular label will be provided
+				'label_before' => '<dt class="tribe-events-event-categories-label">',
+				'label_after'  => '</dt>',
+				'wrap_before'  => '<dd class="tribe-events-event-categories">',
+				'wrap_after'   => '</dd>',
+			]
+		);
 		?>
 
 		<?php
@@ -180,10 +180,10 @@ $website = tribe_get_event_website_link();
 		<?php
 		// Event Website
 		if ( ! empty( $website ) ) : ?>
-			<?php //if ( ! empty( $website_title ) ): ?>
-				<!-- <dt class="tribe-events-event-url-label"> <?php //echo esc_html( $website_title ); ?> </dt> -->
-			<?php //endif; ?>
-			<!-- <dd class="tribe-events-event-url"> <?php //echo $website; ?> </dd> -->
+			<?php if ( ! empty( $website_title ) ): ?>
+				<dt class="tribe-events-event-url-label"> <?php echo esc_html( $website_title ); ?> </dt>
+			<?php endif; ?>
+			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
 		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_details_section_end' ); ?>

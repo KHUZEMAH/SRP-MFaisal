@@ -18,7 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural   = tribe_get_event_label_plural();
 
-$event_id = get_the_ID();
+$event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
+
+/**
+ * Allows filtering of the event ID.
+ *
+ * @since 6.0.1
+ *
+ * @param int $event_id
+ */
+$event_id = apply_filters( 'tec_events_single_event_id', $event_id );
 
 /**
  * Allows filtering of the single event template title classes.
@@ -66,9 +75,7 @@ $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $befo
 <div id="tribe-events-content" class="tribe-events-single">
 
 
-    <!-- #tribe-events-header -->
-
-    <?php while ( have_posts() ) :  the_post(); ?>
+	<?php while ( have_posts() ) :  the_post(); ?>
         <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <!-- Event featured image, but exclude link -->
 
@@ -134,17 +141,17 @@ $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $befo
         <?php if ( get_post_type() == Tribe__Events__Main::POSTTYPE && tribe_get_option( 'showComments', false ) ) comments_template() ?>
     <?php endwhile; ?>
 
-    <!-- Event footer -->
-    <div id="tribe-events-footer">
-        <!-- Navigation -->
-        <nav class="tribe-events-nav-pagination" aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
-            <ul class="tribe-events-sub-nav">
-                <li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
-                <li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
-            </ul>
-            <!-- .tribe-events-sub-nav -->
-        </nav>
-    </div>
-    <!-- #tribe-events-footer -->
+	<!-- Event footer -->
+	<div id="tribe-events-footer">
+		<!-- Navigation -->
+		<nav class="tribe-events-nav-pagination" aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
+			<ul class="tribe-events-sub-nav">
+				<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
+				<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
+			</ul>
+			<!-- .tribe-events-sub-nav -->
+		</nav>
+	</div>
+	<!-- #tribe-events-footer -->
 
 </div><!-- #tribe-events-content -->
