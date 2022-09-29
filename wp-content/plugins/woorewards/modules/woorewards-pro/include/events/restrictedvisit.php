@@ -20,8 +20,8 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		return array_merge(parent::getInformation(), array(
 			'icon'  => 'lws-icon-url',
-			'short' => __("The customer will earn points for viewing a post or a page on your website.", 'woorewards-pro'),
-			'help'  => __("You can also specify an url if need be", 'woorewards-pro'),
+			'short' => __("The customer will earn points for viewing a post, a page or an url on your website.", 'woorewards-pro'),
+			'help'  => __("You can't use this method to give points for visiting urls outside of your website.", 'woorewards-pro'),
 		));
 	}
 
@@ -71,7 +71,7 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		$form .= "</div>";
 
 		// URL list
-		$label   = _x("Relative or absolute URLs", "Visit Page", 'woorewards-pro');
+		$label   = _x("Relative or absolute local URLs", "Visit Page", 'woorewards-pro');
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
 		$form .= "<div class='lws-$context-opt-input value'>";
 		$form .= \LWS\Adminpanel\Pages\Field\LacTaglist::compose($prefix.'urls', array(

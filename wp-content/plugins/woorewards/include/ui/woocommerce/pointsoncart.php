@@ -404,6 +404,11 @@ class PointsOnCart
 				$total -= $cart->get_coupon_discount_amount($otherCode);
 			}
 		}
+
+		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, true, false);
+		if (0 != $currencyRate)
+			$total =  $total / $currencyRate;
+
 		$max = (int)\ceil($total / $rate);
 		$points = \min($max, $points);
 		$points = \apply_filters('lws_woorewards_pointdiscount_max_points', $points, $rate, $pool, $userId, $cart);

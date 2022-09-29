@@ -1,0 +1,53 @@
+2022-09-29T14:16:33+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update queued :: obj_id e05bcd34588ccfff9fb895c8dcc4e257
+2022-09-29T14:17:14+00:00 ERROR abandoned_cart.error :: email: khuzemasaeed@gmail.com :: attempting product update :: Resource Not FoundThe requested resource could not be found.
+2022-09-29T14:17:16+00:00 NOTICE product_submit.error :: addStoreProduct :: #5293 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:17:16+00:00 ERROR abandoned_cart.error :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:44:52+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update queued :: obj_id e05bcd34588ccfff9fb895c8dcc4e257
+2022-09-29T14:44:57+00:00 ERROR abandoned_cart.error :: email: khuzemasaeed@gmail.com :: attempting product update :: Resource Not FoundThe requested resource could not be found.
+2022-09-29T14:45:00+00:00 NOTICE product_submit.error :: addStoreProduct :: #5294 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:45:00+00:00 ERROR abandoned_cart.error :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:46:29+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update queued :: obj_id e2a4f0e80fb1086515a70af4b8aded71
+2022-09-29T14:46:33+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1304
+2022-09-29T14:46:39+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1305
+2022-09-29T14:46:40+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 16367
+2022-09-29T14:47:01+00:00 ERROR abandoned_cart.error :: email: khuzemasaeed+1@gmail.com :: attempting product update :: Resource Not FoundThe requested resource could not be found.
+2022-09-29T14:47:04+00:00 NOTICE product_submit.error :: addStoreProduct :: #5294 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:47:04+00:00 ERROR abandoned_cart.error :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php
+2022-09-29T14:47:05+00:00 NOTICE debug :: Order ID 16367 was pending and is now processing :: Array
+(
+    [new_order] => 1
+    [tracking] => Array
+        (
+            [campaign_id] => 
+            [landing_site] => http://localhost/faisal/faisal/cart/
+        )
+
+)
+
+2022-09-29T14:47:19+00:00 NOTICE debug :: Order ID 16367 was processing and is now completed :: Array
+(
+    [new_order] => 
+    [tracking] => 
+)
+
+2022-09-29T14:47:22+00:00 NOTICE member.sync :: Subscribed Member khuzemahamazon@gmail.com :: Array
+(
+    [status_if_new] => 1
+    [merge_fields] => Array
+        (
+        )
+
+)
+
+2022-09-29T14:47:39+00:00 NOTICE member.sync :: Subscribed Member khuzemasaeed+1@gmail.com :: Array
+(
+    [status_if_new] => 1
+    [merge_fields] => Array
+        (
+            [FNAME] => Khuzemah
+            [LNAME] => Saeed
+        )
+
+)
+
+2022-09-29T14:49:50+00:00 ERROR order_submit.error :: addStoreOrder :: #16367 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in C:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php

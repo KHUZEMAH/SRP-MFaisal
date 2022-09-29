@@ -4,7 +4,7 @@ Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social med
 Requires at least: 5.3
 Tested up to: 6.0
 Requires PHP: 7.0.0
-Stable tag: 4.9.6
+Stable tag: 4.9.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,9 @@ This section describes how to install the plugin and get it working.
 5. Wizard
 
 == Changelog ==
+
+= 4.9.7 =
+* Fix - Max points usage for points on cart with multicurrency
 
 = 4.9.6 =
 * MyRewards :

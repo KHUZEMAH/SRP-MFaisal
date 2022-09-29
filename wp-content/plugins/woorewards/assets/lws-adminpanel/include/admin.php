@@ -143,6 +143,10 @@ class Admin
 		\LWS\Adminpanel\Internal\Mailer::instance();
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/internal/ajax.php';
 		\LWS\Adminpanel\Internal\Ajax::install();
+		require_once LWS_ADMIN_PANEL_INCLUDES . '/internal/menuitems.php';
+		require_once LWS_ADMIN_PANEL_INCLUDES . '/internal/menushortcode.php';
+		\LWS\Adminpanel\Internal\MenuShortcode::register();
+		\LWS\Adminpanel\Internal\MenuItems::install();
 
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/pseudocss.php';
 		\LWS\Adminpanel\Tools\PseudoCss::install();
@@ -159,9 +163,9 @@ class Admin
 		if( !(defined('DOING_AJAX') && DOING_AJAX) )
 		{
 			if( \is_admin() )
-				\add_action('admin_enqueue_scripts', array($this, 'registerScripts'), 0, -10);
+				\add_action('admin_enqueue_scripts', array($this, 'registerScripts'), 0, 1);
 			else
-				\add_action('wp_enqueue_scripts', array($this, 'registerScripts'), 0, -10);
+				\add_action('wp_enqueue_scripts', array($this, 'registerScripts'), 0);
 
 			\add_action('admin_notices', array($this,'notices'));
 			\add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
@@ -205,7 +209,7 @@ class Admin
 		}
 	}
 
-	function registerScripts()
+	function registerScripts($hook='')
 	{
 		/* Styles */
 		\wp_register_style('lws-icons',           LWS_ADMIN_PANEL_CSS . '/lws_icons.css',          array(), LWS_ADMIN_PANEL_VERSION);
@@ -221,7 +225,7 @@ class Admin
 		\wp_register_style('lws-popup',           LWS_ADMIN_PANEL_CSS . '/controls/popup.min.css', array(), LWS_ADMIN_PANEL_VERSION);
 
 		/* Scripts */
-		\wp_register_script('lws-base64',         LWS_ADMIN_PANEL_JS . '/tools/base64.js', array(), LWS_ADMIN_PANEL_VERSION );
+		\wp_register_script('lws-base64',         LWS_ADMIN_PANEL_JS . '/tools/objcvt.js', array(), LWS_ADMIN_PANEL_VERSION );
 		\wp_register_script('lws-tools',          LWS_ADMIN_PANEL_JS . '/tools/tools.js',  array('jquery'), LWS_ADMIN_PANEL_VERSION );
 		\wp_localize_script('lws-tools', 'lws_ajax', array('url' => admin_url('/admin-ajax.php'),));
 		\wp_register_script('lws-md5',              LWS_ADMIN_PANEL_JS . '/resources/jquery.md5.js',      array('jquery'), LWS_ADMIN_PANEL_VERSION );
@@ -262,6 +266,12 @@ class Admin
 		\wp_register_script('lws-chart-js',  LWS_ADMIN_PANEL_JS . '/resources/chart.js/Chart.min.js', array(), '2.8.0', true );
 		\wp_register_style('lws-chart-js',   LWS_ADMIN_PANEL_CSS. '/resources/chart.js/Chart.min.css', array(), '2.8.0');
 		\wp_register_script('lws-qrcode-js', LWS_ADMIN_PANEL_JS . '/resources/qrcode.js/qrcode.js', array(), '1.0', true );
+
+		if (\is_admin()) {
+			if ('nav-menus.php' == $hook) {
+				\wp_enqueue_script('lws-navmenu', LWS_ADMIN_PANEL_JS . '/navmenu.js', array('jquery', 'nav-menu'), LWS_ADMIN_PANEL_VERSION, true);
+			}
+		}
 	}
 
 	/** enqueue on frontend */

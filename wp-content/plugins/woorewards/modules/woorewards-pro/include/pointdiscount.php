@@ -89,6 +89,10 @@ class PointDiscount
 				return 0;
 		}
 
+		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1.0, true, false);
+		if (0.0 != $currencyRate)
+			$subtotal = ($subtotal / $currencyRate);
+
 		// round up since we cannot exceed subtotal,
 		// but can spare the last point to reach it (with some lost)
 		$max = (int)\ceil((float)$subtotal / $rate);

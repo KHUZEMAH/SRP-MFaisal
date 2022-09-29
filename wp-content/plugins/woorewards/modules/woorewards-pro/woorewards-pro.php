@@ -6,7 +6,7 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.6
+ * Version: 4.9.7.1
  * Text Domain: woorewards-pro
  * WC requires at least: 3.7.0
  * WC tested up to: 6.9
@@ -100,7 +100,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.6');
+		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.7.1');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));

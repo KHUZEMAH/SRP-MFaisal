@@ -5,7 +5,7 @@ Donate link: https://www.kadencewp.com/about-us/
 Requires PHP: 5.2.4
 Requires at least: 5.3
 Tested up to: 6.0
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ After you create your translations make sure to clear your server cache from any
 
 
 == Changelog ==
+
+= 1.5.7 =
+* Fix: Possible issue with admin+ PHP objection injection in settings importer.
 
 = 1.5.6 =
 * Fix: Prevent email mockup url from direct access.
