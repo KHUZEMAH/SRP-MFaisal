@@ -1,3 +1,0 @@
-2022-09-14T13:44:10+00:00 NOTICE admin :: syncing webhooks for existing plugin
-2022-09-14T13:44:10+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_WebHooks_Sync queued
-2022-09-14T13:44:16+00:00 ERROR webhook :: <p>url: Webhooks are no good without a valid URL. Please enter one.</p>

@@ -242,6 +242,7 @@ if ( ! function_exists( 'oceanwp_webfonts_local_font_url' ) ) {
 // Setup theme => Generate the custom CSS file.
 add_action( 'admin_bar_init', 'ocean_save_customizer_css_in_file', 9999 );
 if ( ! function_exists( 'ocean_save_customizer_css_in_file' ) ) {
+
 	function ocean_save_customizer_css_in_file( $output = null ) {
 
 		// If Custom File is not selected.

@@ -37,12 +37,12 @@ class Url extends Abstract_Url {
 	 * Url constructor.
 	 *
 	 * @since 1.13.0
+	 * @since 1.13.2 - Remove API dependency to prevent maximum function nesting level.
 	 *
-	 * @param Api     $api     An instance of the Zoom API handler.
+	 * @param OAuth   $oauth   An instance of the Zoom API handler.
 	 * @param Actions $actions An instance of the Zoom Actions handler.
 	 */
-	public function __construct( Api $api, OAuth $oauth, Actions $actions ) {
-		$this->api           = $api;
+	public function __construct( OAuth $oauth, Actions $actions ) {
 		$this->oauth         = $oauth;
 		self::$api_id        = Zoom_Event_Meta::$key_source_id;
 		self::$authorize_url = 'https://whodat.theeventscalendar.com/oauth/zoom/v2/authorize';
@@ -74,10 +74,29 @@ class Url extends Abstract_Url {
 
 		$real_url = add_query_arg( [
 			'key'          => $license ? $license : 'no-license',
-			'redirect_uri' => esc_url( $this->api->authorize_url() ),
+			'redirect_uri' => esc_url( $this->get_authorize_url() ),
 		], $authorize_url );
 
 		return $real_url;
+	}
+
+	/**
+	 * Returns the full OAuth URL to authorize the application.
+	 *
+	 * @since 1.13.2
+	 *
+	 * @return string The full OAuth URL to authorize the application.
+	 */
+	public function get_authorize_url() {
+		// Use the `state` query arg as described in Zoom API documentation.
+		$authorize_url = add_query_arg(
+			[
+				'state' => wp_create_nonce( $this->actions::$authorize_nonce_action ),
+			],
+			admin_url()
+		);
+
+		return $authorize_url;
 	}
 
 	/**

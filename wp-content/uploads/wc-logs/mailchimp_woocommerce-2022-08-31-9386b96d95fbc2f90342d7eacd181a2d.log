@@ -1,4 +1,0 @@
-2022-08-31T03:56:07+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update queued :: obj_id a32cbe43e55f208b29d0920d8895358e
-2022-08-31T03:56:09+00:00 ERROR abandoned_cart.error :: email: guardascione_f@yahoo.com :: attempting product update :: Resource Not FoundThe requested resource could not be found.
-2022-08-31T03:56:10+00:00 NOTICE product_submit.error :: addStoreProduct :: #5293 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 1965 in /www/slowrisepizza_805/public/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php
-2022-08-31T03:56:10+00:00 ERROR abandoned_cart.error :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 1965 in /www/slowrisepizza_805/public/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php

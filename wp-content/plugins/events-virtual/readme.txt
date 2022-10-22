@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, aguseo, borkweb, bordoni, brianjessee, Camwyn, juanfra, leahkoerper, lirianojoel, lucatume, neillmcshea, rafsuntaskin, zbtirrell
 Tags: virtual events, events, calendar, event, venue, organizer, dates, date, schema, conference, online events, concert, meeting, seminar, summit, class, the events calendar, tec, zoom, livestream
 Donate link: https://evnt.is/29
-Requires at least: 5.8.4
-Tested up to: 6.0.2
-Stable tag: 1.13.1
+Requires at least: 5.8.5
+Tested up to: 6.0.3
+Stable tag: 1.13.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,13 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.13.2] 2022-10-20 =
+
+* Fix - Ensure virtual event details are embedded properly in the Elementor Event widget. [VE-547]
+* Fix - Change how the Zoom automatic access token refresh gets the url to prevent it from being empty causing numerous error log entries. [VE-563]
+* Fix - Always enable Zoom Accounts to be deleted. [VE-562]
+* Language - 0 new strings added, 9 updated, 0 fuzzied, and 0 obsoleted.
 
 = [1.13.1] 2022-09-22 =
 

@@ -87,7 +87,7 @@ if (! defined('WP_DEBUG') ) { define( 'WP_DEBUG', false ); } // line added by th
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 
-define( 'WP_AUTO_UPDATE_CORE', false );
+// define( 'WP_AUTO_UPDATE_CORE', false );
 
 ////Paypal Sandbox
 //define( 'PAYPAL_CLIENT_ID', 'AbtJAWLWBAlAZtHVyDy9SqtEPnhoV47GPbni1Pbe3ZSvCA1PaLyQnGbjK0KohTTI-3ljEcDlf4CMpIPb' );
