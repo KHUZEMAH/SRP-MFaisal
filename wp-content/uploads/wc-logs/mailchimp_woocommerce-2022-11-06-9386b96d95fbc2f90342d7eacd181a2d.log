@@ -1,0 +1,19 @@
+2022-11-06T17:08:28+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit queued :: obj_id 1
+2022-11-06T17:08:28+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 16380
+2022-11-06T17:08:48+00:00 NOTICE debug :: Order ID 16380 was pending and is now processing :: Array
+(
+    [new_order] => 1
+    [tracking] => Array
+        (
+            [campaign_id] => 
+            [landing_site] => http://localhost/faisal/faisal/
+        )
+
+)
+
+2022-11-06T17:09:00+00:00 NOTICE debug :: Order ID 16380 was processing and is now completed :: Array
+(
+    [new_order] => 
+    [tracking] => 
+)
+

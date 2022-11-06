@@ -26,6 +26,8 @@ session_start();?>
  */
  
  define( 'WP_AUTO_UPDATE_CORE', false );
+ini_set('display_errors','Off');
+
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
