@@ -218,6 +218,13 @@ if(!class_exists('Wt_Iew_IE_Basic_Helper'))
 				<?php
 			}
 		}
+		
+		public static function wt_truncate($text, $length, $dots = "...") {
+
+			$text = (strlen($text) > $length) ? substr($text, 0, $length - strlen($dots)) . $dots : $text;
+			return esc_html($text);
+		}
+		
 	}
 
 }

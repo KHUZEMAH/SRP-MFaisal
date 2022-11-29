@@ -78,5 +78,4 @@ do_action( 'tribe_events_single_event_meta_primary_section_end' );
 endif;
 // Always include the main event details in this first section
 tribe_get_template_part( 'modules/meta/details' );
-
 do_action( 'tribe_events_single_meta_after' );

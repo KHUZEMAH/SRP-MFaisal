@@ -278,36 +278,49 @@ class Group
 
 	protected function groupTitleLine()
 	{
-		$ttlid = $this->titleId();
-		if (empty($this->title))
-			$titleLine = "<div id='$ttlid'></div>";
-		else
-		{
-			$lpaddingClass = '';
-			$icon = '';
-			if (isset($this->icon) && !empty($this->icon))
-			{
-				$lpaddingClass = ' has-icon';
-				$icon = "<div class='group-icon {$this->icon}' data-lws-icon='{$this->icon}'></div>";
-			}
-			if (isset($this->image) && !empty($this->image))
-			{
-				$url = \esc_attr($this->image);
-				$lpaddingClass = ' has-icon';
-				$icon = "<div class='group-icon'><img src='{$url}'/></div>";
-			}
-			$titleLine  = "<div class='group-title-line$lpaddingClass'>";
-			$titleLine .= $icon;
-			$titleLine .= "<div class='group-title'>{$this->title}</div>";
-			$expandIcon = (isset($this->collapsed) && $this->collapsed) ? " lws-icon-plus" : " lws-icon-minus";
-			$titleLine .= "<div class='group-expand $expandIcon'></div>";
-			if (isset($this->extra['doclink']) && $this->extra['doclink'])
-			{
-				$titleLine .= "<a href='{$this->extra['doclink']}'  target='_blank' class='group-doc lws-icon-books'></a>";
-			}
-			$titleLine .= "</div>";
+		if ($this->title) {
+			$class = 'group-title-line';
+			$icon = $this->getIcon('group-icon');
+			if ($icon)
+				$class .= ' has-icon';
+			$doc = $this->getDoc();
+			$expandIcon = ((isset($this->collapsed) && $this->collapsed) ? 'lws-icon-plus' : 'lws-icon-minus');
+
+			return <<<EOT
+<div class='{$class}'>
+	{$icon}<div class='group-title'>{$this->title}</div>
+	<div class='group-expand {$expandIcon}'></div>{$doc}
+</div>
+EOT;
+		} else {
+			return sprintf("<div id='%s'></div>", $this->titleId());
 		}
-		return $titleLine;
+	}
+
+	protected function getDoc()
+	{
+		if (isset($this->extra['doclink']) && $this->extra['doclink']) {
+			return "<a href='{$this->extra['doclink']}' target='_blank' class='group-doc lws-icon-books'></a>";
+		} else {
+			return '';
+		}
+	}
+
+	protected function getIcon($css)
+	{
+		if (isset($this->icon) && $this->icon) {
+			return sprintf(
+				"<div class='$css %s' data-lws-icon='%s'></div>",
+				$this->icon, $this->icon
+			);
+		} else if (isset($this->image) && $this->image) {
+			return sprintf(
+				"<div class='$css'><img src='%s'/></div>",
+				\esc_attr($this->image)
+			);
+		} else {
+			return '';
+		}
 	}
 
 	public function hasFields($excludeGizmo = false)
@@ -334,5 +347,15 @@ class Group
 	{
 		foreach ($this->m_FieldArray as $f)
 			$fields[] = $f;
+	}
+
+	public function getSmallBar()
+	{
+		return sprintf(
+			'<a href="#%s" class="navitem-group-link">%s<div class="title">%s</div></a>',
+			\esc_attr($this->targetId()),
+			$this->getIcon('icon'),
+			$this->title()
+		);
 	}
 }

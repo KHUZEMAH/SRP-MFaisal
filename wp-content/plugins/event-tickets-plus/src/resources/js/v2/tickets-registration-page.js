@@ -2,8 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- *
- * @type {Object}
+ * @type {object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -11,8 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET+ registration page Object in the Global Tribe variable
  *
  * @since 5.1.0
- *
- * @type {Object}
+ * @type {object}
  */
 tribe.tickets.registration = {};
 
@@ -20,14 +18,11 @@ tribe.tickets.registration = {};
  * Initializes in a Strict env the code that manages the plugin registration page.
  *
  * @since 5.1.0
- *
- * @param  {Object} $ jQuery
- * @param  {Object} obj obj
- *
+ * @param  {object} $ jQuery
+ * @param  {object} obj obj
  * @return {void}
  */
 ( function( $, obj ) {
-	'use strict';
 	const $document = $( document );
 
 	obj.selectors = {
@@ -71,7 +66,6 @@ tribe.tickets.registration = {};
 	 * Get ticket data to send to cart.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {object} Tickets data object.
 	 */
 	obj.getTicketsForSave = function() {
@@ -95,7 +89,7 @@ tribe.tickets.registration = {};
 				data.quantity = qty;
 
 				tickets.push( data );
-			}
+			},
 		);
 
 		return tickets;
@@ -105,9 +99,7 @@ tribe.tickets.registration = {};
 	 * Init the form pre-fills (cart and AR forms).
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
-	 *
 	 * @return {void}
 	 */
 	obj.initFormPreFills = function( $container ) {
@@ -145,10 +137,8 @@ tribe.tickets.registration = {};
 	 * Appends AR fields on page load.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
 	 * @param {object} data The ticket meta we are using to add "blocks".
-	 *
 	 * @return {void}
 	 */
 	obj.appendARFields = function( $container, data ) {
@@ -189,10 +179,8 @@ tribe.tickets.registration = {};
 	 * Maybe show non meta notice.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {number} nonMetaCount The number of non meta tickets.
 	 * @param {number} metaCount The number of meta tickets.
-	 *
 	 * @return {void}
 	 */
 	obj.maybeShowNonMetaNotice = function( nonMetaCount, metaCount ) {
@@ -209,11 +197,9 @@ tribe.tickets.registration = {};
 	 * Pre-fills the AR fields from supplied data.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
 	 * @param {object} data Data to fill the form in with.
 	 * @param {number} len Starting pointer for partial fill-ins.
-	 *
 	 * @return {void}
 	 */
 	obj.preFillMetaForm = function( $container, data, len ) {
@@ -286,9 +272,7 @@ tribe.tickets.registration = {};
 	 * Update all the footer info.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {object} $form The mini-cart form.
-	 *
 	 * @return {void}
 	 */
 	obj.updateFooter = function( $form ) {
@@ -300,9 +284,7 @@ tribe.tickets.registration = {};
 	 * Adjust the footer count for +/-.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {object} $form The mini-cart form.
-	 *
 	 * @return {void}
 	 */
 	obj.updateFooterCount = function( $form ) {
@@ -327,9 +309,7 @@ tribe.tickets.registration = {};
 	 * Adjust the footer total/amount for +/-.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {object} $form The mini-cart form.
-	 *
 	 * @return {void}
 	 */
 	obj.updateFooterAmount = function( $form ) {
@@ -359,10 +339,8 @@ tribe.tickets.registration = {};
 	 * Pre-fill the Mini-Cart.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {object} $form The mini-cart form.
 	 * @param {object} tickets THe ticket data.
-	 *
 	 * @return {void}
 	 */
 	obj.preFillCartForm = function( $form, tickets ) {
@@ -387,9 +365,7 @@ tribe.tickets.registration = {};
 	 * Handle AR submission.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
-	 *
 	 * @return {void}
 	 */
 	obj.bindSubmit = function( $container ) {
@@ -414,7 +390,7 @@ tribe.tickets.registration = {};
 				if ( ! isValidForm[ 0 ] ) {
 					$( [ document.documentElement, document.body ] ).animate(
 						{ scrollTop: $( '.tribe-tickets__registration' ).offset().top },
-						'slow'
+						'slow',
 					);
 
 					$( '.tribe-tickets__notice--error__count' ).text( isValidForm[ 1 ] );
@@ -436,7 +412,7 @@ tribe.tickets.registration = {};
 
 				// Submit the form.
 				$( obj.selectors.form ).submit();
-			}
+			},
 		);
 	};
 
@@ -444,9 +420,7 @@ tribe.tickets.registration = {};
 	 * Binds events for container.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
-	 *
 	 * @return {void}
 	 */
 	obj.bindEvents = function( $container ) {

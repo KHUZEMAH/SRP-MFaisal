@@ -2,8 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- *
- * @type   {Object}
+ * @type {object}
  */
 tribe.tickets = tribe.tickets || {};
 tribe.dialogs = tribe.dialogs || {};
@@ -13,8 +12,7 @@ tribe.dialogs.events = tribe.dialogs.events || {};
  * Configures ET Modal Object in the Global Tribe variable
  *
  * @since 5.1.0
- *
- * @type   {Object}
+ * @type {object}
  */
 tribe.tickets.modal = {};
 
@@ -22,14 +20,11 @@ tribe.tickets.modal = {};
  * Initializes in a Strict env the code that manages the plugin modal.
  *
  * @since 5.1.0
- *
- * @param  {Object} $ jQuery
- * @param  {Object} obj obj
- *
+ * @param {object} $ jQuery
+ * @param {object} obj obj
  * @return {void}
  */
 ( function( $, obj ) {
-	'use strict';
 	const $document = $( document );
 
 	/*
@@ -66,7 +61,6 @@ tribe.tickets.modal = {};
 	 * Appends AR fields when modal cart quantities are changed.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $form The form we are updating.
 	 */
 	obj.appendARFields = function( $form ) {
@@ -78,7 +72,8 @@ tribe.tickets.modal = {};
 					const ticketID = $cartItem
 						.closest( tribe.tickets.block.selectors.item )
 						.data( 'ticket-id' );
-					const $ticketContainer = $( obj.selectors.metaForm )
+					const $ticketContainer = $cartItem
+						.closest( obj.selectors.form )
 						.find( obj.selectors.metaContainer + '[data-ticket-id="' + ticketID + '"]' );
 
 					// Ticket does not have meta - no need to jump through hoops (and throw errors).
@@ -115,7 +110,7 @@ tribe.tickets.modal = {};
 						}
 					}
 				}
-			}
+			},
 		);
 
 		obj.maybeShowNonMetaNotice( $form );
@@ -126,7 +121,6 @@ tribe.tickets.modal = {};
 	 * Shows/hides the non-ar notice based on the number of tickets passed.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $form The form we're updating.
 	 */
 	obj.maybeShowNonMetaNotice = function( $form ) {
@@ -135,7 +129,7 @@ tribe.tickets.modal = {};
 		const $cartItems = $form.find( tribe.tickets.block.selectors.item ).filter(
 			function() {
 				return $( this ).find( tribe.tickets.block.selectors.itemQuantityInput ).val() > 0;
-			}
+			},
 		);
 
 		if ( ! $cartItems.length ) {
@@ -162,7 +156,7 @@ tribe.tickets.modal = {};
 				} else {
 					metaCount += tribe.tickets.block.getQty( $cartItem );
 				}
-			}
+			},
 		);
 
 		const $notice = $( obj.selectors.noticeNonAr );
@@ -192,14 +186,12 @@ tribe.tickets.modal = {};
 	 * Pre-fill tickets block from cart.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object of object of the tickets container.
-	 *
 	 * @return {void}
 	 */
 	obj.preFillTicketsBlock = function( $container ) {
 		$.when(
-			tribe.tickets.data.getData( true )
+			tribe.tickets.data.getData( true ),
 		).then(
 			function( data ) {
 				const tickets = data.tickets;
@@ -243,7 +235,7 @@ tribe.tickets.modal = {};
 					.find( '.tribe-tickets-notice__content' )
 					.text( TribeMessages.connection_error );
 				$errorNotice.fadeIn();
-			}
+			},
 		);
 	};
 
@@ -251,8 +243,7 @@ tribe.tickets.modal = {};
 	 * Pre-fills the modal AR fields from supplied data.
 	 *
 	 * @since 5.1.0
-	 *
-	 * @param {array} meta Data to fill the form in with.
+	 * @param {Array} meta Data to fill the form in with.
 	 */
 	obj.preFillModalMetaForm = function( meta ) {
 		if ( undefined === meta || 0 >= meta.length ) {
@@ -302,9 +293,7 @@ tribe.tickets.modal = {};
 	 * Pre-fill the Cart.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $form The form we're updating.
-	 *
 	 * @return {void}
 	 */
 	obj.preFillModalCartForm = function( $form ) {
@@ -334,9 +323,7 @@ tribe.tickets.modal = {};
 	 * Init the form pre-fills (Cart and AR forms).
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $form The form we're updating.
-	 *
 	 * @return {void}
 	 */
 	obj.initModalFormPreFills = function( $form ) {
@@ -346,7 +333,7 @@ tribe.tickets.modal = {};
 		tribe.tickets.loader.show( $form );
 
 		$.when(
-			tribe.tickets.data.getData( false, postId )
+			tribe.tickets.data.getData( false, postId ),
 		).then(
 			function( data ) {
 				const $modalForm = $ticketBlock.find( obj.selectors.cartForm );
@@ -372,7 +359,7 @@ tribe.tickets.modal = {};
 				}
 
 				window.setTimeout( tribe.tickets.loader.hide, 500, $form );
-			}
+			},
 		);
 
 		tribe.tickets.loader.hide( $form );
@@ -382,14 +369,12 @@ tribe.tickets.modal = {};
 	 * Attempts to hydrate a dynamically-created attendee form "block" from sessionStorage data.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {number} length The "skip" index.
-	 *
 	 * @return {void}
 	 */
 	obj.maybeHydrateAttendeeBlockFromLocal = function( length ) {
 		$.when(
-			tribe.tickets.data.getData()
+			tribe.tickets.data.getData(),
 		).then(
 			function( data ) {
 				if ( ! data.meta ) {
@@ -417,9 +402,9 @@ tribe.tickets.modal = {};
 						if ( storedVal ) {
 							$this.val( storedVal );
 						}
-					}
+					},
 				);
-			}
+			},
 		);
 	};
 
@@ -427,7 +412,6 @@ tribe.tickets.modal = {};
 	 * Handle document key press to submit the modal form.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {void}
 	 */
 	obj.bindDocumentKeypress = function() {
@@ -448,7 +432,7 @@ tribe.tickets.modal = {};
 					// Submit to cart. This will trigger validation as well.
 					$form.find( '[name="cart-button"]' ).click();
 				}
-			}
+			},
 		);
 	};
 
@@ -456,7 +440,7 @@ tribe.tickets.modal = {};
 	 * Remove click event listeners from modal form.
 	 *
 	 * @since 5.3.2
-	 *
+	 * @param {jQuery} $form The form we're updating.
 	 * @return {void}
 	 */
 	obj.unbindModalFormClick = function( $form ) {
@@ -467,7 +451,7 @@ tribe.tickets.modal = {};
 	 * Handle form click to remove attendee item.
 	 *
 	 * @since 5.3.2
-	 *
+	 * @param {jQuery} $form The form we're updating.
 	 * @return {void}
 	 */
 	obj.bindModalFormClick = function( $form ) {
@@ -476,9 +460,9 @@ tribe.tickets.modal = {};
 			obj.selectors.attendeeItemRemove,
 			function() {
 				const $metaItem = $( this ).closest( obj.selectors.metaItem );
-				const $form = $metaItem.closest( obj.selectors.form );
+				const $closeForm = $metaItem.closest( obj.selectors.form );
 				const ticketID = $metaItem.data( 'ticket-id' );
-				const $ticketContainer = $form.find( obj.selectors.metaContainer + '[data-ticket-id="' + ticketID + '"]' ); // eslint-disable-line max-len
+				const $ticketContainer = $closeForm.find( obj.selectors.metaContainer + '[data-ticket-id="' + ticketID + '"]' ); // eslint-disable-line max-len
 
 				// If meta item is last child, just remove.
 				if ( $metaItem.is( ':last-child' ) ) {
@@ -504,17 +488,17 @@ tribe.tickets.modal = {};
 						const $item = $( item );
 						const data = { attendee_id: index };
 						const ticketTemplate = window.wp.template( 'tribe-registration--' + ticketID );
-						const $newItem = $( ticketTemplate( data ) )
+						const $newItem = $( ticketTemplate( data ) );
 						$newItem.insertBefore( $item );
 
 						// For each form field in the new item, move over values from old item.
 						const $itemFields = $item.find( 'input, select' );
 						$newItem.find( 'input, select' ).each(
-							function( index, input ) {
-								const $itemField = $( $itemFields[ index ] );
+							function( indx, input ) {
+								const $itemField = $( $itemFields[ indx ] );
 
 								// Update input elements by type.
-								switch( $( input ).attr( 'type' ) ) {
+								switch ( $( input ).attr( 'type' ) ) {
 									case 'radio':
 									case 'checkbox':
 										$( input ).prop( 'checked', $itemField.prop( 'checked' ) );
@@ -522,7 +506,7 @@ tribe.tickets.modal = {};
 									default:
 										$( input ).val( $itemField.val() );
 								}
-							}
+							},
 						);
 
 						// Finally, remove old item.
@@ -532,15 +516,15 @@ tribe.tickets.modal = {};
 
 				// If we removed the last meta item, remove the ticket item.
 				if ( ! $ticketContainer.find( obj.selectors.metaItem ).length ) {
-					$form
+					$closeForm
 						.find( tribe.tickets.block.selectors.item + '[data-ticket-id="' + ticketID + '"] ' + obj.selectors.itemRemove ) // eslint-disable-line max-len
 						.trigger( 'click' );
 				}
 
 				// Click quantity remove button.
-				const $button = $form.find( tribe.tickets.block.selectors.item + '[data-ticket-id="' + ticketID + '"] ' + tribe.tickets.block.selectors.itemQuantityRemove ); // eslint-disable-line max-len
+				const $button = $closeForm.find( tribe.tickets.block.selectors.item + '[data-ticket-id="' + ticketID + '"] ' + tribe.tickets.block.selectors.itemQuantityRemove ); // eslint-disable-line max-len
 				$button.trigger( 'click' );
-			}
+			},
 		);
 	};
 
@@ -548,9 +532,7 @@ tribe.tickets.modal = {};
 	 * Unbind Modal submission.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container The container where we want to bind the modal submit.
-	 *
 	 * @return {void}
 	 */
 	obj.unbindModalSubmit = function( $container ) {
@@ -563,9 +545,7 @@ tribe.tickets.modal = {};
 	 * Handle Modal submission.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container The container where we want to bind the modal submit.
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalSubmit = function( $container ) {
@@ -606,7 +586,7 @@ tribe.tickets.modal = {};
 							{
 								behavior: 'smooth',
 								block: 'start',
-							}
+							},
 						);
 					return false;
 				}
@@ -639,7 +619,7 @@ tribe.tickets.modal = {};
 
 				// Submit the form.
 				$form.submit();
-			}
+			},
 		);
 	};
 
@@ -647,9 +627,7 @@ tribe.tickets.modal = {};
 	 * Unbind remove Item from Cart Modal.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container The container where we want to bind the modal submit.
-	 *
 	 * @return {void}
 	 */
 	obj.unbindModalItemRemove = function( $container ) {
@@ -662,9 +640,7 @@ tribe.tickets.modal = {};
 	 * Remove Item from Cart Modal.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container The container where we want to bind the modal submit.
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalItemRemove = function( $container ) {
@@ -719,9 +695,9 @@ tribe.tickets.modal = {};
 							tribe.tickets.utils.disable( $( tribe.tickets.block.selectors.submit ), false );
 						}
 					},
-					500
+					500,
 				);
-			}
+			},
 		);
 	};
 
@@ -729,11 +705,9 @@ tribe.tickets.modal = {};
 	 * Possibly Update an Items Qty and always update the Total.
 	 *
 	 * @since 5.1.0
-	 *
-	 * @param {int}    id The id of the ticket/product.
+	 * @param {number}    id The id of the ticket/product.
 	 * @param {jQuery} $modalCartItem The cart item to update.
 	 * @param {jQuery} $blockCartItem The optional ticket block cart item.
-	 *
 	 * @returns {object} Returns the updated item for chaining.
 	 */
 	obj.updateItem = function( id, $modalCartItem, $blockCartItem ) {
@@ -753,17 +727,17 @@ tribe.tickets.modal = {};
 				.trigger( 'change' );
 
 			// We force new DOM queries here to be sure we pick up dynamically generated items.
-			const optOutSelector = tribe.tickets.block.selectors.itemOptOutInput
-				+ $blockCartItem.data( 'ticket-id' );
-			const optOutSelectorModal = tribe.tickets.block.selectors.itemOptOutInput
-				+ $blockCartItem.data( 'ticket-id' )
-				+ '--modal';
+			const optOutSelector = tribe.tickets.block.selectors.itemOptOutInput +
+				$blockCartItem.data( 'ticket-id' );
+			const optOutSelectorModal = tribe.tickets.block.selectors.itemOptOutInput +
+				$blockCartItem.data( 'ticket-id' ) +
+				'--modal';
 			item.$optOut = $( optOutSelector );
 			const $optOutInput = $( optOutSelectorModal );
 			if ( item.$optOut.length && item.$optOut.is( ':checked' ) ) {
-				$optOutInput.val( '1' ).prop( 'checked' , true );
+				$optOutInput.val( '1' ).prop( 'checked', true );
 			} else {
-				$optOutInput.val( '0' ).prop( 'checked' , false );
+				$optOutInput.val( '0' ).prop( 'checked', false );
 			}
 		}
 
@@ -776,11 +750,9 @@ tribe.tickets.modal = {};
 	 * Update the total price for the Given Cart Item.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {number} qty The quantity.
 	 * @param {number} price The price.
 	 * @param {object} $cartItem The cart item to update.
-	 *
 	 * @returns {string} - Formatted currency string.
 	 */
 	obj.updateItemTotal = function( qty, price, $cartItem ) {
@@ -800,7 +772,6 @@ tribe.tickets.modal = {};
 	 * Init the tickets block pre-fill.
 	 *
 	 * @param {jQuery} $container jQuery object of object of the tickets container.
-	 *
 	 * @since 5.1.0
 	 */
 	obj.initPreFill = function( $container ) {
@@ -811,7 +782,6 @@ tribe.tickets.modal = {};
 	 * Hook actions to the update form totals ET tickets block function.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {event} event The event.
 	 * @param {jQuery} $form The form we're manipulating.
 	 */
@@ -823,7 +793,6 @@ tribe.tickets.modal = {};
 	 * Hook actions to the update form totals ET tickets block function.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {event} event The event.
 	 * @param {jQuery} $input The input we're manipulating.
 	 */
@@ -835,7 +804,7 @@ tribe.tickets.modal = {};
 			obj.updateItemTotal(
 				tribe.tickets.block.getQty( $item ),
 				tribe.tickets.block.getPrice( $item ),
-				$item
+				$item,
 			);
 		}
 	};
@@ -844,7 +813,6 @@ tribe.tickets.modal = {};
 	 * Hook actions to the before ticket submit from the tickets block.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {event} event The event.
 	 * @param {jQuery} $form The form we're manipulating.
 	 * @param {object} params The object with the parameters.
@@ -858,7 +826,6 @@ tribe.tickets.modal = {};
 	 * Handler for when the modal is closed.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalClose = function() {
@@ -880,7 +847,7 @@ tribe.tickets.modal = {};
 				obj.unbindModalSubmit( $form );
 				obj.unbindModalItemRemove( $form );
 				obj.unbindModalFormClick( $form );
-			}
+			},
 		);
 	};
 
@@ -888,7 +855,6 @@ tribe.tickets.modal = {};
 	 * Handler for when "Get Tickets" is clicked, update the modal.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalOpen = function() {
@@ -917,7 +883,7 @@ tribe.tickets.modal = {};
 						}
 
 						obj.updateItem( id, $modalCartItem, $blockCartItem );
-					}
+					},
 				);
 
 				// Bind tickets block actions.
@@ -938,7 +904,7 @@ tribe.tickets.modal = {};
 
 				// Hide the loader.
 				tribe.tickets.loader.hide( $form );
-			}
+			},
 		);
 	};
 
@@ -946,7 +912,6 @@ tribe.tickets.modal = {};
 	 * Hook actions to the afterSetup of the tickets block.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {event} event The event.
 	 * @param {jQuery} $container The container of the tickets block.
 	 */
@@ -961,7 +926,6 @@ tribe.tickets.modal = {};
 	 * Maybe submit Tickets Block if no tickets with AR fields are in cart.
 	 *
 	 * @since 5.2.1
-	 *
 	 * @return {void}
 	 */
 	obj.maybeSubmitBlockIfNoArTicketInCart = function() {
@@ -993,7 +957,7 @@ tribe.tickets.modal = {};
 						if ( hasArFields && 0 < qtyInCart ) {
 							ticketsWithArMetaInCart++;
 						}
-					}
+					},
 				);
 
 				// If there are tickets with AR meta in cart.
@@ -1016,7 +980,7 @@ tribe.tickets.modal = {};
 					// Submit the tickets block form.
 					tribe.tickets.block.ticketsSubmit( $form );
 				}
-			}
+			},
 		);
 	};
 
@@ -1025,9 +989,7 @@ tribe.tickets.modal = {};
 	 * Opt Out checkbox outside AR Modal.
 	 *
 	 * @since 5.2.9
-	 *
 	 * @param {jQuery} $form The form we're manipulating.
-	 *
 	 * @return {void}
 	 */
 	obj.bindOptOutChange = function( $form ) {
@@ -1035,60 +997,57 @@ tribe.tickets.modal = {};
 		$optOutInput.change( function() {
 			const $this = $( this );
 			const mainOptOutCheckboxid = $this.attr( 'id' );
-			const $mainOptOutCheckbox = $( '#' + $this.attr( 'id' ).substr(0, mainOptOutCheckboxid.indexOf( '--' ) ) ); // eslint-disable-line max-len
+			const $mainOptOutCheckbox = $( '#' + $this.attr( 'id' ).substr( 0, mainOptOutCheckboxid.indexOf( '--' ) ) ); // eslint-disable-line max-len
 			if ( $this.is( ':checked' ) ) {
-				$mainOptOutCheckbox.val( '1' ).prop( 'checked' , true );
+				$mainOptOutCheckbox.val( '1' ).prop( 'checked', true );
 			} else {
-				$mainOptOutCheckbox.val( '0' ).prop( 'checked' , false );
+				$mainOptOutCheckbox.val( '0' ).prop( 'checked', false );
 			}
 		} );
-	}
+	};
 
 	/**
 	 * Unbind Opt Out change.
 	 *
 	 * @since 5.2.9
-	 *
 	 * @param {jQuery} $form The form we're manipulating.
-	 *
 	 * @return {void}
 	 */
 	obj.unbindOptOutChange = function( $form ) {
 		const $optOutCheckbox = $form.find( '[id^=tribe-tickets-attendees-list-optout-]' );
 		$optOutCheckbox.unbind( 'change' );
-	}
+	};
 
 	/**
 	 * Handles the initialization of the scripts when document is ready.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
 		$document.on(
 			'afterUpdateFormTotals.tribeTicketsBlock',
-			obj.bindAfterUpdateFormTotals
+			obj.bindAfterUpdateFormTotals,
 		);
 
 		$document.on(
 			'afterTicketsAddRemove.tribeTicketsBlock',
-			obj.bindModalQuantityChange
+			obj.bindModalQuantityChange,
 		);
 
 		$document.on(
 			'afterTicketsQuantityChange.tribeTicketsBlock',
-			obj.bindModalQuantityChange
+			obj.bindModalQuantityChange,
 		);
 
 		$document.on(
 			'beforeTicketsSubmit.tribeTicketsBlock',
-			obj.bindBeforeTicketsSubmit
+			obj.bindBeforeTicketsSubmit,
 		);
 
 		$document.on(
 			'afterSetup.tribeTicketsBlock',
-			obj.bindAfterSetupTicketsBlock
+			obj.bindAfterSetupTicketsBlock,
 		);
 
 		obj.maybeSubmitBlockIfNoArTicketInCart();

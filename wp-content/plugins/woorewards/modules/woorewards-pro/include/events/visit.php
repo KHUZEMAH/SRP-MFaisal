@@ -8,6 +8,11 @@ if( !defined( 'ABSPATH' ) ) exit();
 class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 {
 
+	public function isMaxTriggersAllowed()
+	{
+		return true;
+	}
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(

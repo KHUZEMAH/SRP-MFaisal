@@ -133,7 +133,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			'label'=>__("Default Import method"),
 			'type'=>'select',
 			'sele_vals'=>$import_methods,
-                        'value' =>'new',
+            'value' =>'new',
 			'field_name'=>'default_import_method',
 			'field_group'=>'advanced_field',
 			'help_text'=>__('Select the default method of import.'),
@@ -141,10 +141,11 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		$fields['default_import_batch']=array(
 			'label'=>__("Default Import batch count"),
 			'type'=>'number',
-                        'value' =>10, /* If altering then please also change batch count field help text section */
+            'value' =>10, /* If altering then please also change batch count field help text section */
 			'field_name'=>'default_import_batch',
 			'help_text'=>__('Provide the default number of records to be imported in a batch.'),
 			'validation_rule'=>array('type'=>'absint'),
+			'attr' => array('min' => 1, 'max' => 50),
 		);
 
 		return $fields;

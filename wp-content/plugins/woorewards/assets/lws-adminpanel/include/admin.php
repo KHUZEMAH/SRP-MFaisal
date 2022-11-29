@@ -229,10 +229,10 @@ class Admin
 		\wp_register_script('lws-tools',          LWS_ADMIN_PANEL_JS . '/tools/tools.js',  array('jquery'), LWS_ADMIN_PANEL_VERSION );
 		\wp_localize_script('lws-tools', 'lws_ajax', array('url' => admin_url('/admin-ajax.php'),));
 		\wp_register_script('lws-md5',              LWS_ADMIN_PANEL_JS . '/resources/jquery.md5.js',      array('jquery'), LWS_ADMIN_PANEL_VERSION );
-		\wp_register_script('lws-vert-nav',         LWS_ADMIN_PANEL_JS . '/interface/vertical-nav.js',    array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION );
 		\wp_register_script('lws-checkbox',         LWS_ADMIN_PANEL_JS . '/controls/checkbox.js',         array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION );
 		\wp_register_script('lws-switch',           LWS_ADMIN_PANEL_JS . '/controls/switch.js',           array('jquery','jquery-ui-widget', 'jquery-effects-core'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-radio',            LWS_ADMIN_PANEL_JS . '/controls/radio.js',            array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_register_script('lws-icon-picker',       LWS_ADMIN_PANEL_JS . '/controls/iconpicker.js',       array('jquery'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-field-validation', LWS_ADMIN_PANEL_JS . '/controls/fieldvalidation.js',  array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-checkgrid',        LWS_ADMIN_PANEL_JS . '/controls/checkgrid.js',        array('jquery','jquery-ui-core','jquery-ui-mouse','jquery-ui-draggable','jquery-ui-droppable'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-popup',            LWS_ADMIN_PANEL_JS . '/controls/popup.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);

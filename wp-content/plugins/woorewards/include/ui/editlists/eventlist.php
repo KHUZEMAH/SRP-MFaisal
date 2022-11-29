@@ -30,13 +30,13 @@ class EventList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	private function objectToArray($item)
 	{
-		$label = $earning = $item->getGainRaw(true);
 		$class = 'number';
-		if ('=' == substr($earning, 0, 1)) {
+		$label = $item->getGainRaw(true);
+		$earning = \esc_attr(\wp_kses($label, array()));
+		if ('=' == substr($item->getGainRaw(false), 0, 1)) {
 			$class = 'formula';
 			$label = __("Formula", 'woorewards-lite');
 		}
-		$earning = \esc_attr($earning);
 
 		return array_merge(
 			array(

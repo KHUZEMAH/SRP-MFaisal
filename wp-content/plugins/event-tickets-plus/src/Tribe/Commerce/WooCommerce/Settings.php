@@ -5,7 +5,7 @@
  */
 class Tribe__Tickets_Plus__Commerce__WooCommerce__Settings {
 	public function __construct() {
-		add_filter( 'tribe_tickets_settings_tab_fields', [ $this, 'add_settings' ] );
+		add_filter( 'tec_tickets_plus_integrations_tab_fields', [ $this, 'add_settings' ], 20 );
 
 		// Use Woo's decimal separator in the Add Ticket Cost field.
 		add_filter( 'tribe_event_ticket_decimal_point', 'wc_get_price_decimal_separator' );

@@ -106,6 +106,13 @@ class PointsOnCart
 				'shortcode' => '[wr_points_on_cart]',
 				'description' =>  __("This shortcode is used to display the Points on Cart tool.", 'woorewards-lite') . "<br/>" .
 				__("You can customize its appearance in the Widgets Tab.", 'woorewards-lite'),
+				'options' => array(
+					array(
+						'option' => 'reload',
+						'desc' => __("(Optional) Set it to true to force a page reload when customers modify the points they want to apply on the order", 'woorewards-lite'),
+						'example' => '[wr_points_on_cart reload="true"]'
+					),
+				),
 			)
 		);
 		$fields['pointsoncartheader'] = array(
@@ -156,13 +163,13 @@ class PointsOnCart
 	public function adminPro($fields)
 	{
 		$fields = $this->admin($fields);
-		$fields['pointsoncart']['extra']['options'] = array(
+		$fields['pointsoncart']['extra']['options'] = \array_merge(array(
 			'system' => array(
 				'option' => 'system',
 				'desc'   => __("(Optional, comma separated) Select the points and rewards systems you want to show. If left empty, the first available system will be displayed", 'woorewards-lite') .
 					"<br/>" . __("You can find the points and rewards systems names in WooRewards → Points and Rewards", 'woorewards-lite'),
 			),
-		);
+		), $fields['pointsoncart']['extra']['options']);
 		return $fields;
 	}
 
@@ -317,7 +324,10 @@ class PointsOnCart
 
 	function shortcode($atts=array(), $content='')
 	{
-		$atts = \wp_parse_args($atts, array('system'	=> '',));
+		$atts = \wp_parse_args($atts, array(
+			'system'	=> '',
+			'reload'  => false,
+		));
 		$userId = \get_current_user_id();
 		if( !$userId )
 			return \do_shortcode($content);
@@ -329,7 +339,7 @@ class PointsOnCart
 		if( $pool )
 		{
 			if( $info = $this->getInfo($pool) )
-				return $this->getContent('shortcode', $info);
+				return $this->getContent('shortcode', $info, \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['reload']));
 			else
 				return $this->getPlaceholder($pool, 'shortcode');
 		}
@@ -498,8 +508,9 @@ class PointsOnCart
 		return "<div class='{$class}' data-origin='{$origin}' data-pool='{$pool}' data-url='{$url}'>{$content}</div>";
 	}
 
-	/** Display the partial payment tool on cart or checkout page */
-	function getContent($origin, $info)
+	/** Display the partial payment tool on cart or checkout page,
+	 *	@param $forceReload (null||bool) if null, read global option. */
+	function getContent($origin, $info, $forceReload=null)
 	{
 		if( !(isset($this->stygen) && $this->stygen) )
 		{
@@ -555,7 +566,11 @@ class PointsOnCart
 
 		$class = ($origin=='cart') ? 'cart-pointsoncart' : 'order-pointsoncart' ;
 		$class .= $this->getPositionClass($origin);
-		$reload = \get_option(('cart'==$origin) ? 'lws_woorewards_points_to_cart_reload' : 'lws_woorewards_points_to_checkout_reload') ? 'on' : 'off';
+		$reload = 'off';
+		if (true === $forceReload)
+			$reload = 'on';
+		elseif (null === $forceReload && \get_option(('cart'==$origin) ? 'lws_woorewards_points_to_cart_reload' : 'lws_woorewards_points_to_checkout_reload'))
+			$reload = 'on';
 		$header = \lws_get_option('lws_wooreward_points_cart_header', __('Loyalty points discount', 'woorewards-lite'));
 		$header = \apply_filters('wpml_translate_single_string', $header, 'Widgets', "WooRewards - Points On Cart Action - Header");
 

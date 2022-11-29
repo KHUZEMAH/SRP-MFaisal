@@ -1,10 +1,10 @@
-var tribe_event_tickets_plus = tribe_event_tickets_plus || {};
+var tribe_event_tickets_plus = tribe_event_tickets_plus || {}; // eslint-disable-line
 tribe_event_tickets_plus.meta = tribe_event_tickets_plus.meta || {};
 tribe_event_tickets_plus.meta.admin = tribe_event_tickets_plus.meta.admin || {};
 tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.event || {};
 
-( function ( window, document, $, obj ) {
-	'use strict';
+( function( window, document, $, obj ) {
+	const __ = window.wp.i18n.__;
 
 	/*
 	 * Selectors.
@@ -12,6 +12,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * @since 5.2.2
 	 */
 	obj.selectors = {
+		attendeeForm: 'tribe-tickets-attendee-info-form',
 		fieldsetSaved: '.tribe-tickets__admin-attendees-saved-fields',
 		fieldsetSavedHasIac: '.tribe-tickets__admin-attendees-saved-fields--has-iac',
 		iacNotice: '.tribe-tickets__admin-attendees-info-iac-notice',
@@ -29,6 +30,8 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	obj.init = function() {
 		obj.$tribe_tickets = $( document.getElementById( 'tribetickets' ) );
 		obj.$event_tickets = $( document.getElementById( 'event_tickets' ) );
+		obj.$fieldsetPage = $( '.post-type-ticket-meta-fieldset' );
+		obj.$blockModal = $( '#event-tickets-attendee-information' );
 
 		obj.$event_tickets
 			.on( 'change', 'input.show_attendee_info', obj.event.toggleLinkedForm )
@@ -50,7 +53,14 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 			.on( 'click', '#ticket_form_toggle', obj.event.handleNewTicket )
 			.on( 'change', obj.selectors.iacNoneCheckbox, obj.event.handleIacCheckbox )
 			.on( 'change', obj.selectors.iacAllowedCheckbox, obj.event.handleIacCheckbox )
-			.on( 'change', obj.selectors.iacRequiredCheckbox, obj.event.handleIacCheckbox );
+			.on( 'change', obj.selectors.iacRequiredCheckbox, obj.event.handleIacCheckbox )
+			.on( 'additionalValidation.tribe', obj.validateAttendeeLabels );
+
+		obj.$fieldsetPage
+			.on( 'click', '#publish', obj.validateAttendeeLabels );
+
+		obj.$blockModal
+			.on( 'click', 'button[type="submit"]', obj.validateAttendeeLabels );
 
 		obj.initTicketFields();
 
@@ -69,7 +79,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 		obj.maybeHideSavedFieldsSelect();
 		obj.maybeShowIacMockedFields();
 		obj.$event_tickets.trigger( 'event-tickets-plus-ticket-meta-initialized.tribe', {
-			ticket_id: obj.$event_tickets.find( '#ticket_id' ).val(), /* eslint-disable-line es5/no-es6-methods,max-len */
+			ticket_id: obj.$event_tickets.find( '#ticket_id' ).val(),
 		} );
 	};
 
@@ -83,6 +93,43 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 			tolerance: 'pointer',
 			connectWith: '#tribe-tickets-attendee-sortables',
 		} );
+	};
+
+	/**
+	 * Validates the Attendee custom fields by making sure that no Labels are duplicate, which breaks functionality.
+	 *
+	 * @since TBD
+	 * @param {Event} event the passed event
+	 * @param {boolean} attendeeLablesIsValid passed valid check
+	 * @return boolean
+	 */
+	obj.validateAttendeeLabels = function( event, attendeeLablesIsValid ) {
+		const attendeeForm = document.getElementById( obj.selectors.attendeeForm );
+
+		// Bail if the fields are not present (Community Tickets).
+		if ( ! attendeeForm ) {
+			return true;
+		}
+
+		const attendeeArray = [];
+		const attendeeLabels = attendeeForm.querySelectorAll( "input[name$='[label]']" );
+
+		// Make sure labels are not the same for attendee information before we allow a save.
+		for ( let i = 0; i < attendeeLabels.length; i++ ) {
+			if ( attendeeArray.indexOf( attendeeLabels[ i ].value ) > -1 ) {
+				event.preventDefault();
+
+				alert( __( 'Duplicate labels are not allowed.\nPlease verify that you are not using the same label for different fields and try again.', 'event-tickets' ) ); // eslint-disable-line max-len
+
+				attendeeLablesIsValid = false;
+
+				break;
+			} else {
+				attendeeArray.push( attendeeLabels[ i ].value );
+			}
+		}
+
+		return attendeeLablesIsValid;
 	};
 
 	/**
@@ -128,7 +175,6 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Maybe show the IAC mocked fields and notice.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @return {void}
 	 */
 	obj.maybeShowIacMockedFields = function() {
@@ -146,7 +192,6 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Hide the IAC mocked fields.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @return {void}
 	 */
 	obj.hideIacMockedFields = function() {
@@ -165,7 +210,6 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Show the IAC mocked fields.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @return {void}
 	 */
 	obj.showIacMockedFields = function() {
@@ -193,9 +237,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Handle the IAC checkbox changes.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @param {event} e The event.
-	 *
 	 * @return {void}
 	 */
 	obj.event.handleIacCheckbox = function( e ) {
@@ -208,9 +250,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Handle the "New Ticket" click.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @param {event} e The event.
-	 *
 	 * @return {void}
 	 */
 	obj.event.handleNewTicket = function( e ) {
@@ -223,9 +263,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	 * Handle the "New RSVP" click.
 	 *
 	 * @since 5.2.2
-	 *
 	 * @param {event} e The event.
-	 *
 	 * @return {void}
 	 */
 	obj.event.handleNewRsvp = function( e ) {
@@ -237,8 +275,8 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	/**
 	 * Fetches saved fields via AJAX.
 	 *
-	 * @param {int} savedFieldsetId Fieldset ID to fetch via AJAX
-	 * @return {Object} jqXHR
+	 * @param {number} savedFieldsetId Fieldset ID to fetch via AJAX
+	 * @return {object} jqXHR
 	 */
 	obj.fetch_saved_fields = function( savedFieldsetId ) {
 		// load the saved fieldset.
@@ -250,14 +288,14 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 		return $.post(
 			ajaxurl,
 			args,
-			'json'
+			'json',
 		);
 	};
 
 	/**
 	 * Injects a saved fieldset into the custom meta field area
 	 *
-	 * @param {int} savedFieldsetId Fieldset ID to inject
+	 * @param {number} savedFieldsetId Fieldset ID to inject
 	 */
 	obj.inject_saved_fields = function( savedFieldsetId ) {
 		const fieldJqxhr = obj.fetch_saved_fields( savedFieldsetId );
@@ -268,7 +306,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 					'event-tickets-plus-fieldset-load-failure.tribe',
 					{
 						fieldset_id: savedFieldsetId,
-					}
+					},
 				);
 				return;
 			}
@@ -279,14 +317,14 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 
 			obj.$event_tickets.trigger(
 				'event-tickets-plus-fieldset-loaded.tribe',
-				{ fieldset_id: savedFieldsetId }
+				{ fieldset_id: savedFieldsetId },
 			);
 		} );
 
 		fieldJqxhr.fail( function() {
 			obj.$event_tickets.trigger(
 				'event-tickets-plus-fieldset-load-failure.tribe',
-				{ fieldset_id: savedFieldsetId }
+				{ fieldset_id: savedFieldsetId },
 			);
 		} );
 	};
@@ -305,7 +343,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 		const jqxhr = $.post(
 			ajaxurl,
 			args,
-			'json'
+			'json',
 		);
 
 		jqxhr.done( function( response ) {
@@ -396,8 +434,6 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 
 	/**
 	 * event to handle initializing the ticket area when editing an event ticket.
-	 *
-	 * @param {event} e The event.
 	 */
 	obj.event.editTicket = function() {
 		obj.initTicketFields();
@@ -425,7 +461,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 				'" data-attendee-group="' +
 				response.fieldsets[ i ].post_name.replace( '"', '\\"' ) + '">' +
 				response.fieldsets[ i ].post_name +
-				'</option>'
+				'</option>',
 			);
 		}
 	};

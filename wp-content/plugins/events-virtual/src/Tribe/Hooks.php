@@ -1023,7 +1023,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function add_video_source( $video_sources, $post ) {
 
 		$video_sources[] = [
-			'text'     => _x( 'Search for video by URL', 'The label of the video source option.', 'events-virtual' ),
+			'text'     => _x( 'Search for video or meeting link', 'The label of the video source option.', 'events-virtual' ),
 			'id'       => Event_Meta::$key_video_source_id,
 			'value'    => Event_Meta::$key_video_source_id,
 			'selected' => Event_Meta::$key_video_source_id === $post->virtual_video_source,

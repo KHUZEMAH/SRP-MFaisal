@@ -184,23 +184,98 @@ abstract class Event implements ICategorisable, IRegistrable
 		return $this;
 	}
 
+	/** Override to allow max triggers, default is false */
+	public function isMaxTriggersAllowed()
+	{
+		return false;
+	}
+
+	public function getMaxTriggers()
+	{
+		if (!$this->isMaxTriggersAllowed()) {
+			return false;
+		} elseif (isset($this->maxTriggers) && $this->maxTriggers) {
+			return $this->maxTriggers;
+		} else {
+			return false;
+		}
+	}
+
+	public function setMaxTriggers($maxTriggers)
+	{
+		$this->maxTriggers = \intval($maxTriggers);
+		if (!$this->maxTriggers)
+			$this->maxTriggers = false;
+	}
+
+	public function incrTriggerCount($userId)
+	{
+		if ($userId && $this->getMaxTriggers() && ($id = $this->getId())) {
+			$key = ('lws_wr_triggered_' . $id);
+			$count = \intval(\get_user_meta($userId, $key, true));
+			\update_user_meta($userId, $key, 1 + $count);
+		}
+	}
+
+	public function getTriggerCount($userId)
+	{
+		if (!($userId && $this->getMaxTriggers()))
+			return 0;
+		else
+			return \intval(\get_user_meta($userId, 'lws_wr_triggered_' . $this->getId(), true));
+	}
+
+	/** if feature not enabled or used, always return true.
+	 *	else, a user is required to trigger the event
+	 *	so we can check the counter.
+	 *	@param $options (array|WP_User|int) the user earning points, an array have to include an entry 'user'.
+	 *	@param $doIncrement (bool) if true and can be triggered, then increment the counter.
+	 *	@return (bool) true if no restriction set or event trigger count is not reached. */
+	public function canBeTriggered($options, $doIncrement=false)
+	{
+		$max = $this->getMaxTriggers();
+		if (!$max) {
+			return true;
+		}
+		$userId = 0;
+		if (\is_array($options) && isset($options['user']))
+			$userId = $options['user'];
+		if ($userId && \is_object($userId))
+			$userId = $userId->ID;
+		if (!$userId) {
+			return false;
+		}
+		if ($this->getTriggerCount($userId) < $max) {
+			if ($doIncrement)
+				$this->incrTriggerCount($userId);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**	@return array of data to feed the form @see getForm.
 	 *	Each key should be the name of an input balise. */
 	function getData()
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$data = array(
-			$prefix.'multiplier'  => $this->getGainRaw(),
-			$prefix.'gain_alt'    => $this->getGainAlt(false),
-			$prefix.'title'       => isset($this->title) ? $this->title : '',
-			$prefix.'cooldown_c'  => '',
-			$prefix.'cooldown_p'  => '',
-			$prefix.'delay'       => '',
-			$prefix.'recurrent_c' => '',
-			$prefix.'recurrent_p' => '',
+			$prefix . 'multiplier'   => $this->getGainRaw(),
+			$prefix . 'gain_alt'     => $this->getGainAlt(false),
+			$prefix . 'title'        => isset($this->title) ? $this->title : '',
+			$prefix . 'cooldown_c'   => '',
+			$prefix . 'cooldown_p'   => '',
+			$prefix . 'delay'        => '',
+			$prefix . 'recurrent_c'  => '',
+			$prefix . 'recurrent_p'  => '',
 		);
+		if ($this->isMaxTriggersAllowed()) {
+			$data[$prefix . 'max_triggers'] = $this->getMaxTriggers();
+		}
 		if($delay = $this->getDelay()) {
 			$data[$prefix.'delay'] = $delay->toString();
+			if (!$data[$prefix.'delay'])
+				$data[$prefix.'delay'] = '';
 		}
 		if ($ci = $this->getCooldownInfo()) {
 			$data[$prefix.'cooldown_c'] = $ci->count;
@@ -292,6 +367,19 @@ EOT;
 EOT;
 		}
 
+		// Max triggers
+		if ($this->isMaxTriggersAllowed()) {
+			$label = _x("Max Triggers", "Event max triggers", 'woorewards-lite');
+			$tooltip = __("Defines how many times this action can be triggered by each user. Leave empty for unlimited times or set an integer value", 'woorewards-lite');
+			$str .= <<<EOT
+<div class='field-help'>$tooltip</div>
+<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-$context-opt-input value'>
+	<input type='text' size='5' id='{$prefix}max_triggers' name='{$prefix}max_triggers' placeholder='' />
+</div>
+EOT;
+		}
+
 		// Points delay
 		if ($this->isDelayAllowed()) {
 			$label = _x("Points delay", "Event points delay", 'woorewards-lite');
@@ -337,34 +425,37 @@ EOT;
 			'post'     => ($source == 'post'),
 			'values'   => $form,
 			'format'   => array(
-				$prefix.'multiplier'  => '=0',
-				$prefix.'gain_alt'    => 't',
-				$prefix.'title'       => 't',
-				$prefix.'cooldown_c'  => '0',
-				$prefix.'cooldown_p'  => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
-				$prefix.'delay'       => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
-				$prefix.'recurrent_c' => '0',
-				$prefix.'recurrent_p' => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
+				$prefix . 'multiplier'   => '=0',
+				$prefix . 'gain_alt'     => 't',
+				$prefix . 'title'        => 't',
+				$prefix . 'max_triggers' => '0',
+				$prefix . 'cooldown_c'   => '0',
+				$prefix . 'cooldown_p'   => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
+				$prefix . 'delay'        => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
+				$prefix . 'recurrent_c'  => '0',
+				$prefix . 'recurrent_p'  => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
 			),
 			'defaults' => array(
-				$prefix.'multiplier' => '0',
-				$prefix.'gain_alt'   => '',
-				$prefix.'title'      => '',
-				$prefix.'cooldown_c' => '0',
-				$prefix.'cooldown_p' => '',
-				$prefix.'delay'       => '',
-				$prefix.'recurrent_c' => '0',
-				$prefix.'recurrent_p' => '',
+				$prefix . 'multiplier'   => '0',
+				$prefix . 'gain_alt'     => '',
+				$prefix . 'title'        => '',
+				$prefix . 'max_triggers' => '0',
+				$prefix . 'cooldown_c'   => '0',
+				$prefix . 'cooldown_p'   => '',
+				$prefix . 'delay'        => '',
+				$prefix . 'recurrent_c'  => '0',
+				$prefix . 'recurrent_p'  => '',
 			),
 			'labels'   => array(
-				$prefix.'multiplier'  => __("Earned points", 'woorewards-lite'),
-				$prefix.'gain_alt'    => __("Earned points alternative text", 'woorewards-lite'),
-				$prefix.'title'       => __("Title", 'woorewards-lite'),
-				$prefix.'cooldown_c'  => __("Cooldown (action count)", 'woorewards-lite'),
-				$prefix.'cooldown_p'  => __("Cooldown (period)", 'woorewards-lite'),
-				$prefix.'delay'       => __("Delay", 'woorewards-lite'),
-				$prefix.'recurrent_c' => __("Occurences", 'woorewards-lite'),
-				$prefix.'recurrent_p' => __("Occurences (period)", 'woorewards-lite'),
+				$prefix . 'multiplier'   => __("Earned points", 'woorewards-lite'),
+				$prefix . 'gain_alt'     => __("Earned points alternative text", 'woorewards-lite'),
+				$prefix . 'title'        => __("Title", 'woorewards-lite'),
+				$prefix . 'max_triggers' => __("Max Triggers", 'woorewards-lite'),
+				$prefix . 'cooldown_c'   => __("Cooldown (action count)", 'woorewards-lite'),
+				$prefix . 'cooldown_p'   => __("Cooldown (period)", 'woorewards-lite'),
+				$prefix . 'delay'        => __("Delay", 'woorewards-lite'),
+				$prefix . 'recurrent_c'  => __("Occurences", 'woorewards-lite'),
+				$prefix . 'recurrent_p'  => __("Occurences (period)", 'woorewards-lite'),
 			)
 		));
 		if( !(isset($values['valid']) && $values['valid']) )
@@ -382,6 +473,11 @@ EOT;
 			$this->setDelay($values['values'][$prefix.'delay']);
 		} else {
 			$this->setDelay('');
+		}
+		if ($this->isMaxTriggersAllowed()) {
+			$this->setMaxTriggers($values['values'][$prefix . 'max_triggers']);
+		} else {
+			$this->setMaxTriggers('');
 		}
 		if ($this->isRepeatAllowed()) {
 			$this->setRepeatInfo($values['values'][$prefix.'recurrent_c'], $values['values'][$prefix.'recurrent_p']);
@@ -457,8 +553,10 @@ EOT;
 						));
 					}
 					// apply
-					$this->getPool()->addPoints($userId, $value, $reason, $this, $origin2 ? $origin2 : $userId);
-					$this->getPool()->tryUnlock($userId);
+					if ($this->canBeTriggered($options, true)) {
+						$this->getPool()->addPoints($userId, $value, $reason, $this, $origin2 ? $origin2 : $userId);
+						$this->getPool()->tryUnlock($userId);
+					}
 				}
 			} else {
 				error_log("Try to add points to an undefined user: " . print_r($user, false));
@@ -510,6 +608,10 @@ EOT;
 				}
 			}
 
+			if ($event->isMaxTriggersAllowed()) {
+				$event->setMaxTriggers(\get_post_meta($post->ID, 'wre_event_max_triggers', true));
+			}
+
 			$event->repeatInfo = false;
 			if ($event->isRepeatAllowed()) {
 				$ri = \get_post_meta($post->ID, 'wre_event_recurrent', true);
@@ -558,12 +660,13 @@ EOT;
 			'post_name'   => $this->getName($pool),
 			'post_title'  => isset($this->title) ? $this->title : '',
 			'meta_input'  => array(
-				'wre_event_multiplier' => $this->getGainRaw(),
-				'wre_event_gain_alt'   => $this->getGainAlt(false),
-				'wre_event_type'       => $this->getType(),
-				'wre_event_cooldown'   => '',
-				'wre_event_delay'      => '',
-				'wre_event_recurrent'  => '',
+				'wre_event_multiplier'   => $this->getGainRaw(),
+				'wre_event_gain_alt'     => $this->getGainAlt(false),
+				'wre_event_type'         => $this->getType(),
+				'wre_event_cooldown'     => '',
+				'wre_event_delay'        => '',
+				'wre_event_max_triggers' => '',
+				'wre_event_recurrent'    => '',
 			)
 		);
 		if ($this->isRuleSupportedCooldown() && ($ci = $this->getCooldownInfo())) {
@@ -571,6 +674,9 @@ EOT;
 		}
 		if ($this->isDelayAllowed()) {
 			$data['meta_input']['wre_event_delay'] = $this->getDelay();
+		}
+		if ($this->isMaxTriggersAllowed()) {
+			$data['meta_input']['wre_event_max_triggers'] = $this->getMaxTriggers();
 		}
 		if ($this->isRepeatAllowed() && ($ri = $this->getRepeatInfo())) {
 			$data['meta_input']['wre_event_recurrent'] = ($ri->count . '|' . $ri->period);

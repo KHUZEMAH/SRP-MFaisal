@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'TEC\\Tickets_Plus\\Admin\\Tabs\\Attendee_Registration' => $baseDir . '/src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php',
+    'TEC\\Tickets_Plus\\Admin\\Tabs\\Integrations' => $baseDir . '/src/Tickets_Plus/Admin/Tabs/Integrations.php',
     'TEC\\Tickets_Plus\\Admin\\Tabs\\Provider' => $baseDir . '/src/Tickets_Plus/Admin/Tabs/Provider.php',
     'TEC\\Tickets_Plus\\Assets' => $baseDir . '/src/Tickets_Plus/Assets.php',
     'TEC\\Tickets_Plus\\Commerce\\Assets' => $baseDir . '/src/Tickets_Plus/Commerce/Assets.php',

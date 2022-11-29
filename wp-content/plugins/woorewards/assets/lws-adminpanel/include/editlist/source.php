@@ -45,6 +45,12 @@ abstract class Source
 		return "";
 	}
 
+	/** Override to add a title line over the popup dialog. */
+	public function getPopupTitle()
+	{
+		return false;
+	}
+
 	/** @return array LAC source format [[value, label], etc.]
 	 *	If any, columnns that support a sort. */
 	public function getSortColumns()

@@ -6,18 +6,18 @@ if ( 'undefined' === typeof tribe.tickets ) {
 tribe.tickets.table = {};
 ( function( window, $, obj ) {
 	/**
-	* Implemnts jQuery drag-n-drop for the ticket table.
-	* Stores order in the #tickets_order field.
-	*
-	* @param jQuery object $element parent element to make sortable ( var $table above )
-	*/
+	 * Implemnts jQuery drag-n-drop for the ticket table.
+	 * Stores order in the #tickets_order field.
+	 *
+	 * @param {jQuery} $element parent element to make sortable ( var $table above )
+	 */
 	obj.make_sortable = function( $element ) {
 		// If we don't have at least 2 sortable items, don't sort.
 		if ( 2 > $element.find( 'tr:not(.Tribe__Tickets__RSVP)' ).length ) {
 			return;
 		}
 
-		var fixHelper = function( e, ui ) {
+		const fixHelper = function( e, ui ) {
 			ui.children().each( function() {
 				$( this ).width( $( this ).outerWidth( true ) );
 			} );
@@ -40,18 +40,18 @@ tribe.tickets.table = {};
 					$( window ).off( 'beforeunload.tribe' );
 				}
 
-				var $tbody = $( this );
-				var $items = $tbody.children( 'tr' );
+				const $tbody = $( this );
+				const $items = $tbody.children( 'tr' );
 
 				$items.each( function( k, item ) {
-					var $item = $( item );
+					const $item = $( item );
 					$item.find( '.tribe-ticket-field-order' ).val( k );
 				} );
 
 				if ( tribe.tickets.editor ) {
 					$( window ).on( 'beforeunload.tribe', tribe.tickets.editor.beforeUnload );
 				}
-			}
+			},
 		} );
 
 		$element.disableSelection();
@@ -60,7 +60,7 @@ tribe.tickets.table = {};
 	};
 
 	obj.toggle_sortable = function() {
-		var $table = $( document.getElementById( 'tribe_ticket_list_table' ) )
+		const $table = $( document.getElementById( 'tribe_ticket_list_table' ) )
 			.find( '.tribe-tickets-editor-table-tickets-body' );
 
 		if ( window.matchMedia( '( min-width: 786px )' ).matches ) {
@@ -79,7 +79,7 @@ tribe.tickets.table = {};
 		obj.toggle_sortable();
 
 		// disable/init depending on screen size
-		var maybeSortable = _.debounce( obj.toggle_sortable, 300 );
+		const maybeSortable = _.debounce( obj.toggle_sortable, 300 );
 		$( window ).resize( maybeSortable );
 	} );
 } )( window, jQuery, tribe.tickets.table );

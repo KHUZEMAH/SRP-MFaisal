@@ -513,6 +513,17 @@ var wt_iew_popover=
 			}
 
 			var cr_elm=jQuery(this);
+                        
+                        if(!cr_elm.hasClass('dashicons')){
+                            jQuery('.wt_iew_mapping_field_editor_top').hide();
+                            jQuery('.wt_iew_mapping_field_editor_bottom').hide();
+                            
+                        }else{
+                            jQuery('.wt_iew_mapping_field_editor_top').show();
+                            jQuery('.wt_iew_mapping_field_editor_bottom').show();                            
+                             var cr_elm = jQuery(this).closest('td').prev('td').find('span:first');
+                        }                                                
+                        
 			if(cr_elm.attr('data-popup-opened')==1)
 			{
 				jQuery('[data-wt_iew_popover="1"]').attr('data-popup-opened',0);
@@ -550,7 +561,7 @@ var wt_iew_popover=
 				pp_html=cr_elm.attr('data-content');
 			}
 			pp_elm.css({'display':'block'}).find('.wt_iew_popover-content').html(pp_html);
-			pp_elm.find('.wt_iew_popover-footer').show();
+			//pp_elm.find('.wt_iew_popover-footer').show();
 			var cr_elm_w=cr_elm.width();
 			var cr_elm_h=cr_elm.height();
 			var pp_elm_w=pp_elm.width();
@@ -559,12 +570,51 @@ var wt_iew_popover=
 			var cr_elm_pos_t=cr_elm_pos.top-((pp_elm_h-cr_elm_h)/4);
 			var cr_elm_pos_l=cr_elm_pos.left+cr_elm_w;
 
+
+                        jQuery('.wt_iew_popover').removeClass('wt-pop-hidden');
+                        if(!jQuery(this).hasClass('dashicons')){
+                            var cr_elm_pos_l=cr_elm_pos.left-20;
+                            var cr_elm_pos_t=cr_elm_pos.top+cr_elm_h+3;
+                            jQuery('.wt_iew_popover').addClass('wt-pop-hidden');
+                            jQuery('.wt_iew_popover-content').css('padding', '0');
+                            jQuery( '.wt_iew_mapping_popup_label' ).hide();
+                            jQuery('.wt_iew_mapping_field_editor_box').css('margin-bottom', '0');
+                            jQuery('.wt_iew_mapping_field_editor_box').css('margin-top', '0');
+                            jQuery('.wt_iew_mapping_field_editor_box').css({'border-radius': 0});
+                            var quick_map_w = jQuery('.wt_iew_mapping_field_val').width()+10;
+                            if(quick_map_w < 250){
+                                quick_map_w = 250;
+                            }
+                            jQuery('.wt_iew_mapping_field_editor').css('width', quick_map_w);
+                            jQuery('.wt_iew_mapping_field_selector_box').css('height', '320');
+                            jQuery('.wt-input-column-search').css({'top':15, 'left': 15});
+                        }else{
+                            jQuery('.wt_iew_popover-content').css('padding', '15');
+                            jQuery( '.wt_iew_mapping_popup_label' ).show();
+                            jQuery('.wt_iew_mapping_field_editor_box').css({'margin-bottom':10, 'margin-top':5});
+                            jQuery('.wt_iew_mapping_field_editor').css('width', '400');
+                            jQuery('.wt_iew_mapping_field_selector_box').css('height', '200');
+                            jQuery('.wt-input-column-search').css({'top':272, 'left': 30});
+                            jQuery('.wt_iew_mapping_field_editor_box').css({'border-radius': 5});
+                        }
+
 			cr_elm_pos_t=cr_elm_pos_t+10; /* 10 px buffer for input span element padding */
 
 			pp_elm.find('.wt_iew_popover-title-text').html(ttle);
 			var target_elm_label=cr_elm.parents('tr').find('.wt_iew_mapping_column_label').html();
 			jQuery('.wt_iew_target_column').html(target_elm_label);
 			jQuery('.wt_iew_popover-content').find('.wt_iew_mapping_field_editor_expression').val(cr_elm.siblings('.columns_val').val());
+
+                        var animation_speed = 500;
+                        if(!jQuery(this).hasClass('dashicons')){
+                            jQuery('.wt_iew_popover-footer').hide();
+                            jQuery('.wt_iew_popover-title').hide();
+                            animation_speed = 0;
+                        }else{
+                            jQuery('.wt_iew_popover-footer').show();
+                            jQuery('.wt_iew_popover-title').show();
+                        }
+
 
 			wt_iew_popover.set_active_row(cr_elm);
 			pp_elm.css({'display':'block','opacity':0, 'top':cr_elm_pos_t,'left':cr_elm_pos_l}).stop(true,true).animate({'left':cr_elm_pos_l+20,'opacity':1}, 500, function(){
@@ -608,6 +658,37 @@ var wt_iew_popover=
 				wt_iew_basic_import.mapping_fields_selected_count(click_elm.parents('table'));
 			}		
 		});
+
+                jQuery(document).on('click', '.wt_iew_mapping_field_selector>li' ,function (e) {
+                    if(!jQuery('.wt_iew_popover-footer').is(':visible')){
+                            var click_elm = jQuery('[name="wt_iew_popover_do_action"]').data('click-elm');
+                            var vl= jQuery(this).attr('data-val');
+                            var html_vl=vl;
+                            if(wt_iew_popover.action_module=='import')
+                            {
+                                    var html_vl='{'+vl+'}';
+                            }
+
+                            click_elm.html(html_vl);
+                            click_elm.siblings('.columns_val').val(html_vl);
+                            wt_iew_popover.closePop();
+
+                            if(wt_iew_popover.action_module=='import')
+                            {
+                                    if(vl=="")
+                                    {
+                                            click_elm.parents('tr').find('.wt_iew_mapping_checkbox_sub').prop('checked', false);
+                                    }else
+                                    {
+                                            click_elm.parents('tr').find('.wt_iew_mapping_checkbox_sub').prop('checked', true);
+
+                                    }
+                                    wt_iew_basic_import.mapping_fields_selected_count(click_elm.parents('table'));
+                            }
+                        }
+		});
+
+            
 	},
 	regclosePop:function()
 	{

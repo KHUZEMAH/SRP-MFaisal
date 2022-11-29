@@ -108,7 +108,7 @@ echo  __( 'Select the default theme color.', 'livemesh-el-addons' ) ;
                             <div class="lae-spacer" style="height: 5px"></div>
                             <input class="lae-colorpicker" name="lae_theme_color" type="text"
                                    data-default="#f94213" value="<?php 
-echo  $theme_color ;
+echo  esc_attr( $theme_color ) ;
 ?>"/>
                         </div>
 
@@ -126,7 +126,7 @@ echo  __( 'Select the default hover color for your theme.', 'livemesh-el-addons'
                             <div class="lae-spacer" style="height: 5px"></div>
                             <input class="lae-colorpicker" name="lae_theme_hover_color" type="text"
                                    data-default="#888888" value="<?php 
-echo  $theme_hover_color ;
+echo  esc_attr( $theme_hover_color ) ;
 ?>"/>
                         </div>
 
@@ -625,7 +625,7 @@ echo  __( 'Please enter custom CSS for custom styling of addons', 'livemesh-el-a
 
                             <textarea class="lae-textarea" name="lae_custom_css" id="lae_custom_css" rows="20"
                                       cols="120"><?php 
-echo  $custom_css ;
+echo  wp_kses_post( $custom_css ) ;
 ?></textarea>
 
                         </div>

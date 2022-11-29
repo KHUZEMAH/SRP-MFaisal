@@ -671,6 +671,7 @@ trait Ajax_Handler {
 						$query->the_post();
 						$html .= HelperClass::include_with_variable( $file_path, [ 'settings' => $settings ] );
 					}
+					$html .= '<div class="eael-max-page" style="display:none;">'. ceil($query->found_posts / absint( $args['posts_per_page'] ) ) . '</div>';
 					printf( '%1$s', $html );
 					wp_reset_postdata();
 				}
@@ -880,6 +881,12 @@ trait Ajax_Handler {
 			update_option( 'eael_recaptcha_language_v3', sanitize_text_field( $settings['lr_recaptcha_language_v3'] ) );
 		}
 
+		if ( isset( $settings['lr_custom_profile_fields'] ) ) {
+			update_option( 'eael_custom_profile_fields', sanitize_text_field( $settings['lr_custom_profile_fields'] ) );
+		} else {
+			update_option( 'eael_custom_profile_fields', '' );
+		}
+
 		//pro settings
 		if ( isset( $settings['lr_g_client_id'] ) ) {
 			update_option( 'eael_g_client_id', sanitize_text_field( $settings['lr_g_client_id'] ) );
@@ -965,6 +972,9 @@ trait Ajax_Handler {
 
 		// Purge All LS Cache
 		do_action( 'litespeed_purge_all', '3rd Essential Addons for Elementor' );
+
+		// After clear the cache hook
+		do_action( 'eael_after_clear_cache_files' );
 
 		wp_send_json( true );
 	}

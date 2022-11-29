@@ -124,6 +124,16 @@ class AvailableRewards
 						'desc' => __("(Optional) If set, customers will be redirected to the set url. Otherwise, customers will either be redirected to the cart page (if the rewards has to be applied) or to the current page", 'woorewards-pro'),
 						'example' => '[wr_available_rewards redirection="https://mytestwebsite.com/cart/"]'
 					),
+					'available' => array(
+						'option' => 'available',
+						'desc' => __("(Optional, default is 'true') If set, customers will see rewards they are able to unlock", 'woorewards-pro'),
+						'example' => '[wr_available_rewards available="true"]'
+					),
+					'unavailable' => array(
+						'option' => 'unavailable',
+						'desc' => __("(Optional, default is 'false') If set, customers will also see rewards they don't have enough points to unlock, without the possibility to unlock them", 'woorewards-pro'),
+						'example' => '[wr_available_rewards unavailable="true"]'
+					),
 				),
 			)
 		);
@@ -152,6 +162,10 @@ class AvailableRewards
 	 * 					  	  If set, only rewards that can be applied on the cart are displayed
 	 * @param redirection	→ Default: ''
 	 * 					  	  If set, customers are redirected to the set url
+	 * @param available	→ Default: 'true'
+	 * 					  	  If set, customers also see available rewards
+	 * @param unavailable	→ Default: 'false'
+	 * 					  	  If set, customers also see unavailable rewards
 	 */
 	public function shortcode($atts = array(), $content = null)
 	{
@@ -166,19 +180,28 @@ class AvailableRewards
 				'applyreward' => false,
 				'applyonly'   => false,
 				'redirection' => false,
+				'available'   => true,
+				'unavailable' => false,
 			));
 			// Basic verifications
 			if (!$atts['system']) {
 				$atts['showall'] = true;
 			}
+			$atts['showname'] = \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['showname']);
+
 			// Get the data
+			$unlockables = array();
 			$pools = \apply_filters('lws_woorewards_get_pools_by_args', false, $atts);
 			if ($pools && $pools->count()) {
-				$unlockables = \LWS\WOOREWARDS\PRO\Conveniences::instance()->getUserUnlockables($user->ID, 'avail', $pools);
-				if ($unlockables) {
-					$atts['showname'] = \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['showname']);
-					return $this->getContent($atts, $unlockables, $user);
+				if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['available'])) {
+					$unlockables = \LWS\WOOREWARDS\PRO\Conveniences::instance()->getUserUnlockables($user->ID, 'avail', $pools);
 				}
+				if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['unavailable'])) {
+					$unlockables = \array_merge($unlockables, \LWS\WOOREWARDS\PRO\Conveniences::instance()->getUserUnlockables($user->ID, 'unavail', $pools));
+				}
+			}
+			if ($unlockables) {
+				return $this->getContent($atts, $unlockables, $user);
 			}
 		}
 		return \do_shortcode($content);
@@ -204,22 +227,32 @@ class AvailableRewards
 			$title  = $unlockable->getTitle();
 			$descr  = $unlockable->getCustomDescription();
 			$pool   = $unlockable->getPool();
+			$pts    = $pool->getPoints($user->ID);
 			$cost   = ($atts['display'] == 'formatted' ? \LWS_WooRewards::formatPointsWithSymbol($unlockable->getUserCost($user->ID), $pool->getName()) : $unlockable->getUserCost($user->ID));
-			$points = ($atts['display'] == 'formatted' ? \LWS_WooRewards::formatPointsWithSymbol($pool->getPoints($user->ID), $pool->getName()) : $pool->getPoints($user->ID));
+			$points = ($atts['display'] == 'formatted' ? \LWS_WooRewards::formatPointsWithSymbol($pts, $pool->getName()) : $pts);
+			$purchasable = $unlockable->isPurchasable($pts, $user->ID);
 
 			if ($atts['element'] == 'tile' || $atts['element'] == 'line') {
 				// variable dom
-				if ($unlockable->isAutoApplicable() && \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['applyreward'])) {
-					$btText = __("Unlock and Apply", 'woorewards-pro');
-					if (false !== $atts['redirection'])
+				if ($purchasable) {
+					if ($unlockable->isAutoApplicable() && \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['applyreward'])) {
+						$btText = __("Unlock and Apply", 'woorewards-pro');
+						if (false !== $atts['redirection'])
+							$url = ($atts['redirection'] ? $atts['redirection'] : false);
+						else
+							$url = (\function_exists('\wc_get_cart_url') ? \wc_get_cart_url() : false);
+						$btUrl = esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs($url, $unlockable, $user, true));
+					} else {
+						$btText = __("Unlock", 'woorewards-pro');
 						$url = ($atts['redirection'] ? $atts['redirection'] : false);
-					else
-						$url = (\function_exists('\wc_get_cart_url') ? \wc_get_cart_url() : false);
-					$btUrl = esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs($url, $unlockable, $user, true));
+						$btUrl = esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs($url, $unlockable, $user));
+					}
 				} else {
-					$btText = __("Unlock", 'woorewards-pro');
-					$url = ($atts['redirection'] ? $atts['redirection'] : false);
-					$btUrl = esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs($url, $unlockable, $user));
+					if ($unlockable->isAutoApplicable() && \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['applyreward'])) {
+						$btText = __("Unlock and Apply", 'woorewards-pro');
+					} else {
+						$btText = __("Unlock", 'woorewards-pro');
+					}
 				}
 				$img = (($img = $unlockable->getThumbnailImage()) ? "<div class='reward-img'>{$img}</div>" : '');
 				$parent = '';
@@ -230,9 +263,11 @@ class AvailableRewards
 						$pool->getOption('display_title')
 					);
 				}
+				$availClass = ($purchasable ? 'available' : 'unavailable');
+				$btnAttrs = ($purchasable ? "class='button lws-reward-redeem' data-href='{$btUrl}'" : "class='button'");
 
 				$elements .= <<<EOT
-	<div class='item {$atts['element']}'>{$img}
+	<div class='item {$availClass} {$atts['element']}'>{$img}
 		<div class='reward-info'>
 			<div class='reward-title'>{$title}</div>
 			<div class='reward-descr'>{$descr}</div>
@@ -248,7 +283,7 @@ class AvailableRewards
 			</div>
 		</div>
 		<div class='apply-button'>
-			<div class='button lws-reward-redeem' data-href='{$btUrl}'>$btText</div>
+			<div {$btnAttrs}>$btText</div>
 		</div>
 	</div>
 EOT;

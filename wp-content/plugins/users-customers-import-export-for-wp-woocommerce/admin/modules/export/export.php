@@ -139,10 +139,11 @@ class Wt_Import_Export_For_Woo_Basic_Export
 		$fields['default_export_batch']=array(
 			'label'=>__("Default Export batch count"),
 			'type'=>'number',
-                        'value' =>30,
+            'value' =>30,
 			'field_name'=>'default_export_batch',
 			'help_text'=>__('Provide the default count for the records to be exported in a batch.'),
 			'validation_rule'=>array('type'=>'absint'),
+			'attr' => array('min' => 1, 'max' => 200),
 		);
 		return $fields;
 	}

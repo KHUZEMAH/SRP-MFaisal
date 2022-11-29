@@ -2587,8 +2587,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	/**
 	 * Marks an attendee as checked in for an event
 	 *
-	 * @param $attendee_id
-	 * @param $qr true if from QR checkin process
+	 * @param int  $attendee_id The ID of the attendee that's being checked in.
+	 * @param bool $qr          True if from QR checkin process.
 	 *
 	 * @return bool
 	 */
@@ -2598,6 +2598,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		if ( func_num_args() > 1 && $qr = func_get_arg( 1 ) ) {
 			update_post_meta( $attendee_id, '_tribe_qr_status', 1 );
 		}
+
+		parent::save_checkin_details( $attendee_id, $qr );
 
 		/**
 		 * Fires a checkin action

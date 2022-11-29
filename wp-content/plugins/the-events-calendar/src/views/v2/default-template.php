@@ -14,10 +14,12 @@
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
-get_header();
-?>
+get_header(); ?>
+
 <h2 class="section-title" >Live ZOOM <br> Class Schedule</h2>
+
 <?php
+
 echo tribe( Template_Bootstrap::class )->get_view_html();
 
 get_footer();

@@ -5,6 +5,7 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class Conveniences
 {
+	/** list of order status formatted for LAC */
 	static function getOrderStatusList($reset=false)
 	{
 		static $orderStatusList = false;
@@ -308,5 +309,36 @@ class Conveniences
 			}
 		}
 		return \apply_filters('lws_adminpanel_get_customer', ($user && $user->exists()) ? $user : false, $orderOrCart, $original);
+	}
+
+	public static function htmlToPlain($body)
+	{
+		static $toDelPattern = array(
+			'@<head[^>]*?>.*?</head>@siu',
+			'@<style[^>]*?>.*?</style>@siu',
+			'@<script[^>]*?.*?</script>@siu',
+			'@<object[^>]*?.*?</object>@siu',
+			'@<embed[^>]*?.*?</embed>@siu',
+			'@<noscript[^>]*?.*?</noscript>@siu',
+			'@<noembed[^>]*?.*?</noembed>@siu'
+		);
+		$body = \preg_replace($toDelPattern, '', $body);
+
+		static $replace = array(
+			"<br" => "\n<br",
+			"</p>" => "</p>\n\n",
+			"</td>" => "</td>\t",
+			"</tr>" => "</tr>\n",
+			"<table" => "\n<table",
+			"</thead>" => "</thead>\n",
+			"</tbody>" => "</tbody>\n",
+			"</table>" => "</table>\n",
+		);
+		$body = \str_replace(\array_keys($replace), \array_values($replace), $body);
+		$body = \trim(\wp_kses($body, array()));
+
+		static $redondant = array("/\t+/", '/ +/', "/(\n[ \t]*\n[ \t]*)+/", "/\n[ \t]*/");
+		static $single = array("\t", ' ', "\n\n", "\n");
+		$body = \html_entity_decode(preg_replace($redondant, $single, $body));
 	}
 }

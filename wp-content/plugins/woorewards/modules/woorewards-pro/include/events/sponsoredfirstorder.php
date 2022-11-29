@@ -9,6 +9,12 @@ if( !defined( 'ABSPATH' ) ) exit();
 class SponsoredFirstOrder extends \LWS\WOOREWARDS\Abstracts\Event
 {
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
+	use \LWS\WOOREWARDS\PRO\Events\T_SponseeTrigger;
+
+	public function isMaxTriggersAllowed()
+	{
+		return true;
+	}
 
 	function getInformation()
 	{
@@ -28,7 +34,9 @@ class SponsoredFirstOrder extends \LWS\WOOREWARDS\Abstracts\Event
 		$data[$prefix.'min_amount'] = $this->getMinAmount();
 		$data[$prefix.'event_priority'] = $this->getEventPriority();
 		$data[$prefix.'roles'] = base64_encode(json_encode($this->getRoles()));
-		return $this->filterSponsorshipData($data, $prefix);
+		$data = $this->filterSponsorshipData($data, $prefix);
+		$data = $this->filterSponseeTriggerData($data, $prefix);
+		return $data;
 	}
 
 	function getForm($context='editlist')
@@ -77,6 +85,8 @@ EOT;
 		$form = $this->filterSponsorshipForm($form, $prefix, $context, 10);
 
 		$placeholder = $this->getFieldsetPlaceholder(false, 10);
+
+		// Sponsee role
 		$label = _x("Sponsee role", "Sponsored Order Event", 'woorewards-pro');
 		$tooltip = __("The ponsee needs to have at least one of the selected roles to grant points to his referral. Leave empty for no restriction.", 'woorewards-pro');
 		$field = "<div class='field-help'>{$tooltip}</div>";
@@ -88,6 +98,10 @@ EOT;
 			'class'         => 'above',
 		));
 		$field .= "</div>";
+
+		// Max Sponsee Triggers
+		$field .= $this->getSponseeTriggerForm($prefix, $context);
+
 		return str_replace($placeholder, $field . $placeholder, $form);
 	}
 
@@ -123,14 +137,20 @@ EOT;
 			return isset($values['error']) ? $values['error'] : false;
 
 		$valid = parent::submit($form, $source);
-		if( $valid === true && ($valid = $this->optSponsorshipSubmit($prefix, $form, $source)) === true )
-		{
-			$this->setFirstOrderOnly($values['values'][$prefix.'first_order_only']);
-			$this->setGuestAllowed($values['values'][$prefix.'guest']);
-			$this->setMinAmount($values['values'][$prefix.'min_amount']);
-			$this->setEventPriority  ($values['values'][$prefix.'event_priority']);
-			$this->setRoles($values['values'][$prefix.'roles']);
-		}
+		if (true !== $valid)
+			return $valid;
+		$valid = $this->optSponsorshipSubmit($prefix, $form, $source);
+		if (true !== $valid)
+			return $valid;
+		$valid = $this->optSponseeTriggerSubmit($prefix, $form, $source);
+		if (true !== $valid)
+			return $valid;
+
+		$this->setFirstOrderOnly($values['values'][$prefix.'first_order_only']);
+		$this->setGuestAllowed($values['values'][$prefix.'guest']);
+		$this->setMinAmount($values['values'][$prefix.'min_amount']);
+		$this->setEventPriority  ($values['values'][$prefix.'event_priority']);
+		$this->setRoles($values['values'][$prefix.'roles']);
 		return $valid;
 	}
 
@@ -205,6 +225,7 @@ EOT;
 		$this->setMinAmount(\get_post_meta($post->ID, 'wre_event_min_amount', true));
 		$this->setEventPriority($this->getSinglePostMeta($post->ID, 'wre_event_priority', $this->getEventPriority()));
 		$this->optSponsorshipFromPost($post);
+		$this->optSponseeTriggerFromPost($post);
 		$this->setRoles(\get_post_meta($post->ID, 'wre_sponsored_roles', true));
 		return $this;
 	}
@@ -217,6 +238,7 @@ EOT;
 		\update_post_meta($id, 'wre_event_min_amount', $this->getMinAmount());
 		\update_post_meta($id, 'wre_event_priority', $this->getEventPriority());
 		$this->optSponsorshipSave($id);
+		$this->optSponseeTriggerSave($id);
 		\update_post_meta($id, 'wre_sponsored_roles', $this->getRoles());
 		return $this;
 	}

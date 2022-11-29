@@ -38105,6 +38105,7 @@ var rsvp_style = __webpack_require__(404);
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -38114,9 +38115,6 @@ var rsvp_style = __webpack_require__(404);
 
 
 
-const {
-  __
-} = wp.i18n;
 
 class template_RSVP extends external_React_["PureComponent"] {
   componentDidMount() {
@@ -38154,15 +38152,15 @@ class template_RSVP extends external_React_["PureComponent"] {
       className: "tribe-editor__not-supported-message"
     }, wp.element.createElement("p", {
       className: "tribe-editor__not-supported-message-text"
-    }, __('RSVPs are not yet supported on recurring events.', 'event-tickets'), wp.element.createElement("br", null), wp.element.createElement("a", {
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('RSVPs are not yet supported on recurring events.', 'event-tickets'), wp.element.createElement("br", null), wp.element.createElement("a", {
       className: "tribe-editor__not-supported-message-link",
       href: "https://evnt.is/1b7a",
       target: "_blank",
       rel: "noopener noreferrer"
-    }, __('Read about our plans for future features.', 'event-tickets')), wp.element.createElement("br", null), wp.element.createElement("a", {
-      href: "#",
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('Read about our plans for future features.', 'event-tickets')), wp.element.createElement("br", null), wp.element.createElement(external_var_wp_components_root_wp_components_["Button"], {
+      variant: "secondary",
       onClick: () => wp.data.dispatch('core/block-editor').removeBlock(clientId)
-    }, __('Remove block', 'event-tickets'))));
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('Remove block', 'event-tickets'))));
   }
 
   render() {
@@ -39549,6 +39547,12 @@ var tickets_style = __webpack_require__(415);
 
 
 /**
+ * WordPress dependencies
+ */
+
+
+
+/**
  * Internal dependencies
  */
 
@@ -39556,9 +39560,6 @@ var tickets_style = __webpack_require__(415);
 
 
 
-const {
-  __: template_
-} = wp.i18n;
 
 class template_Tickets extends external_React_["PureComponent"] {
   componentDidMount() {
@@ -39593,15 +39594,15 @@ class template_Tickets extends external_React_["PureComponent"] {
       className: "tribe-editor__not-supported-message"
     }, wp.element.createElement("p", {
       className: "tribe-editor__not-supported-message-text"
-    }, template_('Tickets are not yet supported for on recurring events.', 'event-tickets'), wp.element.createElement("br", null), wp.element.createElement("a", {
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('Tickets are not yet supported for on recurring events.', 'event-tickets'), wp.element.createElement("br", null), wp.element.createElement("a", {
       className: "tribe-editor__not-supported-message-link",
       href: "https://evnt.is/1b7a",
       target: "_blank",
       rel: "noopener noreferrer"
-    }, template_('Read about our plans for future features.', 'event-tickets')), wp.element.createElement("br", null), wp.element.createElement("a", {
-      href: "#",
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('Read about our plans for future features.', 'event-tickets')), wp.element.createElement("br", null), wp.element.createElement(external_var_wp_components_root_wp_components_["Button"], {
+      variant: "secondary",
       onClick: () => wp.data.dispatch('core/block-editor').removeBlock(clientId)
-    }, template_('Remove block', 'event-tickets'))));
+    }, Object(external_var_wp_i18n_root_wp_i18n_["__"])('Remove block', 'event-tickets'))));
   }
 
   renderContent() {

@@ -347,15 +347,6 @@ class Admin
 		return $wizardPage;
 	}
 
-	protected function getOrderStatusList()
-	{
-		if (isset($this->orderStatusList))
-			return $this->orderStatusList;
-
-		$this->orderStatusList = \LWS\Adminpanel\Tools\Conveniences::getOrderStatusList();
-		return $this->orderStatusList;
-	}
-
 	protected function getFeaturesPage()
 	{
 		$description = array(
@@ -431,8 +422,8 @@ class Admin
 									'title' => __("Order statuses for points", 'woorewards-lite'),
 									'type'  => 'lacchecklist',
 									'extra' => array(
-										'source' => $this->getOrderStatusList(),
-										'help'   => __("Default state to get points is the processing order status.<br/>If you want to use other statuses instead (recommanded), select them here", 'woorewards-lite'),
+										'ajax' => 'lws_adminpanel_get_order_status',
+										'help' => __("Default state to get points is the processing order status.<br/>If you want to use other statuses instead (recommanded), select them here", 'woorewards-lite'),
 									)
 								),
 								'deep_usersearch' => array(
@@ -457,7 +448,7 @@ class Admin
 									'title' => __("Order statuses to pay discount", 'woorewards-lite'),
 									'type'  => 'lacchecklist',
 									'extra' => array(
-										'source'  => $this->getOrderStatusList(),
+										'ajax'    => 'lws_adminpanel_get_order_status',
 										'default' => array('processing', 'completed'),
 									)
 								),
@@ -467,9 +458,10 @@ class Admin
 									'type'  => 'lacselect',
 									'extra' => array(
 										'mode'    => 'select',
-										'source'  => array_merge(array(
+										'source'  => array(
 											array('value' => '_', 'label' => __("[do nothing]", 'woorewards-lite'))
-										), $this->getOrderStatusList()),
+										),
+										'ajax'    => 'lws_adminpanel_get_order_status',
 										'default' => 'failed',
 										'help'    => __("Change order status if points cannot be paid after all.", 'woorewards-lite'),
 									)

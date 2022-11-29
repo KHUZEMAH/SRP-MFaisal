@@ -113,9 +113,10 @@ class EDD extends Order {
 
 		// Build list of downloads and cart items to use.
 		foreach ( $tickets as $ticket ) {
+			$download = edd_get_download( $ticket['id'] );
 			$cart_item = [
-				'name'       => $ticket->name,
-				'id'         => 0,
+				'name'       => $download->post_title,
+				'id'         => $download->ID,
 				'quantity'   => 0,
 				'price_id'   => null,
 				'tax'        => 0,
@@ -123,6 +124,7 @@ class EDD extends Order {
 				'item_price' => 0,
 				'fees'       => [],
 				'discount'   => 0,
+				'price'      => 0,
 			];
 
 			$cart_item = array_merge( $cart_item, $ticket );

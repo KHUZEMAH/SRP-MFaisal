@@ -294,7 +294,7 @@ class Webex_Provider extends Meeting_Provider {
 	public function add_video_source( $video_sources, $post ) {
 
 		$video_sources[] = [
-			'text'     => _x( 'Webex Account', 'The name of the video source.', 'events-virtual' ),
+			'text'     => _x( 'Webex', 'The name of the video source.', 'events-virtual' ),
 			'id'       => Webex_Meta::$key_source_id,
 			'value'    => Webex_Meta::$key_source_id,
 			'selected' => Webex_Meta::$key_source_id === $post->virtual_video_source,

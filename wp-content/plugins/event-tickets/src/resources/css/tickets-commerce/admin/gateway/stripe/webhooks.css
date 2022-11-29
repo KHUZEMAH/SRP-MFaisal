@@ -14,14 +14,14 @@
  * @since 5.3.0
  */
 #tribe-field-tickets-commerce-stripe-webhooks-value input {
-		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
 	}
 #tribe-field-tickets-commerce-stripe-webhooks-value .tribe-field-tickets-commerce-stripe-webhooks-copy {
-		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
-		margin-left: -2px;
+		border-top-left-radius: 0;
 		line-height: 24px;
+		margin-left: -2px;
 		padding-left: 6px;
 		padding-right: 6px;
 	}
@@ -38,5 +38,7 @@
 			color: #50b078;
 		}
 @keyframes rotate {
-		100% {transform: rotate(360deg);}
+		100% {
+			transform: rotate(360deg);
+		}
 	}

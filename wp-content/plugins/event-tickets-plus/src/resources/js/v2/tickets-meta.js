@@ -2,8 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.0.0
- *
- * @type {Object}
+ * @type {object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -11,8 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET meta fields in the Global Tribe variable
  *
  * @since 5.0.0
- *
- * @type {Object}
+ * @type {object}
  */
 tribe.tickets.meta = {};
 
@@ -20,22 +18,18 @@ tribe.tickets.meta = {};
  * Initializes in a Strict env the code that manages the RSVP block.
  *
  * @since 5.0.0
- *
- * @param  {Object} $   jQuery
- * @param  {Object} obj tribe.tickets.meta
- *
+ * @param  {object} $   jQuery
+ * @param  {object} obj tribe.tickets.meta
  * @return {void}
  */
 ( function( $, obj ) {
-	'use strict';
 	const $document = $( document );
 
 	/**
 	 * Selectors used for configuration and setup
 	 *
 	 * @since 5.0.0
-	 *
-	 * @type {Object}
+	 * @type {object}
 	 */
 	obj.selectors = {
 		formAttendeeTicketsWrapper: '.tribe-tickets__attendee-tickets',
@@ -73,13 +67,11 @@ tribe.tickets.meta = {};
 	 * Adds errors to the top of the modal.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $form jQuery object that is the form we are validating.
-	 *
-	 * @returns {array} If the form validates.
+	 * @returns {Array} If the form validates.
 	 */
 	obj.validateForm = function( $form ) {
-		const $attendeeTickets = $form.find( obj.selectors.formAttendeeTicketsItem ); /* eslint-disable-line es5/no-es6-methods,max-len */
+		const $attendeeTickets = $form.find( obj.selectors.formAttendeeTicketsItem );
 		let formValid = true;
 		let invalidTickets = 0;
 
@@ -94,7 +86,7 @@ tribe.tickets.meta = {};
 					invalidTickets++;
 					formValid = false;
 				}
-			}
+			},
 		);
 
 		$document.trigger( 'afterValidateForm.tribeTicketsMeta', [ $form, formValid, invalidTickets ] );
@@ -106,13 +98,11 @@ tribe.tickets.meta = {};
 	 * Validates and adds/removes error classes from a ticket meta block.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $container jQuery object that is the block we are validating.
-	 *
 	 * @returns {boolean} True if all fields validate, false otherwise.
 	 */
 	obj.validateAttendeeTicket = function( $container ) {
-		const $fields = $container.find( obj.selectors.formFieldInput ); /* eslint-disable-line es5/no-es6-methods,max-len */
+		const $fields = $container.find( obj.selectors.formFieldInput );
 		let isValid = true;
 
 		$document.trigger( 'beforeValidateAttendeeTicket.tribeTicketsMeta', [ $container ] );
@@ -125,7 +115,7 @@ tribe.tickets.meta = {};
 				if ( ! isValidField ) {
 					isValid = false;
 				}
-			}
+			},
 		);
 
 		if ( isValid ) {
@@ -145,14 +135,12 @@ tribe.tickets.meta = {};
 	 * but not necessarily all.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {jQuery} $group The jQuery object for the checkbox group.
-	 *
 	 * @return {boolean} If the input group is valid.
 	 */
 	obj.validateCheckboxRadioGroup = function( $group ) {
-		const checked  = $group.find( 'input:checked' ).length; /* eslint-disable-line es5/no-es6-methods,max-len */
-		const required = $group.find( 'input:required' ).length; /* eslint-disable-line es5/no-es6-methods,max-len */
+		const checked = $group.find( 'input:checked' ).length;
+		const required = $group.find( 'input:required' ).length;
 
 		// the group is valid if there are no required.
 		// or if it is required and there's at least one checked.
@@ -165,9 +153,7 @@ tribe.tickets.meta = {};
 	 * Check if it's the birthday meta field.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {jQuery} $input jQuery object of the input.
-	 *
 	 * @return {boolean} If the field is valid.
 	 */
 	obj.isFieldBirthday = function( $input ) {
@@ -178,16 +164,14 @@ tribe.tickets.meta = {};
 	 * Validates the birthday field.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {jQuery} $input jQuery object of the input.
-	 *
 	 * @return {boolean} If the field is valid.
 	 */
 	obj.validateFieldBirthday = function( $input ) {
 		const wrapper = $input.closest( obj.selectors.formFieldInputBirthday.container );
-		const day = wrapper.find( obj.selectors.formFieldInputBirthday.day ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const month = wrapper.find( obj.selectors.formFieldInputBirthday.month ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const year = wrapper.find( obj.selectors.formFieldInputBirthday.year ); /* eslint-disable-line es5/no-es6-methods,max-len */
+		const day = wrapper.find( obj.selectors.formFieldInputBirthday.day );
+		const month = wrapper.find( obj.selectors.formFieldInputBirthday.month );
+		const year = wrapper.find( obj.selectors.formFieldInputBirthday.year );
 		let isValidField = true;
 
 		if ( ! day.prop( 'required' ) && ! month.prop( 'required' ) && ! year.prop( 'required' ) ) {
@@ -195,7 +179,6 @@ tribe.tickets.meta = {};
 		}
 
 		[ day, month, year ].forEach( function( el ) {
-
 			// Check if given value is a positive number, even if it's a string
 			if ( isNaN( parseInt( el.val() ) ) || parseInt( el.val() ) <= 0 ) {
 				el.addClass( obj.selectors.formFieldInputError.className() );
@@ -213,13 +196,11 @@ tribe.tickets.meta = {};
 	 * Validates a single field.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {HTMLElement} input DOM Object that is the field we are validating.
-	 *
 	 * @return {boolean} If the field is valid.
 	 */
 	obj.validateField = function( input ) {
-		const $input     = $( input );
+		const $input = $( input );
 		let isValidField = input.checkValidity();
 
 		$document.trigger( 'beforeValidateField.tribeTicketsMeta', [ $input, isValidField ] );
@@ -265,10 +246,8 @@ tribe.tickets.meta = {};
 	 * We can override the validation by setting `data-valid` in the input.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $input jQuery object of the input.
 	 * @param {boolean} isValidField If the Attendee ticket field is valid.
-	 *
 	 * @return {boolean} If the field is valid.
 	 */
 	obj.validateFieldOverride = function( $input, isValidField ) {
@@ -289,10 +268,10 @@ tribe.tickets.meta = {};
 		$( obj.selectors.formFieldInputBirthday.container ).each( function( index, value ) {
 			const wrapper = $( value );
 
-			const day = wrapper.find( obj.selectors.formFieldInputBirthday.day ); /* eslint-disable-line es5/no-es6-methods,max-len */
-			const month = wrapper.find( obj.selectors.formFieldInputBirthday.month ); /* eslint-disable-line es5/no-es6-methods,max-len */
-			const year = wrapper.find( obj.selectors.formFieldInputBirthday.year ); /* eslint-disable-line es5/no-es6-methods,max-len */
-			const realValue = wrapper.find( obj.selectors.formFieldInputBirthday.value ); /* eslint-disable-line es5/no-es6-methods,max-len */
+			const day = wrapper.find( obj.selectors.formFieldInputBirthday.day );
+			const month = wrapper.find( obj.selectors.formFieldInputBirthday.month );
+			const year = wrapper.find( obj.selectors.formFieldInputBirthday.year );
+			const realValue = wrapper.find( obj.selectors.formFieldInputBirthday.value );
 
 			const savedValues = realValue.val().split( '-' );
 
@@ -309,17 +288,15 @@ tribe.tickets.meta = {};
 	 * on the changes the different <select> had.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {Event} e input event.
-	 *
 	 * @return {void}
 	 */
 	obj.updateFieldBirthdayValue = function( e ) {
 		const wrapper = $( e.target ).closest( obj.selectors.formFieldInputBirthday.container );
-		const day = wrapper.find( obj.selectors.formFieldInputBirthday.day ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const month = wrapper.find( obj.selectors.formFieldInputBirthday.month ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const year = wrapper.find( obj.selectors.formFieldInputBirthday.year ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const realValue = wrapper.find( obj.selectors.formFieldInputBirthday.value ); /* eslint-disable-line es5/no-es6-methods,max-len */
+		const day = wrapper.find( obj.selectors.formFieldInputBirthday.day );
+		const month = wrapper.find( obj.selectors.formFieldInputBirthday.month );
+		const year = wrapper.find( obj.selectors.formFieldInputBirthday.year );
+		const realValue = wrapper.find( obj.selectors.formFieldInputBirthday.value );
 
 		// Data is stored in format: yyyy-mm-dd
 		realValue.val( year.val() + '-' + month.val() + '-' + day.val() );
@@ -331,9 +308,7 @@ tribe.tickets.meta = {};
 	 * the required value and set it only to the checked ones.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @param {Event} e input change event.
-	 *
 	 * @return {void}
 	 */
 	obj.handleRequiredCheckboxes = function( e ) {
@@ -344,8 +319,8 @@ tribe.tickets.meta = {};
 			return;
 		}
 
-		const $checked = $group.find( obj.selectors.formFieldInputCheckbox.checkbox + ':checked' ); /* eslint-disable-line es5/no-es6-methods,max-len */
-		const $groupCheckboxes = $group.find( obj.selectors.formFieldInputCheckbox.checkbox ); /* eslint-disable-line es5/no-es6-methods,max-len */
+		const $checked = $group.find( obj.selectors.formFieldInputCheckbox.checkbox + ':checked' );
+		const $groupCheckboxes = $group.find( obj.selectors.formFieldInputCheckbox.checkbox );
 
 		// If they un-check all, set them all as required.
 		if ( 0 === $checked.length ) {
@@ -363,12 +338,11 @@ tribe.tickets.meta = {};
 	};
 
 	/**
-	* Adds focus effect to attendee ticket block.
-	*
-	* @since 5.1.0
-	*
-	* @param {Event} e The event.
-	*/
+	 * Adds focus effect to attendee ticket block.
+	 *
+	 * @since 5.1.0
+	 * @param {Event} e The event.
+	 */
 	obj.focusTicketAttendeeBlock = function( e ) {
 		const input = e.target;
 
@@ -381,7 +355,6 @@ tribe.tickets.meta = {};
 	 * Remove focus effect from attendee ticket block.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {Event} e The event.
 	 */
 	obj.unFocusTicketAttendeeBlock = function( e ) {
@@ -396,7 +369,6 @@ tribe.tickets.meta = {};
 	 * Init tickets attendee fields.
 	 *
 	 * @since 5.0.0
-	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
@@ -404,13 +376,13 @@ tribe.tickets.meta = {};
 		$document.on(
 			'change',
 			obj.selectors.formFieldInputBirthday.select,
-			obj.updateFieldBirthdayValue
+			obj.updateFieldBirthdayValue,
 		);
 
 		$document.on(
 			'change',
 			obj.selectors.formFieldInputCheckbox.checkbox,
-			obj.handleRequiredCheckboxes
+			obj.handleRequiredCheckboxes,
 		);
 
 		/**
@@ -421,7 +393,7 @@ tribe.tickets.meta = {};
 		$document.on(
 			'focus',
 			obj.selectors.formFieldInput,
-			obj.focusTicketAttendeeBlock
+			obj.focusTicketAttendeeBlock,
 		);
 
 		/**
@@ -432,7 +404,7 @@ tribe.tickets.meta = {};
 		$document.on(
 			'blur',
 			obj.selectors.formFieldInput,
-			obj.unFocusTicketAttendeeBlock
+			obj.unFocusTicketAttendeeBlock,
 		);
 	};
 

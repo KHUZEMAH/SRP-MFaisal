@@ -137,7 +137,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 				'loading'=>__('Loading...'),
 				'no_results_found'=>__('No results found.'),
 				'sure'=>__('Are you sure?'),
-				'use_expression'=>__('Use expression as value.'),
+				'use_expression'=>__('Apply'),
 				'cancel'=>__('Cancel'),
 			),
                         'pro_plugins' => array(
@@ -250,6 +250,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 				}
 			}
 		}
+		add_submenu_page( $parent_menu_key, esc_html__('Pro upgrade'), '<span class="wt-go-premium">' . esc_html__('Pro upgrade') . '</span>', 'import', $parent_menu_key . '-premium', array( $this, 'admin_upgrade_premium_settings' ) );
 		if(function_exists('remove_submenu_page')){
 			//remove_submenu_page(WT_PIEW_POST_TYPE, WT_PIEW_POST_TYPE);
 		}
@@ -269,6 +270,12 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 	public function admin_settings_page()
 	{	
 		include(plugin_dir_path( __FILE__ ).'partials/wt-import-export-for-woo-admin-display.php');
+	}
+
+	public function admin_upgrade_premium_settings()
+	{
+		wp_safe_redirect(admin_url('admin.php?page=wt_import_export_for_woo_basic#wt-pro-upgrade'));
+		exit();
 	}
 
 	/**

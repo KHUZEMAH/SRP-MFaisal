@@ -426,32 +426,6 @@ class Admin
 		return $appearancePage;
 	}
 
-	function getOrderStatusList()
-	{
-		if (isset($this->orderStatus))
-			return $this->orderStatus;
-
-		if (\function_exists('\wc_get_order_statuses')) {
-			$this->orderStatus = array();
-			foreach (\wc_get_order_statuses() as $value => $label) {
-				if (substr($value, 0, 3) == 'wc-')
-					$value = substr($value, 3);
-				$this->orderStatus[] = array('value' => $value, 'label' => $label);
-			}
-		} else {
-			$this->orderStatus = array(
-				array('value' => 'pending',    'label' => __("Pending payment", 'woorewards-pro')),
-				array('value' => 'processing', 'label' => __("Processing", 'woorewards-pro')),
-				array('value' => 'on-hold',    'label' => __("On hold", 'woorewards-pro')),
-				array('value' => 'completed',  'label' => __("Completed", 'woorewards-pro')),
-				array('value' => 'cancelled',  'label' => __("Cancelled", 'woorewards-pro')),
-				array('value' => 'refunded',   'label' => __("Refunded", 'woorewards-pro')),
-				array('value' => 'failed',     'label' => __("Failed", 'woorewards-pro')),
-			);
-		}
-		return $this->orderStatus;
-	}
-
 	function getGeneralFeaturesTab()
 	{
 		$lite = array(
@@ -584,7 +558,7 @@ class Admin
 							'title' => __("Order status", 'woorewards-pro'),
 							'type'  => 'lacchecklist',
 							'extra' => array(
-								'source' => $this->getOrderStatusList(),
+								'ajax' => 'lws_adminpanel_get_order_status',
 							)
 						),
 					)

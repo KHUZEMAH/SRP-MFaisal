@@ -14,6 +14,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	public function isMaxTriggersAllowed()
+	{
+		return true;
+	}
+
 	function getDescription($context = 'backend')
 	{
 		$descr = parent::getDescription($context);
@@ -316,7 +321,9 @@ EOT;
 			$amount = \number_format_i18n($amount, 2);
 		}
 
-		if ((\is_numeric($value) && $value > 0) || '=' == substr($value, 0, 1)) {
+		if ('=' == substr($value, 0, 1)) {
+			$value = sprintf(_x('[%1$s] / %2$s', "Point per money spent", 'woorewards-lite'), $value, $amount);
+		} elseif (\is_numeric($value) && $value > 0) {
 			$points = \LWS_WooRewards::formatPointsWithSymbol($value, $this->getPoolName());
 			$value = sprintf(_x('%1$s / %2$s', "Point per money spent", 'woorewards-lite'), $points, $amount);
 		} else {

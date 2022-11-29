@@ -476,7 +476,7 @@ class Zoom_Provider extends Meeting_Provider {
 	public function add_video_source( $video_sources, $post ) {
 
 		$video_sources[] = [
-			'text'     => _x( 'Zoom Account', 'The name of the video source.', 'events-virtual' ),
+			'text'     => _x( 'Zoom', 'The name of the video source.', 'events-virtual' ),
 			'id'       => Zoom_Meta::$key_source_id,
 			'value'    => Zoom_Meta::$key_source_id,
 			'selected' => Zoom_Meta::$key_source_id === $post->virtual_video_source,

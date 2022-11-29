@@ -9,6 +9,7 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Extends usual order amount to only change point destination. */
 class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 {
+	use \LWS\WOOREWARDS\PRO\Events\T_SponseeTrigger;
 
 	function getInformation()
 	{
@@ -45,6 +46,8 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		$form = str_replace($placeholder, $form, parent::getForm($context));
 
 		$placeholder = $this->getFieldsetPlaceholder(false, 10);
+
+		// Sponsee role
 		$label = _x("Sponsee roles", "Sponsored Order Event", 'woorewards-pro');
 		$tooltip = __("The sponsee needs to have at least one of the selected roles to grant points to his referral. Leave empty for no restriction.", 'woorewards-pro');
 		$field = "<div class='field-help'>{$tooltip}</div>";
@@ -56,6 +59,10 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 			'class'         => 'above',
 		));
 		$field .= "</div>";
+
+		// Max Sponsee Triggers
+		$field .= $this->getSponseeTriggerForm($prefix, $context);
+
 		return str_replace($placeholder, $field . $placeholder, $form);
 	}
 
@@ -65,6 +72,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		$data = parent::getData();
 		$data[$prefix.'guest'] = $this->isGuestAllowed() ? 'on' : '';
 		$data[$prefix.'roles'] = base64_encode(json_encode($this->getRoles()));
+		$data = $this->filterSponseeTriggerData($data, $prefix);
 		return $data;
 	}
 
@@ -91,11 +99,14 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 			return isset($values['error']) ? $values['error'] : false;
 
 		$valid = parent::submit($form, $source);
-		if( $valid === true )
-		{
-			$this->setGuestAllowed($values['values'][$prefix.'guest']);
-			$this->setRoles($values['values'][$prefix.'roles']);
-		}
+		if (true !== $valid)
+			return $valid;
+		$valid = $this->optSponseeTriggerSubmit($prefix, $form, $source);
+		if (true !== $valid)
+			return $valid;
+
+		$this->setGuestAllowed($values['values'][$prefix.'guest']);
+		$this->setRoles($values['values'][$prefix.'roles']);
 		return $valid;
 	}
 
@@ -145,6 +156,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		parent::_fromPost($post);
 		$this->setGuestAllowed(\get_post_meta($post->ID, 'wre_event_guest', true));
 		$this->setRoles(\get_post_meta($post->ID, 'wre_sponsored_roles', true));
+		$this->optSponseeTriggerFromPost($post);
 		return $this;
 	}
 
@@ -154,6 +166,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		parent::_save($id);
 		\update_post_meta($id, 'wre_event_guest', $this->isGuestAllowed() ? 'on' : '');
 		\update_post_meta($id, 'wre_sponsored_roles', $this->getRoles());
+		$this->optSponseeTriggerSave($id);
 		return $this;
 	}
 

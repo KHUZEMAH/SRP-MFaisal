@@ -20,6 +20,11 @@ class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 
 	function isRuleSupportedCooldown() { return true; }
 
+	public function isMaxTriggersAllowed()
+	{
+		return \defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED;
+	}
+
 	/** If additionnal info should be displayed in settings form. */
 	protected function getCooldownTooltips($text)
 	{

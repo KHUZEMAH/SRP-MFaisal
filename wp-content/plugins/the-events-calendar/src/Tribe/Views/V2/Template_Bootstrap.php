@@ -145,9 +145,9 @@ class Template_Bootstrap {
 
 		ob_start();
 		if ( 'page' === $setting ) {
-			echo '<main id="tribe-events">';
+			echo '<main id="tribe-events" style="background-color: red">>';
 		} else {
-			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template" style="background-color: red">';
+			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template" style="background-color: red">>';
 		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
@@ -194,7 +194,7 @@ class Template_Bootstrap {
 	public function get_view_html() {
 		$query     = tribe_get_global_query_object();
 		$context   = tribe_context();
-		$view_slug = $context->get( 'view' );
+		$view_slug = $context->get( 'event_display' );
 
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.

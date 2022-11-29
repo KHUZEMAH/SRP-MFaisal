@@ -399,7 +399,7 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customermeta purchaser_edd_customer_meta
-				ON purchaser_edd_customer_meta.customer_id = purchaser_edd_customer.id
+				ON purchaser_edd_customer_meta.edd_customer_id = purchaser_edd_customer.id
 			", 'purchaser-edd-customer-meta' );
 
 			$where_clauses[] = "

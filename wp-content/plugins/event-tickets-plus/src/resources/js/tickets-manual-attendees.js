@@ -2,8 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.2.0
- *
- * @type   {PlainObject}
+ * @type   {object}
  */
 tribe.tickets = tribe.tickets || {};
 tribe.dialogs = tribe.dialogs || {};
@@ -13,8 +12,7 @@ tribe.dialogs.events = tribe.dialogs.events || {};
  * Configures ET Manual Attendees Object in the Global Tribe variable
  *
  * @since 5.2.0
- *
- * @type   {PlainObject}
+ * @type   {object}
  */
 tribe.tickets.manualAttendees = {};
 
@@ -22,14 +20,11 @@ tribe.tickets.manualAttendees = {};
  * Initializes in a Strict env the code that manages the plugin Manual Attendees library.
  *
  * @since 5.2.0
- *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.tickets.manualAttendees
- *
+ * @param  {object} $   jQuery
+ * @param  {object} obj tribe.tickets.manualAttendees
  * @return {void}
  */
 ( function( $, obj ) {
-	'use strict';
 	const $document = $( document );
 
 	/*
@@ -62,10 +57,8 @@ tribe.tickets.manualAttendees = {};
 	 * Handler for when the modal is being "closed".
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {object} event The close event.
 	 * @param {object} dialogEl The dialog element.
-	 *
 	 * @return {void}
 	 */
 	obj.modalClose = function( event, dialogEl ) {
@@ -79,13 +72,12 @@ tribe.tickets.manualAttendees = {};
 	 * Bind handler for when the modal is being "closed".
 	 *
 	 * @since 5.2.0
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalClose = function() {
 		$( tribe.dialogs.events ).on(
 			'tribeDialogCloseManualAttendeesModal.tribeTickets',
-			obj.modalClose
+			obj.modalClose,
 		);
 	};
 
@@ -93,7 +85,6 @@ tribe.tickets.manualAttendees = {};
 	 * Unbinds events for the modal content container.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $container jQuery object of the container.
 	 */
 	obj.unbindModalEvents = function( $container ) {
@@ -108,10 +99,8 @@ tribe.tickets.manualAttendees = {};
 	 * Binds events for the going button.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $container jQuery object of the container.
 	 * @param  {object} requestData Object with request data.
-	 *
 	 * @return {void}
 	 */
 	obj.bindAddAttendeeTicketSelectChange = function( $container, requestData ) {
@@ -135,10 +124,9 @@ tribe.tickets.manualAttendees = {};
 	 * Binds events for the modal content container.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param  {Event}       event    event object for 'afterAjaxSuccess.tribeTicketsAdmin' event.
 	 * @param  {jqXHR}       jqXHR    Request object.
-	 * @param  {PlainObject} settings Settings that this request was made with.
+	 * @param  {object} settings Settings that this request was made with.
 	 */
 	obj.bindModalEvents = function( event, jqXHR, settings ) { /* eslint-disable-line no-unused-vars,max-len */
 		const $container = event.data.container;
@@ -153,10 +141,9 @@ tribe.tickets.manualAttendees = {};
 	 * Handle form success.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param  {Event}       event    event object for 'afterAjaxSuccess.tribeTicketsAdmin' event.
 	 * @param  {jqXHR}       jqXHR    Request object.
-	 * @param  {PlainObject} settings Settings that this request was made with.
+	 * @param  {object} settings Settings that this request was made with.
 	 */
 	obj.handleFormSuccess = function( event, jqXHR, settings ) { /* eslint-disable-line no-unused-vars,max-len */
 		const data = event.data.requestData;
@@ -172,7 +159,6 @@ tribe.tickets.manualAttendees = {};
 	 * Handle the Manual Attendee form submission.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {event} e submission event.
 	 */
 	obj.handleFormSubmission = function( e ) {
@@ -211,7 +197,7 @@ tribe.tickets.manualAttendees = {};
 					{
 						behavior: 'smooth',
 						block: 'start',
-					}
+					},
 				);
 			return;
 		}
@@ -224,7 +210,7 @@ tribe.tickets.manualAttendees = {};
 		$container.on(
 			'afterAjaxSuccess.tribeTicketsAdmin',
 			{ container: $container, requestData: data },
-			obj.handleFormSuccess
+			obj.handleFormSuccess,
 		);
 	};
 
@@ -232,9 +218,7 @@ tribe.tickets.manualAttendees = {};
 	 * Binds events for the Manual Attendees form.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $container jQuery object of the RSVP container.
-	 *
 	 * @return {void}
 	 */
 	obj.bindForm = function( $container ) {
@@ -249,7 +233,6 @@ tribe.tickets.manualAttendees = {};
 	 * Bind email events.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $container jQuery object of the container.
 	 */
 	obj.bindEmailEvents = function( $container ) {
@@ -265,7 +248,6 @@ tribe.tickets.manualAttendees = {};
 	 * Bind email change check.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {event} event The event.
 	 */
 	obj.handleEmailChangeCheck = function( event ) {
@@ -283,7 +265,6 @@ tribe.tickets.manualAttendees = {};
 	 * Show the re-send email checkbox.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $input The email input.
 	 */
 	obj.emailReSendCheckboxShow = function( $input ) {
@@ -305,7 +286,6 @@ tribe.tickets.manualAttendees = {};
 	 * Hide the re-send email checkbox.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {jQuery} $input The email input.
 	 */
 	obj.emailReSendCheckboxHide = function( $input ) {
@@ -327,11 +307,9 @@ tribe.tickets.manualAttendees = {};
 	 * Handler for when the modal is opened.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @param {object} event The show event.
 	 * @param {object} dialogEl The dialog element.
 	 * @param {object} trigger The event.
-	 *
 	 * @return {void}
 	 */
 	obj.modalOpen = function( event, dialogEl, trigger ) {
@@ -368,7 +346,7 @@ tribe.tickets.manualAttendees = {};
 		$modalContent.on(
 			'afterAjaxSuccess.tribeTicketsAdmin',
 			{ container: $modalContent, requestData: data },
-			obj.bindModalEvents
+			obj.bindModalEvents,
 		);
 	};
 
@@ -376,13 +354,12 @@ tribe.tickets.manualAttendees = {};
 	 * Bind handler for when the modal is being "opened".
 	 *
 	 * @since 5.2.0
-	 *
 	 * @return {void}
 	 */
 	obj.bindModalOpen = function() {
 		$( tribe.dialogs.events ).on(
 			'tribeDialogShowManualAttendeesModal.tribeTickets',
-			obj.modalOpen
+			obj.modalOpen,
 		);
 	};
 
@@ -390,7 +367,6 @@ tribe.tickets.manualAttendees = {};
 	 * Handles the initialization of the scripts when Document is ready.
 	 *
 	 * @since 5.2.0
-	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {

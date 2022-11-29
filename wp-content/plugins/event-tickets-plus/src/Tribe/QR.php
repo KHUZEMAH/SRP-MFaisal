@@ -293,7 +293,8 @@ class Tribe__Tickets_Plus__QR {
 		if ( ! class_exists( 'QRencode' ) ) {
 			include_once( EVENT_TICKETS_PLUS_DIR . '/vendor/phpqrcode/qrlib.php' );
 		}
-
+		
+		// @ToDo @rafsuntaskin @juanfra change the default directory to `tec/tickets-plus/qr-codes` for storing images.
 		$uploads   = wp_upload_dir();
 		$file_name = 'qr_' . md5( $link ) . '.png';
 		$path      = trailingslashit( $uploads['path'] ) . $file_name;

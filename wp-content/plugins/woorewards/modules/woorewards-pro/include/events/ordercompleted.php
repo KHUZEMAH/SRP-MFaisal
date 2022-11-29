@@ -13,6 +13,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	public function isMaxTriggersAllowed()
+	{
+		return true;
+	}
+
 	function getData()
 	{
 		$prefix = $this->getDataKeyPrefix();

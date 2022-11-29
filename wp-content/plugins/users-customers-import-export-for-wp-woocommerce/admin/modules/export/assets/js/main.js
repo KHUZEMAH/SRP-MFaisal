@@ -327,6 +327,11 @@ var wt_iew_basic_export=(function( $ ) {
 //				{
 //					return false;
 //				}
+                                if(action!='post_type'){
+                                    $('.ier_pro_plugins_section_small').hide();
+                                }else{
+                                    $('.ier_pro_plugins_section_small').show();
+                                }
 
 				if(action_type=='step')
 				{
@@ -635,12 +640,13 @@ var wt_iew_basic_export=(function( $ ) {
 				this.to_export_title=$('[name="wt_iew_export_post_type"] option:selected').text();
 			}
 			$('.wt_iew_step_head_post_type_name').html(this.to_export_title);
+                        /*
                         $('.wt-ierpro-blue-btn').attr("href", wt_iew_basic_params.pro_plugins[this.to_export]['url']);
                         $('.wt-ier-product-name').html(wt_iew_basic_params.pro_plugins[this.to_export]['name']);
                         $('.wt-ierpro-name>img').attr("src", wt_iew_basic_params.pro_plugins[this.to_export]['icon_url']);
                         $('.wt-ier-gopro-cta').hide();
                         $('.wt-ier-'+this.to_export).show();
-                        
+                        */
                         $('.wt_iew_free_addon').hide();
                         $('.wt_iew_export_action_btn').prop('disabled', false);
                         if(!wt_iew_basic_params.pro_plugins[this.to_export]['is_active']){

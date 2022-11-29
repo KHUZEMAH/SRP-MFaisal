@@ -136,7 +136,7 @@ class Microsoft_Provider extends Meeting_Provider {
 	public function add_video_source( $video_sources, $post ) {
 
 		$video_sources[] = [
-			'text'     => _x( 'Microsoft Teams', 'The name of the video source.', 'events-virtual' ),
+			'text'     => _x( 'Microsoft (Teams and Skype)', 'The name of the video source.', 'events-virtual' ),
 			'id'       => Microsoft_Meta::$key_source_id,
 			'value'    => Microsoft_Meta::$key_source_id,
 			'selected' => Microsoft_Meta::$key_source_id === $post->virtual_video_source,
@@ -159,7 +159,7 @@ class Microsoft_Provider extends Meeting_Provider {
 	public function add_autodetect_source( $autodetect_sources, $autodetect_source, $post ) {
 
 		$autodetect_sources[] = [
-			'text'     => _x( 'Microsoft Teams', 'The name of the autodetect source.', 'events-virtual' ),
+			'text'     => _x( 'Microsoft (Teams and Skype)', 'The name of the autodetect source.', 'events-virtual' ),
 			'id'       => Microsoft_Meta::$key_source_id,
 			'value'    => Microsoft_Meta::$key_source_id,
 			'selected' => Microsoft_Meta::$key_source_id === $autodetect_source,

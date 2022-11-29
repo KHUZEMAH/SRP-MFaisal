@@ -198,6 +198,9 @@ class PointDiscount
 					$total -= $value;
 				}
 			}
+			$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, true, false);
+			if (0 != $currencyRate)
+				$total =  $total / $currencyRate;
 			$max = \ceil((float)$total / $rate);
 			if ($max < $points) {
 				$discount['points'] = $max;

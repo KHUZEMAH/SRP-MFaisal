@@ -2,9 +2,9 @@
 
 Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra, moraleida.me
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
-Requires at least: 5.8.4
-Tested up to: 6.0.2
-Stable tag: 5.6.1
+Requires at least: 5.8.5
+Tested up to: 6.1
+Stable tag: 5.6.3
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,20 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.6.3] 2022-11-09 =
+
+* Fix - Helps multiple of the same ticket form modals by targeting the selected form instead of a global parameter. [ETP-810]
+* Fix - Added attendee label validation so duplicate labels can't be used which was creating database issues. [ETP-803]
+
+= [5.6.2] 2022-10-31 =
+
+* Fix - Properly save the check-in details for attendees on check-in. [ETP-819]
+* Tweak - Display dependeny missing warning notice for QR code setup. [ETP-759]
+* Enhancement - Add option to check-in QR codes only for events that are happening now. [ETP-820]
+* Enhancement - Introduced new Integrations tab for Tickets Settings. [ETP-806]
+* Enhancement - Introduced new QR code banner for Event Tickets Plus App connection. [ETP-822]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.6.1] 2022-09-22 =
 

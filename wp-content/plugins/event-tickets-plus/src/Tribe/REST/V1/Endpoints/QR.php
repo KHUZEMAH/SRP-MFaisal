@@ -190,7 +190,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 		 */
 		$api_check = apply_filters( 'event_tickets_plus_requested_api_is_valid', $this->has_api( $qr_arr ), $qr_arr );
 
-		// Check all the data we need is there
+		// Check all the data we need is there.
 		if ( empty( $api_check ) || empty( $qr_arr['ticket_id'] ) ) {
 			$response = new WP_REST_Response( $qr_arr );
 			$response->set_status( 400 );
@@ -198,6 +198,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
+		$event_id      = (int) $qr_arr['event_id'];
 		$ticket_id     = (int) $qr_arr['ticket_id'];
 		$security_code = (string) $qr_arr['security_code'];
 
@@ -209,7 +210,12 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			empty( $service_provider->security_code )
 			|| get_post_meta( $ticket_id, $service_provider->security_code, true ) !== $security_code
 		) {
-			$response = new WP_REST_Response( [ 'msg' => __( 'Security code is not valid!', 'event-tickets-plus' ) ] );
+			$response = new WP_REST_Response(
+				[
+					'msg'   => __( 'Security code is not valid!', 'event-tickets-plus' ),
+					'error' => 'security_code_not_valid',
+				]
+			);
 			$response->set_status( 403 );
 
 			return $response;
@@ -219,7 +225,12 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 		$attendee = $service_provider->get_attendees_by_id( $ticket_id );
 		$attendee = reset( $attendee );
 		if ( ! is_array( $attendee ) ) {
-			$response = new WP_REST_Response( [ 'msg' => __( 'An attendee is not found with this ID.', 'event-tickets-plus' ) ] );
+			$response = new WP_REST_Response(
+				[
+					'msg'   => __( 'An attendee is not found with this ID.', 'event-tickets-plus' ),
+					'error' => 'attendee_not_found',
+				]
+			);
 			$response->set_status( 403 );
 
 			return $response;
@@ -237,13 +248,14 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 		if ( ! in_array( $attendee['order_status'], $complete_statuses, true ) ) {
 			$response = new WP_REST_Response(
 				[
-					'msg' => esc_html(
-						// Translators: %s: 'ticket' label (singular, lowercase).
+					'msg'      => esc_html(
 						sprintf(
-							__( "This attendee's %s is not authorized to be Checked in", 'event-tickets-plus' ),
+							// Translators: %s: 'ticket' label (singular, lowercase).
+							__( "This attendee's %s is not authorized to be Checked in. Please check the order status.", 'event-tickets-plus' ),
 							tribe_get_ticket_label_singular_lowercase( 'rest_qr' )
 						)
 					),
+					'error'    => 'attendee_not_authorized',
 					'attendee' => $attendee_data,
 				]
 			);
@@ -259,6 +271,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			$response = new WP_REST_Response(
 				[
 					'msg'      => __( 'Already checked in!', 'event-tickets-plus' ),
+					'error'    => 'attendee_already_checked_in',
 					'attendee' => $attendee_data,
 				]
 			);
@@ -267,10 +280,31 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 			return $response;
 		}
 
+		// Check if TEC is enabled, and if we want to only check in when the event is happening.
+		if ( $this->should_checkin_qr_events_happening_now( $event_id, $attendee_id ) ) {
+
+			// Check if the current event is on date and time.
+			if ( ! $this->is_tec_event_happening_now( $event_id ) ) {
+
+				$response = new WP_REST_Response(
+					[
+						'msg'      => __( 'Event has not started or it has finished.', 'event-tickets-plus' ),
+						'error'    => 'event_not_happening_now',
+						'attendee' => $attendee_data,
+					]
+				);
+
+				$response->set_status( 403 );
+
+				return $response;
+			}
+		}
+
 		$checked = $this->_check_in( $ticket_id, $service_provider );
 		if ( ! $checked ) {
 			$msg_arr = [
 				'msg'             => esc_html( sprintf( __( '%s not checked in!', 'event-tickets-plus' ), tribe_get_ticket_label_singular( 'rest_qr' ) ) ),
+				'error'           => 'attendee_failed_check_in',
 				'tribe_qr_status' => get_post_meta( $ticket_id, '_tribe_qr_status', 1 ),
 				'attendee'        => $attendee_data,
 			];
@@ -294,6 +328,87 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 	}
 
 	/**
+	 * Check if the QR codes should be only checked when the event is on date and time.
+	 *
+	 * @since 5.6.2
+	 *
+	 * @param int $event_id    The ID of the event.
+	 * @param int $attendee_id The ID of the current attendee of the QR code.
+	 *
+	 * @return boolean True if it should be checking-in tickets for events that are on date and time.
+	 */
+	public function should_checkin_qr_events_happening_now( $event_id, $attendee_id ): bool {
+		// Bail if TEC is not active.
+		if ( ! tec_tickets_tec_events_is_active() ) {
+			return false;
+		}
+
+		// Bail if `tribe_events` CPT is not enabled to have tickets.
+		$enabled_post_types = (array) tribe_get_option( 'ticket-enabled-post-types', [] );
+		if ( ! in_array( Tribe__Events__Main::POSTTYPE, $enabled_post_types, true ) ) {
+			return false;
+		}
+
+		$should_checkin_qr_events_happening_now = (bool) tribe_get_option( 'tickets-plus-qr-check-in-events-happening-now', false );
+
+		/**
+		 * Filter the option for QR codes to be only checked in when an event is happening.
+		 *
+		 * @since 5.6.2
+		 *
+		 * @param bool $should_checkin_qr_events_happening_now True if it should check in QR codes on events that are on date an time.
+		 * @param int  $event_id                          The ID of the event, from the current attendee of the QR code.
+		 * @param int  $attendee_id                       The ID of the current attendee of the QR code.
+		 */
+		$should_checkin_qr_events_happening_now = (bool) apply_filters( 'tec_tickets_plus_qr_checkin_events_happening_now', $should_checkin_qr_events_happening_now, $event_id, $attendee_id );
+
+		return $should_checkin_qr_events_happening_now;
+	}
+
+	/**
+	 * Check if an event is on date and time, in order to check-in QR codes.
+	 *
+	 * @since 5.6.2
+	 *
+	 * @param int $event_id The Event ID.
+	 *
+	 * @return boolean True if the Event is on date and time.
+	 */
+	public function is_tec_event_happening_now( $event_id ): bool {
+		// Get the event.
+		$event = tribe_get_event( $event_id );
+
+		// Bail if it's empty or if the ticket is from a page/post or any other CPT with tickets.
+		if ( empty( $event ) || $event->post_type !== Tribe__Events__Main::POSTTYPE ) {
+			return true;
+		}
+
+		// Get the time buffer option.
+		$time_buffer = (int) tribe_get_option( 'tickets-plus-qr-check-in-events-happening-now-time-buffer', 0 );
+
+		/**
+		 * Filter the time buffer, in minutes.
+		 * This buffer is for QR check-ins when it's set to only check-in when the event is on date and time.
+		 *
+		 * @since 5.6.2
+		 *
+		 * @param int $buffer   The time buffer in minutes.
+		 * @param int $event_id The event ID.
+		 */
+		$time_buffer      = (int) apply_filters( 'tec_tickets_plus_qr_checkin_events_happening_now_buffer', $time_buffer, $event_id );
+		$time_buffer      = ! empty( $time_buffer ) ? $time_buffer : 0;
+		$time_buffer_text = 'PT' . $time_buffer . 'M';
+
+		// Set up the dates for the event, with the corresponding timezone and buffer.
+		$now   = Tribe__Date_Utils::build_date_object( 'now', $event->timezone );
+		$start = $event->dates->start->sub( new DateInterval( $time_buffer_text ) );
+		$end   = $event->dates->end->add( new DateInterval( $time_buffer_text ) );
+
+		// Return if the event is happening now.
+		return $now >= $start && $now <= $end;
+	}
+
+	/**
 	 * Check if API is present and matches key is settings
 	 *
 	 * @since 4.7.5
@@ -302,7 +417,7 @@ implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation
 	 *
 	 * @return bool
 	 */
-	public function has_api( $qr_arr ) {
+	public function has_api( $qr_arr ): bool {
 
 		if ( empty( $qr_arr['api_key'] ) ) {
 			return false;

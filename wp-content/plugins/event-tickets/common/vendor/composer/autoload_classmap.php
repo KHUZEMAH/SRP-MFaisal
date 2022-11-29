@@ -132,6 +132,7 @@ return array(
     'Tribe\\Admin\\Settings' => $baseDir . '/src/Tribe/Admin/Settings.php',
     'Tribe\\Admin\\Troubleshooting' => $baseDir . '/src/Tribe/Admin/Troubleshooting.php',
     'Tribe\\Admin\\Upsell_Notice\\Main' => $baseDir . '/src/Tribe/Admin/Upsell_Notice/Main.php',
+    'Tribe\\Admin\\Wysiwyg' => $baseDir . '/src/Tribe/Admin/Wysiwyg.php',
     'Tribe\\Customizer\\Control' => $baseDir . '/src/Tribe/Customizer/Control.php',
     'Tribe\\Customizer\\Controls\\Heading' => $baseDir . '/src/Tribe/Customizer/Controls/Heading.php',
     'Tribe\\Customizer\\Controls\\Number' => $baseDir . '/src/Tribe/Customizer/Controls/Number.php',

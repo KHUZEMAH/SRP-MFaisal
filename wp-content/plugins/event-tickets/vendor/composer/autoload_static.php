@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee
+class ComposerStaticInitb79680b9a44ca5c8682e15f24e789bc2
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -169,6 +169,11 @@ class ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee
         'TEC\\Tickets\\Custom_Tables\\V1\\Migration\\Maintenance_Mode\\Maintenance_Mode' => __DIR__ . '/../..' . '/src/Tickets/Custom_Tables/V1/Migration/Maintenance_Mode/Maintenance_Mode.php',
         'TEC\\Tickets\\Custom_Tables\\V1\\Migration\\Maintenance_Mode\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Custom_Tables/V1/Migration/Maintenance_Mode/Provider.php',
         'TEC\\Tickets\\Custom_Tables\\V1\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Custom_Tables/V1/Provider.php',
+        'TEC\\Tickets\\Emails\\Assets' => __DIR__ . '/../..' . '/src/Tickets/Emails/Assets.php',
+        'TEC\\Tickets\\Emails\\Emails_Tab' => __DIR__ . '/../..' . '/src/Tickets/Emails/Emails_Tab.php',
+        'TEC\\Tickets\\Emails\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Emails/Hooks.php',
+        'TEC\\Tickets\\Emails\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Emails/Provider.php',
+        'TEC\\Tickets\\Emails\\Settings' => __DIR__ . '/../..' . '/src/Tickets/Emails/Settings.php',
         'TEC\\Tickets\\Event' => __DIR__ . '/../..' . '/src/Tickets/Event.php',
         'TEC\\Tickets\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Hooks.php',
         'TEC\\Tickets\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Provider.php',
@@ -213,9 +218,9 @@ class ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfeb5d36e4a1fabfe35197a0cc78305ee::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb79680b9a44ca5c8682e15f24e789bc2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb79680b9a44ca5c8682e15f24e789bc2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb79680b9a44ca5c8682e15f24e789bc2::$classMap;
 
         }, null, ClassLoader::class);
     }

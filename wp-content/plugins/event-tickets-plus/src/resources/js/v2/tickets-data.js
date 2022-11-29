@@ -2,8 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- *
- * @type   {Object}
+ * @type   {object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -11,8 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET data Object in the Global Tribe variable
  *
  * @since 5.1.0
- *
- * @type   {Object}
+ * @type   {object}
  */
 tribe.tickets.data = {};
 
@@ -20,21 +18,17 @@ tribe.tickets.data = {};
  * Initializes in a Strict env the code that manages the plugin data library.
  *
  * @since 5.1.0
- *
- * @param  {Object} $   jQuery
- * @param  {Object} obj tribe.tickets.data
- *
+ * @param  {object} $   jQuery
+ * @param  {object} obj tribe.tickets.data
  * @return {void}
  */
 ( function( $, obj ) {
-	'use strict';
 	const $document = $( document );
 
 	/**
 	 * Stores attendee and cart form data to sessionStorage.
 	 *
 	 * @param {number|string} eventId The ID of the event/post we're on.
-	 *
 	 * @since 5.1.0
 	 */
 	obj.storeLocal = function( eventId ) {
@@ -47,12 +41,12 @@ tribe.tickets.data = {};
 
 		sessionStorage.setItem(
 			'tribe_tickets_attendees-' + postId,
-			JSON.stringify( meta )
+			JSON.stringify( meta ),
 		);
 
 		sessionStorage.setItem(
 			'tribe_tickets_cart-' + postId,
-			JSON.stringify( tickets )
+			JSON.stringify( tickets ),
 		);
 	};
 
@@ -60,10 +54,8 @@ tribe.tickets.data = {};
 	 * Get and format the meta to save.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {jQuery} $items The jQuery object of the items.
-	 *
-	 * @returns {Object} Meta data object.
+	 * @returns {object} Meta data object.
 	 */
 	obj.getMetaForSave = function( $items ) {
 		const meta = [];
@@ -111,10 +103,10 @@ tribe.tickets.data = {};
 						}
 
 						data[ name ] = value;
-					}
+					},
 				);
 				tempMeta[ ticketId ].items.push( data );
-			}
+			},
 		);
 
 		Object.keys( tempMeta ).forEach( function( index ) {
@@ -132,7 +124,6 @@ tribe.tickets.data = {};
 	 * Clears attendee and cart form data for this event from sessionStorage.
 	 *
 	 * @param {number|string} eventId The ID of the event/post we're on.
-	 *
 	 * @since 5.1.0
 	 */
 	obj.clearLocal = function( eventId ) {
@@ -146,10 +137,8 @@ tribe.tickets.data = {};
 	 * Gets attendee and cart form data from sessionStorage.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {number|string} eventId The ID of the event/post we're on.
-	 *
-	 * @returns {array} An array of the data.
+	 * @returns {Array} An array of the data.
 	 */
 	obj.getLocal = function( eventId ) {
 		const postId = eventId || tribe.tickets.utils.getTicketsPostId();
@@ -179,10 +168,8 @@ tribe.tickets.data = {};
 	 *  );
 	 *
 	 * @since 5.1.0
-	 *
 	 * @param {boolean|string} pageLoad If we are experiencing a page load.
-	 * @param {int} eventId The post ID we want to retrieve data for.
-	 *
+	 * @param {number} eventId The post ID we want to retrieve data for.
 	 * @returns {object} Deferred data object.
 	 */
 	obj.getData = function( pageLoad, eventId ) {
@@ -223,14 +210,14 @@ tribe.tickets.data = {};
 					if ( null === meta ) {
 						sessionStorage.setItem(
 							'tribe_tickets_attendees-' + postId,
-							JSON.stringify( data.meta )
+							JSON.stringify( data.meta ),
 						);
 					}
 
 					sessionStorage.setItem(
 						// @todo: review this and how to get it from the container data.
 						'tribe_tickets_cart-' + postId,
-						JSON.stringify( data.tickets )
+						JSON.stringify( data.tickets ),
 					);
 
 					ret = {
@@ -253,7 +240,6 @@ tribe.tickets.data = {};
 	 * Handles the initialization of the scripts when Document is ready.
 	 *
 	 * @since 5.1.0
-	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
@@ -278,8 +264,7 @@ tribe.tickets.data = {};
 						.data( 'post-id' );
 					obj.data.storeLocal( blockPostId );
 				} );
-
-			}
+			},
 		);
 	};
 

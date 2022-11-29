@@ -481,10 +481,12 @@ EOT;
 				{
 					$menu .= "<div class='menu-item-icon {$tab->icon}'></div>";
 				}
-				$mintext = \str_replace("& ","<br/>",$tab->title);
 				$menu .= "<div class='menu-item-text'>{$tab->title}</div>";
 				$menu .= $arrow;
 				$menu .= "</a>";
+				if ($tab->active && !$hasTab && $this->page) {
+					$menu .= $this->getGroupNav();
+				}
 				if ($hasTab) {
 					$menu .= "<ul class='tab-submenu-grid grid-level-" . ($tab->depth + 1) . " data-depth='" . ($tab->depth + 1) . "'>";
 					$menu .= $this->makemenu($tab->children);
@@ -495,6 +497,22 @@ EOT;
 			}
 		}
 		return $menu;
+	}
+
+	protected function getGroupNav()
+	{
+		if (!$this->page->hasGroupNav())
+			return '';
+
+		$groups = $this->page->getGroups();
+		if (!$groups || count($groups) <= 1)
+			return '';
+
+		return sprintf('<ul class="lws-group-nav">%s</ul>',
+			\implode("\n", \array_map(function($group) {
+				return sprintf("<li class='lws-group-nav-item lws_adm_scrollto'>%s</li>", $group->getSmallBar());
+			}, $groups))
+		);
 	}
 
 	protected function getAdminMenuSettings()

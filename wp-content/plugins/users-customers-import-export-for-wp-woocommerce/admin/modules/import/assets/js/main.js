@@ -124,6 +124,7 @@ var wt_iew_basic_import=(function( $ ) {
 						wt_iew_basic_import.enable_sortable();
 						wt_iew_basic_import.reg_mapping_field_bulk_action();
 						wt_iew_popover.Set();
+                                                $('.wt_iew_step_head_post_type_name').html(wt_iew_basic_import.to_import_title);                                                
 					}else
 					{
 						$('.meta_mapping_box_con[data-loaded="0"]').html('<div class="wt_iew_import_step_loader">'+wt_iew_basic_params.msgs.error+'</div>');
@@ -503,6 +504,12 @@ var wt_iew_basic_import=(function( $ ) {
 				{
 					return false;	
 				}
+
+                                if(action!='post_type'){
+                                    $('.ier_pro_plugins_section_small').hide();
+                                }else{
+                                    $('.ier_pro_plugins_section_small').show();
+                                }
 
 				if(action_type=='step')
 				{
@@ -892,15 +899,17 @@ var wt_iew_basic_import=(function( $ ) {
 				this.to_import_title=$('[name="wt_iew_import_post_type"] option:selected').text();
 			}
 			$('.wt_iew_step_head_post_type_name').html(this.to_import_title);
+                        
+                        $('#sample-csv-file').attr("href", wt_iew_basic_params.pro_plugins[this.to_import]['sample_csv_url']);
+			if(this.to_import_title.includes('User'))
+			$('#user-required-field-message').show(); 
+                        /*
                         $('.wt-ierpro-blue-btn').attr("href", wt_iew_basic_params.pro_plugins[this.to_import]['url']);
                         $('.wt-ier-product-name').html(wt_iew_basic_params.pro_plugins[this.to_import]['name']);
                         $('.wt-ierpro-name>img').attr("src", wt_iew_basic_params.pro_plugins[this.to_import]['icon_url']);
-                        $('#sample-csv-file').attr("href", wt_iew_basic_params.pro_plugins[this.to_import]['sample_csv_url']);
-			if(this.to_import_title.includes('User'))
-			$('#user-required-field-message').show();
-                    
+                        $('.wt-ier-'+this.to_import).show();
                         $('.wt-ier-gopro-cta').hide();
-                        $('.wt-ier-'+this.to_import).show();   
+                        */
                         
                         $('.wt_iew_free_addon').hide();
                         $('.wt_iew_import_action_btn').prop('disabled', false);
@@ -1011,6 +1020,13 @@ var wt_iew_basic_import=(function( $ ) {
 				this.mapping_box_accordian();
 				this.reg_mapping_field_bulk_action();
 				wt_iew_popover.Set();
+                                
+                                jQuery(".wt-iew-tips").tipTip({'attribute': 'data-wt-iew-tip', 'delay': 0, 'edgeOffset':8});
+                                jQuery(document).keyup(function(e) {
+                                    if (e.key === "Escape") { // Escape key maps to keycode 27
+                                       wt_iew_popover.closePop();                                       
+                                   }
+                                });                                
                                 wt_iew_basic_import.warn_on_refresh();
 			}
 			else if(step=='advanced')

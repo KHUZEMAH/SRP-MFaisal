@@ -13,6 +13,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	public function isMaxTriggersAllowed()
+	{
+		return true;
+	}
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -299,13 +304,19 @@ EOT;
 		{
 			$pointsCount = ($this->isQtyMultiply() ? $boughtCount : 1);
 			if ($pointsCount = \apply_filters('trigger_' . $this->getType(), $pointsCount, $this, $order->order)) {
-				$this->addPoint(array(
+				$this->addPoint($this->getGainInfo(array(
 					'user'  => $userId,
 					'order' => $order->order,
-				), $this->getPointsReason($order->order, $name), $pointsCount);
+				), $order), $this->getPointsReason($order->order, $name), $pointsCount);
 			}
 		}
 		return $order;
+	}
+
+	/** @param $info (array) */
+	protected function getGainInfo($info, $order)
+	{
+		return $info;
 	}
 
 	/** @param $order (WC_Order)
@@ -447,7 +458,9 @@ EOT;
 	protected function shapeGain($value)
 	{
 		if ($this->isQtyMultiply()) {
-			if ((\is_numeric($value) && $value > 0) || '=' == substr($value, 0, 1)) {
+			if ('=' == substr($value, 0, 1)) {
+				$value = sprintf(_x("[%s] / item", "Points per item", 'woorewards-pro'), $value);
+			} elseif (\is_numeric($value) && $value > 0) {
 				$value = sprintf(
 					_x("%s / item", "Points per item", 'woorewards-pro'),
 					\LWS_WooRewards::formatPointsWithSymbol($value, $this->getPoolName())

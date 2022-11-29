@@ -222,13 +222,13 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 		/** Backwards compatibility with widget */
 		$socials = \lws_get_option('lws_woorewards_smshare_socialmedias', \LWS\WOOREWARDS\PRO\Core\Socials::instance()->getSupportedNetworks());
 		return array(
-		 'networks' => $socials ? \implode(',', $socials) : '',
-		 'title'    => '',
-		 'header'   => '',
-		 'text'     => '',
-		 'url'      => '',
-		 'showunconnected' => \get_option('lws_woorewards_social_display_unconnected', ''),
-		 'popup'    => \get_option('lws_woorewards_social_share_popup', '')
+			'networks' => $socials ? \trim(\implode(',', $socials)) : '',
+			'title'    => '',
+			'header'   => '',
+			'text'     => '',
+			'url'      => '',
+			'showunconnected' => \get_option('lws_woorewards_social_display_unconnected', ''),
+			'popup'    => \get_option('lws_woorewards_social_share_popup', '')
 		);
 	}
 

@@ -512,9 +512,14 @@ EOT;
 		$next = _x("Next", 'Confirm event/unlockable type choice', 'lws-adminpanel');
 		$back = _x("Back", 'Undo event/unlockable type choice', 'lws-adminpanel');
 
+		$title = $this->m_Source ? $this->m_Source->getPopupTitle() : false;
+		if ($title) {
+			$title = "<div class='lws-editlist-line-head lws-popup'>{$title}</div>";
+		}
+
 		$popup = <<<EOT
 <div class='lws-editlist-form-container lws_editlist_form_hidden lws_editlist_line_form' data-editlist='{$this->m_Id}'>
-	<div class='lws-editlist-form-popup lws_editlist_modal_form'>
+	<div class='lws-editlist-form-popup lws_editlist_modal_form'>{$title}
 		<div class='lws-editlist-line-inputs lws-popup'>
 			{$form}
 		</div>

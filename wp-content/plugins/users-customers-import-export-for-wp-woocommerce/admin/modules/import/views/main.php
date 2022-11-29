@@ -110,7 +110,8 @@ Wt_Iew_IE_Basic_Helper::debug_panel($this->module_base);
 <div class="wt_iew_loader_info_box"></div>
 <div class="wt_iew_overlayed_loader"></div>
 
-<div class="wt_iew_import_step_main" style = "width:68%">
+<div class="wt_iew_import_step_main_wrapper" style="width:68%; float: left">
+<div class="wt_iew_import_step_main" style = "width:100%; float: left">
 	<?php
 	foreach($this->steps as $stepk=>$stepv)
 	{
@@ -118,10 +119,14 @@ Wt_Iew_IE_Basic_Helper::debug_panel($this->module_base);
 		<div class="wt_iew_import_step wt_iew_import_step_<?php echo $stepk;?>" data-loaded="0"></div>
 		<?php
 	}
-	?>
+	?>	
 </div>
+	
+<?php include $wf_admin_view_path."market_front.php" ?>
+	</div>
 <?php
-include $wf_admin_view_path."market.php";?>
+include $wf_admin_view_path."market.php";
+?>
 <script type="text/javascript">
 /* external modules can hook */
 function wt_iew_importer_validate_basic(action, action_type, is_previous_step)

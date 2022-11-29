@@ -177,16 +177,23 @@ EOT
 	}
 
 	/** Get a list of unlockables for a given user
-	 * $auth = all | Provide all unlockables
-	 * $auth = avail | Provide only available unlockables
+	 * $auth = 'all'|null : Provide all unlockables
+	 * $auth = 'avail'|true : Provide only available unlockables
+	 * $auth = 'unavail'|false : Provide only unavailable unlockables
 	 * @param $pools (Collection) if not set, look from @see \LWS_WooRewards_Pro::getBuyablePools()
 	 * */
-	public function getUserUnlockables($userId, $auth = 'all', $pools = false)
+	public function getUserUnlockables($userId, $auth = null, $pools = false)
 	{
 		if (!$pools) {
 			$pools = \LWS_WooRewards_Pro::getBuyablePools();
 		}
 		$unlockables = \LWS\WOOREWARDS\Collections\Unlockables::instanciate();
+		if (\is_string($auth)) {
+			$auth = substr($auth, 0, 2);
+			if ('av' == $auth) $auth = true;
+			elseif ('un' == $auth) $auth = false;
+			else $auth = null;
+		}
 		foreach ($pools->asArray() as $pool)
 		{
 			if($pool->userCan($userId))
@@ -197,8 +204,7 @@ EOT
 					$userPoints = $auth==='all' ? PHP_INT_MAX : $pool->getPoints($userId);
 					foreach( $pool->getUnlockables()->asArray() as $item )
 					{
-						if($auth==='all' || ($auth==='avail' && $item->isPurchasable($userPoints, $userId)))
-						{
+						if (null === $auth || $auth === (bool)$item->isPurchasable($userPoints, $userId)) {
 							$unlockables->add($item, $item->getId());
 						}
 					}

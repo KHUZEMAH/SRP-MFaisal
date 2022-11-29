@@ -62,6 +62,28 @@ class Sponsorship
 								'help' => __("Set the maximum sponsorships allowed for users. No restriction on empty value or zero (0).", 'woorewards-pro')
 							)
 						),
+						'tinify' => array(
+							'id'    => 'lws_woorewards_sponsorship_tinify_enabled',
+							'title' => __("Try to shorten the referral URL", 'woorewards-pro'),
+							'type'  => 'box',
+							'extra' => array(
+								'help' => __('Disable that feature if you encounter plugin conflicts or redirection problems. Disable that feature makes bigger and less readable QR codes.', 'woorewards-pro'),
+								'class' => 'lws_checkbox',
+								'default' => '',
+								'id' => 'lws_woorewards_sponsorship_tinify_enabled',
+							)
+						),
+						'tiny' => array(
+							'id'    => 'lws_woorewards_sponsorship_short_url',
+							'title' => __("Alternative Short Site URL", 'woorewards-pro'),
+							'type'  => 'text',
+							'extra' => array(
+								'help' => __('To make the QR-Code as simple as possible, you can specify a shorter version of your site URL here that will be used as base for the image generation.', 'woorewards-pro'),
+								'placeholder' => \site_url(),
+							),
+							'require' => array('selector' => '#lws_woorewards_sponsorship_tinify_enabled', 'value' => 'on'),
+						),
+
 					)
 				),
 				'sp_reward' => array(
@@ -148,71 +170,6 @@ class Sponsorship
 						)
 					)
 				),
-				'sp_referral_widget' => array(
-					'id' => 'referral',
-					'icon'	=> 'lws-icon-url',
-					'title' => __("Referral Link", 'woorewards-pro'),
-					'text' => __("In this Widget, customers get a referral link they can share.", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/sponsorship/#splink'),
-					'fields' => array(
-						'display' => array(
-							'id'    => 'lws_woorewards_sponsorship_link_display',
-							'title' => __("Default Display", 'woorewards-pro'),
-							'type'  => 'lacselect',
-							'extra' => array(
-								'mode' => 'select',
-								'source' => array(
-									array('value' => 'link',	'label' => __('Url Link', 'woorewards-pro')),
-									array('value' => 'qrcode',	'label' => __('QR Code', 'woorewards-pro')),
-									array('value' => 'both',	'label' => __('Both', 'woorewards-pro')),
-								),
-							)
-						),
-						'page' => array(
-							'id'    => 'lws_woorewards_sponsorship_link_page',
-							'title' => __("Destination Page", 'woorewards-pro'),
-							'type'  => 'lacselect',
-							'extra' => array(
-								'help' => __("Select the default destination of the referral link. If left empty, it will redirect to the same page it's placed", 'woorewards-pro'),
-								'predefined' => 'page',
-							)
-						),
-						'tinify' => array(
-							'id'    => 'lws_woorewards_sponsorship_tinify_enabled',
-							'title' => __("Try to shorten the referral URL", 'woorewards-pro'),
-							'type'  => 'box',
-							'extra' => array(
-								'help' => __('Disable that feature if you encounter plugin conflicts or redirection problems. Disable that feature makes bigger and less readable QR codes.', 'woorewards-pro'),
-								'class' => 'lws_checkbox',
-								'default' => '',
-								'id' => 'lws_woorewards_sponsorship_tinify_enabled',
-							)
-						),
-						'tiny' => array(
-							'id'    => 'lws_woorewards_sponsorship_short_url',
-							'title' => __("Alternative Short Site URL", 'woorewards-pro'),
-							'type'  => 'text',
-							'extra' => array(
-								'help' => __('To make the QR-Code as simple as possible, you can specify a shorter version of your site URL here that will be used as base for the image generation.', 'woorewards-pro'),
-								'placeholder' => \site_url(),
-							),
-							'require' => array('selector' => '#lws_woorewards_sponsorship_tinify_enabled', 'value' => 'on'),
-						),
-						array(
-							'id' => 'lws_woorewards_referral_template',
-							'type' => 'stygen',
-							'extra' => array(
-								'purpose' => 'filter',
-								'template' => 'wr_referral',
-								'html' => false,
-								'css' => LWS_WOOREWARDS_PRO_CSS . '/templates/referral.css',
-								'subids' => array(
-									'lws_woorewards_referral_widget_message' => "WooRewards - Referral Widget - Header",
-								)
-							)
-						)
-					)
-				)
 			)
 		);
 		return $tab;

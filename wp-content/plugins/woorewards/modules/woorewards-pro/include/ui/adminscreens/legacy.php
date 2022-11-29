@@ -16,10 +16,15 @@ class Legacy
 			'groups'  => array(),
 		);
 
+		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.9.8')) {
+			$tab['groups']['sp_referral_widget'] = self::getGroupReferralWidget();
+		}
+
 		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.8.0')) {
 			$tab['groups']['cartpointspreview'] = self::getGroupCartPointsPreview();
 		}
 
+		$shortcodes = array();
 		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.7.0')) {
 			$tab['groups']['cartcouponsview'] = self::getCartCouponsView();
 			$tab['groups']['pointsoncart']    = $page['tabs']['legacy']['groups']['pointsoncart'];
@@ -30,7 +35,14 @@ class Legacy
 			$tab['groups']['events']          = self::getGroupEvents();
 			$tab['groups']['badges']          = self::getGroupBadges();
 			$tab['groups']['achievements']    = self::getGroupAchievements();
-			$tab['groups']['shortcodes']      = self::getShortcodesGroup($page);
+			$shortcodes                       = self::getShortcodesFields($shortcodes);
+		}
+
+		$shortcodes = \apply_filters('lws_woorewards_legacy_shortcodes', $shortcodes);
+		$shortGroup = self::getOrCreateShorcodeGroup($page);
+		if ($shortcodes || $shortGroup['fields']) {
+			$shortGroup['fields'] = array_merge($shortGroup['fields'], $shortcodes);
+			$tab['groups']['shortcodes'] = $shortGroup;
 		}
 
 		$legacyText = sprintf('<strong>%s</strong>',
@@ -382,10 +394,27 @@ class Legacy
 		);
 	}
 
-	static public function getShortcodesGroup($page)
+	static protected function getOrCreateShorcodeGroup($page)
 	{
-		$shortcodes = $page['tabs']['legacy']['groups']['shortcodes'];
-		$shortcodes['fields']['user_loyalties'] = array(
+		$shortcodes = false;
+		if (isset($page['tabs']['legacy']) && isset($page['tabs']['legacy']['groups']['shortcodes'])) {
+			$shortcodes = $page['tabs']['legacy']['groups']['shortcodes'];
+		}
+		if (!$shortcodes) {
+			$shortcodes = array(
+				'id'     => 'shortcodes',
+				'title'  => __('Shortcodes', 'woorewards-lite'), // text translated in wr free
+				'icon'   => 'lws-icon-shortcode',
+				'text'   => __("These shortcodes are deprecated and are kept here for compatibility. Try to replace them with other shortcodes", 'woorewards-lite'),
+				'fields' => array(),
+			);
+		}
+		return $shortcodes;
+	}
+
+	static public function getShortcodesFields($fields)
+	{
+		$fields['user_loyalties'] = array(
 			'id'    => 'lws_woorewards_sc_user_loyalties',
 			'title' => __("Loyalty and Rewards", 'woorewards-pro'),
 			'type'  => 'shortcode',
@@ -394,7 +423,7 @@ class Legacy
 				'description' =>  __("This shortcode shows all loyalty and rewards information visible in WooCommerce's 'My Account' page.", 'woorewards-pro'),
 			)
 		);
-		$shortcodes['fields']['cart_coupons'] = array(
+		$fields['cart_coupons'] = array(
 			'id'    => 'lws_woorewards_sc_cart_coupons',
 			'title' => __("Cart Coupons", 'woorewards-pro'),
 			'type'  => 'shortcode',
@@ -403,7 +432,7 @@ class Legacy
 				'description' =>  __("This shortcode shows coupons owned by the user and proposes a button to apply them on the cart.", 'woorewards-pro'),
 			)
 		);
-		$shortcodes['fields']['showpoints'] = array(
+		$fields['showpoints'] = array(
 			'id'    => 'lws_woorewards_sc_show_points',
 			'title' => __("Display Points", 'woorewards-pro'),
 			'type'  => 'shortcode',
@@ -436,7 +465,7 @@ class Legacy
 				),
 			)
 		);
-		$shortcodes['fields']['coupons'] = array(
+		$fields['coupons'] = array(
 			'id'    => 'lws_woorewards_sc_shop_coupons',
 			'title' => __("Owned Coupons", 'woorewards-pro'),
 			'type'  => 'shortcode',
@@ -452,7 +481,7 @@ class Legacy
 				),
 			)
 		);
-		$shortcodes['fields']['showrewards'] = array(
+		$fields['showrewards'] = array(
 			'id' => 'lws_woorewards_sc_show_rewards',
 			'title' => __("Rewards", 'woorewards-pro'),
 			'type' => 'shortcode',
@@ -496,7 +525,7 @@ class Legacy
 				),
 			)
 		);
-		$shortcodes['fields']['earning'] = array(
+		$fields['earning'] = array(
 			'id'    => 'lws_woorewards_sc_earning_points',
 			'title' => __("Actions to earn points", 'woorewards-pro'),
 			'type'  => 'shortcode',
@@ -527,7 +556,76 @@ class Legacy
 				),
 			)
 		);
-		return $shortcodes;
+		return $fields;
+	}
+
+	static public function getGroupReferralWidget()
+	{
+		return array(
+			'id' => 'referral',
+			'icon'	=> 'lws-icon-url',
+			'title' => __("Referral Link", 'woorewards-pro'),
+			'text' => __("In this Widget, customers get a referral link they can share.", 'woorewards-pro'),
+			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/sponsorship/#splink'),
+			'fields' => array(
+				'display' => array(
+					'id'    => 'lws_woorewards_sponsorship_link_display',
+					'title' => __("Default Display", 'woorewards-pro'),
+					'type'  => 'lacselect',
+					'extra' => array(
+						'mode' => 'select',
+						'source' => array(
+							array('value' => 'link',	'label' => __('Url Link', 'woorewards-pro')),
+							array('value' => 'qrcode',	'label' => __('QR Code', 'woorewards-pro')),
+							array('value' => 'both',	'label' => __('Both', 'woorewards-pro')),
+						),
+					)
+				),
+				'page' => array(
+					'id'    => 'lws_woorewards_sponsorship_link_page',
+					'title' => __("Destination Page", 'woorewards-pro'),
+					'type'  => 'lacselect',
+					'extra' => array(
+						'help' => __("Select the default destination of the referral link. If left empty, it will redirect to the same page it's placed", 'woorewards-pro'),
+						'predefined' => 'page',
+					)
+				),
+				'tinify' => array(
+					'id'    => 'lws_woorewards_sponsorship_tinify_enabled',
+					'title' => __("Try to shorten the referral URL", 'woorewards-pro'),
+					'type'  => 'box',
+					'extra' => array(
+						'help' => __('Disable that feature if you encounter plugin conflicts or redirection problems. Disable that feature makes bigger and less readable QR codes.', 'woorewards-pro'),
+						'class' => 'lws_checkbox',
+						'default' => '',
+						'id' => 'lws_woorewards_sponsorship_tinify_enabled',
+					)
+				),
+				'tiny' => array(
+					'id'    => 'lws_woorewards_sponsorship_short_url',
+					'title' => __("Alternative Short Site URL", 'woorewards-pro'),
+					'type'  => 'text',
+					'extra' => array(
+						'help' => __('To make the QR-Code as simple as possible, you can specify a shorter version of your site URL here that will be used as base for the image generation.', 'woorewards-pro'),
+						'placeholder' => \site_url(),
+					),
+					'require' => array('selector' => '#lws_woorewards_sponsorship_tinify_enabled', 'value' => 'on'),
+				),
+				array(
+					'id' => 'lws_woorewards_referral_template',
+					'type' => 'stygen',
+					'extra' => array(
+						'purpose' => 'filter',
+						'template' => 'wr_referral',
+						'html' => false,
+						'css' => LWS_WOOREWARDS_PRO_CSS . '/templates/referral.css',
+						'subids' => array(
+							'lws_woorewards_referral_widget_message' => "WooRewards - Referral Widget - Header",
+						)
+					)
+				)
+			)
+		);
 	}
 
 	/**	Check legacy switcher:

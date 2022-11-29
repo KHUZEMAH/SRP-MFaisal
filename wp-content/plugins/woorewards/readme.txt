@@ -2,9 +2,9 @@
 Contributors: lwsdevelopers
 Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social medias, badges, achievements, fidélité, récompenses, bon d'achat, daily, temporary, success, badges, events, anniversary, achievements, succès, événements, referral, chinese, spanish, french, subscriptions, sponsorship,
 Requires at least: 5.3
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.0.0
-Stable tag: 4.9.7
+Stable tag: 4.9.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,21 @@ This section describes how to install the plugin and get it working.
 5. Wizard
 
 == Changelog ==
+
+= 4.9.8.1 =
+* Fix - My account page with legacy content
+
+= 4.9.8 =
+* MyRewards :
+	* Tag - WordPress 7.1
+	* Tag - WooCommerce 6.1
+	* Feature - Option to force cart refresh on points-on-cart
+	* Fix - Point expression display in admin screen
+* WooRewards Pro :
+	* Feature - Event trigger max count
+	* Feature - new shortcode [wr_referral_link]
+	* Feature - new attributes ’unavailable’, ’available’ in shortcode [wr_available_rewards]
+	* Fix - Birthday event could trigger twice
 
 = 4.9.7 =
 * Fix - Max points usage for points on cart with multicurrency

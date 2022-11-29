@@ -23,6 +23,7 @@ class Ajax
 			add_action( 'wp_ajax_lws_adminpanel_get_taxonomy', array( $this, 'getTaxonomy') );
 			add_action( 'wp_ajax_lws_adminpanel_get_roles', array( $this, 'getRoles') );
 			add_action( 'wp_ajax_lws_adminpanel_get_media_sizes', array( $this, 'getMediaSizes') );
+			add_action( 'wp_ajax_lws_adminpanel_get_order_status', array( $this, 'getOrderStatus') );
 
 			add_action( 'wp_ajax_lws_adminpanel_forget_notice', array( $this, 'permanentDismiss') );
 		}
@@ -95,6 +96,11 @@ class Ajax
 			}
 		};
 		\wp_send_json($typeslist);
+	}
+
+	public function getOrderStatus()
+	{
+		\wp_send_json(\LWS\Adminpanel\Tools\Conveniences::getOrderStatusList(true));
 	}
 
 	// return Media Sizes

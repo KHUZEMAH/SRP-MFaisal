@@ -13,37 +13,35 @@ if (!defined('ABSPATH')) {
 
 <!-- Mapping field editor popup -->
 <div class="wt_iew_mapping_field_editor_container" data-title="<?php _e('Set value for column:');?> <span class='wt_iew_target_column'></span>" data-module="import">
-	<div class="wt_iew_mapping_field_editor">	
-		<p class="wt_iew_mapping_field_editor_info" style="margin-bottom:5px;"><?php _e('Select and map any column from the input file or compute values with expressions.'); ?></p>
-		
-		<label><?php _e('Expression');?></label>
-		<p class="wt_iew_mapping_field_editor_info">
-			<ul class="wt_evaluation_expression_points">
-				<li><?php _e('Append operators like + * / - () & @ or string constants along with the column names to update the values on import.'); ?></li>
-				<li><?php echo sprintf(__('Ensure to enclose the expressions in square brackets. E.g. To increase the stock quantity of %sall imported products%s by 5 units, input [{stock}+5] in the stock column.'), '<b>', '</b>');?></li>	
-			</ul>
-		</p>
-		<p class="wt_iew_mapping_field_editor_er"></p>
-		<div class="wt_iew_mapping_field_editor_box">
-			<textarea class="wt_iew_mapping_field_editor_expression"></textarea>
+	<div class="wt_iew_mapping_field_editor">
+		<div class="wt_iew_mapping_field_editor_top">			
+			<p class="wt_iew_mapping_field_editor_info">
+				<?php esc_html_e('If you want to compute or combine any column values during import you can do it below.'); ?>
+				(<a target="_blank" href="https://www.webtoffee.com/evaluation-field-in-product-export-import-plugin-for-woocommerce/"><?php esc_html_e('Learn More'); ?>)</a>
+				<br/><span style="font-size: 95%;color:#6e6d6d;"><b><?php esc_html_e(' Supported operators:'); ?> +, *, /, -, ()</b></span><br/>
+				<br/><i><span style="font-size: 95%;color:#6e6d6d;"><?php esc_html_e(' Example:'); ?> [{stock}+5] or [{regular_price}+(9/100)*{regular_price}]</span></i>
+			</p>
+			<p class="wt_iew_mapping_field_editor_er"></p>
+			<div class="wt_iew_mapping_field_editor_box">
+				<textarea class="wt_iew_mapping_field_editor_expression"></textarea>
+			</div>
 		</div>
-
-		<label><?php _e('Input file columns');?></label>	
+		<label class="wt_iew_mapping_popup_label"><?php _e('Input file columns');?></label>	
 		<div class="wt_iew_mapping_field_editor_box">
-			<input type="text" class="wt_iew_mapping_field_editor_column_search" placeholder="<?php _e('Type here to search');?>">
+			<input type="text" class="wt_iew_mapping_field_editor_column_search" placeholder="<?php _e('Type here to search');?>"><span style="float: right;position: absolute;top: 15px; left: 25px;" class="dashicons dashicons-search wt-input-column-search"></span>
 			<div class="wt_iew_mapping_field_selector_box">
 				<ul class="wt_iew_mapping_field_selector">
 					<?php
 					foreach ($file_heading_default_fields as $key => $value) 
 					{
 						?>
-						<li title="<?php echo $click_to_use;?>" data-val="<?php echo $key;?>"><?php echo $key;?></li>
+					<li title="<?php echo $click_to_use;?>" data-val="<?php echo $key;?>"><?php echo $key;?><br/><span style="color:#cdb2b2;"><?php echo Wt_Iew_IE_Basic_Helper::wt_truncate($value, 80);?></span></li>
 						<?php
 					}
 					foreach ($file_heading_meta_fields as $key => $value) 
 					{
 						?>
-						<li title="<?php echo $click_to_use;?>" data-val="<?php echo $key;?>"><?php echo $key;?></li>
+					<li title="<?php echo $click_to_use;?>" data-val="<?php echo $key;?>"><?php echo $key;?><br/><span style="color:#cdb2b2;"><?php echo Wt_Iew_IE_Basic_Helper::wt_truncate($value, 80);?></span></li>
 						<?php
 					}
 					?>
@@ -51,13 +49,14 @@ if (!defined('ABSPATH')) {
 				<div class="wt_iew_mapping_field_selector_no_column"><?php _e('No column found.');?></div>	
 			</div>
 		</div>
-
-		<label><?php _e('Output');?></label>
-		<p class="wt_iew_mapping_field_editor_info">
-			<?php _e('Sample value based on first record from input file. Columns that have no values in the input file may cause syntax errors if used in an expression as above.'); ?>
-		</p>
-		<div class="wt_iew_mapping_field_editor_box" style="max-height:80px; overflow:auto; margin-bottom:0px; border:dashed 1px #ccc; padding:5px;">
-			<div class="wt_iew_mapping_field_editor_sample"></div>
+		<div class="wt_iew_mapping_field_editor_bottom">
+			<label><?php _e('Preview');?></label>
+			<p class="wt_iew_mapping_field_editor_info">
+				<?php _e('Sample value based on the first record from input file.'); ?>
+			</p>
+			<div class="wt_iew_mapping_field_editor_box" style="max-height:80px; overflow:auto; margin-bottom:0px; border:dashed 1px #ccc; padding:5px;">
+				<div class="wt_iew_mapping_field_editor_sample"></div>
+			</div>
 		</div>		
 	</div>
 </div>
@@ -81,14 +80,15 @@ if (!defined('ABSPATH')) {
 		</div>
 		<div style="clear:both;"></div>
 		<div class="meta_mapping_box_con" data-sortable="0" data-loaded="1" data-field-validated="0" data-key="" style="display:inline-block;">
-			<table class="wt-iew-mapping-tb wt-iew-importer-default-mapping-tb">
+			<table class="wt-iew-mapping-tb wt-iew-mapping-tb-imp wt-iew-importer-default-mapping-tb">
 				<thead>
 					<tr>
 			    		<th>
 			    			<input type="checkbox" name="" class="wt_iew_mapping_checkbox_main">
 			    		</th>
-			    		<th width="35%"><?php _e('Column');?></th>
-			    		<th><?php _e('Column name');?></th>
+			    		<th width="35%"><span class="wt_iew_step_head_post_type_name"></span> <?php esc_html_e( 'fields' );?></th>
+			    		<th><?php esc_html_e( 'File columns' );?></th>
+						<th><?php esc_html_e( 'Transform' );?></th>
 			    	</tr>
 				</thead>
 				<tbody>

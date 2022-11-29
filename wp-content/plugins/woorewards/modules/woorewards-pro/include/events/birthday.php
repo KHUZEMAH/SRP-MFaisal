@@ -334,7 +334,6 @@ EOT;
 		if ($last) {
 			$last = \date_create_immutable($last);
 		}
-
 		$year = new \DateInterval('P1Y');
 		$min = $birthday->add($year);
 
@@ -353,19 +352,22 @@ EOT;
 
 		if ($last) {
 			$next = clone ($last);
+			$next = $next->setTime(0, 0)->add($year);
 		} else {
 			$next = clone ($birthday);
+			$next = $next->setTime(0, 0)->add($year);
 			$early = $this->getEarlyTrigger();
 			if (!$early->isNull()) {
 				$next = $next->sub($early->toInterval());
 			}
 		}
-		$next = $next->setTime(0, 0)->add($year);
 
-		if ($next < $min)
+		if ($next < $min) {
 			$next = $next->setDate($min->format('Y'), $next->format('n'), $next->format('j'));
-		while ($next < $min)
+		}
+		while ($next < $min) {
 			$next = $next->add($year);
+		}
 
 		return (object)array(
 			'next' => $next,

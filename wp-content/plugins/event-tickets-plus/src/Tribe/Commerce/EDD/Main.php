@@ -239,7 +239,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		add_action( 'init', array( $this, 'register_eddtickets_type' ), 1 );
 		add_action( 'add_meta_boxes', array( $this, 'edd_meta_box' ) );
 		add_action( 'before_delete_post', array( $this, 'handle_delete_post' ) );
-		add_action( 'edd_complete_purchase', array( $this, 'generate_tickets' ), 12 );
+		add_action( 'edd_insert_payment', array( $this, 'generate_tickets' ), 12 );
 		add_action( 'pre_get_posts', array( $this, 'hide_tickets_from_shop' ) );
 		add_action( 'pre_get_posts', array( $this, 'filter_ticket_reports' ) );
 		add_action( 'edd_cart_footer_buttons', '__return_true' );
@@ -634,15 +634,6 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 
 		$from_name  = Tribe__Utils__Array::get( 'from_name', $edd_options, get_bloginfo( 'name' ) );
 		$from_email = Tribe__Utils__Array::get( 'from_email', $edd_options, get_option( 'admin_email' ) );
-
-		if ( isset( $user_id ) && 0 < $user_id ) {
-			$user_data = get_userdata( $user_id );
-			$name      = $user_data->display_name;
-		} elseif ( isset( $user_info['first_name'], $user_info['last_name'] ) ) {
-			$name = $user_info['first_name'] . ' ' . $user_info['last_name'];
-		} else {
-			$name = $email;
-		}
 
 		/**
 		 * Allow filtering the Easy Digital Downloads ticket email headers.
@@ -1757,6 +1748,8 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		if ( func_num_args() > 1 && $qr = func_get_arg( 1 ) ) {
 			update_post_meta( $attendee_id, '_tribe_qr_status', 1 );
 		}
+
+		parent::save_checkin_details( $attendee_id, $qr );
 
 		/**
 		 * Fires a checkin action

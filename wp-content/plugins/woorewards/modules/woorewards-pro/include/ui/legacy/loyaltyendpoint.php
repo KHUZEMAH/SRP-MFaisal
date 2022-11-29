@@ -698,7 +698,7 @@ EOT;
 
 	function sponsorlink()
 	{
-		$widget = new \LWS\WOOREWARDS\PRO\Ui\Widgets\ReferralWidget(false);
+		$widget = new \LWS\WOOREWARDS\PRO\Ui\Legacy\ReferralWidget(false);
 		$shortcode = $this->demo ? $widget->template() : $widget->shortcode();
 		return <<<EOT
 		<div class="lar_accordeon_container flcol">

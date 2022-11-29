@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.7.1
+ * Version: 4.9.8.1
  * Text Domain: woorewards-pro
  * WC requires at least: 3.7.0
- * WC tested up to: 6.9
+ * WC tested up to: 7.1
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -100,7 +100,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.7.1');
+		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.8.1');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -305,8 +305,6 @@ final class LWS_WooRewards_Pro
 		/** Widgets */
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/widgets/sponsorwidget.php';
 		\LWS\WOOREWARDS\PRO\Ui\Widgets\SponsorWidget::install();
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/widgets/referralwidget.php';
-		\LWS\WOOREWARDS\PRO\Ui\Widgets\ReferralWidget::install();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/widgets/socialshare.php';
 		\LWS\WOOREWARDS\PRO\Ui\Widgets\SocialShareWidget::install();
 
@@ -345,6 +343,8 @@ final class LWS_WooRewards_Pro
 		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\RewardButton::install();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/orderpointspreview.php';
 		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\OrderPointsPreview::install();
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/referrallink.php';
+		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\ReferralLink::install();
 
 		/** Endpoints */
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/endpoints/loyalty.php';
@@ -379,6 +379,10 @@ final class LWS_WooRewards_Pro
 			\LWS\WOOREWARDS\PRO\Ui\Legacy\ChooseFreeProduct::register();
 			require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/legacy/rewardclaim.php';
 			\LWS\WOOREWARDS\PRO\Ui\Legacy\RewardClaim::register();
+		}
+		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.9.8')) {
+			require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/legacy/referralwidget.php';
+			\LWS\WOOREWARDS\PRO\Ui\Legacy\ReferralWidget::install();
 		}
 
 		/** WooCommerce */

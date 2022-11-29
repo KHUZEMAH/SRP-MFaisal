@@ -4,10 +4,10 @@ Plugin URI: https://livemeshelementor.com
 Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor
-Requires at least: 5.2
-Tested up to: 6.0
+Requires at least: 5.4
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable Tag: 7.2.3
+Stable Tag: 7.2.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -258,6 +258,10 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.2.4 =
+* Added - Compatibility with WP 6.1 and Elementor 3.8
+* Added - Missing sanitization checks for theme color admin settings
 
 = 7.2.3 =
 * Added - New Marquee Text widget with plenty of customization options

@@ -169,9 +169,6 @@ class Simple_Menu extends Widget_Base
             'eael_simple_menu_section_hamburger',
             [
                 'label' => esc_html__('Hamburger Options', 'essential-addons-for-elementor-lite'),
-                'condition'    => [
-                    'eael_simple_menu_layout' => 'horizontal',
-                ],
             ]
         );
 
@@ -478,8 +475,8 @@ class Simple_Menu extends Widget_Base
 			    'type'      => Controls_Manager::COLOR,
 //                'default' => '#ffffff',
 			    'selectors' => [
-				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a'      => 'color: {{VALUE}}',
-				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a > span svg'      => 'fill: {{VALUE}}',
+				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a.eael-item-active'      => 'color: {{VALUE}}',
+				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a.eael-item-active > span svg'      => 'fill: {{VALUE}}',
 			    ],
 		    ]
 	    );
@@ -491,7 +488,7 @@ class Simple_Menu extends Widget_Base
 			    'type'      => Controls_Manager::COLOR,
 			    'default'   => '',
 			    'selectors' => [
-				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a' => 'background-color: {{VALUE}}',
+				    '{{WRAPPER}} .eael-simple-menu.eael-simple-menu-responsive li.current-menu-item > a.eael-item-active' => 'background-color: {{VALUE}}',
 			    ],
 		    ]
 	    );
@@ -1025,8 +1022,8 @@ class Simple_Menu extends Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .eael-simple-menu li:hover > a'                 => 'color: {{VALUE}}',
                     '{{WRAPPER}} .eael-simple-menu li:hover > a > span svg'                 => 'fill: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li.current-menu-item > a'     => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li.current-menu-ancestor > a' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li.current-menu-item > a.eael-item-active'     => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li.current-menu-ancestor > a.eael-item-active' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -1039,8 +1036,8 @@ class Simple_Menu extends Widget_Base
 //                'default' => '#ee355f',
                 'selectors' => [
                     '{{WRAPPER}} .eael-simple-menu li:hover > a'                 => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li.current-menu-item > a'     => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li.current-menu-ancestor > a' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li.current-menu-item > a.eael-item-active'     => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li.current-menu-ancestor > a.eael-item-active' => 'background-color: {{VALUE}}',
                 ],
             ]
         );
@@ -1333,8 +1330,8 @@ class Simple_Menu extends Widget_Base
 //                'default' => '#ee355f',
                 'selectors' => [
                     '{{WRAPPER}} .eael-simple-menu li ul li:hover > a'                 => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-item > a'     => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-ancestor > a' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-item > a.eael-item-active'     => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-ancestor > a.eael-item-active' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -1347,8 +1344,8 @@ class Simple_Menu extends Widget_Base
 //                'default' => 'rgba(255,255,255,0)',
                 'selectors' => [
                     '{{WRAPPER}} .eael-simple-menu li ul li:hover > a'                 => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-item > a'     => 'background-color: {{VALUE}}',
-                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-ancestor > a' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-item > a.eael-item-active'     => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .eael-simple-menu li ul li.current-menu-ancestor > a.eael-item-active' => 'background-color: {{VALUE}}',
                 ],
             ]
         );

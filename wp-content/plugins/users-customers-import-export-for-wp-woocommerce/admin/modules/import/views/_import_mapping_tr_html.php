@@ -14,4 +14,7 @@ if (!defined('ABSPATH')) {
 		<input type="hidden" name="columns_val[]" class="columns_val" value="<?php echo $val;?>" data-type="<?php echo $type;?>">
 		<span data-wt_iew_popover="1" data-title="" data-content-container=".wt_iew_mapping_field_editor_container" class="wt_iew_mapping_field_val"><?php echo $val;?></span>		
 	</td>
+	<td>
+		<span style="margin-left:20px;cursor:pointer" data-wt_iew_popover="1" data-title="" data-content-container=".wt_iew_mapping_field_editor_container" class="dashicons dashicons-edit wt-iew-tips" data-wt-iew-tip="<span class='wt_iew_tooltip_span'><?php _e('Use expression');?></span>"></span>
+	</td>	
 </tr>

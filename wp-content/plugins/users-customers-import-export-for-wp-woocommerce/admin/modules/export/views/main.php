@@ -46,7 +46,8 @@ Wt_Iew_IE_Basic_Helper::debug_panel($this->module_base);
 
 <div class="wt_iew_loader_info_box"></div>
 <div class="wt_iew_overlayed_loader"></div>
-<div class="wt_iew_export_step_main" style = "width:68%">
+<div class="wt_iew_export_step_main_wrapper" style="width:68%; float: left">
+<div class="wt_iew_export_step_main" style = "width:100%; float: left">
 	<?php
 	foreach($this->steps as $stepk=>$stepv)
 	{
@@ -54,19 +55,10 @@ Wt_Iew_IE_Basic_Helper::debug_panel($this->module_base);
 		<div class="wt_iew_export_step wt_iew_export_step_<?php echo $stepk;?>" data-loaded="0"></div>
 		<?php
 	}
-	?>
+	?>	
 </div>
+	
+<?php include $wf_admin_view_path."market_front.php" ?>
+	</div>
 <?php
-include $wf_admin_view_path."market.php"; 
-/*
-<script type="text/javascript">
-/* external modules can hook 
-function wt_iew_exporter_validate(action, action_type, is_previous_step)
-{
-	var is_continue=true;
-	<?php
-	do_action('wt_iew_exporter_validate');
-	?>
-	return is_continue;
-}
-</script> */ ?>
+include $wf_admin_view_path."market.php";

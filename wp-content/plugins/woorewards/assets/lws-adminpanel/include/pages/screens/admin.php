@@ -12,10 +12,6 @@ class Admin extends \LWS\Adminpanel\Pages\Page
 	public function content()
 	{
 		\wp_enqueue_style('lws-admin-page');
-		if(isset($this->vertnav) && $this->vertnav)
-		{
-			\wp_enqueue_script('lws-vert-nav');
-		}
 		if( $this->hasGroup() || $this->hasCustoms() )
 		{
 			echo "<div class='lws-admin-page'>";
@@ -135,6 +131,11 @@ class Admin extends \LWS\Adminpanel\Pages\Page
 			return $this->groups;
 		}
 		return false;
+	}
+
+	public function hasGroupNav()
+	{
+		return (isset($this->vertnav) && $this->vertnav);
 	}
 
 	/** Notify settings well saved */

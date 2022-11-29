@@ -3,8 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-<table class="wt-iew-mapping-tb wt-iew-importer-meta-mapping-tb" data-field-type="<?php echo $meta_mapping_screen_field_key; ?>">
-	<thead>
+<table class="wt-iew-mapping-tb wt-iew-importer-meta-mapping-tb wt-iew-mapping-tb-imp" data-field-type="<?php echo $meta_mapping_screen_field_key; ?>">	<thead>
 		<tr>
     		<th>
     			<?php 
@@ -13,8 +12,9 @@ if (!defined('ABSPATH')) {
     			?>
     			<input type="checkbox" name="" class="wt_iew_mapping_checkbox_main" <?php echo $checked_attr; ?>>
     		</th>
-    		<th width="35%"><?php _e('Column');?></th>
-    		<th><?php _e('Column name');?></th>
+    		<th width="35%"><span class="wt_iew_step_head_post_type_name"></span> <?php esc_html_e( 'fields' );?></th>
+    		<th><?php _e('File columns');?></th>
+			<th><?php esc_html_e( 'Transform' );?></th>
     	</tr>
 	</thead>
 	<tbody>
