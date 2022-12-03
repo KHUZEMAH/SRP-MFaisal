@@ -22,16 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<p>
-		<?php
+			<?php
+      if ( !is_post_type_archive( 'testimonial' ) ) {
 			// Display custom excerpt.
-			if ( !is_post_type_archive( 'testimonial' ) ) {
-			
 			echo oceanwp_excerpt( get_theme_mod( 'ocean_blog_entry_excerpt_length', '30' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}else{
-				the_content();
+    }else{
+      the_content();
 
-			}
-			?>
+    }
+      ?>
 		</p>
 
 		<?php

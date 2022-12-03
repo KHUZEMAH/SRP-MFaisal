@@ -61,7 +61,7 @@ get_header(); ?>
 						} else {
 							?>
 						<div id="blog-entries" class="<?php oceanwp_blog_wrap_classes(); ?>">
-						<?php
+            <?php
 							if ( is_post_type_archive( 'testimonial' ) ) { ?>
 							<div class="filter-bar">
 							<!-- <form id="sort_form" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" method="GET">

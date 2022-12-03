@@ -76,7 +76,7 @@ if ( 'thumbnail-entry' === $style ) {
 				// Read more button.
 				if ( 'read_more' === $element ) {
 
-					if ( !is_post_type_archive( 'testimonial' ) ) {
+          if ( !is_post_type_archive( 'testimonial' ) ) {
 						get_template_part( 'partials/entry/readmore' );
 				   }
 				}
