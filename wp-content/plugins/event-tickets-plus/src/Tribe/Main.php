@@ -1,6 +1,6 @@
 <?php
 
-// Don't load directly
+// Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -12,7 +12,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '5.6.3';
+		const VERSION = '5.6.4';
 
 		/**
 		 * Used to store the version history.
@@ -127,12 +127,12 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 
 			add_action( 'init', [ $this, 'init' ], 5 );
 
-			// CSV import needs to happen before P10@init but after P5@init
+			// CSV import needs to happen before P10@init but after P5@init.
 			add_action( 'init', [ $this, 'csv_import_support' ], 6 );
 			add_filter( 'tribe_support_registered_template_systems', [ $this, 'add_template_updates_check' ] );
 			add_action( 'tribe_events_tickets_attendees_event_details_top', [ $this, 'setup_attendance_totals' ], 5 );
 
-			// Unique ticket identifiers
+			// Unique ticket identifiers.
 			add_action( 'event_tickets_rsvp_attendee_created', [ Tribe__Tickets_Plus__Meta__Unique_ID::instance(), 'assign_unique_id' ], 10, 2 );
 			add_action( 'event_ticket_woo_attendee_created', [ Tribe__Tickets_Plus__Meta__Unique_ID::instance(), 'assign_unique_id' ], 10, 2 );
 			add_action( 'event_ticket_edd_attendee_created', [ Tribe__Tickets_Plus__Meta__Unique_ID::instance(), 'assign_unique_id' ], 10, 2 );
@@ -152,19 +152,19 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 * @since 4.12.1 Added Shortcodes service provider and deactivation of incompatible extensions.
 		 */
 		public function init() {
-			// Setup Main Service Provider
+			// Setup Main Service Provider.
 			tribe_register_provider( 'Tribe__Tickets_Plus__Service_Provider' );
 
-			// REST API v1
+			// REST API v1.
 			tribe_register_provider( 'Tribe__Tickets_Plus__REST__V1__Service_Provider' );
 
-			// Promoter
+			// Promoter.
 			tribe_register_provider( Tribe__Tickets_Plus__Service_Providers__Promoter::class );
 
-			// Meta
+			// Meta.
 			tribe_register_provider( Tribe\Tickets\Plus\Meta\Service_Provider::class );
 
-			// Attendee Registration
+			// Attendee Registration.
 			tribe_register_provider( Tribe\Tickets\Plus\Attendee_Registration\Service_Provider::class );
 
 			// @todo Refactor this in the future to move to ET+ entirely, using same backcompat ET slugs.
@@ -173,7 +173,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			// Manual Attendees.
 			tribe_register_provider( Tribe\Tickets\Plus\Manual_Attendees\Service_Provider::class );
 
-			// Shortcodes
+			// Shortcodes.
 			tribe_register_provider( Tribe\Tickets\Plus\Service_Providers\Shortcode::class );
 
 			// Views v2 compatibility.
@@ -204,9 +204,9 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 *
 		 * @since 4.12.1.
 		 *
-		 * @param bool             $is_disallowed        False by default.
-		 * @param string           $extension_class_name This extension's class name string
-		 *                                               (without initial forward slash for namespaced classes).
+		 * @param bool   $is_disallowed        False by default.
+		 * @param string $extension_class_name This extension's class name string
+		 *                                     (without initial forward slash for namespaced classes).
 		 *
 		 * @return bool
 		 */
@@ -232,10 +232,10 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 * @since 4.7.6
 		 */
 		public function bind_implementations() {
-			// Privacy
+			// Privacy.
 			tribe_singleton( 'tickets-plus.privacy', 'Tribe__Tickets_Plus__Privacy', [ 'hook' ] );
 
-			// Blocks editor
+			// Blocks editor.
 			tribe_register_provider( 'Tribe__Tickets_Plus__Editor__Provider' );
 
 			// Load integrations.
@@ -261,15 +261,15 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 
 
 		/**
-		* @deprecated 4.6
-		*/
+		 * @deprecated 4.6
+		 */
 		public function register_resources() {
 			_deprecated_function( __METHOD__, '4.6', 'Tribe__Tickets_Plus__Assets:enqueue_scripts ' );
 		}
 
 		/**
-		* @deprecated 4.6
-		*/
+		 * @deprecated 4.6
+		 */
 		public function enqueue_scripts() {
 			_deprecated_function( __METHOD__, '4.6', 'Tribe__Tickets_Plus__Assets:enqueue_scripts' );
 		}
@@ -395,7 +395,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 * determine the version numbers of any active ecommerce plugins.
 		 */
 		public function csv_import_support() {
-			// CSV import is not a concern unless The Events Calendar is also running
+			// CSV import is not a concern unless The Events Calendar is also running.
 			if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
@@ -520,7 +520,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 * @return array
 		 */
 		public function register_login_setting( array $options ) {
-			$options[ 'event-tickets-plus_all' ] = __( 'Require users to log in before they purchase tickets', 'event-tickets-plus' );
+			$options['event-tickets-plus_all'] = __( 'Require users to log in before they purchase tickets', 'event-tickets-plus' );
 			return $options;
 		}
 
@@ -528,7 +528,6 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		 * Make necessary database updates on admin_init
 		 *
 		 * @since 4.7.1
-		 *
 		 */
 		public function run_updates() {
 			if ( ! class_exists( 'Tribe__Updater' ) ) {

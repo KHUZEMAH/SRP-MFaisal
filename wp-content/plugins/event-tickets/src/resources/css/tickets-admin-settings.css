@@ -1378,8 +1378,12 @@ body.events-cal .tribe-common div.tribe-dialog, body.events-cal .event-tickets d
 	}
 
 .tec-tickets__admin-settings-emails-template-list-item--disabled {
-	color: var(--tec-color-text-disabled);
+	color: #8e8e8e;
 }
+
+.tec-tickets__admin-settings-emails-template-list-item--disabled .tec-tickets__admin-settings-emails-template-list-item-title-link {
+		color: #8e8e8e;
+	}
 
 .tec-tickets__admin-settings-emails-template-list-item-icon {
 	padding: 0 var(--tec-spacer-4);
@@ -1398,11 +1402,20 @@ body.events-cal .tribe-common div.tribe-dialog, body.events-cal .event-tickets d
 		}
 
 .tec-tickets__admin-settings-emails-template-list-item-title {
-	font-size: 15px;
-	font-weight: var(--tec-font-weight-bold);
 	min-width: 90px;
 	padding: 0 var(--tec-spacer-4) 0 0;
 }
+
+.tec-tickets__admin-settings-emails-template-list-item-title-link {
+	color: #000;
+	font-size: 15px;
+	font-weight: var(--tec-font-weight-bold);
+	text-decoration: none;
+}
+
+.tec-tickets__admin-settings-emails-template-list-item-title-link:hover {
+		color: #000;
+	}
 
 .tec-tickets__admin-settings-emails-template-list-item-recipient {
 	flex-grow: 1;
@@ -1420,7 +1433,7 @@ body.events-cal .tribe-common div.tribe-dialog, body.events-cal .event-tickets d
 }
 
 .tec-tickets__admin-settings-emails-template-list-item-action-link:hover {
-		color: var(--tec-color-event-icon-hover);
+		color: var(--tec-color-icon-primary-alt);
 	}
 
 /* @todo: Check this, see if it goes to common or where should we place it. */

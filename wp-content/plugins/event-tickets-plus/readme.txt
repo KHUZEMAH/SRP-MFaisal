@@ -4,7 +4,7 @@ Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.5
 Tested up to: 6.1
-Stable tag: 5.6.3
+Stable tag: 5.6.4
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -135,10 +135,18 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [5.6.4] 2022-12-08 =
+
+* Fix - WooCommerce stock updates with Ticket Stock to keep the stock within max capacity. [ETP-830]
+* Fix - Going into a Ticket Fieldsets menu keeps the sidebar menu active. [ETP-809]
+* Enhancement - Sorting support added on WooCommerce Order report page Order, Email, Date, Status, and Total columns. [ET-1527]
+* Language - 24 new strings added, 55 updated, 0 fuzzied, and 18 obsoleted
+
 = [5.6.3] 2022-11-09 =
 
 * Fix - Helps multiple of the same ticket form modals by targeting the selected form instead of a global parameter. [ETP-810]
 * Fix - Added attendee label validation so duplicate labels can't be used which was creating database issues. [ETP-803]
+* Fix - Helps multiple of the same ticket form modals by targeting the selected form instead of a global parameter. [GTRIA-729]
 
 = [5.6.2] 2022-10-31 =
 

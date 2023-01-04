@@ -203,8 +203,8 @@ class RewardClaim
 					);
 				case 'ucf':
 					return array(
-						'title'   => __("User conflict", 'woorewards-pro'),
-						'message' => __("Operation abort since the connected user is not the owner of the requested reward.", 'woorewards-pro'),
+						'title'   => __("User account conflict", 'woorewards-pro'),
+						'message' => __("This reward was not unlocked by this account.  Please login using the account from which the reward was unlocked.", 'woorewards-pro'),
 					);
 				case 'nup':
 					return array(

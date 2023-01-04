@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f
+class ComposerStaticInitb88ea8b946e2994f5f83fe17a7d5b144
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -167,6 +167,7 @@ class ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f
         'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Modifiers\\With_Series_Normalization' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Modifiers/With_Series_Normalization.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Provider.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Replace_Results' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Replace_Results.php',
+        'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Repository\\Custom_Tables_Query_Filters' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Repository/Custom_Tables_Query_Filters.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\WP_Query_Monitor_Filters' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/WP_Query/WP_Query_Monitor_Filters.php',
         'TEC\\Events_Pro\\Legacy\\Query_Filters' => __DIR__ . '/../..' . '/src/Events_Pro/Legacy/Query_Filters.php',
         'Tribe\\Events\\Pro\\Admin\\Manager\\Assets' => __DIR__ . '/../..' . '/src/Tribe/Admin/Manager/Assets.php',
@@ -267,9 +268,9 @@ class ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit62dfdf6d2247e25b365fc5220f4a7d9f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb88ea8b946e2994f5f83fe17a7d5b144::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb88ea8b946e2994f5f83fe17a7d5b144::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb88ea8b946e2994f5f83fe17a7d5b144::$classMap;
 
         }, null, ClassLoader::class);
     }

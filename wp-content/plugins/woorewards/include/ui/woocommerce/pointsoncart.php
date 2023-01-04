@@ -85,7 +85,7 @@ class PointsOnCart
 	function registerScripts()
 	{
 		\wp_register_script('lws_wr_pointsoncart', LWS_WOOREWARDS_JS.'/pointsoncart.js', array('jquery'), LWS_WOOREWARDS_VERSION, true);
-		\wp_register_style('lws_wr_pointsoncart_hard', LWS_WOOREWARDS_CSS.'/pointsoncart.css', array(), LWS_WOOREWARDS_VERSION);
+		\wp_register_style('lws_wr_pointsoncart_hard', LWS_WOOREWARDS_CSS . '/pointsoncart.css', array(), LWS_WOOREWARDS_VERSION);
 		\wp_register_style('lws_wr_pointsoncart_custom', LWS_WOOREWARDS_CSS.'/templates/pointsoncart.css?stygen=lws_woorewards_points_to_cart_style', array(), LWS_WOOREWARDS_VERSION);
 	}
 
@@ -111,6 +111,25 @@ class PointsOnCart
 						'option' => 'reload',
 						'desc' => __("(Optional) Set it to true to force a page reload when customers modify the points they want to apply on the order", 'woorewards-lite'),
 						'example' => '[wr_points_on_cart reload="true"]'
+					),
+					'layout' => array(
+						'option' => 'layout',
+						'desc' => __("(Optional) Select how the tool is displayed. 3 possible values :", 'woorewards-lite'),
+						'options' => array(
+							array(
+								'option' => 'horizontal',
+								'desc'   => __("Default value. Elements are displayed in one line", 'woorewards-lite'),
+							),
+							array(
+								'option' => 'vertical',
+								'desc'   => __("Elements are displayed on top of another", 'woorewards-lite'),
+							),
+							array(
+								'option' => 'half',
+								'desc'   => __("If you present this tool next to the cart totals block, use this option to display the tool vertically with some spacing", 'woorewards-lite'),
+							),
+						),
+						'example' => '[wr_points_on_cart layout="vertical"]'
 					),
 				),
 			)
@@ -325,8 +344,9 @@ class PointsOnCart
 	function shortcode($atts=array(), $content='')
 	{
 		$atts = \wp_parse_args($atts, array(
-			'system'	=> '',
-			'reload'  => false,
+			'layout' => 'horizontal',
+			'system' => '',
+			'reload' => false,
 		));
 		$userId = \get_current_user_id();
 		if( !$userId )
@@ -339,7 +359,7 @@ class PointsOnCart
 		if( $pool )
 		{
 			if( $info = $this->getInfo($pool) )
-				return $this->getContent('shortcode', $info, \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['reload']));
+				return $this->getContent('shortcode', $info, \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['reload']), $atts['layout']);
 			else
 				return $this->getPlaceholder($pool, 'shortcode');
 		}
@@ -510,7 +530,7 @@ class PointsOnCart
 
 	/** Display the partial payment tool on cart or checkout page,
 	 *	@param $forceReload (null||bool) if null, read global option. */
-	function getContent($origin, $info, $forceReload=null)
+	function getContent($origin, $info, $forceReload = null, $layout = 'horizontal')
 	{
 		if( !(isset($this->stygen) && $this->stygen) )
 		{
@@ -530,6 +550,12 @@ class PointsOnCart
 			'direct_reward_total_floor',
 			'direct_reward_min_subtotal'
 		)));
+
+		$layout = \strtolower(\substr(\trim($layout), 0, 2));
+		if ('ho' == $layout) $layout = ' horizontal';
+		elseif ('ve' == $layout) $layout = ' vertical';
+		elseif ('ha' == $layout) $layout = ' half';
+		else $layout = '';
 
 		$balance = \LWS_WooRewards::formatPoints($info['amount'], $poolInfo['name']);
 		$labels = array(
@@ -564,7 +590,7 @@ class PointsOnCart
 			$maxdisabled = '';
 		}
 
-		$class = ($origin=='cart') ? 'cart-pointsoncart' : 'order-pointsoncart' ;
+		$class = ($origin == 'cart') ? ' cart-pointsoncart' : ' order-pointsoncart';
 		$class .= $this->getPositionClass($origin);
 		$reload = 'off';
 		if (true === $forceReload)
@@ -583,7 +609,7 @@ class PointsOnCart
 		}
 
 		$content = <<<EOT
-		<div class='lwss_selectable lws-wr-pointsoncart {$class}' data-origin='{$origin}' data-pool='{$esc['pool']}' data-url='{$url}' data-type="Main Container">
+		<div class='lwss_selectable lws-wr-pointsoncart{$class}{$layout}' data-origin='{$origin}' data-pool='{$esc['pool']}' data-url='{$url}' data-type="Main Container">
 			<h2>{$header}</h2>
 			<div class='lwss_selectable lws-wr-cart lws_wr_pointsoncart_contribution' data-type='Inner Container' data-nonce='{$esc['nonce']}' data-url='{$esc['url']}' data-reload='{$reload}'>
 				<div class='lwss_selectable wr-cart-balance' data-type='Balance Container'>

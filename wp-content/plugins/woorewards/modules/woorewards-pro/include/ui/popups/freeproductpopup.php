@@ -140,7 +140,7 @@ EOT;
 
 		$content = <<<EOT
 		<div class="lws_popup wr_free_product_popup lws-popup lws-shadow" id="wr_free_product" data-layout="{$layout}"{$rows} data-code="{$code}" data-ajaxurl="{$ajaxUrl}">
-			<form class="lws-window">
+			<div class="lws-window">
 				<div class="lws-popup-close lws-icon-cross"></div>
 				<div class="lws-popup-title">{$displaytitle}</div>
 				<div class="lws-popup-content {$layout}" id="wr_free_product_choice_dialog" data-code="{$code}">
@@ -152,7 +152,7 @@ EOT;
 					<div class="lws-popup-button cancel wr_free_product_popup_cancel">{$cancelbutton}</div>
 					<div class="lws-popup-button apply wr_free_product_popup_apply disabled">{$applybutton}</div>
 				</div>
-			</form>
+			</div>
 		</div>
 EOT;
 		return $content;

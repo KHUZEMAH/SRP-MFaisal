@@ -145,9 +145,9 @@ class Template_Bootstrap {
 
 		ob_start();
 		if ( 'page' === $setting ) {
-			echo '<main id="tribe-events" style="background-color: red">>';
+			echo '<main id="tribe-events">';
 		} else {
-			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template" style="background-color: red">>';
+			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template" style="background-color: red">';
 		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );

@@ -34,8 +34,7 @@ trait With_Series_Normalization {
 	private $normalized_series_ids = [];
 
 	/**
-	 * Normalizes an input set of Series post IDs and names to a set of
-	 * series post IDs.
+	 * Normalizes an input set of Series post IDs.
 	 *
 	 * @since 6.0.4 Only supports numeric input now. No longer reinforcing supporting both name and IDs.
 	 *            Will no longer search the database for post names.

@@ -4,7 +4,7 @@ Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social med
 Requires at least: 5.3
 Tested up to: 6.1
 Requires PHP: 7.0.0
-Stable tag: 4.9.8.1
+Stable tag: 4.9.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,25 @@ This section describes how to install the plugin and get it working.
 5. Wizard
 
 == Changelog ==
+
+= 4.9.10 =
+* MyRewards :
+	* Tag - WooCommerce 7.2
+* WooRewards Pro :
+	* Fix - List input of URL to visit for points
+	* Dev - Add conveniencies on Badges
+
+= 4.9.9 =
+* MyRewards :
+	* Style - new display layout available for 'points on cart' bloc
+	* Tweak - Hide internal meta in Order edition
+* WooRewards Pro :
+	* Fix - Free product popup display on checkout page
+	* Fix - Edit 'assign role' reward shows a bad role value
+	* Feature - Cooldown can be rolling or periodic
+	* Feature - System can adapt user level rewards on order refund
+	* Feature - Support for 'Rymera Loyalty Program' points export
+	* Feature - Support for 'Loyalty program for WooCommerce' points export
 
 = 4.9.8.1 =
 * Fix - My account page with legacy content

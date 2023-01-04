@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.8.1
+ * Version: 4.9.10
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
  * WC requires at least: 3.7.0
- * WC tested up to: 7.1
+ * WC tested up to: 7.2
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -116,7 +116,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '4.9.8.1');
+		define('LWS_WOOREWARDS_VERSION', '4.9.10');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -154,7 +154,7 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '4.9.8.1';
+		return '4.9.10';
 	}
 
 	public function addDocUrl($url)
@@ -342,6 +342,19 @@ final class LWS_WooRewards
 				\LWS\WOOREWARDS\Compatibility\UltimateMember::install();
 			}
 		});
+
+		// hide some meta from admin
+		if (\get_option('lws_woorewards_hide_internal_meta', 'on')) {
+			\add_action('is_protected_meta', function($protected, $key, $type) {
+				if (!$protected && 'post' == $type && 'lws_' == \substr($key, 0, 4)) {
+					if ('lws_woorewards_core_pool-' == \substr($key, 0, 25))
+						$protected = true;
+					elseif ('lws_woorewards_points_refunded' == $key)
+						$protected = true;
+				}
+				return $protected;
+			}, 10, 3);
+		}
 	}
 
 	function getOrderValidationStates($status)

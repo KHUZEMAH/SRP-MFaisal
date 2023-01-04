@@ -237,7 +237,11 @@ class Group
 				if ($field->title())
 				{
 					$label = $field->label();
-					echo "<div class='field-label{$class}'$args><label for='$id'>$label</label>";
+					echo sprintf(
+						"<div class='%s'%s><label for='%s'>%s</label>",
+						$field->addStrongClass('field-label' . $class),
+						$args, $id, $label
+					);
 					if ($help)
 						echo "<div class='bt-field-help'>?</div>"; // button to display help above
 					echo "</div>";

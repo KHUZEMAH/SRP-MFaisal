@@ -554,13 +554,15 @@ class Manager
 			$dataBody = \end($dataBody);
 		if( \is_object($dataBody) && isset($dataBody->status) )
 		{
+			$this->clearNotice('error', '-c');
 			if( 'success' == $dataBody->status && \in_array($dataBody->status_code, array('s205', 's215')) )
 			{
 				$d = (isset($dataBody->licence_expire) && $dataBody->licence_expire) ? \date_create($dataBody->licence_expire) : false;
+				$this->clearNotice(array('error', 'warning'), '-e');
 				if( $d && $d->getTimestamp() != $this->getEnding(true) )
 				{
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
-					if( $d->getTimestamp() < \time() ){
+					if( $d->getTimestamp() < \date_create()->setTime(0,0,0)->getTimestamp() ){
 						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> expired the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $this->getKey()), 'error', '-e', false);
 					}else{
 						$this->clearNotice('error', '-e');
@@ -574,6 +576,7 @@ class Manager
 			}
 			else
 			{
+				$this->notice(sprintf(__('The license <b>%2$s</b> for <i>%1$s</i> expired.', 'lwsmanager'), $this->getName(), $this->getKey()), 'error', '-c', false);
 				$this->readSubscription($dataBody, true);
 				$this->updateGlobalOption($this->getId(), '');
 				$dataBody->slug = $this->getSlug();
@@ -627,6 +630,7 @@ class Manager
 	{
 		if( \is_object($dataBody) && isset($dataBody->status) )
 		{
+			$this->clearNotice('error', '-c');
 			/// s100 first time key activation
 			/// s101 key already activated for domain
 			/// s205 key is active and valid for domain ( when assign_domain_to_key_on_status_check option active )
@@ -644,11 +648,14 @@ class Manager
 				{
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
 					if ($notice) {
-						if( $d->getTimestamp() > \time() )
+						if( $d->getTimestamp() >= \date_create()->setTime(0,0,0)->getTimestamp() )
 							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $key), 'warning', '-e', false);
 						else
 							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key), 'error', '-e');
 					}
+				} else {
+					if ($notice)
+						$this->clearNotice(array('error', 'warning'), '-e');
 				}
 				if( '4' === $z )
 					$dataBody->zombie = 'on';

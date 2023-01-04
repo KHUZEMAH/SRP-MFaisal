@@ -291,12 +291,17 @@ class PayUponInvoice {
 
 		add_action(
 			'woocommerce_email_before_order_table',
-			function( WC_Order $order, bool $sent_to_admin, bool $plain_text, WC_Email $email ) {
+			/**
+			 * WC_Email type removed to avoid third-party issues.
+			 *
+			 * @psalm-suppress MissingClosureParamType
+			 */
+			function( WC_Order $order, bool $sent_to_admin, bool $plain_text, $email ) {
 				if (
 					! $sent_to_admin
 					&& PayUponInvoiceGateway::ID === $order->get_payment_method()
 					&& $order->has_status( 'processing' )
-					&& $email->id === 'customer_processing_order'
+					&& is_a( $email, WC_Email::class ) && $email->id === 'customer_processing_order'
 				) {
 					$this->logger->info( "Adding Ratepay payment instructions to email for order #{$order->get_id()}." );
 
@@ -304,6 +309,8 @@ class PayUponInvoice {
 
 					$gateway_settings = get_option( 'woocommerce_ppcp-pay-upon-invoice-gateway_settings' );
 					$merchant_name    = $gateway_settings['brand_name'] ?? '';
+
+					$order_total = wc_price( $order->get_total(), array( 'currency' => $order->get_currency() ) );
 
 					$order_date = $order->get_date_created();
 					if ( null === $order_date ) {
@@ -330,7 +337,7 @@ class PayUponInvoice {
 
 					echo wp_kses_post( "<p>Für Ihre Bestellung #{$order->get_id()} ({$order_purchase_date} $order_time) bei {$merchant_name} haben Sie die Zahlung mittels “Rechnungskauf mit Ratepay“ gewählt." );
 					echo '<br>Bitte benutzen Sie die folgenden Informationen für Ihre Überweisung:</br>';
-					echo wp_kses_post( "<p>Bitte überweisen Sie den Betrag in Höhe von {$order->get_currency()}{$order->get_total()} bis zum {$order_date_30d} auf das unten angegebene Konto. Wichtig: Bitte geben Sie unbedingt als Verwendungszweck {$payment_reference} an, sonst kann die Zahlung nicht zugeordnet werden.</p>" );
+					echo wp_kses_post( "<p>Bitte überweisen Sie den Betrag in Höhe von {$order_total} bis zum {$order_date_30d} auf das unten angegebene Konto. Wichtig: Bitte geben Sie unbedingt als Verwendungszweck {$payment_reference} an, sonst kann die Zahlung nicht zugeordnet werden.</p>" );
 
 					echo '<ul>';
 					echo wp_kses_post( "<li>Empfänger: {$account_holder_name}</li>" );

@@ -175,19 +175,17 @@ EOT;
 					</div>
 					<button class="lwss_selectable close-button lws-icon-cross{$classes['cancel']}" data-type="Close Button"></button>
 				</div>
-				<form>
-					<div class="lwss_selectable products-list" data-type="Products List" id="lws_free_product_choice_dialog" data-code="{$code}">
-						{$products}
-					</div>
-					<div class="lwss_selectable buttons-line" data-type="Buttons Line">
-						<button class='lwss_selectable free-product-popup-cancel{$classes['cancel']}' data-editable='text' data-id='lws_free_product_popup_cancel' data-type='Cancel Button'>
-							<div class='lwss_modify_content'>{$cancelbutton}</div>
-						</button>
-						<button class='lwss_selectable free-product-popup-validate{$classes['submit']}' data-editable='text' data-id='lws_free_product_popup_validate' data-type='Validate Button'>
-							<div class='lwss_modify_content'>{$validbutton}</div>
-						</button>
-					</div>
-				</form>
+				<div class="lwss_selectable products-list" data-type="Products List" id="lws_free_product_choice_dialog" data-code="{$code}">
+					{$products}
+				</div>
+				<div class="lwss_selectable buttons-line" data-type="Buttons Line">
+					<button class='lwss_selectable free-product-popup-cancel{$classes['cancel']}' data-editable='text' data-id='lws_free_product_popup_cancel' data-type='Cancel Button'>
+						<div class='lwss_modify_content'>{$cancelbutton}</div>
+					</button>
+					<button class='lwss_selectable free-product-popup-validate{$classes['submit']}' data-editable='text' data-id='lws_free_product_popup_validate' data-type='Validate Button'>
+						<div class='lwss_modify_content'>{$validbutton}</div>
+					</button>
+				</div>
 			</div>
 			{$shadow}
 		</div>

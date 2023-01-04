@@ -18,6 +18,9 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Query_Monitor;
 use TEC\Events_Pro\Custom_Tables\V1\Events\Provisional\ID_Generator as Provisional_ID_Generator;
 use TEC\Events_Pro\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Events_Pro\Custom_Tables\V1\Models\Provisional_Post_Cache;
+use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;
+use Tribe__Repository__Query_Filters;
+use WP_Post;
 use WP_Query;
 
 /**
@@ -140,10 +143,39 @@ class Provider extends Service_Provider implements \TEC\Events\Custom_Tables\V1\
 			], 10, 3 );
 		}
 
+		if ( ! has_filter( 'tec_events_pro_tribe_repository_event_series_filter_override', [
+			$this,
+			'tribe_event_series_filter_override'
+		] ) ) {
+			add_filter( 'tec_events_pro_tribe_repository_event_series_filter_override', [
+				$this,
+				'tribe_event_series_filter_override'
+			], 10, 3 );
+		}
+
 		$this->handle_collapse_recurring_event_instances();
 	}
 
 	/**
+	 * Will override the series repository query.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @param bool                             $filter_override Flag whether to continue using filter parsing.
+	 * @param Tribe__Repository__Query_Filters $filter          This instance of the filter object.
+	 * @param bool|numeric|WP_Post             $in_series       The series param.
+	 *
+	 * @return bool
+	 */
+	public function tribe_event_series_filter_override( $filter_override, $filter, $in_series ) {
+		return tribe( Custom_Tables_Query_Filters::class )->apply_series_filters( $filter_override, $filter, $in_series );
+	}
+
+	/**
+	 * Filter query modifier implementations.
+	 *
+	 * @since 6.0.5
+	 *
 	 * @param array<WP_Query_Modifier> $implementations The query modifier implementations to be filtered.
 	 * @param Query_Monitor            $query_monitor   An instance of a Query Monitor class.
 	 *
@@ -210,6 +242,10 @@ class Provider extends Service_Provider implements \TEC\Events\Custom_Tables\V1\
 		remove_filter( 'tec_events_custom_tables_v1_query_modifier_applies_to_query', [
 			$this,
 			'filter_should_modify_query'
+		] );
+		remove_filter( 'tec_events_pro_tribe_repository_event_series_filter_override', [
+			$this,
+			'tribe_event_series_filter_override'
 		] );
 	}
 

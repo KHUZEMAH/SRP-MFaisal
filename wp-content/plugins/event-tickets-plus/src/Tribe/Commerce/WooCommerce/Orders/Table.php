@@ -173,7 +173,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 	 * @return string
 	 */
 	public function column_address( $item ) {
-		$shipping = $item['shipping_address'];
+		$shipping = $item['shipping'];
 
 		if ( empty( $shipping['address_1'] )
 		     || empty( $shipping['city'] )
@@ -267,7 +267,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 		$icon    = '';
 		$warning = false;
 
-		$order_number = $item['order_number'];
+		$order_number = $item['id'];
 
 		$order_url = add_query_arg(
 			array(
@@ -351,6 +351,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 	 *
 	 * @since 4.10.4 - modified to use retrieve_orders_ids_from_a_product_id method
 	 *
+	 * @since TBD Removed usage of WC REST API and make use of Order API to generate order data.
+	 *
 	 * @param $event_id
 	 *
 	 * @return array|mixed
@@ -363,9 +365,6 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 		if ( isset( self::$orders[ $event_id ] ) ) {
 			return self::$orders[ $event_id ];
 		}
-
-		WC()->api->includes();
-		WC()->api->register_resources( new WC_API_Server( '/' ) );
 
 		$product_ids = tribe( 'tickets-plus.commerce.woo' )->get_tickets_ids( $event_id );
 		$order_ids_by_ticket = self::retrieve_orders_ids_from_a_product_id( $product_ids );
@@ -382,11 +381,13 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 					continue;
 				}
 
-				$order = WC()->api->WC_API_Orders->get_order( $order_id );
+				$order = wc_get_order( $order_id );
 
-				//prevent fatal error if no orders and on refund orders
-				if ( ! is_wp_error( $order ) && isset( $order['order'] ) ) {
-					$orders[ $order_id ] = $order['order'];
+				if ( $order ) {
+					$orders[ $order_id ] = $order->get_data();
+					$orders[ $order_id ]['billing_email'] = $order->get_billing_email();
+					$orders[ $order_id ]['created_at']    = $order->get_date_created();
+					$orders[ $order_id ]['completed_at']  = $order->get_date_completed();
 				}
 			}
 		}
@@ -473,6 +474,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 
 	/**
 	 * Prepares the list of items for displaying.
+	 *
+	 * @since TBD Added support for column sorting.
 	 */
 	public function prepare_items() {
 		$this->event_id = Tribe__Utils__Array::get( $_GET, 'event_id', Tribe__Utils__Array::get( $_GET, 'post_id', 0 ) );
@@ -480,6 +483,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 		$items       = self::get_orders( $this->event_id );
 		$total_items = count( $items );
 		$per_page    = $this->get_items_per_page( $this->per_page_option );
+		$orderby     = tribe_get_request_var( 'orderby' ) ?? 'id';
+		$order       = tribe_get_request_var( 'order' ) ?? 'DESC';
 
 		/**
 		 * Allow plugins to modify the default number of orders shown per page.
@@ -494,6 +499,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 
 		$current_page = $this->get_pagenum();
 
+		$items = wp_list_sort( $items, $orderby, $order );
+
 		$this->items = array_slice( $items, ( $current_page - 1 ) * $per_page, $per_page );
 
 		$this->set_pagination_args(
@@ -502,6 +509,23 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 				'per_page'    => $per_page,
 			)
 		);
+	}
+
+	/**
+	 * List of sortable columns.
+	 *
+	 * @since TBD
+	 *
+	 * @return array $sortable_columns An array with sortable columns.
+	 */
+	public function get_sortable_columns(): array {
+		return [
+			'order'  => 'id',
+			'email'  => 'billing_email',
+			'date'   => 'completed_at',
+			'status' => 'status',
+			'total'  => 'total'
+		];
 	}
 
 	/**

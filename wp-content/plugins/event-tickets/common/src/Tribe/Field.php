@@ -3,7 +3,6 @@
 // Don't load directly
 
 use Tribe\Admin\Settings;
-use Tribe\Admin\Wysiwyg;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -59,15 +58,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 */
 		public $valid_field_types;
 
-		/**
-		 * Settings array.
-		 * 
-		 * @since TBD
-		 * 
-		 * @var array
-		 */
-		public $settings;
-
 
 		/**
 		 * Class constructor
@@ -103,7 +93,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'clear_after'         => true,
 				'tooltip_first'       => false,
 				'allow_clear'         => false,
-				'settings'            => [],
 			];
 
 			// a list of valid field types, to prevent screwy behavior
@@ -126,7 +115,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				'email',
 				'color',
 				'image',
-				'toggle',
 			];
 
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
@@ -208,7 +196,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			$clear_after      = (bool) $args['clear_after'];
 			$tooltip_first    = (bool) $args['tooltip_first'];
 			$allow_clear      = (bool) $args['allow_clear'];
-			$settings         = $args['settings'];
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
@@ -516,11 +503,17 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field
 		 */
 		public function wysiwyg() {
-			$mce = new Wysiwyg( $this->name, $this->value, $this->settings );
+			$settings = [
+				'teeny'   => true,
+				'wpautop' => true,
+			];
+			ob_start();
+			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
+			$editor = ob_get_clean();
 			$field  = $this->do_field_start();
 			$field .= $this->do_field_label();
 			$field .= $this->do_field_div_start();
-			$field .= $mce->get_html();
+			$field .= $editor;
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();
@@ -781,31 +774,6 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			}
 			$field .= '</div>';
 			$field .= '<button class="tec-admin__settings-image-field-btn-remove hidden">' . $remove_image_text . '</button>';
-			$field .= $this->do_screen_reader_label();
-			$field .= $this->do_field_div_end();
-			$field .= $this->do_field_end();
-
-			return $field;
-		}
-
-		/**
-		 * Generate a toggle switch.
-		 * 
-		 * @since TBD
-		 *
-		 * @return string the field
-		 */
-		public function toggle() {
-			$field = $this->do_field_start();
-			$field .= $this->do_field_label();
-			$field .= $this->do_field_div_start();
-			$field .= '<input type="checkbox"';
-			$field .= ' class="tec-admin__settings-toggle-field-input"';
-			$field .= $this->do_field_name();
-			$field .= ' value="1" ' . checked( $this->value, true, false );
-			$field .= $this->do_field_attributes();
-			$field .= '/>';
-			$field .= '<span class="tec-admin__settings-toggle-field-span"></span>';
 			$field .= $this->do_screen_reader_label();
 			$field .= $this->do_field_div_end();
 			$field .= $this->do_field_end();

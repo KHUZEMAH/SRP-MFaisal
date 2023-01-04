@@ -939,7 +939,8 @@ EOT;
 							}
 
 							$title = $field->title();
-							echo "<div class='item-label'>{$title}{$tooltip}</div><div class='item-value' style='{$vStyle}'>";
+							$labelClass = $field->addStrongClass('item-label');
+							echo "<div class='{$labelClass}'>{$title}{$tooltip}</div><div class='item-value' style='{$vStyle}'>";
 							$field->input();
 							echo "</div>";
 						}

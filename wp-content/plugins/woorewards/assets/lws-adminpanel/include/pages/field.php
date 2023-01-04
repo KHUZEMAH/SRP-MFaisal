@@ -193,6 +193,27 @@ abstract class Field
 		}
 	}
 
+	public function isStrong()
+	{
+		return isset($this->extra['strong']) ? \boolval($this->extra['strong']) : false;
+	}
+
+	/** only if isStrong */
+	public function addStrongClass($class='')
+	{
+		if ($this->isStrong()) {
+			if ($class) {
+				if (\is_array())
+					$class[] = 'strong';
+				else
+					$class .= ' strong';
+			} else {
+				$class = 'strong';
+			}
+		}
+		return $class;
+	}
+
 	/** format title (in span element) */
 	public function label()
 	{

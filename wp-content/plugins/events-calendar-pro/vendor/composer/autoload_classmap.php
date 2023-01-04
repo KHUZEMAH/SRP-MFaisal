@@ -139,6 +139,7 @@ return array(
     'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Modifiers\\With_Series_Normalization' => $baseDir . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Modifiers/With_Series_Normalization.php',
     'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Provider' => $baseDir . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Provider.php',
     'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Replace_Results' => $baseDir . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Replace_Results.php',
+    'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\Repository\\Custom_Tables_Query_Filters' => $baseDir . '/src/Events_Pro/Custom_Tables/V1/WP_Query/Repository/Custom_Tables_Query_Filters.php',
     'TEC\\Events_Pro\\Custom_Tables\\V1\\WP_Query\\WP_Query_Monitor_Filters' => $baseDir . '/src/Events_Pro/Custom_Tables/V1/WP_Query/WP_Query_Monitor_Filters.php',
     'TEC\\Events_Pro\\Legacy\\Query_Filters' => $baseDir . '/src/Events_Pro/Legacy/Query_Filters.php',
     'Tribe\\Events\\Pro\\Admin\\Manager\\Assets' => $baseDir . '/src/Tribe/Admin/Manager/Assets.php',

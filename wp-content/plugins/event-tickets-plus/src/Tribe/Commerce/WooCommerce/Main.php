@@ -408,6 +408,65 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		// Stock actions.
 		add_action( 'event_tickets_attendee_ticket_deleted', [ $this, 'update_order_note_for_deleted_attendee' ], 10, 2 );
 		add_action( 'tribe_tickets_ticket_moved', [ $this, 'create_order_for_moved_ticket' ], 10, 6 );
+		add_action( 'woocommerce_before_product_object_save', [ $this, 'sync_wc_product_stock_with_ticket' ], 10, 2 );
+		add_action( 'woocommerce_updated_product_stock', [ $this, 'sync_wc_product_stock_update' ] );
+	}
+
+	/**
+	 * Sync direct WooCommerce stock updates that are tied with Order status updates.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $product_id The Product ID.
+	 *
+	 * @return void
+	 */
+	public function sync_wc_product_stock_update( $product_id ) {
+		$event = $this->get_event_for_ticket( $product_id );
+		if ( ! $event ) {
+			return;
+		}
+
+		$product   = wc_get_product( $product_id );
+		$new_stock = $product->get_stock_quantity();
+		$ticket    = $this->get_ticket( $event->ID, $product->get_id() );
+
+		// If the new stock went over the capacity then we should set it to max capacity.
+		if ( $new_stock > $ticket->capacity ) {
+			$product->set_stock_quantity( $ticket->capacity );
+			$product->save();
+		}
+	}
+
+	/**
+	 * Sync Woo Product stock data to Ticket stock data.
+	 *
+	 * @since TBD
+	 *
+	 * @param WC_Product    $product The object being saved.
+	 * @param WC_Data_Store $data_store      THe data store persisting the data.
+	 *
+	 * @return void
+	 */
+	public function sync_wc_product_stock_with_ticket( $product, $data_store ) {
+		$event = $this->get_event_for_ticket( $product->get_id() );
+
+		if ( ! $event ) {
+			return;
+		}
+
+		$changes = $product->get_changes();
+
+		if ( empty( $changes ) || ! isset( $changes['stock_quantity'] ) ) {
+			return;
+		}
+
+		$new_stock = $changes['stock_quantity'];
+		$ticket = $this->get_ticket( $event->ID, $product->get_id() );
+
+		if ( $new_stock > $ticket->capacity ) {
+			$product->set_stock_quantity( $ticket->stock() );
+		}
 	}
 
 	/**
@@ -1636,8 +1695,12 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 
 		Tribe__Tickets__Attendance::instance( $post_id )->increment_deleted_attendees_count();
 
-		// Re-stock the product inventory (on the basis that a "seat" has just been freed)
-		$this->increment_product_inventory( $product_id );
+		$ticket = $this->get_ticket( $post_id, $product_id );
+
+		if ( $ticket->capacity() > $ticket->stock() ) {
+			// Re-stock the product inventory (on the basis that a "seat" has just been freed) only if the stock is lower than capacity.
+			$this->increment_product_inventory( $product_id );
+		}
 
 		// Run anything we might need on parent method.
 		parent::delete_ticket( $post_id, $ticket_id );
@@ -3827,6 +3890,10 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		}
 
 		$attendee = $this->get_attendee( $attendee_id );
+
+		if ( empty( $attendee ) ) {
+			return;
+		}
 
 		$order = wc_get_order( $attendee['order_id'] );
 

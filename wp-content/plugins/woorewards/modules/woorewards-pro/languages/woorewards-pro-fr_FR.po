@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards Pro\n"
-"POT-Creation-Date: 2022-09-26 15:48+0200\n"
-"PO-Revision-Date: 2022-09-26 16:08+0200\n"
+"POT-Creation-Date: 2022-12-01 08:47+0100\n"
+"PO-Revision-Date: 2022-12-01 08:51+0100\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -21,75 +21,76 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: include/conveniences.php:286 include/conveniences.php:287
+#: include/conveniences.php:292 include/conveniences.php:293
 msgid "Email"
 msgstr "E-mail"
 
-#: include/conveniences.php:288 include/ui/adminscreens/sponsorship.php:154
+#: include/conveniences.php:294 include/ui/adminscreens/legacy.php:567
 #: include/ui/adminscreens/woocommerce.php:92
+#: include/ui/shortcodes/referrallink.php:43
 msgid "Referral Link"
 msgstr "Lien de parrainage"
 
-#: include/conveniences.php:289
+#: include/conveniences.php:295
 msgid "Manual"
 msgstr "Manuel"
 
-#: include/conveniences.php:290 include/core/socials.php:25
+#: include/conveniences.php:296 include/core/socials.php:25
 #: include/ui/widgets/socialnetworkconnect.php:205
 msgid "Facebook"
 msgstr "Facebook"
 
-#: include/conveniences.php:291 include/core/socials.php:30
+#: include/conveniences.php:297 include/core/socials.php:30
 msgid "Twitter"
 msgstr "Twitter"
 
-#: include/conveniences.php:292 include/core/socials.php:35
+#: include/conveniences.php:298 include/core/socials.php:35
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: include/conveniences.php:293
+#: include/conveniences.php:299
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: include/conveniences.php:294
+#: include/conveniences.php:300
 msgid "Whatsapp"
 msgstr "Whatsapp"
 
-#: include/conveniences.php:295 include/core/socials.php:50
+#: include/conveniences.php:301 include/core/socials.php:50
 msgid "MeWe"
 msgstr "MeWe"
 
-#: include/conveniences.php:313
+#: include/conveniences.php:319
 #, php-format
 msgctxt "expression"
 msgid "Placeholder `%s` expects a Point reserve"
 msgstr "L’espace réservé '%s' s’attend à une réserve de points"
 
-#: include/conveniences.php:328
+#: include/conveniences.php:334
 #, php-format
 msgctxt "expression"
 msgid "Placeholder `%s` expects a valid Badge Id"
 msgstr "L’espace réservé '%s' attend un id de badge valide"
 
-#: include/conveniences.php:340
+#: include/conveniences.php:346
 #, php-format
 msgctxt "expression"
 msgid "Placeholder `%s` expects a role"
 msgstr "L’espace réservé « %s » s’attend à un rôle"
 
-#: include/conveniences.php:357
+#: include/conveniences.php:363
 #, php-format
 msgctxt "expression"
 msgid "Placeholder `%s` expects a property"
 msgstr "L’espace réservé '%s' attend une propriété"
 
-#: include/conveniences.php:359
+#: include/conveniences.php:365
 msgctxt "expression"
 msgid "WooCommerce not installed"
 msgstr "WooCommerce n'est pas installé"
 
-#: include/conveniences.php:364 include/conveniences.php:446
-#: include/conveniences.php:498
+#: include/conveniences.php:370 include/conveniences.php:452
+#: include/conveniences.php:504
 #, php-format
 msgctxt "expression"
 msgid "Placeholder `%s`, unknown property"
@@ -224,20 +225,20 @@ msgstr ""
 "Vous devez vérifier que tous les utilisateurs ont un rôle à nouveau (au "
 "moins abonné [ou client si WooCommerce est installé])."
 
-#: include/core/pool.php:531 include/ui/admin.php:998
+#: include/core/pool.php:543 include/ui/admin.php:972
 msgid "Point display name"
 msgstr "Nom d'affichage de Point"
 
-#: include/core/pool.php:532
+#: include/core/pool.php:544
 msgid "Point display name (plural)"
 msgstr "Nom d'affichage des Points (pluriel)"
 
-#: include/core/pool.php:1530
+#: include/core/pool.php:1542
 msgid "(%+d reduced to level)"
 msgstr "(%+d coupé au niveau)"
 
-#: include/core/pool.php:1634 include/ui/admin.php:759
-#: include/ui/admin.php:1012 include/ui/adminscreens/shortcodes.php:20
+#: include/core/pool.php:1646 include/ui/admin.php:733 include/ui/admin.php:986
+#: include/ui/adminscreens/shortcodes.php:20
 #: include/ui/legacy/cartpointspreview.php:118
 #: include/ui/legacy/cartpointspreview.php:122
 #: include/ui/legacy/cartpointspreview.php:126
@@ -256,12 +257,12 @@ msgstr "(%+d coupé au niveau)"
 msgid "Points"
 msgstr "Points"
 
-#: include/core/pool.php:1634 include/ui/admin.php:1002
+#: include/core/pool.php:1646 include/ui/admin.php:976
 #: include/ui/legacy/loyaltyendpoint.php:435
 msgid "Point"
 msgstr "Point"
 
-#: include/core/pool.php:1647
+#: include/core/pool.php:1659
 #, php-format
 msgid "Lose points unused since %s"
 msgstr "Perdre des points inutilisés depuis %s"
@@ -318,16 +319,17 @@ msgstr ""
 "récompenses sur le site."
 
 #: include/core/rewardclaim.php:206
-msgid "User conflict"
-msgstr "Conflit d'utilisateurs"
+msgid "User account conflict"
+msgstr "Conflit de compte utilisateur"
 
 #: include/core/rewardclaim.php:207
 msgid ""
-"Operation abort since the connected user is not the owner of the requested "
-"reward."
+"This reward was not unlocked by this account.  Please login using the "
+"account from which the reward was unlocked."
 msgstr ""
-"Opération avortée puisque l'utilisateur connecté n'est pas le propriétaire "
-"de la récompense demandée."
+"Cette récompense n’a pas été débloquée par ce compte.  Veuillez vous "
+"connecter en utilisant le compte à partir duquel la récompense a été "
+"déverrouillée."
 
 #: include/core/rewardclaim.php:211
 msgid "User or loyalty system cannot be found"
@@ -375,7 +377,7 @@ msgstr "Utilisateur inconnu."
 msgid "Unexpected error. Please retry later."
 msgstr "Erreur inattendue. Veuillez réessayer ultérieurement."
 
-#: include/core/sponsorship.php:117 include/ui/adminscreens/sponsorship.php:111
+#: include/core/sponsorship.php:117 include/ui/adminscreens/sponsorship.php:133
 msgid "A mail has been sent to your friend about us."
 msgstr "Un mail a été envoyé à votre ami à notre sujet."
 
@@ -443,7 +445,7 @@ msgid "Anniversary (registration) %s"
 msgstr "Anniversaire (inscription) %s"
 
 #: include/events/anniversary.php:112 include/events/badge.php:200
-#: include/events/birthday.php:386 include/unlockables/customreward.php:236
+#: include/events/birthday.php:388 include/unlockables/customreward.php:236
 msgid "Miscellaneous"
 msgstr "Divers"
 
@@ -460,7 +462,7 @@ msgstr ""
 "lorsqu’ils débloquent un succès"
 
 #: include/events/badge.php:31 include/events/badge.php:65
-#: include/ui/adminscreens/legacy.php:258 include/ui/editlists/badges.php:182
+#: include/ui/adminscreens/legacy.php:270 include/ui/editlists/badges.php:182
 #: include/ui/endpoints/badges.php:16 include/ui/shortcodes/badges.php:25
 #: include/ui/shortcodes/leaderboard.php:113
 msgid "Badges"
@@ -526,7 +528,7 @@ msgstr "Badge"
 
 #: include/events/badge.php:201 include/ui/shortcodes/leaderboard.php:107
 #: include/unlockables/badge.php:261 include/unlockables/pointgenerator.php:347
-#: include/unlockables/role.php:254 include/unlockables/usertitle.php:203
+#: include/unlockables/role.php:253 include/unlockables/usertitle.php:203
 msgid "User"
 msgstr "Utilisateur"
 
@@ -623,66 +625,66 @@ msgstr "À l'anniversaire"
 msgid "%1$d %2$s before birthday"
 msgstr "%1$ d%2$s avant l'anniversaire"
 
-#: include/events/birthday.php:380
+#: include/events/birthday.php:382
 #, php-format
 msgid "Birthday %s"
 msgstr "Anniversaire %s"
 
-#: include/events/buyincategory.php:20
+#: include/events/buyincategory.php:25
 msgid ""
 "The customer will earn points for buying products from specific categories."
 msgstr ""
 "Le client gagnera des points pour acheter des produits de catégories "
 "spécifiques."
 
-#: include/events/buyincategory.php:21
+#: include/events/buyincategory.php:26
 msgid "The number of points given is fixed for every product."
 msgstr "Le nombre de points donnés est fixé pour chaque produit."
 
-#: include/events/buyincategory.php:31
+#: include/events/buyincategory.php:36
 #, php-format
 msgid "Buy at least %2$d products in category %1$s"
 msgid_plural "Buy at least %2$d products in categories %1$s"
 msgstr[0] "Acheter au moins %2$d produits dans la catégorie %1$s"
 msgstr[1] "Acheter au moins %2$d produits dans les catégories %1$s"
 
-#: include/events/buyincategory.php:36
+#: include/events/buyincategory.php:41
 #, php-format
 msgid "Buy products in category %s"
 msgid_plural "Buy products in categories %s"
 msgstr[0] "Acheter des produits dans la catégorie %s"
 msgstr[1] "Acheter des produits dans les catégories %s"
 
-#: include/events/buyincategory.php:47 include/events/orderamount.php:60
+#: include/events/buyincategory.php:52 include/events/orderamount.php:65
 #: include/unlockables/coupon.php:326
 msgctxt "Unknown category"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: include/events/buyincategory.php:69 include/events/buyspecificproduct.php:48
-#: include/events/sponsoredfirstorder.php:39
+#: include/events/buyincategory.php:74 include/events/buyspecificproduct.php:53
+#: include/events/sponsoredfirstorder.php:47
 msgid "Priority"
 msgstr "Priorité"
 
-#: include/events/buyincategory.php:70 include/events/buyspecificproduct.php:49
-#: include/events/sponsoredfirstorder.php:40
+#: include/events/buyincategory.php:75 include/events/buyspecificproduct.php:54
+#: include/events/sponsoredfirstorder.php:48
 msgid "Customer orders will run by ascending priority value."
 msgstr ""
 "Les commandes des clients seront exécutées par une valeur prioritaire "
 "ascendante."
 
-#: include/events/buyincategory.php:81 include/events/ordercompleted.php:30
-#: include/events/sponsoredfirstorder.php:51
+#: include/events/buyincategory.php:86 include/events/ordercompleted.php:35
+#: include/events/sponsoredfirstorder.php:59
 #: include/unlockables/pointgenerator.php:37
 msgid "Options"
 msgstr "Options"
 
-#: include/events/buyincategory.php:83
+#: include/events/buyincategory.php:88
 msgctxt "Buy In Category Event"
 msgid "Quantity Multiplier"
 msgstr "Multiplicateur de quantité"
 
-#: include/events/buyincategory.php:86
+#: include/events/buyincategory.php:91
 msgid ""
 "If checked, action will be counted once per product in the cart meeting the "
 "conditions. Otherwise, only once per order."
@@ -691,7 +693,7 @@ msgstr ""
 "panier remplissant les conditions. Dans le cas contraire, les points ne "
 "seront gagnés qu’une seule fois par commande."
 
-#: include/events/buyincategory.php:90 include/events/buyspecificproduct.php:77
+#: include/events/buyincategory.php:95 include/events/buyspecificproduct.php:82
 msgid ""
 "If checked, points will be earned for each product in the cart meeting the "
 "conditions. Otherwise, points will be earned only once per order"
@@ -700,60 +702,60 @@ msgstr ""
 "panier remplissant les conditions. Dans le cas contraire, les points ne "
 "seront gagnés qu’une seule fois par commande"
 
-#: include/events/buyincategory.php:98
+#: include/events/buyincategory.php:103
 msgctxt "Coupon Unlockable"
 msgid "Minimum product count"
 msgstr "Nombre minimum de produits"
 
-#: include/events/buyincategory.php:105
+#: include/events/buyincategory.php:110
 msgid "Product categories"
 msgstr "Catégories de produits"
 
-#: include/events/buyincategory.php:108
+#: include/events/buyincategory.php:113
 msgctxt "Buy In Category Event"
 msgid "Categories"
 msgstr "Catégories"
 
-#: include/events/buyincategory.php:156 include/events/orderamount.php:195
-#: include/events/orderamount.php:198 include/unlockables/coupon.php:269
+#: include/events/buyincategory.php:161 include/events/orderamount.php:200
+#: include/events/orderamount.php:203 include/unlockables/coupon.php:269
 msgid "Product category"
 msgstr "Catégorie de produit"
 
-#: include/events/buyincategory.php:157
+#: include/events/buyincategory.php:162
 msgid "Minimum product count"
 msgstr "Nombre minimum de produits"
 
-#: include/events/buyincategory.php:158
-#: include/events/buyspecificproduct.php:117
+#: include/events/buyincategory.php:163
+#: include/events/buyspecificproduct.php:122
 msgid "Quantity Multiplier"
 msgstr "Multiplicateur de quantité"
 
-#: include/events/buyincategory.php:159
-#: include/events/buyspecificproduct.php:118
+#: include/events/buyincategory.php:164
+#: include/events/buyspecificproduct.php:123
 msgid "Event Priority"
 msgstr "Priorité de l’événement"
 
-#: include/events/buyincategory.php:241
+#: include/events/buyincategory.php:246
 msgctxt "getDisplayType"
 msgid "Buy in category"
 msgstr "Acheter dans la catégorie"
 
-#: include/events/buyincategory.php:324
+#: include/events/buyincategory.php:335
 #, php-format
 msgid "Product bought in category %s"
 msgstr "Produit acheté dans la catégorie %s"
 
-#: include/events/buyincategory.php:325
+#: include/events/buyincategory.php:336
 #, php-format
 msgid "Product bought in categories %s"
 msgstr "Produit acheté dans les catégories %s"
 
-#: include/events/buyincategory.php:343
-#: include/events/buyspecificproduct.php:342
-#: include/events/sponsoredbuyincategory.php:243
-#: include/events/sponsoredbuyproducts.php:242
-#: include/events/sponsoredfirstorder.php:318
-#: include/events/sponsoredorderamount.php:244
+#: include/events/buyincategory.php:354
+#: include/events/buyspecificproduct.php:353
+#: include/events/sponsoredbuyincategory.php:256
+#: include/events/sponsoredbuyproducts.php:256
+#: include/events/sponsoredfirstorder.php:340
+#: include/events/sponsoredorderamount.php:257
 #: include/ui/adminscreens/shortcodes.php:40
 #: include/ui/adminscreens/woocommerce.php:13
 #: include/unlockables/freeproduct.php:468
@@ -762,47 +764,54 @@ msgstr "Produit acheté dans les catégories %s"
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: include/events/buyincategory.php:344
-#: include/events/buyspecificproduct.php:343
+#: include/events/buyincategory.php:355
+#: include/events/buyspecificproduct.php:354
 msgid "Order"
 msgstr "Commande"
 
-#: include/events/buyincategory.php:378
-#: include/events/buyspecificproduct.php:452
+#: include/events/buyincategory.php:388
+#: include/events/buyspecificproduct.php:462
+#, php-format
+msgctxt "Points per item"
+msgid "[%s] / item"
+msgstr "[%s] / produit"
+
+#: include/events/buyincategory.php:391
+#: include/events/buyspecificproduct.php:465
 #, php-format
 msgctxt "Points per item"
 msgid "%s / item"
 msgstr "%s / produit"
 
-#: include/events/buyspecificproduct.php:20
+#: include/events/buyspecificproduct.php:25
 msgid "The customer earns points when he buys a specified product."
 msgstr "Le client gagne des points lorsqu’il achète un produit spécifié."
 
-#: include/events/buyspecificproduct.php:37
+#: include/events/buyspecificproduct.php:42
 #, php-format
 msgid "Buy products %s"
 msgstr "Acheter les produits %s"
 
-#: include/events/buyspecificproduct.php:39
+#: include/events/buyspecificproduct.php:44
 #, php-format
 msgid "Buy product %s"
 msgstr "Acheter le produit %s"
 
-#: include/events/buyspecificproduct.php:60
+#: include/events/buyspecificproduct.php:65
 msgid "Product(s) to buy"
 msgstr "Produit(s) à acheter"
 
-#: include/events/buyspecificproduct.php:63 include/unlockables/coupon.php:210
+#: include/events/buyspecificproduct.php:68 include/unlockables/coupon.php:210
 msgctxt "Coupon Unlockable"
 msgid "Product(s)"
 msgstr "Produit(s)"
 
-#: include/events/buyspecificproduct.php:73
+#: include/events/buyspecificproduct.php:78
 msgctxt "Buy Specific Product Event"
 msgid "Quantity Multiplier"
 msgstr "Multiplicateur de quantité"
 
-#: include/events/buyspecificproduct.php:75
+#: include/events/buyspecificproduct.php:80
 msgid ""
 "If checked, action will be counted once per bought product. Otherwise, only "
 "once per order containing the product."
@@ -810,21 +819,21 @@ msgstr ""
 "Si elle est cochée, l’action sera comptabilisée une fois par produit acheté. "
 "Dans le cas contraire, une seule fois par commande contenant le produit."
 
-#: include/events/buyspecificproduct.php:116 include/unlockables/coupon.php:271
+#: include/events/buyspecificproduct.php:121 include/unlockables/coupon.php:271
 msgid "Product(s)"
 msgstr "Produit(s)"
 
-#: include/events/buyspecificproduct.php:244
+#: include/events/buyspecificproduct.php:249
 msgctxt "getDisplayType"
 msgid "Buy specific products"
 msgstr "Acheter des produits spécifiques"
 
-#: include/events/buyspecificproduct.php:333
+#: include/events/buyspecificproduct.php:344
 #, php-format
 msgid "Bought specific products on order %s"
 msgstr "Acheté des produits spécifiques sur commande %s"
 
-#: include/events/buyspecificproduct.php:334
+#: include/events/buyspecificproduct.php:345
 #, php-format
 msgid "Bought a %1$s on order %2$s"
 msgstr "Acheté un %1$s sur commande %2$s"
@@ -903,56 +912,56 @@ msgstr "Cliquez sur une image"
 msgid "Image found"
 msgstr "Image trouvée"
 
-#: include/events/easteregg.php:237 include/events/postcomment.php:200
-#: include/events/publishpost.php:204 include/events/register.php:112
-#: include/events/restrictedvisit.php:346 include/events/visit.php:227
+#: include/events/easteregg.php:237 include/events/postcomment.php:205
+#: include/events/publishpost.php:209 include/events/register.php:112
+#: include/events/restrictedvisit.php:352 include/events/visit.php:232
 msgid "Website"
 msgstr "Site web"
 
-#: include/events/easteregg.php:238 include/events/restrictedvisit.php:347
+#: include/events/easteregg.php:238 include/events/restrictedvisit.php:353
 msgid "Fun activities"
 msgstr "Activités amusantes"
 
-#: include/events/orderamount.php:23 include/events/ordercompleted.php:104
-#: include/events/sponsoredfirstorder.php:230
+#: include/events/orderamount.php:28 include/events/ordercompleted.php:109
+#: include/events/sponsoredfirstorder.php:252
 #, php-format
 msgid " (amount greater than %s)"
 msgstr " (montant supérieur à %s)"
 
-#: include/events/orderamount.php:28
+#: include/events/orderamount.php:33
 msgctxt "Earning method description"
 msgid "(after discount)"
 msgstr "(après remise)"
 
-#: include/events/orderamount.php:35
+#: include/events/orderamount.php:40
 #, php-format
 msgid "Limited to category %s"
 msgid_plural "Limited to categories %s"
 msgstr[0] "Limité à la catégorie %s"
 msgstr[1] "Limité aux catégories %s"
 
-#: include/events/orderamount.php:41 include/unlockables/coupon.php:363
+#: include/events/orderamount.php:46 include/unlockables/coupon.php:363
 #, php-format
 msgid "Exclude category %s"
 msgid_plural "Exclude categories %s"
 msgstr[0] "Exclure la catégorie %s"
 msgstr[1] "Exclure les catégories %s"
 
-#: include/events/orderamount.php:49
+#: include/events/orderamount.php:54
 msgid "Include shipping"
-msgstr "Inclure le montant d'expédition"
-
-#: include/events/orderamount.php:82
-msgctxt "Order Amount Event"
-msgid "Include shipping amount"
 msgstr "Inclure le montant d'expédition"
 
 #: include/events/orderamount.php:87
 msgctxt "Order Amount Event"
+msgid "Include shipping amount"
+msgstr "Inclure le montant d'expédition"
+
+#: include/events/orderamount.php:92
+msgctxt "Order Amount Event"
 msgid "Threshold effect"
 msgstr "Effet de seuil"
 
-#: include/events/orderamount.php:88
+#: include/events/orderamount.php:93
 msgid ""
 "If checked, customers will earn points for each multiple of this amount. If "
 "unchecked, points earned will be rounded to the closest value."
@@ -961,26 +970,26 @@ msgstr ""
 "montant. Si décochée, les points gagnés seront arrondis à la valeur la plus "
 "proche."
 
-#: include/events/orderamount.php:94
+#: include/events/orderamount.php:99
 msgctxt "Order Amount Event"
 msgid "Minimum order amount"
 msgstr "Montant minimum de commande"
 
-#: include/events/orderamount.php:95 include/events/ordercompleted.php:34
-#: include/events/sponsoredfirstorder.php:71
+#: include/events/orderamount.php:100 include/events/ordercompleted.php:39
+#: include/events/sponsoredfirstorder.php:79
 msgid "Uses the Order Subtotal as reference."
 msgstr "Utilise le sous total de commande comme référence."
 
-#: include/events/orderamount.php:103
+#: include/events/orderamount.php:108
 msgid "Allow / Deny Categories"
 msgstr "Autoriser / Refuser les catégories"
 
-#: include/events/orderamount.php:106
+#: include/events/orderamount.php:111
 msgctxt "Order Amount Event"
 msgid "Allowed categories"
 msgstr "Catégories autorisées"
 
-#: include/events/orderamount.php:108
+#: include/events/orderamount.php:113
 msgid ""
 "If left empty, all bought products are taken into account. If you set one or "
 "more categories, only the products which belong to these categories will be "
@@ -990,7 +999,7 @@ msgstr ""
 "fidélité. Si vous définissez une ou plusieurs catégories, seuls les produits "
 "qui appartiennent à ces catégories attribueront des points."
 
-#: include/events/orderamount.php:110
+#: include/events/orderamount.php:115
 msgid ""
 "If left empty, all bought products can give loyalty points. If you set one "
 "or more categories, only the products which belong to these categories will "
@@ -1000,12 +1009,12 @@ msgstr ""
 "fidélité. Si vous définissez une ou plusieurs catégories, seuls les produits "
 "qui appartiennent à ces catégories attribueront des points."
 
-#: include/events/orderamount.php:123
+#: include/events/orderamount.php:128
 msgctxt "Order Amount Event"
 msgid "Denied categories"
 msgstr "Catégories refusées"
 
-#: include/events/orderamount.php:125
+#: include/events/orderamount.php:130
 msgid ""
 "If left empty, all bought products are taken into account. If you set one or "
 "more categories, the products which belong to these categories will <b>not</"
@@ -1015,7 +1024,7 @@ msgstr ""
 "fidélité. Si vous définissez une ou plusieurs catégories, les produits qui "
 "appartiennent à ces catégories n’attribueront <b>pas</b> de points."
 
-#: include/events/orderamount.php:127
+#: include/events/orderamount.php:132
 msgid ""
 "If left empty, all bought products can give loyalty points. If you set one "
 "or more categories, the products which belong to these categories will "
@@ -1025,11 +1034,11 @@ msgstr ""
 "fidélité. Si vous définissez une ou plusieurs catégories, les produits qui "
 "appartiennent à ces catégories n’attribueront <b>pas</b> de points."
 
-#: include/events/orderamount.php:139
+#: include/events/orderamount.php:144
 msgid "On-sale"
 msgstr "En solde"
 
-#: include/events/orderamount.php:140
+#: include/events/orderamount.php:145
 msgid ""
 "Give points only for on-sale products, those who are not on-sale or all of "
 "them."
@@ -1037,44 +1046,50 @@ msgstr ""
 "Donnez des points uniquement pour les produits en solde, ceux qui ne sont "
 "pas en solde ou tous."
 
-#: include/events/orderamount.php:146
+#: include/events/orderamount.php:151
 msgid "No restriction"
 msgstr "Pas de restriction"
 
-#: include/events/orderamount.php:147
+#: include/events/orderamount.php:152
 msgid "Regular price only"
 msgstr "Prix régulier seulement"
 
-#: include/events/orderamount.php:148
+#: include/events/orderamount.php:153
 msgid "On-sale price only"
 msgstr "Prix en solde uniquement"
 
-#: include/events/orderamount.php:196 include/unlockables/coupon.php:270
+#: include/events/orderamount.php:201 include/unlockables/coupon.php:270
 msgid "Excluded category"
 msgstr "Catégories exclues"
 
-#: include/events/orderamount.php:197 include/events/ordercompleted.php:67
-#: include/events/sponsoredfirstorder.php:117
+#: include/events/orderamount.php:202 include/events/ordercompleted.php:72
+#: include/events/sponsoredfirstorder.php:131
 msgid "Minimum order amount"
 msgstr "Montant minimum de commande"
 
-#: include/events/orderamount.php:321
+#: include/events/orderamount.php:325
+#, php-format
+msgctxt "Point per money spent"
+msgid "[%1$s] / %2$s"
+msgstr "[%1$s] / %2$s"
+
+#: include/events/orderamount.php:328
 #, php-format
 msgctxt "Point per money spent"
 msgid "%1$s / %2$s"
 msgstr "%1$s / %2$s"
 
-#: include/events/ordercompleted.php:33
+#: include/events/ordercompleted.php:38
 msgctxt "Place an order event"
 msgid "Minimum order amount"
 msgstr "Montant minimum de commande"
 
-#: include/events/ordercompleted.php:40
+#: include/events/ordercompleted.php:45
 msgctxt "Place an order event"
 msgid "Use amount after discount"
 msgstr "Utiliser le montant après remise"
 
-#: include/events/ordercompleted.php:41
+#: include/events/ordercompleted.php:46
 msgid ""
 "If set, the Minimum order amount will be calculated from the cart total "
 "instead of the cart subtotal."
@@ -1082,7 +1097,7 @@ msgstr ""
 "S’il est défini, le montant minimum de la commande sera calculé à partir du "
 "total du panier au lieu du sous-total."
 
-#: include/events/ordercompleted.php:66
+#: include/events/ordercompleted.php:71
 msgid "After Discount"
 msgstr "Après remise"
 
@@ -1097,7 +1112,7 @@ msgstr ""
 msgid "Points are only given if the comment is approved"
 msgstr "Les points ne sont donnés que si le commentaire est approuvé"
 
-#: include/events/postcomment.php:26
+#: include/events/postcomment.php:31
 msgid ""
 "Points are still given once per post. The cooldown simply limits the number "
 "of times a user can earn points for his comments during a set period."
@@ -1106,25 +1121,25 @@ msgstr ""
 "limite simplement le nombre de fois qu’un utilisateur peut gagner des points "
 "pour ses commentaires au cours d’une période définie."
 
-#: include/events/postcomment.php:53 include/events/publishpost.php:52
+#: include/events/postcomment.php:58 include/events/publishpost.php:57
 msgid "Post Types"
 msgstr "Types d’article"
 
-#: include/events/postcomment.php:72 include/events/publishpost.php:70
+#: include/events/postcomment.php:77 include/events/publishpost.php:75
 msgid "Allowed Post Types"
 msgstr "Type de publications permises"
 
-#: include/events/postcomment.php:75
+#: include/events/postcomment.php:80
 msgctxt "Post Comment Event"
 msgid "Post Types"
 msgstr "Types d’article"
 
-#: include/events/postcomment.php:122
+#: include/events/postcomment.php:127
 msgctxt "getDisplayType"
 msgid "Post a comment"
 msgstr "Laisser un commentaire"
 
-#: include/events/postcomment.php:166
+#: include/events/postcomment.php:171
 #, php-format
 msgid "Post a comment about '%s'"
 msgstr "Poster un commentaire sur '%s'"
@@ -1140,7 +1155,7 @@ msgstr ""
 "Vous pouvez également donner des points pour la publication de types "
 "d'articles personnalisés"
 
-#: include/events/publishpost.php:25
+#: include/events/publishpost.php:30
 msgid ""
 "Points are still given once per post. The cooldown simply limits the number "
 "of times a user can earn points for his publishings during a set period."
@@ -1149,29 +1164,29 @@ msgstr ""
 "limite simplement le nombre de fois qu’un utilisateur peut gagner des points "
 "pour ses publications au cours d’une période définie."
 
-#: include/events/publishpost.php:73
+#: include/events/publishpost.php:78
 msgctxt "Publish Post Event"
 msgid "Post Types"
 msgstr "Types d’article"
 
-#: include/events/publishpost.php:119
+#: include/events/publishpost.php:124
 msgctxt "getDisplayType"
 msgid "Publish a Post"
 msgstr "Publier un article"
 
-#: include/events/publishpost.php:125
+#: include/events/publishpost.php:130
 msgctxt "post type separator"
 msgid ", "
 msgstr ", "
 
-#: include/events/publishpost.php:126
+#: include/events/publishpost.php:131
 #, php-format
 msgid "User published a post of the following type : %s"
 msgid_plural "User published a post of the following types : %s"
 msgstr[0] "L’utilisateur a publié un contenu du type suivant : %s"
 msgstr[1] "L’utilisateur a publié un contenu des types suivants : %s"
 
-#: include/events/publishpost.php:161
+#: include/events/publishpost.php:166
 #, php-format
 msgid "Publish a post %s of type : '%s'"
 msgstr "Publier un contenu %s de type : '%s'"
@@ -1199,7 +1214,7 @@ msgstr "L'utilisateur s'est enregistré"
 msgid "User registered via sponsorship"
 msgstr "L'utilisateur s'enregistre via un parrainage"
 
-#: include/events/restrictedvisit.php:23
+#: include/events/restrictedvisit.php:29
 msgid ""
 "The customer will earn points for viewing a post, a page or an url on your "
 "website."
@@ -1207,7 +1222,7 @@ msgstr ""
 "Le client gagnera des points en consultant une publication, une page ou une "
 "URL sur votre site Web."
 
-#: include/events/restrictedvisit.php:24
+#: include/events/restrictedvisit.php:30
 msgid ""
 "You can't use this method to give points for visiting urls outside of your "
 "website."
@@ -1215,51 +1230,51 @@ msgstr ""
 "Vous ne pouvez pas utiliser cette méthode pour donner des points pour "
 "visiter des URL en dehors de votre site Web."
 
-#: include/events/restrictedvisit.php:30
+#: include/events/restrictedvisit.php:36
 msgid "Earn points for visiting some pages."
 msgstr "Gagnez des points en visitant certaines pages."
 
-#: include/events/restrictedvisit.php:49
+#: include/events/restrictedvisit.php:55
 msgid "Targets"
 msgstr "Cibles"
 
-#: include/events/restrictedvisit.php:52
+#: include/events/restrictedvisit.php:58
 msgctxt "Visit Category"
 msgid "Post Categories"
 msgstr "Catégories de l’article"
 
-#: include/events/restrictedvisit.php:64
+#: include/events/restrictedvisit.php:70
 msgctxt "Visit Page"
 msgid "Pages"
 msgstr "Pages"
 
-#: include/events/restrictedvisit.php:74
+#: include/events/restrictedvisit.php:80
 msgctxt "Visit Page"
 msgid "Relative or absolute local URLs"
 msgstr "URL locales relatives ou absolues"
 
-#: include/events/restrictedvisit.php:83 include/events/restrictedvisit.php:114
+#: include/events/restrictedvisit.php:89 include/events/restrictedvisit.php:120
 msgid "Hide from search and robots"
 msgstr "Masquer de la recherche et des robots"
 
-#: include/events/restrictedvisit.php:111
+#: include/events/restrictedvisit.php:117
 msgid "Post category"
 msgstr "Catégorie de l’article"
 
-#: include/events/restrictedvisit.php:112 include/events/visit.php:72
+#: include/events/restrictedvisit.php:118 include/events/visit.php:77
 msgid "Pages"
 msgstr "Pages"
 
-#: include/events/restrictedvisit.php:113 include/events/visit.php:73
+#: include/events/restrictedvisit.php:119 include/events/visit.php:78
 msgid "URLs"
 msgstr "URLs"
 
-#: include/events/restrictedvisit.php:223
+#: include/events/restrictedvisit.php:229
 msgctxt "getDisplayType"
 msgid "Visit a page, post or URL"
 msgstr "Visitez une page, un article ou une URL"
 
-#: include/events/restrictedvisit.php:338
+#: include/events/restrictedvisit.php:344
 msgid "Visit site page: "
 msgstr "Visitez la page du site : "
 
@@ -1343,7 +1358,7 @@ msgstr "Partage sur' %s'"
 msgid "User shares on %s"
 msgstr "L'utilisateur partage sur %s"
 
-#: include/events/sponsoredbuyincategory.php:18
+#: include/events/sponsoredbuyincategory.php:19
 msgid ""
 "The customer will earn points when a sponsored buys products in specific "
 "categories."
@@ -1351,32 +1366,32 @@ msgstr ""
 "Le client gagnera des points lorsqu’un sponsor achètera des produits dans "
 "des catégories spécifiques."
 
-#: include/events/sponsoredbuyincategory.php:19
-#: include/events/sponsoredbuyproducts.php:19
-#: include/events/sponsoredfirstorder.php:18
-#: include/events/sponsoredorderamount.php:18
+#: include/events/sponsoredbuyincategory.php:20
+#: include/events/sponsoredbuyproducts.php:20
+#: include/events/sponsoredfirstorder.php:24
+#: include/events/sponsoredorderamount.php:19
 #: include/events/sponsoredregistration.php:17
 #: include/events/sponsorship.php:15
 msgid "This method will only reward the sponsor, not the sponsored"
 msgstr "Cette méthode ne récompensera que le parrain, non le parrainé"
 
-#: include/events/sponsoredbuyincategory.php:30
+#: include/events/sponsoredbuyincategory.php:31
 msgctxt "getDisplayType"
 msgid "Sponsored buys in categories"
 msgstr "Filleul achète dans des catégories"
 
-#: include/events/sponsoredbuyincategory.php:39
-#: include/events/sponsoredbuyproducts.php:39
-#: include/events/sponsoredfirstorder.php:62
-#: include/events/sponsoredorderamount.php:38
+#: include/events/sponsoredbuyincategory.php:40
+#: include/events/sponsoredbuyproducts.php:40
+#: include/events/sponsoredfirstorder.php:70
+#: include/events/sponsoredorderamount.php:39
 msgctxt "Sponsored Order Event"
 msgid "Guest order"
 msgstr "Commande d'invités"
 
-#: include/events/sponsoredbuyincategory.php:40
-#: include/events/sponsoredbuyproducts.php:40
-#: include/events/sponsoredfirstorder.php:63
-#: include/events/sponsoredorderamount.php:39
+#: include/events/sponsoredbuyincategory.php:41
+#: include/events/sponsoredbuyproducts.php:41
+#: include/events/sponsoredfirstorder.php:71
+#: include/events/sponsoredorderamount.php:40
 msgid ""
 "By default, customer must be registered. Check that option to accept guests. "
 "Customer will be tested on billing email."
@@ -1384,16 +1399,16 @@ msgstr ""
 "Par défaut, le client doit être enregistré. Vérifiez cette option pour "
 "accepter les invités. Le client sera testé sur l'email de facturation."
 
-#: include/events/sponsoredbuyincategory.php:49
-#: include/events/sponsoredbuyproducts.php:49
-#: include/events/sponsoredorderamount.php:48
+#: include/events/sponsoredbuyincategory.php:52
+#: include/events/sponsoredbuyproducts.php:52
+#: include/events/sponsoredorderamount.php:51
 msgctxt "Sponsored Order Event"
 msgid "Sponsee roles"
 msgstr "Rôles du filleul"
 
-#: include/events/sponsoredbuyincategory.php:50
-#: include/events/sponsoredbuyproducts.php:50
-#: include/events/sponsoredorderamount.php:49
+#: include/events/sponsoredbuyincategory.php:53
+#: include/events/sponsoredbuyproducts.php:53
+#: include/events/sponsoredorderamount.php:52
 msgid ""
 "The sponsee needs to have at least one of the selected roles to grant points "
 "to his referral. Leave empty for no restriction."
@@ -1401,89 +1416,89 @@ msgstr ""
 "Le filleul doit avoir au moins un des rôles sélectionnés pour accorder des "
 "points à son parrain. Laisser vide pour aucune restriction."
 
-#: include/events/sponsoredbuyincategory.php:87
-#: include/events/sponsoredbuyproducts.php:87
-#: include/events/sponsoredfirstorder.php:116
-#: include/events/sponsoredorderamount.php:86
+#: include/events/sponsoredbuyincategory.php:95
+#: include/events/sponsoredbuyproducts.php:95
+#: include/events/sponsoredfirstorder.php:130
+#: include/events/sponsoredorderamount.php:94
 msgid "Guest order"
 msgstr "Commande d'invité"
 
-#: include/events/sponsoredbuyincategory.php:88
-#: include/events/sponsoredbuyproducts.php:88
-#: include/events/sponsoredfirstorder.php:119
-#: include/events/sponsoredorderamount.php:87
+#: include/events/sponsoredbuyincategory.php:96
+#: include/events/sponsoredbuyproducts.php:96
+#: include/events/sponsoredfirstorder.php:133
+#: include/events/sponsoredorderamount.php:95
 msgid "Sponsee roles restriction"
 msgstr "Restriction de rôle filleul"
 
-#: include/events/sponsoredbuyincategory.php:230
+#: include/events/sponsoredbuyincategory.php:243
 #, php-format
 msgid "Sponsored friend %1$s bought in category %2$s"
 msgstr "Ami filleul %1$s a acheté dans la catégorie %2$s"
 
-#: include/events/sponsoredbuyincategory.php:231
+#: include/events/sponsoredbuyincategory.php:244
 #, php-format
 msgid "Sponsored friend %1$s bought in categories %2$s"
 msgstr "Ami filleul %1$s a acheté dans les catégories %2$s"
 
-#: include/events/sponsoredbuyincategory.php:239
-#: include/events/sponsoredbuyproducts.php:238
-#: include/events/sponsoredorderamount.php:240
+#: include/events/sponsoredbuyincategory.php:252
+#: include/events/sponsoredbuyproducts.php:252
+#: include/events/sponsoredorderamount.php:253
 #: include/ui/editlists/pools.php:350
 #: include/unlockables/variablediscount.php:396
 msgid "Standard"
 msgstr "Standard"
 
-#: include/events/sponsoredbuyincategory.php:240
-#: include/events/sponsoredbuyproducts.php:239
-#: include/events/sponsoredorderamount.php:241
+#: include/events/sponsoredbuyincategory.php:253
+#: include/events/sponsoredbuyproducts.php:253
+#: include/events/sponsoredorderamount.php:254
 #: include/unlockables/usertitle.php:201
 msgid "Levelling"
 msgstr "Par niveaux"
 
-#: include/events/sponsoredbuyincategory.php:241
-#: include/events/sponsoredbuyproducts.php:240
-#: include/events/sponsoredorderamount.php:242 include/mails/achieved.php:46
-#: woorewards-pro.php:580
+#: include/events/sponsoredbuyincategory.php:254
+#: include/events/sponsoredbuyproducts.php:254
+#: include/events/sponsoredorderamount.php:255 include/mails/achieved.php:46
+#: woorewards-pro.php:584
 msgid "Achievement"
 msgstr "Succès"
 
-#: include/events/sponsoredbuyincategory.php:242
-#: include/events/sponsoredbuyproducts.php:241
-#: include/events/sponsoredorderamount.php:243
+#: include/events/sponsoredbuyincategory.php:255
+#: include/events/sponsoredbuyproducts.php:255
+#: include/events/sponsoredorderamount.php:256
 msgid "Events"
 msgstr "Événements"
 
-#: include/events/sponsoredbuyincategory.php:244
-#: include/events/sponsoredbuyproducts.php:243
-#: include/events/sponsoredfirstorder.php:319
-#: include/events/sponsoredorderamount.php:245
+#: include/events/sponsoredbuyincategory.php:257
+#: include/events/sponsoredbuyproducts.php:257
+#: include/events/sponsoredfirstorder.php:341
+#: include/events/sponsoredorderamount.php:258
 #: include/events/sponsoredregistration.php:107
 #: include/events/sponsorship.php:68
 msgid "Available for sponsored"
 msgstr "Disponible pour le parrainé"
 
-#: include/events/sponsoredbuyproducts.php:18
+#: include/events/sponsoredbuyproducts.php:19
 msgid "The customer will earn points when a sponsored buys specific products."
 msgstr ""
 "Le client gagnera des points lorsqu’un filleul achètera des produits "
 "spécifiques."
 
-#: include/events/sponsoredbuyproducts.php:30
+#: include/events/sponsoredbuyproducts.php:31
 msgctxt "getDisplayType"
 msgid "Sponsored buys products"
 msgstr "Filleul achète des produits"
 
-#: include/events/sponsoredbuyproducts.php:229
+#: include/events/sponsoredbuyproducts.php:243
 #, php-format
 msgid "Sponsored friend %1$s bought %2$s on order %3$s"
 msgstr "Le parrainé %3$s a dépensé %1$s dans la commande #%2$s"
 
-#: include/events/sponsoredbuyproducts.php:230
+#: include/events/sponsoredbuyproducts.php:244
 #, php-format
 msgid "Sponsored friend %1$s bought products on order #%2$s"
 msgstr "Un ami sponsorisé %1$s acheté des produits sur commande #%2$s"
 
-#: include/events/sponsoredfirstorder.php:17
+#: include/events/sponsoredfirstorder.php:23
 msgid ""
 "The customer will earn points when a person he sponsored placed an order. "
 "You can restrict this to the first sponsored order."
@@ -1491,12 +1506,12 @@ msgstr ""
 "Le client gagnera des points lorsqu’une personne qu’il a parrainée a passé "
 "une commande. Vous pouvez limiter cela à la première commande sponsorisée."
 
-#: include/events/sponsoredfirstorder.php:54
+#: include/events/sponsoredfirstorder.php:62
 msgctxt "Sponsored Order Event"
 msgid "First order only"
 msgstr "Première commande seulement"
 
-#: include/events/sponsoredfirstorder.php:55
+#: include/events/sponsoredfirstorder.php:63
 msgid ""
 "If checked, only the first order placed by each sponsored customer will give "
 "points."
@@ -1504,17 +1519,17 @@ msgstr ""
 "Si cochée, seule la première commande passée par chaque client parrainé "
 "donnera des points."
 
-#: include/events/sponsoredfirstorder.php:70
+#: include/events/sponsoredfirstorder.php:78
 msgctxt "Sponsored Order Event"
 msgid "Minimum order amount"
 msgstr "Montant minimum de commande"
 
-#: include/events/sponsoredfirstorder.php:80
+#: include/events/sponsoredfirstorder.php:90
 msgctxt "Sponsored Order Event"
 msgid "Sponsee role"
 msgstr "Rôle du filleul"
 
-#: include/events/sponsoredfirstorder.php:81
+#: include/events/sponsoredfirstorder.php:91
 msgid ""
 "The ponsee needs to have at least one of the selected roles to grant points "
 "to his referral. Leave empty for no restriction."
@@ -1522,41 +1537,41 @@ msgstr ""
 "Le filleul doit avoir au moins un des rôles sélectionnés pour accorder des "
 "points à son parrain. Laisser vide pour aucune restriction."
 
-#: include/events/sponsoredfirstorder.php:115
+#: include/events/sponsoredfirstorder.php:129
 msgid "First order only"
 msgstr "Première commande seulement"
 
-#: include/events/sponsoredfirstorder.php:118
+#: include/events/sponsoredfirstorder.php:132
 msgid "Event priority"
 msgstr "Priorité de l’événement"
 
-#: include/events/sponsoredfirstorder.php:234
+#: include/events/sponsoredfirstorder.php:256
 msgid " (first order only)"
 msgstr " (première commande seulement)"
 
-#: include/events/sponsoredfirstorder.php:242
+#: include/events/sponsoredfirstorder.php:264
 msgctxt "getDisplayType"
 msgid "Sponsored orders"
 msgstr "Commandes du parrainé"
 
-#: include/events/sponsoredfirstorder.php:310
+#: include/events/sponsoredfirstorder.php:332
 #, php-format
 msgid "Sponsored friend %s order #%s completed"
 msgstr "%s commande du parrainé#%s finalisée"
 
-#: include/events/sponsoredorderamount.php:17
+#: include/events/sponsoredorderamount.php:18
 msgid ""
 "The customer will earn points when a sponsored spends money on your shop."
 msgstr ""
 "Le client gagnera des points lorsqu’un parrainé dépense de l’argent dans "
 "votre boutique."
 
-#: include/events/sponsoredorderamount.php:29
+#: include/events/sponsoredorderamount.php:30
 msgctxt "getDisplayType"
 msgid "Sponsored spends money"
 msgstr "Parrainé dépense de l'argent"
 
-#: include/events/sponsoredorderamount.php:232
+#: include/events/sponsoredorderamount.php:245
 #, php-format
 msgid "Sponsored friend %3$s spent %1$s from order #%2$s"
 msgstr "Le parrainé %3$s a dépensé %1$s dans la commande #%2$s"
@@ -1652,7 +1667,7 @@ msgstr "Commande Front-End"
 msgid "Back-End Administration"
 msgstr "Administration Back-End"
 
-#: include/events/t_order.php:217 include/ui/admin.php:609
+#: include/events/t_order.php:217 include/ui/admin.php:583
 msgid "REST API"
 msgstr "REST API"
 
@@ -1702,6 +1717,23 @@ msgstr "Numéros de commande ou plages"
 msgid "Gateway"
 msgstr "Passerelle"
 
+#: include/events/t_sponseetrigger.php:103
+msgctxt "Sponsored Order Event"
+msgid "Max Triggers per Sponsee"
+msgstr "Nombre maximal de déclencheurs par filleul"
+
+#: include/events/t_sponseetrigger.php:104
+msgid ""
+"Defines how many times each sponsee can give points to his sponsor by "
+"performing this action"
+msgstr ""
+"Définit combien de fois chaque filleul peut donner des points à son parrain "
+"en effectuant cette action"
+
+#: include/events/t_sponseetrigger.php:127
+msgid "Max Triggers per Sponsee"
+msgstr "Nombre maximal de déclencheurs par filleul"
+
 #: include/events/t_sponsorshiporigin.php:13
 msgid "Sponsorship email"
 msgstr "Parrainage par email"
@@ -1731,40 +1763,40 @@ msgstr "Origine du parrainage/référence"
 msgid "Origin restrictions"
 msgstr "Restrictions d'origine"
 
-#: include/events/visit.php:15
+#: include/events/visit.php:20
 msgid ""
 "The customer will receive points for visiting your website multiple times."
 msgstr ""
 "Le client recevra des points en visitant votre site web plusieurs fois."
 
-#: include/events/visit.php:16
+#: include/events/visit.php:21
 msgid "You can set up a delay between visits"
 msgstr "Vous pouvez configurer un délai entre les visites"
 
-#: include/events/visit.php:35
+#: include/events/visit.php:40
 msgid "Restrictions"
 msgstr "Restrictions"
 
-#: include/events/visit.php:38
+#: include/events/visit.php:43
 msgctxt "Visit Website"
 msgid "Pages"
 msgstr "Pages"
 
-#: include/events/visit.php:47
+#: include/events/visit.php:52
 msgctxt "Visit Website"
 msgid "Relative or absolute URLs"
 msgstr "URLs relatives ou absolues"
 
-#: include/events/visit.php:107
+#: include/events/visit.php:112
 msgctxt "getDisplayType"
 msgid "Recurrent visit"
 msgstr "Visite récurrente"
 
-#: include/events/visit.php:220
+#: include/events/visit.php:225
 msgid "Recurrent visit"
 msgstr "Visite récurrente"
 
-#: include/events/visit.php:221
+#: include/events/visit.php:226
 #, php-format
 msgid "Recurrent visit to %s"
 msgstr "Visite récurrente à %s"
@@ -1954,7 +1986,8 @@ msgstr "Cette récompense vaut %s. Vous avez encore besoin de %s. "
 #: include/ui/legacy/loyaltyendpoint.php:62
 #: include/ui/legacy/rewardclaim.php:115
 #: include/ui/legacy/rewardswidget.php:337 include/ui/popups/rewardpopup.php:73
-#: include/ui/shortcodes/availablerewards.php:220
+#: include/ui/shortcodes/availablerewards.php:246
+#: include/ui/shortcodes/availablerewards.php:254
 msgid "Unlock"
 msgstr "Déverrouiller"
 
@@ -2209,13 +2242,21 @@ msgstr "Par User Meta Key"
 msgid "myCRED"
 msgstr "myCRED"
 
+#: include/pointsflow/methods/pointsandrewards4wc.php:24
+msgid "Points and Rewards for WooCommerce (by WP Swings)"
+msgstr "Points et récompenses pour WooCommerce (par WP Swings)"
+
+#: include/pointsflow/methods/rymeraloyaltyprogram.php:21
+msgid "Loyalty Program by Rymera"
+msgstr "Programme de fidélité par Rymera"
+
 #: include/pointsflow/methods/sumo.php:36
 msgid "Sumo"
 msgstr "Sumo"
 
-#: include/pointsflow/methods/woocommercepandr.php:27
-msgid "WooCommerce Points And Rewards"
-msgstr "WooCommerce Points And Rewards"
+#: include/pointsflow/methods/woocommercepandr.php:29
+msgid "WooCommerce Points And Rewards (by WooCommerce)"
+msgstr "Points et récompenses WooCommerce (par WooCommerce)"
 
 #: include/pointsflow/methods/woorewards.php:32
 msgid "MyRewards"
@@ -2563,39 +2604,11 @@ msgstr ""
 "Configurez le popup que vos clients voient lorsqu’ils débloquent une "
 "récompense"
 
-#: include/ui/admin.php:443
-msgid "Pending payment"
-msgstr "En attente de paiement"
-
-#: include/ui/admin.php:444
-msgid "Processing"
-msgstr "En cours"
-
-#: include/ui/admin.php:445
-msgid "On hold"
-msgstr "En attente"
-
-#: include/ui/admin.php:446
-msgid "Completed"
-msgstr "Terminé"
-
-#: include/ui/admin.php:447
-msgid "Cancelled"
-msgstr "Annulée"
-
-#: include/ui/admin.php:448
-msgid "Refunded"
-msgstr "Remboursé"
-
-#: include/ui/admin.php:449
-msgid "Failed"
-msgstr "Echec"
-
-#: include/ui/admin.php:467
+#: include/ui/admin.php:441
 msgid "Show Points Cooldown"
 msgstr "Afficher le temps de recharge des points"
 
-#: include/ui/admin.php:471
+#: include/ui/admin.php:445
 msgid ""
 "If you set a cooldown on the methods to earn points, select if you want to "
 "show the cooldown to customers or not"
@@ -2604,15 +2617,15 @@ msgstr ""
 "points, sélectionnez si vous souhaitez montrer le temps de recharge aux "
 "clients ou non"
 
-#: include/ui/admin.php:476
+#: include/ui/admin.php:450
 msgid "General Features"
 msgstr "Caractéristiques générales"
 
-#: include/ui/admin.php:482
+#: include/ui/admin.php:456
 msgid "Advanced Features"
 msgstr "Fonctionnalités avancées"
 
-#: include/ui/admin.php:485
+#: include/ui/admin.php:459
 msgid ""
 "The following options are only used in a handful of cases and should only be "
 "enabled if you're certain you want to use them"
@@ -2621,15 +2634,15 @@ msgstr ""
 "devraient être activées que si vous êtes certain que vous souhaitez les "
 "utiliser"
 
-#: include/ui/admin.php:489
+#: include/ui/admin.php:463
 msgid "Enable multi currency support"
 msgstr "Activer le support multi-devises"
 
-#: include/ui/admin.php:497
+#: include/ui/admin.php:471
 msgid "Force 'Points on Cart' currency switch"
 msgstr "Forcer le changement de devise 'Points sur le panier'"
 
-#: include/ui/admin.php:501
+#: include/ui/admin.php:475
 msgid ""
 "Some multi-currency plugins don't manage virtual coupons used by WooRewards "
 "even if it's a standard WooCommerce feature."
@@ -2638,16 +2651,16 @@ msgstr ""
 "par WooRewards, même s’il s’agit d’une fonctionnalité standard de "
 "WooCommerce."
 
-#: include/ui/admin.php:502
+#: include/ui/admin.php:476
 msgid "We can try to take over that missing feature."
 msgstr ""
 "Nous pouvons essayer de prendre en charge cette fonctionnalité manquante."
 
-#: include/ui/admin.php:507
+#: include/ui/admin.php:481
 msgid "Enable the leaderboard shortcode"
 msgstr "Activer le shortcode du classement"
 
-#: include/ui/admin.php:511
+#: include/ui/admin.php:485
 msgid ""
 "If you enable this shortcode, a new option will be added to the user's My "
 "Account page."
@@ -2655,7 +2668,7 @@ msgstr ""
 "Si vous activez ce shortcode, une nouvelle option sera ajoutée à la page Mon "
 "compte de l’utilisateur."
 
-#: include/ui/admin.php:512
+#: include/ui/admin.php:486
 msgid ""
 "The user will have the possibility to set if he/she accepts to appear on the "
 "leaderboard or not."
@@ -2663,33 +2676,33 @@ msgstr ""
 "L’utilisateur aura la possibilité de définir s’il accepte d’apparaître ou "
 "non au classement."
 
-#: include/ui/admin.php:517
+#: include/ui/admin.php:491
 msgid "Show levels"
 msgstr "Afficher les niveaux"
 
-#: include/ui/admin.php:522
+#: include/ui/admin.php:496
 msgid "Show user level information with its points in customers admin screen."
 msgstr ""
 "Affichez les informations au niveau de l’utilisateur avec leurs points dans "
 "l’écran d’administration des clients."
 
-#: include/ui/admin.php:524
+#: include/ui/admin.php:498
 msgid "Points only"
 msgstr "Points uniquement"
 
-#: include/ui/admin.php:525
+#: include/ui/admin.php:499
 msgid "Level only"
 msgstr "Niveau uniquement"
 
-#: include/ui/admin.php:526
+#: include/ui/admin.php:500
 msgid "Points and Level"
 msgstr "Points et niveau"
 
-#: include/ui/admin.php:534
+#: include/ui/admin.php:508
 msgid "Birthday Settings"
 msgstr "Paramètres d’anniversaire"
 
-#: include/ui/admin.php:537
+#: include/ui/admin.php:511
 msgid ""
 "If you decide to give points for customers birthdays, you should check some "
 "of the following options to give customers the opportunity to fill in their "
@@ -2699,7 +2712,7 @@ msgstr ""
 "vous devriez vérifier certaines des options suivantes pour donner aux "
 "clients la possibilité de remplir leur date d’anniversaire."
 
-#: include/ui/admin.php:542
+#: include/ui/admin.php:516
 msgid ""
 "Display a birthday field in the 'checkout' page when the user register at "
 "the same time."
@@ -2707,18 +2720,18 @@ msgstr ""
 "Afficher un champ d’anniversaire dans la page ’Commander’ lorsque "
 "l’utilisateur s’enregistre en même temps."
 
-#: include/ui/admin.php:550
+#: include/ui/admin.php:524
 msgid "Display a birthday field in the 'my account register' page."
 msgstr ""
 "Affichez un champ d’anniversaire dans la page d'inscription de «mon compte»."
 
-#: include/ui/admin.php:558
+#: include/ui/admin.php:532
 msgid "Display a birthday field in the 'my account -> details' page."
 msgstr ""
 "Affichez un champ d’anniversaire dans l'onglet détails de la page «mon "
 "compte»."
 
-#: include/ui/admin.php:566
+#: include/ui/admin.php:540
 msgid ""
 "Display Debug information about birthday point earning in user backend "
 "profile."
@@ -2726,11 +2739,11 @@ msgstr ""
 "Afficher les informations de débogage sur le gain de points d’anniversaire "
 "dans le profil principal de l’utilisateur."
 
-#: include/ui/admin.php:578
+#: include/ui/admin.php:552
 msgid "Remove points on order refunds"
 msgstr "Supprimer les points sur les remboursements de commande"
 
-#: include/ui/admin.php:580
+#: include/ui/admin.php:554
 msgid ""
 "If an order is cancelled or refunded, you have the option to also remove "
 "points earned for that order. Select here the order status for which you "
@@ -2741,73 +2754,73 @@ msgstr ""
 "l'état de commande pour lequel vous souhaitez supprimer les points de "
 "fidélité."
 
-#: include/ui/admin.php:584
+#: include/ui/admin.php:558
 msgid "Order status"
 msgstr "Statut de la commande"
 
-#: include/ui/admin.php:603
+#: include/ui/admin.php:577
 msgid "API"
 msgstr "API"
 
-#: include/ui/admin.php:610
+#: include/ui/admin.php:584
 #, php-format
 msgid "Define MyRewards REST API settings. API endpoint will be %s"
 msgstr ""
 "Paramétrez l'API REST MyRewards. Le point de terminaison de l'API sera %s"
 
-#: include/ui/admin.php:615
+#: include/ui/admin.php:589
 msgid "Enable REST API"
 msgstr "Activer REST API"
 
-#: include/ui/admin.php:623
+#: include/ui/admin.php:597
 msgid "Allows authentification by WooCommerce REST API"
 msgstr "Permet l'authentification par WooCommerce REST API"
 
-#: include/ui/admin.php:635
+#: include/ui/admin.php:609
 msgid "User Permissions"
 msgstr "Permissions Utilisateur"
 
-#: include/ui/admin.php:636
+#: include/ui/admin.php:610
 msgid ""
 "Define the website users that can access the different features of the API"
 msgstr ""
 "Définissez les utilisateurs du site Web qui peuvent accéder aux différentes "
 "fonctionnalités de l'API"
 
-#: include/ui/admin.php:641
+#: include/ui/admin.php:615
 msgid "Users allowed to read general information"
 msgstr "Utilisateurs autorisés à lire des informations générales"
 
-#: include/ui/admin.php:645
+#: include/ui/admin.php:619
 msgid "The checked users can get points and rewards system list."
 msgstr ""
 "Les utilisateurs vérifiés peuvent obtenir la liste des systèmes de points et "
 "récompenses."
 
-#: include/ui/admin.php:650
+#: include/ui/admin.php:624
 msgid "Users allowed to read user information"
 msgstr "Utilisateurs autorisés à lire les informations utilisateur"
 
-#: include/ui/admin.php:654
+#: include/ui/admin.php:628
 msgid "The checked users can get other users point amounts and history."
 msgstr ""
 "Les utilisateurs vérifiés peuvent obtenir les montants de points et les "
 "historiques d'autres utilisateurs."
 
-#: include/ui/admin.php:659
+#: include/ui/admin.php:633
 msgid "Users allowed to change user information"
 msgstr "Utilisateurs autorisés à modifier les informations utilisateur"
 
-#: include/ui/admin.php:663
+#: include/ui/admin.php:637
 msgid "The checked users can add points to other users."
 msgstr ""
 "Les utilisateurs vérifiés peuvent ajouter des points à d'autres utilisateurs."
 
-#: include/ui/admin.php:735
+#: include/ui/admin.php:709
 msgid "Loading failure"
 msgstr "Défaillance de chargement"
 
-#: include/ui/admin.php:736
+#: include/ui/admin.php:710
 msgid ""
 "Seems the points and rewards system does not exists. Try re-activate this "
 "plugin. If that problem persists, contact your administrator."
@@ -2815,7 +2828,7 @@ msgstr ""
 "Il semble que le système de points et récompenses n'existe pas. Essayez de "
 "réactiver ce plugin. Si ce problème persiste, contactez votre administrateur."
 
-#: include/ui/admin.php:743
+#: include/ui/admin.php:717
 msgid ""
 "General Settings are used to start or stop your points and rewards system, "
 "rename it or change some other basic options."
@@ -2824,7 +2837,7 @@ msgstr ""
 "de points et de récompenses, le renommer ou modifier d’autres options de "
 "base."
 
-#: include/ui/admin.php:744
+#: include/ui/admin.php:718
 msgid ""
 "If you're not sure how to use them, please refer to the dedicated "
 "documentation by clicking the book icon on the top right."
@@ -2832,7 +2845,7 @@ msgstr ""
 "Si vous ne savez pas comment les utiliser, veuillez vous référer à la "
 "documentation dédiée en cliquant sur l’icône du livre en haut à droite."
 
-#: include/ui/admin.php:746
+#: include/ui/admin.php:720
 msgid ""
 "Don't forget to start your points and rewards system when you've finished "
 "your settings."
@@ -2840,7 +2853,7 @@ msgstr ""
 "N’oubliez pas de démarrer votre système de points et récompenses lorsque "
 "vous avez terminé vos paramètres."
 
-#: include/ui/admin.php:751
+#: include/ui/admin.php:725
 msgid ""
 "Use this section to define what actions users or customers have to perform "
 "in order to earn points in this points and rewards system."
@@ -2849,18 +2862,18 @@ msgstr ""
 "clients doivent effectuer afin de gagner des points dans ce système de "
 "fidélisation."
 
-#: include/ui/admin.php:752
+#: include/ui/admin.php:726
 msgid ""
 "You can define as many actions as you want by clicking the 'Add' button."
 msgstr ""
 "Vous pouvez définir autant d’actions que vous le souhaitez en cliquant sur "
 "le bouton 'Ajouter'."
 
-#: include/ui/admin.php:777
+#: include/ui/admin.php:751
 msgid "General Settings"
 msgstr "Réglages généraux"
 
-#: include/ui/admin.php:794
+#: include/ui/admin.php:768
 msgid ""
 "Advanced Settings are used to set special options to change the behavior of "
 "the points and rewards system. These options can have a serious impact on "
@@ -2870,42 +2883,42 @@ msgstr ""
 "modifier le comportement du système de points et de récompenses. Ces options "
 "peuvent avoir un impact sérieux sur le système de points et de récompenses."
 
-#: include/ui/admin.php:796 include/ui/admin.php:937 include/ui/admin.php:982
+#: include/ui/admin.php:770 include/ui/admin.php:911 include/ui/admin.php:956
 msgid "Warning :"
 msgstr "Attention:"
 
-#: include/ui/admin.php:797
+#: include/ui/admin.php:771
 msgid ""
 "Be sure of what you're doing before making modifications in this section."
 msgstr ""
 "Assurez-vous de ce que vous faites avant d’apporter des modifications dans "
 "cette section."
 
-#: include/ui/admin.php:806
+#: include/ui/admin.php:780
 msgid "Advanced Settings"
 msgstr "Paramètres avancés"
 
-#: include/ui/admin.php:812
+#: include/ui/admin.php:786
 msgid "Point Reserve"
 msgstr "Réserve de points"
 
-#: include/ui/admin.php:820
+#: include/ui/admin.php:794
 msgid "&lt;Create a new reserve&gt;"
 msgstr "&lt;Créer une nouvelle réserve &gt;"
 
-#: include/ui/admin.php:825
+#: include/ui/admin.php:799
 msgid "This System uses its own points reserve."
 msgstr "Ce système utilise sa propre réserve de points."
 
-#: include/ui/admin.php:826
+#: include/ui/admin.php:800
 msgid "This System shares its Points between :"
 msgstr "Ce système partage ses points entre :"
 
-#: include/ui/admin.php:832 include/ui/editlists/achievements.php:210
+#: include/ui/admin.php:806 include/ui/editlists/achievements.php:210
 msgid "Allowed Roles"
 msgstr "Rôles autorisés"
 
-#: include/ui/admin.php:837
+#: include/ui/admin.php:811
 msgid ""
 "If set, only users with at least one of the selected roles can enjoy that "
 "points and rewards system. By default, a loyalty system is available for "
@@ -2915,11 +2928,11 @@ msgstr ""
 "sélectionnés peuvent profiter de ce système de points et de récompenses. Par "
 "défaut, un système de fidélisation est disponible pour tout le monde."
 
-#: include/ui/admin.php:842
+#: include/ui/admin.php:816
 msgid "Denied Roles"
 msgstr "Rôles refusés"
 
-#: include/ui/admin.php:847
+#: include/ui/admin.php:821
 msgid ""
 "If set, users with at least one of the selected roles won't have access to "
 "the Points and Rewards System."
@@ -2927,11 +2940,11 @@ msgstr ""
 "Si sont défini, les utilisateurs ayant au moins un des rôles sélectionnés "
 "n’auront pas accès au système de points et de récompenses."
 
-#: include/ui/admin.php:852
+#: include/ui/admin.php:826
 msgid "Loading Order"
 msgstr "Ordre de chargement"
 
-#: include/ui/admin.php:856
+#: include/ui/admin.php:830
 msgid ""
 "Force a Points and Rewards System to be loaded/executed before another one. "
 "Greater the number is, sooner the Loyalty System is loaded."
@@ -2940,11 +2953,11 @@ msgstr ""
 "avant un autre. Plus le nombre est, plus tôt le système de fidélité est "
 "chargé."
 
-#: include/ui/admin.php:865
+#: include/ui/admin.php:839
 msgid "Adaptative Levels"
 msgstr "Niveaux adaptatifs"
 
-#: include/ui/admin.php:871
+#: include/ui/admin.php:845
 msgid ""
 "If checked, customers can lose their levels and rewards when points go down. "
 "Rewards from previous levels are restored if possible."
@@ -2953,11 +2966,11 @@ msgstr ""
 "leurs récompenses lorsque les points diminuent. Les récompenses des niveaux "
 "précédents sont restaurées si possible."
 
-#: include/ui/admin.php:878
+#: include/ui/admin.php:852
 msgid "Lose rewards with points expiration"
 msgstr "Perdez les récompenses avec l'expiration des points"
 
-#: include/ui/admin.php:884
+#: include/ui/admin.php:858
 msgid ""
 "After a points loss due to points expiration, the customer will have to earn "
 "the rewards again. Ignored if points expiration isn’t set. Incompatible with "
@@ -2967,11 +2980,11 @@ msgstr ""
 "gagner à nouveau les récompenses. Ignoré si l’expiration des points n’est "
 "pas définie. Incompatible avec l’option ci-dessus"
 
-#: include/ui/admin.php:891
+#: include/ui/admin.php:865
 msgid "One level at a time"
 msgstr "Un niveau à la fois"
 
-#: include/ui/admin.php:897
+#: include/ui/admin.php:871
 msgid ""
 "If checked, customers can't earn more points than the points needed to reach "
 "the next level in one time."
@@ -2980,25 +2993,25 @@ msgstr ""
 "que les points nécessaires pour atteindre le niveau suivant en une seule "
 "fois."
 
-#: include/ui/admin.php:903
+#: include/ui/admin.php:877
 msgid "Unlock Best Level <b>Only</b>"
 msgstr "Débloquer le meilleur niveau <b>seulement</b>"
 
-#: include/ui/admin.php:908 include/ui/admin.php:1200
+#: include/ui/admin.php:882 include/ui/admin.php:1174
 msgctxt "best_unlock settings"
 msgid "Off"
 msgstr "Off"
 
-#: include/ui/admin.php:909
+#: include/ui/admin.php:883
 msgctxt "best_unlock settings"
 msgid "On"
 msgstr "On"
 
-#: include/ui/admin.php:917 include/ui/admin.php:1211
+#: include/ui/admin.php:891 include/ui/admin.php:1185
 msgid "Off :"
 msgstr "Off :"
 
-#: include/ui/admin.php:918
+#: include/ui/admin.php:892
 msgid ""
 "All levels will be unlocked, even if the user earns enough points in one "
 "time to unlock several levels."
@@ -3006,11 +3019,11 @@ msgstr ""
 "Tous les niveaux seront débloqués, même si l’utilisateur gagne suffisamment "
 "de points en une seule fois pour débloquer plusieurs niveaux."
 
-#: include/ui/admin.php:921
+#: include/ui/admin.php:895
 msgid "On :"
 msgstr "Sur:"
 
-#: include/ui/admin.php:922
+#: include/ui/admin.php:896
 msgid ""
 "Only the best level will be unlocked. If a user earns enough points to "
 "unlock several levels, only the highest will be unlocked"
@@ -3019,7 +3032,7 @@ msgstr ""
 "de points pour débloquer plusieurs niveaux, seul le plus élevé seront "
 "débloqué"
 
-#: include/ui/admin.php:935
+#: include/ui/admin.php:909
 msgid ""
 "You have access to different points expiration methods. To get more "
 "information on those methods, don't hesitate to take a look at the dedicated "
@@ -3030,31 +3043,31 @@ msgstr ""
 "documentation dédiée. Il suffit de cliquer sur l’icône du livre en haut à "
 "droite."
 
-#: include/ui/admin.php:938
+#: include/ui/admin.php:912
 msgid ""
 "You should only use one expiration method in your points and rewards system"
 msgstr ""
 "Vous ne devez utiliser qu’une seule méthode d’expiration dans votre système "
 "de fidélisation"
 
-#: include/ui/admin.php:947 include/ui/shortcodes/pointsexpiration.php:24
+#: include/ui/admin.php:921 include/ui/shortcodes/pointsexpiration.php:24
 msgid "Points Expiration"
 msgstr "Expiration des Points"
 
-#: include/ui/admin.php:953
+#: include/ui/admin.php:927
 msgid "Points expiration for inactivity"
 msgstr "Expiration des points pour inactivité"
 
-#: include/ui/admin.php:957
+#: include/ui/admin.php:931
 msgid "Defines if customers lose their points after an inactivity period"
 msgstr ""
 "Définit si les clients perdent leurs points après une période d'inactivité"
 
-#: include/ui/admin.php:962 include/ui/shortcodes/pointstransactions.php:24
+#: include/ui/admin.php:936 include/ui/shortcodes/pointstransactions.php:24
 msgid "Transactional Points expiration"
 msgstr "Expiration transactionnelle des points"
 
-#: include/ui/admin.php:967
+#: include/ui/admin.php:941
 #, php-format
 msgid ""
 "Defines if customers lose unused points periodically. Please read the %s for "
@@ -3063,12 +3076,12 @@ msgstr ""
 "Définit si les clients perdent périodiquement des points inutilisés. S'il "
 "vous plaît lisez la %s pour davantage d'explications."
 
-#: include/ui/admin.php:968 include/ui/adminscreens/socials.php:83
-#: include/ui/adminscreens/sponsorship.php:73
+#: include/ui/admin.php:942 include/ui/adminscreens/socials.php:83
+#: include/ui/adminscreens/sponsorship.php:95
 msgid "documentation"
 msgstr "documentation"
 
-#: include/ui/admin.php:980
+#: include/ui/admin.php:954
 msgid ""
 "You can change how points are displayed to customers. You can either set a "
 "text or an image."
@@ -3076,7 +3089,7 @@ msgstr ""
 "Vous pouvez modifier la façon dont les points sont affichés aux clients. "
 "Vous pouvez définir un texte ou une image."
 
-#: include/ui/admin.php:983
+#: include/ui/admin.php:957
 msgid ""
 "If you use multiple languages, labels won't be translated with po/mo files. "
 "However, it's possible with WPML."
@@ -3084,74 +3097,74 @@ msgstr ""
 "Si vous utilisez plusieurs langues, les étiquettes ne seront pas traduites "
 "avec des fichiers po/mo. Cependant, c’est possible avec WPML."
 
-#: include/ui/admin.php:992
+#: include/ui/admin.php:966
 msgid "Points Currency"
 msgstr "Devises de Points"
 
-#: include/ui/admin.php:1003
+#: include/ui/admin.php:977
 msgid "Point unit shown to the user."
 msgstr "Unité de point montrée à l'utilisateur."
 
-#: include/ui/admin.php:1008
+#: include/ui/admin.php:982
 msgid "Points display name (plural)"
 msgstr "Nom d'affichage des points (pluriel)"
 
-#: include/ui/admin.php:1013
+#: include/ui/admin.php:987
 msgid "(Optional) The singular form is used if plural is not set."
 msgstr ""
 "(Facultatif) La forme singulière est utilisée si le pluriel n'est pas réglé."
 
-#: include/ui/admin.php:1018
+#: include/ui/admin.php:992
 msgid "Point symbol"
 msgstr "Symbole de point"
 
-#: include/ui/admin.php:1022
+#: include/ui/admin.php:996
 msgid "If you set an image, it will replace the above labels."
 msgstr ""
 "Si vous configurez une image, elle remplacera les étiquettes ci-dessus."
 
-#: include/ui/admin.php:1027
+#: include/ui/admin.php:1001
 msgid "Point name position"
 msgstr "Position de nom de point"
 
-#: include/ui/admin.php:1033
+#: include/ui/admin.php:1007
 msgctxt "Point name position"
 msgid "Right"
 msgstr "Droite"
 
-#: include/ui/admin.php:1034
+#: include/ui/admin.php:1008
 msgctxt "Point name position"
 msgid "Left"
 msgstr "Gauche"
 
-#: include/ui/admin.php:1040
+#: include/ui/admin.php:1014
 msgid "Thousand Separator"
 msgstr "Séparateur de milliers"
 
-#: include/ui/admin.php:1044
+#: include/ui/admin.php:1018
 msgid "(Optional) The thousand separator when displaying big numbers."
 msgstr ""
 "(Facultatif) Le séparateur mille lors de l’affichage de grands nombres."
 
-#: include/ui/admin.php:1078 include/wizards/leveling.php:33
+#: include/ui/admin.php:1052 include/wizards/leveling.php:33
 msgid "Levels and Rewards"
 msgstr "Niveaux et récompenses"
 
-#: include/ui/admin.php:1082
+#: include/ui/admin.php:1056
 msgid "In a leveling system, you must "
 msgstr "Dans un système de nivellement, vous devez "
 
-#: include/ui/admin.php:1083
+#: include/ui/admin.php:1057
 msgid "create levels first"
 msgstr "créer des niveaux d’abord"
 
-#: include/ui/admin.php:1086
+#: include/ui/admin.php:1060
 msgid "After creating a level, you can add one or more rewards to the level."
 msgstr ""
 "Après avoir créé un niveau, vous pouvez ajouter une ou plusieurs récompenses "
 "au niveau."
 
-#: include/ui/admin.php:1087
+#: include/ui/admin.php:1061
 msgid ""
 "If you're not sure how to set up levels and rewards, please refer to the "
 "dedicated documentation by clicking the book icon on the top right."
@@ -3160,20 +3173,20 @@ msgstr ""
 "veuillez consulter la documentation dédiée en cliquant sur l’icône du livre "
 "en haut à droite."
 
-#: include/ui/admin.php:1090
+#: include/ui/admin.php:1064
 msgid "You can define as many levels and rewards as you want"
 msgstr ""
 "Vous pouvez définir autant de niveaux et de récompenses que vous le souhaitez"
 
-#: include/ui/admin.php:1097 include/ui/admin.php:1113
-#: include/ui/adminscreens/legacy.php:457
+#: include/ui/admin.php:1071 include/ui/admin.php:1087
+#: include/ui/adminscreens/legacy.php:486
 #: include/ui/legacy/loyaltyendpoint.php:69
 #: include/ui/shortcodes/rewards.php:36 include/wizards/standard.php:33
 #: include/wizards/standard.php:472
 msgid "Rewards"
 msgstr "Récompenses"
 
-#: include/ui/admin.php:1099
+#: include/ui/admin.php:1073
 msgid ""
 "In a standard system, you have to choose how customers will spend their "
 "points."
@@ -3181,7 +3194,7 @@ msgstr ""
 "Dans un système standard, vous devez choisir comment les clients dépenseront "
 "leurs points."
 
-#: include/ui/admin.php:1100
+#: include/ui/admin.php:1074
 msgid ""
 "They can either spend them directly on the cart to get an immediate discount "
 "or you can setup various rewards they buy with their points."
@@ -3190,7 +3203,7 @@ msgstr ""
 "remise immédiate ou vous pouvez configurer diverses récompenses qu’ils "
 "achètent avec leurs points."
 
-#: include/ui/admin.php:1101
+#: include/ui/admin.php:1075
 msgid ""
 "If you're not sure how to set up rewards, please refer to the dedicated "
 "documentation by clicking the book icon on the top right."
@@ -3198,47 +3211,47 @@ msgstr ""
 "Si vous ne savez pas comment configurer des récompenses, veuillez consulter "
 "la documentation dédiée en cliquant sur l’icône du livre en haut à droite."
 
-#: include/ui/admin.php:1107
+#: include/ui/admin.php:1081
 msgid "Rewards Type"
 msgstr "Type de récompenses"
 
-#: include/ui/admin.php:1114 include/ui/legacy/loyaltyendpoint.php:70
+#: include/ui/admin.php:1088 include/ui/legacy/loyaltyendpoint.php:70
 msgid "Points on Cart"
 msgstr "Points sur Panier"
 
-#: include/ui/admin.php:1124
+#: include/ui/admin.php:1098
 #, php-format
 msgid "Point Value in %s"
 msgstr "Valeur du point en %s"
 
-#: include/ui/admin.php:1127
+#: include/ui/admin.php:1101
 msgid ""
 "Each point spent on the cart will decrease the order total of that value"
 msgstr ""
 "Chaque point dépensé sur le panier diminuera le total des commandes de cette "
 "valeur"
 
-#: include/ui/admin.php:1134
+#: include/ui/admin.php:1108
 msgid "Min points usage"
 msgstr "Points Minimum"
 
-#: include/ui/admin.php:1139
+#: include/ui/admin.php:1113
 msgid "The minimum amount of points that can be used on a single cart"
 msgstr "Le nombre minimum de points devant être utilisés sur le panier"
 
-#: include/ui/admin.php:1146
+#: include/ui/admin.php:1120
 msgid "Max points usage"
 msgstr "Utilisation maximale des points"
 
-#: include/ui/admin.php:1151
+#: include/ui/admin.php:1125
 msgid "The maximum amount of points that can be used on a single cart"
 msgstr "Le nombre maximum de points pouvant être utilisés sur un seul panier"
 
-#: include/ui/admin.php:1158
+#: include/ui/admin.php:1132
 msgid "Max percentage of cart"
 msgstr "Pourcentage maximum de panier"
 
-#: include/ui/admin.php:1163
+#: include/ui/admin.php:1137
 msgid ""
 "The maximum amount a customer can spend in a single cart will be limited to "
 "the percentage of the payable total. Leave blank for no limit."
@@ -3246,11 +3259,11 @@ msgstr ""
 "Le montant maximal qu’un client peut dépenser dans un seul panier sera "
 "limité au pourcentage indiqué ici. Laissez vide pour ne pas mettre de limite."
 
-#: include/ui/admin.php:1170
+#: include/ui/admin.php:1144
 msgid "Lower Cart Limit"
 msgstr "Limite inférieure du panier"
 
-#: include/ui/admin.php:1175
+#: include/ui/admin.php:1149
 msgid ""
 "If set, customers can't use their points to discount the cart below that "
 "limit. Leave empty for no limit."
@@ -3258,11 +3271,11 @@ msgstr ""
 "S’ils sont définis, les clients ne peuvent pas utiliser leurs points pour "
 "réduire le panier en dessous de cette limite. Laisser vide sans limite."
 
-#: include/ui/admin.php:1182
+#: include/ui/admin.php:1156
 msgid "Minimum Cart Amount"
 msgstr "Montant minimum de panier"
 
-#: include/ui/admin.php:1187
+#: include/ui/admin.php:1161
 msgid ""
 "Set a minimum cart amount under which customers can't use their points on "
 "the cart. Once the cart total is above that value, customers will be able to "
@@ -3273,26 +3286,26 @@ msgstr ""
 "panier est supérieur à cette valeur, les clients pourront utiliser leurs "
 "points. Laisser vide si pas de minimum."
 
-#: include/ui/admin.php:1195
+#: include/ui/admin.php:1169
 msgid "Automatic Rewards Redeem"
 msgstr "Récompenses automatiques"
 
-#: include/ui/admin.php:1201
+#: include/ui/admin.php:1175
 msgctxt "best_unlock settings"
 msgid "Unlock best reward only"
 msgstr "Débloquer la meilleure récompense seulement"
 
-#: include/ui/admin.php:1202
+#: include/ui/admin.php:1176
 msgctxt "best_unlock settings"
 msgid "Unlock best reward first"
 msgstr "Débloquer la meilleure récompense d’abord"
 
-#: include/ui/admin.php:1203
+#: include/ui/admin.php:1177
 msgctxt "best_unlock settings"
 msgid "Unlock best reward and reset points"
 msgstr "Débloquer la meilleure récompense et réinitialiser les points"
 
-#: include/ui/admin.php:1212
+#: include/ui/admin.php:1186
 msgid ""
 "The customer has to manually redeem the rewards. A mail is sent each time he "
 "earns enough points for at least one of them."
@@ -3301,11 +3314,11 @@ msgstr ""
 "chaque fois qu’il gagne suffisamment de points pour au moins une d’entre "
 "elles."
 
-#: include/ui/admin.php:1215
+#: include/ui/admin.php:1189
 msgid "Best only :"
 msgstr "La meilleure seulement :"
 
-#: include/ui/admin.php:1216
+#: include/ui/admin.php:1190
 msgid ""
 "Only the most expensive reward or the highest level the user can afford will "
 "be unlocked."
@@ -3313,11 +3326,11 @@ msgstr ""
 "Seule la récompense la plus chère ou le niveau le plus élevé que "
 "l’utilisateur peut se permettre sera déverrouillé."
 
-#: include/ui/admin.php:1219
+#: include/ui/admin.php:1193
 msgid "Best first :"
 msgstr "Meilleur en premier :"
 
-#: include/ui/admin.php:1220
+#: include/ui/admin.php:1194
 msgid ""
 "Rewards are unlocked as long as customer can afford it, starting by the most "
 "expensive reward (The same reward can be unlocked several time)."
@@ -3326,63 +3339,63 @@ msgstr ""
 "commencer par la récompense la plus chère (la même récompense peut être "
 "débloquée plusieurs fois)."
 
-#: include/ui/admin.php:1223
+#: include/ui/admin.php:1197
 msgid "Best and Reset :"
 msgstr "Meilleure et réinitialisation :"
 
-#: include/ui/admin.php:1224
+#: include/ui/admin.php:1198
 msgid "Same as 'Best only' but consume all customer's points."
 msgstr ""
 "Même que « La meilleure seulement », mais consommer tous les points du "
 "client."
 
-#: include/ui/admin.php:1244
+#: include/ui/admin.php:1218
 msgid "Add level"
 msgstr "Ajouter un niveau"
 
-#: include/ui/admin.php:1247
+#: include/ui/admin.php:1221
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: include/ui/admin.php:1248 include/ui/admin.php:1252
+#: include/ui/admin.php:1222 include/ui/admin.php:1226
 msgctxt "Level Threshold Title edit"
 msgid "Level Title"
 msgstr "Titre du Niveau"
 
-#: include/ui/admin.php:1249 include/ui/admin.php:1253
+#: include/ui/admin.php:1223 include/ui/admin.php:1227
 msgctxt "edit"
 msgid "Points Threshold"
 msgstr "Seuil des points"
 
-#: include/ui/admin.php:1250
+#: include/ui/admin.php:1224
 msgid "Title is required."
 msgstr "Merci de renseigner le champs titre."
 
-#: include/ui/admin.php:1251
+#: include/ui/admin.php:1225
 msgid "Cost must be a number greater than zero."
 msgstr "Le coût doit être un nombre supérieur à zéro."
 
-#: include/ui/admin.php:1288 include/ui/editlists/pools.php:440
+#: include/ui/admin.php:1262 include/ui/editlists/pools.php:440
 msgid "Behavior"
 msgstr "Comportement"
 
-#: include/ui/admin.php:1294
+#: include/ui/admin.php:1268
 msgctxt "Pool Type/behavior"
 msgid "Standard"
 msgstr "Standard"
 
-#: include/ui/admin.php:1295
+#: include/ui/admin.php:1269
 msgctxt "Pool Type/behavior"
 msgid "Levelling"
 msgstr "Par niveaux"
 
-#: include/ui/admin.php:1297
+#: include/ui/admin.php:1271
 msgid "<i>Standard behavior</i>: customers can spend points to buy rewards"
 msgstr ""
 "<i>Comportement standard</i> les clients peuvent dépenser des points pour "
 "acheter des récompenses"
 
-#: include/ui/admin.php:1298
+#: include/ui/admin.php:1272
 msgid ""
 "<i>Levelling behavior</i>: rewards are automatically granted to customers "
 "since they have enough points (points are never spent)."
@@ -3391,26 +3404,26 @@ msgstr ""
 "accordées aux clients car ils ont suffisamment de points (les points ne sont "
 "jamais dépensés)."
 
-#: include/ui/admin.php:1307
+#: include/ui/admin.php:1281
 msgid "System Type"
 msgstr "Type de Système"
 
-#: include/ui/admin.php:1313 include/unlockables/coupon.php:266
+#: include/ui/admin.php:1287 include/unlockables/coupon.php:266
 #: include/unlockables/freeshipping.php:81
 msgid "Permanent"
 msgstr "Permanent"
 
-#: include/ui/admin.php:1314
+#: include/ui/admin.php:1288
 msgid "Event"
 msgstr "Événement"
 
-#: include/ui/admin.php:1326 include/wizards/double.php:65
+#: include/ui/admin.php:1300 include/wizards/double.php:65
 #: include/wizards/double.php:167 include/wizards/event.php:468
 #: include/wizards/event.php:631
 msgid "Start Date"
 msgstr "Date de début"
 
-#: include/ui/admin.php:1331
+#: include/ui/admin.php:1305
 msgid ""
 "Before that date, the points and rewards system is disabled but customer can "
 "see it."
@@ -3418,11 +3431,11 @@ msgstr ""
 "Avant cette date, le système de points et récompenses est désactivé, mais le "
 "client peut le voir."
 
-#: include/ui/admin.php:1341
+#: include/ui/admin.php:1315
 msgid "Point earning end"
 msgstr "Fin de gain de points"
 
-#: include/ui/admin.php:1346
+#: include/ui/admin.php:1320
 msgid ""
 "After that date, customers can no longer earn points. But they still can "
 "spend them for rewards."
@@ -3430,13 +3443,13 @@ msgstr ""
 "Après cette date, les clients ne peuvent plus gagner de points. Mais ils "
 "peuvent toujours les dépenser pour des récompenses."
 
-#: include/ui/admin.php:1356 include/wizards/double.php:74
+#: include/ui/admin.php:1330 include/wizards/double.php:74
 #: include/wizards/double.php:169 include/wizards/event.php:477
 #: include/wizards/event.php:633
 msgid "End Date"
 msgstr "Date de fin"
 
-#: include/ui/admin.php:1361
+#: include/ui/admin.php:1335
 msgid ""
 "After that date, the points and rewards system will be disabled but customer "
 "can see it. Customers keep their remaining points but cannot use them "
@@ -3446,17 +3459,17 @@ msgstr ""
 "le client pourront le voir. Les clients conservent leurs points restants "
 "mais ne peuvent plus les utiliser."
 
-#: include/ui/admin.php:1438
+#: include/ui/admin.php:1412
 #, php-format
 msgctxt "points - level title"
 msgid "%1$s - %2$s"
 msgstr "%1$s - %2$s"
 
-#: include/ui/admin.php:1462
+#: include/ui/admin.php:1436
 msgid "Delete points history and user data"
 msgstr "Supprimer l’historique des points et les données utilisateur"
 
-#: include/ui/admin.php:1465
+#: include/ui/admin.php:1439
 msgid ""
 "Delete a user's or all users points history for one or all points and "
 "rewards systems."
@@ -3464,39 +3477,39 @@ msgstr ""
 "Supprimez l’historique des points d’un utilisateur ou de tous les "
 "utilisateurs pour un ou tous les systèmes de points et de récompenses."
 
-#: include/ui/admin.php:1466 include/ui/admin.php:1546
+#: include/ui/admin.php:1440 include/ui/admin.php:1520
 msgid "Use this feature with care since this action is <b>irreversible</b>."
 msgstr ""
 "Utilisez cette fonctionnalité avec soin car cette action <b>est "
 "irréversible</b>."
 
-#: include/ui/admin.php:1470
+#: include/ui/admin.php:1444
 msgid "Select a behavior"
 msgstr "Sélectionner un comportement"
 
-#: include/ui/admin.php:1477 include/ui/admin.php:1484
+#: include/ui/admin.php:1451 include/ui/admin.php:1458
 msgid "Delete History Only"
 msgstr "Supprimer l’historique uniquement"
 
-#: include/ui/admin.php:1478 include/ui/admin.php:1488
+#: include/ui/admin.php:1452 include/ui/admin.php:1462
 msgid "Delete All User Data"
 msgstr "Supprimer toutes les données utilisateur"
 
-#: include/ui/admin.php:1485
+#: include/ui/admin.php:1459
 msgid "Users keep their points and rewards, only history rows are cleaned."
 msgstr ""
 "Les utilisateurs conservent leurs points et récompenses, seules les lignes "
 "de l’historique sont nettoyées."
 
-#: include/ui/admin.php:1489
+#: include/ui/admin.php:1463
 msgid "This will leave users with zero points and no rewards."
 msgstr "Cela laissera les utilisateurs avec zéro point et aucune récompense."
 
-#: include/ui/admin.php:1496 include/ui/legacy/loyaltyendpoint.php:68
+#: include/ui/admin.php:1470 include/ui/legacy/loyaltyendpoint.php:68
 msgid "End date"
 msgstr "Date de fin"
 
-#: include/ui/admin.php:1502
+#: include/ui/admin.php:1476
 msgid ""
 "Only history before that date will be deleted. If you don't pick a date, the "
 "whole history will be deleted."
@@ -3504,45 +3517,45 @@ msgstr ""
 "Seul l’historique antérieur à cette date sera supprimé. Si vous ne "
 "choisissez pas de date, tout l’historique sera supprimé."
 
-#: include/ui/admin.php:1508
+#: include/ui/admin.php:1482
 msgid "Select a user"
 msgstr "Sélectionnez un utilisateur"
 
-#: include/ui/admin.php:1514
+#: include/ui/admin.php:1488
 msgid "If you don't select a user, all users points history will be deleted."
 msgstr ""
 "Si vous ne sélectionnez pas d’utilisateur, tous les points utilisateur sont "
 "supprimés."
 
-#: include/ui/admin.php:1519
+#: include/ui/admin.php:1493
 msgid "Select a points and rewards system"
 msgstr "Sélectionnez un système de points et de récompenses"
 
-#: include/ui/admin.php:1525
+#: include/ui/admin.php:1499
 msgid "If you don't select a system, history for all systems will be deleted."
 msgstr ""
 "Si vous ne sélectionnez pas de système, l’historique de tous les systèmes "
 "sera supprimé."
 
-#: include/ui/admin.php:1530 include/ui/admin.php:1587
+#: include/ui/admin.php:1504 include/ui/admin.php:1561
 msgid "Delete Points History"
 msgstr "Supprimer l’historique des points"
 
-#: include/ui/admin.php:1542
+#: include/ui/admin.php:1516
 msgid "Delete unused points reserves"
 msgstr "Supprimer les réserves de points inutilisées"
 
-#: include/ui/admin.php:1545
+#: include/ui/admin.php:1519
 msgid "Delete point reserves that do not belong to any loyalty system anymore."
 msgstr ""
 "Supprimez les réserves de points qui n’appartiennent plus à aucun système de "
 "fidélité."
 
-#: include/ui/admin.php:1550
+#: include/ui/admin.php:1524
 msgid "Select a reserve"
 msgstr "Sélectionner une réserve"
 
-#: include/ui/admin.php:1556
+#: include/ui/admin.php:1530
 msgid ""
 "Only reserves where no loyalty system can be found are listed here. Relevant "
 "user point history will be deleted too."
@@ -3551,11 +3564,11 @@ msgstr ""
 "répertoriées ici. L’historique des points utilisateur pertinents sera "
 "également supprimé."
 
-#: include/ui/admin.php:1561 include/ui/admin.php:1669
+#: include/ui/admin.php:1535 include/ui/admin.php:1643
 msgid "Delete Points Reserve"
 msgstr "Supprimer la réserve de points"
 
-#: include/ui/admin.php:1586
+#: include/ui/admin.php:1560
 #, php-format
 msgid ""
 "If you really want to reset points history, check this box and click on "
@@ -3564,35 +3577,35 @@ msgstr ""
 "Si vous voulez vraiment réinitialiser l’historique des points, cochez cette "
 "case et cliquez à nouveau sur <i>'%s'</i> ."
 
-#: include/ui/admin.php:1588 include/ui/admin.php:1670
+#: include/ui/admin.php:1562 include/ui/admin.php:1644
 msgid "This operation is irreversible!"
 msgstr "Cette opération est irréversible !"
 
-#: include/ui/admin.php:1609
+#: include/ui/admin.php:1583
 msgid "Bad date format"
 msgstr "Mauvais format de date"
 
-#: include/ui/admin.php:1622
+#: include/ui/admin.php:1596
 msgid "The selected points and rewards system can't be found"
 msgstr "Le système de points et de récompenses sélectionné est introuvable"
 
-#: include/ui/admin.php:1647
+#: include/ui/admin.php:1621
 msgid "Data was correctly deleted"
 msgstr "Les données ont été correctement supprimées"
 
-#: include/ui/admin.php:1649
+#: include/ui/admin.php:1623
 msgid "History was correctly deleted"
 msgstr "L’historique a été correctement supprimé"
 
-#: include/ui/admin.php:1653
+#: include/ui/admin.php:1627
 msgid "An error occured during deletion"
 msgstr "Une erreur s’est produite lors de la suppression"
 
-#: include/ui/admin.php:1665
+#: include/ui/admin.php:1639
 msgid "You have to select a point reserve"
 msgstr "Vous devez sélectionner une réserve de points"
 
-#: include/ui/admin.php:1668
+#: include/ui/admin.php:1642
 #, php-format
 msgid ""
 "If you really want to delete this points reserve, check this box and click "
@@ -3601,13 +3614,13 @@ msgstr ""
 "Si vous souhaitez vraiment supprimer cette réserve de points, cochez cette "
 "case et cliquez à nouveau sur <i>'%s'</i> ."
 
-#: include/ui/admin.php:1688
+#: include/ui/admin.php:1662
 msgid "Reserve was correctly deleted"
 msgstr "La réserve a été correctement supprimée"
 
 #: include/ui/adminscreens/achievements.php:23
 #: include/ui/adminscreens/achievements.php:71
-#: include/ui/adminscreens/legacy.php:284
+#: include/ui/adminscreens/legacy.php:296
 #: include/ui/adminscreens/woocommerce.php:256
 #: include/ui/endpoints/achievements.php:16
 #: include/ui/endpoints/achievements.php:29
@@ -3615,7 +3628,7 @@ msgstr "La réserve a été correctement supprimée"
 #: include/ui/legacy/achievementsendpoint.php:43
 #: include/ui/shortcodes/achievements.php:23
 #: include/ui/shortcodes/leaderboard.php:119 include/unlockables/badge.php:260
-#: woorewards-pro.php:579
+#: woorewards-pro.php:583
 msgid "Achievements"
 msgstr "Succès"
 
@@ -3723,7 +3736,7 @@ msgstr ""
 msgid "Legacy"
 msgstr "Héritage"
 
-#: include/ui/adminscreens/legacy.php:37
+#: include/ui/adminscreens/legacy.php:49
 msgid ""
 "This is a legacy option and will stop being supported at some point. Please "
 "use other provided tools and shortcodes instead"
@@ -3732,11 +3745,11 @@ msgstr ""
 "moment donné. Veuillez utiliser d’autres outils et shortcodes fournis à la "
 "place"
 
-#: include/ui/adminscreens/legacy.php:55 include/ui/adminscreens/legacy.php:399
+#: include/ui/adminscreens/legacy.php:67 include/ui/adminscreens/legacy.php:428
 msgid "Cart Coupons"
 msgstr "Coupons du panier"
 
-#: include/ui/adminscreens/legacy.php:56
+#: include/ui/adminscreens/legacy.php:68
 msgid ""
 "Show to the customer his available coupons. That block stay hidden if "
 "customer doesn't have coupons."
@@ -3744,11 +3757,11 @@ msgstr ""
 "Montrer au client ses codes promo disponibles. Ce bloc reste caché si le "
 "client n'a pas de code promo."
 
-#: include/ui/adminscreens/legacy.php:61
+#: include/ui/adminscreens/legacy.php:73
 msgid "Reload page to apply coupon"
 msgstr "Recharger la page pour appliquer le coupon"
 
-#: include/ui/adminscreens/legacy.php:65
+#: include/ui/adminscreens/legacy.php:77
 msgid ""
 "Using a custom cart widget can prevent the default javascript behavior. In "
 "that case, check that option to force a page reload when customer apply a "
@@ -3758,63 +3771,63 @@ msgstr ""
 "comportement javascript par défaut. Dans ce cas, cochez cette option pour "
 "forcer le chargement d'une page lorsque le client applique un coupon."
 
-#: include/ui/adminscreens/legacy.php:70 include/ui/adminscreens/legacy.php:316
+#: include/ui/adminscreens/legacy.php:82 include/ui/adminscreens/legacy.php:328
 #: include/ui/adminscreens/woocommerce.php:368
 msgid "Location"
 msgstr "Emplacement"
 
-#: include/ui/adminscreens/legacy.php:78 include/ui/adminscreens/legacy.php:324
+#: include/ui/adminscreens/legacy.php:90 include/ui/adminscreens/legacy.php:336
 #: include/ui/adminscreens/woocommerce.php:376
 msgid "Not displayed at all"
 msgstr "Ne s'affiche pas du tout"
 
-#: include/ui/adminscreens/legacy.php:79 include/ui/adminscreens/legacy.php:325
+#: include/ui/adminscreens/legacy.php:91 include/ui/adminscreens/legacy.php:337
 msgid "Between products and totals"
 msgstr "Entre les produits et les totaux"
 
-#: include/ui/adminscreens/legacy.php:80 include/ui/adminscreens/legacy.php:326
+#: include/ui/adminscreens/legacy.php:92 include/ui/adminscreens/legacy.php:338
 msgid "Left of cart totals"
 msgstr "À gauche des totaux du panier"
 
-#: include/ui/adminscreens/legacy.php:81 include/ui/adminscreens/legacy.php:327
+#: include/ui/adminscreens/legacy.php:93 include/ui/adminscreens/legacy.php:339
 msgid "Bottom of the cart page"
 msgstr "Bas de la page du panier"
 
-#: include/ui/adminscreens/legacy.php:107
-#: include/ui/adminscreens/legacy.php:441
+#: include/ui/adminscreens/legacy.php:119
+#: include/ui/adminscreens/legacy.php:470
 msgid "Owned Coupons"
 msgstr "Coupons possédés"
 
-#: include/ui/adminscreens/legacy.php:109
+#: include/ui/adminscreens/legacy.php:121
 msgid "In this Widget, customers can see the WooCommerce coupons they own."
 msgstr ""
 "Dans ce widget, les clients peuvent voir les codes promo WooCommerce qu'ils "
 "possèdent."
 
-#: include/ui/adminscreens/legacy.php:114
+#: include/ui/adminscreens/legacy.php:126
 #: include/ui/adminscreens/socials.php:238
-#: include/ui/adminscreens/sponsorship.php:96
+#: include/ui/adminscreens/sponsorship.php:118
 msgid "Text displayed if user not connected"
 msgstr "Texte affiché si l’utilisateur n’est pas connecté"
 
-#: include/ui/adminscreens/legacy.php:118
+#: include/ui/adminscreens/legacy.php:130
 #: include/ui/legacy/couponswidget.php:136
 msgid "Please log in to see the coupons you have"
 msgstr "Veuillez vous connecter pour voir les coupons que vous avez"
 
-#: include/ui/adminscreens/legacy.php:123
+#: include/ui/adminscreens/legacy.php:135
 msgid "Text displayed if no coupon available"
 msgstr "Texte affiché si aucun coupon n'est disponible"
 
-#: include/ui/adminscreens/legacy.php:127
+#: include/ui/adminscreens/legacy.php:139
 msgid "No coupon available"
 msgstr "Aucun coupon disponible"
 
-#: include/ui/adminscreens/legacy.php:149
+#: include/ui/adminscreens/legacy.php:161
 msgid "Standard System Rewards"
 msgstr "Récompenses système standard"
 
-#: include/ui/adminscreens/legacy.php:153
+#: include/ui/adminscreens/legacy.php:165
 msgid ""
 "In this Widget, customers can see the Rewards they can unlock in a Standard "
 "points and rewards system."
@@ -3822,7 +3835,7 @@ msgstr ""
 "Dans ce widget, les clients peuvent voir les récompenses qu’ils peuvent "
 "débloquer dans un système standard de points et de récompenses."
 
-#: include/ui/adminscreens/legacy.php:154
+#: include/ui/adminscreens/legacy.php:166
 #, php-format
 msgid ""
 "If you change the 'Reward Cost' text, use %s to display the reward cost "
@@ -3831,7 +3844,7 @@ msgstr ""
 "Si vous modifiez le texte 'Coût de la récompense', utilisez %s pour afficher "
 "le coût de la récompense (par exemple : 100 Points)"
 
-#: include/ui/adminscreens/legacy.php:155
+#: include/ui/adminscreens/legacy.php:167
 #, php-format
 msgid ""
 "If you change the 'Need More Points' text, use %s to display the reward cost "
@@ -3841,17 +3854,17 @@ msgstr ""
 "afficher le coût de la récompense et %s pour afficher les points encore "
 "nécessaires"
 
-#: include/ui/adminscreens/legacy.php:161
+#: include/ui/adminscreens/legacy.php:173
 msgid "Use grid display instead of table display"
 msgstr "Utiliser l’affichage  en grille au lieu de l’affichage en table"
 
-#: include/ui/adminscreens/legacy.php:166
+#: include/ui/adminscreens/legacy.php:178
 msgid "Until MyRewards 3.4, this widget used html tables to display rewards."
 msgstr ""
 "Jusqu’à MyRewards 3,4, ce widget utilisait des tables html pour afficher des "
 "récompenses."
 
-#: include/ui/adminscreens/legacy.php:167
+#: include/ui/adminscreens/legacy.php:179
 msgid ""
 "If you've set up the widget before that version, checking that box will "
 "force you to style it again"
@@ -3859,11 +3872,11 @@ msgstr ""
 "Si vous avez configuré le widget avant cette version, cocher cette case vous "
 "obligera à le styler à nouveau"
 
-#: include/ui/adminscreens/legacy.php:172
+#: include/ui/adminscreens/legacy.php:184
 msgid "Image Size"
 msgstr "Taille de l'image"
 
-#: include/ui/adminscreens/legacy.php:179
+#: include/ui/adminscreens/legacy.php:191
 msgid ""
 "Default size should be lws_wr_thumbnail. If you change css to enlarge the "
 "images, you should set a larger default image size preventing you from "
@@ -3873,12 +3886,12 @@ msgstr ""
 "agrandir les images, vous devez définir une plus grande taille d’image par "
 "défaut vous empêchant d’obtenir des images floues."
 
-#: include/ui/adminscreens/legacy.php:206
+#: include/ui/adminscreens/legacy.php:218
 msgid "Leveling System Rewards"
 msgstr "Récompenses système par niveaux"
 
-#: include/ui/adminscreens/legacy.php:208
-#: include/ui/adminscreens/legacy.php:219
+#: include/ui/adminscreens/legacy.php:220
+#: include/ui/adminscreens/legacy.php:231
 msgid ""
 "In this Widget, customers can see the Rewards they can win in a Levelling "
 "points and rewards system."
@@ -3886,11 +3899,11 @@ msgstr ""
 "Dans ce widget, les clients peuvent voir les récompenses qu’ils peuvent "
 "gagner dans un système de points et de récompenses de nivellement."
 
-#: include/ui/adminscreens/legacy.php:230
+#: include/ui/adminscreens/legacy.php:242
 msgid "Earning Points"
 msgstr "Points gagnés"
 
-#: include/ui/adminscreens/legacy.php:232
+#: include/ui/adminscreens/legacy.php:244
 msgid ""
 "In this Widget, customers can see what they need to do in order to earn "
 "points"
@@ -3898,22 +3911,22 @@ msgstr ""
 "Dans ce widget, les clients peuvent voir ce qu’ils doivent faire afin de "
 "gagner des points"
 
-#: include/ui/adminscreens/legacy.php:259
+#: include/ui/adminscreens/legacy.php:271
 msgid ""
 "In this Widget, customers can see the badges available and the ones they own"
 msgstr ""
 "Dans ce widget, les clients peuvent voir les badges disponibles et ceux "
 "qu’ils possèdent"
 
-#: include/ui/adminscreens/legacy.php:285
+#: include/ui/adminscreens/legacy.php:297
 msgid "In this Widget, customers can see the achievements and their progress"
 msgstr "Dans ce widget, les clients peuvent voir les succès et leurs progrès"
 
-#: include/ui/adminscreens/legacy.php:310
+#: include/ui/adminscreens/legacy.php:322
 msgid "Cart Page Preview"
 msgstr "Aperçu de la page du panier"
 
-#: include/ui/adminscreens/legacy.php:311
+#: include/ui/adminscreens/legacy.php:323
 msgid ""
 "Show points that a customer could earn with his current cart. That block "
 "stay hidden if customer does not earn points."
@@ -3921,34 +3934,34 @@ msgstr ""
 "Afficher les points qu'un client peut gagner avec son panier actuel. Ce bloc "
 "reste caché si le client ne gagne pas de points."
 
-#: include/ui/adminscreens/legacy.php:333
+#: include/ui/adminscreens/legacy.php:345
 msgid "Show Detail"
 msgstr "Montrer les détails"
 
-#: include/ui/adminscreens/legacy.php:337
+#: include/ui/adminscreens/legacy.php:349
 msgid "Check this option if you want to show the methods to earn points detail"
 msgstr ""
 "Cochez cette option si vous voulez montrer le détail des méthodes pour "
 "gagner des points"
 
-#: include/ui/adminscreens/legacy.php:342
+#: include/ui/adminscreens/legacy.php:354
 #: include/ui/adminscreens/woocommerce.php:386
 msgid "Text for unlogged customers"
 msgstr "Texte pour les clients non connectés"
 
-#: include/ui/adminscreens/legacy.php:347
+#: include/ui/adminscreens/legacy.php:359
 #: include/ui/adminscreens/woocommerce.php:391
 msgid "Fill this if you want to show a text for unlogged customers"
 msgstr ""
 "Remplissez ceci si vous voulez afficher un texte pour les clients non "
 "connectés"
 
-#: include/ui/adminscreens/legacy.php:352
+#: include/ui/adminscreens/legacy.php:364
 #: include/ui/adminscreens/woocommerce.php:396
 msgid "Show for unlogged customers"
 msgstr "Afficher pour les clients non connectés"
 
-#: include/ui/adminscreens/legacy.php:356
+#: include/ui/adminscreens/legacy.php:368
 #: include/ui/adminscreens/woocommerce.php:401
 msgid ""
 "Check this option if you want to show potentially earned points to unlogged "
@@ -3957,7 +3970,7 @@ msgstr ""
 "Cochez cette option si vous voulez montrer le détail des méthodes pour "
 "gagner des points"
 
-#: include/ui/adminscreens/legacy.php:361
+#: include/ui/adminscreens/legacy.php:373
 #: include/ui/adminscreens/woocommerce.php:104
 #: include/ui/adminscreens/woocommerce.php:406
 #: include/ui/adminscreens/woocommerce.php:465
@@ -3965,7 +3978,7 @@ msgstr ""
 msgid "Points and rewards systems"
 msgstr "Systèmes de points et récompenses"
 
-#: include/ui/adminscreens/legacy.php:365
+#: include/ui/adminscreens/legacy.php:377
 #: include/ui/adminscreens/woocommerce.php:410
 msgid ""
 "If you select several systems, they will be displayed separately, one after "
@@ -3974,13 +3987,26 @@ msgstr ""
 "Si vous sélectionnez plusieurs systèmes, ils seront affichés séparément, "
 "l'un après l'autre."
 
-#: include/ui/adminscreens/legacy.php:390
+#: include/ui/adminscreens/legacy.php:406
+#: include/ui/adminscreens/shortcodes.php:13
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: include/ui/adminscreens/legacy.php:408
+msgid ""
+"These shortcodes are deprecated and are kept here for compatibility. Try to "
+"replace them with other shortcodes"
+msgstr ""
+"Ces shortcodes sont déconseillés et sont conservés ici pour des raisons de "
+"compatibilité. Essayez de les remplacer par d’autres shortcodes"
+
+#: include/ui/adminscreens/legacy.php:419
 #: include/ui/adminscreens/woocommerce.php:66
 #: include/ui/endpoints/loyalty.php:15 include/ui/legacy/loyaltyendpoint.php:15
 msgid "Loyalty and Rewards"
 msgstr "Fidélisation et Récompenses"
 
-#: include/ui/adminscreens/legacy.php:394
+#: include/ui/adminscreens/legacy.php:423
 msgid ""
 "This shortcode shows all loyalty and rewards information visible in "
 "WooCommerce's 'My Account' page."
@@ -3988,7 +4014,7 @@ msgstr ""
 "Ce shortcode affiche toutes les informations de fidélité et récompenses "
 "visibles dans la page « Mon compte » de WooCommerce."
 
-#: include/ui/adminscreens/legacy.php:403
+#: include/ui/adminscreens/legacy.php:432
 msgid ""
 "This shortcode shows coupons owned by the user and proposes a button to "
 "apply them on the cart."
@@ -3996,11 +4022,11 @@ msgstr ""
 "Ce shortcode affiche les coupons appartenant à l’utilisateur et propose un "
 "bouton pour les appliquer sur le panier."
 
-#: include/ui/adminscreens/legacy.php:408
+#: include/ui/adminscreens/legacy.php:437
 msgid "Display Points"
 msgstr "Widget Afficher les points"
 
-#: include/ui/adminscreens/legacy.php:412
+#: include/ui/adminscreens/legacy.php:441
 msgid ""
 "This shortcode shows to customers the points they have on a points and "
 "rewards system."
@@ -4008,9 +4034,9 @@ msgstr ""
 "Ce shortcode montre aux clients les points qu’ils ont sur un système de "
 "points et récompenses."
 
-#: include/ui/adminscreens/legacy.php:418
-#: include/ui/adminscreens/legacy.php:465
-#: include/ui/adminscreens/legacy.php:509
+#: include/ui/adminscreens/legacy.php:447
+#: include/ui/adminscreens/legacy.php:494
+#: include/ui/adminscreens/legacy.php:538
 #: include/ui/shortcodes/nextlevelpoints.php:32
 #: include/ui/shortcodes/progressbar.php:34
 #: include/ui/shortcodes/userlevel.php:30
@@ -4024,7 +4050,7 @@ msgstr ""
 "strong>, dans la colonne <b>Attribut Shortcode.</b> Si vous ne définissez "
 "pas cette valeur, rien ne sera affiché."
 
-#: include/ui/adminscreens/legacy.php:422
+#: include/ui/adminscreens/legacy.php:451
 #: include/ui/shortcodes/pointsexpiration.php:36
 #: include/ui/shortcodes/pointstransactions.php:36
 msgid ""
@@ -4034,11 +4060,11 @@ msgstr ""
 "(Facultatif) Si défini, les points seront affichés même si l’utilisateur n’a "
 "actuellement pas accès au système de points et récompenses."
 
-#: include/ui/adminscreens/legacy.php:426
+#: include/ui/adminscreens/legacy.php:455
 msgid "(Optional) The text displayed before the points."
 msgstr "(Facultatif) Le texte affiché avant les points."
 
-#: include/ui/adminscreens/legacy.php:430
+#: include/ui/adminscreens/legacy.php:459
 msgid ""
 "(Optional) An url linking to a page with more details on the points and "
 "rewards systems."
@@ -4046,7 +4072,7 @@ msgstr ""
 "(Facultatif) Une url reliant à une page avec plus de détails sur les "
 "systèmes de points récompenses."
 
-#: include/ui/adminscreens/legacy.php:434
+#: include/ui/adminscreens/legacy.php:463
 msgid ""
 "(Optional) If set, the number of points displayed will show the points "
 "currency."
@@ -4054,18 +4080,18 @@ msgstr ""
 "(Facultatif) S’il est défini, le nombre de points affichés affichera la "
 "devise des points."
 
-#: include/ui/adminscreens/legacy.php:445
+#: include/ui/adminscreens/legacy.php:474
 msgid ""
 "This shortcode shows to customers the woocommerce coupons they currently "
 "have."
 msgstr ""
 "Ce shortcode montre aux clients les coupons WooCommerce en leur possession."
 
-#: include/ui/adminscreens/legacy.php:450
+#: include/ui/adminscreens/legacy.php:479
 msgid "The text displayed before the coupons."
 msgstr "Le texte affiché avant les coupons."
 
-#: include/ui/adminscreens/legacy.php:461
+#: include/ui/adminscreens/legacy.php:490
 msgid ""
 "This shortcode shows to customers the rewards they can earn in a points and "
 "rewards system."
@@ -4073,12 +4099,12 @@ msgstr ""
 "Dans ce widget, les clients peuvent voir les récompenses qu’ils peuvent "
 "gagner dans un système de points et récompenses par niveaux."
 
-#: include/ui/adminscreens/legacy.php:469
+#: include/ui/adminscreens/legacy.php:498
 msgid "The text displayed before the rewards."
 msgstr "Le texte affiché avant les récompenses."
 
-#: include/ui/adminscreens/legacy.php:473
-#: include/ui/adminscreens/legacy.php:513
+#: include/ui/adminscreens/legacy.php:502
+#: include/ui/adminscreens/legacy.php:542
 msgid ""
 "If systems share the same points pool, you can show the rewards of all "
 "shared systems together. <strong>Warning</strong> : This only works if "
@@ -4089,8 +4115,8 @@ msgstr ""
 "<strong>Avertissement</strong> : Cela ne fonctionne que si les systèmes "
 "utilisent le même type (Standard ou Par Niveaux)."
 
-#: include/ui/adminscreens/legacy.php:477
-#: include/ui/adminscreens/legacy.php:517
+#: include/ui/adminscreens/legacy.php:506
+#: include/ui/adminscreens/legacy.php:546
 msgid ""
 "If set, the points will be shown even if the user currently doesn’t have "
 "access to the points and rewards system."
@@ -4098,33 +4124,33 @@ msgstr ""
 "(Facultatif) Si défini, les points seront affichés même si l’utilisateur n’a "
 "actuellement pas accès au système de points et récompenses."
 
-#: include/ui/adminscreens/legacy.php:482
+#: include/ui/adminscreens/legacy.php:511
 msgid "Select the rewards you want to show to customers : "
 msgstr "Sélectionnez les récompenses que vous souhaitez montrer aux clients : "
 
-#: include/ui/adminscreens/legacy.php:485
+#: include/ui/adminscreens/legacy.php:514
 msgid "All rewards of the selected points and rewards system"
 msgstr ""
 "Toutes les récompenses des systèmes de points et récompenses sélectionnés"
 
-#: include/ui/adminscreens/legacy.php:488
+#: include/ui/adminscreens/legacy.php:517
 msgid "Only for logged users – Show rewards they can unlock with their points"
 msgstr ""
 "Uniquement pour les utilisateurs connectés – Afficher les récompenses qu’ils "
 "peuvent débloquer avec leurs points"
 
-#: include/ui/adminscreens/legacy.php:491
+#: include/ui/adminscreens/legacy.php:520
 msgid ""
 "Only for logged users – Show rewards for which users don’t have enough points"
 msgstr ""
 "Uniquement pour les utilisateurs connectés – Afficher les récompenses pour "
 "lesquelles les utilisateurs n’ont pas assez de points"
 
-#: include/ui/adminscreens/legacy.php:501
+#: include/ui/adminscreens/legacy.php:530
 msgid "Actions to earn points"
 msgstr "Actions pour gagner des points"
 
-#: include/ui/adminscreens/legacy.php:505
+#: include/ui/adminscreens/legacy.php:534
 msgid ""
 "This shortcode shows to customers the actions to perform in order to earn "
 "points."
@@ -4132,17 +4158,83 @@ msgstr ""
 "Ce shortcode montre aux clients les actions à effectuer afin de gagner des "
 "points."
 
-#: include/ui/adminscreens/legacy.php:521
+#: include/ui/adminscreens/legacy.php:550
 msgid " The text displayed over the earning methods list."
 msgstr " Le texte affiché sur la liste des méthodes de gain."
 
-#: include/ui/adminscreens/legacy.php:525
+#: include/ui/adminscreens/legacy.php:554
 msgid ""
 "This text is set to explain to customers what the information displayed is "
 "about."
 msgstr ""
 "Ce texte est défini pour expliquer aux clients à quoi correspondent les "
 "informations affichées."
+
+#: include/ui/adminscreens/legacy.php:568
+msgid "In this Widget, customers get a referral link they can share."
+msgstr ""
+"Dans ce widget, les clients obtiennent le lien de référence qu'ils peuvent "
+"partager."
+
+#: include/ui/adminscreens/legacy.php:573
+msgid "Default Display"
+msgstr "Affichage par défaut"
+
+#: include/ui/adminscreens/legacy.php:578
+msgid "Url Link"
+msgstr "Lien URL"
+
+#: include/ui/adminscreens/legacy.php:579
+#: include/ui/legacy/referralwidget.php:168
+msgid "QR Code"
+msgstr "QR Code"
+
+#: include/ui/adminscreens/legacy.php:580
+#: include/ui/legacy/referralwidget.php:169
+msgid "Both"
+msgstr "Les deux"
+
+#: include/ui/adminscreens/legacy.php:586
+msgid "Destination Page"
+msgstr "Page de destination"
+
+#: include/ui/adminscreens/legacy.php:589
+msgid ""
+"Select the default destination of the referral link. If left empty, it will "
+"redirect to the same page it's placed"
+msgstr ""
+"Sélectionnez la destination par défaut du lien de parrainage. S’il est "
+"laissé vide, il redirigera vers la page où il est placé"
+
+#: include/ui/adminscreens/legacy.php:595
+#: include/ui/adminscreens/sponsorship.php:67
+msgid "Try to shorten the referral URL"
+msgstr "Essayez de raccourcir l’URL de référence"
+
+#: include/ui/adminscreens/legacy.php:598
+#: include/ui/adminscreens/sponsorship.php:70
+msgid ""
+"Disable that feature if you encounter plugin conflicts or redirection "
+"problems. Disable that feature makes bigger and less readable QR codes."
+msgstr ""
+"Désactivez cette fonctionnalité si vous rencontrez des conflits de plug-in "
+"ou des problèmes de redirection. Désactiver cette fonctionnalité rend les "
+"codes QR plus gros et moins lisibles."
+
+#: include/ui/adminscreens/legacy.php:606
+#: include/ui/adminscreens/sponsorship.php:78
+msgid "Alternative Short Site URL"
+msgstr "URL de site courte alternative"
+
+#: include/ui/adminscreens/legacy.php:609
+#: include/ui/adminscreens/sponsorship.php:81
+msgid ""
+"To make the QR-Code as simple as possible, you can specify a shorter version "
+"of your site URL here that will be used as base for the image generation."
+msgstr ""
+"Pour rendre le QR-Code aussi simple que possible, vous pouvez spécifier une "
+"version plus courte de l’URL de votre site ici qui sera utilisée comme base "
+"pour la génération d’images."
 
 #: include/ui/adminscreens/pointsmanagement.php:23
 msgid "Export Points from MyRewards"
@@ -4453,10 +4545,6 @@ msgid "This popup will show when customers use a free product coupon."
 msgstr ""
 "Ce popup s’affichera lorsque les clients utilisent un coupon de produit "
 "gratuit."
-
-#: include/ui/adminscreens/shortcodes.php:13
-msgid "Shortcodes"
-msgstr "Shortcodes"
 
 #: include/ui/adminscreens/shortcodes.php:22
 msgid ""
@@ -4953,11 +5041,11 @@ msgstr ""
 "Définir le maximum de parrainages autorisés pour les utilisateurs. Aucune "
 "restriction sur la valeur vide ou zéro (0)."
 
-#: include/ui/adminscreens/sponsorship.php:71
+#: include/ui/adminscreens/sponsorship.php:93
 msgid "Sponsored Reward"
 msgstr "Récompense du parrainé"
 
-#: include/ui/adminscreens/sponsorship.php:72
+#: include/ui/adminscreens/sponsorship.php:94
 msgid ""
 "Define the reward granted to the sponsored customers. <strong>Works only for "
 "emailing sponsorship.</strong>"
@@ -4965,7 +5053,7 @@ msgstr ""
 "Définissez la récompense accordée aux clients sponsorisés. <strong>Ne "
 "fonctionne que pour le parrainage par email.</strong>"
 
-#: include/ui/adminscreens/sponsorship.php:73
+#: include/ui/adminscreens/sponsorship.php:95
 #, php-format
 msgid ""
 "If you want to grant a reward for customers sponsored with other methods, "
@@ -4974,28 +5062,28 @@ msgstr ""
 "Si vous souhaitez accorder une récompense pour les clients parrainés par "
 "d'autres méthodes, veuillez lire la %s."
 
-#: include/ui/adminscreens/sponsorship.php:90
+#: include/ui/adminscreens/sponsorship.php:112
 msgid "Sponsorship Widget"
 msgstr "Widget de parrainage"
 
-#: include/ui/adminscreens/sponsorship.php:91
+#: include/ui/adminscreens/sponsorship.php:113
 msgid "In this Widget, customers can sponsor their friends."
 msgstr "Dans ce widget, les clients peuvent parrainer leurs amis."
 
-#: include/ui/adminscreens/sponsorship.php:101
+#: include/ui/adminscreens/sponsorship.php:123
 #: include/ui/widgets/sponsorwidget.php:209
 msgid "Please log in if you want to sponsor your friends"
 msgstr "Veuillez vous connecter si vous souhaitez parrainer vos amis"
 
-#: include/ui/adminscreens/sponsorship.php:106
+#: include/ui/adminscreens/sponsorship.php:128
 msgid "Text displayed on success"
 msgstr "Texte affiché en cas de succès"
 
-#: include/ui/adminscreens/sponsorship.php:116
+#: include/ui/adminscreens/sponsorship.php:138
 msgid "Allow unlogged users to sponsor"
 msgstr "Permettre aux utilisateurs non connectés de parrainer"
 
-#: include/ui/adminscreens/sponsorship.php:121
+#: include/ui/adminscreens/sponsorship.php:143
 msgid ""
 "If you enable the following feature, unlogged users will have to enter their "
 "email address in addition to sponsored addresses."
@@ -5003,11 +5091,11 @@ msgstr ""
 "Si vous activez la fonctionnalité suivante, les utilisateurs non connectés "
 "devront entrer leur adresse e-mail en plus des adresses sponsorisées."
 
-#: include/ui/adminscreens/sponsorship.php:126
+#: include/ui/adminscreens/sponsorship.php:148
 msgid "Redirection if user not found"
 msgstr "Redirection si l'utilisateur n'est pas trouvé"
 
-#: include/ui/adminscreens/sponsorship.php:130
+#: include/ui/adminscreens/sponsorship.php:152
 msgid ""
 "If an unlogged user tries to sponsor some friends, the system will try to "
 "find the appropriate user."
@@ -5015,7 +5103,7 @@ msgstr ""
 "Si un utilisateur non verrouillé tente de parrainer certains amis, le "
 "système va essayer de trouver l'utilisateur approprié."
 
-#: include/ui/adminscreens/sponsorship.php:131
+#: include/ui/adminscreens/sponsorship.php:153
 msgid ""
 "If no user is found, the user will be redirected to the page specified here, "
 "inviting them to register. If nothing is specified, they will stay on the "
@@ -5024,68 +5112,6 @@ msgstr ""
 "Si aucun utilisateur n'est trouvé, l'utilisateur sera redirigé vers la page "
 "spécifiée ici, les invitant à s'inscrire. Si rien n'est spécifié, ils "
 "resteront sur la même page"
-
-#: include/ui/adminscreens/sponsorship.php:155
-msgid "In this Widget, customers get a referral link they can share."
-msgstr ""
-"Dans ce widget, les clients obtiennent le lien de référence qu'ils peuvent "
-"partager."
-
-#: include/ui/adminscreens/sponsorship.php:160
-msgid "Default Display"
-msgstr "Affichage par défaut"
-
-#: include/ui/adminscreens/sponsorship.php:165
-msgid "Url Link"
-msgstr "Lien URL"
-
-#: include/ui/adminscreens/sponsorship.php:166
-#: include/ui/widgets/referralwidget.php:235
-msgid "QR Code"
-msgstr "QR Code"
-
-#: include/ui/adminscreens/sponsorship.php:167
-#: include/ui/widgets/referralwidget.php:236
-msgid "Both"
-msgstr "Les deux"
-
-#: include/ui/adminscreens/sponsorship.php:173
-msgid "Destination Page"
-msgstr "Page de destination"
-
-#: include/ui/adminscreens/sponsorship.php:176
-msgid ""
-"Select the default destination of the referral link. If left empty, it will "
-"redirect to the same page it's placed"
-msgstr ""
-"Sélectionnez la destination par défaut du lien de parrainage. S’il est "
-"laissé vide, il redirigera vers la page où il est placé"
-
-#: include/ui/adminscreens/sponsorship.php:182
-msgid "Try to shorten the referral URL"
-msgstr "Essayez de raccourcir l’URL de référence"
-
-#: include/ui/adminscreens/sponsorship.php:185
-msgid ""
-"Disable that feature if you encounter plugin conflicts or redirection "
-"problems. Disable that feature makes bigger and less readable QR codes."
-msgstr ""
-"Désactivez cette fonctionnalité si vous rencontrez des conflits de plug-in "
-"ou des problèmes de redirection. Désactiver cette fonctionnalité rend les "
-"codes QR plus gros et moins lisibles."
-
-#: include/ui/adminscreens/sponsorship.php:193
-msgid "Alternative Short Site URL"
-msgstr "URL de site courte alternative"
-
-#: include/ui/adminscreens/sponsorship.php:196
-msgid ""
-"To make the QR-Code as simple as possible, you can specify a shorter version "
-"of your site URL here that will be used as base for the image generation."
-msgstr ""
-"Pour rendre le QR-Code aussi simple que possible, vous pouvez spécifier une "
-"version plus courte de l’URL de votre site ici qui sera utilisée comme base "
-"pour la génération d’images."
 
 #: include/ui/adminscreens/woocommerce.php:36
 #: include/ui/adminscreens/woocommerce.php:151
@@ -5484,9 +5510,9 @@ msgstr "Paramètres de l'action"
 #: include/ui/legacy/achievementswidget.php:49
 #: include/ui/legacy/badgeswidget.php:51 include/ui/legacy/couponswidget.php:64
 #: include/ui/legacy/eventswidget.php:86
+#: include/ui/legacy/referralwidget.php:149
 #: include/ui/legacy/rewardswidget.php:125
 #: include/ui/shortcodes/leaderboard.php:122
-#: include/ui/widgets/referralwidget.php:216
 #: include/ui/widgets/socialnetworkconnect.php:219
 #: include/ui/widgets/socialshare.php:191
 #: include/ui/widgets/sponsorwidget.php:132
@@ -6024,7 +6050,7 @@ msgstr "Liste des succès"
 #: include/ui/legacy/achievementswidget.php:58
 #: include/ui/legacy/badgeswidget.php:60 include/ui/legacy/couponswidget.php:72
 #: include/ui/legacy/eventswidget.php:95
-#: include/ui/widgets/referralwidget.php:223
+#: include/ui/legacy/referralwidget.php:156
 #: include/ui/widgets/socialnetworkconnect.php:228
 #: include/ui/widgets/socialshare.php:198
 #: include/ui/widgets/sponsorwidget.php:140
@@ -6396,7 +6422,7 @@ msgstr "Parrainage par email"
 
 #: include/ui/legacy/loyaltyendpoint.php:86
 #: include/ui/legacy/loyaltyendpoint.php:99
-#: include/ui/widgets/referralwidget.php:39
+#: include/ui/legacy/referralwidget.php:33
 msgid "Sponsorship Link"
 msgstr "Lien de parrainage"
 
@@ -6460,6 +6486,71 @@ msgid "The cart subtotal needs to be over %s if you want to use %s"
 msgstr ""
 "Le sous total du panier doit être supérieur à %s si vous voulez utiliser vos "
 "%s"
+
+#: include/ui/legacy/referralwidget.php:37
+msgid ""
+"This shortcode shows to customers a sponsorship/referral link or QR Code."
+msgstr ""
+"Ce shortcode affiche aux clients un lien de parrainage/référence ou QR Code."
+
+#: include/ui/legacy/referralwidget.php:41
+msgid "The text displayed before the sponsorship link or QR Code."
+msgstr "Le texte affiché avant le lien de parrainage ou QR Code."
+
+#: include/ui/legacy/referralwidget.php:46
+msgid "Select the display type you want to show to customers : "
+msgstr ""
+"Sélectionnez le type d’affichage que vous souhaitez afficher aux clients : "
+
+#: include/ui/legacy/referralwidget.php:48
+msgid "QR Code and Link will be displayed"
+msgstr "QR Code et Lien seront affichés"
+
+#: include/ui/legacy/referralwidget.php:49
+msgid "Only the QR Code will be displayed"
+msgstr "Seul le QR Code sera affiché"
+
+#: include/ui/legacy/referralwidget.php:50
+msgid "Only the Link will be displayed"
+msgstr "Seul le lien sera affiché"
+
+#: include/ui/legacy/referralwidget.php:56
+msgid ""
+"By default, the shortcode shares the url of the page it’s displayed on. You "
+"can override that setting by setting an url in this option."
+msgstr ""
+"Par défaut, le widget partage l’url de la page sur laquelle il s’affiche. "
+"Vous pouvez surcharger ce paramètre en indiquant une url dans cette option."
+
+#: include/ui/legacy/referralwidget.php:89
+msgid "MyRewards Sponsorship Link"
+msgstr "Lien de parrainage MyRewards"
+
+#: include/ui/legacy/referralwidget.php:91
+msgid "Provide a Sponsorship link to your customers."
+msgstr "Fournissez un lien de parrainage à vos clients."
+
+#: include/ui/legacy/referralwidget.php:159
+msgctxt "frontend widget"
+msgid "Share that sponsorship link"
+msgstr "Partagez ce lien de parrainage"
+
+#: include/ui/legacy/referralwidget.php:164
+msgid "Display"
+msgstr "Afficher"
+
+#: include/ui/legacy/referralwidget.php:167
+msgid "Link"
+msgstr "Lien"
+
+#: include/ui/legacy/referralwidget.php:177
+#: include/ui/widgets/socialshare.php:214
+msgid "Shared url (Optional)"
+msgstr "URL partagée (facultatif)"
+
+#: include/ui/legacy/referralwidget.php:203
+msgid "Share that Sponsorship link"
+msgstr "Partager ce lien de parrainage"
 
 #: include/ui/legacy/rewardclaim.php:71
 msgid "You've just unlocked the following reward :"
@@ -6715,19 +6806,37 @@ msgstr ""
 "panier (si les récompenses doivent être appliquées), soit vers la page en "
 "cours"
 
-#: include/ui/shortcodes/availablerewards.php:192
+#: include/ui/shortcodes/availablerewards.php:129
+msgid ""
+"(Optional, default is 'true') If set, customers will see rewards they are "
+"able to unlock"
+msgstr ""
+"(Facultatif, la valeur par défaut est 'true') Si cette option est définie, "
+"les clients verront les récompenses qu’ils pourront débloquer"
+
+#: include/ui/shortcodes/availablerewards.php:134
+msgid ""
+"(Optional, default is 'false') If set, customers will also see rewards they "
+"don't have enough points to unlock, without the possibility to unlock them"
+msgstr ""
+"(Facultatif, la valeur par défaut est 'false') Si cette option est définie, "
+"les clients verront également des récompenses qu’ils n’ont pas assez de "
+"points pour débloquer, sans possibilité de les débloquer."
+
+#: include/ui/shortcodes/availablerewards.php:215
 msgid "System"
 msgstr "Système"
 
-#: include/ui/shortcodes/availablerewards.php:193
+#: include/ui/shortcodes/availablerewards.php:216
 msgid "Reward cost"
 msgstr "Coût de la récompense"
 
-#: include/ui/shortcodes/availablerewards.php:194
+#: include/ui/shortcodes/availablerewards.php:217
 msgid "Your balance"
 msgstr "Votre solde"
 
-#: include/ui/shortcodes/availablerewards.php:213
+#: include/ui/shortcodes/availablerewards.php:239
+#: include/ui/shortcodes/availablerewards.php:252
 msgid "Unlock and Apply"
 msgstr "Déverrouiller et appliquer"
 
@@ -7111,6 +7220,75 @@ msgstr ""
 msgid "The text displayed before the progress bar"
 msgstr "Le texte affiché avant la barre de progression"
 
+#: include/ui/shortcodes/referrallink.php:47
+msgid "Use this shortcode to show a referral link button."
+msgstr "Utilisez ce shortcode pour afficher un bouton de lien de parrainage."
+
+#: include/ui/shortcodes/referrallink.php:48
+msgid "Customers can use then share this link with their friends."
+msgstr "Les clients peuvent utiliser puis partager ce lien avec leurs amis."
+
+#: include/ui/shortcodes/referrallink.php:53
+msgid "Select the type of referral link your customers will get :"
+msgstr ""
+"Sélectionnez le type de lien de parrainage que vos clients obtiendront :"
+
+#: include/ui/shortcodes/referrallink.php:56
+msgid "(Default Value) Customers will get an url link"
+msgstr "(Valeur par défaut) Les clients recevront un lien URL"
+
+#: include/ui/shortcodes/referrallink.php:57
+msgid "Customers will get a QR Code link"
+msgstr "Les clients recevront un lien QR Code"
+
+#: include/ui/shortcodes/referrallink.php:64
+msgid ""
+"(Optional) If set, customers will see the referral link or QR-Code above the "
+"copy button"
+msgstr ""
+"(Facultatif) S’il est défini, les clients verront le lien de parrainage ou "
+"le code QR au-dessus du bouton de copie"
+
+#: include/ui/shortcodes/referrallink.php:69
+msgid "(Optional, default is 'true') Show or hide the copy button"
+msgstr ""
+"(Facultatif, la valeur par défaut est 'true') Afficher ou masquer le bouton "
+"de copie"
+
+#: include/ui/shortcodes/referrallink.php:74
+msgid ""
+"(Optional) By default, the shortcode shares the url of the page it’s "
+"displayed on. You can override that setting by setting an url in this option."
+msgstr ""
+"(Facultatif) Par défaut, le shortcode partage l’URL de la page sur laquelle "
+"il est affiché. Vous pouvez remplacer ce paramètre en définissant une URL "
+"dans cette option."
+
+#: include/ui/shortcodes/referrallink.php:79
+msgid "(Optional) Set the text customers will see on the copy button"
+msgstr ""
+"(Facultatif) Définir le texte que les clients verront sur le bouton de copie"
+
+#: include/ui/shortcodes/referrallink.php:84
+msgid ""
+"(Optional) Set the text customers will see when the code is copied to the "
+"clipboard"
+msgstr ""
+"(Facultatif) Définir le texte que les clients verront lorsque le code sera "
+"copié dans le presse-papiers"
+
+#: include/ui/shortcodes/referrallink.php:152
+msgid "Get your referral link"
+msgstr "Obtenez votre lien de parrainage"
+
+#: include/ui/shortcodes/referrallink.php:159
+msgid "Get your referral QR Code"
+msgstr "Obtenez votre code QR de parrainage"
+
+#: include/ui/shortcodes/referrallink.php:163
+msgid "Your code has been copied !"
+msgstr "Votre code a été copié !"
+
 #: include/ui/shortcodes/rewardbutton.php:34
 msgid "Reward Button"
 msgstr "Bouton Récompense"
@@ -7217,71 +7395,6 @@ msgstr ""
 #: include/ui/socialsstats.php:20
 msgid "Social Networks"
 msgstr "Réseaux sociaux"
-
-#: include/ui/widgets/referralwidget.php:43
-msgid ""
-"This shortcode shows to customers a sponsorship/referral link or QR Code."
-msgstr ""
-"Ce shortcode affiche aux clients un lien de parrainage/référence ou QR Code."
-
-#: include/ui/widgets/referralwidget.php:47
-msgid "The text displayed before the sponsorship link or QR Code."
-msgstr "Le texte affiché avant le lien de parrainage ou QR Code."
-
-#: include/ui/widgets/referralwidget.php:52
-msgid "Select the display type you want to show to customers : "
-msgstr ""
-"Sélectionnez le type d’affichage que vous souhaitez afficher aux clients : "
-
-#: include/ui/widgets/referralwidget.php:54
-msgid "QR Code and Link will be displayed"
-msgstr "QR Code et Lien seront affichés"
-
-#: include/ui/widgets/referralwidget.php:55
-msgid "Only the QR Code will be displayed"
-msgstr "Seul le QR Code sera affiché"
-
-#: include/ui/widgets/referralwidget.php:56
-msgid "Only the Link will be displayed"
-msgstr "Seul le lien sera affiché"
-
-#: include/ui/widgets/referralwidget.php:62
-msgid ""
-"By default, the shortcode shares the url of the page it’s displayed on. You "
-"can override that setting by setting an url in this option."
-msgstr ""
-"Par défaut, le widget partage l’url de la page sur laquelle il s’affiche. "
-"Vous pouvez surcharger ce paramètre en indiquant une url dans cette option."
-
-#: include/ui/widgets/referralwidget.php:156
-msgid "MyRewards Sponsorship Link"
-msgstr "Lien de parrainage MyRewards"
-
-#: include/ui/widgets/referralwidget.php:158
-msgid "Provide a Sponsorship link to your customers."
-msgstr "Fournissez un lien de parrainage à vos clients."
-
-#: include/ui/widgets/referralwidget.php:226
-msgctxt "frontend widget"
-msgid "Share that sponsorship link"
-msgstr "Partagez ce lien de parrainage"
-
-#: include/ui/widgets/referralwidget.php:231
-msgid "Display"
-msgstr "Afficher"
-
-#: include/ui/widgets/referralwidget.php:234
-msgid "Link"
-msgstr "Lien"
-
-#: include/ui/widgets/referralwidget.php:244
-#: include/ui/widgets/socialshare.php:214
-msgid "Shared url (Optional)"
-msgstr "URL partagée (facultatif)"
-
-#: include/ui/widgets/referralwidget.php:285
-msgid "Share that Sponsorship link"
-msgstr "Partager ce lien de parrainage"
 
 #: include/ui/widgets/socialnetworkconnect.php:30
 msgid "WooRewards Social Network Connect"
@@ -7840,7 +7953,7 @@ msgstr "Récompense personnalisée"
 
 #: include/unlockables/customreward.php:235
 #: include/unlockables/freeproduct.php:471
-#: include/unlockables/freeshipping.php:322 include/unlockables/role.php:252
+#: include/unlockables/freeshipping.php:322 include/unlockables/role.php:251
 msgctxt "unlockable category"
 msgid "Sponsored"
 msgstr "Sponsorisé"
@@ -8111,8 +8224,8 @@ msgid "You can create a new user role or assign an existing one."
 msgstr ""
 "Vous pouvez créer un nouveau rôle d’utilisateur ou en attribuer un existant."
 
-#: include/unlockables/role.php:38 include/unlockables/role.php:71
-#: include/unlockables/role.php:253
+#: include/unlockables/role.php:38 include/unlockables/role.php:70
+#: include/unlockables/role.php:252
 msgid "Role"
 msgstr "Rôle"
 
@@ -8125,21 +8238,21 @@ msgstr "Rôle"
 msgid "Pick an existant role or set a new role name."
 msgstr "Choisissez un rôle existant ou définissez un nouveau nom de rôle."
 
-#: include/unlockables/role.php:195
+#: include/unlockables/role.php:194
 msgctxt "getDisplayType"
 msgid "Assign a role"
 msgstr "Attribuer un rôle"
 
-#: include/unlockables/role.php:203
+#: include/unlockables/role.php:202
 #, php-format
 msgid "Assign role '%s'"
 msgstr "Attribuer le rôle' %s'"
 
-#: include/unlockables/role.php:206
+#: include/unlockables/role.php:205
 msgid " (append role)"
 msgstr " (ajoute le rôle)"
 
-#: include/unlockables/role.php:208
+#: include/unlockables/role.php:207
 msgid " (replace role)"
 msgstr " (remplace le rôle)"
 
@@ -9910,11 +10023,11 @@ msgstr "Licence"
 msgid "Add Licence Key"
 msgstr "Ajouter un clé de licence"
 
-#: woorewards-pro.php:569
+#: woorewards-pro.php:573
 msgid "Custom rewards"
 msgstr "Récompenses personnalisées"
 
-#: woorewards-pro.php:570
+#: woorewards-pro.php:574
 msgid "Custom reward"
 msgstr "Récompense personnalisée"
 
@@ -9937,6 +10050,34 @@ msgstr "Long Watch Studio"
 #. Author URI of the plugin/theme
 msgid "https://longwatchstudio.com"
 msgstr "https://longwatchstudio.com"
+
+#~ msgid ""
+#~ "Operation abort since the connected user is not the owner of the "
+#~ "requested reward."
+#~ msgstr ""
+#~ "Opération avortée puisque l'utilisateur connecté n'est pas le "
+#~ "propriétaire de la récompense demandée."
+
+#~ msgid "Pending payment"
+#~ msgstr "En attente de paiement"
+
+#~ msgid "Processing"
+#~ msgstr "En cours"
+
+#~ msgid "On hold"
+#~ msgstr "En attente"
+
+#~ msgid "Completed"
+#~ msgstr "Terminé"
+
+#~ msgid "Cancelled"
+#~ msgstr "Annulée"
+
+#~ msgid "Refunded"
+#~ msgstr "Remboursé"
+
+#~ msgid "Failed"
+#~ msgstr "Echec"
 
 #~ msgid "Specific product bought"
 #~ msgstr "Produit spécifique acheté"

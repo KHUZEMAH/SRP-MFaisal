@@ -19,6 +19,8 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 		$this->register_posttype();
 
 		add_filter( 'wp_insert_post_data', [ $this, 'maybe_add_default_title' ], 10, 2 );
+		add_filter( 'submenu_file', [ $this, 'fieldset_submenu_file' ] );
+		add_filter( 'parent_file', [ $this, 'fieldset_parent_file' ] );
 	}
 
 	public function add_menu_item() {
@@ -32,7 +34,7 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 	}
 
 	public function save_meta( $post_id, $post, $update ) {
-		// Autosave? bail
+		// Autosave? bail.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
@@ -42,7 +44,7 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 			return;
 		}
 
-		// if this is a post revision, bail
+		// if this is a post revision, bail.
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
@@ -167,8 +169,8 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 	 *
 	 * @since 4.7.3
 	 *
-	 * @param $data    array An array of post data.
-	 * @param $postarr array An array of elements that make up a post to update or insert.
+	 * @param array $data    An array of post data.
+	 * @param array $postarr An array of elements that make up a post to update or insert.
 	 *
 	 * @return array
 	 */
@@ -182,5 +184,49 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Allows submenu to be visible when editing a item of the Fieldset CPT.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $parent_file Filters the parent file of an admin menu sub-menu item.
+	 *
+	 * @return string
+	 */
+	public function fieldset_parent_file( $parent_file ) {
+		global $current_screen;
+
+		if (
+			static::POSTTYPE !== $current_screen->post_type
+			|| ! in_array( $current_screen->base, [ 'post', 'edit' ], true )
+		) {
+			return $parent_file;
+		}
+
+		return tribe( 'tickets.main' )->settings()::$parent_slug;
+	}
+
+	/**
+	 * Allows CPT to to have a "current" submenu item when a Fieldset CPT screen is open.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $submenu_file Filters the file of an admin menu sub-menu item.
+	 *
+	 * @return string
+	 */
+	public function fieldset_submenu_file( $submenu_file ) {
+		global $current_screen;
+
+		if (
+			static::POSTTYPE !== $current_screen->post_type
+			|| ! in_array( $current_screen->base, [ 'post', 'edit' ], true )
+		) {
+			return $submenu_file;
+		}
+
+		return 'edit.php?post_type=' . static::POSTTYPE;
 	}
 }

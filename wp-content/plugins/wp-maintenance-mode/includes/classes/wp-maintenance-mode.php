@@ -8,7 +8,7 @@ if ( ! class_exists( 'WP_Maintenance_Mode' ) ) {
 
 	class WP_Maintenance_Mode {
 
-		const VERSION = '2.6.1';
+		const VERSION = '2.6.2';
 
 		const MAINTENANCE  = 'maintenance';
 		const COMING_SOON  = 'coming-soon';
@@ -686,6 +686,7 @@ if ( ! class_exists( 'WP_Maintenance_Mode' ) ) {
 					! ( defined( 'WP_CLI' ) && WP_CLI )
 			) {
 				if ( isset( $this->plugin_settings['design']['page_id'] ) && get_option( 'wpmm_new_look' ) ) {
+					define( 'IS_MAINTENANCE', true );
 					include_once wpmm_get_template_path( 'maintenance.php', true );
 					return;
 				}

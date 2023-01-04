@@ -71,7 +71,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Customer {
 		$customer = ! empty( $item['customer'] ) ? $item['customer'] : array();
 
 		if ( empty( $customer['first_name'] ) && empty( $customer['last_name'] ) ) {
-			$customer_name = "{$item['billing_address']['first_name']} {$item['billing_address']['last_name']}";
+			$customer_name = "{$item['billing']['first_name']} {$item['billing']['last_name']}";
 		} else {
 			$customer_name = empty( $customer['first_name'] ) ? '' : $customer['first_name'];
 			$customer_name .= empty( $customer['last_name'] ) ? '' : ' ' . $customer['last_name'];
@@ -90,11 +90,11 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Customer {
 	}
 
 	protected function get_customer_email( array $item ) {
-		if ( empty( $item['customer']['email'] ) ) {
+		if ( empty( $item['billing']['email'] ) ) {
 			return '';
 		}
 
-		$email = $item['customer']['email'];
+		$email = $item['billing']['email'];
 
 		return sprintf( '<a href="mailto:%1$s">%2$s</a>', esc_attr( $email ), esc_html( $email ) );
 	}

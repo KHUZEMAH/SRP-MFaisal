@@ -4,6 +4,8 @@ namespace LWS\WOOREWARDS\PRO\PointsFlow\Methods;
 // don't call the file directly
 if( !defined( 'ABSPATH' ) ) exit();
 
+/** @see https://woocommerce.com/products/woocommerce-points-and-rewards/
+ *	WC official */
 class WooCommercePAndR extends \LWS\WOOREWARDS\PRO\PointsFlow\ExportMethod
 {
 	/** @return (array) the json that will be send,
@@ -24,6 +26,6 @@ EOT;
 	/** @return (string) human readable name */
 	public function getTitle()
 	{
-		return __("WooCommerce Points And Rewards", 'woorewards-pro');
+		return __("WooCommerce Points And Rewards (by WooCommerce)", 'woorewards-pro');
 	}
 }

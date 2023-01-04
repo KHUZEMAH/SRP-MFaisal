@@ -119,6 +119,9 @@ class Updater
 			self::setOldMailEnabledDefaultValue();
 		}
 
+		if (false === \get_option('lws_woorewards_hide_internal_meta', false))
+			\update_option('lws_woorewards_hide_internal_meta', 'on');
+
 		// woorewards is based on woocommerce coupons, so enable them
 		\update_option('woocommerce_enable_coupons', 'yes');
 		\update_option('lws_woorewards_ignore_woocommerce_disable_coupons', '');

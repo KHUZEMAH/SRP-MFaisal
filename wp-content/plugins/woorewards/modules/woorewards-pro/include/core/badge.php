@@ -446,8 +446,47 @@ EOT;
 		);
 	}
 
+	/** @return postId or false */
+	public function save($reload=false)
+	{
+		$result = false;
+		if ($this->id) {
+			$result = \wp_update_post(array(
+				'ID'           => $this->id,
+				'post_title'   => $this->title,
+				'post_excerpt' => $this->excerpt,
+				'post_type'    => self::POST_TYPE,
+				'post_status'  => 'publish',
+			), false);
+		} else {
+			$result = \wp_insert_post(array(
+				'post_title'   => $this->title,
+				'post_excerpt' => $this->excerpt,
+				'post_type'    => self::POST_TYPE,
+				'post_status'  => 'publish',
+			), false);
+			if ($result)
+				$this->id = $result;
+		}
+		if ($reload && $result)
+			$this->load($result);
+		return $result;
+	}
+
+	/** Associate the thumbnail to the post */
+	public function setThumbnail($mediaId)
+	{
+		if ($this->id) {
+			if (\set_post_thumbnail($this->id, $mediaId)) {
+				$this->thumbnailId = $mediaId;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/** @return $this */
-	protected function setData($id, $title, $excerpt, $validate=true, $slug=false)
+	public function setData($id, $title, $excerpt, $validate=true, $slug=false)
 	{
 		$this->valid = $validate;
 		$this->id = $id;
@@ -463,5 +502,4 @@ EOT;
 		global $wpdb;
 		return $wpdb->lwsWooRewardsBadges;
 	}
-
 }

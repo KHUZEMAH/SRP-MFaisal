@@ -49,19 +49,29 @@ abstract class Event implements ICategorisable, IRegistrable
 			return $defaultUnset;
 		if (!($ci = $this->getCooldownInfo(true)))
 			return $defaultUnset;
-		if ($userId) {
-			global $wpdb;
-			$req = \LWS\Adminpanel\Tools\Request::from($wpdb->lwsWooRewardsHistoric, 'h');
-			$req->select('COUNT(h.id)');
-			$req->where('h.`user_id`=%d AND h.`origin`=%s');
-			$req->arg(array($userId, $this->getId()));
+		if (!$userId)
+			return $defaultNoUser;
+
+		global $wpdb;
+		$req = \LWS\Adminpanel\Tools\Request::from($wpdb->lwsWooRewardsHistoric, 'h');
+		$req->select('COUNT(h.id)');
+		$req->where('h.`user_id`=%d AND h.`origin`=%s');
+		$req->arg(array($userId, $this->getId()));
+
+		$dt = $this->getCooldownResetDateTime();
+		if ($dt) {
+			// periodic range
+			$dt = $this->updateCooldownResetDateTime($dt, $ci, true)->setTimeZone(new \DateTimeZone('UTC')); // history is stored UTC
+			$req->where(sprintf("h.`mvt_date` >= '%s'", $dt->format('Y-m-d H:i:s')));
+		} else {
+			// rolling
 			$req->where(sprintf("DATE_ADD(h.`mvt_date`, %s) >= NOW()", $ci->duration->getSqlInterval()));
-			$c = $req->getVar();
-			if (false === $c)
-				return false; // means error occured in db
-			return ($c < $ci->count);
 		}
-		return $defaultNoUser;
+
+		$c = $req->getVar();
+		if (false === $c)
+			return false; // means error occured in db
+		return ($c < $ci->count);
 	}
 
 	function getCooldownText()
@@ -109,6 +119,87 @@ abstract class Event implements ICategorisable, IRegistrable
 			$this->cooldownInfo->count  = 0;
 			$this->cooldownInfo->period = '';
 		}
+	}
+
+	/** Rolling period or periodic date range */
+	public function isCooldownRolling()
+	{
+		return isset($this->rolling) ? (bool)$this->rolling : true;
+	}
+
+	public function setCooldownRolling($yes=true)
+	{
+		$this->rolling = \boolval($yes);
+		return $this;
+	}
+
+	/** If format is false, return a DateTimeImmutable.
+	 *	Else return a string with date representation.
+	 *	Or return false if no date set or cooldown is rolling. */
+	public function getCooldownResetDateTime($format = false, $timezone=false)
+	{
+		if ($this->isCooldownRolling()) {
+			return false;
+		} elseif (isset($this->resetDT) && $this->resetDT) {
+			$dt = ($timezone ? $this->resetDT->setTimezone($timezone) : $this->resetDT);
+			return ($format ? $dt->format($format) : $dt);
+		} else {
+			return false;
+		}
+	}
+
+	/** store a datetimeimmutable
+	 *	@param $datetime: DateTime|DateTimeImmutable|string|int
+	 *	An integer is assumed UTC timestamp,
+	 *	A string is assumed in website timestamp. */
+	public function setCooldownResetDateTime($datetime)
+	{
+		if (!$datetime) {
+			$this->resetDT = false;
+		} elseif (\is_object($datetime)) {
+			if (\is_a($datetime, 'DateTime'))
+				$this->resetDT = DateTimeImmutable::createFromMutable($datetime);
+			elseif (\is_a($datetime, 'DateTimeImmutable'))
+				$this->resetDT = $datetime;
+		} elseif (\is_numeric($datetime)) {
+			$this->resetDT = new \DateTimeImmutable();
+			$this->resetDT = $this->resetDT->setTimestamp((int)$datetime);
+		} else {
+			$this->resetDT = new \DateTimeImmutable($datetime, \wp_timezone());
+		}
+		return $this;
+	}
+
+	public function updateCooldownResetDateTime($datetime, $cooldownInfo, $save=false)
+	{
+		if ($datetime && $cooldownInfo) {
+			$now = \date_create_immutable();
+			$interval = $cooldownInfo->duration->toInterval();
+			$changed = false;
+
+			if ($datetime <= $now) {
+				// start in past (stay in past but as near as possible)
+				$next = $datetime->add($interval);
+				while ($next < $now) {
+					$changed = true;
+					$datetime = $next;
+					$next = $datetime->add($interval);
+				}
+			} else {
+				// start in futur
+				while ($datetime > $now) {
+					$changed = true;
+					$datetime = $datetime->sub($interval);
+				}
+			}
+
+			// maybe save the meta
+			if ($changed && $save) {
+				$this->setCooldownResetDateTime($datetime);
+				\update_post_meta($id, 'wre_event_reset_date', $this->getCooldownResetDateTime('Y-m-dTH:i:s e'));
+			}
+		}
+		return $datetime;
 	}
 
 	/** If additionnal info should be displayed in settings form. */
@@ -277,9 +368,16 @@ abstract class Event implements ICategorisable, IRegistrable
 			if (!$data[$prefix.'delay'])
 				$data[$prefix.'delay'] = '';
 		}
-		if ($ci = $this->getCooldownInfo()) {
-			$data[$prefix.'cooldown_c'] = $ci->count;
-			$data[$prefix.'cooldown_p'] = $ci->period;
+		if ($this->isRuleSupportedCooldown()) {
+			$data[$prefix . 'rolling'] = ($this->isCooldownRolling() ? 'on' : '');
+			if ($ci = $this->getCooldownInfo()) {
+				$data[$prefix.'cooldown_c'] = $ci->count;
+				$data[$prefix.'cooldown_p'] = $ci->period;
+				$tz = \wp_timezone();
+				$data[$prefix . 'reset_cd_d'] = $this->getCooldownResetDateTime('Y-m-d', $tz);
+				$data[$prefix . 'reset_cd_h'] = $this->getCooldownResetDateTime('H', $tz);
+				$data[$prefix . 'reset_cd_i'] = $this->getCooldownResetDateTime('i', $tz);
+			}
 		}
 		if ($ri = $this->getRepeatInfo()) {
 			$data[$prefix.'recurrent_c'] = $ri->count;
@@ -330,7 +428,7 @@ abstract class Event implements ICategorisable, IRegistrable
 </div>
 <div class='lws-$context-opt-input value'>
 	<input type='text' size='5' class='expression_trigger' id='{$prefix}multiplier' name='{$prefix}multiplier' placeholder='1' />
-</div>
+</div><!-- [field-after:multiplier] -->
 EOT;
 
 		$label = _x("Alternative points text", "Event point multiplier", 'woorewards-lite');
@@ -345,7 +443,7 @@ EOT;
 	<div class='lws-$context-opt-input value'>
 		<input type='text' size='6' id='{$prefix}gain_alt' name='{$prefix}gain_alt' placeholder='{$placeholder}'/>
 	</div>
-</div>
+</div><!-- [field-after:gain_alt] -->
 EOT;
 
 		// cooldown
@@ -365,6 +463,26 @@ EOT;
 <div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
 <div class='lws-{$context}-opt-input value'><div class='lws-field-flex-wrap'>{$value}</div></div>
 EOT;
+
+			// default is rolling period
+			$req = " data-selector='#{$prefix}cooldown_c' data-value='' data-operator='!='";
+			$label = __("Cooldown rolling period", 'woorewards-lite');
+			$tooltip = __("The default rolling period starts on the first trigger of a customer and so can be different for each customer.", 'woorewards-lite')
+			. '<br/>' . __("Uncheck that box and define a reference date, such as first day of a month. The reference date will be periodically shift by the cooldown and the release date will be the same for each customers.", 'woorewards-lite');
+			$h = \esc_attr(__("Hour", 'woorewards-lite'));
+			$i = \esc_attr(__("Minute", 'woorewards-lite'));
+			$str .= <<<EOT
+<div class='field-help lws_adm_field_require'{$req}>{$tooltip}</div>
+<div class='lws-{$context}-opt-title label lws_adm_field_require'{$req}>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-{$context}-opt-input value lws_adm_field_require'{$req} style="display: flex; flex-direction: row;">
+	<input class='lws_checkbox' type='checkbox' id='{$prefix}rolling' name='{$prefix}rolling'/>
+	<span class="lws_adm_field_require" data-selector="#{$prefix}rolling" data-value="on" data-operator="!=">
+	-	<input class='lws-input' type='date' id='{$prefix}reset_cd_d' name='{$prefix}reset_cd_d'/>
+	T <input class='lws-input' type='text' id='{$prefix}reset_cd_h' name='{$prefix}reset_cd_h' size="2" placeholder="04" title="{$h}"/>
+	: <input class='lws-input' type='text' id='{$prefix}reset_cd_i' name='{$prefix}reset_cd_i' size="2" placeholder="00" title="{$i}"/>
+	</span>
+</div><!-- [field-after:cooldown] -->
+EOT;
 		}
 
 		// Max triggers
@@ -376,7 +494,7 @@ EOT;
 <div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
 <div class='lws-$context-opt-input value'>
 	<input type='text' size='5' id='{$prefix}max_triggers' name='{$prefix}max_triggers' placeholder='' />
-</div>
+</div><!-- [field-after:max_triggers] -->
 EOT;
 		}
 
@@ -389,6 +507,7 @@ EOT;
 <div class='field-help'>{$tooltip}</div>
 <div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
 <div class='lws-{$context}-opt-input value'>{$delay}</div>
+<!-- [field-after:delay] -->
 EOT;
 		}
 
@@ -406,7 +525,8 @@ EOT;
 			$str .= <<<EOT
 <div class='field-help'>{$tooltip}</div>
 <div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
-<div class='lws-{$context}-opt-input value' style='margin-bottom:80px'><div class='lws-field-flex-wrap'>{$value}</div></div>
+<div class='lws-{$context}-opt-input value'><div class='lws-field-flex-wrap'>{$value}</div></div>
+<!-- [field-after:recurrent_p] -->
 EOT;
 		}
 
@@ -431,6 +551,10 @@ EOT;
 				$prefix . 'max_triggers' => '0',
 				$prefix . 'cooldown_c'   => '0',
 				$prefix . 'cooldown_p'   => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
+				$prefix . 'rolling'      => 'k',
+				$prefix . 'reset_cd_d'   => '/(\d{4}-\d{2}-\d{2})?/',
+				$prefix . 'reset_cd_h'   => '/([0-1]?\d|2[0-3])?/',
+				$prefix . 'reset_cd_i'   => '/([0-5]?\d)?/',
 				$prefix . 'delay'        => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
 				$prefix . 'recurrent_c'  => '0',
 				$prefix . 'recurrent_p'  => '/(P(\d+[DYMW])?(T\d+[HMS])?)?/i',
@@ -442,6 +566,10 @@ EOT;
 				$prefix . 'max_triggers' => '0',
 				$prefix . 'cooldown_c'   => '0',
 				$prefix . 'cooldown_p'   => '',
+				$prefix . 'rolling'      => '',
+				$prefix . 'reset_cd_d'   => '',
+				$prefix . 'reset_cd_h'   => '4',
+				$prefix . 'reset_cd_i'   => '0',
 				$prefix . 'delay'        => '',
 				$prefix . 'recurrent_c'  => '0',
 				$prefix . 'recurrent_p'  => '',
@@ -456,6 +584,10 @@ EOT;
 				$prefix . 'delay'        => __("Delay", 'woorewards-lite'),
 				$prefix . 'recurrent_c'  => __("Occurences", 'woorewards-lite'),
 				$prefix . 'recurrent_p'  => __("Occurences (period)", 'woorewards-lite'),
+				$prefix . 'rolling'      => __("Cooldown rolling period", 'woorewards-lite'),
+				$prefix . 'reset_cd_d'   => __("Period reference date", 'woorewards-lite'),
+				$prefix . 'reset_cd_h'   => __("Period reference hour", 'woorewards-lite'),
+				$prefix . 'reset_cd_i'   => __("Period reference minute", 'woorewards-lite'),
 			)
 		));
 		if( !(isset($values['valid']) && $values['valid']) )
@@ -466,6 +598,27 @@ EOT;
 		$this->setGainAlt($values['values'][$prefix.'gain_alt']);
 		if ($this->isRuleSupportedCooldown()) {
 			$this->setCooldownInfo($values['values'][$prefix.'cooldown_c'], $values['values'][$prefix.'cooldown_p']);
+			$this->setCooldownRolling($values['values'][$prefix . 'rolling']);
+
+			if ($this->isCooldownRolling()) {
+				$this->setCooldownResetDateTime(false);
+			} else {
+				if (\trim($values['values'][$prefix . 'reset_cd_d'])) {
+					$this->setCooldownResetDateTime(sprintf('%sT%d:%d:00',
+						$values['values'][$prefix . 'reset_cd_d'],
+						\intval($values['values'][$prefix . 'reset_cd_h']),
+						\intval($values['values'][$prefix . 'reset_cd_i'])
+					));
+					$this->setCooldownResetDateTime($this->updateCooldownResetDateTime(
+						$this->getCooldownResetDateTime(),
+						$this->getCooldownInfo(true)
+					));
+				} else {
+					$this->setCooldownResetDateTime(false);
+				}
+				if (!$this->getCooldownResetDateTime())
+					return __("A date is required if the cooldown is not rolling.", 'woorewards-lite');
+			}
 		} else {
 			$this->setCooldownInfo(0, '');
 		}
@@ -598,6 +751,13 @@ EOT;
 						\array_unshift($ci, 1);
 					$event->setCooldownInfo($ci[0], $ci[1]);
 				}
+
+				$rollings = \get_post_meta($post->ID, 'wre_event_rolling', false);
+				if ($rollings && \is_array($rollings))
+					$event->setCooldownRolling(reset($rollings));
+				else
+					$event->setCooldownRolling(true);
+				$event->setCooldownResetDateTime(\get_post_meta($post->ID, 'wre_event_reset_date', true));
 			}
 
 			$event->delay = false;
@@ -670,7 +830,9 @@ EOT;
 			)
 		);
 		if ($this->isRuleSupportedCooldown() && ($ci = $this->getCooldownInfo())) {
-			$data['meta_input']['wre_event_cooldown'] = ($ci->count . '|' . $ci->period);
+			$data['meta_input']['wre_event_cooldown']   = ($ci->count . '|' . $ci->period);
+			$data['meta_input']['wre_event_rolling']    = ($this->isCooldownRolling() ? 'on' : '');
+			$data['meta_input']['wre_event_reset_date'] = $this->getCooldownResetDateTime('Y-m-dTH:i:s e');
 		}
 		if ($this->isDelayAllowed()) {
 			$data['meta_input']['wre_event_delay'] = $this->getDelay();

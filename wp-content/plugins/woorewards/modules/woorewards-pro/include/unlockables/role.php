@@ -48,7 +48,6 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$form .= "<div class='lws-$context-opt-input lws-lac-select-role'>";
 		$form .= \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'role', array(
 			'ajax' => 'lws_adminpanel_get_roles',
-			'value' => $role,
 			'allownew' => 'on',
 			'id' => $prefix . 'role_input'
 		));

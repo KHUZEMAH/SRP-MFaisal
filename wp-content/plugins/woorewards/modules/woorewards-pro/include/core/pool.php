@@ -47,8 +47,20 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 		{
 			\add_action('lws_woorewards_daily_event', array($this, 'checkPointsTimeout'));
 			\add_action('lws_woorewards_daily_event', array($this, 'checkTransactionalExpiry'));
+			if ($this->getOption('adapt_level')) {
+				\add_action('lws_woorewards_points_refunded', array($this, '_checkGrantedLevel'), 10, 3);
+			}
 		}
 		return $this;
+	}
+
+	public function _checkGrantedLevel($orderId, $order, $sort)
+	{
+		foreach ($sort as $item) {
+			if ($item['points'] && $item['user'] && $this->getStackId() == $item['stack']) {
+				$this->grantLevel($item['user']);
+			}
+		}
 	}
 
 	/** Some configuration sets are relevant as specific pool kind.

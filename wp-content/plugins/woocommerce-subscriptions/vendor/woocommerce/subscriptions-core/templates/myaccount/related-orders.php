@@ -4,7 +4,7 @@
  *
  * @author   Prospress
  * @category WooCommerce Subscriptions/Templates
- * @version  2.6.2
+ * @version  1.0.0 - Migrated from WooCommerce Subscriptions v2.6.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'Related orders', 'woocommerce-subscriptions' ); ?></h2>
 </header>
 
-<table class="shop_table shop_table_responsive my_account_orders woocommerce-orders-table woocommerce-MyAccount-orders test_dev woocommerce-orders-table--orders">
+<table class="shop_table shop_table_responsive my_account_orders woocommerce-orders-table woocommerce-MyAccount-orders woocommerce-orders-table--orders">
 
 	<thead>
 		<tr>
