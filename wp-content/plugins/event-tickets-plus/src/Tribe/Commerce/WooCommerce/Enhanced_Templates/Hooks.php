@@ -221,7 +221,10 @@ class Hooks {
 	protected function get_attendee_meta( $ticket_id, $qr_ticket_id ) {
 		$output = [];
 
-		$meta_fields = \Tribe__Tickets_Plus__Main::instance()->meta()->get_meta_fields_by_ticket( $ticket_id );
+		/** @var \Tribe__Tickets_Plus__Meta $woo_provider */
+		$meta_handler = tribe( 'tickets-plus.meta' );
+
+		$meta_fields = $meta_handler->get_meta_fields_by_ticket( $ticket_id );
 		$meta_data   = get_post_meta( $qr_ticket_id, \Tribe__Tickets_Plus__Meta::META_KEY, true );
 
 		foreach ( $meta_fields as $field ) {
@@ -257,6 +260,10 @@ class Hooks {
 				$value = $meta_data[ $field->slug ];
 			} else {
 				continue;
+			}
+
+			if ( $meta_handler->render()->is_date_format_field( $field ) ) {
+				$value = $meta_handler->render()->format_date_value( $value, $field );
 			}
 
 			if ( '' === trim( $value ) ) {

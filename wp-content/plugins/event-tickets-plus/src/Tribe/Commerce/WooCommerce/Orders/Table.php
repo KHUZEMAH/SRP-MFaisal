@@ -351,7 +351,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 	 *
 	 * @since 4.10.4 - modified to use retrieve_orders_ids_from_a_product_id method
 	 *
-	 * @since TBD Removed usage of WC REST API and make use of Order API to generate order data.
+	 * @since 5.6.5 Removed usage of WC REST API and make use of Order API to generate order data.
 	 *
 	 * @param $event_id
 	 *
@@ -384,7 +384,13 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 				$order = wc_get_order( $order_id );
 
 				if ( $order ) {
+					// Skip any order that is a sub-order or partial-refund.
+					if ( 0 !== $order->get_parent_id() ) {
+						continue;
+					}
+
 					$orders[ $order_id ] = $order->get_data();
+
 					$orders[ $order_id ]['billing_email'] = $order->get_billing_email();
 					$orders[ $order_id ]['created_at']    = $order->get_date_created();
 					$orders[ $order_id ]['completed_at']  = $order->get_date_completed();
@@ -475,7 +481,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 	/**
 	 * Prepares the list of items for displaying.
 	 *
-	 * @since TBD Added support for column sorting.
+	 * @since 5.6.5 Added support for column sorting.
 	 */
 	public function prepare_items() {
 		$this->event_id = Tribe__Utils__Array::get( $_GET, 'event_id', Tribe__Utils__Array::get( $_GET, 'post_id', 0 ) );
@@ -514,7 +520,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table extends WP_List_
 	/**
 	 * List of sortable columns.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 *
 	 * @return array $sortable_columns An array with sortable columns.
 	 */

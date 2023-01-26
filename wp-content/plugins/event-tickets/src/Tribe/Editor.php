@@ -166,8 +166,7 @@ class Tribe__Tickets__Editor extends Tribe__Editor {
 		$content = str_replace( $search, implode( "\n\r", $replace ), $content );
     $content = preg_replace("/<!--(.|\s)*?-->/", '', $content);
 		$content = trim($content);
-
-    return $content;
+		return $content;
 	}
 
 	/**

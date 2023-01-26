@@ -281,6 +281,14 @@ table.orders tr.refunded,
 		color: #1d2327;
 	}
 
+.tec-tc-report-page p.search-box {
+		display: flex;
+	}
+
+.tec-tc-report-page select, .tec-tc-report-page input {
+		margin: 0 5px;
+	}
+
 @media screen and (max-width: 768px) {
 
 	.tribe-report-panel .welcome-panel-column-container {
@@ -321,6 +329,12 @@ table.orders tr.refunded,
 			margin-left: 0;
 			max-width: 100%
 	}
+		.tec-tc-report-page p.search-box {
+			flex-direction: column;
+		}
+		.tec-tc-report-page select, .tec-tc-report-page input {
+			margin: 5px 0;
+		}
 		}
 
 @media screen and (min-width: 1024px) {

@@ -5,7 +5,7 @@ Tags: user import, user export, csv, woocommerce, customers, export import users
 Requires at least: 3.0.1
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,7 +28,7 @@ WordPress User Import Export plugin allows the import and export of WordPress us
 &#128312; Export guest users - Include data of WooCommerce guest customers (users who bought products from the site without creating an account).
 &#128312; Export specific users based on username/email - Suggests email addresses and names in export data filter fields while you type in.
 &#128312; Tested OK with WordPress 6.1
-&#128312; Tested OK with WooCommerce 7.1
+&#128312; Tested OK with WooCommerce 7.2
 &#128312; Tested OK with PHP 8.0
 
 <strong>Highlights</strong>: WordPress Users Export, WordPress Users CSV Import Suite, Export WordPress Users to CSV, WooCommerce Import Customers, WooCommerce Export Customers. Pro Version supports export and import of all additional user meta like WooCommerce details.
@@ -209,6 +209,9 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
+= 2.3.7 2023-01-11 =
+* WooCommerce 7.2 Tested OK.
+* Enhancement: Refresh the WooCommerce customer list after the import.
 = 2.3.6 2022-11-24 =
 * WooCommerce 7.1 Tested OK.
 * WordPress 6.1 Tested OK.
@@ -438,7 +441,6 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Upgrade Notice ==
 
-= 2.3.6 =
-* WooCommerce 7.1 Tested OK.
-* WordPress 6.1 Tested OK.
-* Enhancement: Revised import mapping screen.
+= 2.3.7 =
+* WooCommerce 7.2 Tested OK.
+* Enhancement: Refresh the WooCommerce customer list after the import.

@@ -39,7 +39,7 @@
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center; }
-      .lae-marquee-text-content .lae-marquee-text-items .lae-separator-icon .lae-icon-wrapper {
+      .lae-marquee-text-content .lae-marquee-text-items .lae-separator-icon .lae-icon-wrapper i {
         font-size: 30px; }
       .lae-marquee-text-content .lae-marquee-text-items .lae-separator-icon .lae-image-wrapper img {
         max-width: 100px;

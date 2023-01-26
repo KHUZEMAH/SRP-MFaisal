@@ -415,7 +415,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	/**
 	 * Sync direct WooCommerce stock updates that are tied with Order status updates.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 *
 	 * @param int $product_id The Product ID.
 	 *
@@ -441,7 +441,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	/**
 	 * Sync Woo Product stock data to Ticket stock data.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 *
 	 * @param WC_Product    $product The object being saved.
 	 * @param WC_Data_Store $data_store      THe data store persisting the data.

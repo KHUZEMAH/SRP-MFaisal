@@ -1,0 +1,2 @@
+2023-01-26T20:14:28+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Product starts in 5 seconds :: obj_id 14760
+2023-01-26T20:14:42+00:00 NOTICE product_submit.error :: addStoreProduct :: #14760 :: Error Code 404 :: Resource Not FoundThe requested resource could not be found. on 2389 in D:\laragon\www\faisal\wp-content\plugins\mailchimp-for-woocommerce\includes\api\class-mailchimp-api.php

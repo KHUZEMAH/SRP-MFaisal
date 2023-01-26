@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra, moraleida.me
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.5
-Tested up to: 6.1
-Stable tag: 5.6.4
+Tested up to: 6.1.1
+Stable tag: 5.6.5
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,12 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.6.5] 2023-01-16 =
+
+* Fix - Fixed Attendee info date field format not matching the date format set in the settings. [ETP-816]
+* Fix - Fixed order report showing error when WooCommerce orders are refunded. [ETP-849]
+* Language - 0 new strings added, 8 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.6.4] 2022-12-08 =
 

@@ -1,16 +1,16 @@
-# Copyright (C) 2022 The Events Calendar
+# Copyright (C) 2023 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Event Tickets Plus 5.6.4\n"
+"Project-Id-Version: Event Tickets Plus 5.6.5\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-06T12:44:41-08:00\n"
-"PO-Revision-Date: 2022-12-06 20:44\n"
+"POT-Creation-Date: 2023-01-11T05:14:33-08:00\n"
+"PO-Revision-Date: 2023-01-11 13:14\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: event-tickets-plus\n"
 
@@ -47,7 +47,7 @@ msgid "To begin using Event Tickets Plus, please install and activate the latest
 msgstr ""
 
 #: src/admin-views/attendee-meta.php:19
-#: src/Tribe/Meta/Render.php:231
+#: src/Tribe/Meta/Render.php:235
 msgid "Attendee Information"
 msgstr ""
 
@@ -834,7 +834,7 @@ msgid "Event sales report"
 msgstr ""
 
 #: src/Tribe/Commerce/EDD/Main.php:2025
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:293
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:300
 msgid "Event"
 msgstr ""
 
@@ -971,30 +971,30 @@ msgid "%s email notification manually sent to user."
 msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:119
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:376
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:383
 msgctxt "Attendee meta table."
 msgid "Ticket ID"
 msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:151
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:406
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:413
 msgctxt "Attendee meta table."
 msgid "Security Code"
 msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:189
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:385
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:392
 msgctxt "Attendee meta table."
 msgid "Name"
 msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:200
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:390
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:397
 msgctxt "Attendee meta table."
 msgid "Email"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:369
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:376
 msgid "( Deleted )"
 msgstr ""
 
@@ -1445,7 +1445,7 @@ msgstr ""
 msgid "Hide details %s"
 msgstr ""
 
-#: src/Tribe/Meta/Render.php:183
+#: src/Tribe/Meta/Render.php:187
 msgctxt "orphaned attendee meta data"
 msgid "Other attendee data:"
 msgstr ""

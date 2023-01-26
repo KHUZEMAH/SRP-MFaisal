@@ -189,7 +189,7 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 	/**
 	 * Allows submenu to be visible when editing a item of the Fieldset CPT.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 *
 	 * @param string $parent_file Filters the parent file of an admin menu sub-menu item.
 	 *
@@ -211,7 +211,7 @@ class Tribe__Tickets_Plus__Meta__Fieldset {
 	/**
 	 * Allows CPT to to have a "current" submenu item when a Fieldset CPT screen is open.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 *
 	 * @param string $submenu_file Filters the file of an admin menu sub-menu item.
 	 *

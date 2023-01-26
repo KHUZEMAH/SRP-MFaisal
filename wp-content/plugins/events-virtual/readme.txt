@@ -5,7 +5,7 @@ Tags: virtual events, events, calendar, event, venue, organizer, dates, date, sc
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Tested up to: 6.1.1
-Stable tag: 1.13.3
+Stable tag: 1.13.4
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,14 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.13.4] 2023-01-18 =
+
+* Version - Virtual Events 1.13.4 is only compatible with The Events Calendar 6.0.7 and higher
+* Fix - Numerous issues related to the translation of Views rewrite slugs. [TEC-3733]
+* Tweak - Adapt to the change in how we handle view slugs. [TEC-4586]
+* Tweak - Added filters: `tribe-events-virtual-widgets-v2-{$view_slug}-should-enqueue-assets`
+* Tweak - Removed filters: `tribe-events-virtual-widgets-v2-{$view->get_slug()}-should-enqueue-assets`
 
 = [1.13.3] 2022-11-29 =
 

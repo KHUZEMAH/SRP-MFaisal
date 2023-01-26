@@ -45,7 +45,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __clone()
         {
             // Cloning instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.2.4' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.3' );
         }
         
         /**
@@ -55,7 +55,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __wakeup()
         {
             // Unserializing instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.2.4' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.3' );
         }
         
         private function setup_debug_constants()
@@ -162,15 +162,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
             add_action( 'wpml_st_loaded', array( $this, 'init_wpml_compatibility' ) );
             // Filter to exclude images from lazy load using https://wordpress.org/plugins/sg-cachepress/
             add_filter( 'sgo_lazy_load_exclude_classes', array( $this, 'exclude_images_with_specific_class' ) );
-            if ( defined( 'ELEMENTOR_VERSION' ) ) {
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
-                } else {
-                    add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
-                }
-            
-            }
+            add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
             add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_editor_styles' ) );
             add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts' ) );
             add_action( 'elementor/frontend/after_register_styles', array( $this, 'register_frontend_styles' ) );
@@ -307,6 +299,13 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
             wp_register_script(
                 'lae-animated-text-scripts',
                 LAE_PLUGIN_URL . 'assets/js/widgets/animated-text' . $suffix . '.js',
+                array( 'elementor-frontend' ),
+                LAE_VERSION,
+                true
+            );
+            wp_register_script(
+                'lae-device-slider-scripts',
+                LAE_PLUGIN_URL . 'assets/js/widgets/device-slider' . $suffix . '.js',
                 array( 'elementor-frontend' ),
                 LAE_VERSION,
                 true
@@ -505,260 +504,147 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
             
             if ( !$deactivate_element_animated_text ) {
                 require_once LAE_ADDONS_DIR . 'animated-text.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Animated_Text_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Animated_Text_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Animated_Text_Widget() );
             }
             
             $deactivate_element_marquee_text = lae_get_option( 'lae_deactivate_element_marquee_text', false );
             
             if ( !$deactivate_element_marquee_text ) {
                 require_once LAE_ADDONS_DIR . 'marquee-text.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Marquee_Text_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Marquee_Text_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Marquee_Text_Widget() );
             }
             
             $deactivate_element_team_members = lae_get_option( 'lae_deactivate_element_team', false );
             
             if ( !$deactivate_element_team_members ) {
                 require_once LAE_ADDONS_DIR . 'team-members.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Team_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Team_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Team_Widget() );
             }
             
             $deactivate_element_testimonials = lae_get_option( 'lae_deactivate_element_testimonials', false );
             
             if ( !$deactivate_element_testimonials ) {
                 require_once LAE_ADDONS_DIR . 'testimonials.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Testimonials_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Testimonials_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Testimonials_Widget() );
             }
             
             $deactivate_element_testimonials_slider = lae_get_option( 'lae_deactivate_element_testimonials_slider', false );
             
             if ( !$deactivate_element_testimonials_slider ) {
                 require_once LAE_ADDONS_DIR . 'testimonials-slider.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Testimonials_Slider_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Testimonials_Slider_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Testimonials_Slider_Widget() );
             }
             
             $deactivate_element_tab_slider = lae_get_option( 'lae_deactivate_element_tab_slider', false );
             
             if ( !$deactivate_element_tab_slider ) {
                 require_once LAE_ADDONS_DIR . 'tab-slider.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Tab_Slider_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Tab_Slider_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Tab_Slider_Widget() );
             }
             
             $deactivate_element_stats_bar = lae_get_option( 'lae_deactivate_element_stats_bar', false );
             
             if ( !$deactivate_element_stats_bar ) {
                 require_once LAE_ADDONS_DIR . 'stats-bars.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Stats_Bars_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Stats_Bars_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Stats_Bars_Widget() );
             }
             
             $deactivate_element_piecharts = lae_get_option( 'lae_deactivate_element_piecharts', false );
             
             if ( !$deactivate_element_piecharts ) {
                 require_once LAE_ADDONS_DIR . 'piecharts.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Piecharts_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Piecharts_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Piecharts_Widget() );
             }
             
             $deactivate_element_odometers = lae_get_option( 'lae_deactivate_element_odometers', false );
             
             if ( !$deactivate_element_odometers ) {
                 require_once LAE_ADDONS_DIR . 'odometers.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Odometers_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Odometers_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Odometers_Widget() );
             }
             
             $deactivate_element_services = lae_get_option( 'lae_deactivate_element_services', false );
             
             if ( !$deactivate_element_services ) {
                 require_once LAE_ADDONS_DIR . 'services.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Services_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Services_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Services_Widget() );
             }
             
             $deactivate_element_message_box = lae_get_option( 'lae_deactivate_element_message_box', false );
             
             if ( !$deactivate_element_message_box ) {
                 require_once LAE_ADDONS_DIR . 'message-box.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Message_Box_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Message_Box_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Message_Box_Widget() );
             }
             
             $deactivate_element_heading = lae_get_option( 'lae_deactivate_element_heading', false );
             
             if ( !$deactivate_element_heading ) {
                 require_once LAE_ADDONS_DIR . 'heading.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Heading_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Heading_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Heading_Widget() );
             }
             
             $deactivate_element_clients = lae_get_option( 'lae_deactivate_element_clients', false );
             
             if ( !$deactivate_element_clients ) {
                 require_once LAE_ADDONS_DIR . 'clients.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Clients_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Clients_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Clients_Widget() );
             }
             
             $deactivate_element_pricing_table = lae_get_option( 'lae_deactivate_element_pricing_table', false );
             
             if ( !$deactivate_element_pricing_table ) {
                 require_once LAE_ADDONS_DIR . 'pricing-table.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Pricing_Table_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Pricing_Table_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Pricing_Table_Widget() );
             }
             
             $deactivate_element_posts_carousel = lae_get_option( 'lae_deactivate_element_posts_carousel', false );
             
             if ( !$deactivate_element_posts_carousel ) {
                 require_once LAE_ADDONS_DIR . 'posts-carousel.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Carousel_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Posts_Carousel_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Carousel_Widget() );
             }
             
             $deactivate_element_carousel = lae_get_option( 'lae_deactivate_element_carousel', false );
             
             if ( !$deactivate_element_carousel ) {
                 require_once LAE_ADDONS_DIR . 'carousel.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Carousel_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Carousel_Widget() );
-                }
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Carousel_Widget() );
+            }
             
+            $deactivate_element_device_slider = lae_get_option( 'lae_deactivate_element_device_slider', false );
+            
+            if ( !$deactivate_element_device_slider ) {
+                require_once LAE_ADDONS_DIR . 'device-slider.php';
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Device_Slider_Widget() );
             }
             
             $deactivate_element_portfolio = lae_get_option( 'lae_deactivate_element_portfolio', false );
             
             if ( !$deactivate_element_portfolio ) {
                 require_once LAE_ADDONS_DIR . 'portfolio.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Portfolio_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Portfolio_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Portfolio_Widget() );
             }
             
             $deactivate_element_posts_slider = lae_get_option( 'lae_deactivate_element_posts_slider', false );
             
             if ( !$deactivate_element_posts_slider ) {
                 require_once LAE_ADDONS_DIR . 'posts-slider.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Slider_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Posts_Slider_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Slider_Widget() );
             }
             
             $deactivate_element_posts_gridbox_slider = lae_get_option( 'lae_deactivate_element_posts_gridbox_slider', false );
             
             if ( !$deactivate_element_posts_gridbox_slider ) {
                 require_once LAE_ADDONS_DIR . 'posts-gridbox-slider.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_GridBox_Slider_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Posts_GridBox_Slider_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_GridBox_Slider_Widget() );
             }
             
             $deactivate_element_posts_multislider = lae_get_option( 'lae_deactivate_element_posts_multislider', false );
             
             if ( !$deactivate_element_posts_multislider ) {
                 require_once LAE_ADDONS_DIR . 'posts-multislider.php';
-                
-                if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-                    $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Multislider_Widget() );
-                } else {
-                    $widgets_manager->register_widget_type( new \LivemeshAddons\Widgets\LAE_Posts_Multislider_Widget() );
-                }
-            
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Multislider_Widget() );
             }
         
         }

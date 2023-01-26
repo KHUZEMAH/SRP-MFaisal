@@ -98,7 +98,7 @@ tribe_event_tickets_plus.meta.admin.event = tribe_event_tickets_plus.meta.admin.
 	/**
 	 * Validates the Attendee custom fields by making sure that no Labels are duplicate, which breaks functionality.
 	 *
-	 * @since TBD
+	 * @since 5.6.5
 	 * @param {Event} event the passed event
 	 * @param {boolean} attendeeLablesIsValid passed valid check
 	 * @return boolean

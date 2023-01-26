@@ -14,7 +14,8 @@ $wf_img_path=WT_U_IEW_PLUGIN_URL.'images/';
         $tab_head_arr=array(
             'wt-advanced'=>__('General'),
             'wt-help'=>__('Help Guide'),
-            'wt-pro-upgrade'=>__('Pro Upgrade')
+            'wt-pro-upgrade'=>__('Pro Upgrade'),
+			'wt-other-solutions' => __('Other Solutions')
         );
         if(isset($_GET['debug']))
         {
@@ -32,7 +33,8 @@ $wf_img_path=WT_U_IEW_PLUGIN_URL.'images/';
 
         //outside the settings form
         $setting_views_b=array(          
-            'wt-help'=>'admin-settings-help.php',           
+            'wt-help'=>'admin-settings-help.php',
+			'wt-other-solutions'=>'admin-settings-other-solutions.php'
         );
         $setting_views_b['wt-pro-upgrade']='admin-settings-marketing.php';
         if(isset($_GET['debug']))

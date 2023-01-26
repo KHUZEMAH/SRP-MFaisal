@@ -116,6 +116,10 @@ class Tribe__Tickets_Plus__Meta__Render {
 				continue;
 			}
 
+			if ( $this->is_date_format_field( $field ) ) {
+				$value = $this->format_date_value( $value, $field );
+			}
+
 			if ( '' === trim( $value ) ) {
 				$value = '&nbsp;';
 			}
@@ -266,6 +270,10 @@ class Tribe__Tickets_Plus__Meta__Render {
 					continue;
 				}
 
+				if ( $this->is_date_format_field( $field ) ) {
+					$value = $this->format_date_value( $value, $field );
+				}
+
 				if ( '' === trim( $value ) ) {
 					$value = '&nbsp;';
 				}
@@ -283,5 +291,59 @@ class Tribe__Tickets_Plus__Meta__Render {
 			?>
 		</table>
 		<?php
+	}
+
+	/**
+	 * Check if the field is a date time format field.
+	 *
+	 * @since 5.6.5
+	 *
+	 * @param Tribe__Tickets_Plus__Meta__Field__Abstract_Field $field The field object.
+	 *
+	 * @return bool Whether the field is a date format field.
+	 */
+	public function is_date_format_field( $field ) {
+		$date_fields = [
+			Tribe__Tickets_Plus__Meta__Field__Birth::get_identifier(),
+			Tribe__Tickets_Plus__Meta__Field__Datetime::get_identifier(),
+		];
+
+		/**
+		 * Filters the date fields.
+		 *
+		 * @since 5.6.5
+		 *
+		 * @param array $date_fields The date fields array.
+		 */
+		$date_fields = apply_filters( 'tec_tickets_plus_meta_date_format_fields', $date_fields );
+
+		return in_array( $field->type, $date_fields, true );
+	}
+
+	/**
+	 * Format the date time field value according to the settings for date and time format.
+	 *
+	 * @since 5.6.5
+	 *
+	 * @param string $value The field value.
+	 * @param Tribe__Tickets_Plus__Meta__Field__Abstract_Field $field The field object.
+	 *
+	 * @return string The formatted date time field value.
+	 */
+	public function format_date_value( $value, $field ) {
+		$format = tribe_get_date_format( true );
+
+		$formatted_item = tribe_format_date( $value, false, $format );
+
+		/**
+		 * Filters the formatted date value.
+		 *
+		 * @since 5.6.5
+		 *
+		 * @param string $formatted_item The formatted date value.
+		 * @param string $value The field value.
+		 * @param Tribe__Tickets_Plus__Meta__Field__Abstract_Field $field The field object.
+		 */
+		return apply_filters( 'tec_tickets_plus_meta_date_type_formatted_value', $formatted_item, $value, $field );
 	}
 }

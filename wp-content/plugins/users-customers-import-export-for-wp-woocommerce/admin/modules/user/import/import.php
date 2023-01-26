@@ -4,6 +4,8 @@ if (!defined('WPINC')) {
     exit;
 }
 
+use Automattic\WooCommerce\Admin\ReportsSync;
+
 if(!class_exists('Wt_Import_Export_For_Woo_basic_User_Import')){
 class Wt_Import_Export_For_Woo_basic_User_Import {
 
@@ -98,6 +100,22 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
                 'log_data'=>$this->import_results,
             );
         
+		if($is_last_batch){
+			/**
+			* Regenerate data for reports section.
+			*
+			* @param int|bool $days Number of days to import.
+			* @param bool     $skip_existing Skip existing records.
+			* @return string
+			*/
+			if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+				$days = false; // Initiate now.
+				$skip_existing = 1;
+				ReportsSync::regenerate_report_data( $days, $skip_existing );
+			}
+
+		}
+		
         return $import_response;  
                              
     }

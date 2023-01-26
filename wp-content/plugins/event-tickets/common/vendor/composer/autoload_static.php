@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6
+class ComposerStaticInite970549a245188520b9f4b99bc485c4e
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -179,6 +179,7 @@ class ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
         'TEC\\Common\\Editor\\Full_Site\\Template_Utils' => __DIR__ . '/../..' . '/src/Common/Editor/Full_Site/Template_Utils.php',
+        'TEC\\Common\\Storage\\Timed_Option' => __DIR__ . '/../..' . '/src/Common/Storage/Timed_Option.php',
         'Tribe\\Admin\\Conditional_Content\\Black_Friday' => __DIR__ . '/../..' . '/src/Tribe/Admin/Conditional_Content/Black_Friday.php',
         'Tribe\\Admin\\Conditional_Content\\Datetime_Conditional_Abstract' => __DIR__ . '/../..' . '/src/Tribe/Admin/Conditional_Content/Datetime_Conditional_Abstract.php',
         'Tribe\\Admin\\Conditional_Content\\End_Of_Year_Sale' => __DIR__ . '/../..' . '/src/Tribe/Admin/Conditional_Content/End_Of_Year_Sale.php',
@@ -273,10 +274,10 @@ class ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit7af71cd303727c5847f0f9d6a80a7bc6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite970549a245188520b9f4b99bc485c4e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite970549a245188520b9f4b99bc485c4e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite970549a245188520b9f4b99bc485c4e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite970549a245188520b9f4b99bc485c4e::$classMap;
 
         }, null, ClassLoader::class);
     }
