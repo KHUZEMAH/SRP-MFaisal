@@ -7,8 +7,58 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) {
 }
 ?>
 
+<style>
+    details.vdo_docs {
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        padding: 0.5em 0.5em 0;
+        max-width: 600px;
+        margin-top: 15px;
+    }
+
+    details.vdo_docs ul {
+        list-style: revert;
+        padding: revert;
+    }
+
+    details.vdo_docs > summary {
+        font-weight: bold;
+        margin: -0.5em -0.5em 0;
+        padding: 0.5em;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    details.vdo_docs[open] {
+        padding: 0.5em;
+    }
+
+    details.vdo_docs[open] summary {
+        border-bottom: 1px solid #aaa;
+        margin-bottom: 0.5em;
+    }
+
+    details.vdo_docs table {
+        border: 1px solid #aaaaaa;
+        border-collapse: collapse;
+    }
+    details.vdo_docs td, details.vdo_docs th {
+        border: 1px solid #aaaaaa;
+        padding: 5px 10px;
+    }
+
+</style>
+
 <div class="wrap">
 <h2>VdoCipher Options</h2>
+
+<details style="width: min(100%, 500px);background: #ffffff;padding: 5px 20px;" open>
+    <summary style="cursor: pointer">Any questions or feedback for us?</summary>
+    <p>
+        Send us your questions and feedback from <a target="_blank" href="https://www.vdocipher.com/dashboard/zen-desk">the "Support" section in your vdocipher dashboard</a> or send email to <a href="mailto:support@vdocipher.com">support@vdocipher.com</a>
+    </p>
+</details>
+<?php include('shortcode-doc.html') ?>
 
 <form name="vdoOptionForm" method="post" action="options.php">
 <?php
@@ -68,6 +118,7 @@ do_settings_sections('vdo_option-group');
               value="<?php echo esc_attr(get_option('vdo_player_speed')); ?>"
             />
             <p class="description">Speed can be defined as comma separated decimal values e.g. 0.75,1.0,1.25,1.5,1.75,2.0</p>
+            <p class="description">With player v2, there is an option to set this as part of custom player configuration. This setting will override any options set as part of custom player.</p>
         </td>
         </tr>
 
@@ -78,42 +129,45 @@ do_settings_sections('vdo_option-group');
         if ($existingVersion !== false && $existingVersion !== VDOCIPHER_PLAYER_VERSION) {
             $embedVersionDisplay = 'table-row';
         } ?>
-        <tr valign="top" style="display: <?= $embedVersionDisplay ?>">
+        <tr valign="top">
+            <?php
+            function vdo_selected($match) {
+                $existingEmbedVersion = get_option('vdo_embed_version');
+                // global $existingEmbedVersion;
+                // return $GLOBALS['existingEmbedVersion'] ;
+                return $existingEmbedVersion === $match ? 'selected="selected"' : '';
+            }
+            ?>
             <th scope="row"><label for="vdo_embed_version">Player Version</label></th>
             <td>
                 <div style="display: inline-flex">
-                    <input type="text" name="vdo_embed_version"
-                           id="vdo_embed_version"
-                           value="<?= $existingVersion ?>"
-                           readonly />
-                    <p class="vdo_saveChangeMessage" style="display: none; font-style: italic">Click on "save changes" below to confirm</p>
-                    <button id="vdo_setDefaultVersionBtn" class="button" type="button">Use latest player version 1.6.10</button><br/>
-                    <script>
-                        document.querySelector('#vdo_setDefaultVersionBtn').addEventListener('click', (e) => {
-                            e.preventDefault();
-                            e.target.parentElement.querySelector('input').value = '<?= VDOCIPHER_PLAYER_VERSION ?>'
-                            e.target.style.display = 'none';
-                            e.target.parentElement.querySelector('.vdo_saveChangeMessage').style.display = '';
-                        });
-                    </script>
+                    <select name="vdo_embed_version" id="vdo_embed_version" onchange="" autocomplete="off">
+                        <option value="1.6.10" <?= vdo_selected('1.6.10') ?>>v1</option>
+                        <option value="v2" <?= vdo_selected('v2') ?>>v2 (Recommended)</option>
+                    </select>
                 </div>
-                <p class="description">
-                    It is recommended to use the latest player version for best video playback. This action
-                    can not be reverted.
-                </p>
+                <?php include( 'player-versions-doc.php' ) ?>
             </td>
         </tr>
 
         <!-- Player Theme Options -->
         <?php
-        $defaultThemeId = '9ae8bbe8dd964ddc9bdb932cca1cb59a';
+        /**
+         * if the player is v1 and non-standard theme, then only allow disabling non-standard themes
+         * if the player is v1 and standard theme, do not show anything
+         * if the player is v2, allow adding player IDs. But validate the length of id
+         *
+         * This can be implemented in both PHP and JS. But if the JS is essential, then we can skip
+         * writing in PHP and run the JS function after page load.
+         */
         $existingTheme  = get_option('vdo_player_theme');
-        $themeSettingDisplay = 'none';
-        if ($existingTheme !== false && $existingTheme !== $defaultThemeId) {
-            $themeSettingDisplay = 'table-row';
-        } ?>
-        <tr valign="top" style="display: <?= $themeSettingDisplay ?>">
-        <th scope="row"><label for="vdo_player_theme">Player Theme</label></th>
+        ?>
+        <tr valign="top" id="vdo_theme_editing_row" >
+        <th scope="row">
+            <label for="vdo_player_theme">Player ID</label>
+            <br />
+            <small style="font-weight: normal"><em>Leave this blank for using default theme. Player id can also be specified in the shortcode if needed to be different for different videos.</em></small>
+        </th>
         <td>
             <div style="display:inline-flex; margin-bottom:10px;">
                 <input
@@ -123,66 +177,69 @@ do_settings_sections('vdo_option-group');
                         value="<?php echo $existingTheme; ?>"
                         maxlength="32"
                         style="width: 320px"
-                        readonly
                 />
                 <p class="vdo_saveChangeMessage" style="display: none; font-style: italic">Click on "save changes" below to confirm</p>
-                <button id="vdo_setDefaultThemeBtn" class="button" type="button">Revert to default theme</button><br/>
+                <button id="vdo_setDefaultThemeBtn" style="display: none" class="button" type="button">Revert to default theme</button><br/>
                 <script>
-                    document.querySelector('#vdo_setDefaultThemeBtn').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.target.parentElement.querySelector('input').value = '<?= $defaultThemeId ?>'
-                        e.target.style.display = 'none';
-                        e.target.parentElement.querySelector('.vdo_saveChangeMessage').style.display = '';
-                    });
+                    (function () {
+                        const themeInputRow = document.querySelector('#vdo_theme_editing_row');
+                        const themeInputField = themeInputRow.querySelector('input');
+                        const playerVersionField = document.querySelector('[name=vdo_embed_version]');
+                        const setDefaultButton = document.querySelector('#vdo_setDefaultThemeBtn');
+                        playerVersionField.addEventListener('change', updateThemeInput);
+                        const defaultV1Theme = '9ae8bbe8dd964ddc9bdb932cca1cb59a';
+                        const originalTheme = "<?= get_option('vdo_player_theme') ?>";
+                        let resetV2Theme, resetV1Theme;
+                        function updateThemeInput() {
+                            if (playerVersionField.value === 'v2') {
+                                themeInputRow.style.display = '';
+                                if (themeInputField.value.match(/^\w{32}$/)) resetV1Theme = themeInputField.value;
+                                if (resetV2Theme) themeInputField.value = resetV2Theme;
+                                // if the input is not valid for v2, clear the field
+                                if (!themeInputField.value.match(/^\w{16}$/)) themeInputField.value = '';
+                                // set the max and min length for v2 players
+                                themeInputField.setAttribute('maxlength', '16');
+                                themeInputField.setAttribute('minlength', '16');
+                                setDefaultButton.style.display = 'none';
+                            } else {
+                                // if input valid for v2, save in reset variable
+                                if (themeInputField.value.match(/^\w{16}$/)) resetV2Theme = themeInputField.value;
+                                if (resetV1Theme) themeInputField.value = resetV1Theme;
+                                // if input is not valid for v1, reset to default theme
+                                if (!themeInputField.value.match(/^\w{32}$/)) themeInputField.value = defaultV1Theme;
+                                themeInputField.setAttribute('maxlength', '32');
+                                themeInputField.setAttribute('minlength', '32');
+                                // if original theme was some custom v1 theme, hide the entire row
+                                // else, show reset button
+                                if (originalTheme.length !== 32 || originalTheme === defaultV1Theme) {
+                                    themeInputRow.style.display = 'none';
+                                } else {
+                                    setDefaultButton.style.display = '';
+                                    setDefaultButton.addEventListener('click', (e) => {
+                                        e.preventDefault();
+                                        themeInputField.value = '9ae8bbe8dd964ddc9bdb932cca1cb59a'
+                                        e.target.style.display = 'none';
+                                        e.target.parentElement.querySelector('.vdo_saveChangeMessage').style.display = '';
+                                    });
+                                }
+                            }
+                        }
+                        setTimeout(() => {
+                            updateThemeInput();
+                        }, 0);
+                    })()
                 </script>
             </div>
-            <p class="description">
-                We have reverted player themes in preparation for something better. If you are having any styling
-                issues in your player, please use the button above to revert to the default theme. Once you revert
-                to the default theme, there is no way to undo the selection. The default theme is the one that is
-                on your vdocipher dashboard when previewing any video.
-            </p>
-            <figure style="margin: 0">
-                <img src="<?php echo plugin_dir_url(__FILE__).'img/default1.png' ?>"
-                     style="width: 300px" alt="preview of default player">
-                <figcaption>Screenshot of the default player theme</figcaption>
-            </figure>
+            <?php include('player-id-doc.html'); ?>
         </td>
         </tr>
         <!-- Player Theme Options end-->
 
-        <!-- Player Watermark option - Flash/ HTML5 starts -->
-        <?php
-         $existingFlashSetting = get_option('vdo_watermark_flash_html');
-         if ($existingFlashSetting === 'flash') { ?>
-             <tr id="vdo_watermark_html_flash" valign="top">
-                 <th scope="row"> Choice of Watermark </th>
-                 <td>
-                     <input type="radio" class="vdo-htmlflash"
-                            value="html5" name="vdo_watermark_flash_html"
-                            id="vdo_html5">
-                     <label for="vdo_html5">HTML5 (Overlay)</label>
-                     &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                     <input type="radio" class="vdo-htmlflash"
-                            value="flash" name="vdo_watermark_flash_html"
-                            id="vdo_flash" checked >
-                     <label for="vdo_flash">Flash (Hard-Coded)</label>
-                     <p class="description">
-                         IMPORTANT: Flash player is no longer supported by any modern browser. Selecting "Flash" here is
-                         causing playback issues for your users. Please select HTML5 and "save changes" to use HTML5
-                         playback. This change will be irreversible.
-                     </p>
-                 </td>
-             </tr>
-
-        <?php } ?>
-
-        <!-- Player Watermark option - Flash/ HTML5 ends -->
         <tr valign="top">
         <th scope="row"><label for="vdo_watermarkjson">Annotation Statement</label></th>
         <td>
           <div style="display: inline-flex;">
-              <textarea name="vdo_annotate_code" id="vdo_watermarkjson" rows="6" cols="55"
+              <textarea name="vdo_annotate_code" id="vdo_watermarkjson" rows="6" cols="55" style="font-family: monospace"
           ><?php
             if (get_option('vdo_annotate_code') != "") {
                 echo get_option('vdo_annotate_code');
@@ -206,6 +263,35 @@ do_settings_sections('vdo_option-group');
           </p>
         </td>
         </tr>
+
+        <!-- Advanced Options -->
+
+        <tr valign="top">
+          <th scope="row"></th>
+          <td>
+            <details>
+              <summary style="cursor: pointer">Advanced Options</summary>
+              <div style="margin: 20px 0">
+                <div style="display: inline-flex;">
+                  <div style="width: 300px;">
+                    <label for="vdo_show_plugin_in_sidebar"><strong>Show VdoCipher in sidebar</strong></label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="vdo_show_plugin_in_sidebar" id="vdo_show_plugin_in_sidebar"
+                           value="true" <?php echo esc_attr(get_option('vdo_show_plugin_in_sidebar')) == 'true' ? 'checked' : ''; ?>/>
+                  </div>
+                </div>
+                <p class="description">
+                  Not recommended to be changed. Mark this option unchecked if you like to hide the VdoCipher settings page from the sidebar.<br/>
+                  Once changed, you will need to access this page from inside the Wordpress Settings / Plugins page.
+                </p>
+              </div>
+            </details>
+
+          </td>
+        </tr>
+
+        <!-- Footer -->
         <tr style="display:none;">
           <td>Plugin version no.: </td>
           <td><input

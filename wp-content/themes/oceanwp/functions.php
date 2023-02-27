@@ -3973,3 +3973,33 @@ if ($on_site_tag != "") {
   /*********** End Adding user in ZOOM AOI list **************/
 }
 }
+
+//* Do NOT include the opening php tag
+ 
+add_action( 'tribe_tickets_ticket_email_ticket_bottom', 'add_export_buttons_to_email' );
+ 
+function add_export_buttons_to_email( array $ticket ) {
+  if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+    return;
+  }
+ 
+  global $post;
+  $post = get_post( $ticket['event_id'] );
+ 
+  if ( empty( $post ) ) {
+    return;
+  }
+ 
+  $ical_link = add_query_arg( 'ical', '1', get_the_permalink( $post->ID ) );
+   
+  // Use the following line if you want to have `webcal://` links, that are wiped by Gmail and others.
+  // $ical_link = str_replace( [ 'http://', 'https://' ], 'webcal://', $ical_link );
+ 
+  $calendar_links = '<div class="tribe-events-cal-links">';
+  $calendar_links .= '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" target="_blank" rel="noopener noreferrer" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
+  $calendar_links .= '   ';
+  $calendar_links .= '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( $ical_link ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'Add to iCalendar', 'the-events-calendar' ) . '</a>';
+  $calendar_links .= '</div><!-- .tribe-events-cal-links -->';
+ 
+  echo $calendar_links;
+}

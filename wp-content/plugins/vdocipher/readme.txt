@@ -2,8 +2,8 @@
 Contributors: vibhavsinha, milangupta4
 Tags: video, DRM, video plugin, sell video, e-learning, movie
 Requires at least: 3.5.1
-Tested up to: 5.8.2
-Stable tag: 1.27
+Tested up to: 6.1.1
+Stable tag: 1.29
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,6 +66,18 @@ On account creation, you shall be provided with 5GB of free trial bandwidth.
 5. Video playing inside a post.
 
 == Changelog ==
+
+= 1.29 =
+* Added support for more attributes `controls`, `autoplay` and `cc_language`.
+* Ability to override player design for each embed
+* Fixed bug with applying player-id to v2 player.
+* Improved documentation
+
+= 1.28 =
+* Added support for player v2 with customisation, light-weight and other features.
+* Improved error messages
+* Added option to arrange menu position
+* Settings will be retained on deactivation. Only uninstall will remove it from DB
 
 = 1.27 =
 * Added speed change options
@@ -151,6 +163,13 @@ Bug fixes
 * A basic plugin which just makes it possible to embed vdocipher videos inside a wordpress plugin
 
 == Upgrade Notice ==
+
+= 1.29 =
+* Added support for more player v2 attributes.
+* Added better documentation.
+
+= 1.28 =
+* Added support to play version 2 of video player with more customisation
 
 = 1.27 =
 * Added the ability to set custom speed options on player
