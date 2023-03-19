@@ -30,9 +30,8 @@ class Input extends \LWS\Adminpanel\Pages\Field
 			foreach( $this->extra['attrs'] as $k => $v )
 				$attrs .= " $k='".\esc_attr($v)."'";
 		}
+		$others = $this->getDomAttributes();
 
-		echo "<input name='$name' value='$value'$attrs$id$size>";
+		echo "<input name='$name' value='$value'$attrs{$others}$id$size>";
 	}
 }
-
-?>

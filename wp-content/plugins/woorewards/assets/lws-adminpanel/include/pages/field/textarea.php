@@ -25,7 +25,8 @@ class TextArea extends \LWS\Adminpanel\Pages\Field
 		$class = $this->style;
 		if( isset($this->extra['class']) && is_string($this->extra['class']) && $this->extra['class'] )
 			$class = ($class ? ' ' : '') . $this->extra['class'];
+		$attrs = $this->getDomAttributes();
 
-		echo "<textarea class='{$class}'{$ph} rows='{$this->extra['rows']}' cols='{$this->extra['cols']}' name='{$name}'{$required}{$disabled}{$readonly}{$id}>{$value}</textarea>";
+		echo "<textarea class='{$class}'{$ph} rows='{$this->extra['rows']}' cols='{$this->extra['cols']}' name='{$name}'{$required}{$disabled}{$readonly}{$id}{$attrs}>{$value}</textarea>";
 	}
 }

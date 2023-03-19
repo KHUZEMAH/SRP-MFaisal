@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points for each money spend on an order. */
 class OrderAmount extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	use \LWS\WOOREWARDS\Events\T_SponsorshipOrigin;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -24,6 +26,7 @@ class OrderAmount extends \LWS\WOOREWARDS\Abstracts\Event
 		$data[$prefix.'denominator'] = $this->getDenominator();
 		$data[$prefix.'include_shipping'] = $this->getShipping() ? 'on' : '';
 		$data[$prefix.'event_priority'] = $this->getEventPriority();
+		$data = $this->filterSponsorshipData($data, $prefix);
 		return $data;
 	}
 
@@ -43,12 +46,14 @@ EOT;
 		$pht1 = $this->getFieldsetPlaceholder(true, 1);
 		$form = str_replace($pht1, $pht1.$str, $form);
 
+		// just hidden since we do not want to reset the value on save
+		$noPri = (\get_option('lws_woorewards_show_loading_order_and_priority') ? '' : ' style="display: none;"');
 		$label = __("Priority", 'woorewards-lite');
 		$tooltip = __("Customer orders will run by ascending priority value.", 'woorewards-lite');
 		$str = <<<EOT
-		<div class='field-help'>$tooltip</div>
-		<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>
-		<div class='lws-$context-opt-input value'>
+		<div class='field-help'{$noPri}>$tooltip</div>
+		<div class='lws-$context-opt-title label'{$noPri}>$label<div class='bt-field-help'>?</div></div>
+		<div class='lws-$context-opt-input value'{$noPri}>
 			<input type='text' id='{$prefix}event_priority' name='{$prefix}event_priority' placeholder='10' size='5' />
 		</div>
 EOT;
@@ -61,11 +66,15 @@ EOT;
 		// compute points after discount
 		$label   = _x("Use amount after discount", "Order Amount Event", 'woorewards-lite');
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}after_discount' name='{$prefix}after_discount'/></div>";
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'after_discount', array(
+			'id'      => $prefix . 'after_discount',
+			'layout'  => 'toggle',
+		));
+		$form .= "<div class='lws-$context-opt-input value'>{$toggle}</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 
-		return $form;
+		return $this->filterSponsorshipForm($form, $prefix, $context, 10);
 	}
 
 	function submit($form=array(), $source='editlist')
@@ -95,6 +104,8 @@ EOT;
 			return isset($values['error']) ? $values['error'] : false;
 
 		$valid = parent::submit($form, $source);
+		if ($valid === true)
+			$valid = $this->optSponsorshipSubmit($prefix, $form, $source);
 		if( $valid === true )
 		{
 			$this->setDenominator    ($values['values'][$prefix.'denominator']);
@@ -173,6 +184,7 @@ EOT;
 		$this->setThresholdEffect(boolval(\get_post_meta($post->ID, 'wre_event_threshold_effect', true)));
 		$this->setDenominator    (floatval(\get_post_meta($post->ID, 'wre_event_denominator',     true)));
 		$this->setEventPriority($this->getSinglePostMeta($post->ID, 'wre_event_priority', $this->getEventPriority()));
+		$this->optSponsorshipFromPost($post);
 		return $this;
 	}
 
@@ -183,6 +195,7 @@ EOT;
 		\update_post_meta($id, 'wre_event_threshold_effect', $this->getThresholdEffect()?'on':'');
 		\update_post_meta($id, 'wre_event_denominator',      $this->getDenominator());
 		\update_post_meta($id, 'wre_event_priority', $this->getEventPriority());
+		$this->optSponsorshipSave($id);
 		return $this;
 	}
 
@@ -205,6 +218,8 @@ EOT;
 	function orderDone($order)
 	{
 		if (!($userId = $this->getPointsRecipient($order->order)))
+			return $order;
+		if (!$this->isValidOriginByOrder($order->order, $this->isGuestAllowed()))
 			return $order;
 
 		$amount = $this->getOrderAmount($order);
@@ -315,5 +330,10 @@ EOT;
 			'money' => __("Money", 'woorewards-lite'),
 			'order' => __("Order", 'woorewards-lite')
 		));
+	}
+
+	function isGuestAllowed()
+	{
+		return false;
 	}
 }

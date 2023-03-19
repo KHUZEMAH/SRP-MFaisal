@@ -105,6 +105,24 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 										'placeholder' => __('Number | Empty to ignore', 'woorewards-lite'),
 									),
 								),
+								array(
+									'id'    => 'sponsored_spent',
+									'title' => sprintf(__("Points for each %s spent by Referee", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'type'  => 'text',
+									'extra' => array(
+										//'pattern' => "\\d*",
+										'placeholder' => __('Number | Empty to ignore', 'woorewards-lite'),
+									),
+								),
+								array(
+									'id'    => 'sponsored_order',
+									'title' => sprintf(__("Points on Referee orders", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'type'  => 'text',
+									'extra' => array(
+										//'pattern' => "\\d*",
+										'placeholder' => __('Number | Empty to ignore', 'woorewards-lite'),
+									),
+								),
 							),
 						),
 					),
@@ -121,6 +139,8 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Select a reward", 'woorewards-lite'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'pointsoncart', 'icon' => 'lws-icon lws-icon-cart-2', 'label' => __("Points on Cart", 'woorewards-lite')),
 											array('value' => 'coupon', 'icon' => 'lws-icon lws-icon-coins', 'label' => sprintf(_x("Coupon (%s)", "Coupon Unlockable", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?')),
@@ -212,6 +232,8 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Enable rewards emails ?", 'woorewards-lite'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-lite')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-lite')),
@@ -225,6 +247,8 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-lite'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-lite')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-lite')),
@@ -264,7 +288,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		/* Loyalty system name */
 		$usedData = $this->getDataValue($data, 'ini', false, $exists);
 		$system = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Loyalty System", 'woorewards-lite') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Loyalty System", 'woorewards-lite') . "</div>";
 		$value = ($system['system_title']) ? $system['system_title'] : __("Standard System", 'woorewards-lite');
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Loyalty System Name", 'woorewards-lite') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
@@ -272,7 +296,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		/* Earning methods */
 		$usedData = $this->getDataValue($data, 'met', false, $exists);
 		$methods = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Methods to earn points", 'woorewards-lite') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Methods to earn points", 'woorewards-lite') . "</div>";
 		if ($methods['spent_earn'] && $methods['spent_earn'] > 0)
 		{
 			$value = sprintf(__(' %s points earned for each %s spent', 'woorewards-lite'), $methods['spent_earn'], $currency);
@@ -297,10 +321,22 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 			$summary .= "<div class='lws-wizard-summary-label'>" . __("Product Review", 'woorewards-lite') . "</div>";
 			$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 		}
+		if ($methods['sponsored_spent'] && $methods['sponsored_spent'] > 0)
+		{
+			$value = sprintf(__(' %s points earned for each %s spent by a Referee', 'woorewards-lite'), $methods['sponsored_spent'], $currency);
+			$summary .= "<div class='lws-wizard-summary-label'>" . __("Referee Spends Money", 'woorewards-lite') . "</div>";
+			$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
+		}
+		if ($methods['sponsored_order'] && $methods['sponsored_order'] > 0)
+		{
+			$value = sprintf(__(' %s points for each time a Referee places order', 'woorewards-lite'), $methods['sponsored_order']);
+			$summary .= "<div class='lws-wizard-summary-label'>" . __("Referee places an order", 'woorewards-lite') . "</div>";
+			$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
+		}
 		/* Rewards */
 		$usedData = $this->getDataValue($data, 'rew', false, $exists);
 		$rewards = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Reward", 'woorewards-lite') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Reward", 'woorewards-lite') . "</div>";
 		if ($rewards['reward'] == "discount")
 		{
 			$value = sprintf(__(' %s percent discount for %s points', 'woorewards-lite'), $rewards['discount_amount'], $rewards['needed']);
@@ -339,6 +375,11 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 				$err[] = __("Extra points on first order expects numeric value greater than zero or leave blank.", 'woorewards-lite');
 			if (!$this->isIntGE0($submit, 'product_review'))
 				$err[] = __("Points for product review expects numeric value greater than zero or leave blank.", 'woorewards-lite');
+
+			if (!$this->isIntGE0($submit, 'sponsored_spent'))
+				$err[] = sprintf(__("Points for each %s spent by Referee expects numeric value greater than zero or leave blank.", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+			if (!$this->isIntGE0($submit, 'sponsored_order'))
+				$err[] = __("Points on order placed by Referee expects numeric value greater than zero or leave blank.", 'woorewards-lite');
 		}
 		else if ($step == 'rew')
 		{
@@ -392,11 +433,16 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$this->deleteEvents($pool, 'lws_woorewards_events_ordercompleted');
 		$this->deleteEvents($pool, 'lws_woorewards_events_firstorder');
 		$this->deleteEvents($pool, 'lws_woorewards_events_productreview');
+		$this->deleteEvents($pool, 'lws_woorewards_events_sponsoredorderamount');
+		$this->deleteEvents($pool, 'lws_woorewards_events_sponsoredorder');
 
-		$pool->addEvent(new \LWS\WOOREWARDS\Events\OrderAmount(),    \absint($this->getValue($data['data'], 'spent_earn', 'met/*', 0)));
-		$pool->addEvent(new \LWS\WOOREWARDS\Events\OrderCompleted(), \absint($this->getValue($data['data'], 'order_earn', 'met/*', 0)));
-		$pool->addEvent(new \LWS\WOOREWARDS\Events\FirstOrder(),     \absint($this->getValue($data['data'], 'first_order_earn', 'met/*', 0)));
-		$pool->addEvent(new \LWS\WOOREWARDS\Events\ProductReview(),  \absint($this->getValue($data['data'], 'product_review', 'met/*', 0)));
+		$pool->addEvent(new \LWS\WOOREWARDS\Events\OrderAmount(),          \absint($this->getValue($data['data'], 'spent_earn', 'met/*', 0)));
+		$pool->addEvent(new \LWS\WOOREWARDS\Events\OrderCompleted(),       \absint($this->getValue($data['data'], 'order_earn', 'met/*', 0)));
+		$pool->addEvent(new \LWS\WOOREWARDS\Events\FirstOrder(),           \absint($this->getValue($data['data'], 'first_order_earn', 'met/*', 0)));
+		$pool->addEvent(new \LWS\WOOREWARDS\Events\ProductReview(),        \absint($this->getValue($data['data'], 'product_review', 'met/*', 0)));
+		$pool->addEvent(new \LWS\WOOREWARDS\Events\SponsoredOrderAmount(), \absint($this->getValue($data['data'], 'sponsored_spent', 'met/*', 0)));
+		$event = new \LWS\WOOREWARDS\Events\SponsoredOrder();
+		$pool->addEvent($event->setFirstOrderOnly(false),                  \absint($this->getValue($data['data'], 'sponsored_order', 'met/*', 0)));
 
 		$this->deleteUnlockables($pool, 'lws_woorewards_unlockables_coupon');
 

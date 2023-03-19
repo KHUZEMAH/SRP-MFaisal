@@ -65,7 +65,6 @@ class DateTime extends \LWS\Adminpanel\Pages\Field
 		}
 
 		// looks better with the small box finally
-		//~ \wp_enqueue_script('lws-checkbox'); // input class="lws_checkbox"
 		// ... build a time picker?
 		return <<<EOT
 <div class='lws-editlist-opt-multi lws-field-datetime'>

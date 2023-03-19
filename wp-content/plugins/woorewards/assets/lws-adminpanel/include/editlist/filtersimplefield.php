@@ -15,7 +15,7 @@ class FilterSimpleField extends Filter
 		$this->name = $name;
 		$this->extra = $extra;
 		$this->placeholder = \esc_attr($placeholder);
-		$this->buttonLabel = (empty($buttonLabel) ? __('Search', 'lws-adminpanel') : $buttonLabel);
+		$this->buttonLabel = (empty($buttonLabel) ? __('Search', LWS_ADMIN_PANEL_DOMAIN) : $buttonLabel);
 	}
 
 	function input($above=true)
@@ -24,7 +24,7 @@ class FilterSimpleField extends Filter
 		if( isset($_GET[$this->name]) && !empty(trim($_GET[$this->name])) )
 			$search = trim(esc_attr(\sanitize_text_field($_GET[$this->name])));
 
-		$filterlabel = __('Narrow your search', 'lws-adminpanel');
+		$filterlabel = __('Narrow your search', LWS_ADMIN_PANEL_DOMAIN);
 
 		$retour = "<div class='lws-editlist-filter-box end'><div class='lws-editlist-filter-box-title'>{$filterlabel}</div>";
 		foreach( $this->extra as $name => $value)

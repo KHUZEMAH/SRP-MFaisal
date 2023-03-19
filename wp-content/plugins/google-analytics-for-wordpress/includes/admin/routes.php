@@ -198,7 +198,7 @@ class MonsterInsights_Rest_Routes {
 		if ( isset( $_POST['setting'] ) ) {
 			$setting = sanitize_text_field( wp_unslash( $_POST['setting'] ) );
 			if ( isset( $_POST['value'] ) ) {
-				$value = $this->handle_sanitization( $setting, $_POST['value'] );
+				$value = $this->handle_sanitization( $setting, $_POST['value'] ); // phpcs:ignore
 				monsterinsights_update_option( $setting, $value );
 				do_action( 'monsterinsights_after_update_settings', $setting, $value );
 			} else {
@@ -551,6 +551,21 @@ class MonsterInsights_Rest_Routes {
 				'settings'  => admin_url( 'edit.php?post_type=shop_coupon&acfw' ),
 			);
 		}
+
+		// UserFeedback.
+		$parsed_addons['userfeedback-lite'] = array(
+			'active'    => function_exists( 'userfeedback' ),
+			'icon'      => plugin_dir_url( MONSTERINSIGHTS_PLUGIN_FILE ) . 'assets/images/plugin-userfeedback.png',
+			'title'     => 'UserFeedback',
+			'excerpt'   => __( 'See what your analytics software isn’t telling you with powerful UserFeedback surveys.', 'google-analytics-for-wordpress' ),
+			'installed' => array_key_exists( 'userfeedback-lite/userfeedback.php', $installed_plugins ) || array_key_exists( 'userfeedback/userfeedback.php', $installed_plugins ),
+			'basename'  => 'userfeedback-lite/userfeedback.php',
+			'slug'      => 'userfeedback-lite',
+			'settings'  => admin_url( 'admin.php?page=userfeedback_onboarding' ),
+			'surveys'  => admin_url( 'admin.php?page=userfeedback_surveys' ),
+			'setup_complete'  => (get_option('userfeedback_onboarding_complete', 0) == 1),
+		);
+
 		// Gravity Forms.
 		$parsed_addons['gravity_forms'] = array(
 			'active' => class_exists( 'GFCommon' ),
@@ -836,7 +851,7 @@ class MonsterInsights_Rest_Routes {
 			return;
 		}
 
-		$extension = explode( '.', sanitize_text_field( wp_unslash( $_FILES['import_file']['name'] ) ) );
+		$extension = explode( '.', sanitize_text_field( wp_unslash( $_FILES['import_file']['name'] ) ) ); // phpcs:ignore
 		$extension = end( $extension );
 
 		if ( 'json' !== $extension ) {
@@ -845,7 +860,7 @@ class MonsterInsights_Rest_Routes {
 			) );
 		}
 
-		$import_file = sanitize_text_field( wp_unslash( $_FILES['import_file']['tmp_name'] ) );
+		$import_file = sanitize_text_field( wp_unslash( $_FILES['import_file']['tmp_name'] ) ); // phpcs:ignore
 
 		$file = file_get_contents( $import_file );
 		if ( empty( $file ) ) {

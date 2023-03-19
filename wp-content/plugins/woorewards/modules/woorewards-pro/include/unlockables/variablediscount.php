@@ -53,10 +53,13 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 		// autoapply on/off
 		$label = _x("Auto-apply on next cart", "VariableDiscount Unlockable", 'woorewards-pro');
-		$checked = ($this->isAutoApply() ? ' checked' : '');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
+			'id'      => $prefix . 'autoapply',
+			'layout'  => 'toggle',
+			'checked' => ($this->isAutoApply() ? ' checked' : '')
+		));
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox'$checked id='{$prefix}autoapply' name='{$prefix}autoapply' class='lws_checkbox'/>";
-		$form .= "</div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// timeout
 		$label = _x("Validity period", "Variable Discount Unlockable", 'woorewards-pro');

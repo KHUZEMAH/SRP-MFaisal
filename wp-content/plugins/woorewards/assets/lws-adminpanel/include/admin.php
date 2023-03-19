@@ -54,7 +54,7 @@ class Admin
 	 * @endcode
 	 * Take care no text is translated before. */
 	public function load_plugin_textdomain() {
-		\load_plugin_textdomain('lws-adminpanel', FALSE, substr(dirname(LWS_ADMIN_PANEL_FILE), strlen(WP_PLUGIN_DIR)) . '/languages/');
+		\load_plugin_textdomain(LWS_ADMIN_PANEL_DOMAIN, FALSE, substr(dirname(LWS_ADMIN_PANEL_FILE), strlen(WP_PLUGIN_DIR)) . '/languages/');
 	}
 
 	/**
@@ -119,8 +119,8 @@ class Admin
 			\wp_enqueue_style('lws-editlist');
 			\wp_enqueue_script('lws-admin-interface');
 			\wp_enqueue_style('lws-notices');
-			\LWS\Adminpanel\Pages\Page::runNoticeGrabber();
-			\LWS\Adminpanel\Pages\Head::echoExternal($page->id, $page->settings);
+			//~ \LWS\Adminpanel\Pages\Page::runNoticeGrabber();
+			//~ \LWS\Adminpanel\Pages\Head::echoExternal($page->id, $page->settings);
 		}
 	}
 
@@ -157,6 +157,7 @@ class Admin
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/conveniences.php';
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/request.php';
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/duration.php';
+		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/shortcode.php';
 		require_once LWS_ADMIN_PANEL_INCLUDES . '/tools/expression.php';
 		\LWS\Adminpanel\Tools\Expression::install();
 
@@ -225,21 +226,19 @@ class Admin
 		\wp_register_style('lws-popup',           LWS_ADMIN_PANEL_CSS . '/controls/popup.min.css', array(), LWS_ADMIN_PANEL_VERSION);
 
 		/* Scripts */
-		\wp_register_script('lws-base64',         LWS_ADMIN_PANEL_JS . '/tools/objcvt.js', array(), LWS_ADMIN_PANEL_VERSION );
-		\wp_register_script('lws-tools',          LWS_ADMIN_PANEL_JS . '/tools/tools.js',  array('jquery'), LWS_ADMIN_PANEL_VERSION );
+		\wp_register_script('lws-base64',            LWS_ADMIN_PANEL_JS . '/tools/objcvt.js', array(), LWS_ADMIN_PANEL_VERSION);
+		\wp_register_script('lws-tools',             LWS_ADMIN_PANEL_JS . '/tools/tools.js',  array('jquery'), LWS_ADMIN_PANEL_VERSION);
 		\wp_localize_script('lws-tools', 'lws_ajax', array('url' => admin_url('/admin-ajax.php'),));
-		\wp_register_script('lws-md5',              LWS_ADMIN_PANEL_JS . '/resources/jquery.md5.js',      array('jquery'), LWS_ADMIN_PANEL_VERSION );
-		\wp_register_script('lws-checkbox',         LWS_ADMIN_PANEL_JS . '/controls/checkbox.js',         array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION );
-		\wp_register_script('lws-switch',           LWS_ADMIN_PANEL_JS . '/controls/switch.js',           array('jquery','jquery-ui-widget', 'jquery-effects-core'), LWS_ADMIN_PANEL_VERSION, true);
-		\wp_register_script('lws-radio',            LWS_ADMIN_PANEL_JS . '/controls/radio.js',            array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_register_script('lws-md5',               LWS_ADMIN_PANEL_JS . '/resources/jquery.md5.js',      array('jquery'), LWS_ADMIN_PANEL_VERSION);
+		\wp_register_script('lws-radio',             LWS_ADMIN_PANEL_JS . '/controls/radio.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-icon-picker',       LWS_ADMIN_PANEL_JS . '/controls/iconpicker.js',       array('jquery'), LWS_ADMIN_PANEL_VERSION, true);
-		\wp_register_script('lws-field-validation', LWS_ADMIN_PANEL_JS . '/controls/fieldvalidation.js',  array('jquery','jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
-		\wp_register_script('lws-checkgrid',        LWS_ADMIN_PANEL_JS . '/controls/checkgrid.js',        array('jquery','jquery-ui-core','jquery-ui-mouse','jquery-ui-draggable','jquery-ui-droppable'), LWS_ADMIN_PANEL_VERSION, true);
-		\wp_register_script('lws-popup',            LWS_ADMIN_PANEL_JS . '/controls/popup.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);
-		\wp_register_script('lws-admin-interface',  LWS_ADMIN_PANEL_JS . '/interface/admin-interface.js', array('jquery', 'lws-tools', 'lws-md5'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_register_script('lws-field-validation',  LWS_ADMIN_PANEL_JS . '/controls/fieldvalidation.js',  array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_register_script('lws-checkgrid',         LWS_ADMIN_PANEL_JS . '/controls/checkgrid.js',        array('jquery', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-draggable', 'jquery-ui-droppable'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_register_script('lws-popup',             LWS_ADMIN_PANEL_JS . '/controls/popup.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);
+		\wp_register_script('lws-admin-interface',   LWS_ADMIN_PANEL_JS . '/interface/admin-interface.js', array('jquery', 'lws-tools', 'lws-md5'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_localize_script('lws-admin-interface', 'button_texts', array(
-			'expand' => __("Expand All", 'lws-adminpanel'),
-			'collapse' => __("Collapse All", 'lws-adminpanel'),
+			'expand' => __("Expand All", LWS_ADMIN_PANEL_DOMAIN),
+			'collapse' => __("Collapse All", LWS_ADMIN_PANEL_DOMAIN),
 		));
 
 		/* Fields */
@@ -247,18 +246,16 @@ class Admin
 		\wp_register_script('lws-lac-select',    LWS_ADMIN_PANEL_JS . '/controls/lac/lacselect.js',    array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-lac-checklist', LWS_ADMIN_PANEL_JS . '/controls/lac/lacchecklist.js', array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true );
 		\wp_register_script('lws-lac-taglist',   LWS_ADMIN_PANEL_JS . '/controls/lac/lactaglist.js',   array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true );
-		\wp_localize_script('lws-lac-taglist', 'lws_lac_taglist', array('value_unknown' => __("At least one value is unknown.", 'lws-adminpanel')));
+		\wp_localize_script('lws-lac-taglist', 'lws_lac_taglist', array('value_unknown' => __("At least one value is unknown.", LWS_ADMIN_PANEL_DOMAIN)));
 
 		/** enqueue lac scripts, styles and dependencies. @param (array) lac basenames (eg. 'select'). */
-		add_action('lws_adminpanel_enqueue_lac_scripts', function($lacs=array()){
+		\add_action('lws_adminpanel_enqueue_lac_scripts', function($lacs=array()){
 			foreach( array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'lws-base64', 'lws-tools') as $uid )
 				\wp_enqueue_script($uid);
 			\wp_enqueue_script('lws-lac-model');
 			\wp_enqueue_style('lws-admin-controls');
 			foreach($lacs as $lac){
 				\wp_enqueue_script('lws-lac-'.$lac);
-				if( \wp_style_is('lws-lac-'.$lac.'-style', 'registered') )
-					\wp_enqueue_style('lws-lac-'.$lac.'-style');
 			}
 		}, 10, 1);
 
@@ -267,10 +264,8 @@ class Admin
 		\wp_register_style('lws-chart-js',   LWS_ADMIN_PANEL_CSS. '/resources/chart.js/Chart.min.css', array(), '2.8.0');
 		\wp_register_script('lws-qrcode-js', LWS_ADMIN_PANEL_JS . '/resources/qrcode.js/qrcode.js', array(), '1.0', true );
 
-		if (\is_admin()) {
-			if ('nav-menus.php' == $hook) {
-				\wp_enqueue_script('lws-navmenu', LWS_ADMIN_PANEL_JS . '/navmenu.js', array('jquery', 'nav-menu'), LWS_ADMIN_PANEL_VERSION, true);
-			}
+		if ('nav-menus.php' == $hook) {
+			\wp_enqueue_script('lws-navmenu', LWS_ADMIN_PANEL_JS . '/navmenu.js', array('jquery', 'nav-menu'), LWS_ADMIN_PANEL_VERSION, true);
 		}
 	}
 

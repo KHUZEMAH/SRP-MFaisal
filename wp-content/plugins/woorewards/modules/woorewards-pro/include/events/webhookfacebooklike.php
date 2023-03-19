@@ -31,7 +31,7 @@ class WebHookFacebookLike extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Constraints", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Constraints", 'woorewards-pro'));
 
 		// The social networks reaction types
 		$label   = _x("Reaction types", "Social network like, care, grrr...", 'woorewards-pro');

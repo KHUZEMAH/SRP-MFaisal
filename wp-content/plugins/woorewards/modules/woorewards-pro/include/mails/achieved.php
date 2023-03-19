@@ -49,6 +49,8 @@ class Achieved
 		$settings['title']         = __("Achievement complete", 'woorewards-pro');
 		$settings['header']        = __("With that achievement, you received the following badge", 'woorewards-pro');
 		$settings['footer']        = __("Powered by MyRewards", 'woorewards-pro');
+		$settings['doclink']       = \LWS\WOOREWARDS\PRO\DocLinks::get('emails');
+		$settings['icon']          = 'lws-icon-trophy';
 		$settings['css_file_url']  = LWS_WOOREWARDS_PRO_CSS . '/mails/achieved.css';
 		$settings['fields']['enabled'] = array(
 			'id' => 'lws_woorewards_enabled_mail_' . $this->template,
@@ -56,7 +58,7 @@ class Achieved
 			'type' => 'box',
 			'extra'=> array(
 				'default' => '',
-				'class' => 'lws_checkbox',
+				'layout' => 'toggle',
 			),
 		);
 		$settings['about'] .= '<br/><span class="lws_wr_email_shortcode_help">'.sprintf(__("Use the shortcode %s to insert the name of the user", 'woorewards-pro'),'<b>[user_name]</b>').'</span>';

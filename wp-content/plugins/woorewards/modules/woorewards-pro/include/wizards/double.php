@@ -110,6 +110,8 @@ class Double extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value'=>'yes','label'=>__("Yes", 'woorewards-pro')),
 											array('value'=>'no'	,'label'=>__("No", 'woorewards-pro')),
@@ -147,7 +149,7 @@ class Double extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$summary = "<div class='lws-wizard-summary-container'>";
 		$usedData =$this->getDataValue($data,'ini',false,$exists);
 		$settings = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Double Points Settings", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Double Points Settings", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Loyalty System", 'woorewards-pro')."</div>";
 		if( $pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($settings['loyalty_system'], false) )
 		{

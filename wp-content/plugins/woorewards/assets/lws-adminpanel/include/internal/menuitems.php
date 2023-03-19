@@ -65,7 +65,7 @@ class MenuItems
 	 *	else the title of the menu graph element. */
 	protected function getTitle($item=false)
 	{
-		return __('Custom item', 'lws-adminpanel');
+		return __('Custom item', LWS_ADMIN_PANEL_DOMAIN);
 	}
 
 	/** How to embed our menu item. */
@@ -408,8 +408,8 @@ EOT;
 	protected function getButtons($withSelectAll=false)
 	{
 		$id = \esc_attr($this->getId());
-		$select = __("Select All", 'lws-adminpanel');
-		$submit = __("Add to Menu", 'lws-adminpanel');
+		$select = __("Select All", LWS_ADMIN_PANEL_DOMAIN);
+		$submit = __("Add to Menu", LWS_ADMIN_PANEL_DOMAIN);
 
 		$selectAll = '';
 		if ($this->hasSelectAll($withSelectAll)) {

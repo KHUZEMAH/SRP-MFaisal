@@ -40,12 +40,14 @@ class IconPicker extends \LWS\Adminpanel\Pages\Field
 		$icons = '';
 		foreach ((array)$selectors as $selector) {
 			$class = (($selector == $value) ? ' selected' : '');
-			$icons .= "<div class='lwsip_icon_choice lwsip-icon-value {$class}{$selector}' data-value='{$selector}'></div>";
+			$icons .= "<div class='lwsip_icon_choice lwsip-icon-value {$selector}{$class}' data-value='{$selector}'></div>";
 		}
 
 		\wp_enqueue_script('lws-icon-picker');
 		$filled = ($value ? ' filled' : '');
-		$buttonlabel = __("Pick an Icon", 'lws-adminpanel');
+		$buttonlabel = __("Pick an Icon", LWS_ADMIN_PANEL_DOMAIN);
+
+		$position = $this->getExtraValue('position', 'below');
 
 		return <<<EOT
 		<div class='lws-icon-picker lwsip_master'>
@@ -55,7 +57,7 @@ class IconPicker extends \LWS\Adminpanel\Pages\Field
 					<div class='lwsip-show-icon{$filled} {$value}'><div class='remove-btn lws-icon-cross'></div></div>
 					<div class='lwsip-popup-btn lwsip_button'>{$buttonlabel}</div>
 				</div>
-				<div class='lwsip-popup-wrapper hidden'>
+				<div class='lwsip-popup-wrapper hidden {$position}'>
 					<div class='lwsip-popup'>
 						{$icons}
 					</div>

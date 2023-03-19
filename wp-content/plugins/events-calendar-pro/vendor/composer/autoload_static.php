@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51
+class ComposerStaticInit08fa06f2a910d767e170384a7ec5748f
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -34,6 +34,7 @@ class ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'RRule\\RRule' => __DIR__ . '/..' . '/rlanvin/php-rrule/src/RRule.php',
         'RRule\\RRuleInterface' => __DIR__ . '/..' . '/rlanvin/php-rrule/src/RRuleInterface.php',
         'RRule\\RSet' => __DIR__ . '/..' . '/rlanvin/php-rrule/src/RSet.php',
@@ -76,6 +77,7 @@ class ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Events\\Provisional\\ID_Generator' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events/Provisional/ID_Generator.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Events\\Provisional\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events/Provisional/Provider.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Events\\Recurrence' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events/Recurrence.php',
+        'TEC\\Events_Pro\\Custom_Tables\\V1\\Events\\Recurrence_Rule' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events/Recurrence_Rule.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Events\\Rules\\Date_Rule' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events/Rules/Date_Rule.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Events_Manager\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Events_Manager/Provider.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Full_Activation_Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Full_Activation_Provider.php',
@@ -270,9 +272,9 @@ class ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9c49b0e01b9583b778e9b2e04e445e51::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit08fa06f2a910d767e170384a7ec5748f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit08fa06f2a910d767e170384a7ec5748f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit08fa06f2a910d767e170384a7ec5748f::$classMap;
 
         }, null, ClassLoader::class);
     }

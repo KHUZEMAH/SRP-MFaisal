@@ -409,7 +409,7 @@ class PointDiscount
 				// pay points
 				$reason = \LWS\WOOREWARDS\Core\Trace::byReason(
 					array('Reward from %1$s on Order #%2$s', $title, $order->get_order_number()),
-					LWS_WOOREWARDS_DOMAIN
+					'woorewards-lite'
 				)->setOrigin(self::CODE_PREFIX . $pool->getName())->setOrder($orderId);
 
 				$pool->usePoints($userId, $discount['points'], $reason);
@@ -420,11 +420,11 @@ class PointDiscount
 				$discount['item']->save_meta_data();
 
 				// keep note on order
-				$order->add_order_note(sprintf(
+				\LWS\WOOREWARDS\Core\OrderNote::add($order, sprintf(
 					_x('Use <i>%1$s</i> from <i>%2$s</i> to get a discount on this order', 'order note', 'woorewards-lite'),
 					\LWS_WooRewards::formatPointsWithSymbol($discount['points'], $pool->getName()),
 					$title
-				));
+				), $pool);
 			}
 		}
 	}

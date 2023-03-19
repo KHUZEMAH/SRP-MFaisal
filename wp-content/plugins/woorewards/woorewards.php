@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.0.3
+ * Version: 5.0.5
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
  * WC requires at least: 3.7.0
- * WC tested up to: 7.2
+ * WC tested up to: 7.4
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -77,10 +77,7 @@ final class LWS_WooRewards
 			\update_option('lws_woorewards_redirect_to_licence', 0);
 
 			if ($page) {
-				$exit = \wp_redirect(\add_query_arg(array(
-					'page' => LWS_WOOREWARDS_PAGE . '.system',
-					'tab' => 'lic',
-				), admin_url('admin.php')));
+				$exit = \wp_redirect(\add_query_arg($page, admin_url('admin.php')));
 				if ($exit)
 					exit;
 			}
@@ -116,7 +113,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '4.9.10');
+		define('LWS_WOOREWARDS_VERSION', '5.0.5');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -154,7 +151,7 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '4.9.10';
+		return '5.0.5';
 	}
 
 	public function addDocUrl($url)
@@ -263,6 +260,7 @@ final class LWS_WooRewards
 		add_filter('lws_woorewards_is_woocommerce_active', array(get_class(), 'isWC'));
 		add_filter('lws_woorewards_point_symbol', array(get_class(), 'symbolFilter'), 10, 3);
 		// include obviously required classes
+		require_once LWS_WOOREWARDS_INCLUDES . '/doclinks.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/conveniencies.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/abstracts/icategorisable.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/abstracts/iregistrable.php';
@@ -271,6 +269,11 @@ final class LWS_WooRewards
 		require_once LWS_WOOREWARDS_INCLUDES . '/abstracts/event.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/core/pointstack.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/core/pool.php';
+
+		require_once LWS_WOOREWARDS_INCLUDES . '/core/sponsorship.php';
+		\LWS\WOOREWARDS\PRO\Core\Sponsorship::register();
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/shortcodes/referrallink.php';
+		\LWS\WOOREWARDS\Ui\ShortCodes\ReferralLink::install();
 
 		// register events and unlockables
 		require_once LWS_WOOREWARDS_INCLUDES . '/registration.php';
@@ -330,6 +333,10 @@ final class LWS_WooRewards
 		\LWS\WOOREWARDS\Ui\Woocommerce\PointsOnCart::install();
 		require_once LWS_WOOREWARDS_INCLUDES . '/ui/woocommerce/cartcheckoutcontent.php';
 		\LWS\WOOREWARDS\Ui\Woocommerce\CartCheckoutContent::install();
+		require_once LWS_WOOREWARDS_INCLUDES . '/core/ordernote.php';
+		\LWS\WOOREWARDS\Core\OrderNote::install();
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/woocommerce/ordernote.php';
+		\LWS\WOOREWARDS\Ui\Woocommerce\OrderNote::install();
 
 		// Email template
 		require_once LWS_WOOREWARDS_INCLUDES . '/mails/newreward.php';
@@ -343,6 +350,14 @@ final class LWS_WooRewards
 			}
 		});
 
+		// frontend styling
+		\add_action('wp_enqueue_scripts', array($this, 'enqueueFrontendStyles'));
+		\add_action('admin_enqueue_scripts', array($this, 'enqueueFrontendStyles'));
+		\add_action('wp_head', function() {
+			require_once LWS_WOOREWARDS_INCLUDES . '/ui/adminscreens/styling.php';
+			if ($style = \LWS\WOOREWARDS\Ui\AdminScreens\Styling::getInline())
+				echo $style;
+		});
 		// hide some meta from admin
 		if (\get_option('lws_woorewards_hide_internal_meta', 'on')) {
 			\add_action('is_protected_meta', function($protected, $key, $type) {
@@ -355,6 +370,11 @@ final class LWS_WooRewards
 				return $protected;
 			}, 10, 3);
 		}
+	}
+
+	function enqueueFrontendStyles()
+	{
+		\wp_enqueue_style('wr-frontend-elements', LWS_WOOREWARDS_CSS . '/wr-frontend-elements.min.css', array(), LWS_WOOREWARDS_VERSION);
 	}
 
 	function getOrderValidationStates($status)
@@ -527,7 +547,7 @@ final class LWS_WooRewards
 		$msg .= "<p>" . sprintf(__('Thank you for trying MyRewards Premium. The trial period will end on <b>%s</b>', 'woorewards-lite'), $date) . "</p>";
 		$msg .= "<h4><b>" . sprintf(__('If you want to keep using all Pro Features, please purchase a %s License', 'woorewards-lite'), $link) . "</b></h4>";
 		$msg .= "<p>" . __('Premium Version features include :', 'woorewards-lite') . "</p>";
-		$msg .= "<ul style='list-style-type:square;padding-left:20px;'><li>" . __('Referrals and Sponsorship', 'woorewards-lite') . "</li>";
+		$msg .= "<ul style='list-style-type:square;padding-left:20px;'><li>" . __('Referrals', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('Free products rewards', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('WooCommerce integration tools', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('Multiple points and rewards systems', 'woorewards-lite') . "</li>";
@@ -545,7 +565,7 @@ final class LWS_WooRewards
 		$msg  = "<h2>" . __('Welcome to your MyRewards Premium trial', 'woorewards-lite') . "</h2>";
 		$msg .= "<p>" . sprintf(__('Thank you for trying MyRewards Premium. The trial period will end on <b>%s</b>', 'woorewards-lite'), $date) . "</p>";
 		$msg .= "<p>" . __('Premium Version features include :', 'woorewards-lite') . "</p>";
-		$msg .= "<ul style='list-style-type:square;padding-left:20px;'><li>" . __('Referrals and Sponsorship', 'woorewards-lite') . "</li>";
+		$msg .= "<ul style='list-style-type:square;padding-left:20px;'><li>" . __('Referrals', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('Free products rewards', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('WooCommerce integration tools', 'woorewards-lite') . "</li>";
 		$msg .= "<li>" . __('Multiple points and rewards systems', 'woorewards-lite') . "</li>";

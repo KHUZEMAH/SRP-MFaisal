@@ -83,45 +83,56 @@ class Pools extends \LWS\Adminpanel\EditList\Source
 		}
 	}
 
-	/** Provide 2 buttons: one for each system type [standard, leveling] */
+	/** Provide 3 buttons: wizard and one for each system type [standard, leveling] */
 	function getAddButtons($buttons, $editlist)
 	{
-		$class = 'lws-big-icon-btn add_system';
-		$nonce = \wp_create_nonce('lws_wr_new_system');
+		$title = __('Configuration Wizard', 'woorewards-pro');
+		$details = __('Select the program that matches your needs, follow the steps and let the wizard configure everything for you', 'woorewards-pro');
+		$icon = 'lws-icon-wand';
+		$colorstring = \lws_get_theme_colors('--button-color', '#872364');
+		$url = \esc_attr(\add_query_arg(array(
+			'page' => 'lwswizard-woorewards',
+		), admin_url('admin.php')));
 
-		$image = "<img src='" . LWS_WOOREWARDS_PRO_IMG . "/standard_system.png'>";
-		$color = '#526981';
+		$buttons['wizard'] = <<<EOT
+		<a class="lws-big-icon-btn wizard" style="$colorstring" href="{$url}">
+			<div class="icon {$icon}"></div>
+			<div class="title">$title</div>
+			<div class="description">$details</div>
+		</a>
+EOT;
+
+
 		$title = __("Add a Standard Points and Rewards System", 'woorewards-pro');
 		$details = __("Customers earn points by performing various actions. They can then use their points directly on the cart to get immediate discounts or spend them to unlock other rewards.", 'woorewards-pro');
+		$icon = 'lws-icon-gold-coin';
+		$colorstring = \lws_get_theme_colors('--button-color', '#526981');
+		$nonce = \wp_create_nonce('lws_wr_new_system');
 		$url = \esc_attr(\add_query_arg(array(
 			'nonce' => $nonce,
 			'lwswr-action' => 'add-standard',
 		)));
 		$buttons['standard'] =  <<<EOT
-		<a class="{$class} standard" style="--btn-color:{$color}" data-id="{$editlist->m_Id}" href="{$url}">
-			<div class="icon">{$image}</div>
-			<div class="text">
-				<div class="title">$title</div>
-				<div class="description">$details</div>
-			</div>
+		<a class="lws-big-icon-btn standard" style="$colorstring" data-id="{$editlist->m_Id}" href="{$url}">
+			<div class="icon {$icon}"></div>
+			<div class="title">$title</div>
+			<div class="description">$details</div>
 		</a>
 EOT;
 
-		$image = "<img src='" . LWS_WOOREWARDS_PRO_IMG . "/leveling_system.png'>";
-		$color = '#16b9ba';
 		$title = __("Add a Leveling Points and Rewards System", 'woorewards-pro');
 		$details = __("Customers earn points and unlock levels and rewards as they progress. <b>In a leveling system, customers never spend their points.</b>", 'woorewards-pro');
+		$icon = 'lws-icon-g-chart';
+		$colorstring = \lws_get_theme_colors('--button-color', '#16997a');
 		$url = \esc_attr(\add_query_arg(array(
 			'nonce' => $nonce,
 			'lwswr-action' => 'add-leveling',
 		)));
 		$buttons['leveling'] =  <<<EOT
-		<a class="{$class} leveling" style="--btn-color:{$color}" data-id="{$editlist->m_Id}" href="{$url}">
-			<div class="icon">{$image}</div>
-			<div class="text">
-				<div class="title">$title</div>
-				<div class="description">$details</div>
-			</div>
+		<a class="lws-big-icon-btn leveling" style="$colorstring" data-id="{$editlist->m_Id}" href="{$url}">
+			<div class="icon {$icon}"></div>
+			<div class="title">$title</div>
+			<div class="description">$details</div>
 		</a>
 EOT;
 

@@ -129,14 +129,18 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		// cost
 		$label = _x("Points needed", "Unlockable cost", 'woorewards-lite');
 		$value = empty($this->getCost()) ? '' : \esc_attr($this->getCost());
-		$str .= "<div class='lws-$context-opt-title label lws_wru_field_cost'>$label</div>";
+		$str .= "<div class='lws-$context-opt-title label bold lws_wru_field_cost'>$label</div>";
 		$str .= "<div class='value lws-$context-opt-input value lws_wru_field_cost'><input type='text' id='{$prefix}cost' name='{$prefix}cost' value='$value' placeholder='0' class='lws_wr_unlockable_cost' /></div>";
 
 		// email
 		$label = _x("Send Reward email", "Unlockable cost", 'woorewards-lite');
 		$str .= "<div class='lws-$context-opt-title label lws_wru_field_email'>$label</div>";
 		$str .= "<div class='value lws-$context-opt-input value lws_wru_field_email'>";
-		$str .= "<input type='checkbox' id='{$prefix}email_enabled' name='{$prefix}email_enabled' checked class='lws_checkbox lws_wr_unlockable_email' />";
+		$str .= \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'email_enabled', array(
+			'id'      => $prefix . 'email_enabled',
+			'layout'  => 'toggle',
+			'class'   => 'lws_wr_unlockable_email'
+		));
 		$str .= "</div>";
 
 		// max redeems

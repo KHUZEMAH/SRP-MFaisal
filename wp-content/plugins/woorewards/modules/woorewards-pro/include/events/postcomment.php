@@ -74,7 +74,7 @@ class PostComment extends \LWS\WOOREWARDS\Abstracts\Event
 
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Allowed Post Types", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Allowed Post Types", 'woorewards-pro'));
 
 		// Post Types
 		$label   = _x("Post Types", "Post Comment Event", 'woorewards-pro');

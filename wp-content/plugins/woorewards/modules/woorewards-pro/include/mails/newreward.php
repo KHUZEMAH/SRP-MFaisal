@@ -31,7 +31,7 @@ class NewReward
 			'type' => 'box',
 			'extra' => array(
 				'default' => '',
-				'class' => 'lws_checkbox',
+				'layout' => 'toggle',
 			)
 		);
 		$settings['about'] = array(
@@ -52,6 +52,7 @@ class NewReward
 				),
 			)
 		);
+		$settings['doclink']       = \LWS\WOOREWARDS\PRO\DocLinks::get('emails');
 		return $settings;
 	}
 

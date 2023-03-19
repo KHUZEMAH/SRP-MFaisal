@@ -30,16 +30,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 	protected function getStepInfo()
 	{
 		if (empty($this->stepInfo)) {
-			$this->stepInfo = array(
-				array(
-					"icon" => "lws-icon-questionnaire",
-					"title" => __("Sponsored Reward Selection", 'woorewards-pro'),
-				),
-				array(
-					"icon" => "lws-icon-setup-preferences",
-					"title" => __("Points value and options", 'woorewards-pro'),
-				)
-			);
+			$this->stepInfo = __("Reward Settings", 'woorewards-pro');
 		}
 		return $this->stepInfo;
 	}
@@ -82,7 +73,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		{
 			$item = $this->getCollection()->find($id);
 			if( empty($item) )
-				return new \WP_Error('404', __("The selected Sponsorship Reward cannot be found.", 'woorewards-pro'));
+				return new \WP_Error('404', __("The selected Referral Reward cannot be found.", 'woorewards-pro'));
 
 			if( $type != $item->getType() )
 			{
@@ -95,7 +86,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		{
 			$item = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create($type)->last();
 			if( empty($item) )
-				return new \WP_Error('404', __("The selected Sponsorship Reward type cannot be found.", 'woorewards-pro'));
+				return new \WP_Error('404', __("The selected Referral Reward type cannot be found.", 'woorewards-pro'));
 		}
 
 		if( !empty($item) )
@@ -120,7 +111,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 			$item = $this->getCollection()->find($id);
 			if( empty($item) )
 			{
-				return new \WP_Error('404', __("The selected Sponsorship Reward cannot be found.", 'woorewards-pro'));
+				return new \WP_Error('404', __("The selected Referral Reward cannot be found.", 'woorewards-pro'));
 			}
 			else
 			{

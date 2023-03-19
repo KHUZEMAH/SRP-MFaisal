@@ -33,11 +33,11 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Badge", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Badge", 'woorewards-pro'));
 
 		// The badge
 		$label   = _x("Badge", "event form", 'woorewards-pro');
-		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
+		$form .= "<div class='lws-$context-opt-title label bold'>$label</div>";
 		$form .= "<div class='lws-$context-opt-input lws-lac-select-badge'>";
 		$form .= \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'badge', array(
 			'ajax' => 'lws_woorewards_badge_list',

@@ -21,7 +21,7 @@ class Shortcodes
 					'icon'    => 'lws-icon-chart-bar-32',
 					'text'	  => __("In this section, you will find shortcodes you can use to display points related information to your customers", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes'),
 					),
 					'fields'  => apply_filters('lws_woorewards_points_shortcodes', array())
 				),
@@ -31,7 +31,7 @@ class Shortcodes
 					'icon'    => 'lws-icon-gift',
 					'text'	  => __("In this section, you will find shortcodes related to rewards and levels", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/'
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_rewards_shortcodes', array()),
 				),
@@ -41,17 +41,17 @@ class Shortcodes
 					'icon'    => 'lws-icon-cart-2',
 					'text'	  => __("In this section, you will find shortcodes for WooCommerce pages", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_woocommerce_shortcodes', array())
 				),
 				'referral'        => array(
 					'id'      => 'referral_shortcodes',
-					'title'   => __('Sponsorship & Referral', 'woorewards-pro'),
+					'title'   => __('Referral', 'woorewards-pro'),
 					'icon'    => 'lws-icon-handshake',
-					'text'	  => __("In this section, you will find shortcodes to display referral and sponsorship tools", 'woorewards-pro'),
+					'text'	  => __("In this section, you will find shortcodes to display referral tools", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_referral_shortcodes', array())
 				),
@@ -61,7 +61,7 @@ class Shortcodes
 					'icon'    => 'lws-icon-users',
 					'text'	  => __("In this section, you will find shortcodes to display information to users about their status", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_users_shortcodes', array())
 				),
@@ -71,7 +71,7 @@ class Shortcodes
 					'icon'    => 'lws-icon-lw_reward',
 					'text'	  => __("In this section, you will find shortcodes to display information to users about their status", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_badges_shortcodes', array())
 				),
@@ -81,7 +81,7 @@ class Shortcodes
 					'icon'    => 'lws-icon-settings-gear',
 					'text'	  => __("In this section, you will find shortcodes dedicated to advanced users", 'woorewards-pro'),
 					'extra'   => array(
-						'doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/wr-shortcodes/',
+						'doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('shortcodes')
 					),
 					'fields'  => apply_filters('lws_woorewards_advanced_shortcodes', array())
 				),

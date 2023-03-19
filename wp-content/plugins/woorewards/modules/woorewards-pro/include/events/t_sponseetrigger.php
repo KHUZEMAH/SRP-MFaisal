@@ -100,8 +100,8 @@ trait T_SponseeTrigger
 	protected function getSponseeTriggerForm($prefix='', $context='editlist')
 	{
 		// Max Sponsee Triggers
-		$label = _x("Max Triggers per Sponsee", "Sponsored Order Event", 'woorewards-pro');
-		$tooltip = __("Defines how many times each sponsee can give points to his sponsor by performing this action", 'woorewards-pro');
+		$label = _x("Max Triggers per Sponsee", "Referee Order Event", 'woorewards-pro');
+		$tooltip = __("Defines how many times each sponsee can give points to his referrer by performing this action", 'woorewards-pro');
 		return <<<EOT
 <div class='field-help'>{$tooltip}</div>
 <div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>

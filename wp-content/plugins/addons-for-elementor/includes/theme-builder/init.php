@@ -50,6 +50,11 @@ if (!class_exists('LAE_Theme_Builder_Init')):
          */
         public function enhancement_hooks() {
 
+            // If plugin Elementor Pro is not active, then return.
+            if (!class_exists('ElementorPro\Plugin')) {
+                return;
+            }
+
             add_action('elementor_pro/init', array($this, 'initialize_documents'));
 
             add_action('elementor/theme/register_locations', array($this, 'register_locations'));

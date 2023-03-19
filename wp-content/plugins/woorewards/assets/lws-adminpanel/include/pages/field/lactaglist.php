@@ -31,6 +31,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class LacTaglist extends \LWS\Adminpanel\Pages\LAC
 {
+	private static $scriptAdded = false;
+
 	public function __construct($id, $title, $extra=null)
 	{
 		parent::__construct($id, $title, $extra);
@@ -48,7 +50,7 @@ class LacTaglist extends \LWS\Adminpanel\Pages\LAC
 				$this->getExtraCss('class', 'data-class'),
 				$this->getExtraAttr('name', 'data-name'),
 				$this->getExtraAttr('shared', 'data-shared'),
-				$this->getExtraAttr('addlabel', 'data-addlabel', _x('Add', 'lac-taglist "add" button', 'lws-adminpanel')),
+				$this->getExtraAttr('addlabel', 'data-addlabel', _x('Add', 'lac-taglist "add" button', LWS_ADMIN_PANEL_DOMAIN)),
 				$this->getExtraAttr('minsearch', 'data-minsearch'),
 				$this->getExtraAttr('minoption', 'data-minoption'),
 				$this->getExtraAttr('delay', 'data-delay'),
@@ -64,10 +66,7 @@ class LacTaglist extends \LWS\Adminpanel\Pages\LAC
 			{
 				$source = $this->prebuild($originalValue, $this->hasExtra('spec', 'a') ? $this->extra['spec'] : array());
 			}
-			if( !isset($this->scriptAdded) || !$this->scriptAdded )
-			{
-				$this->script();
-			}
+			$this->script();
 			$inputClass = $this->ignoreConfirm('lac_taglist');
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
@@ -79,9 +78,17 @@ class LacTaglist extends \LWS\Adminpanel\Pages\LAC
 
 	public function script()
 	{
-		$this->scriptAdded = true;
-		$this->modelScript();
-		wp_enqueue_script('lws-lac-taglist');
-		wp_enqueue_style('lws-lac-taglist-style');
+		if (!self::$scriptAdded) {
+			self::$scriptAdded = true;
+			if (\did_action('admin_enqueue_scripts')) {
+				\LWS\Adminpanel\Pages\LAC::modelScript();
+				\wp_enqueue_script('lws-lac-taglist');
+			} else {
+				\add_action('admin_enqueue_scripts', function() {
+					\LWS\Adminpanel\Pages\LAC::modelScript();
+					\wp_enqueue_script('lws-lac-taglist');
+				});
+			}
+		}
 	}
 }

@@ -79,7 +79,7 @@ class Pager
 
 	protected function getSortDiv($sort)
 	{
-		$label = __("Order By", 'lws-adminpanel');
+		$label = __("Order By", LWS_ADMIN_PANEL_DOMAIN);
 		$sortId = 'sort_' . $this->guid;
 		$input = \LWS\Adminpanel\Pages\Field\LacSelect::compose($sortId, array(
 			'name'      => $sortId,
@@ -90,22 +90,26 @@ class Pager
 			'value'     => isset($_REQUEST[$sortId]) ? \sanitize_key($_REQUEST[$sortId]) : '',
 		));
 		$descId = \esc_attr('desc_' . $this->guid);
-		$checked = (isset($_REQUEST[$descId]) && 'on' == $_REQUEST[$descId]) ? ' checked' : '';
-		$checkbox = "<input name='{$descId}'{$checked} type='checkbox' class='lws_checkbox lws_editlist_onchange_filter' data-icon-checked='lws-icon-sort-descending' data-icon-unchecked='lws-icon-sort-ascending'>";
+		$checkbox = \LWS\Adminpanel\Pages\Field\Checkbox::compose($descId, array(
+			'noconfirm' => true,
+			'layout'    => 'box',
+			'class'     => 'filter lws_editlist_onchange_filter',
+			'checked'   => (isset($_REQUEST[$descId]) && 'on' == $_REQUEST[$descId]) ? 'checked' : '',
+		));
 		return "<div class='lws-sort-input'><div class='lws-label-sort'>{$label}</div>{$input}{$checkbox}</div>";
 	}
 
 	/// return html snippet for total of element
 	protected function snippetTotal($rcount)
 	{
-		$strCount = sprintf( _n("%d item", "%d items", $rcount, 'lws-adminpanel'), $rcount );
+		$strCount = sprintf( _n("%d item", "%d items", $rcount, LWS_ADMIN_PANEL_DOMAIN), $rcount );
 		return "<div class='lws-displaying-num'>$strCount</div>";
 	}
 
 	/// return html snippet for number of element per page input
 	protected function snippetPerPage($perpage)
 	{
-		$ph = __("Items per page", 'lws-adminpanel');
+		$ph = __("Items per page", LWS_ADMIN_PANEL_DOMAIN);
 		$pp = self::PP;
 		$countPages = array(10,20,40,80);
 		$str = "<div class='lws-perpage-input'>";
@@ -125,7 +129,7 @@ class Pager
 		$max = "";
 		if( $last !== false )
 		{
-			$ph = sprintf(_nx("/ %d", "/ %d", $last, "Total page number", 'lws-adminpanel'), $last);
+			$ph = sprintf(_nx("/ %d", "/ %d", $last, "Total page number", LWS_ADMIN_PANEL_DOMAIN), $last);
 			$max = " max='$last'";
 		}
 		$str = "<label class='lws-paging-input'><input type='text' value='$index' name='{$this->keyPage}' class='lws-input lws-input-enter-submit lws-ignore-confirm' min='1'$max> <span>$ph</span></label>";

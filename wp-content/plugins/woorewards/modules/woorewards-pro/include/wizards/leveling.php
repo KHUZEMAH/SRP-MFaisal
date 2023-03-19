@@ -75,6 +75,8 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Select a Category", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value'=>'orders'	,'icon'=>'lws-icon lws-icon-supply'	,'label'=>__("Orders", 'woorewards-pro')),
 											array('value'=>'product','icon'=>'lws-icon lws-icon-barcode'		,'label'=>__("Products", 'woorewards-pro')),
@@ -396,6 +398,8 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value'=>'yes','label'=>__("Yes", 'woorewards-pro')),
 											array('value'=>'no'	,'label'=>__("No", 'woorewards-pro')),
@@ -431,19 +435,28 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$data = $this->getData();
 		$exists = false;
 		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?';
-		$summary = "<div class='lws-wizard-summary-container'>";
+		$summary = '';
+		$usedData =$this->getDataValue($data,'met',false,$exists);
+		$methods = reset($usedData);
+
+		if($methods['share_earn'] && $methods['share_earn']>0 || $methods['click_earn'] && $methods['click_earn']>0){
+			$url = add_query_arg('page', LWS_WOOREWARDS_PAGE.'.settings', \admin_url('admin.php'));
+			$url.= "&tab=sty_widgets#lws_group_targetable_social_share";
+			$value = sprintf(__("Don't forget to add the %s to your pages to allow customers to earn points", 'woorewards-pro'),"<a target='_blank' href='{$url}'>".__("Social Share widget", 'woorewards-pro')."</a>");
+			$summary .= "<div class='item-help visible'><div class='icon lws-icons lws-icon-bulb'></div><div class='text'>{$value}</div></div>";
+		}
+
+		$summary .= "<div class='lws-wizard-summary-container'>";
 		/* Loyalty system name */
 		$usedData =$this->getDataValue($data,'ini',false,$exists);
 		$system = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Loyalty System", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Loyalty System", 'woorewards-pro') . "</div>";
 		$value = ($system['system_title']) ? $system['system_title'] : $this->getStepTitle('ini');
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Loyalty System Name", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
 		/* Earning methods */
-		$usedData =$this->getDataValue($data,'met',false,$exists);
-		$methods = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Methods to earn points", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Methods to earn points", 'woorewards-pro') . "</div>";
 		if($methods['spent_earn'] && $methods['spent_earn']>0){
 			$value = sprintf(__(' %s points earned for each %s spent', 'woorewards-pro'),$methods['spent_earn'],$currency);
 			$summary .= "<div class='lws-wizard-summary-label'>".__("Spend Money", 'woorewards-pro')."</div>";
@@ -489,12 +502,6 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 			$summary .= "<div class='lws-wizard-summary-label'>".__("Comment a post", 'woorewards-pro')."</div>";
 			$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 		}
-		if($methods['share_earn'] && $methods['share_earn']>0 || $methods['click_earn'] && $methods['click_earn']>0){
-			$url = add_query_arg('page', LWS_WOOREWARDS_PAGE.'.settings', \admin_url('admin.php'));
-			$url.= "&tab=sty_widgets#lws_group_targetable_social_share";
-			$value = sprintf(__("Don't forget to add the %s to your pages to allow customers to earn points", 'woorewards-pro'),"<a target='_blank' href='{$url}'>".__("Social Share widget", 'woorewards-pro')."</a>");
-			$summary .= "<div class='lws-wizard-summary-help'>{$value}</div>";
-		}
 		if($methods['share_earn'] && $methods['share_earn']>0){
 			$value = sprintf(__(' %s points for sharing on social media', 'woorewards-pro'),$methods['share_earn']);
 			$summary .= "<div class='lws-wizard-summary-label'>".__("Share a link", 'woorewards-pro')."</div>";
@@ -508,7 +515,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 		/* Rewards */
 		$usedData =$this->getDataValue($data,'lev',false,$exists);
 		$levels = reset($usedData);
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Bronze Level", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Bronze Level", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Points to reach the level", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$levels['first_needed']}</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Permanent discount % amount", 'woorewards-pro')."</div>";
@@ -516,7 +523,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Customer title", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$levels['first_title']}</div>";
 
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Silver Level", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Silver Level", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Points to reach the level", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$levels['second_needed']}</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Permanent discount % amount", 'woorewards-pro')."</div>";
@@ -524,7 +531,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Customer title", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$levels['second_title']}</div>";
 
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Gold Level", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Gold Level", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Points to reach the level", 'woorewards-pro')."</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$levels['third_needed']}</div>";
 		$summary .= "<div class='lws-wizard-summary-label'>".__("Permanent discount % amount", 'woorewards-pro')."</div>";

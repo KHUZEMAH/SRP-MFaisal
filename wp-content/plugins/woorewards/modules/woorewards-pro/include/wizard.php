@@ -73,11 +73,11 @@ class Wizard extends \LWS\WOOREWARDS\Wizard
 			{
 				$choice['color'] = $choice['pro-color'];
 				$choice['pro-only'] = false;
-				if( isset($choice['img']) )
+				if( isset($choice['image']) )
 				{
-					$img = str_replace(LWS_WOOREWARDS_IMG, LWS_WOOREWARDS_PRO_PATH.'/img', $choice['img']);
+					$img = str_replace(LWS_WOOREWARDS_IMG, LWS_WOOREWARDS_PRO_PATH.'/img', $choice['image']);
 					if( file_exists($img) )
-						$choice['img'] = str_replace(LWS_WOOREWARDS_IMG, LWS_WOOREWARDS_PRO_IMG, $choice['img']);
+						$choice['image'] = str_replace(LWS_WOOREWARDS_IMG, LWS_WOOREWARDS_PRO_IMG, $choice['image']);
 				}
 			}
 		}

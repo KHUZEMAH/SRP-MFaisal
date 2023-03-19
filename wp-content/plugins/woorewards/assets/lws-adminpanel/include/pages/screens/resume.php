@@ -25,25 +25,65 @@ class Resume extends \LWS\Adminpanel\Pages\Page
 				$link = \esc_attr(\admin_url('admin.php?page='.$page->id));
 				$title = $page->getTitle();
 				$style = '';
+				$icon = '';
 				if(isset($page->color) && $page->color)
 				{
-					$mediumColor = $page->color."60";
-					$lightColor = $page->color."20";
-					$style = " style='--group-color:{$page->color};--group-medium-color:{$mediumColor};--group-light-color:{$lightColor}'";
+					$colorString = \lws_get_theme_colors('--group-color', $page->color);
+					$style = " style='{$colorString}'";
 				}
-				echo "<a href='{$link}' class='resume-item'$style>";
-				echo "<div class='resume-top'>";
 				if(isset($page->image) && $page->image)
 				{
-					echo "<div class='resume-item-icon'><img src='{$page->image}'/></div>";
+					$icon .= "<div class='resume-item-icon'><img src='{$page->image}'/></div>";
 				}
-				echo "<div class='resume-item-title'>{$title}</div>";
-				echo "</div>";
-				echo "<div class='resume-content'>{$page->description}</div>";
-				echo "</a>";
+
+				$tabs = $this->getTabsFromPage($page);
+				if (count($tabs) > 1) {
+					$buttons = "<div class='resume-tabs-buttons-line'>";
+					foreach ($tabs as &$tab) {
+						$url = \esc_attr(\add_query_arg(array('page' => $page->id, 'tab' => $tab['id'],), admin_url('admin.php')));
+						$buttons .= "<a href='{$url}' class='resume-tab-button'>" . $tab['title'] . "</a>";
+					}
+					$buttons .= "</div>";
+					echo <<<EOT
+					<div class='resume-item'$style>
+						<a href='$link' class='resume-top'>
+							$icon
+							<div class='resume-item-title'>$title</div>
+						</a>
+						<div class='resume-content'>
+							$page->description
+							$buttons
+						</div>
+					</div>
+EOT;
+				} else {
+					echo <<<EOT
+					<a href='$link' class='resume-item'$style>
+						<div class='resume-top'>
+							$icon
+							<div class='resume-item-title'>$title</div>
+						</div>
+						<div class='resume-content'>
+							$page->description
+						</div>
+					</a>
+EOT;
+				}
 			}
 		}
 		echo "</div></div>";
+	}
+
+	protected function getTabsFromPage($page)
+	{
+		$tabs = array();
+		if (isset($page->data['tabs'])) {
+			foreach ($page->data['tabs'] as &$tab) {
+				if (!(isset($tab['hidden']) && $tab['hidden']))
+					$tabs[] =& $tab;
+			}
+		}
+		return $tabs;
 	}
 
 	protected function prepare()

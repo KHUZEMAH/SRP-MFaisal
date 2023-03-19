@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
-"POT-Creation-Date: 2022-12-01 08:45+0100\n"
-"PO-Revision-Date: 2022-12-01 08:45+0100\n"
-"Last-Translator: Paley\n"
+"POT-Creation-Date: 2023-02-05 12:16+0100\n"
+"PO-Revision-Date: 2023-02-05 12:18+0100\n"
+"Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: woorewards.php\n"
@@ -23,12 +23,10 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: include/abstracts/event.php:82
-#, fuzzy, php-format
-#| msgctxt "Point per money spent"
-#| msgid "%1$s / %2$s"
+#, php-format
 msgctxt "cooldown period eg. \"3 Months\""
 msgid "%1$s %2$s"
-msgstr "%1$s / %2$s"
+msgstr "%1$s %2$s"
 
 #: include/abstracts/event.php:84
 #, php-format
@@ -83,7 +81,7 @@ msgstr ""
 #: include/abstracts/event.php:451
 msgctxt "Event cooldown"
 msgid "Cooldown"
-msgstr ""
+msgstr "Перезарядка"
 
 #: include/abstracts/event.php:452
 msgid ""
@@ -92,12 +90,10 @@ msgid ""
 msgstr ""
 
 #: include/abstracts/event.php:454
-#, fuzzy, php-format
-#| msgctxt "Point per money spent"
-#| msgid "%1$s / %2$s"
+#, php-format
 msgctxt "cooldown edition"
 msgid "Max %1$s times / %2$s"
-msgstr "%1$s / %2$s"
+msgstr "Макс %1$s раз / %2$s"
 
 #: include/abstracts/event.php:469 include/abstracts/event.php:587
 msgid "Cooldown rolling period"
@@ -118,11 +114,11 @@ msgstr ""
 
 #: include/abstracts/event.php:472
 msgid "Hour"
-msgstr ""
+msgstr "Час"
 
 #: include/abstracts/event.php:473
 msgid "Minute"
-msgstr ""
+msgstr "Минута"
 
 #: include/abstracts/event.php:490
 msgctxt "Event max triggers"
@@ -136,8 +132,6 @@ msgid ""
 msgstr ""
 
 #: include/abstracts/event.php:503
-#, fuzzy
-#| msgid "Points Needed"
 msgctxt "Event points delay"
 msgid "Points delay"
 msgstr "Необходимое количество Очков"
@@ -147,8 +141,6 @@ msgid "If set, points will only be given after the delay you set here"
 msgstr ""
 
 #: include/abstracts/event.php:516
-#, fuzzy
-#| msgid "Earned points"
 msgctxt "Event points occurences"
 msgid "Repeated points"
 msgstr "Полученные очки"
@@ -168,13 +160,11 @@ msgid "Earned points"
 msgstr "Полученные очки"
 
 #: include/abstracts/event.php:579 include/abstracts/event.php:858
-#, fuzzy
-#| msgid "Earned points"
 msgid "Earned points alternative text"
 msgstr "Полученные очки"
 
 #: include/abstracts/event.php:580 include/abstracts/event.php:856
-#: include/abstracts/unlockable.php:190 include/abstracts/unlockable.php:365
+#: include/abstracts/unlockable.php:194 include/abstracts/unlockable.php:369
 #: include/core/pool.php:676 include/ui/legacy/pointsdisplayer.php:91
 msgid "Title"
 msgstr "Название"
@@ -193,7 +183,7 @@ msgstr ""
 
 #: include/abstracts/event.php:584
 msgid "Delay"
-msgstr ""
+msgstr "Задержка"
 
 #: include/abstracts/event.php:585
 msgid "Occurences"
@@ -224,25 +214,25 @@ msgid "Error occured during rewarding event saving."
 msgstr "Возникла ошибка при начале процесса награждения."
 
 #: include/abstracts/event.php:1057
-#, fuzzy
-#| msgid "Variable Discount"
 msgctxt "event points expression alternative"
 msgid "Variable"
-msgstr "Вариативная Скидка"
+msgstr "Переменная"
 
-#: include/abstracts/event.php:1249 include/abstracts/unlockable.php:853
+#: include/abstracts/event.php:1249 include/abstracts/unlockable.php:857
+#: include/events/sponsoredorderamount.php:87
 msgid "Standard"
 msgstr "Стандартная"
 
-#: include/abstracts/event.php:1250 include/abstracts/unlockable.php:854
+#: include/abstracts/event.php:1250 include/abstracts/unlockable.php:858
 msgid "Leveling"
 msgstr "Уровневая"
 
-#: include/abstracts/event.php:1251
+#: include/abstracts/event.php:1251 include/events/sponsoredorderamount.php:89
 msgid "Achievement"
 msgstr "Достижения"
 
-#: include/abstracts/event.php:1252 include/abstracts/unlockable.php:855
+#: include/abstracts/event.php:1252 include/abstracts/unlockable.php:859
+#: include/events/sponsoredorderamount.php:90
 msgid "Events"
 msgstr "События"
 
@@ -270,6 +260,7 @@ msgid "Featured Image"
 msgstr "Изображение"
 
 #: include/abstracts/unlockable.php:127
+#: include/ui/editlists/unlockablelist.php:50
 msgid "Reward Settings"
 msgstr "Настройки Наград"
 
@@ -283,64 +274,64 @@ msgctxt "Unlockable cost"
 msgid "Send Reward email"
 msgstr "Отправить email-письмо о Награде"
 
-#: include/abstracts/unlockable.php:144
+#: include/abstracts/unlockable.php:148
 msgctxt "Unlockable max redeems"
 msgid "Max Redeems"
 msgstr ""
 
-#: include/abstracts/unlockable.php:145
+#: include/abstracts/unlockable.php:149
 msgid ""
 "Define how many times this reward can be redeemed by customers. Leave empty "
 "or set to 0 for no limits"
 msgstr ""
 
-#: include/abstracts/unlockable.php:189
+#: include/abstracts/unlockable.php:193
 msgid "Cost"
 msgstr "Стоимость"
 
-#: include/abstracts/unlockable.php:191 include/abstracts/unlockable.php:367
-#: include/ui/admin.php:97 include/ui/shortcodes/userhistory.php:243
+#: include/abstracts/unlockable.php:195 include/abstracts/unlockable.php:371
+#: include/ui/admin.php:100 include/ui/shortcodes/userhistory.php:243
 msgid "Description"
 msgstr "Описание"
 
-#: include/abstracts/unlockable.php:192
+#: include/abstracts/unlockable.php:196
 msgid "Validity Starting Date"
 msgstr "Дата начала действия"
 
-#: include/abstracts/unlockable.php:193
+#: include/abstracts/unlockable.php:197
 msgid "Validity Ending Date"
 msgstr "Дата окончания действия"
 
-#: include/abstracts/unlockable.php:194
+#: include/abstracts/unlockable.php:198
 msgid "Featured Image"
 msgstr "Изображение"
 
-#: include/abstracts/unlockable.php:195
+#: include/abstracts/unlockable.php:199
 msgid "Enable Reward email"
 msgstr "Включить email-уведомления Наградах"
 
-#: include/abstracts/unlockable.php:196
+#: include/abstracts/unlockable.php:200
 msgid "Max Redeems"
 msgstr ""
 
-#: include/abstracts/unlockable.php:197
+#: include/abstracts/unlockable.php:201
 msgid "Level Title"
 msgstr "Название Уровня"
 
-#: include/abstracts/unlockable.php:360
+#: include/abstracts/unlockable.php:364
 msgid "Error occured during unlockable reward saving."
 msgstr "Произошла ошибка во время сохранения разблокируемой награды."
 
-#: include/abstracts/unlockable.php:369
+#: include/abstracts/unlockable.php:373
 msgid "Level"
 msgstr "Уровень"
 
-#: include/abstracts/unlockable.php:818
+#: include/abstracts/unlockable.php:822
 msgctxt "Cannot be redeemed"
 msgid "Not redeemable"
 msgstr "Не погашаемый"
 
-#: include/abstracts/unlockable.php:820
+#: include/abstracts/unlockable.php:824
 #, php-format
 msgctxt "Out of valid date range"
 msgid "%d [Delayed]"
@@ -364,12 +355,12 @@ msgstr "Система очков или пользователь не найд�
 msgid "You do not have permission to see other history."
 msgstr "У вас нет разрешения на просмотр другой истории."
 
-#: include/core/pointstack.php:650
+#: include/core/pointstack.php:669
 #, php-format
 msgid "Points merged from %s"
 msgstr "Очки слились из %s"
 
-#: include/core/pointstack.php:651
+#: include/core/pointstack.php:670
 msgid "Lost due to inactivity"
 msgstr "Потеряно из-за бездействия"
 
@@ -387,6 +378,63 @@ msgstr "Не удалось удалить систему наград <b>%s</b>
 msgid "The reward system <b>%s</b>/%s successfully deleted."
 msgstr "Система наград <b>%s</b>/%s успешно удалена."
 
+#: include/core/pool.php:811
+#, php-format
+msgid "<b>%1$s</b> earned <b>%2$s</b> in <b>%3$s</b> for this order"
+msgstr ""
+
+#: include/core/pool.php:818
+#, php-format
+msgid "No %1$s earned in <b>%2$s</b> for this order"
+msgstr ""
+
+#: include/core/sponsorship.php:342 include/core/sponsorship.php:346
+msgid "You must be logged in."
+msgstr "Вы должны быть авторизированны."
+
+#: include/core/sponsorship.php:344
+msgid "Unknown user."
+msgstr "Неизвестный пользователь."
+
+#: include/core/sponsorship.php:348
+msgid "Referee email is empty."
+msgstr ""
+
+#: include/core/sponsorship.php:351
+msgid "Referral has been temporary disabled."
+msgstr ""
+
+#: include/core/sponsorship.php:354
+msgid "Maximum referrals reached."
+msgstr ""
+
+#: include/core/sponsorship.php:358
+msgid "An error occured during referees emails reading."
+msgstr "Произошла ошибка во время сохранения системы наград."
+
+#: include/core/sponsorship.php:365
+msgid "You cannot refer yourself."
+msgstr ""
+
+#: include/core/sponsorship.php:367
+msgid "Some emails was omitted, maximum referrals reached."
+msgstr ""
+
+#: include/core/sponsorship.php:413
+#, php-format
+msgid "'%s' Email address is not valid."
+msgstr "Адрес электронной почты '%s' не действителен."
+
+#: include/core/sponsorship.php:417
+#, php-format
+msgid "%s is already referred."
+msgstr ""
+
+#: include/core/sponsorship.php:420
+#, php-format
+msgid "%s is already an active customer."
+msgstr "%s уже является активным Клиентом."
+
 #: include/events/firstorder.php:14
 msgid "The customer will receive points when placing his first order."
 msgstr "Клиент получит очки при размещении первого заказа."
@@ -400,113 +448,110 @@ msgctxt "getDisplayType"
 msgid "Place a first order"
 msgstr "Разместите первый заказ"
 
-#: include/events/firstorder.php:37 include/events/orderamount.php:46
-#: include/events/ordercompleted.php:38
+#: include/events/firstorder.php:39 include/events/orderamount.php:51
+#: include/events/ordercompleted.php:43 include/events/sponsoredorder.php:39
 msgid "Priority"
 msgstr "Приоритет"
 
-#: include/events/firstorder.php:38 include/events/orderamount.php:47
-#: include/events/ordercompleted.php:39
+#: include/events/firstorder.php:40 include/events/orderamount.php:52
+#: include/events/ordercompleted.php:44 include/events/sponsoredorder.php:40
 msgid "Customer orders will run by ascending priority value."
 msgstr "Заказы клиентов будут обработаны по возрастанию приоритета."
 
-#: include/events/firstorder.php:66 include/events/orderamount.php:91
-#: include/events/ordercompleted.php:67
+#: include/events/firstorder.php:68 include/events/orderamount.php:100
+#: include/events/ordercompleted.php:72
 msgid "Event Priority"
 msgstr "Приоритет события"
 
-#: include/events/firstorder.php:183 include/events/orderamount.php:314
-#: include/events/ordercompleted.php:140 include/events/productreview.php:239
-#: include/ui/admin.php:380 include/ui/admin.php:731
+#: include/events/firstorder.php:185 include/events/orderamount.php:329
+#: include/events/ordercompleted.php:151 include/events/productreview.php:243
+#: include/events/sponsoredorder.php:226
+#: include/events/sponsoredorderamount.php:91 include/ui/admin.php:684
 #: include/unlockables/coupon.php:461
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: include/events/firstorder.php:184 include/events/orderamount.php:316
-#: include/events/ordercompleted.php:141
+#: include/events/firstorder.php:186 include/events/orderamount.php:331
+#: include/events/ordercompleted.php:152
 msgid "Order"
 msgstr "Заказ"
 
-#: include/events/firstorder.php:191
+#: include/events/firstorder.php:193
 #, php-format
 msgid "First customer order #%s"
 msgstr "Первый заказ клиента #%s"
 
-#: include/events/orderamount.php:14
+#: include/events/orderamount.php:16
 msgid ""
 "The customer will receive points depending on the amount spent on the order"
 msgstr ""
 "Клиент будет получать баллы в зависимости от суммы, потраченной на заказ"
 
-#: include/events/orderamount.php:15
+#: include/events/orderamount.php:17
 msgid "Most used method on MyRewards. Lots of options"
 msgstr "Самый используемый метод на MyRewards. Множество опций"
 
-#: include/events/orderamount.php:35
-#, fuzzy
-#| msgctxt "Order Amount Event money diviser"
-#| msgid "Money spent (%s)"
+#: include/events/orderamount.php:38
 msgctxt "Order Amount Event money diviser"
 msgid "Money spent"
-msgstr "Денег потрачено (%s)"
+msgstr "Денег потрачено"
 
-#: include/events/orderamount.php:59 include/events/productreview.php:50
+#: include/events/orderamount.php:64 include/events/productreview.php:50
+#: include/events/sponsoredorder.php:51
 msgid "Options"
 msgstr "Опции"
 
-#: include/events/orderamount.php:62
+#: include/events/orderamount.php:67
 msgctxt "Order Amount Event"
 msgid "Use amount after discount"
 msgstr "Использовать сумму после скидки"
 
-#: include/events/orderamount.php:90
+#: include/events/orderamount.php:99
 msgid "After Discount"
 msgstr "После Скидки"
 
-#: include/events/orderamount.php:166
+#: include/events/orderamount.php:177
 msgctxt "getDisplayType"
 msgid "Spend money"
 msgstr "Потратьте деньги"
 
-#: include/events/orderamount.php:253
+#: include/events/orderamount.php:268
 #, php-format
 msgid "Spent %1$s from order #%2$s"
 msgstr "Потрачено %1$s от заказа #%2$s"
 
-#: include/events/orderamount.php:299
-#, fuzzy, php-format
-#| msgctxt "Point per money spent"
-#| msgid "%1$s / %2$s"
+#: include/events/orderamount.php:314
+#, php-format
 msgctxt "Point per money spent"
 msgid "[%1$s] / %2$s"
-msgstr "%1$s / %2$s"
+msgstr "%1$s в %2$s"
 
-#: include/events/orderamount.php:302
+#: include/events/orderamount.php:317
 #, php-format
 msgctxt "Point per money spent"
 msgid "%1$s / %2$s"
-msgstr "%1$s / %2$s"
+msgstr "%1$s в %2$s"
 
-#: include/events/orderamount.php:315
+#: include/events/orderamount.php:330
 msgid "Money"
 msgstr "Деньги"
 
-#: include/events/ordercompleted.php:15
+#: include/events/ordercompleted.php:17
 msgid "The customer will receive points upon completing an order"
 msgstr "Клиент получит очки при выполнении заказа"
 
-#: include/events/ordercompleted.php:16
+#: include/events/ordercompleted.php:18
 msgid "This method can also be used to give extra points on a first order"
 msgstr ""
 "Этот метод также может быть использован для получения дополнительных очков "
 "при первом заказе"
 
-#: include/events/ordercompleted.php:22
+#: include/events/ordercompleted.php:24
 msgctxt "getDisplayType"
 msgid "Place an order"
 msgstr "Оформите заказ"
 
-#: include/events/ordercompleted.php:132
+#: include/events/ordercompleted.php:143
 #, php-format
 msgid "Order #%s completed"
 msgstr "Заказ #%s завершен"
@@ -526,11 +571,11 @@ msgid ""
 "number of times a user can earn points for his reviews during a set period."
 msgstr ""
 
-#: include/events/productreview.php:53 include/events/productreview.php:76
+#: include/events/productreview.php:53 include/events/productreview.php:80
 msgid "Purchase Required"
 msgstr "Требуется Покупка"
 
-#: include/events/productreview.php:54
+#: include/events/productreview.php:58
 msgid ""
 "If checked, points are earned only if the customer already purchased the "
 "product and order status is 'Complete'."
@@ -538,22 +583,106 @@ msgstr ""
 "Если выбрано, очки зарабатываются только в том случае, если клиент уже "
 "приобрел товар, а статус заказа - «Исполнен»."
 
-#: include/events/productreview.php:118
+#: include/events/productreview.php:122
 msgctxt "getDisplayType"
 msgid "Product review"
 msgstr "Отзыв о Продукте"
 
-#: include/events/productreview.php:175
+#: include/events/productreview.php:179
 #, php-format
 msgid "Review about a product (%s)"
 msgstr "Обзор о продукте (%s)"
 
-#: include/events/productreview.php:240
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "Website"
+#: include/events/productreview.php:244
 msgid "Website"
 msgstr "Сайт"
+
+#: include/events/sponsoredorder.php:17
+msgid ""
+"The customer will earn points when a person he referred placed an order. You "
+"can restrict this to the first referee order."
+msgstr ""
+
+#: include/events/sponsoredorder.php:18
+#: include/events/sponsoredorderamount.php:17
+msgid "This method will only reward the Referrer, not the Referee"
+msgstr ""
+
+#: include/events/sponsoredorder.php:54
+msgctxt "Referral Order Event"
+msgid "First order only"
+msgstr "Только первый заказ"
+
+#: include/events/sponsoredorder.php:55
+msgid ""
+"If checked, only the first order placed by each referee will give points."
+msgstr ""
+
+#: include/events/sponsoredorder.php:83
+msgid "First order only"
+msgstr "Только первый заказ"
+
+#: include/events/sponsoredorder.php:84
+msgid "Event priority"
+msgstr "Приоритет события"
+
+#: include/events/sponsoredorder.php:142
+msgid " (first order only)"
+msgstr " (только первый заказ)"
+
+#: include/events/sponsoredorder.php:150
+msgctxt "getDisplayType"
+msgid "Referee orders"
+msgstr "Перед обзором заказа"
+
+#: include/events/sponsoredorder.php:218
+#, php-format
+msgid "Referred friend %s order #%s completed"
+msgstr ""
+
+#: include/events/sponsoredorder.php:227
+msgid "Available for referees"
+msgstr ""
+
+#: include/events/sponsoredorderamount.php:16
+msgid ""
+"The customer will earn points when a person he referred spends money on your "
+"shop."
+msgstr "Клиент получит очки за написание обзора на продукт."
+
+#: include/events/sponsoredorderamount.php:28
+msgctxt "getDisplayType"
+msgid "Referee spends money"
+msgstr "Потратьте деньги"
+
+#: include/events/sponsoredorderamount.php:79
+#, php-format
+msgid "Referred friend %3$s spent %1$s from order #%2$s"
+msgstr ""
+
+#: include/events/sponsoredorderamount.php:88
+msgid "Levelling"
+msgstr "Левелинг"
+
+#: include/events/sponsoredorderamount.php:92
+msgid "Available for referred"
+msgstr ""
+
+#: include/events/t_sponsorshiporigin.php:13
+msgid "Referral link"
+msgstr "Реферальная ссылка"
+
+#: include/events/t_sponsorshiporigin.php:84
+msgid "Constraints"
+msgstr "Ограничения"
+
+#: include/events/t_sponsorshiporigin.php:87
+msgid "Referral Origin"
+msgstr ""
+
+#: include/events/t_sponsorshiporigin.php:114
+msgid "Origin restrictions"
+msgstr "Ограничения источников"
 
 #: include/mails/newreward.php:32 include/mails/newreward.php:35
 msgid "New Reward"
@@ -577,7 +706,7 @@ msgstr "Работает с помощью MyRewards"
 
 #: include/mails/newreward.php:41
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: include/mails/newreward.php:61
 msgid "That feature requires WooCommerce."
@@ -604,15 +733,15 @@ msgctxt "permanent coupon"
 msgid "(reusable)"
 msgstr "(многоразовый)"
 
-#: include/options.php:71
+#: include/options.php:78
 msgid "Requested loyalty system cannot be loaded or created."
 msgstr "Запрашиваемая система лояльности не может быть загружена или создана."
 
-#: include/options.php:100
+#: include/options.php:107
 msgid "Please, set a <b>Title</b> for this Points and Rewards System."
 msgstr "Пожалуйста, введите <b>Название</b> для этой системы Очков и Наград."
 
-#: include/options.php:104
+#: include/options.php:111
 msgid ""
 "A Points and Rewards System without a <b>Title</b> cannot be turned <b>On</"
 "b>."
@@ -631,8 +760,7 @@ msgid "%2$s Conflict. Reward from %1$s already uses the same points reserve."
 msgstr "%2$s конфликт. Награда от %1$s уже использует тот же резерв очков."
 
 #: include/pointdiscount.php:277
-#, fuzzy, php-format
-#| msgid "The Reward \"%s\" in your cart is unknown."
+#, php-format
 msgid "The Reward \"%s\" is unknown."
 msgstr "Награда \"%s\" в вашей корзине неизвестна."
 
@@ -647,18 +775,14 @@ msgid "\"%s\" does not support this kind of reward anymore."
 msgstr "\"%s\" больше не поддерживает награду такого рода."
 
 #: include/pointdiscount.php:313
-#, fuzzy, php-format
-#| msgid ""
-#| "At least one coupon in your cart requires %s. You must log in to continue."
+#, php-format
 msgid "At least one coupon requires %s. Guest order is not supported."
 msgstr ""
 "По крайней мере один купон в вашей корзине требует %s. Вы должны войти в "
 "систему, чтобы продолжить."
 
 #: include/pointdiscount.php:319
-#, fuzzy, php-format
-#| msgid ""
-#| "At least one coupon in your cart requires %s. You must log in to continue."
+#, php-format
 msgid "At least one coupon requires %s. You must log in to continue."
 msgstr ""
 "По крайней мере один купон в вашей корзине требует %s. Вы должны войти в "
@@ -670,8 +794,7 @@ msgid "You do not have enough %1$s to purchase the reward %2$s."
 msgstr "У вас недостаточно %1$s, чтобы купить награду %2$s."
 
 #: include/pointdiscount.php:389
-#, fuzzy, php-format
-#| msgid "You do not have enough %1$s to purchase the reward %2$s."
+#, php-format
 msgid "Customer does not have enough %1$s to purchase the reward %2$s."
 msgstr "У вас недостаточно %1$s, чтобы купить награду %2$s."
 
@@ -716,7 +839,7 @@ msgstr "Система Очков и Наград не поддерживает 
 msgid "Use %1$s from %2$s"
 msgstr "Используйте %1$s от %2$s"
 
-#: include/ui/admin.php:55
+#: include/ui/admin.php:58
 msgid ""
 "WooCommerce Coupons are disabled. Several MyRewards features will be broken "
 "without Coupons."
@@ -724,7 +847,7 @@ msgstr ""
 "WooCommerce Купоны отключены. Некоторые функции не будут функционировать "
 "MyRewards без Купонов."
 
-#: include/ui/admin.php:56
+#: include/ui/admin.php:59
 msgid ""
 "You can check your WooCommerce General Settings and look for : <b>Enable "
 "coupons</b>."
@@ -732,111 +855,83 @@ msgstr ""
 "Вы можете проверить ваши Общие Настройки WooCommerce и найти поле: "
 "<b>Включить использование купонов</b>."
 
-#: include/ui/admin.php:58
+#: include/ui/admin.php:61
 #, php-format
 msgid "%1$s or %2$s this warning at your own risks."
 msgstr "%1$s или %2$s это предупреждение на свой собственный риск."
 
-#: include/ui/admin.php:62
+#: include/ui/admin.php:65
 msgid "Click here to resolve the problem immediately"
 msgstr "Нажмите здесь, чтобы решить проблему немедленно"
 
-#: include/ui/admin.php:67
+#: include/ui/admin.php:70
 msgid "ignore"
 msgstr "игнорировать"
 
-#: include/ui/admin.php:96 include/ui/shortcodes/userhistory.php:40
+#: include/ui/admin.php:99 include/ui/shortcodes/userhistory.php:40
 msgid "Points History"
 msgstr "История Очков"
 
-#: include/ui/admin.php:98 include/ui/shortcodes/userhistory.php:240
+#: include/ui/admin.php:101 include/ui/shortcodes/userhistory.php:240
 msgid "Date"
 msgstr "Дата"
 
-#: include/ui/admin.php:99 include/ui/admin.php:1038
+#: include/ui/admin.php:102 include/ui/admin.php:995
 #: include/ui/legacy/pointsdisplayer.php:193
-#: include/ui/shortcodes/userhistory.php:246 woorewards.php:238
+#: include/ui/shortcodes/userhistory.php:246 woorewards.php:235
 msgid "Points"
 msgstr "Очков"
 
-#: include/ui/admin.php:100
+#: include/ui/admin.php:103
 msgid "Total"
 msgstr "Итог"
 
-#: include/ui/admin.php:132
+#: include/ui/admin.php:133
 msgid "Add fun and achievements for your customers with the <a>Pro Version</a>"
 msgstr ""
 "Добавьте веселья и достижения для ваших клиентов с помощью <a>Pro Версии</a>"
 
-#: include/ui/admin.php:133
+#: include/ui/admin.php:134
 msgid "Try the <a>Pro Version</a> for free for 30 days"
 msgstr "Попробуйте <a>Pro Версию</a> бесплатно в течение 30 дней"
 
-#: include/ui/admin.php:134
+#: include/ui/admin.php:135
 msgid "The <a>Pro Version</a> adds Events and Levelling systems. Try <a>it</a>"
 msgstr ""
 "<a>Pro Версия</a> добавляет События и Левелинг (уровневую) систему. "
 "<a>Попробуйте</a>"
 
-#: include/ui/admin.php:137
+#: include/ui/admin.php:138
 msgid "Your settings have been saved."
 msgstr "Ваши настройки сохранены."
 
 #. Plugin Name of the plugin/theme
-#: include/ui/admin.php:173
+#: include/ui/admin.php:174
 msgid "MyRewards"
 msgstr "MyRewards"
 
-#: include/ui/admin.php:181 include/ui/admin.php:214 include/ui/admin.php:224
+#: include/ui/admin.php:182 include/ui/admin.php:207 include/ui/admin.php:215
 msgid "Customers"
 msgstr "Покупатели"
 
-#: include/ui/admin.php:199
+#: include/ui/admin.php:200
 msgid "Search..."
 msgstr "Искать..."
 
-#: include/ui/admin.php:205
+#: include/ui/admin.php:212
 msgid ""
-"The customers page lets you track your customers loyalty activity and "
-"perform some actions :"
-msgstr ""
-"Страница клиентов позволяет отслеживать активность клиентов в системе "
-"лояльности и выполнять некоторые действия :"
+"Use this page to manage your customers, see and edit their points and rewards"
+msgstr "Позволить Вашим клиентам видеть свои Очки"
 
-#: include/ui/admin.php:206
-msgid "See customers points and history"
-msgstr "Посмотреть историю и очки клиентов"
-
-#: include/ui/admin.php:207
-msgid "See customers owned coupons"
-msgstr "Посмотреть купоны принадлежащие клиентам"
-
-#: include/ui/admin.php:208
-msgid "Add/Subtract Points"
-msgstr "Добавить/Вычесть Очки"
-
-#: include/ui/admin.php:209
-msgid "Add/Remove Rewards (Pro Version Only)"
-msgstr "Добавить/Удалить Награду (Только в Pro-версии)"
-
-#: include/ui/admin.php:210
-msgid "Add/Remove Badges (Pro Version Only)"
-msgstr "Добавить/Удалить Значки (Только в Pro-версии)"
-
-#: include/ui/admin.php:211
-msgid "Filter by points, activity or inactivity periods (Pro Version Only)"
-msgstr ""
-"Фильтр по очкам, периодам активности или бездействия (Только в Pro-версии)"
-
-#: include/ui/admin.php:229
+#: include/ui/admin.php:220
 msgid "Points Management"
 msgstr "Управление Очками"
 
-#: include/ui/admin.php:232
+#: include/ui/admin.php:223
 msgid "Here you can see and manage your customers reward points"
 msgstr "Здесь вы можете просматривать и управлять очками своих клиентов"
 
-#: include/ui/admin.php:233
+#: include/ui/admin.php:224
 msgid ""
 "You can view the points <b>history</b> by clicking the points total in the "
 "table"
@@ -844,230 +939,39 @@ msgstr ""
 "Вы можете просмотреть <b>историю</b> очков, нажав на общее количество очков "
 "в таблице"
 
-#: include/ui/admin.php:247
-msgid "Setup how customers will earn points and what rewards they can get."
-msgstr ""
-"Настройте, как клиенты будут зарабатывать очки и какие награды они смогут "
-"получить."
+#: include/ui/admin.php:238 woorewards.php:138
+msgid "Settings"
+msgstr "Настройки"
 
-#: include/ui/admin.php:248
+#: include/ui/admin.php:243
 msgid ""
-"In MyRewards Lite, there's only 3 ways to earn points (20+ in MyRewards "
-"Pro) :"
+"Use this page to manage your loyalty program, see and edit actions and "
+"rewards"
 msgstr ""
-"В MyRewards Lite есть только 3 способа получать очки (более 20 в MyRewards "
-"Pro) :"
 
-#: include/ui/admin.php:251
-msgid "Place an order :"
-msgstr "Разместить заказ :"
-
-#: include/ui/admin.php:252
-msgid ""
-"Earn points when placing an order, independently of the order's amount. "
-msgstr "Зарабатывайте очки при размещении заказа, независимо от его суммы. "
-
-#: include/ui/admin.php:255
-msgid "Spend Money :"
-msgstr "Потратьте Деньги :"
-
-#: include/ui/admin.php:256
-msgid "Earn points when placing an order, depending on the order's amount."
-msgstr ""
-"Зарабатывайте очки при размещении заказа в зависимости от общей суммы заказа."
-
-#: include/ui/admin.php:259
-msgid "Review a product :"
-msgstr "Оценить Продукт :"
-
-#: include/ui/admin.php:260
-msgid "Earn points by reviewing a product on your website."
-msgstr "Зарабатывайте очки, оставляя отзывы на товары на вашем сайте."
-
-#: include/ui/admin.php:263
-msgid ""
-"In MyRewards Lite, you can choose between 2 rewards (10+ in MyRewards Pro) :"
-msgstr ""
-"В MyRewards Lite Вы можете выбрать между 2 наградами (более 10 в MyRewards "
-"Pro) :"
-
-#: include/ui/admin.php:266
-msgid "Coupon :"
-msgstr "Купон :"
-
-#: include/ui/admin.php:267
-msgid ""
-"Points are converted into WooCommerce coupons that customers can use on "
-"their cart."
-msgstr ""
-"Очки преобразуются в купоны WooCommerce, которые клиенты могут использовать "
-"на странице Корзины."
-
-#: include/ui/admin.php:270
-msgid "Points on Cart :"
-msgstr "Очки в Корзине магазина :"
-
-#: include/ui/admin.php:271
-msgid ""
-"Set the value of a point and customers will use their points on the cart to "
-"get immediate discounts."
-msgstr ""
-"Установите значение очков и клиенты будут использовать свои очки в корзине "
-"магазина, чтобы получить немедленные скидки."
-
-#: include/ui/admin.php:277 include/ui/admin.php:292
+#: include/ui/admin.php:246
 msgid "Points and Rewards"
 msgstr "Очки и Награды"
 
-#: include/ui/admin.php:306
-msgid ""
-"Wizards are made to help you get started or create some specific loyalty "
-"systems more easily."
-msgstr ""
-"Мастера Настройки созданы, чтобы помочь вам начать работу или создать "
-"некоторые конкретные системы лояльности легче."
+#: include/ui/admin.php:252
+msgid "Other Settings"
+msgstr "Другие настройки"
 
-#: include/ui/admin.php:307
-msgid ""
-"Select a wizard, follow the setup steps and everything will be generated "
-"automatically according to your preferences."
-msgstr ""
-"Выберите мастера настройки, следуйте шагам настройки, и всё будет "
-"генерироваться автоматически в соответствии с вашими предпочтениями."
-
-#: include/ui/admin.php:308
-msgid "Here are the wizards available :"
-msgstr "Вот доступные мастеры настройки :"
-
-#: include/ui/admin.php:313
-msgid "Standard System :"
-msgstr "Стандартная Система :"
-
-#: include/ui/admin.php:314
-msgid "Set up a standard system to let customers win coupons"
-msgstr ""
-"Настройка стандартной системы, чтобы позволить клиентам получать купоны"
-
-#: include/ui/admin.php:317
-msgid "Leveling System :"
-msgstr "Уровневая Система :"
-
-#: include/ui/admin.php:318
-msgid ""
-"This wizard will help you create a bronze/silver/gold system (Pro Version "
-"Only)"
-msgstr ""
-"Этот мастер настройки поможет вам создать бронзовую/серебряную/золотую "
-"систему (Только в Pro-версии)"
-
-#: include/ui/admin.php:321
-msgid "Special Events :"
-msgstr "Особые События :"
-
-#: include/ui/admin.php:322
-msgid "Loyalty systems for special occasions like Christmas (Pro Version Only)"
-msgstr ""
-"Системы лояльности для особых случаев, таких как Рождество (Только в Pro-"
-"версии)"
-
-#: include/ui/admin.php:325
-msgid "Double Points :"
-msgstr "Удвоение Очков :"
-
-#: include/ui/admin.php:326
-msgid ""
-"Create an event where customers can earn twice the points (Pro Version Only)"
-msgstr ""
-"Создайте событие, когда клиенты смогут заработать в два раза больше очков "
-"(Только в Pro-версии)"
-
-#: include/ui/admin.php:329
-msgid "Sponsorship :"
-msgstr "Спонсорство :"
-
-#: include/ui/admin.php:330
-msgid ""
-"Sponsors and sponsored are rewarded in this loyalty system (Pro Version Only)"
-msgstr ""
-"Спонсоры и спонсируемые вознаграждаются в этой системе лояльности (Только в "
-"Pro-версии)"
-
-#: include/ui/admin.php:333
-msgid "Birthday or Anniversary "
-msgstr "День Рождения или Годовщина "
-
-#: include/ui/admin.php:334
-msgid ""
-"Send a special gift on customers birthday or registration anniversary (Pro "
-"Version Only)"
-msgstr ""
-"Отправьте специальный подарок в день рождения клиентов или годовщину "
-"регистрации (Только в Pro-версии)"
-
-#: include/ui/admin.php:339 include/ui/admin.php:340
+#: include/ui/admin.php:264 include/ui/admin.php:265
 msgid "Wizard"
 msgstr "Мастер настройки"
 
-#: include/ui/admin.php:353
-msgid "Activate and set up different MyRewards features in this section : "
-msgstr "Активировать и настроить различные функции MyRewards в этом разделе: "
-
-#: include/ui/admin.php:354
-msgid "WooCommerce :"
-msgstr "WooCommerce :"
-
-#: include/ui/admin.php:355
+#: include/ui/admin.php:270
 msgid ""
-"WooCommerce related rules and additional loyalty information on woocommerce "
-"pages"
+"The wizard page lets you setup your points and rewards program in a few "
+"minutes"
 msgstr ""
-"Правила, связанные с WooCommerce, и дополнительная информация о системе "
-"лояльности на страницах WooCommerce"
 
-#: include/ui/admin.php:356
-#, fuzzy
-#| msgid "Sponsorship :"
-msgid "Sponsorship/Referral :"
-msgstr "Спонсорство :"
-
-#: include/ui/admin.php:357
-#, fuzzy
-#| msgid "Set up the sponsorship options (Pro Version Only)"
-msgid "Set up the sponsorship/referral options (Pro Version Only)"
-msgstr "Настройте варианты спонсорства (Только в Pro-версии)"
-
-#: include/ui/admin.php:358
-msgid "Badges and Achievements :"
-msgstr "Значки и Достижения :"
-
-#: include/ui/admin.php:359
-msgid ""
-"Create and manage user badges, achievements and badges rarity (Pro Version "
-"Only)"
-msgstr ""
-"Создайте и управляйте пользовательскими значками, достижениями и редкостью "
-"значков (Только в Pro-версии)"
-
-#: include/ui/admin.php:360
-msgid "API :"
-msgstr "API :"
-
-#: include/ui/admin.php:361
-msgid ""
-"Set up the API to connect MyRewards with a third party app (Pro Version Only)"
-msgstr ""
-"Настройте API для подключения MyRewards к сторонним приложениям (Только в "
-"Pro-версии)"
-
-#: include/ui/admin.php:365 include/ui/admin.php:366
-msgid "Features"
-msgstr "Функции"
-
-#: include/ui/admin.php:386
+#: include/ui/admin.php:280
 msgid "General settings"
 msgstr "Основные настройки"
 
-#: include/ui/admin.php:387
+#: include/ui/admin.php:281
 msgid ""
 "Check the options below according to your needs. If you want to exclude "
 "shipping fees from points calculation, it can be done inside your loyalty "
@@ -1077,51 +981,47 @@ msgstr ""
 "хотите исключить стоимость доставки из расчета очков, это может быть сделано "
 "внутри вашей системы лояльности."
 
-#: include/ui/admin.php:392
+#: include/ui/admin.php:286
 msgid "Includes taxes"
 msgstr "Включает налоги"
 
-#: include/ui/admin.php:396
+#: include/ui/admin.php:290
 msgid ""
 "If checked, taxes will be included in the points earned when spending money"
 msgstr ""
 "Если включено, то налоги будут включены в очки, зарабатываемые при трате "
 "денег"
 
-#: include/ui/admin.php:401
-#, fuzzy
-#| msgid "Coupon Details"
+#: include/ui/admin.php:295
 msgid "Coupon prefix"
-msgstr "Детали Купона"
+msgstr "Приставка купона"
 
-#: include/ui/admin.php:405
+#: include/ui/admin.php:299
 msgid ""
 "Set a prefix code that will be added on all coupon codes generated by "
 "MyRewards"
 msgstr ""
 
-#: include/ui/admin.php:410
-#, fuzzy
-#| msgid "Coupon code : %s"
+#: include/ui/admin.php:304
 msgid "Coupon code length"
 msgstr "Код купона : %s"
 
-#: include/ui/admin.php:416
+#: include/ui/admin.php:310
 msgid ""
 "Set the length of the generated coupon code. The length comes in addition to "
 "the code prefix."
 msgstr ""
 
-#: include/ui/admin.php:417
+#: include/ui/admin.php:311
 #, php-format
 msgid "Minimum length is %s."
 msgstr ""
 
-#: include/ui/admin.php:422
+#: include/ui/admin.php:316
 msgid "Order statuses for points"
 msgstr "Статусы заказов для получения очков"
 
-#: include/ui/admin.php:426
+#: include/ui/admin.php:320
 msgid ""
 "Default state to get points is the processing order status.<br/>If you want "
 "to use other statuses instead (recommanded), select them here"
@@ -1130,134 +1030,142 @@ msgstr ""
 "вы хотите использовать другие статусы вместо этого (рекомендуемого), "
 "выберите их здесь"
 
-#: include/ui/admin.php:431
-#, fuzzy
-#| msgid "Before customer details"
+#: include/ui/admin.php:325
 msgid "Deep customer search"
 msgstr "Перед информацией о клиенте"
 
-#: include/ui/admin.php:435
+#: include/ui/admin.php:330
 msgid ""
 "If you have troubles with searching in WooRewards Customers administration "
 "screen, disable this option. This will speed up the search but it will take "
 "less data into account."
 msgstr ""
 
-#: include/ui/admin.php:443
-#, fuzzy
-#| msgid "Order statuses for points"
+#: include/ui/admin.php:335
+msgid "Show loading orders"
+msgstr ""
+
+#: include/ui/admin.php:339
+msgid ""
+"For some advanced setups, managing loyalty system loading order and event "
+"trigger priority could be meaningful."
+msgstr ""
+
+#: include/ui/admin.php:347
 msgid "Order statuses to consume used points"
 msgstr "Статусы заказов для получения очков"
 
-#: include/ui/admin.php:444
+#: include/ui/admin.php:348
 msgid "Points used to get a discount are consumed when order status changes."
 msgstr ""
 
-#: include/ui/admin.php:448
-#, fuzzy
-#| msgid "Order statuses for points"
+#: include/ui/admin.php:352
 msgid "Order statuses to pay discount"
 msgstr "Статусы заказов для получения очков"
 
-#: include/ui/admin.php:457
-#, fuzzy
-#| msgid "Order statuses for points"
+#: include/ui/admin.php:361
 msgid "Order status on payment failure"
-msgstr "Статусы заказов для получения очков"
+msgstr "Статус заказа при ошибке платежа"
 
-#: include/ui/admin.php:462
+#: include/ui/admin.php:366
 msgid "[do nothing]"
 msgstr ""
 
-#: include/ui/admin.php:466
+#: include/ui/admin.php:370
 msgid "Change order status if points cannot be paid after all."
 msgstr ""
 
-#: include/ui/admin.php:481
+#: include/ui/admin.php:379
+msgid "Referral Features"
+msgstr "Функции"
+
+#: include/ui/admin.php:380
 msgid ""
-"Set the appearance of everything your customers will see on your website "
-"regarding loyalty systems : "
+"Here, you'll find the different tools customers can use to refer their "
+"friends and the reward given to referred users."
 msgstr ""
-"Установите внешний вид всего, что ваши клиенты увидят на вашем сайте "
-"относительно систем лояльности: "
 
-#: include/ui/admin.php:482
-msgid "Widgets :"
-msgstr "Виджеты :"
-
-#: include/ui/admin.php:483
-msgid "Setup the widgets/shortcodes options and appearance"
-msgstr "Настройка опций виджетов/шорткодов и внешнего вида"
-
-#: include/ui/admin.php:484
-msgid "Emails :"
-msgstr "Email'ы :"
-
-#: include/ui/admin.php:485
-msgid "Customize emails sent to your customers"
-msgstr "Настройка электронных писем, отправляемых Вашим клиентам"
-
-#: include/ui/admin.php:486
-msgid "Popup :"
-msgstr "Всплывающие окна :"
-
-#: include/ui/admin.php:487
+#: include/ui/admin.php:381
 msgid ""
-"Setup the popup that your customers see when they unlock a reward (Pro "
-"Version Only)"
+"To reward the referrers, either use the dedicated wizard or select an "
+"appropriate earning method inside a points and rewards system."
 msgstr ""
-"Настройка всплывающего окна, которое увидят Ваши клиенты, когда они "
-"разблокируют новую награду (Только в Pro-версии)"
 
-#: include/ui/admin.php:490 include/ui/admin.php:491
+#: include/ui/admin.php:386
+msgid "Enable Referrals"
+msgstr "Включить рефералы"
+
+#: include/ui/admin.php:396
+msgid "Allow referrals via referral link"
+msgstr ""
+
+#: include/ui/admin.php:400
+msgid ""
+"When a visitor comes from a referral link and registers, he will be referred "
+"by the user that posted the link."
+msgstr ""
+
+#: include/ui/admin.php:405
+msgid "Try to shorten the referral URL"
+msgstr ""
+
+#: include/ui/admin.php:408
+msgid ""
+"Disable that feature if you encounter plugin conflicts or redirection "
+"problems. Disable that feature makes bigger and less readable QR codes."
+msgstr ""
+
+#: include/ui/admin.php:416
+msgid "Alternative Short Site URL"
+msgstr ""
+
+#: include/ui/admin.php:419
+msgid ""
+"To make the QR-Code as simple as possible, you can specify a shorter version "
+"of your site URL here that will be used as base for the image generation."
+msgstr ""
+
+#: include/ui/admin.php:426
+msgid "Max referrals per customer"
+msgstr ""
+
+#: include/ui/admin.php:431
+msgid ""
+"Set the maximum referrals allowed for users. No restriction on empty value "
+"or zero (0)."
+msgstr ""
+
+#: include/ui/admin.php:444 include/ui/admin.php:445
 msgid "Appearance"
 msgstr "Внешность"
 
-#: include/ui/admin.php:507
+#: include/ui/admin.php:450
+msgid ""
+"Use this page to display loyalty content to your customers on your website"
+msgstr "Этот шорткод используется для отображения инструмента 'Очков в Корзине"
+
+#: include/ui/admin.php:456
 msgid "Emails"
 msgstr "Email'ы"
 
-#: include/ui/admin.php:523
-#, fuzzy
-#| msgid "Manage your license and different system related options :"
-msgid "Manage different system related options :"
-msgstr "Управление лицензией и настройками, связанными с системой:"
-
-#: include/ui/admin.php:524
-#, fuzzy
-#| msgid "Place an order :"
-msgid "Process past orders :"
-msgstr "Разместить заказ :"
-
-#: include/ui/admin.php:525
-msgid ""
-"Process existing orders to give points for orders placed before the loyalty "
-"program"
-msgstr ""
-
-#: include/ui/admin.php:526
-msgid "Database :"
-msgstr ""
-
-#: include/ui/admin.php:527
-#, fuzzy
-#| msgid "Manage MyRewards data in the database, process past orders"
-msgid "Manage MyRewards data in the database"
-msgstr "Управление данными MyRewards в базе данных, обрвботка прошлых заказов"
-
-#: include/ui/admin.php:530 include/ui/admin.php:531
+#: include/ui/admin.php:473 include/ui/admin.php:474
 msgid "System"
 msgstr "Система"
 
-#: include/ui/admin.php:545
+#: include/ui/admin.php:479
+msgid ""
+"Export or import your customers points, process past orders in this page"
+msgstr ""
+
+#: include/ui/admin.php:484
 msgid "Data Management"
 msgstr "Управление Данными"
 
-#: include/ui/admin.php:551
+#: include/ui/admin.php:490
 msgid "Give Points for Past orders"
 msgstr "Выдайте Очки за прошлые заказы"
 
-#: include/ui/admin.php:552
+#: include/ui/admin.php:491
 msgid ""
 "If you want to give points for orders that pre-existed your loyalty system, "
 "you can do it here"
@@ -1265,7 +1173,7 @@ msgstr ""
 "Если Вы хотите дать Очки за заказы, которые существовали до появления Вашей "
 "системы лояльности, вы можете сделать это здесь"
 
-#: include/ui/admin.php:553
+#: include/ui/admin.php:492
 msgid ""
 "This operation can take several minutes. Depending on you server "
 "configuration and date range, you should run this operation several times on "
@@ -1275,142 +1183,110 @@ msgstr ""
 "сервера и диапазона дат, вы должны запустить этот процесс несколько раз на "
 "более коротких диапазонах дат."
 
-#: include/ui/admin.php:557
+#: include/ui/admin.php:496
 msgid "Start date"
 msgstr "Дата начала"
 
-#: include/ui/admin.php:568
+#: include/ui/admin.php:507
 msgid "End date"
 msgstr "Дата окончания"
 
-#: include/ui/admin.php:579 include/ui/admin.php:1161
+#: include/ui/admin.php:518 include/ui/admin.php:1119
 msgid "Launch the procedure"
 msgstr "Запусить процедуру"
 
-#: include/ui/admin.php:589
+#: include/ui/admin.php:528
 msgid "Delete all data"
 msgstr "Удалить все данные"
 
-#: include/ui/admin.php:591
+#: include/ui/admin.php:530
 msgid "Remove all loyalty systems, user points and all MyRewards related data."
 msgstr ""
 "Удалите все системы лояльности, пользовательские очки и все данные, "
 "связанные с MyRewards."
 
-#: include/ui/admin.php:592
+#: include/ui/admin.php:531
 msgid "Use this feature with care since this action is <b>irreversible</b>."
 msgstr ""
 "Используйте эту функцию с осторожностью, так как это действие <b>необратимо</"
 "b>."
 
-#: include/ui/admin.php:596 include/ui/admin.php:1225
+#: include/ui/admin.php:535 include/ui/admin.php:1183
 msgid "Delete All Data"
 msgstr "Удалить Все Данные"
 
-#: include/ui/admin.php:616
+#: include/ui/admin.php:555
 #, php-format
 msgid "Next CRON action planned at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:618
+#: include/ui/admin.php:557
 msgid ""
 "CRON action is not registered. To fix it, deactivate then re-activate this "
 "plugin."
 msgstr ""
 
-#: include/ui/admin.php:622
+#: include/ui/admin.php:561
 #, php-format
 msgid "Last CRON action ran at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:631 include/ui/admin.php:632 include/ui/admin.php:633
-#: include/ui/admin.php:702
+#: include/ui/admin.php:570 include/ui/admin.php:571 include/ui/admin.php:572
+#: include/ui/admin.php:637
 msgid "Pro Version"
+msgstr "Pro версия"
+
+#: include/ui/admin.php:578
+msgid ""
+"Unlock this plugin's full potential by switching to the pro version. Check "
+"all the features and discover how to install it"
 msgstr ""
 
-#: include/ui/admin.php:641
-msgid "Discover all Pro Version features :"
+#: include/ui/admin.php:642
+msgid "Pro Version - How to Install"
 msgstr ""
 
 #: include/ui/admin.php:645
-#, fuzzy
-#| msgid "Points and Rewards"
-msgid "Points and Rewards Systems :"
-msgstr "Очки и Награды"
-
-#: include/ui/admin.php:646
-msgid "Create as many systems as you want, working together or separately"
-msgstr ""
-
-#: include/ui/admin.php:649
-#, fuzzy
-#| msgid "Methods to earn points"
-msgid "20+ methods to earn points :"
-msgstr "Методы заработка очков"
-
-#: include/ui/admin.php:650
 msgid ""
-"Lots of possibilities for your customers to earn points, including social "
-"media and sponsorship"
+"If you already purchased the pro version, follow the instructions below to "
+"install and activate it"
 msgstr ""
 
-#: include/ui/admin.php:653
-#, fuzzy
-#| msgid "Sponsorship :"
-msgid "Referrals/Sponsorship :"
-msgstr "Спонсорство :"
-
-#: include/ui/admin.php:654
-msgid "Complete referral and sponsorship system to grow your customers base"
-msgstr ""
-
-#: include/ui/admin.php:657
-#, fuzzy
-#| msgid "New Reward"
-msgid "New Rewards :"
-msgstr "Новая Награда"
-
-#: include/ui/admin.php:658
-msgid ""
-"New types of rewards including free products, free shipping and custom "
-"rewards."
-msgstr ""
-
-#: include/ui/admin.php:707
+#: include/ui/admin.php:659
 msgid "Pro Version - Test if for free for 1 month !"
 msgstr ""
 
-#: include/ui/admin.php:710
+#: include/ui/admin.php:662
 msgid ""
 "Discover the features of the pro version and how it will help your online "
 "store grow."
 msgstr ""
 
-#: include/ui/admin.php:737
+#: include/ui/admin.php:691
 msgid "Cart Page Content"
 msgstr ""
 
-#: include/ui/admin.php:738
+#: include/ui/admin.php:692
 msgid ""
 "Select what and where you want to display content on the WooCommerce Cart "
 "Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:744
+#: include/ui/admin.php:699
 msgid "Checkout Page Content"
 msgstr ""
 
-#: include/ui/admin.php:745
+#: include/ui/admin.php:700
 msgid ""
 "Select what and where you want to display content on the WooCommerce "
 "Checkout Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:768 include/ui/admin.php:773 include/ui/admin.php:913
+#: include/ui/admin.php:723 include/ui/admin.php:728 include/ui/admin.php:870
 msgid "Shortcodes"
 msgstr "Шорткоды"
 
-#: include/ui/admin.php:775
+#: include/ui/admin.php:730
 msgid ""
 "In this section, you will find various shortcodes you can use on your "
 "website."
@@ -1418,38 +1294,38 @@ msgstr ""
 "В этом разделе Вы найдете различные шорткоды, которые вы сможете "
 "использовать на Вашем сайте."
 
-#: include/ui/admin.php:787
+#: include/ui/admin.php:744
 msgid "Legacy"
-msgstr ""
+msgstr "Наследие"
 
-#: include/ui/admin.php:793
+#: include/ui/admin.php:750
 msgid "Points On Cart"
 msgstr "Очки в Корзине"
 
-#: include/ui/admin.php:794
+#: include/ui/admin.php:751
 msgid ""
 "Select where the Points on Cart tool will be displayed and how it will look"
 msgstr ""
 "Выберите, где будет отображаться инструмент 'Очки в Корзине' и как он будет "
 "выглядеть"
 
-#: include/ui/admin.php:798
+#: include/ui/admin.php:755
 msgid "Cart Display"
 msgstr "Отображение Корзины"
 
-#: include/ui/admin.php:805 include/ui/admin.php:831
+#: include/ui/admin.php:762 include/ui/admin.php:788
 msgid "Not displayed at all"
 msgstr "Не отображается"
 
-#: include/ui/admin.php:806
+#: include/ui/admin.php:763
 msgid "Between products and totals"
 msgstr "Между товарами и итогами"
 
-#: include/ui/admin.php:807
+#: include/ui/admin.php:764
 msgid "Aside from cart totals"
 msgstr "В стороне от итогов корзины"
 
-#: include/ui/admin.php:810
+#: include/ui/admin.php:767
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the cart page"
@@ -1457,11 +1333,11 @@ msgstr ""
 "Следующие параметры используются для решения, где и как инструмент 'Очки в "
 "Корзине' будет отображаться на странице корзины"
 
-#: include/ui/admin.php:815
+#: include/ui/admin.php:772
 msgid "Reload cart page after amount modification"
 msgstr "Перезагрузить страницу корзины после изменения суммы"
 
-#: include/ui/admin.php:819 include/ui/admin.php:846
+#: include/ui/admin.php:776 include/ui/admin.php:803
 msgid ""
 "By default, changing the amount will provoke a javascript (ajax) update. "
 "Check this box if the default behavior doesn't work."
@@ -1469,23 +1345,23 @@ msgstr ""
 "По умолчанию изменение суммы спровоцирует обновление javascript (ajax). "
 "Включите это поле, если поведение по умолчанию не работает."
 
-#: include/ui/admin.php:824
+#: include/ui/admin.php:781
 msgid "Checkout Display"
 msgstr "Отображение в оформлении заказа"
 
-#: include/ui/admin.php:832 include/ui/woocommerce/cartcheckoutcontent.php:66
+#: include/ui/admin.php:789 include/ui/woocommerce/cartcheckoutcontent.php:66
 msgid "Top of the page"
 msgstr "Верхняя часть страницы"
 
-#: include/ui/admin.php:833
+#: include/ui/admin.php:790
 msgid "Before customer details"
 msgstr "Перед информацией о клиенте"
 
-#: include/ui/admin.php:834
+#: include/ui/admin.php:791
 msgid "Before order review"
 msgstr "Перед обзором заказа"
 
-#: include/ui/admin.php:837
+#: include/ui/admin.php:794
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the checkout page"
@@ -1493,60 +1369,60 @@ msgstr ""
 "Следующие параметры используются для решения, где и как инструмент 'Очки в "
 "Корзине' будет отображаться на странице оформления заказа"
 
-#: include/ui/admin.php:842
+#: include/ui/admin.php:799
 msgid "Reload checkout page after amount modification"
 msgstr "Перезагрузить страницу корзины после изменения суммы"
 
-#: include/ui/admin.php:851 include/ui/woocommerce/pointsoncart.php:139
+#: include/ui/admin.php:808 include/ui/woocommerce/pointsoncart.php:139
 msgid "Tool Header"
 msgstr "Хедер инструмента"
 
-#: include/ui/admin.php:854 include/ui/woocommerce/pointsoncart.php:142
+#: include/ui/admin.php:811 include/ui/woocommerce/pointsoncart.php:142
 #: include/ui/woocommerce/pointsoncart.php:600
 msgid "Loyalty points discount"
 msgstr "Скидка Очков лояльности"
 
-#: include/ui/admin.php:867 include/ui/woocommerce/pointsoncart.php:155
+#: include/ui/admin.php:824 include/ui/woocommerce/pointsoncart.php:155
 msgid "Use the styling tool to change the tool's frontend appearance"
 msgstr ""
 "Используйте инструмент стайлинга, чтобы изменить внешний вид инструмента во "
 "фронт-энде"
 
-#: include/ui/admin.php:881
+#: include/ui/admin.php:838
 msgid "Display Points Widget"
 msgstr "Виджет Отображения Очков"
 
-#: include/ui/admin.php:883
+#: include/ui/admin.php:840
 msgid ""
 "Legacy : This widget is no longer maintained or updated. Use the points "
 "balance shortcode instead."
 msgstr ""
 
-#: include/ui/admin.php:887
+#: include/ui/admin.php:844
 msgid "Text displayed if user not connected"
 msgstr "Отображаемый текст, когда пользователь не авторизован"
 
-#: include/ui/admin.php:891 include/ui/legacy/pointsdisplayer.php:253
+#: include/ui/admin.php:848 include/ui/legacy/pointsdisplayer.php:253
 msgid "Please log in if you want to see your loyalty points"
 msgstr "Пожалуйста, авторизуйтесь, чтобы увидеть свои Очки"
 
-#: include/ui/admin.php:902
+#: include/ui/admin.php:859
 msgid ""
 "Here you can customize the look and displayed text of the shortcode/widget"
 msgstr ""
 "Здесь вы можете настроить внешний вид и отображаемый текст шорткода/виджета"
 
-#: include/ui/admin.php:915
+#: include/ui/admin.php:872
 msgid ""
 "These shortcodes are deprecated and are kept here for compatibility. Try to "
 "replace them with other shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:919
+#: include/ui/admin.php:876
 msgid "Simple Points Display"
 msgstr "Отображение Простых Очков"
 
-#: include/ui/admin.php:923
+#: include/ui/admin.php:880
 msgid ""
 "This simple shortcode is used to display the user's points with no "
 "decoration."
@@ -1554,28 +1430,28 @@ msgstr ""
 "Этот простой шорткод используется для отображения очков пользователя без "
 "визуальных украшений."
 
-#: include/ui/admin.php:924
+#: include/ui/admin.php:881
 msgid ""
 "This is very convenient if you want to display points within a phrase for "
 "example."
 msgstr "Это очень удобно, если вы хотите отображать очки в фразе, например."
 
-#: include/ui/admin.php:931
+#: include/ui/admin.php:888
 msgid "Display Points"
 msgstr "Отображение Очков"
 
-#: include/ui/admin.php:935
+#: include/ui/admin.php:892
 msgid ""
 "This shortcode shows to customers the points they have on a loyalty system."
 msgstr ""
 "Этот шорткод показывает клиентам очки, которые они имеют в системе "
 "лояльности."
 
-#: include/ui/admin.php:939
+#: include/ui/admin.php:896
 msgid "The text displayed before the points."
 msgstr "Текст, отображаемый перед очками."
 
-#: include/ui/admin.php:943
+#: include/ui/admin.php:900
 msgid ""
 "(Optional) If set, the number of points displayed will show the points "
 "currency."
@@ -1583,11 +1459,11 @@ msgstr ""
 "(По желанию) В случае выбора, количество отображаемых очков также покажет "
 "валюту очков."
 
-#: include/ui/admin.php:963 include/ui/editlists/multiformlist.php:128
+#: include/ui/admin.php:920
 msgid "Information"
 msgstr "Информация"
 
-#: include/ui/admin.php:965
+#: include/ui/admin.php:922
 msgid ""
 "MyRewards Standard uses WooCommerce <i>orders</i> and <i>coupons</i>.\n"
 "\t\t\t\t\t\t\t<br/>You should install <a href='https://wordpress.org/plugins/"
@@ -1607,30 +1483,27 @@ msgstr ""
 "\t\t\t\t\t\t\tand enjoy new ways to earn points (social media, sponsoring... "
 "with or without WooCommerce) and a lot of new reward types !"
 
-#: include/ui/admin.php:998
+#: include/ui/admin.php:955
 msgid ""
 "You are now using the Free Version of WooRewards. However, we detect that "
 "you still have Premium Version settings that are not compatible with the "
 "Free Version."
 msgstr ""
 
-#: include/ui/admin.php:999
+#: include/ui/admin.php:956
 msgid ""
 "If you buy a Premium Version License and activate it, it will restore all "
 "the Premium Version data (points and rewards systems, user points, settings)."
 msgstr ""
 
-#: include/ui/admin.php:1000
+#: include/ui/admin.php:957
 msgid ""
 "If you prefer to only use the free version, please follow the instructions "
 "below :"
 msgstr ""
 
-#: include/ui/admin.php:1007
-#, fuzzy, php-format
-#| msgid ""
-#| "It seems the prefab pool does not exists. Please run the <a%s>wizard</a> "
-#| "to create one."
+#: include/ui/admin.php:964
+#, php-format
 msgid ""
 "The WooRewards default points and rewards system does not exist. Please run "
 "the <a%s>wizard</a> tool to create one."
@@ -1638,11 +1511,7 @@ msgstr ""
 "Кажется, пул префабов не существует. Пожалуйста, запустите <a%s>мастер "
 "настройки</a>, чтобы создать один."
 
-#: include/ui/admin.php:1012
-#, fuzzy
-#| msgid ""
-#| "It seems the prefab pool does not exists. Try to re-activate this plugin. "
-#| "If the problem persists, contact your administrator."
+#: include/ui/admin.php:969
 msgid ""
 "The MyRewards default points and rewards system does not exist. Try to re-"
 "activate this plugin. If the problem persists, contact your administrator."
@@ -1651,15 +1520,15 @@ msgstr ""
 "активировать этот плагин. Если проблема сохраняется, обратитесь к "
 "администратору Вашего сайта."
 
-#: include/ui/admin.php:1018
+#: include/ui/admin.php:975
 msgid "Loading failure"
 msgstr "Сбой загрузки"
 
-#: include/ui/admin.php:1030
+#: include/ui/admin.php:987
 msgid "General Settings"
 msgstr "Основные Настройки"
 
-#: include/ui/admin.php:1032
+#: include/ui/admin.php:989
 msgid ""
 "Before activating your loyalty program, make sure you've read the "
 "documentation. You will find links to the documentation on the top right of "
@@ -1669,17 +1538,17 @@ msgstr ""
 "документацию. Вы найдете ссылки на документацию в правом верхнем углу каждой "
 "группы."
 
-#: include/ui/admin.php:1041
+#: include/ui/admin.php:998
 msgid "Here you can manage how your customers earn loyalty points"
 msgstr ""
 "Здесь вы можете управлять тем, как ваши клиенты зарабатывают очки лояльности"
 
-#: include/ui/admin.php:1053 include/ui/editlists/userspoints.php:18
-#: woorewards.php:397
+#: include/ui/admin.php:1010 include/ui/editlists/userspoints.php:18
+#: woorewards.php:413
 msgid "Rewards"
 msgstr "Награды"
 
-#: include/ui/admin.php:1056
+#: include/ui/admin.php:1013
 msgid ""
 "Here you can manage the rewards for your customers. Rewards can either be "
 "automatically generated WooCommerce Coupons or points usable on cart for "
@@ -1689,55 +1558,52 @@ msgstr ""
 "сгенерированны автоматически через Купоны WooCommerce или очки можно будет "
 "использовать в корзине магазина для немедленных скидок"
 
-#: include/ui/admin.php:1062
+#: include/ui/admin.php:1019
 msgid "Reward Type"
 msgstr "Тип Награды"
 
-#: include/ui/admin.php:1068
+#: include/ui/admin.php:1025
 msgid "WooCommerce Coupon"
 msgstr "Купон WooCommerce"
 
-#: include/ui/admin.php:1069 include/wizards/standard.php:125
-#: include/wizards/standard.php:319
+#: include/ui/admin.php:1026 include/wizards/standard.php:145
+#: include/wizards/standard.php:355
 msgid "Points on Cart"
 msgstr "Очки в Корзине магазина"
 
-#: include/ui/admin.php:1078
+#: include/ui/admin.php:1035
 #, php-format
 msgid "Point Value in %s"
 msgstr "Ценность Очков в %s"
 
-#: include/ui/admin.php:1081
+#: include/ui/admin.php:1038
 msgid ""
 "Each point spent on the cart will decrease the order total of that value"
 msgstr ""
 "Каждое очко, затраченное в корзине магазина, уменьшит общую сумму заказа на "
 "это значение"
 
-#: include/ui/admin.php:1088 include/unlockables/coupon.php:462
+#: include/ui/admin.php:1045 include/unlockables/coupon.php:462
 msgid "Coupon"
 msgstr "Купон"
 
-#: include/ui/admin.php:1135
+#: include/ui/admin.php:1093
 msgctxt "pool enabled switch"
 msgid "Off"
 msgstr "Выключено"
 
-#: include/ui/admin.php:1136
+#: include/ui/admin.php:1094
 msgctxt "pool enabled switch"
 msgid "On"
 msgstr "Включено"
 
-#: include/ui/admin.php:1144
+#: include/ui/admin.php:1102
 msgctxt "Pool title"
 msgid "Title"
 msgstr "Название"
 
-#: include/ui/admin.php:1160
-#, fuzzy, php-format
-#| msgid ""
-#| "If you really want to reset all MyRewards data, check this box and click "
-#| "on <i>'%s'</i> again."
+#: include/ui/admin.php:1118
+#, php-format
 msgid ""
 "If you really want to process pre-existing orders, check this box and click "
 "on <i>'%s'</i> again."
@@ -1745,28 +1611,28 @@ msgstr ""
 "Если вы действительно хотите сбросить все данные MyRewards, включите это "
 "поле и нажмите на <i>'%s'</i> снова."
 
-#: include/ui/admin.php:1162
+#: include/ui/admin.php:1120
 msgid ""
 "If your loyalty program is live, this could lead to lots of rewards being "
 "generated and lots of emails being sent"
 msgstr ""
 
-#: include/ui/admin.php:1163
+#: include/ui/admin.php:1121
 msgid ""
 "Please make sure you reviewed all the settings before launching this "
 "procedure."
 msgstr ""
 
-#: include/ui/admin.php:1175 include/ui/admin.php:1176
+#: include/ui/admin.php:1133 include/ui/admin.php:1134
 msgid "Dates are required"
 msgstr "Требуются даты"
 
-#: include/ui/admin.php:1216
+#: include/ui/admin.php:1174
 #, php-format
 msgid "<b>%s</b> order(s) processed."
 msgstr "<b>%s</b> заказ(ы) обработан(ы)."
 
-#: include/ui/admin.php:1224
+#: include/ui/admin.php:1182
 #, php-format
 msgid ""
 "If you really want to reset all MyRewards data, check this box and click on "
@@ -1775,21 +1641,161 @@ msgstr ""
 "Если вы действительно хотите сбросить все данные MyRewards, включите это "
 "поле и нажмите на <i>'%s'</i> снова."
 
-#: include/ui/admin.php:1226
+#: include/ui/admin.php:1184
 msgid "This operation is irreversible!"
 msgstr "Эта операция необратима!"
 
-#: include/ui/admin.php:1227
+#: include/ui/admin.php:1185
 msgid "Consider making a backup of your database before continue."
 msgstr "Перед продолжением следует сделать резервную копию базы данных."
 
-#: include/ui/admin.php:1286
+#: include/ui/admin.php:1256
 msgid ""
 "You can now create new Points and Rewards System for your customers or "
 "uninstall MyRewards."
 msgstr ""
 "Теперь вы можете создать новую Систему Очков и Наград для своих клиентов или "
 "удалить MyRewards."
+
+#: include/ui/admin.php:1269 include/wizard.php:174 woorewards.php:546
+#: woorewards.php:564
+msgid "Referrals"
+msgstr "Рефералы"
+
+#: include/ui/admin.php:1283
+msgid "Referrals Information"
+msgstr "Информация о награде"
+
+#: include/ui/admin.php:1287
+msgid "You will find here a list of all customers who referred other people."
+msgstr ""
+
+#: include/ui/admin.php:1289
+#, php-format
+msgid "See %s to let your customer share a referral link and get referees."
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:15
+msgid "Styling"
+msgstr "Стайлинг"
+
+#: include/ui/adminscreens/styling.php:57
+msgid "Blocks"
+msgstr "Блоки"
+
+#: include/ui/adminscreens/styling.php:60
+msgid ""
+"Set the styling of wrapping elements used on front-end elements and "
+"shortcodes"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:64
+msgid "Border Width"
+msgstr "Ширина рамки"
+
+#: include/ui/adminscreens/styling.php:70
+#: include/ui/adminscreens/styling.php:154
+#, php-format
+msgid ""
+"Define the blocks border width. Set 0px for no border. You can set up to 4 "
+"values. %s works, %s also works"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:76
+msgid "Border Radius"
+msgstr "Радиус границы"
+
+#: include/ui/adminscreens/styling.php:82
+#: include/ui/adminscreens/styling.php:166
+#, php-format
+msgid ""
+"Define the blocks border radius. Set 0px for no radius. You can set up to 4 "
+"values. %s works, %s also works"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:88
+msgid "Border Color"
+msgstr "Цвет границы"
+
+#: include/ui/adminscreens/styling.php:92
+#: include/ui/adminscreens/styling.php:176
+msgid "Define the blocks border color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:97
+msgid "Background Color"
+msgstr "Цвет фона"
+
+#: include/ui/adminscreens/styling.php:101
+#: include/ui/adminscreens/styling.php:185
+msgid "Define the blocks background color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:106
+msgid "Text Color"
+msgstr "Цвет текста"
+
+#: include/ui/adminscreens/styling.php:110
+#: include/ui/adminscreens/styling.php:194
+msgid "Define the text color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:115
+#: include/ui/adminscreens/styling.php:226
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#: include/ui/adminscreens/styling.php:141
+msgid "Buttons"
+msgstr "Кнопки"
+
+#: include/ui/adminscreens/styling.php:144
+msgid "Set the styling of buttons used on front-end elements and shortcodes"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:148
+msgid "Button Border Width"
+msgstr "Ширина рамки кнопки"
+
+#: include/ui/adminscreens/styling.php:160
+msgid "Button Border Radius"
+msgstr "Радиус границы кнопки"
+
+#: include/ui/adminscreens/styling.php:172
+msgid "Button Border Color"
+msgstr "Цвет рамки кнопки"
+
+#: include/ui/adminscreens/styling.php:181
+msgid "Button Background Color"
+msgstr "Цвет фона кнопки"
+
+#: include/ui/adminscreens/styling.php:190
+msgid "Button Text Color"
+msgstr "Цвет текста кнопки"
+
+#: include/ui/adminscreens/styling.php:199
+msgid "Mouseover Border Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:203
+msgid "Define the blocks border color on mouse over"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:208
+msgid "Mouseover Background Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:212
+msgid "Define the blocks background color on mouse over"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:217
+msgid "Mouseover Text Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:221
+msgid "Define the text color on mouse over"
+msgstr ""
 
 #: include/ui/editlists/eventlist.php:15
 #: include/ui/editlists/unlockablelist.php:16
@@ -1798,97 +1804,101 @@ msgstr "Публичное название"
 
 #: include/ui/editlists/eventlist.php:38
 msgid "Formula"
-msgstr ""
+msgstr "Формула"
 
-#: include/ui/editlists/eventlist.php:59
+#: include/ui/editlists/eventlist.php:55
 msgid "Action to perform to earn points"
 msgstr "Действия для заработка очков"
 
-#: include/ui/editlists/eventlist.php:63
+#: include/ui/editlists/eventlist.php:61
 msgid "Points value and options"
 msgstr "Значение очков и опции"
 
-#: include/ui/editlists/eventlist.php:91
+#: include/ui/editlists/eventlist.php:70
+msgid "Select a category"
+msgstr "Выберите категорию"
+
+#: include/ui/editlists/eventlist.php:71
+msgid "Category : "
+msgstr "Категория: "
+
+#: include/ui/editlists/eventlist.php:74
+msgid "Select an action"
+msgstr "Выберите действие"
+
+#: include/ui/editlists/eventlist.php:75
+msgid "Action : "
+msgstr ""
+
+#: include/ui/editlists/eventlist.php:101
 msgctxt "Option Group"
 msgid "Orders"
 msgstr "Заказы"
 
-#: include/ui/editlists/eventlist.php:91
-#, fuzzy
-#| msgid "Earn points when placing an order, depending on the order's amount."
-msgid "Earn points when placing an order"
+#: include/ui/editlists/eventlist.php:101
+msgid "Customers earn points when they place an order"
 msgstr ""
-"Зарабатывайте очки при размещении заказа в зависимости от общей суммы заказа."
 
-#: include/ui/editlists/eventlist.php:92
+#: include/ui/editlists/eventlist.php:102
 msgctxt "Option Group"
 msgid "Website"
 msgstr "Сайт"
 
-#: include/ui/editlists/eventlist.php:92
-#, fuzzy
-#| msgid "Earn points by reviewing a product on your website."
-msgid "Earn points when performing actions on the website"
-msgstr "Зарабатывайте очки, оставляя отзывы на товары на вашем сайте."
+#: include/ui/editlists/eventlist.php:102
+msgid "Users earn points by registering or posting content"
+msgstr ""
 
-#: include/ui/editlists/eventlist.php:93
+#: include/ui/editlists/eventlist.php:103
 msgctxt "Option Group"
 msgid "Social Media"
+msgstr "Социальные Сети"
+
+#: include/ui/editlists/eventlist.php:103
+msgid "Users earn points for sharing on social media"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:93
-msgid "Earn points for social media actions"
-msgstr ""
-
-#: include/ui/editlists/eventlist.php:94
-#, fuzzy
-#| msgid "Sponsorship :"
+#: include/ui/editlists/eventlist.php:104
 msgctxt "Option Group"
-msgid "Sponsorship/Referral"
-msgstr "Спонсорство :"
+msgid "Referral"
+msgstr "Реферал"
 
-#: include/ui/editlists/eventlist.php:94
-msgid "Only sponsors/referrers will earn points with these"
+#: include/ui/editlists/eventlist.php:104
+msgid "Referrers earn points when they refer someone"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:95
-#: include/ui/editlists/unlockablelist.php:90
+#: include/ui/editlists/eventlist.php:105
+#: include/ui/editlists/unlockablelist.php:96
 msgctxt "Option Group"
 msgid "Miscellaneous"
 msgstr "Разное"
 
-#: include/ui/editlists/eventlist.php:95
-#, fuzzy
-#| msgid " %s points for a product review"
-msgid "Earn points for various reasons"
-msgstr " %s очков за отзыв на товар"
+#: include/ui/editlists/eventlist.php:105
+msgid "Users earn points for various reasons"
+msgstr ""
 
-#: include/ui/editlists/eventlist.php:96
+#: include/ui/editlists/eventlist.php:106
 msgctxt "Option Group"
 msgid "WooVIP"
 msgstr "WooVIP"
 
-#: include/ui/editlists/eventlist.php:96
+#: include/ui/editlists/eventlist.php:106
 msgid "Earn points related to the WooVIP Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:97
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "MyVirtualWallet"
+#: include/ui/editlists/eventlist.php:107
 msgctxt "Option Group"
 msgid "WooVirtualWallet"
-msgstr "MyVirtualWallet"
+msgstr "WooVirtualWallet"
 
-#: include/ui/editlists/eventlist.php:97
+#: include/ui/editlists/eventlist.php:107
 msgid "Earn points related to the WooVirtualWallet Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:114
+#: include/ui/editlists/eventlist.php:124
 msgid "The selected Earning Points System cannot be found."
 msgstr "Выбранная Система Заработка Очков не найдена."
 
-#: include/ui/editlists/eventlist.php:116
+#: include/ui/editlists/eventlist.php:126
 msgid ""
 "Earning Points System Type cannot be changed. Delete this and create a new "
 "one instead."
@@ -1896,21 +1906,49 @@ msgstr ""
 "Тип Системы Заработка Очков не может быть изменен. Вместо этого, удалите эту "
 "систему и создайте новую."
 
-#: include/ui/editlists/eventlist.php:122
+#: include/ui/editlists/eventlist.php:132
 msgid "The selected Earning Points System type cannot be found."
 msgstr "Выбранный тип Системы Заработка Очков не найден."
 
-#: include/ui/editlists/eventlist.php:145
+#: include/ui/editlists/eventlist.php:155
 msgid "The selected Earning Point System cannot be found."
 msgstr "Выбранная Система Заработка Очков не найдена."
 
-#: include/ui/editlists/multiformlist.php:129
-msgid "Select an element below to see more information about it"
-msgstr "Выберите элемент ниже, чтобы увидеть больше информации о нем"
+#: include/ui/editlists/multiformlist.php:49
+msgid "First Step"
+msgstr "Первый шаг"
 
-#: include/ui/editlists/multiformlist.php:130
-msgid "You will have some extra information displayed if need be."
-msgstr "При необходимости будет отображаться дополнительная информация."
+#: include/ui/editlists/multiformlist.php:50
+#: include/ui/editlists/multiformlist.php:54
+msgid "Step : "
+msgstr ""
+
+#: include/ui/editlists/multiformlist.php:53
+msgid "Second Step"
+msgstr ""
+
+#: include/ui/editlists/sponsorships.php:23
+msgid "Search Users..."
+msgstr "Искать..."
+
+#: include/ui/editlists/sponsorships.php:31
+msgid "Referrer"
+msgstr "Реферер"
+
+#: include/ui/editlists/sponsorships.php:32
+msgid "Referee"
+msgstr "Рефери"
+
+#: include/ui/editlists/sponsorships.php:120
+#, php-format
+msgid ""
+"Not available here. Please take a look at our PRO version and its free "
+"Referral addon %s!"
+msgstr ""
+
+#: include/ui/editlists/sponsorships.php:123
+msgid "here"
+msgstr "здесь"
 
 #: include/ui/editlists/unlockablelist.php:15
 msgid "Points cost"
@@ -1920,80 +1958,75 @@ msgstr "Стоимость очков"
 msgid "Reward description"
 msgstr "Описание награды"
 
-#: include/ui/editlists/unlockablelist.php:39
-msgid "Select the Reward"
-msgstr "Выберите награду"
+#: include/ui/editlists/unlockablelist.php:37
+msgid "Select a reward category"
+msgstr "Выберите Категорию"
 
-#: include/ui/editlists/unlockablelist.php:43
-msgid "Setup the Reward"
-msgstr "Настройте Награду"
+#: include/ui/editlists/unlockablelist.php:38
+msgid "Reward Category : "
+msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:86
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "Coupons"
+#: include/ui/editlists/unlockablelist.php:41
+msgid "Select a Reward"
+msgstr "Выбрать награду"
+
+#: include/ui/editlists/unlockablelist.php:42
+msgid "Reward : "
+msgstr ""
+
+#: include/ui/editlists/unlockablelist.php:92
 msgctxt "Option  Group"
 msgid "Coupons"
 msgstr "Купоны"
 
-#: include/ui/editlists/unlockablelist.php:86
+#: include/ui/editlists/unlockablelist.php:92
 msgid "Rewards that will generate WooCommerce Coupons"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:87
+#: include/ui/editlists/unlockablelist.php:93
 msgctxt "Option Group"
 msgid "User's status"
 msgstr "Статус пользователя"
 
-#: include/ui/editlists/unlockablelist.php:87
+#: include/ui/editlists/unlockablelist.php:93
 msgid "Rewards that will change the user's status"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:88
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "MyVirtualWallet"
+#: include/ui/editlists/unlockablelist.php:94
 msgctxt "Option  Group"
 msgid "WooVirtualWallet"
-msgstr "MyVirtualWallet"
+msgstr "WooVirtualWallet"
 
-#: include/ui/editlists/unlockablelist.php:88
-#, fuzzy
-#| msgid "Free Product"
+#: include/ui/editlists/unlockablelist.php:94
 msgid "Wallet Credit rewards"
 msgstr "Бесплатный Товар"
 
-#: include/ui/editlists/unlockablelist.php:89
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "WooVIP"
+#: include/ui/editlists/unlockablelist.php:95
 msgctxt "Option  Group"
 msgid "WooVIP"
 msgstr "WooVIP"
 
-#: include/ui/editlists/unlockablelist.php:89
-#, fuzzy
-#| msgid "VIP Membership"
+#: include/ui/editlists/unlockablelist.php:95
 msgid "Memberships rewards"
 msgstr "VIP-членство"
 
-#: include/ui/editlists/unlockablelist.php:90
+#: include/ui/editlists/unlockablelist.php:96
 msgid "Other types of rewards"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:122
-#: include/ui/editlists/unlockablelist.php:158
+#: include/ui/editlists/unlockablelist.php:128
+#: include/ui/editlists/unlockablelist.php:164
 msgid "The selected reward cannot be found."
 msgstr "Выбранная награда не может быть найдена."
 
-#: include/ui/editlists/unlockablelist.php:124
+#: include/ui/editlists/unlockablelist.php:130
 msgid ""
 "The reward type cannot be changed. Delete this and create a new one instead."
 msgstr ""
 "Тип награды не может быть изменен. Вместо этого, удалите его и создайте "
 "новый."
 
-#: include/ui/editlists/unlockablelist.php:130
+#: include/ui/editlists/unlockablelist.php:136
 msgid "The selected reward type cannot be found."
 msgstr "Выбранный тип награды не может быть найден."
 
@@ -2002,28 +2035,21 @@ msgid "Users"
 msgstr "Пользователи"
 
 #: include/ui/editlists/userspoints.php:163
-#, fuzzy
-#| msgid "User Role"
 msgid "User Login"
-msgstr "Роль Пользователя"
+msgstr "Логин пользователя"
 
 #: include/ui/editlists/userspoints.php:164
-#, fuzzy
-#| msgid "Emails"
 msgid "Email"
-msgstr "Email'ы"
+msgstr "Email"
 
 #: include/ui/editlists/userspoints.php:165
-#, fuzzy
-#| msgid "Display Points"
 msgid "Display Name"
-msgstr "Отображение Очков"
+msgstr "Отображаемое имя"
 
 #: include/ui/editlists/userspoints.php:167
-#, fuzzy, php-format
-#| msgid "Points cost"
+#, php-format
 msgid "Points : %s"
-msgstr "Стоимость очков"
+msgstr ""
 
 #: include/ui/editlists/userspointsbulkaction.php:14
 msgid ""
@@ -2100,7 +2126,7 @@ msgstr "Подробнее"
 
 #: include/ui/shortcodes/availablecoupons.php:39
 msgid "Available Coupons"
-msgstr ""
+msgstr "Доступные Купоны"
 
 #: include/ui/shortcodes/availablecoupons.php:43
 msgid ""
@@ -2109,8 +2135,6 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/availablecoupons.php:44
-#, fuzzy
-#| msgid "This shortcode is used to display the Points on Cart tool."
 msgid "This shortcode is better used on the cart or checkout page."
 msgstr ""
 "Этот шорткод используется для отображения инструмента 'Очков в Корзине."
@@ -2180,15 +2204,10 @@ msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:41
 #: include/ui/shortcodes/userhistory.php:249
-#, fuzzy
-#| msgctxt "Unlockable cost"
-#| msgid "Points needed"
 msgid "Points Balance"
-msgstr "Необходимое количество очков"
+msgstr "Баланс баллов"
 
 #: include/ui/shortcodes/pointsbalance.php:45
-#, fuzzy
-#| msgid "This shortcode is used to display the Points on Cart tool."
 msgid "Use this shortcode to display their points balance to your customers."
 msgstr ""
 "Этот шорткод используется для отображения инструмента 'Очков в Корзине."
@@ -2225,16 +2244,10 @@ msgid "Only the points balance numeric value is displayed"
 msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:84
-#, fuzzy
-#| msgid ""
-#| "(Optional) If set, the number of points displayed will show the points "
-#| "currency."
 msgid ""
 "(Optional) If set, will force the display of the points and rewards system "
 "name"
 msgstr ""
-"(По желанию) В случае выбора, количество отображаемых очков также покажет "
-"валюту очков."
 
 #: include/ui/shortcodes/pointsbalance.php:101
 msgid ""
@@ -2244,16 +2257,10 @@ msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:102
 #: include/ui/woocommerce/pointsoncart.php:189
-#, fuzzy
-#| msgid ""
-#| "You can now create new Points and Rewards System for your customers or "
-#| "uninstall MyRewards."
 msgid ""
 "You can find the points and rewards systems names in WooRewards → Points and "
 "Rewards"
 msgstr ""
-"Теперь вы можете создать новую Систему Очков и Наград для своих клиентов или "
-"удалить MyRewards."
 
 #: include/ui/shortcodes/pointsbalance.php:107
 msgid ""
@@ -2273,16 +2280,10 @@ msgid "%s : %s"
 msgstr ""
 
 #: include/ui/shortcodes/pointsvalue.php:27
-#, fuzzy
-#| msgid "Point Value in %s"
 msgid "Points Value"
 msgstr "Ценность Очков в %s"
 
 #: include/ui/shortcodes/pointsvalue.php:31
-#, fuzzy
-#| msgid ""
-#| "This simple shortcode is used to display the user's points with no "
-#| "decoration."
 msgid "This simple shortcode is used to display how much his points are worth."
 msgstr ""
 "Этот простой шорткод используется для отображения очков пользователя без "
@@ -2294,16 +2295,10 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/pointsvalue.php:36
-#, fuzzy
-#| msgid "The text displayed before the points."
 msgid "The text displayed before the points value."
 msgstr "Текст, отображаемый перед очками."
 
 #: include/ui/shortcodes/pointsvalue.php:40
-#, fuzzy
-#| msgid ""
-#| "(Optional) If set, the amount will be a simple text. Otherwise, it will "
-#| "be presented inside a stylable element"
 msgid ""
 "(Optional) If set to true, the result will be displayed as a simple text. "
 "Otherwise, it will be wrapped in stylable elements"
@@ -2316,6 +2311,73 @@ msgid ""
 "The points and rewards system you want to display. You can find this value "
 "in <strong>MyRewards → Points and Rewards</strong>, in the <b>Shortcode "
 "Attribute</b> column. If you don’t set this value, nothing will be displayed."
+msgstr ""
+"Система очков и наград, которую вы хотите отображать. Вы можете найти это "
+"значение в <strong>MyRewards → Очки и Награды</strong>, в колонке "
+"<b>Атрибуты Шорткода</b>. Если Вы не укажете это значение, ничего не будет "
+"отображаться."
+
+#: include/ui/shortcodes/referrallink.php:43
+msgid "Referral Link"
+msgstr "Реферальная ссылка"
+
+#: include/ui/shortcodes/referrallink.php:47
+msgid "Use this shortcode to show a referral link button."
+msgstr ""
+"Этот шорткод используется для отображения инструмента 'Очков в Корзине."
+
+#: include/ui/shortcodes/referrallink.php:48
+msgid "Customers can use then share this link with their friends."
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:53
+msgid "Select the type of referral link your customers will get :"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:56
+msgid "(Default Value) Customers will get an url link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:57
+msgid "Customers will get a QR Code link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:64
+msgid ""
+"(Optional) If set, customers will see the referral link or QR-Code above the "
+"copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:69
+msgid "(Optional, default is 'true') Show or hide the copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:74
+msgid ""
+"(Optional) By default, the shortcode shares the url of the page it’s "
+"displayed on. You can override that setting by setting an url in this option."
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:79
+msgid "(Optional) Set the text customers will see on the copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:84
+msgid ""
+"(Optional) Set the text customers will see when the code is copied to the "
+"clipboard"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:152
+msgid "Get your referral link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:159
+msgid "Get your referral QR Code"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:163
+msgid "Your code has been copied !"
 msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:44
@@ -2331,6 +2393,8 @@ msgid ""
 "(Optional) The Columns to display (comma separated). <b>The order in which "
 "you specify the columns will be the grid columns order</b>."
 msgstr ""
+"(По желанию) Колонки для отображения (разделённые запятой). <b>Порядок, в "
+"котором Вы укажите колонки будет отображён сеткой</b>."
 
 #: include/ui/shortcodes/userhistory.php:57
 msgid ""
@@ -2339,26 +2403,20 @@ msgid ""
 msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:58
-#, fuzzy
-#| msgid "Here are the wizards available :"
 msgid " Here are the different options available :"
-msgstr "Вот доступные мастеры настройки :"
+msgstr " Вот различные доступные опции :"
 
 #: include/ui/shortcodes/userhistory.php:64
-#, fuzzy
-#| msgid "Points and Rewards"
 msgid "The points and rewards system's name."
-msgstr "Очки и Награды"
+msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:67
 msgid "The date at which the points movement happened."
 msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:70
-#, fuzzy
-#| msgid "Reward description"
 msgid "The operation's description."
-msgstr "Описание награды"
+msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:73
 msgid "The amount of points earned or lost during the operation."
@@ -2375,6 +2433,9 @@ msgid ""
 "specified the columns option</b>. The headers must respect the same order "
 "than the ones of the previous option."
 msgstr ""
+"(По желанию) Хедеры столбца (разделённые запятой). <b>Необходимо указать, "
+"если вы указали вариант столбцов</b>. Хедеры должны наследовать тот же "
+"порядок, что и предыдущий вариант."
 
 #: include/ui/shortcodes/userhistory.php:99
 msgid ""
@@ -2383,34 +2444,26 @@ msgid ""
 "rewards systems</strong>, in the <b>Shortcode Attribute</b> column."
 msgstr ""
 
-#: include/ui/shortcodes/userhistory.php:237 include/wizards/standard.php:267
-#: woorewards.php:380
+#: include/ui/shortcodes/userhistory.php:237 include/wizards/standard.php:291
+#: woorewards.php:396
 msgid "Loyalty System"
 msgstr "Система Лояльности"
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:64
-#, fuzzy
-#| msgid "Between products and totals"
 msgid "Between Products and Totals"
 msgstr "Между товарами и итогами"
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:65
-#, fuzzy
-#| msgid "Aside from cart totals"
 msgid "Aside From Totals"
 msgstr "В стороне от итогов корзины"
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:67
-#, fuzzy
-#| msgid "Before customer details"
 msgid "Before Customer Details"
-msgstr "Перед информацией о клиенте"
+msgstr "Перед сведениями о клиенте"
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:68
-#, fuzzy
-#| msgid "Before order review"
 msgid "Before Order Review"
-msgstr "Перед обзором заказа"
+msgstr "Перед просмотром заказа"
 
 #: include/ui/woocommerce/pointsoncart.php:103
 msgid "Points on Cart Tool"
@@ -2626,16 +2679,16 @@ msgstr "Посмотреть купоны"
 
 #: include/unlockables/coupon.php:463
 msgctxt "unlockable category"
-msgid "Sponsored"
-msgstr "Спонсируемый"
+msgid "Referred"
+msgstr "Ссылка"
 
-#: include/updater.php:309 include/wizard.php:136
+#: include/updater.php:332 include/wizard.php:135
 #: include/wizards/standard.php:27 include/wizards/standard.php:56
-#: include/wizards/standard.php:268 include/wizards/standard.php:381
+#: include/wizards/standard.php:292 include/wizards/standard.php:422
 msgid "Standard System"
 msgstr "Стандартная Система"
 
-#: include/updater.php:367
+#: include/updater.php:390
 msgid ""
 "Your settings have been migrated during MyRewards update.\n"
 "We tried our best to conserve the same behavior as before but we advise you "
@@ -2657,7 +2710,7 @@ msgstr "Выберите Мастер настройки"
 msgid "Settings…"
 msgstr "Параметры…"
 
-#: include/wizard.php:137
+#: include/wizard.php:136
 msgid ""
 "The standard system is the most common loyalty system available. Users earn "
 "points by performing various actions. When they have enough points, they can "
@@ -2668,11 +2721,11 @@ msgstr ""
 "достаточно очков, они могут разблокировать награды, такие как купоны на "
 "скидку."
 
-#: include/wizard.php:146
+#: include/wizard.php:143
 msgid "Leveling System"
 msgstr "Уровневая Система"
 
-#: include/wizard.php:147
+#: include/wizard.php:144
 msgid ""
 "Leveling systems works differently than standard systems. Users earn points "
 "by performing various actions. But they don't spend their points. Instead, "
@@ -2684,11 +2737,11 @@ msgstr ""
 "свои очки. Вместо этого, они достигают различных уровней и разблокируют все "
 "награды, установленные на уровне, когда они получили достаточно очков."
 
-#: include/wizard.php:157
+#: include/wizard.php:152
 msgid "Special Events"
 msgstr "Особые События"
 
-#: include/wizard.php:158
+#: include/wizard.php:153
 msgid ""
 "Use the special events wizard to create temporary loyalty programs for "
 "various occasions. This wizard proposes scenarios for the following events :"
@@ -2697,23 +2750,23 @@ msgstr ""
 "программ лояльности для различных случаев. Этот мастер настройки предлагает "
 "сценарии для следующих событий:"
 
-#: include/wizard.php:160
+#: include/wizard.php:155
 msgid "Black Friday"
 msgstr "Чёрная Пятница"
 
-#: include/wizard.php:161
+#: include/wizard.php:156
 msgid "Christmas"
 msgstr "Рождество"
 
-#: include/wizard.php:162
+#: include/wizard.php:157
 msgid "Easter"
 msgstr "Пасха"
 
-#: include/wizard.php:172
+#: include/wizard.php:165
 msgid "Double Points"
 msgstr "Удвоение Очков"
 
-#: include/wizard.php:173
+#: include/wizard.php:166
 msgid ""
 "Create a special event and allow customers to earn twice the points for a "
 "limited period of time. You can also choose to allow users with a special "
@@ -2724,25 +2777,21 @@ msgstr ""
 "выбрать пользователей с особой ролью, которые будут зарабатывать в два раза "
 "больше очков. Или и то, и другое."
 
-#: include/wizard.php:183
-msgid "Sponsorship"
-msgstr "Спонсорство"
-
-#: include/wizard.php:184
+#: include/wizard.php:175
 msgid ""
-"Add a loyalty system that rewards customers for sponsoring new people on "
-"your website. Sponsored also receive a reward to encourage them to subscribe "
-"and buy on your website."
+"Add a points and rewards system that rewards customers for referring new "
+"people on your website. Referees also receive a reward to encourage them to "
+"subscribe and buy on your website."
 msgstr ""
 "Добавьте систему лояльности, которая вознаграждает клиентов за спонсирование "
 "новых людей на вашем сайте. Спонсируемые также получают вознаграждения, "
 "чтобы побудить их выполнять действия и совершать покупки на вашем сайте."
 
-#: include/wizard.php:194
+#: include/wizard.php:183
 msgid "Customer Birthday or Registration Anniversary"
 msgstr "День Рождения клиента или Годовщина Регистрации"
 
-#: include/wizard.php:195
+#: include/wizard.php:184
 msgid ""
 "Celebrate your customers birthday or registration anniversary by sending "
 "them a discount coupon on that occasion. Really easy to set up and very "
@@ -2752,12 +2801,12 @@ msgstr ""
 "купон на скидку по этому случаю. Действительно легко настроить и очень "
 "ценится клиентами."
 
-#: include/wizards/standard.php:29 include/wizards/standard.php:275
+#: include/wizards/standard.php:29 include/wizards/standard.php:299
 msgid "Methods to earn points"
 msgstr "Методы заработка очков"
 
-#: include/wizards/standard.php:31 include/wizards/standard.php:303
-#: woorewards.php:398
+#: include/wizards/standard.php:31 include/wizards/standard.php:339
+#: woorewards.php:414
 msgid "Reward"
 msgstr "Награда"
 
@@ -2825,6 +2874,7 @@ msgstr "Очки за каждый потраченный %s"
 
 #: include/wizards/standard.php:79 include/wizards/standard.php:88
 #: include/wizards/standard.php:97 include/wizards/standard.php:105
+#: include/wizards/standard.php:114 include/wizards/standard.php:123
 msgid "Number | Empty to ignore"
 msgstr "Номер | Не заполняйте, чтобы игнорировать"
 
@@ -2840,7 +2890,16 @@ msgstr "Дополнительные баллы за первый заказ"
 msgid "Points on product review"
 msgstr "Очки за обзор товара"
 
-#: include/wizards/standard.php:115
+#: include/wizards/standard.php:110
+#, php-format
+msgid "Points for each %s spent by Referee"
+msgstr "Очки за каждый потраченный %s"
+
+#: include/wizards/standard.php:119
+msgid "Points on Referee orders"
+msgstr "Дополнительные баллы за первый заказ"
+
+#: include/wizards/standard.php:133
 msgid ""
 "Select the reward for your customers. The rewards types are limited in the "
 "standard version. You can change these settings later."
@@ -2848,51 +2907,51 @@ msgstr ""
 "Выберите вознаграждение для ваших клиентов. Типы вознаграждений ограничены в "
 "стандартной версии. Вы можете изменить эти настройки позже."
 
-#: include/wizards/standard.php:121
+#: include/wizards/standard.php:139
 msgid "Select a reward"
 msgstr "Выбрать награду"
 
-#: include/wizards/standard.php:126
+#: include/wizards/standard.php:146
 #, php-format
 msgctxt "Coupon Unlockable"
 msgid "Coupon (%s)"
 msgstr "Купон (%s)"
 
-#: include/wizards/standard.php:127 include/wizards/standard.php:183
+#: include/wizards/standard.php:147 include/wizards/standard.php:203
 msgid "Discount (%)"
 msgstr "Скидка (%)"
 
-#: include/wizards/standard.php:128
+#: include/wizards/standard.php:148
 msgid "Free Product"
 msgstr "Бесплатный Товар"
 
-#: include/wizards/standard.php:129
+#: include/wizards/standard.php:149
 msgid "Free Shipping"
 msgstr "Бесплатная Доставка"
 
-#: include/wizards/standard.php:130
+#: include/wizards/standard.php:150
 msgid "Variable Discount"
 msgstr "Вариативная Скидка"
 
-#: include/wizards/standard.php:131
+#: include/wizards/standard.php:151
 msgid "Badge"
 msgstr "Значок"
 
-#: include/wizards/standard.php:132
+#: include/wizards/standard.php:152
 msgid "User Role"
 msgstr "Роль Пользователя"
 
-#: include/wizards/standard.php:133
+#: include/wizards/standard.php:153
 msgid "VIP Membership"
 msgstr "VIP-членство"
 
-#: include/wizards/standard.php:145
+#: include/wizards/standard.php:165
 #, php-format
 msgctxt "Points on Cart Reward"
 msgid "Point value in %s"
 msgstr "Ценность Очков в %s"
 
-#: include/wizards/standard.php:149
+#: include/wizards/standard.php:169
 msgid ""
 "Set the monetary value of a point. Each point used on a cart will discount "
 "the total by that value."
@@ -2900,17 +2959,17 @@ msgstr ""
 "Установите денежную стоимость очков. Каждая очко, используемое в корзине, "
 "уменьшит общую сумму на это значение."
 
-#: include/wizards/standard.php:159
+#: include/wizards/standard.php:179
 msgid "Points Needed"
 msgstr "Необходимое количество Очков"
 
-#: include/wizards/standard.php:169
+#: include/wizards/standard.php:189
 #, php-format
 msgctxt "Coupon Unlockable"
 msgid "Coupon Amount (%s)"
 msgstr "Сумма Купона (%s)"
 
-#: include/wizards/standard.php:173
+#: include/wizards/standard.php:193
 msgid ""
 "Every time customers have enough points, those points will be used to "
 "generate a coupon of that amount."
@@ -2918,7 +2977,7 @@ msgstr ""
 "Каждый раз, когда клиенты имеют достаточно очков, эти очки будут "
 "использоваться для генерации купона этой суммы."
 
-#: include/wizards/standard.php:187
+#: include/wizards/standard.php:207
 msgid ""
 "Every time customers have enough points, those points will be used to "
 "generate a discount coupon with that percentage."
@@ -2926,7 +2985,7 @@ msgstr ""
 "Каждый раз, когда клиенты имеют достаточно очков, эти точки будут "
 "использоваться для генерации купона на скидку с этим процентом."
 
-#: include/wizards/standard.php:197
+#: include/wizards/standard.php:217
 msgid ""
 "You're almost done. Check your settings below and submit if you're satisfied "
 "with the settings."
@@ -2934,11 +2993,11 @@ msgstr ""
 "Вы почти закончили. Проверьте настройки ниже и утвердите их, если вы "
 "удовлетворены настройками."
 
-#: include/wizards/standard.php:203
+#: include/wizards/standard.php:223
 msgid "Settings Summary"
 msgstr "Сводка Настроек"
 
-#: include/wizards/standard.php:207 include/wizards/standard.php:233
+#: include/wizards/standard.php:227 include/wizards/standard.php:257
 msgid ""
 "Do you want to start your loyalty system at the end of this wizard ? If you "
 "select No, you'll have to start it manually later."
@@ -2946,94 +3005,110 @@ msgstr ""
 "Вы хотите запустить свою систему лояльности по завершению этого Мастера "
 "Настройки? Если вы выберете \"Нет\", вам придется запустить её позже вручную."
 
-#: include/wizards/standard.php:212
-#, fuzzy
-#| msgid "Enable Reward email"
+#: include/wizards/standard.php:232
 msgid "Enable rewards emails ?"
-msgstr "Включить email-уведомления Наградах"
+msgstr ""
 
-#: include/wizards/standard.php:216 include/wizards/standard.php:229
+#: include/wizards/standard.php:238 include/wizards/standard.php:253
 msgid "Yes"
 msgstr "Да"
 
-#: include/wizards/standard.php:217 include/wizards/standard.php:230
+#: include/wizards/standard.php:239 include/wizards/standard.php:254
 msgid "No"
 msgstr "Нет"
 
-#: include/wizards/standard.php:220
+#: include/wizards/standard.php:242
 msgid ""
 "By setting this option to Yes, customers will receive an email every time "
 "they receive a new coupon reward."
 msgstr ""
 
-#: include/wizards/standard.php:225
+#: include/wizards/standard.php:247
 msgid "Start the program ?"
 msgstr "Запустить программу ?"
 
-#: include/wizards/standard.php:269
+#: include/wizards/standard.php:293
 msgid "Loyalty System Name"
 msgstr "Название Системы Лояльности"
 
-#: include/wizards/standard.php:278
+#: include/wizards/standard.php:302
 #, php-format
 msgid " %s points earned for each %s spent"
 msgstr " %s очков получено за каждый потраченный %s"
 
-#: include/wizards/standard.php:279
+#: include/wizards/standard.php:303
 msgid "Spend Money"
 msgstr "Потратьте деньги"
 
-#: include/wizards/standard.php:284
+#: include/wizards/standard.php:308
 #, php-format
 msgid " %s points for each placed order"
 msgstr " %s очков за каждый размещенный заказ"
 
-#: include/wizards/standard.php:285
+#: include/wizards/standard.php:309
 msgid "Place an order"
 msgstr "Оформите заказ"
 
-#: include/wizards/standard.php:290
+#: include/wizards/standard.php:314
 #, php-format
 msgid " %s extra points for the first order"
 msgstr " %s дополнительных очков за первый заказ"
 
-#: include/wizards/standard.php:291
+#: include/wizards/standard.php:315
 msgid "Place a first order"
 msgstr "Разместите первый заказ"
 
-#: include/wizards/standard.php:296
+#: include/wizards/standard.php:320
 #, php-format
 msgid " %s points for a product review"
 msgstr " %s очков за отзыв на товар"
 
-#: include/wizards/standard.php:297
+#: include/wizards/standard.php:321
 msgid "Product Review"
 msgstr "Отзыв о Продукте"
 
-#: include/wizards/standard.php:306
+#: include/wizards/standard.php:326
+#, php-format
+msgid " %s points earned for each %s spent by a Referee"
+msgstr " %s очков получено за каждый потраченный %s"
+
+#: include/wizards/standard.php:327
+msgid "Referee Spends Money"
+msgstr "Потратьте деньги"
+
+#: include/wizards/standard.php:332
+#, php-format
+msgid " %s points for each time a Referee places order"
+msgstr " %s очков за каждый размещенный заказ"
+
+#: include/wizards/standard.php:333
+msgid "Referee places an order"
+msgstr "Оформите заказ"
+
+#: include/wizards/standard.php:342
 #, php-format
 msgid " %s percent discount for %s points"
 msgstr " %s-процентная скидка за %s очков"
 
-#: include/wizards/standard.php:307
+#: include/wizards/standard.php:343
 msgid "Percentage Discount"
 msgstr "Процентная Скидка"
 
-#: include/wizards/standard.php:312
+#: include/wizards/standard.php:348
 #, php-format
 msgid " %s%s discount for %s points"
 msgstr " %s%s скидка за %s очков"
 
-#: include/wizards/standard.php:313
+#: include/wizards/standard.php:349
 msgid "Fixed Discount"
 msgstr "Фиксированная Скидка"
 
-#: include/wizards/standard.php:318
+#: include/wizards/standard.php:354
 #, php-format
 msgid " %s%s discount for each point"
 msgstr " %s%s скидка за каждое очко"
 
-#: include/wizards/standard.php:333
+#: include/wizards/standard.php:369
 #, php-format
 msgid ""
 "Points for each %s spent expects numeric value greater than zero or leave "
@@ -3042,7 +3117,7 @@ msgstr ""
 "Поле \"Очки за каждый потраченный %s\" требует числового значения больше "
 "нуля, или оставьте его пустым."
 
-#: include/wizards/standard.php:336
+#: include/wizards/standard.php:372
 msgid ""
 "Points on order placed expects numeric value greater than zero or leave "
 "blank."
@@ -3050,7 +3125,7 @@ msgstr ""
 "Поле \"Очки за заказ\" требует числового значения больше нуля, или оставьте "
 "его пустым."
 
-#: include/wizards/standard.php:339
+#: include/wizards/standard.php:375
 msgid ""
 "Extra points on first order expects numeric value greater than zero or leave "
 "blank."
@@ -3058,7 +3133,7 @@ msgstr ""
 "Поле \"Дополнительные Очки за первый заказ\" требует числового значения "
 "больше нуля, или оставьте его пустым."
 
-#: include/wizards/standard.php:341
+#: include/wizards/standard.php:377
 msgid ""
 "Points for product review expects numeric value greater than zero or leave "
 "blank."
@@ -3066,70 +3141,81 @@ msgstr ""
 "Поле \"Очки за Отзывы\" требует числового значения больше нуля, или оставьте "
 "его пустым."
 
-#: include/wizards/standard.php:349
+#: include/wizards/standard.php:380
+#, php-format
+msgid ""
+"Points for each %s spent by Referee expects numeric value greater than zero "
+"or leave blank."
+msgstr ""
+"Поле \"Очки за каждый потраченный %s\" требует числового значения больше "
+"нуля, или оставьте его пустым."
+
+#: include/wizards/standard.php:382
+msgid ""
+"Points on order placed by Referee expects numeric value greater than zero or "
+"leave blank."
+msgstr ""
+"Поле \"Очки за заказ\" требует числового значения больше нуля, или оставьте "
+"его пустым."
+
+#: include/wizards/standard.php:390
 msgid "Points Needed expects numeric value greater than zero."
 msgstr "Поле \"Необходимые Очки\" требует числового значения больше нуля."
 
-#: include/wizards/standard.php:354
+#: include/wizards/standard.php:395
 msgid "Please, set a reward percentage greater than 0% up to 100%."
 msgstr "Пожалуйста, установите процент награды больше, чем 0% и до 100%."
 
-#: include/wizards/standard.php:359
+#: include/wizards/standard.php:400
 msgid "Please, set a positive reward amount."
 msgstr "Пожалуйста, установите положительную сумму награды."
 
-#: include/wizards/standard.php:364
+#: include/wizards/standard.php:405
 msgid "Please, set a positive point value."
 msgstr "Пожалуйста, установите положительное значение очков."
 
-#: include/wizards/standard.php:367
+#: include/wizards/standard.php:408
 msgid "Please, select a reward type."
 msgstr "Пожалуйста, выберите тип награды."
 
 #: woorewards.php:141
-msgid "Settings"
-msgstr "Настройки"
-
-#: woorewards.php:144
 msgid "Help"
 msgstr "Помощь"
 
 #. Plugin URI of the plugin/theme
-#: woorewards.php:152
+#: woorewards.php:149
 msgid "https://plugins.longwatchstudio.com/product/woorewards/"
 msgstr "https://plugins.longwatchstudio.com/product/woorewards/"
 
-#: woorewards.php:162
-#, fuzzy
-#| msgid "https://plugins.longwatchstudio.com/docs/woorewards/"
+#: woorewards.php:159
 msgid "https://plugins.longwatchstudio.com/docs/woorewards-4/"
 msgstr "https://plugins.longwatchstudio.com/docs/woorewards/"
 
-#: woorewards.php:238
+#: woorewards.php:235
 msgid "Point"
 msgstr "Очко"
 
-#: woorewards.php:282
+#: woorewards.php:285
 msgid "MyRewards Thumbnail"
 msgstr "Миниатюра MyRewards"
 
-#: woorewards.php:283
+#: woorewards.php:286
 msgid "MyRewards Thumbnail Small"
 msgstr "Маленькая Миниатюра MyRewards"
 
-#: woorewards.php:379
+#: woorewards.php:395
 msgid "Loyalty Systems"
 msgstr "Системы Лояльности"
 
-#: woorewards.php:388
+#: woorewards.php:404
 msgid "Earning Points Methods"
 msgstr "Способы Получения Очков"
 
-#: woorewards.php:389
+#: woorewards.php:405
 msgid "Earning Points Method"
 msgstr "Способ Получения Очков"
 
-#: woorewards.php:445
+#: woorewards.php:461
 msgid ""
 "We detect a MyRewards licence downgrade: Click here to restore missing "
 "configuration."
@@ -3137,80 +3223,68 @@ msgstr ""
 "Мы обнаружили даунгрейд лицензии MyRewards: Нажмите здесь, чтобы "
 "восстановить недостающие настройки."
 
-#: woorewards.php:446
+#: woorewards.php:462
 msgid "Restore"
 msgstr "Восстановить"
 
-#: woorewards.php:526
+#: woorewards.php:542
 msgid "Your MyRewards Premium trial period is about to expire"
 msgstr ""
 
-#: woorewards.php:527 woorewards.php:546
+#: woorewards.php:543 woorewards.php:562
 #, php-format
 msgid ""
 "Thank you for trying MyRewards Premium. The trial period will end on <b>%s</"
 "b>"
 msgstr ""
 
-#: woorewards.php:528
+#: woorewards.php:544
 #, php-format
 msgid ""
 "If you want to keep using all Pro Features, please purchase a %s License"
 msgstr ""
 
-#: woorewards.php:529 woorewards.php:547
+#: woorewards.php:545 woorewards.php:563
 msgid "Premium Version features include :"
 msgstr ""
 
-#: woorewards.php:530 woorewards.php:548
-#, fuzzy
-#| msgid "Sponsorship"
-msgid "Referrals and Sponsorship"
-msgstr "Спонсорство"
-
-#: woorewards.php:531 woorewards.php:549
-#, fuzzy
-#| msgid "Free Product"
+#: woorewards.php:547 woorewards.php:565
 msgid "Free products rewards"
 msgstr "Бесплатный Товар"
 
-#: woorewards.php:532 woorewards.php:550
-#, fuzzy
-#| msgid "Commercial operation"
+#: woorewards.php:548 woorewards.php:566
 msgid "WooCommerce integration tools"
 msgstr "Коммерческая операция"
 
-#: woorewards.php:533 woorewards.php:551
-#, fuzzy
-#| msgid "Points and Rewards"
+#: woorewards.php:549 woorewards.php:567
 msgid "Multiple points and rewards systems"
 msgstr "Очки и Награды"
 
-#: woorewards.php:534 woorewards.php:552
+#: woorewards.php:550 woorewards.php:568
 msgid "Lots of widgets and shortcodes"
 msgstr ""
 
-#: woorewards.php:535 woorewards.php:553
+#: woorewards.php:551 woorewards.php:569
 msgid "And a lot more ..."
-msgstr ""
+msgstr "Много другого..."
 
-#: woorewards.php:537
+#: woorewards.php:553
 msgid ""
 "Purchase WooRewads Premium today to keep the most powerful and customizable "
 "loyalty program"
 msgstr ""
 
-#: woorewards.php:545
+#: woorewards.php:561
 msgid "Welcome to your MyRewards Premium trial"
 msgstr ""
 
-#: woorewards.php:555
+#: woorewards.php:571
 msgid ""
 "Try all these premium features and create the perfect loyalty program for "
 "your website"
 msgstr ""
 
-#: woorewards.php:556
+#: woorewards.php:572
 msgid "At the end of your trial, consider purchasing a MyRewards License"
 msgstr ""
 
@@ -3231,15 +3305,316 @@ msgstr "Long Watch Studio"
 msgid "https://longwatchstudio.com"
 msgstr "https://longwatchstudio.com"
 
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Sponsorships"
+#~ msgstr "Спонсорство"
+
+#, fuzzy
+#~| msgid "Sponsorship :"
+#~ msgid "Sponsorship Information"
+#~ msgstr "Спонсорство :"
+
+#~ msgid ""
+#~ "The customers page lets you track your customers loyalty activity and "
+#~ "perform some actions :"
+#~ msgstr ""
+#~ "Страница клиентов позволяет отслеживать активность клиентов в системе "
+#~ "лояльности и выполнять некоторые действия :"
+
+#~ msgid "See customers points and history"
+#~ msgstr "Посмотреть историю и очки клиентов"
+
+#~ msgid "See customers owned coupons"
+#~ msgstr "Посмотреть купоны принадлежащие клиентам"
+
+#~ msgid "Add/Subtract Points"
+#~ msgstr "Добавить/Вычесть Очки"
+
+#~ msgid "Add/Remove Rewards (Pro Version Only)"
+#~ msgstr "Добавить/Удалить Награду (Только в Pro-версии)"
+
+#~ msgid "Add/Remove Badges (Pro Version Only)"
+#~ msgstr "Добавить/Удалить Значки (Только в Pro-версии)"
+
+#~ msgid "Filter by points, activity or inactivity periods (Pro Version Only)"
+#~ msgstr ""
+#~ "Фильтр по очкам, периодам активности или бездействия (Только в Pro-версии)"
+
+#~ msgid "Setup how customers will earn points and what rewards they can get."
+#~ msgstr ""
+#~ "Настройте, как клиенты будут зарабатывать очки и какие награды они смогут "
+#~ "получить."
+
+#~ msgid ""
+#~ "In MyRewards Lite, there's only 3 ways to earn points (20+ in MyRewards "
+#~ "Pro) :"
+#~ msgstr ""
+#~ "В MyRewards Lite есть только 3 способа получать очки (более 20 в "
+#~ "MyRewards Pro) :"
+
+#~ msgid "Place an order :"
+#~ msgstr "Разместить заказ :"
+
+#~ msgid ""
+#~ "Earn points when placing an order, independently of the order's amount. "
+#~ msgstr "Зарабатывайте очки при размещении заказа, независимо от его суммы. "
+
+#~ msgid "Spend Money :"
+#~ msgstr "Потратьте Деньги :"
+
+#~ msgid "Earn points when placing an order, depending on the order's amount."
+#~ msgstr ""
+#~ "Зарабатывайте очки при размещении заказа в зависимости от общей суммы "
+#~ "заказа."
+
+#~ msgid "Review a product :"
+#~ msgstr "Оценить Продукт :"
+
+#~ msgid ""
+#~ "In MyRewards Lite, you can choose between 2 rewards (10+ in MyRewards "
+#~ "Pro) :"
+#~ msgstr ""
+#~ "В MyRewards Lite Вы можете выбрать между 2 наградами (более 10 в "
+#~ "MyRewards Pro) :"
+
+#~ msgid "Coupon :"
+#~ msgstr "Купон :"
+
+#~ msgid ""
+#~ "Points are converted into WooCommerce coupons that customers can use on "
+#~ "their cart."
+#~ msgstr ""
+#~ "Очки преобразуются в купоны WooCommerce, которые клиенты могут "
+#~ "использовать на странице Корзины."
+
+#~ msgid "Points on Cart :"
+#~ msgstr "Очки в Корзине магазина :"
+
+#~ msgid ""
+#~ "Set the value of a point and customers will use their points on the cart "
+#~ "to get immediate discounts."
+#~ msgstr ""
+#~ "Установите значение очков и клиенты будут использовать свои очки в "
+#~ "корзине магазина, чтобы получить немедленные скидки."
+
+#~ msgid ""
+#~ "Wizards are made to help you get started or create some specific loyalty "
+#~ "systems more easily."
+#~ msgstr ""
+#~ "Мастера Настройки созданы, чтобы помочь вам начать работу или создать "
+#~ "некоторые конкретные системы лояльности легче."
+
+#~ msgid ""
+#~ "Select a wizard, follow the setup steps and everything will be generated "
+#~ "automatically according to your preferences."
+#~ msgstr ""
+#~ "Выберите мастера настройки, следуйте шагам настройки, и всё будет "
+#~ "генерироваться автоматически в соответствии с вашими предпочтениями."
+
+#~ msgid "Here are the wizards available :"
+#~ msgstr "Вот доступные мастеры настройки :"
+
+#~ msgid "Standard System :"
+#~ msgstr "Стандартная Система :"
+
+#~ msgid "Set up a standard system to let customers win coupons"
+#~ msgstr ""
+#~ "Настройка стандартной системы, чтобы позволить клиентам получать купоны"
+
+#~ msgid "Leveling System :"
+#~ msgstr "Уровневая Система :"
+
+#~ msgid ""
+#~ "This wizard will help you create a bronze/silver/gold system (Pro Version "
+#~ "Only)"
+#~ msgstr ""
+#~ "Этот мастер настройки поможет вам создать бронзовую/серебряную/золотую "
+#~ "систему (Только в Pro-версии)"
+
+#~ msgid "Special Events :"
+#~ msgstr "Особые События :"
+
+#~ msgid ""
+#~ "Loyalty systems for special occasions like Christmas (Pro Version Only)"
+#~ msgstr ""
+#~ "Системы лояльности для особых случаев, таких как Рождество (Только в Pro-"
+#~ "версии)"
+
+#~ msgid "Double Points :"
+#~ msgstr "Удвоение Очков :"
+
+#~ msgid ""
+#~ "Create an event where customers can earn twice the points (Pro Version "
+#~ "Only)"
+#~ msgstr ""
+#~ "Создайте событие, когда клиенты смогут заработать в два раза больше очков "
+#~ "(Только в Pro-версии)"
+
+#~ msgid ""
+#~ "Sponsors and sponsored are rewarded in this loyalty system (Pro Version "
+#~ "Only)"
+#~ msgstr ""
+#~ "Спонсоры и спонсируемые вознаграждаются в этой системе лояльности (Только "
+#~ "в Pro-версии)"
+
+#~ msgid "Birthday or Anniversary "
+#~ msgstr "День Рождения или Годовщина "
+
+#~ msgid ""
+#~ "Send a special gift on customers birthday or registration anniversary "
+#~ "(Pro Version Only)"
+#~ msgstr ""
+#~ "Отправьте специальный подарок в день рождения клиентов или годовщину "
+#~ "регистрации (Только в Pro-версии)"
+
+#~ msgid "Activate and set up different MyRewards features in this section : "
+#~ msgstr ""
+#~ "Активировать и настроить различные функции MyRewards в этом разделе: "
+
+#~ msgid "WooCommerce :"
+#~ msgstr "WooCommerce :"
+
+#~ msgid ""
+#~ "WooCommerce related rules and additional loyalty information on "
+#~ "woocommerce pages"
+#~ msgstr ""
+#~ "Правила, связанные с WooCommerce, и дополнительная информация о системе "
+#~ "лояльности на страницах WooCommerce"
+
+#, fuzzy
+#~| msgid "Sponsorship :"
+#~ msgid "Sponsorship/Referral :"
+#~ msgstr "Спонсорство :"
+
+#, fuzzy
+#~| msgid "Set up the sponsorship options (Pro Version Only)"
+#~ msgid "Set up the sponsorship/referral options (Pro Version Only)"
+#~ msgstr "Настройте варианты спонсорства (Только в Pro-версии)"
+
+#~ msgid "Badges and Achievements :"
+#~ msgstr "Значки и Достижения :"
+
+#~ msgid ""
+#~ "Create and manage user badges, achievements and badges rarity (Pro "
+#~ "Version Only)"
+#~ msgstr ""
+#~ "Создайте и управляйте пользовательскими значками, достижениями и "
+#~ "редкостью значков (Только в Pro-версии)"
+
+#~ msgid "API :"
+#~ msgstr "API :"
+
+#~ msgid ""
+#~ "Set up the API to connect MyRewards with a third party app (Pro Version "
+#~ "Only)"
+#~ msgstr ""
+#~ "Настройте API для подключения MyRewards к сторонним приложениям (Только в "
+#~ "Pro-версии)"
+
+#~ msgid ""
+#~ "Set the appearance of everything your customers will see on your website "
+#~ "regarding loyalty systems : "
+#~ msgstr ""
+#~ "Установите внешний вид всего, что ваши клиенты увидят на вашем сайте "
+#~ "относительно систем лояльности: "
+
+#~ msgid "Widgets :"
+#~ msgstr "Виджеты :"
+
+#~ msgid "Setup the widgets/shortcodes options and appearance"
+#~ msgstr "Настройка опций виджетов/шорткодов и внешнего вида"
+
+#~ msgid "Emails :"
+#~ msgstr "Email'ы :"
+
+#~ msgid "Customize emails sent to your customers"
+#~ msgstr "Настройка электронных писем, отправляемых Вашим клиентам"
+
+#~ msgid "Popup :"
+#~ msgstr "Всплывающие окна :"
+
+#~ msgid ""
+#~ "Setup the popup that your customers see when they unlock a reward (Pro "
+#~ "Version Only)"
+#~ msgstr ""
+#~ "Настройка всплывающего окна, которое увидят Ваши клиенты, когда они "
+#~ "разблокируют новую награду (Только в Pro-версии)"
+
+#, fuzzy
+#~| msgid "Manage your license and different system related options :"
+#~ msgid "Manage different system related options :"
+#~ msgstr "Управление лицензией и настройками, связанными с системой:"
+
+#, fuzzy
+#~| msgid "Place an order :"
+#~ msgid "Process past orders :"
+#~ msgstr "Разместить заказ :"
+
+#, fuzzy
+#~| msgid "Manage MyRewards data in the database, process past orders"
+#~ msgid "Manage MyRewards data in the database"
+#~ msgstr ""
+#~ "Управление данными MyRewards в базе данных, обрвботка прошлых заказов"
+
+#, fuzzy
+#~| msgid "Points and Rewards"
+#~ msgid "Points and Rewards Systems :"
+#~ msgstr "Очки и Награды"
+
+#, fuzzy
+#~| msgid "Methods to earn points"
+#~ msgid "20+ methods to earn points :"
+#~ msgstr "Методы заработка очков"
+
+#, fuzzy
+#~| msgid "Sponsorship :"
+#~ msgid "Referrals/Sponsorship :"
+#~ msgstr "Спонсорство :"
+
+#, fuzzy
+#~| msgid "New Reward"
+#~ msgid "New Rewards :"
+#~ msgstr "Новая Награда"
+
+#, fuzzy
+#~| msgid "Earn points by reviewing a product on your website."
+#~ msgid "Earn points when performing actions on the website"
+#~ msgstr "Зарабатывайте очки, оставляя отзывы на товары на вашем сайте."
+
+#, fuzzy
+#~| msgid "Sponsorship :"
+#~ msgctxt "Option Group"
+#~ msgid "Sponsorship/Referral"
+#~ msgstr "Спонсорство :"
+
+#~ msgid "Select an element below to see more information about it"
+#~ msgstr "Выберите элемент ниже, чтобы увидеть больше информации о нем"
+
+#~ msgid "You will have some extra information displayed if need be."
+#~ msgstr "При необходимости будет отображаться дополнительная информация."
+
+#~ msgid "Select the Reward"
+#~ msgstr "Выберите награду"
+
+#~ msgid "Setup the Reward"
+#~ msgstr "Настройте Награду"
+
+#~ msgctxt "unlockable category"
+#~ msgid "Sponsored"
+#~ msgstr "Спонсируемый"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Referrals and Sponsorship"
+#~ msgstr "Спонсорство"
+
 #~ msgid ""
 #~ "Some options are not compatible with computing points after discount and "
 #~ "will be disabled."
 #~ msgstr ""
 #~ "Некоторые опции не совместимы с вычислением очков после скидки и будут "
 #~ "отключены."
-
-#~ msgid "Levelling"
-#~ msgstr "Левелинг"
 
 #~ msgid "Product"
 #~ msgstr "Продукт"
@@ -3317,9 +3692,6 @@ msgstr "https://longwatchstudio.com"
 #~ msgid "The Points on Cart widget has been placed aside the Cart."
 #~ msgstr "Виджет 'Очки в Корзине' был размещен отдельно от Корзины."
 
-#~ msgid "Select a Category"
-#~ msgstr "Выберите Категорию"
-
 #~ msgid "Orders"
 #~ msgstr "Заказы"
 
@@ -3340,10 +3712,6 @@ msgstr "https://longwatchstudio.com"
 
 #~ msgid "Manage your license and subscription"
 #~ msgstr "Управление лицензией и подпиской"
-
-#~ msgctxt "link to licence tab in admin notice"
-#~ msgid "here"
-#~ msgstr "здесь"
 
 #~ msgctxt "link to plugin selling site"
 #~ msgid "Long Watch Studio - MyRewards"

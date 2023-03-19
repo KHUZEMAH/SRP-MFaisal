@@ -23,6 +23,13 @@ jQuery(document).ready(function ($) {
     }
 
   });
+
+  $('div.wp-menu-name > .monsterinsights-menu-notification-indicator').click(function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    location.href = monsterinsights.reports_url + '&open=monsterinsights_notification_sidebar';
+  });
 });
 
 var submenu_item = document.querySelector('.monsterinsights-upgrade-submenu');

@@ -51,10 +51,14 @@ class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 
 		// hide from search and robots on/off
 		$label = __("Purchase Required", 'woorewards-lite');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'purchase_required', array(
+			'id'      => $prefix . 'purchase_required',
+			'layout'  => 'toggle',
+		));
 		$tooltip = __("If checked, points are earned only if the customer already purchased the product and order status is 'Complete'.", 'woorewards-lite');
-		$form .= "<div class='field-help'>$tooltip</div>";
-		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}purchase_required' name='{$prefix}purchase_required' class='lws_checkbox'/></div>";
+		$form .= "<div class='field-help'>{$tooltip}</div>";
+		$form .= "<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>";
+		$form .= "<div class='lws-{$context}-opt-input value'>{$toggle}</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 		return $form;

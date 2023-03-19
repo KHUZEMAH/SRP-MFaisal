@@ -12,6 +12,9 @@ class Admin
 
 	public function __construct()
 	{
+		// comes after the addon, let that part to it if any
+		\add_filter('lws_adminpanel_make_page_' . LWS_WOOREWARDS_PAGE . '.customers', array($this, 'addSponsorshipTab'), 2000);
+
 		/** @param array, the fields settings array. @param Pool */
 		\add_filter('lws_woorewards_admin_pool_general_settings', array($this, 'getPoolGeneralSettings'), 10, 2);
 
@@ -90,7 +93,7 @@ class Admin
 				\wp_enqueue_style('lws-wre-notice', LWS_WOOREWARDS_CSS . '/notice.css', array(), LWS_WOOREWARDS_VERSION);
 			}
 
-			if (($page == LWS_WOOREWARDS_PAGE || false !== strpos($page, 'customers')) && (empty($tab) || strpos($tab, 'wr_customers') !== false)) {
+			if ($page == LWS_WOOREWARDS_PAGE || false !== strpos($page, 'customers')) {
 				// labels displayed in points history
 				$labels = array(
 					'hist' => __("Points History", 'woorewards-lite'),
@@ -112,8 +115,6 @@ class Admin
 				\do_action('lws_woorewards_ui_userspoints_enqueue_scripts', $hook, $tab);
 			} else if (false !== strpos($page, 'loyalty')) {
 				\do_action('lws_adminpanel_enqueue_lac_scripts', array('select'));
-				\wp_enqueue_script('lws-checkbox');
-				\wp_enqueue_script('lws-switch');
 			} else if (false !== strpos($page, 'appearance')) {
 				\wp_enqueue_style('lws_wr_pointsoncart_hard', LWS_WOOREWARDS_CSS . '/pointsoncart.css', array(), LWS_WOOREWARDS_VERSION);
 			}
@@ -151,13 +152,13 @@ class Admin
 		$pages = array();
 		$pages['wr_resume'] = $this->getResumePage();
 		$pages['wr_customers'] = $this->getCustomerPage();
-		if (false === ($pages['wr_loyalty'] = \apply_filters('lws_woorewards_ui_loyalty_tab_get', false))) {
-			$pages['wr_loyalty'] = $this->getLoyaltyPage();
+		if (false === ($pages['wr_settings'] = \apply_filters('lws_woorewards_ui_settings_page_get', false))) {
+			$pages['wr_settings'] = $this->getSettingsPage();
 		}
 		if (defined('LWS_WIZARD_SUMMONER')) {
 			$pages['wr_wizard'] = $this->getWizardPage();
 		}
-		$pages['wr_features'] = $this->getFeaturesPage();
+		//$pages['wr_features'] = $this->getFeaturesPage();
 		$pages['wr_appearance'] = $this->getAppearancePage();
 		$pages['wr_system'] = $this->getSystemPage();
 
@@ -201,24 +202,14 @@ class Admin
 			))
 		);
 
-		$description = array(
-			__("The customers page lets you track your customers loyalty activity and perform some actions :", 'woorewards-lite'),
-			__("See customers points and history", 'woorewards-lite'),
-			__("See customers owned coupons", 'woorewards-lite'),
-			__("Add/Subtract Points", 'woorewards-lite'),
-			__("Add/Remove Rewards (Pro Version Only)", 'woorewards-lite'),
-			__("Add/Remove Badges (Pro Version Only)", 'woorewards-lite'),
-			__("Filter by points, activity or inactivity periods (Pro Version Only)", 'woorewards-lite'),
-		);
+
 		$cusPage = array(
 			'title'    => __("Customers", 'woorewards-lite'),
 			'id'       => LWS_WOOREWARDS_PAGE . '.customers',
 			'rights'   => 'manage_rewards',
 			'color'    => '#A8CE38',
 			'image'		=> LWS_WOOREWARDS_IMG . '/r-customers.png',
-			'description' => "<p>" . $description[0] . "</p><ul>" .
-				"<li><span>" . $description[1] . "</span></li><li><span>" . $description[2] . "</span></li><li><span>" . $description[3] . "</span></li>" .
-				"<li><span>" . $description[4] . "</span></li><li><span>" . $description[5] . "</span></li><li><span>" . $description[6] . "</span></li></ul>",
+			'description' => __("Use this page to manage your customers, see and edit their points and rewards", 'woorewards-lite'),
 			'tabs'     => array(
 				'wr_customers' => array(
 					'title'    => __("Customers", 'woorewards-lite'),
@@ -231,7 +222,7 @@ class Admin
 							'color'		=> '#00768b',
 							'text'		=> __("Here you can see and manage your customers reward points", 'woorewards-lite')
 								. "<br/>" . __("You can view the points <b>history</b> by clicking the points total in the table", 'woorewards-lite'),
-							'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/customers-management/'),
+							'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('customers')),
 							'editlist' => $editlist,
 						)
 					)
@@ -241,251 +232,214 @@ class Admin
 		return $cusPage;
 	}
 
-	protected function getLoyaltyPage()
+	protected function getSettingsPage()
 	{
-		$description = array(
-			__("Setup how customers will earn points and what rewards they can get.", 'woorewards-lite'),
-			__("In MyRewards Lite, there's only 3 ways to earn points (20+ in MyRewards Pro) :", 'woorewards-lite'),
-			array(
-				array(
-					__("Place an order :", 'woorewards-lite'),
-					__("Earn points when placing an order, independently of the order's amount. ", 'woorewards-lite'),
-				),
-				array(
-					__("Spend Money :", 'woorewards-lite'),
-					__("Earn points when placing an order, depending on the order's amount.", 'woorewards-lite'),
-				),
-				array(
-					__("Review a product :", 'woorewards-lite'),
-					__("Earn points by reviewing a product on your website.", 'woorewards-lite'),
-				),
-			),
-			__("In MyRewards Lite, you can choose between 2 rewards (10+ in MyRewards Pro) :", 'woorewards-lite'),
-			array(
-				array(
-					__("Coupon :", 'woorewards-lite'),
-					__("Points are converted into WooCommerce coupons that customers can use on their cart.", 'woorewards-lite'),
-				),
-				array(
-					__("Points on Cart :", 'woorewards-lite'),
-					__("Set the value of a point and customers will use their points on the cart to get immediate discounts.", 'woorewards-lite'),
-				),
-			)
-		);
-
-		$loyaltyPage = array(
-			'title'    => __("Points and Rewards", 'woorewards-lite'),
+		return array(
+			'title'    => __("Settings", 'woorewards-lite'),
 			'rights'   => 'manage_rewards',
 			'id'       => LWS_WOOREWARDS_PAGE . '.loyalty',
-			'color' => '#526981',
-			'image'		=> LWS_WOOREWARDS_IMG . '/r-loyalty-systems.png',
-			'description' => "<p>" . $description[0] . " " . $description[1] . "</p><ul>" .
-				"<li><span><strong>" . $description[2][0][0] . "</strong> " . $description[2][0][1] . "</span></li>" .
-				"<li><span><strong>" . $description[2][1][0] . "</strong> " . $description[2][1][1] . "</span></li>" .
-				"<li><span><strong>" . $description[2][2][0] . "</strong> " . $description[2][2][1] . "</span></li>" .
-				"</ul><p>" . $description[3] . "</p><ul>" .
-				"<li><span><strong>" . $description[4][0][0] . "</strong> " . $description[4][0][1] . "</span></li>" .
-				"<li><span><strong>" . $description[4][1][0] . "</strong> " . $description[4][1][1] . "</span></li>" .
-				"</ul>",
+			'color'    => '#526981',
+			'image'    => LWS_WOOREWARDS_IMG . '/r-loyalty-systems.png',
+			'description' => __("Use this page to manage your loyalty program, see and edit actions and rewards", 'woorewards-lite'),
 			'tabs' => array(
 				'wr_loyalty' => array(
-					'title'    => __("Points and Rewards", 'woorewards-lite'),
-					'id'       => 'wr_loyalty',
-					'groups'   => $this->getLoyaltyGroups()
+					'title'  => __("Points and Rewards", 'woorewards-lite'),
+					'id'     => 'wr_loyalty',
+					'icon'	 => 'lws-icon-present',
+					'groups' => $this->getLoyaltyGroups()
+				),
+				'wr_othersettings' => array(
+					'title'  => __("Other Settings", 'woorewards-lite'),
+					'id'     => 'wr_othersettings',
+					'icon'	 => 'lws-icon-adv-settings',
+					'groups' => $this->getSettingsGroups()
 				)
 			)
 		);
-		return $loyaltyPage;
 	}
 
 	protected function getWizardPage()
 	{
-		$description = array(
-			array(
-				'tag' => 'p',
-				__("Wizards are made to help you get started or create some specific loyalty systems more easily.", 'woorewards-lite'),
-				__("Select a wizard, follow the setup steps and everything will be generated automatically according to your preferences.", 'woorewards-lite'),
-				__("Here are the wizards available :", 'woorewards-lite'),
-			),
-			array(
-				'tag' => 'ul',
-				array(
-					__("Standard System :", 'woorewards-lite'),
-					__("Set up a standard system to let customers win coupons", 'woorewards-lite'),
-				),
-				array(
-					__("Leveling System :", 'woorewards-lite'),
-					__("This wizard will help you create a bronze/silver/gold system (Pro Version Only)", 'woorewards-lite'),
-				),
-				array(
-					__("Special Events :", 'woorewards-lite'),
-					__("Loyalty systems for special occasions like Christmas (Pro Version Only)", 'woorewards-lite'),
-				),
-				array(
-					__("Double Points :", 'woorewards-lite'),
-					__("Create an event where customers can earn twice the points (Pro Version Only)", 'woorewards-lite'),
-				),
-				array(
-					__("Sponsorship :", 'woorewards-lite'),
-					__("Sponsors and sponsored are rewarded in this loyalty system (Pro Version Only)", 'woorewards-lite'),
-				),
-				array(
-					__("Birthday or Anniversary ", 'woorewards-lite'),
-					__("Send a special gift on customers birthday or registration anniversary (Pro Version Only)", 'woorewards-lite'),
-				),
-			)
+		return array(
+			'title'    => __("Wizard", 'woorewards-lite'),
+			'subtitle' => __("Wizard", 'woorewards-lite'),
+			'id'       => LWS_WIZARD_SUMMONER . LWS_WOOREWARDS_PAGE,
+			'rights'   => 'manage_rewards',
+			'color'    => '#00B7EB',
+			'image'    => LWS_WOOREWARDS_IMG . '/r-wizard.png',
+			'description' => __("The wizard page lets you setup your points and rewards program in a few minutes", 'woorewards-lite'),
 		);
-		$wizardPage = array(
-			'title'			=> __("Wizard", 'woorewards-lite'),
-			'subtitle'		=> __("Wizard", 'woorewards-lite'),
-			'id'			=> LWS_WIZARD_SUMMONER . LWS_WOOREWARDS_PAGE,
-			'rights'		=> 'manage_rewards',
-			'color'			=> '#00B7EB',
-			'image'			=> LWS_WOOREWARDS_IMG . '/r-wizard.png',
-			'description'	=> $description,
-		);
-		return $wizardPage;
 	}
 
-	protected function getFeaturesPage()
+	protected function getSettingsGroups()
 	{
-		$description = array(
-			__("Activate and set up different MyRewards features in this section : ", 'woorewards-lite'),
-			__("WooCommerce :", 'woorewards-lite'),
-			__("WooCommerce related rules and additional loyalty information on woocommerce pages", 'woorewards-lite'),
-			__("Sponsorship/Referral :", 'woorewards-lite'),
-			__("Set up the sponsorship/referral options (Pro Version Only)", 'woorewards-lite'),
-			__("Badges and Achievements :", 'woorewards-lite'),
-			__("Create and manage user badges, achievements and badges rarity (Pro Version Only)", 'woorewards-lite'),
-			__("API :", 'woorewards-lite'),
-			__("Set up the API to connect MyRewards with a third party app (Pro Version Only)", 'woorewards-lite'),
-		);
-
-		$featuresPage = array(
-			'title'    => __("Features", 'woorewards-lite'),
-			'subtitle' => __("Features", 'woorewards-lite'),
-			'id'       => LWS_WOOREWARDS_PAGE . '.settings',
-			'rights'   => 'manage_rewards',
-			'color'			=> '#7AC943',
-			'image'			=> LWS_WOOREWARDS_IMG . '/r-features.png',
-			'description'	=> "<p>" . $description[0] . "</p>"
-				. "<ul>"
-				. "<li><span><strong>" . $description[1] . "</strong> " . $description[2] . "</span></li>"
-				. "<li><span><strong>" . $description[3] . "</strong> " . $description[4] . "</span></li>"
-				. "<li><span><strong>" . $description[5] . "</strong> " . $description[6] . "</span></li>"
-				. "</ul>",
-			'tabs'     => array(
-				'wc_settings' => array(
-					'id'	=> 'wc_settings',
-					'title'	=>  __("WooCommerce", 'woorewards-lite'),
-					'icon'	=> 'lws-icon-cart-2',
-					'groups' => array(
-						'settings' => array(
-							'id'     => 'settings',
-							'icon'	 => 'lws-icon-settings-gear',
-							'title'  => __("General settings", 'woorewards-lite'),
-							'text'   => __("Check the options below according to your needs. If you want to exclude shipping fees from points calculation, it can be done inside your loyalty systems.", 'woorewards-lite'),
-							'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/advanced-features/'),
-							'fields' => array(
-								'inc_taxes' => array(
-									'id'    => 'lws_woorewards_order_amount_includes_taxes',
-									'title' => __("Includes taxes", 'woorewards-lite'),
-									'type'  => 'box',
-									'extra' => array(
-										'class' => 'lws_checkbox',
-										'help' => __("If checked, taxes will be included in the points earned when spending money", 'woorewards-lite'),
-									)
-								),
-								'c_prefix'  => array(
-									'id'    => 'lws_woorewards_reward_coupon_code_prefix',
-									'title' => __("Coupon prefix", 'woorewards-lite'),
-									'type'  => 'text',
-									'extra' => array(
-										'size' => '10',
-										'help' => __("Set a prefix code that will be added on all coupon codes generated by MyRewards", 'woorewards-lite'),
-									)
-								),
-								'c_length'  => array(
-									'id'    => 'lws_woorewards_coupon_code_length',
-									'title' => __("Coupon code length", 'woorewards-lite'),
-									'type'  => 'text',
-									'extra' => array(
-										'size' => '3',
-										'default' => '10',
-										'placeholder' => '10',
-										'help' => __("Set the length of the generated coupon code. The length comes in addition to the code prefix.", 'woorewards-lite')
-										. ' ' . sprintf(__("Minimum length is %s.", 'woorewards-lite'), \LWS\WOOREWARDS\Unlockables\Coupon::COUPON_CODE_MIN_LENGTH),
-									)
-								),
-								'order_state' => array(
-									'id'    => 'lws_woorewards_points_distribution_status',
-									'title' => __("Order statuses for points", 'woorewards-lite'),
-									'type'  => 'lacchecklist',
-									'extra' => array(
-										'ajax' => 'lws_adminpanel_get_order_status',
-										'help' => __("Default state to get points is the processing order status.<br/>If you want to use other statuses instead (recommanded), select them here", 'woorewards-lite'),
-									)
-								),
-								'deep_usersearch' => array(
-									'id'    => 'lws_woorewards_admin_userspoints_deep_search',
-									'title' => __("Deep customer search", 'woorewards-lite'),
-									'type'  => 'box',
-									'extra' => array(
-										'default' => 'on', 'class' => 'lws_checkbox',
-										'help'   => __("If you have troubles with searching in WooRewards Customers administration screen, disable this option. This will speed up the search but it will take less data into account.", 'woorewards-lite'),
-									)
-								),
-							)
-						),
-						'pointsoncart' => array(
-							'id'     => 'pointsoncart',
-							'icon'	 => 'lws-icon-coins',
-							'title'  => __("Order statuses to consume used points", 'woorewards-lite'),
-							'text'	 => __("Points used to get a discount are consumed when order status changes.", 'woorewards-lite'),
-							'fields' => array(
-								'order_state' => array(
-									'id'    => 'lws_woorewards_pointdiscount_pay_order_status',
-									'title' => __("Order statuses to pay discount", 'woorewards-lite'),
-									'type'  => 'lacchecklist',
-									'extra' => array(
-										'ajax'    => 'lws_adminpanel_get_order_status',
-										'default' => array('processing', 'completed'),
-									)
-								),
-								'failure'     => array(
-									'id'    => 'lws_woorewards_pointdiscount_pay_order_failure',
-									'title' => __("Order status on payment failure", 'woorewards-lite'),
-									'type'  => 'lacselect',
-									'extra' => array(
-										'mode'    => 'select',
-										'source'  => array(
-											array('value' => '_', 'label' => __("[do nothing]", 'woorewards-lite'))
-										),
-										'ajax'    => 'lws_adminpanel_get_order_status',
-										'default' => 'failed',
-										'help'    => __("Change order status if points cannot be paid after all.", 'woorewards-lite'),
-									)
-								),
-							)
-						),
-					)
+		return array(
+			'settings' => array(
+				'id'     => 'settings',
+				'icon'	 => 'lws-icon-settings-gear',
+				'title'  => __("General settings", 'woorewards-lite'),
+				'text'   => __("Check the options below according to your needs. If you want to exclude shipping fees from points calculation, it can be done inside your loyalty systems.", 'woorewards-lite'),
+				'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('adv-features')),
+				'fields' => array(
+					'inc_taxes' => array(
+						'id'    => 'lws_woorewards_order_amount_includes_taxes',
+						'title' => __("Includes taxes", 'woorewards-lite'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'help' => __("If checked, taxes will be included in the points earned when spending money", 'woorewards-lite'),
+						)
+					),
+					'c_prefix'  => array(
+						'id'    => 'lws_woorewards_reward_coupon_code_prefix',
+						'title' => __("Coupon prefix", 'woorewards-lite'),
+						'type'  => 'text',
+						'extra' => array(
+							'size' => '10',
+							'help' => __("Set a prefix code that will be added on all coupon codes generated by MyRewards", 'woorewards-lite'),
+						)
+					),
+					'c_length'  => array(
+						'id'    => 'lws_woorewards_coupon_code_length',
+						'title' => __("Coupon code length", 'woorewards-lite'),
+						'type'  => 'text',
+						'extra' => array(
+							'size' => '3',
+							'default' => '10',
+							'placeholder' => '10',
+							'help' => __("Set the length of the generated coupon code. The length comes in addition to the code prefix.", 'woorewards-lite')
+								. ' ' . sprintf(__("Minimum length is %s.", 'woorewards-lite'), \LWS\WOOREWARDS\Unlockables\Coupon::COUPON_CODE_MIN_LENGTH),
+						)
+					),
+					'order_state' => array(
+						'id'    => 'lws_woorewards_points_distribution_status',
+						'title' => __("Order statuses for points", 'woorewards-lite'),
+						'type'  => 'lacchecklist',
+						'extra' => array(
+							'ajax' => 'lws_adminpanel_get_order_status',
+							'help' => __("Default state to get points is the processing order status.<br/>If you want to use other statuses instead (recommanded), select them here", 'woorewards-lite'),
+						)
+					),
+					'deep_usersearch' => array(
+						'id'    => 'lws_woorewards_admin_userspoints_deep_search',
+						'title' => __("Deep customer search", 'woorewards-lite'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'default' => 'on',
+							'help'   => __("If you have troubles with searching in WooRewards Customers administration screen, disable this option. This will speed up the search but it will take less data into account.", 'woorewards-lite'),
+						)
+					),
+					'show_priorities' => array(
+						'id'    => 'lws_woorewards_show_loading_order_and_priority',
+						'title' => __("Show loading orders", 'woorewards-lite'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'help'   => __("For some advanced setups, managing loyalty system loading order and event trigger priority could be meaningful.", 'woorewards-lite'),
+						)
+					),
 				)
-			)
+			),
+			'pointsoncart' => array(
+				'id'     => 'pointsoncart',
+				'icon'	 => 'lws-icon-coins',
+				'title'  => __("Order statuses to consume used points", 'woorewards-lite'),
+				'text'	 => __("Points used to get a discount are consumed when order status changes.", 'woorewards-lite'),
+				'fields' => array(
+					'order_state' => array(
+						'id'    => 'lws_woorewards_pointdiscount_pay_order_status',
+						'title' => __("Order statuses to pay discount", 'woorewards-lite'),
+						'type'  => 'lacchecklist',
+						'extra' => array(
+							'ajax'    => 'lws_adminpanel_get_order_status',
+							'default' => array('processing', 'completed'),
+						)
+					),
+					'failure'     => array(
+						'id'    => 'lws_woorewards_pointdiscount_pay_order_failure',
+						'title' => __("Order status on payment failure", 'woorewards-lite'),
+						'type'  => 'lacselect',
+						'extra' => array(
+							'mode'    => 'select',
+							'source'  => array(
+								array('value' => '_', 'label' => __("[do nothing]", 'woorewards-lite'))
+							),
+							'ajax'    => 'lws_adminpanel_get_order_status',
+							'default' => 'failed',
+							'help'    => __("Change order status if points cannot be paid after all.", 'woorewards-lite'),
+						)
+					),
+				)
+			),
+			'sponsorship' => array(
+				'id' 	=> 'sponsorship',
+				'icon'	=> 'lws-icon-handshake',
+				'color' => '#669876',
+				'title'	=> __("Referral Features", 'woorewards-lite'),
+				'text' 	=> __("Here, you'll find the different tools customers can use to refer their friends and the reward given to referred users.", 'woorewards-lite') .
+					__("To reward the referrers, either use the dedicated wizard or select an appropriate earning method inside a points and rewards system.", 'woorewards-lite'),
+				'extra' => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('referral')),
+				'fields' => array(
+					'enable' => array(
+						'id'    => 'lws_woorewards_event_enabled_sponsorship',
+						'title' => __("Enable Referrals", 'woorewards-lite'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'default' => 'on'
+						)
+					),
+					'enableReferral' => array(
+						'id'    => 'lws_woorewards_referral_back_give_sponsorship',
+						'type'  => 'box',
+						'title' => __("Allow referrals via referral link", 'woorewards-lite'),
+						'extra' => array(
+							'default' => 'on',
+							'layout' => 'toggle',
+							'help' => __("When a visitor comes from a referral link and registers, he will be referred by the user that posted the link.", 'woorewards-lite')
+						)
+					),
+					'tinify' => array(
+						'id'    => 'lws_woorewards_sponsorship_tinify_enabled',
+						'title' => __("Try to shorten the referral URL", 'woorewards-lite'),
+						'type'  => 'box',
+						'extra' => array(
+							'help' => __('Disable that feature if you encounter plugin conflicts or redirection problems. Disable that feature makes bigger and less readable QR codes.', 'woorewards-lite'),
+							'class' => 'lws_checkbox',
+							'default' => '',
+							'id' => 'lws_woorewards_sponsorship_tinify_enabled',
+						)
+					),
+					'tiny' => array(
+						'id'    => 'lws_woorewards_sponsorship_short_url',
+						'title' => __("Alternative Short Site URL", 'woorewards-lite'),
+						'type'  => 'text',
+						'extra' => array(
+							'help' => __('To make the QR-Code as simple as possible, you can specify a shorter version of your site URL here that will be used as base for the image generation.', 'woorewards-lite'),
+							'placeholder' => \site_url(),
+						),
+						'require' => array('selector' => '#lws_woorewards_sponsorship_tinify_enabled', 'value' => 'on'),
+					),
+					'max'    => array(
+						'id' => 'lws_wooreward_max_sponsorship_count',
+						'title' => __("Max referrals per customer", 'woorewards-lite'),
+						'type' => 'text',
+						'extra' => array(
+							'pattern' => '\d+',
+							'default' => '0',
+							'help' => __("Set the maximum referrals allowed for users. No restriction on empty value or zero (0).", 'woorewards-lite')
+						)
+					),
+				)
+			),
 		);
-		return $featuresPage;
 	}
 
 	protected function getAppearancePage()
 	{
-		$description = array(
-			__("Set the appearance of everything your customers will see on your website regarding loyalty systems : ", 'woorewards-lite'),
-			__("Widgets :", 'woorewards-lite'),
-			__("Setup the widgets/shortcodes options and appearance", 'woorewards-lite'),
-			__("Emails :", 'woorewards-lite'),
-			__("Customize emails sent to your customers", 'woorewards-lite'),
-			__("Popup :", 'woorewards-lite'),
-			__("Setup the popup that your customers see when they unlock a reward (Pro Version Only)", 'woorewards-lite'),
-		);
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/adminscreens/styling.php';
+
 		$appearancePage = array(
 			'title'    => __("Appearance", 'woorewards-lite'),
 			'subtitle' => __("Appearance", 'woorewards-lite'),
@@ -493,21 +447,17 @@ class Admin
 			'rights'   => 'manage_rewards',
 			'color'			=> '#4CBB41',
 			'image'			=> LWS_WOOREWARDS_IMG . '/r-appearance.png',
-			'description'	=> "<p>" . $description[0] . "</p>"
-				. "<ul>"
-				. "<li><span><strong>" . $description[1] . "</strong> " . $description[2] . "</span></li>"
-				. "<li><span><strong>" . $description[3] . "</strong> " . $description[4] . "</span></li>"
-				. "<li><span><strong>" . $description[5] . "</strong> " . $description[6] . "</span></li>"
-				. "</ul>",
+			'description'	=> __("Use this page to display loyalty content to your customers on your website", 'woorewards-lite'),
 			'tabs'     => array(
 				'woocommerce' => $this->getWoocommerceTab(),
-				'shortcodes' => $this->getShortcodesTab(),
-				'sty_mails' => array(
+				'shortcodes'  => $this->getShortcodesTab(),
+				'sty_mails'   => array(
 					'id'     => 'sty_mails',
 					'title'  => __("Emails", 'woorewards-lite'),
 					'icon'	 => 'lws-icon-letter',
 					'groups' => \lws_mail_settings(\apply_filters('lws_woorewards_mails', array()))
 				),
+				'styling'     => \LWS\WOOREWARDS\Ui\AdminScreens\Styling::getTab(true)
 			)
 		);
 
@@ -519,13 +469,6 @@ class Admin
 
 	protected function getSystemPage()
 	{
-		$description = array(
-			__("Manage different system related options :", 'woorewards-lite'),
-			__("Process past orders :", 'woorewards-lite'),
-			__("Process existing orders to give points for orders placed before the loyalty program", 'woorewards-lite'),
-			__("Database :", 'woorewards-lite'),
-			__("Manage MyRewards data in the database", 'woorewards-lite'),
-		);
 		$systemPage = array(
 			'title'    		=> __("System", 'woorewards-lite'),
 			'subtitle' 		=> __("System", 'woorewards-lite'),
@@ -533,11 +476,7 @@ class Admin
 			'rights'   		=> 'manage_rewards',
 			'color'			=> '#7958A5',
 			'image'			=> LWS_WOOREWARDS_IMG . '/r-system.png',
-			'description'	=> "<p>" . $description[0] . "</p>"
-				. "<ul>"
-				. "<li><span><strong>" . $description[1] . "</strong> " . $description[2] . "</span></li>"
-				. "<li><span><strong>" . $description[3] . "</strong> " . $description[4] . "</span></li>"
-				. "</ul>",
+			'description'	=> __("Export or import your customers points, process past orders in this page", 'woorewards-lite'),
 			'delayedFunction' => array($this, 'showCronStatus'),
 			'tabs'			=> array(
 				'data_management' => array(
@@ -628,41 +567,37 @@ class Admin
 	protected function getProVersionPage()
 	{
 		$page = array(
-			'title'    		=> __("Pro Version", 'woorewards-lite'),
-			'subtitle' 		=> "<div style='padding:2px 10px 4px 10px;background-color:#526981;color:#fff;text-align:center;font-weight:bold'>" . __("Pro Version", 'woorewards-lite') . "</div>",
-			'pagetitle' 	=> __("Pro Version", 'woorewards-lite'),
-			'id'       		=> LWS_WOOREWARDS_PAGE . '-proversion',
-			'rights'   		=> 'manage_options',
-			'color'			  => '#4f9bbf',
-			'nosave'		  => true,
-			'image'			  => LWS_WOOREWARDS_IMG . '/r-pro.png',
-			'description' => array(
-				'tag' => 'p',
-				__("Discover all Pro Version features :", 'woorewards-lite'),
-				array(
-					'tag' => 'ul',
-					array(
-						__("Points and Rewards Systems :", 'woorewards-lite'),
-						__("Create as many systems as you want, working together or separately", 'woorewards-lite'),
-					),
-					array(
-						__("20+ methods to earn points :", 'woorewards-lite'),
-						__("Lots of possibilities for your customers to earn points, including social media and sponsorship", 'woorewards-lite'),
-					),
-					array(
-						__("Referrals/Sponsorship :", 'woorewards-lite'),
-						__("Complete referral and sponsorship system to grow your customers base", 'woorewards-lite'),
-					),
-					array(
-						__("New Rewards :", 'woorewards-lite'),
-						__("New types of rewards including free products, free shipping and custom rewards.", 'woorewards-lite'),
-					),
-				)
-			),
+			'title'    	=> __("Pro Version", 'woorewards-lite'),
+			'subtitle' 	=> "<div style='padding:2px 10px 4px 10px;background-color:#526981;color:#fff;text-align:center;font-weight:bold'>" . __("Pro Version", 'woorewards-lite') . "</div>",
+			'pagetitle' => __("Pro Version", 'woorewards-lite'),
+			'id'       	=> LWS_WOOREWARDS_PAGE . '-proversion',
+			'rights'   	=> 'manage_options',
+			'color'		=> '#4f9bbf',
+			'nosave'	=> true,
+			'image'		=> LWS_WOOREWARDS_IMG . '/r-pro.png',
+			'description' => __("Unlock this plugin's full potential by switching to the pro version. Check all the features and discover how to install it", 'woorewards-lite'),
 		);
 
 		if ($page['id'] != $this->getCurrentPage())
 			return $page;
+
+		$installurl = \esc_attr(\admin_url('plugin-install.php'));
+		$install = <<<EOT
+		<div class='teaser'>
+			<div class='teaser-div'>
+				Follow these instructions to install the pro version and activate it
+			</div>
+			<ul class='teaser-list'>
+				<li>You received an email following your order with a download link.<b>Click the link</b> to download the plugin's zip file</li>
+				<li>If you can't find the email, log into <a href='https://plugins.longwatchstudio.com/my-account' target='_blank'>your account</a> and go to the <b>Downloads</b> section. Download the zip file</li>
+				<li>In your WordPress administration, go to <a href='{$installurl}' target='_blank'>the plugins installation page</a> and click the <b>Upload Plugin</b> button. In the dialog, select the plugin's zip file and click <b>Install Now</b></li>
+				<li>When the process is complete, choose to <b>Replace the existing version with the new one</b>, even if the version number is the same</li>
+				<li>Activate the plugin</li>
+				<li>Now, go to <b>WooRewards → System → License Management</b>, paste your license key and click on <b>Activate</b></li>
+				<li>That's it, you now have the pro version installed and active.</li>
+			</ul>
+		</div>
+EOT;
 
 		$content = <<<EOT
 	<div class='teaser'>
@@ -702,8 +637,25 @@ EOT;
 				'title'  => __("Pro Version", 'woorewards-lite'),
 				'icon'   => 'lws-icon-cart-2',
 				'groups' => array(
-					'delete' => array(
-						'id'    => 'delete',
+					'install' => array(
+						'id'    => 'install',
+						'title' => __("Pro Version - How to Install", 'woorewards-lite'),
+						'icon'  => 'lws-icon-settings-gear',
+						'color' => '#40aa8e',
+						'text'  => __("If you already purchased the pro version, follow the instructions below to install and activate it", 'woorewards-lite'),
+						'fields' => array(
+							'install_instructions' => array(
+								'id' => 'install_instructions',
+								'type' => 'custom',
+								'extra' => array(
+									'gizmo'   => true,
+									'content' => $install,
+								),
+							),
+						)
+					),
+					'teaser'  => array(
+						'id'    => 'teaser',
 						'title' => __("Pro Version - Test if for free for 1 month !", 'woorewards-lite'),
 						'icon'  => 'lws-icon-cart-2',
 						'color' => '#408aae',
@@ -713,6 +665,7 @@ EOT;
 								'id' => 'pro_description',
 								'type' => 'custom',
 								'extra' => array(
+									'gizmo'   => true,
 									'content' => $content,
 								),
 							),
@@ -734,6 +687,7 @@ EOT;
 				'cart' => array(
 					'id'     => 'wr_cart_content',
 					'icon'	 => 'lws-icon-cart-2',
+					'color' => '#425981',
 					'title'  => __("Cart Page Content", 'woorewards-lite'),
 					'text'	 => __("Select what and where you want to display content on the WooCommerce Cart Page. You can even display other plugins shortcodes", 'woorewards-lite'),
 					'fields' => array(),
@@ -741,6 +695,7 @@ EOT;
 				'checkout' => array(
 					'id'     => 'wr_checkout_content',
 					'icon'	 => 'lws-icon-checkmark',
+					'color' => '#425981',
 					'title'  => __("Checkout Page Content", 'woorewards-lite'),
 					'text'	 => __("Select what and where you want to display content on the WooCommerce Checkout Page. You can even display other plugins shortcodes", 'woorewards-lite'),
 					'fields' => array(),
@@ -773,7 +728,9 @@ EOT;
 					'title'	=> __('Shortcodes', 'woorewards-lite'),
 					'icon'	=> 'lws-icon-shortcode',
 					'text'	=> __("In this section, you will find various shortcodes you can use on your website.", 'woorewards-lite'),
-					'fields' => apply_filters('lws_woorewards_shortcodes', array())
+					'fields' => \apply_filters('lws_woorewards_referral_shortcodes',
+						\apply_filters('lws_woorewards_shortcodes', array())
+					)
 				),
 			)
 		);
@@ -815,7 +772,7 @@ EOT;
 							'title' => __("Reload cart page after amount modification", 'woorewards-lite'),
 							'type'  => 'box',
 							'extra' => array(
-								'class'    => 'lws_checkbox',
+								'layout' => 'toggle',
 								'tooltips' => __("By default, changing the amount will provoke a javascript (ajax) update. Check this box if the default behavior doesn't work.", 'woorewards-lite'),
 							)
 						),
@@ -842,7 +799,7 @@ EOT;
 							'title' => __("Reload checkout page after amount modification", 'woorewards-lite'),
 							'type'  => 'box',
 							'extra' => array(
-								'class'    => 'lws_checkbox',
+								'layout' => 'toggle',
 								'tooltips' => __("By default, changing the amount will provoke a javascript (ajax) update. Check this box if the default behavior doesn't work.", 'woorewards-lite'),
 							)
 						),
@@ -879,7 +836,7 @@ EOT;
 					'id' => 'showpoints',
 					'icon' => 'lws-icon-components',
 					'title' => __("Display Points Widget", 'woorewards-lite'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/display-points/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('disp-points')),
 					'text' => "<strong>" . __("Legacy : This widget is no longer maintained or updated. Use the points balance shortcode instead.", 'woorewards-lite') . "</strong>",
 					'fields' => array(
 						'spunconnected' => array(
@@ -921,7 +878,7 @@ EOT;
 							'extra' => array(
 								'shortcode' => '[wr_simple_points]',
 								'description' =>  __("This simple shortcode is used to display the user's points with no decoration.", 'woorewards-lite') . "<br/>" .
-								__("This is very convenient if you want to display points within a phrase for example.", 'woorewards-lite'),
+									__("This is very convenient if you want to display points within a phrase for example.", 'woorewards-lite'),
 								'options' => array(),
 								'flags' => array('current_user_id'),
 							)
@@ -966,7 +923,7 @@ EOT;
 							<br/>You should install <a href='https://wordpress.org/plugins/woocommerce/' target='_blank'>WooCommerce</a> to have them active.
 							<br/>Or <a href='https://plugins.longwatchstudio.com/product/woorewards/' target='_blank'>upgrade <b>MyRewards</b> to the <b>Pro</b> version</a>
 							and enjoy new ways to earn points (social media, sponsoring... with or without WooCommerce) and a lot of new reward types !",
-					LWS_WOOREWARDS_DOMAIN
+					'woorewards-lite'
 				)
 			);
 		}
@@ -1030,7 +987,7 @@ EOT;
 					'title'    => __("General Settings", 'woorewards-lite'),
 					'fields'   => \apply_filters('lws_woorewards_admin_pool_general_settings', array(), $pool),
 					'text'     => __("Before activating your loyalty program, make sure you've read the documentation. You will find links to the documentation on the top right of each group.", 'woorewards-lite'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('pools')),
 				),
 				'earning' => array(
 					'id'		=> 'earning',
@@ -1039,7 +996,7 @@ EOT;
 					'image'		=> LWS_WOOREWARDS_IMG . '/ls-earning.png',
 					'color'		=> '#38bebe',
 					'text'     	=> __("Here you can manage how your customers earn loyalty points", 'woorewards-lite'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('points')),
 					'editlist' 	=> \lws_editlist(
 						'EventList',
 						\LWS\WOOREWARDS\Ui\Editlists\EventList::ROW_ID,
@@ -1054,7 +1011,7 @@ EOT;
 					'image'		=> LWS_WOOREWARDS_IMG . '/ls-gift.png',
 					'color'		=> '#526981',
 					'text'     => __("Here you can manage the rewards for your customers. Rewards can either be automatically generated WooCommerce Coupons or points usable on cart for immediate discounts", 'woorewards-lite'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/rewards/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\DocLinks::get('rewards')),
 					'fields' => array(
 						'mode' => array(
 							'id'    => $prefix . 'direct_reward_mode',
@@ -1062,12 +1019,12 @@ EOT;
 							'title' => __("Reward Type", 'woorewards-lite'),
 							'extra' => array(
 								'id'      => 'direct_reward_mode',
-								'class'   => 'lws_switch',
+								'layout'  => 'switch',
 								'value'   => $pool->getOption('direct_reward_mode'),
 								'data'    => array(
-									'left' => __("WooCommerce Coupon", 'woorewards-lite'),
-									'right' => __("Points on Cart", 'woorewards-lite'),
-									'colorleft' => '#425981',
+									'left'       => __("WooCommerce Coupon", 'woorewards-lite'),
+									'right'      => __("Points on Cart", 'woorewards-lite'),
+									'colorleft'  => '#425981',
 									'colorright' => '#5279b1',
 								),
 							)
@@ -1129,9 +1086,10 @@ EOT;
 			'type'  => 'box',
 			'title' => 'Status',
 			'extra' => array(
-				'class'   => 'lws_switch lws-force-confirm',
-				'checked' => $pool->getOption('enabled'), /// set field value here
-				'data'    => array(
+				'noconfirm' => true,
+				'layout'    => 'switch',
+				'checked'   => $pool->getOption('enabled'), /// set field value here
+				'data'      => array(
 					'default' => _x("Off", "pool enabled switch", 'woorewards-lite'),
 					'checked' => _x("On", "pool enabled switch", 'woorewards-lite')
 				)
@@ -1241,8 +1199,13 @@ EOT;
 		\do_action('lws_woorewards_before_delete_all', $data);
 		error_log("[MyRewards] Delete everything");
 
-		\delete_option('lws_woorewards_version');
-		\delete_option('lws_woorewards_pointstack_timeout_delete');
+		foreach (array(
+			'lws_wooreward_max_sponsorship_count',
+			'lws_woorewards_version',
+			'lws_woorewards_pointstack_timeout_delete',
+		) as $opt) {
+			\delete_option($opt);
+		}
 
 		global $wpdb;
 		foreach (array('lws-wre-pool', 'lws-wre-event', 'lws-wre-unlockable') as $post_type) {
@@ -1255,8 +1218,15 @@ EOT;
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}lws_wr_achieved_log");
 
 		// user meta
-		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key='lws_wre_unlocked_id'");
-		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key='lws_wre_pending_achievement'");
+		$ukeys = \implode("','", array(
+			'lws_wre_unlocked_id',
+			'lws_wre_pending_achievement',
+			'lws_wooreward_used_sponsorship',
+			'lws_woorewards_sponsored_by',
+			'lws_woorewards_sponsored_origin',
+			'lws_woorewards_at_registration_sponsorship',
+		));
+		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN '{$ukeys}'");
 		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'lws_wr_redeemed_%'");
 		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'lws_wre_points_%'"); /// @see \LWS\WOOREWARDS\Core\PointStack::MetaPrefix
 
@@ -1284,5 +1254,50 @@ EOT;
 		\do_action('lws_woorewards_after_delete_all', $data);
 		\wp_installing($wpInstalling);
 		return __("You can now create new Points and Rewards System for your customers or uninstall MyRewards.", 'woorewards-lite');
+	}
+
+	public function addSponsorshipTab($page)
+	{
+		$current = \LWS\Adminpanel\Tools\Conveniences::getCurrentAdminPage();
+		if (false === \strpos($current, LWS_WOOREWARDS_PAGE))
+			return $page;
+		if (isset($page['tabs']['sponsorship']))
+			return $page;
+
+		$page['tabs']['sponsorship'] = array(
+			'id'     => 'sponsorship',
+			'title'  => __('Referrals', 'woorewards-lite'),
+			'icon'   => 'lws-icon-b-check',
+			'vertnav'=> true,
+			'groups' => array(),
+		);
+
+		if ((LWS_WOOREWARDS_PAGE . '.customers') != $current)
+			return $page;
+		if (!(isset($_REQUEST['tab']) && 'sponsorship' == $_REQUEST['tab']))
+			return $page;
+
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/editlists/sponsorships.php';
+		$page['tabs']['sponsorship']['groups']['sponsors'] = array(
+			'id' 	     => 'sponsors_list',
+			'title'    => __("Referrals Information", 'woorewards-lite'),
+			'icon'	   => 'lws-icon-b-check',
+			'color'    => '#6e96b5',
+			'text'     => array('tag' => 'ul',
+				__("You will find here a list of all customers who referred other people.", 'woorewards-lite'),
+				sprintf(
+					__("See %s to let your customer share a referral link and get referees.", 'woorewards-lite'),
+					sprintf('<a href="%s">%s</a>',
+						\esc_attr(\add_query_arg(array(
+							'page' => LWS_WOOREWARDS_PAGE . '.appearance', 'tab' => 'shortcodes'
+						), \admin_url('admin.php#lws_woorewards_referral_link'))),
+						'[wr_referral_link]'
+					)
+				),
+			),
+			'editlist' => \LWS\WOOREWARDS\Ui\Editlists\Sponsorships::instanciate(),
+		);
+
+		return $page;
 	}
 }

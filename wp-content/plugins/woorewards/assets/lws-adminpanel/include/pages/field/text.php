@@ -61,18 +61,17 @@ class Text extends \LWS\Adminpanel\Pages\Field
 		$readonly = $this->getExtraValue('readonly', false) ? ' readonly' : '';
 		$id = $this->getExtraAttr('id', 'id');
 
-		$class = '';
-		if( isset($this->extra['class']) && is_string($this->extra['class']) && !empty($this->extra['class']) )
-			$class = (empty($this->style) ? '' : ' ') . $this->extra['class'];
+		$class = $this->getExtraCss('class', 'class', false, $this->style);
+		$attrs = $this->getDomAttributes();
 
 		if( empty($prop) )
 		{
-			echo "<input class='{$this->style}$class' type='$type' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id />";
+			echo "<input class='{$this->style}$class' type='$type' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
 		}
 		else
 		{
 			echo "<div class='lwss-css-inputs'>";
-			echo "<input class='{$this->style}$class' type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id />";
+			echo "<input class='{$this->style}$class' type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
 			echo "<input class='{$this->style} lwss-merge-css' type='hidden' name='{$this->m_Id}' value='$prop:$value' />";
 			echo "</div>";
 		}

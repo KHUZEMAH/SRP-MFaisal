@@ -30,22 +30,28 @@ class UnlockableList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		return $unlockables;
 	}
 
+	protected function getGroupTitles()
+	{
+		return array(
+			array(
+				'idle' 		=> __("Select a reward category", 'woorewards-lite'),
+				'selected' 	=> __("Reward Category : ", 'woorewards-lite')
+			),
+			array(
+				'idle' 		=> __("Select a Reward", 'woorewards-lite'),
+				'selected' 	=> __("Reward : ", 'woorewards-lite')
+			)
+		);
+	}
+
 	protected function getStepInfo()
 	{
 		if (empty($this->stepInfo)) {
-			$this->stepInfo = array(
-				array(
-					"icon" => "lws-icon-questionnaire",
-					"title" => __("Select the Reward", 'woorewards-lite'),
-				),
-				array(
-					"icon" => "lws-icon-setup-preferences",
-					"title" => __("Setup the Reward", 'woorewards-lite'),
-				)
-			);
+			$this->stepInfo = __("Reward Settings", 'woorewards-lite');
 		}
 		return $this->stepInfo;
 	}
+
 	private function objectToArray($item)
 	{
 		$descr = trim($item->getCustomDescription(false));

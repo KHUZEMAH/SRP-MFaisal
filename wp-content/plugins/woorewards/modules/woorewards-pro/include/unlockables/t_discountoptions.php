@@ -184,15 +184,23 @@ trait T_DiscountOptions
 
 		// individual use on/off
 		$label = _x("Individual use only", "Coupon Unlockable", 'woorewards-pro');
-		$checked = ($this->isIndividualUse() ? ' checked' : '');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'individual_use', array(
+			'id'      => $prefix . 'individual_use',
+			'layout'  => 'toggle',
+			'checked' => ($this->isIndividualUse() ? ' checked' : '')
+		));
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='checkbox'$checked id='{$prefix}individual_use' name='{$prefix}individual_use' class='lws_checkbox'/></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// exclude sale items on/off
 		$label = _x("Exclude sale items", "Coupon Unlockable", 'woorewards-pro');
-		$checked = ($this->isExcludeSaleItems() ? ' checked' : '');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'exclude_sale_items', array(
+			'id'      => $prefix . 'exclude_sale_items',
+			'layout'  => 'toggle',
+			'checked' => ($this->isExcludeSaleItems() ? ' checked' : '')
+		));
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='checkbox'$checked id='{$prefix}exclude_sale_items' name='{$prefix}exclude_sale_items' class='lws_checkbox'/></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$str .= $this->getFieldsetPlaceholder(false, $column);
 		return str_replace($this->getFieldsetPlaceholder(false, $column), $str, $content);

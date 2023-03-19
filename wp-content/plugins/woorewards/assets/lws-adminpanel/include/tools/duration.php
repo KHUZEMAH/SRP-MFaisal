@@ -76,25 +76,25 @@ class Duration
 		switch($this->period)
 		{
 			case 'Y':
-				$text = _n("Year", "Years", $this->number, 'lws-adminpanel');
+				$text = _n("Year", "Years", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			case 'M':
-				$text = _n("Month", "Months", $this->number, 'lws-adminpanel');
+				$text = _n("Month", "Months", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			case 'W':
-				$text = _n("Week", "Weeks", $this->number, 'lws-adminpanel');
+				$text = _n("Week", "Weeks", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			case 'H':
-				$text = _n("Hour", "Hours", $this->number, 'lws-adminpanel');
+				$text = _n("Hour", "Hours", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			case 'I':
-				$text = _n("Minute", "Minutes", $this->number, 'lws-adminpanel');
+				$text = _n("Minute", "Minutes", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			case 'S':
-				$text = _n("Second", "Seconds", $this->number, 'lws-adminpanel');
+				$text = _n("Second", "Seconds", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 			default:
-				$text = _n("Day", "Days", $this->number, 'lws-adminpanel');
+				$text = _n("Day", "Days", $this->number, LWS_ADMIN_PANEL_DOMAIN);
 				break;
 		}
 		return $firstLetterUpper ? $text : strtolower($text);
@@ -288,18 +288,18 @@ class Duration
 		if( false === $periods )
 		{
 			$periods = array(
-				'D' => __("Days", 'lws-adminpanel'),
-				'M' => __("Months", 'lws-adminpanel'),
-				'Y' => __("Years", 'lws-adminpanel'),
+				'D' => __("Days", LWS_ADMIN_PANEL_DOMAIN),
+				'M' => __("Months", LWS_ADMIN_PANEL_DOMAIN),
+				'Y' => __("Years", LWS_ADMIN_PANEL_DOMAIN),
 			);
 			$allPeriods =  array(
-				'S' => __("Seconds", 'lws-adminpanel'),
-				'I' => __("Minutes", 'lws-adminpanel'),
-				'H' => __("Hours", 'lws-adminpanel'),
-				'D' => __("Days", 'lws-adminpanel'),
-				'W' => __("Weeks", 'lws-adminpanel'),
-				'M' => __("Months", 'lws-adminpanel'),
-				'Y' => __("Years", 'lws-adminpanel'),
+				'S' => __("Seconds", LWS_ADMIN_PANEL_DOMAIN),
+				'I' => __("Minutes", LWS_ADMIN_PANEL_DOMAIN),
+				'H' => __("Hours", LWS_ADMIN_PANEL_DOMAIN),
+				'D' => __("Days", LWS_ADMIN_PANEL_DOMAIN),
+				'W' => __("Weeks", LWS_ADMIN_PANEL_DOMAIN),
+				'M' => __("Months", LWS_ADMIN_PANEL_DOMAIN),
+				'Y' => __("Years", LWS_ADMIN_PANEL_DOMAIN),
 			);
 		}
 		return \apply_filters('lws_adminpanel_duration_supported_periods', $extended ? $allPeriods : $periods);

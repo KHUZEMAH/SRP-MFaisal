@@ -48,20 +48,24 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		// Reset levels
 		$label = _x("Reset levels", "Point Generator", 'woorewards-pro');
 		$tooltip = __("If the selected Points and Rewards System is a Leveling system, allows to earn the levels again. This action does not remove any reward.", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'reslev', array(
+			'id'      => $prefix . 'reslev',
+			'layout'  => 'toggle',
+		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'>";
-		$form .= "<input class='lws_checkbox' type='checkbox' id='{$prefix}reslev' name='{$prefix}reslev' />";
-		$form .= "</div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// Reset rewards
 		$label = _x("Reset rewards", "Point Generator", 'woorewards-pro');
 		$tooltip = __("Before giving points, all rewards in the system, owned by the customer, are confiscated.", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'resrew', array(
+			'id'      => $prefix . 'reslev',
+			'layout'  => 'resrew',
+		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'>";
-		$form .= "<input class='lws_checkbox' type='checkbox' id='{$prefix}resrew' name='{$prefix}resrew' />";
-		$form .= "</div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// Gain
 		$label = _x("Points to add", "Point Generator", 'woorewards-pro');
@@ -75,11 +79,13 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		// Try Unlock
 		$label = _x("Check for Rewards", "Point Generator", 'woorewards-pro');
 		$tooltip = __("Check if rewards become available in the Points and Rewards System. Override the «Cannot be unlocked by user» option", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'try', array(
+			'id'      => $prefix . 'try',
+			'layout'  => 'toggle',
+		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'>";
-		$form .= "<input class='lws_checkbox' type='checkbox' id='{$prefix}try' name='{$prefix}try' />";
-		$form .= "</div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 		return $form;

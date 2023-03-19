@@ -108,4 +108,13 @@ class Unlockables extends \LWS\WOOREWARDS\Abstracts\Collection
 	{
 		return $this->filter(function($item)use($type){return $item->getType() == $type;});
 	}
+
+	public function filterByCategories($cats)
+	{
+		if (!\is_array($cats))
+			$cats = array($cats);
+		return $this->filter(function($item)use($cats){
+			return \array_intersect(\array_keys($item->getCategories()), $cats);
+		});
+	}
 }

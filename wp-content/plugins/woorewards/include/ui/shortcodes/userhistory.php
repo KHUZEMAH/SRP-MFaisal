@@ -63,16 +63,16 @@ class UserHistory
 									"system",
 									__("The points and rewards system's name.", 'woorewards-lite'),
 								), array(
-									"date:",
+									"date",
 									__("The date at which the points movement happened.", 'woorewards-lite'),
 								), array(
-									"descr:",
+									"descr",
 									__("The operation's description.", 'woorewards-lite'),
 								), array(
-									"points:",
+									"points",
 									__("The amount of points earned or lost during the operation.", 'woorewards-lite'),
 								), array(
-									"total:",
+									"total",
 									__("The new total of points in the user's reserve at the end of the operation.", 'woorewards-lite'),
 								)
 							)

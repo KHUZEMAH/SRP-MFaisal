@@ -30,10 +30,15 @@ class FilterColumnsVisibility extends Filter
 			if (is_array($value) && isset($value[2]) && $value[2])
 			{
 				$name = $this->name . '_' . $key;
-				$retour .= "<div class='visibility-cb-wrapper'>";
-				$retour .= "<input type='checkbox' class='lws_checkbox lws-ignore-confirm editlist_cb_visibility' data-size='15' name='$name' data-name='$key' checked />";
-				$retour .= "<div class='visibility-cs-wrapper'>{$value[0]}</div>";
-				$retour .= "</div>";
+				$retour .= <<<EOT
+<div class='visibility-cb-wrapper'>
+	<label class='lws-checkbox-wrapper'>
+		<input type='checkbox' class='lws-ignore-confirm editlist_cb_visibility' name='$name' data-name='$key' checked />
+		<div class='lws-checkbox small'></div>
+	</label>
+	<div class='visibility-cs-wrapper'>{$value[0]}</div>
+</div>
+EOT;
 			}
 		}
 		$retour .= "</div></div>";

@@ -51,7 +51,7 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$label = _x("Coupon amount", "Coupon Unlockable", 'woorewards-lite');
 		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '$';
 		$value = empty($this->getValue()) ? '' : \esc_attr($this->getValue());
-		$form .= "<div class='lws-$context-opt-title label'>$label (<span class='{$prefix}currency_hide currency_fix'>$currency</span><span class='{$prefix}currency_hide currency_per'>%</span>)</div>";
+		$form .= "<div class='lws-$context-opt-title label bold'>$label (<span class='{$prefix}currency_hide currency_fix'>$currency</span><span class='{$prefix}currency_hide currency_per'>%</span>)</div>";
 		$form .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}value' name='{$prefix}value' value='$value' placeholder='5' pattern='\\d*(\\.|,)?\\d*' /></div>";
 
 		// timeout
@@ -460,7 +460,7 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return array_merge(parent::getCategories(), array(
 			'woocommerce' => __("WooCommerce", 'woorewards-lite'),
 			'shop_coupon' => __("Coupon", 'woorewards-lite'),
-			'sponsorship' => _x("Sponsored", "unlockable category", 'woorewards-lite')
+			'sponsorship' => _x("Referred", "unlockable category", 'woorewards-lite')
 		));
 	}
 }

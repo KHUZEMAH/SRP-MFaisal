@@ -44,7 +44,7 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$label   = _x("Role", "event form", 'woorewards-pro');
 		$tooltip = __("Pick an existant role or set a new role name.", 'woorewards-pro');
 		$form .= "<div class='field-help'>$tooltip</div>";
-		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$form .= "<div class='lws-$context-opt-title label bold'>$label<div class='bt-field-help'>?</div></div>";
 		$form .= "<div class='lws-$context-opt-input lws-lac-select-role'>";
 		$form .= \LWS\Adminpanel\Pages\Field\LacSelect::compose($prefix.'role', array(
 			'ajax' => 'lws_adminpanel_get_roles',
@@ -248,7 +248,7 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	public function getCategories()
 	{
 		return array_merge(parent::getCategories(), array(
-			'sponsorship' => _x("Sponsored", "unlockable category", 'woorewards-pro'),
+			'sponsorship' => _x("Referee", "unlockable category", 'woorewards-pro'),
 			'role' => __("Role", 'woorewards-pro'),
 			'wp_user'   => __("User", 'woorewards-pro'),
 		));

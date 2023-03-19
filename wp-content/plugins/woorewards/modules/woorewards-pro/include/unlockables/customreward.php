@@ -232,7 +232,7 @@ class CustomReward extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	public function getCategories()
 	{
 		return array_merge(parent::getCategories(), array(
-			'sponsorship' => _x("Sponsored", "unlockable category", 'woorewards-pro'),
+			'sponsorship' => _x("Referee", "unlockable category", 'woorewards-pro'),
 			'miscellaneous' => __("Miscellaneous", 'woorewards-pro')
 		));
 	}

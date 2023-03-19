@@ -82,8 +82,8 @@ class LoyaltyEndpoint extends \LWS\WOOREWARDS\PRO\Ui\Legacy\Endpoint
 			'sname'	 		=> __("System name", 'woorewards-pro'),
 			'perform'		=> __("Action to perform", 'woorewards-pro'),
 			'redet' 		=> __("Rewards details", 'woorewards-pro'),
-			'emailsponsor'	=> __("Email Sponsorship", 'woorewards-pro'),
-			'sponsorlink'	=> __("Sponsorship Link", 'woorewards-pro'),
+			'emailsponsor'	=> __("Email Referrals", 'woorewards-pro'),
+			'sponsorlink'	=> __("Referral Link", 'woorewards-pro'),
 			'balance'		=> __("Your Current Balance", 'woorewards-pro'),
 		);
 	}
@@ -95,8 +95,8 @@ class LoyaltyEndpoint extends \LWS\WOOREWARDS\PRO\Ui\Legacy\Endpoint
 			array('value' => 'rewards',      'active' => 'yes', 'label' => __("Unlockable Rewards", 'woorewards-pro')),
 			array('value' => 'systems',      'active' => 'yes', 'label' => __("Loyalty Systems Details", 'woorewards-pro')),
 			array('value' => 'history',      'active' => 'yes', 'label' => __("Customer Points History", 'woorewards-pro')),
-			array('value' => 'sponsoremail', 'active' => '',    'label' => __("Sponsorship Mailing", 'woorewards-pro')),
-			array('value' => 'sponsorlink',  'active' => '',    'label' => __("Sponsorship Link", 'woorewards-pro')),
+			array('value' => 'sponsoremail', 'active' => '',    'label' => __("Referral Mailing", 'woorewards-pro')),
+			array('value' => 'sponsorlink',  'active' => '',    'label' => __("Referral Link", 'woorewards-pro')),
 		);
 	}
 

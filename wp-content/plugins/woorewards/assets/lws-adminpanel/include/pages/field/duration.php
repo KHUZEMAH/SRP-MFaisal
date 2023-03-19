@@ -26,8 +26,7 @@ class Duration extends \LWS\Adminpanel\Pages\Field
 	private function html()
 	{
 		\do_action('lws_adminpanel_enqueue_lac_scripts', array('select'));
-		\wp_enqueue_script('lws-checkbox');
-		\wp_enqueue_script('lws-adm-duration', LWS_ADMIN_PANEL_JS.'/controls/duration.js', array('jquery', 'lws-checkbox'), LWS_ADMIN_PANEL_VERSION, true);
+		\wp_enqueue_script('lws-adm-duration', LWS_ADMIN_PANEL_JS . '/controls/duration.js', array('jquery'), LWS_ADMIN_PANEL_VERSION, true);
 
 		$value = $this->readOption(false);
 		if (\is_string($value))
@@ -86,7 +85,7 @@ class Duration extends \LWS\Adminpanel\Pages\Field
 
 	protected function value($duration)
 	{
-		$title = esc_attr(__("An integer value greater than zero.", 'lws-adminpanel'));
+		$title = esc_attr(__("An integer value greater than zero.", LWS_ADMIN_PANEL_DOMAIN));
 		$hidden = $this->isStartHidden($duration) ? ' style="display:none"' : '';
 		$v = $duration->getCount();
 		if (!$v)
@@ -102,6 +101,11 @@ class Duration extends \LWS\Adminpanel\Pages\Field
 	{
 		$checked = $duration->isNull() ? '' : ' checked';
 		$idAttr = (false === strpos($this->m_Id, '[') ? "id='{$this->m_Id}'" : '');
-		return "<input {$idAttr} type='checkbox' class='lws_checkbox lws_adm_lifetime_check'$checked>";
+		return <<<EOT
+		<label class='lws-checkbox-wrapper'>
+			<input type='checkbox' {$idAttr} class='lws_adm_lifetime_check'$checked />
+			<div class='lws-checkbox'></div>
+		</label>
+EOT;
 	}
 }

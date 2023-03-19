@@ -1,16 +1,18 @@
-﻿=== MyRewards - Loyalty Points and Rewards Program for WooCommerce ===
+﻿=== MyRewards - Loyalty Points and Rewards for WooCommerce - Reward orders, referrals, product reviews and more ===
 Contributors: lwsdevelopers
 Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social medias, badges, achievements, fidélité, récompenses, bon d'achat, daily, temporary, success, badges, events, anniversary, achievements, succès, événements, referral, chinese, spanish, french, subscriptions, sponsorship,
 Requires at least: 5.3
 Tested up to: 6.1
 Requires PHP: 7.0.0
-Stable tag: 4.9.10
+Stable tag: 5.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Free top rated points and rewards program to retain your customers and grow your sales
+Free top rated points and rewards program to retain your customers, grow your sales and get new customers
 
 == Description ==
+
+== MYREWARDS 5.0 Release :  New interface and referrals feature ==
 
 TOP RATED AND MOST POWERFUL POINTS AND REWARDS PROGRAM FOR WOOCOMMERCE
 
@@ -23,6 +25,7 @@ Try it now to take advantage of all its possibilities.
 * **Give points when customers spend money** - Set points earned depending on the amount of money spent on orders
 * **Give points on first order** - Welcome your customers and give them some points when they place their first order
 * **Give points on order** - Give points for each order placed by your customers
+* **Give points for referrals** - Give points when customers refer their friends
 * **Give points on Product Review** - Set how many points are earned by your customer when they review a product on your website
 * **Give points for past orders** - Give points for orders placed before you installed MyRewards
 * **Use points on cart** - Set the value of a point and let your users spend their points for immediate discount on the cart
@@ -41,7 +44,7 @@ You won't see intrusive or repetitive ads about the pro version.
 You will get a lightweight, feature rich and functional plugin without all the usual disturbance.
 
 == The Premium version offers a lot more features ==
-* **Give points for more than 20 actions** including purchases, sponsorship, registration, birthday, referrals, product review ...
+* **Give points for more than 20 actions** including purchases, registration, birthday, referrals, product review, recurrent visits ...
 * Choose between **more than 10 rewards** including cart discounts, woocommerce coupons, free products, free shipping, user roles ...
 * Create multiple loyalty programs working together or apart
 * Create advanced leveling and membership systems
@@ -70,7 +73,7 @@ You will get a lightweight, feature rich and functional plugin without all the u
 **16)** **Addons** - We propose a lot of free and premium addons to add even more features to your loyalty program
 **17)** **Emails** - Decide which emails to send between 7 sorts and customize them
 **18)** **Badges and Achievements** - Play with your customers' pride by adding badges and achievements to your website
-**19)** **Sponsorship** - Let customers sponsor new customers through emails, QR Codes or social shares
+**19)** **Referrals** - Fully featured referral system including multiple referring options and tracking interface
 **20)** **Order refunds** - Remove previously earned points when an order is cancelled or refunded
 **21)** **Multi Currency** - WooRewards supports multi currency plugins and will let you give points differently depending on the currency used.
 
@@ -98,9 +101,55 @@ This section describes how to install the plugin and get it working.
 2. Customers management
 3. Points on Cart tool
 4. Email configuration
-5. Wizard
+5. Styling options
 
 == Changelog ==
+
+= 5.0.5 =
+* Fix - border style option pattern control
+
+= 5.0.4 =
+* Fix - hide order note from comments
+* Improve - New styling options
+
+= 5.0.3 =
+* Fix - wp_redirect called too soon
+
+= 5.0.2 =
+* Improvement - move loyalty system order notes in its own metabox
+* Fix - Points Export button not working
+* Tag - WooCommerce 7.4
+
+= 5.0.1 =
+* Quick fix - undefined wp_cache_flush_group
+
+= 5.0.0 =
+* MyRewards :
+	* New administration interface
+	* New starting page with documentation
+	* New feature - give points for referral orders
+	* New feature - give points for money spent by referees
+	* New feature - Referral Link display
+	* New feature - Styling options for front-end display
+	* New feature - List to display existing referrals
+	* Tag - WooCommerce 7.3
+	* Reworked Wizard
+* MyRewards Pro :
+	* New administration interface
+	* UX improvements and better page organization
+	* New feature - Styling options for front-end display
+	* New feature - Display custom content on products archives
+	* New feature - Display custom content on product pages
+	* New feature - Place an order : Add max order amount restriction
+	* Improvement - Reworked Wizard
+	* Improvement - Achievements interface reworked
+	* Improvement - Add order notes regarding points earned
+	* Improvement - Free product reward : Use custom description if set
+	* Improvement - Achievements : Possibility to create badges directly
+	* Improvement - Delete user data : Also deletes referral information
+	* Bugfix - Repeated clicks on unlock buttons leading to extra reward generation
+	* Bugfix - Transactional points expiration shortcode
+	* Dev - Referrals event type name changed
 
 = 4.9.10 =
 * MyRewards :

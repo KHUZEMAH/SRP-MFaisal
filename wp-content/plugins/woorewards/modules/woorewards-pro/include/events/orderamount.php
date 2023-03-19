@@ -81,30 +81,37 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	function getForm($context = 'editlist')
 	{
 		$prefix = $this->getDataKeyPrefix();
-		$form = parent::getForm($context);
+		$form = '';
+		$phb2 = $this->getFieldsetPlaceholder(false, 2);
 
 		// shipping included
 		$label   = _x("Include shipping amount", "Order Amount Event", 'woorewards-pro');
-		$optform = "<div class='lws-$context-opt-title label'>$label</div>";
-		$optform .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}include_shipping' name='{$prefix}include_shipping'/></div>";
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'include_shipping', array(
+			'id'      => $prefix . 'include_shipping',
+			'layout'  => 'toggle',
+		));
+		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
+		$form .= "<div class='lws-$context-opt-input value'>{$toggle}</div>";
 
 		// threshold effect applied
 		$label   = _x("Threshold effect", "Order Amount Event", 'woorewards-pro');
 		$tooltip = __("If checked, customers will earn points for each multiple of this amount. If unchecked, points earned will be rounded to the closest value.", 'woorewards-pro');
-		$optform .= "<div class='field-help'>$tooltip</div>";
-		$optform .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$optform .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}threshold_effect' name='{$prefix}threshold_effect'/></div>";
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'threshold_effect', array(
+			'id'      => $prefix . 'threshold_effect',
+			'layout'  => 'toggle',
+		));
+		$form .= "<div class='field-help'>$tooltip</div>";
+		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$form .= "<div class='lws-$context-opt-input value'>{$toggle}</div>";
 
 		// Minimum order amount
 		$label = _x("Minimum order amount", "Order Amount Event", 'woorewards-pro');
 		$tooltip = __("Uses the Order Subtotal as reference.", 'woorewards-pro');
-		$optform .= "<div class='field-help'>$tooltip</div>";
-		$optform .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$optform .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}min_amount' name='{$prefix}min_amount' placeholder='5' pattern='\\d*(\\.|,)?\\d*' /></div>";
+		$form .= "<div class='field-help'>$tooltip</div>";
+		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$form .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}min_amount' name='{$prefix}min_amount' placeholder='5' /></div>";
 
-		$phb2 = $this->getFieldsetPlaceholder(false, 2);
-		$form = str_replace($phb2, $optform . $phb2, $form);
-
+		$form .= $this->getFieldsetEnd(2);
 		$form .= $this->getFieldsetBegin(3, __("Allow / Deny Categories", 'woorewards-pro'), 'span2 lws_woorewards_orderamount_after_discount_relative');
 
 		// restriction by product category
@@ -159,9 +166,9 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 <div class='lws-{$context}-opt-input value'>{$input}</div>
 EOT;
 
-		$form .= $this->getFieldsetEnd(3);
-		$form =  $this->filterForm($form, $prefix, $context);
-		return $this->filterSponsorshipForm($form, $prefix, $context, 10);
+		$form .= $this->getFieldsetPlaceholder(false, 3);
+		$form = \str_replace($this->getFieldsetPlaceholder(false, 2), $form, parent::getForm($context));
+		return $this->filterForm($form, $prefix, $context);
 	}
 
 	function getData()
@@ -173,7 +180,6 @@ EOT;
 		$data[$prefix . 'threshold_effect'] = $this->getThresholdEffect() ? 'on' : '';
 		$data[$prefix . 'min_amount'] = $this->getMinAmount();
 		$data[$prefix . 'onsale'] = $this->getOnSaleStatus();
-		$data = $this->filterSponsorshipData($data, $prefix);
 		return $this->filterData($data, $prefix);
 	}
 
@@ -208,8 +214,8 @@ EOT;
 
 		$valid = parent::submit($form, $source);
 		if ($valid === true)
-			$valid = $this->optSponsorshipSubmit($prefix, $form, $source);
-		if ($valid === true && ($valid = $this->optSubmit($prefix, $form, $source)) === true)
+			$valid = $this->optSubmit($prefix, $form, $source);
+		if ($valid === true)
 		{
 			$this->setThresholdEffect(boolval($values['values'][$prefix . 'threshold_effect']));
 			$this->setProductCategories($values['values'][$prefix . 'product_cat']);
@@ -287,7 +293,6 @@ EOT;
 		$this->setMinAmount(\get_post_meta($post->ID, 'wre_event_min_amount', true));
 		$this->setOnSaleStatus(\get_post_meta($post->ID, 'wre_event_onsale', true));
 		$this->optFromPost($post);
-		$this->optSponsorshipFromPost($post);
 		return parent::_fromPost($post);
 	}
 
@@ -297,7 +302,6 @@ EOT;
 		\update_post_meta($id, 'wre_event_product_neg_cat', $this->getProductExcludedCategories());
 		\update_post_meta($id, 'wre_event_min_amount', $this->getMinAmount());
 		\update_post_meta($id, 'wre_event_onsale', $this->getOnSaleStatus());
-		$this->optSponsorshipSave($id);
 		$this->optSave($id);
 		return parent::_save($id);
 	}
@@ -322,10 +326,10 @@ EOT;
 		}
 
 		if ('=' == substr($value, 0, 1)) {
-			$value = sprintf(_x('[%1$s] / %2$s', "Point per money spent", 'woorewards-lite'), $value, $amount);
+			$value = sprintf(_x('[%1$s] / %2$s', "Point per money spent", 'woorewards-pro'), $value, $amount);
 		} elseif (\is_numeric($value) && $value > 0) {
 			$points = \LWS_WooRewards::formatPointsWithSymbol($value, $this->getPoolName());
-			$value = sprintf(_x('%1$s / %2$s', "Point per money spent", 'woorewards-lite'), $points, $amount);
+			$value = sprintf(_x('%1$s / %2$s', "Point per money spent", 'woorewards-pro'), $points, $amount);
 		} else {
 			$value = \str_replace('[spent]', $amount, $value);
 		}
@@ -336,8 +340,6 @@ EOT;
 	function orderDone($order)
 	{
 		if (!$this->acceptOrder($order->order))
-			return $order;
-		if (!$this->isValidOriginByOrder($order->order, $this->isGuestAllowed()))
 			return $order;
 		if(!$this->isValidCurrency($order->order))
 			return $order;
@@ -426,11 +428,6 @@ EOT;
 
 		// If we find an item with a cat in our allowed cat list, the product is valid.
 		return !empty(array_intersect($product_cats, $whiteList));
-	}
-
-	function isGuestAllowed()
-	{
-		return false;
 	}
 
 	function getPointsForProduct(\WC_Product $product)

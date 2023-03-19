@@ -39,14 +39,16 @@
 	flex-wrap: nowrap;
 	white-space: nowrap;
 	box-sizing: border-box;
-	padding: 0 5px;
+	font-family: "Poppins";
+		border-radius: 4px;
+		padding: 0 10px;
 }
 .pool-info.status {
 	text-transform: uppercase;
 	font-weight: bold;
 }
 .pool-info.status.enabled {
-	background-color: #0a610a;
+	background-color: #0a714a;
 	color: #fff;
 }
 .pool-info.status.disabled {

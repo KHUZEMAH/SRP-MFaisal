@@ -774,6 +774,20 @@ class Pool
 		return $this;
 	}
 
+	public function formatPoints($points, $withSym=true)
+	{
+		if ($withSym) {
+			return \LWS_WooRewards::formatPointsWithSymbol($points, $this->getName());
+		} else {
+			return \LWS_WooRewards::formatPoints($points, $this->getName());
+		}
+	}
+
+	public function getSymbol($count = 1)
+	{
+		return \LWS_WooRewards::getPointSymbol($count, $this->getName());
+	}
+
 	public function triggerOrderDone($order_id, $order)
 	{
 		$onceKey = \LWS\WOOREWARDS\Abstracts\Event::formatType(\get_class()) . '-' . $this->getId();
@@ -782,7 +796,47 @@ class Pool
 			update_post_meta($order_id, $onceKey, \date(DATE_W3C));
 			$action = self::parseOrder($order_id, $order);
 			\apply_filters('lws_woorewards_wc_order_done_'.$this->getName(), $action);
+
+			// add a note about this
+			$points = $this->getPointsOnOrder($order);
+			if ($points) {
+				foreach ($points as $userId => $data) {
+					$user = \get_user_by('ID', $userId);
+					if ($user) {
+						$name = $user->display_name ? $user->display_name : $user->login;
+					} else {
+						$name = sprintf('user[%d]', $userId);
+					}
+					\LWS\WOOREWARDS\Core\OrderNote::add($order, sprintf(
+						__('<b>%1$s</b> earned <b>%2$s</b> in <b>%3$s</b> for this order', 'woorewards-lite'),
+						$name, $this->formatPoints($data->points), $this->getOption('title')
+					), $this);
+				}
+			} elseif ($this->getEvents()->filterByCategories('order')->count()) {
+				// only show no points if an event is about order
+				\LWS\WOOREWARDS\Core\OrderNote::add($order, sprintf(
+					__('No %1$s earned in <b>%2$s</b> for this order', 'woorewards-lite'),
+					$this->getSymbol(), $this->getOption('title')
+				), $this);
+			}
 		}
+	}
+
+	/** look back at history to get point amount given for that order. */
+	public function getPointsOnOrder($order, $eventCollection=false)
+	{
+		if (!$eventCollection)
+			$eventCollection = $this->getEvents();
+		$origins = $eventCollection->map(function($e) {return (int)$e->getId();});
+		if ($origins) {
+			global $wpdb;
+			$origins = \implode(',', $origins);
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery
+			return $wpdb->get_results($wpdb->prepare("SELECT `user_id`, SUM(`points_moved`) as `points` FROM {$wpdb->lwsWooRewardsHistoric}
+WHERE `origin` IN ({$origins}) AND `order_id`=%d AND `points_moved` IS NOT NULL AND `blog_id`=%d
+GROUP BY `user_id`", (int)$order->get_id(), (int)\get_current_blog_id()), OBJECT_K);
+		}
+		return array();
 	}
 
 	/** Build the historical structure casted to events for points.

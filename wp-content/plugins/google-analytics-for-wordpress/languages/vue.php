@@ -8,16 +8,16 @@ $generated_i18n_strings = array(
 	__( '2', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/ReportReAuth.vue:45
-	// Reference: src/plugins/monsterinsights-frontend-helper-plugin.js:14
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:205
 	__( 'Error', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/plugins/monsterinsights-frontend-helper-plugin.js:15
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:206
 	__( 'Please try again.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:357
 	__( 'Today', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/input/PopularPostsWidgetThemePreview.vue:99
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:363
 	__( 'Yesterday', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:369
@@ -29,7 +29,7 @@ $generated_i18n_strings = array(
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:381
 	__( 'Last 7 days', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports-overview/monsterinsights-ReportOverviewDatePicker-Lite.vue:50
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:387
 	__( 'Last 30 days', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-wizard-helper-plugin.js:46
@@ -234,16 +234,16 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/widget/components/WidgetReminder.vue:36
 	__( 'See the full analytics report!', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/monsterinsights-site.vue:85
+	// Reference: src/modules/settings/monsterinsights-site.vue:97
 	__( 'Congratulations! ', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/monsterinsights-site.vue:86
+	// Reference: src/modules/settings/monsterinsights-site.vue:98
 	__( 'You Successfully Unlocked the most powerful Analytics plugin', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/frontend/monsterinsights-frontend.vue:38
 	__( 'Insights', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/widget/widget.vue:26
+	// Reference: src/modules/reports/components/monsterinsights-YearInReviewReportsPdfExport.vue:19
 	__( 'Overview Report', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/SettingsFirstTImeNotice.vue:43
@@ -270,15 +270,14 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:140
 	__( 'See All Features', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/frontend/components/FrontendUpsell-Lite.vue:11
-	// Reference: src/modules/reports/components/reports-overview/monsterinsights-ReportOverviewDatePicker-Lite.vue:53
+	// Reference: src/modules/reports/components/monsterinsights-ReportsPdfExport-Lite.vue:50
 	__( 'Upgrade to PRO', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:142
 	__( 'per year', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/monsterinsights-addons-Lite.vue:80
-	// Reference: src/modules/growth-tools/monsterinsights-growth-tools.vue:206
+	// Reference: src/modules/addons/components/AddonButton.vue:30
+	// Reference: src/modules/reports/components/reports-overview/ReportOverviewUpsellMobile-Lite.vue:24
 	__( 'Upgrade Now', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:144
@@ -333,16 +332,15 @@ $generated_i18n_strings = array(
 	__( 'Ecommerce Report', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/SettingsLiteUpsellLarge.vue:34
-	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:190
 	__( 'Form Conversions', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/about/components/monsterinsights-AboutTabLiteVsPro.vue:153
+	// Reference: src/modules/settings/components/SettingsLiteUpsellLarge.vue:30
 	__( 'Custom Dimensions', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:280
 	__( 'Author Tracking', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:193
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabConversions-Lite.vue:33
 	__( 'Google Optimize', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/monsterinsights-welcome-Lite.vue:194
@@ -401,6 +399,7 @@ $generated_i18n_strings = array(
 	__( 'Re-Authenticating', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/ReportReAuth.vue:47
+	// Reference: src/modules/reports/components/monsterinsights-YearInReviewReportsPdfExport.vue:182
 	__( 'Ok', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/components/TheQuickLinks.vue:31
@@ -422,9 +421,11 @@ $generated_i18n_strings = array(
 	/* Translators: Placeholder is replaced with WPForms. */
 	__( 'Recommended Plugin: %s', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/addons/components/AddonButton.vue:54
 	// Reference: src/modules/widget/components/WidgetFooter.vue:20
 	__( 'Install', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/addons/components/AddonButton.vue:50
 	// Reference: src/modules/widget/components/WidgetFooter.vue:21
 	__( 'Activate', 'google-analytics-for-wordpress' ),
 
@@ -484,59 +485,57 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/frontend/components/FrontendNoAuth.vue:26
 	__( 'Connect MonsterInsights and Setup Website Analytics', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:104
 	// Reference: src/modules/tools/components/ToolsNavigation.vue:17
 	__( 'Import Export', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:112
+	// Reference: src/modules/settings/routes/site.js:113
 	__( 'PrettyLinks Integration', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/about/components/AboutNavigation-Lite.vue:17
-	// Reference: src/modules/settings/routes/network.js:35
 	__( 'About Us', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/about/components/AboutNavigation-Lite.vue:18
-	// Reference: src/modules/settings/routes/network.js:43
 	__( 'Getting Started', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/about/components/AboutNavigation-Lite.vue:19
-	// Reference: src/modules/settings/routes/network.js:52
 	__( 'Lite vs Pro', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/PopularPostsNavigation.vue:26
+	// Reference: src/modules/settings/routes/site.js:178
 	__( 'Inline Popular Posts', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/PopularPostsNavigation.vue:27
+	// Reference: src/modules/settings/routes/site.js:186
 	__( 'Popular Posts Widget', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/PopularPostsNavigation.vue:28
+	// Reference: src/modules/settings/routes/site.js:195
 	__( 'Popular Products', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:198
+	// Reference: src/modules/settings/routes/site.js:204
 	__( 'Settings', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:209
+	// Reference: src/modules/settings/routes/site.js:215
 	__( 'Sub menu item for WooCommerce Analytics', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabsNavigation.vue:75
+	// Reference: src/modules/settings/routes/site.js:40
 	__( 'General', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/growth-tools/components/GrowthNavigation.vue:19
+	// Reference: src/modules/settings/routes/site.js:48
 	__( 'Engagement', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabsNavigation.vue:77
+	// Reference: src/modules/settings/routes/site.js:56
 	__( 'eCommerce', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabsNavigation.vue:78
+	// Reference: src/modules/settings/routes/site.js:64
 	__( 'Publisher', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabsNavigation.vue:79
+	// Reference: src/modules/settings/routes/site.js:72
 	__( 'Conversions', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabsNavigation.vue:80
+	// Reference: src/modules/settings/routes/site.js:80
 	__( 'Advanced', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:96
 	// Reference: src/modules/tools/components/ToolsNavigation.vue:18
 	__( 'URL Builder', 'google-analytics-for-wordpress' ),
 
@@ -556,14 +555,11 @@ $generated_i18n_strings = array(
 	__( 'MonsterInsights makes it "effortless" for you to connect your site with Google Analytics and see reports right here in the WordPress dashboard.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/ReportNoAuth.vue:29
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:66
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:107
 	__( 'Launch Setup Wizard', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/ReportNoAuth.vue:30
 	__( 'Please ask your webmaster to connect MonsterInsights to Google Analytics.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/monsterinsights-ReportsNavigation.vue:47
 	// Reference: src/modules/widget/store/index.js:77
 	__( 'Overview', 'google-analytics-for-wordpress' ),
 
@@ -598,31 +594,34 @@ $generated_i18n_strings = array(
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:251
 	__( 'Publishers Report', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportEcommerce-Lite.vue:23
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:263
 	__( 'eCommerce Report', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportSearchConsole-Lite.vue:26
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:301
 	__( 'Search Console Report', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:277
 	__( 'Dimensions Report', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/reports/components/reports/monsterinsights-ReportForms-Lite.vue:25
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:291
 	__( 'Forms Report', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/reports/monsterinsights-ReportRealTime-Lite.vue:51
+	// Reference: src/modules/reports/routes/index.js:73
 	__( 'Real-Time Report', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:324
 	__( 'Site Speed Report', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/woocommerce-insights/woocommerce-insights-Lite.vue:156
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:273
 	__( 'Time to Purchase', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/widget/store/index.js:104
 	__( 'This list shows how many days from first visit it took users to purchase products from your site.', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/woocommerce-insights/woocommerce-insights-Lite.vue:151
 	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:269
 	__( 'Sessions to Purchase', 'google-analytics-for-wordpress' ),
 
@@ -641,27 +640,21 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/widget/store/index.js:128
 	__( 'This list shows the percentage of carts that never went through the checkout process.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:279
 	// Reference: src/modules/widget/store/index.js:20
 	__( 'Top Posts/Pages', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:291
 	// Reference: src/modules/widget/store/index.js:21
 	__( 'This list shows the most viewed posts and pages on your website.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:273
 	// Reference: src/modules/widget/store/index.js:27
 	__( 'New vs. Returning Visitors', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:287
 	// Reference: src/modules/widget/store/index.js:28
 	__( 'This graph shows what percent of your user sessions come from new versus repeat visitors.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:274
 	// Reference: src/modules/widget/store/index.js:34
 	__( 'Device Breakdown', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:288
 	// Reference: src/modules/widget/store/index.js:35
 	__( 'This graph shows what percent of your visitor sessions are done using a traditional computer or laptop, tablet or mobile device to view your site.', 'google-analytics-for-wordpress' ),
 
@@ -809,10 +802,10 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/about/components/monsterinsights-AboutTabGettingStarted.vue:88
 	__( 'More advanced features', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/about/components/monsterinsights-AboutTabLiteVsPro.vue:57
+	// Reference: src/modules/about/components/monsterinsights-AboutTabGettingStarted.vue:90
 	__( 'Get MonsterInsights Pro Today and Unlock all the Powerful Features', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/about/components/monsterinsights-AboutTabLiteVsPro.vue:59
+	// Reference: src/modules/about/components/monsterinsights-AboutTabGettingStarted.vue:92
 	/* Translators: Makes text green. */
 	__( 'Bonus: MonsterInsights Lite users get %1$s50%% off regular price%2$s, automatically applied at checkout.', 'google-analytics-for-wordpress' ),
 
@@ -972,6 +965,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/about/components/monsterinsights-AboutTabLiteVsPro.vue:99
 	__( 'One-click Form Events Tracking', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:100
 	// Reference: src/modules/wizard-onboarding/components/inputs/monsterinsights-OnboardingLicense-Lite.vue:27
 	__( 'License Key', 'google-analytics-for-wordpress' ),
 
@@ -979,32 +973,27 @@ $generated_i18n_strings = array(
 	/* Translators: Add link to retrieve license key from account. */
 	__( 'Add your MonsterInsights license key from the email receipt or account area. %1$sRetrieve your license key%2$s.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:57
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:101
 	__( 'Google Authentication', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:58
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:102
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:83
 	__( 'Connect Google Analytics + WordPress', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:59
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:103
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:84
 	__( 'You will be taken to the MonsterInsights website where you\'ll need to connect your Analytics account.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:60
+	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:37
 	__( 'Miscellaneous', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:62
+	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:39
 	__( 'Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:63
+	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:40
 	__( 'Hide Announcements', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:64
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:105
 	__( 'Setup Wizard', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/monsterinsights-SettingsNetwork.vue:65
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:106
 	__( 'Use our configuration wizard to properly setup Google Analytics with WordPress (with just a few clicks).', 'google-analytics-for-wordpress' ),
 
@@ -1044,7 +1033,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/tools/components/monsterinsights-ToolsPrettyLinksFlow.vue:121
 	__( 'Pretty Links Installed & Activated', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/tools/components/monsterinsights-ToolsPrettyLinksFlow.vue:122
+	// Reference: src/modules/tools/components/monsterinsights-ToolsTabUrlBuilder.vue:206
 	__( 'Download Pretty Links', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/tools/components/monsterinsights-ToolsPrettyLinksFlow.vue:123
@@ -1257,7 +1246,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepWpforms.vue:51
 	__( 'Continue & Install WPForms', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepWpforms.vue:52
+	// Reference: src/modules/addons/components/AddonButton.vue:42
 	__( 'Installing...', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/widget/components/settings/WidgetSettingsWidth.vue:42
@@ -1266,7 +1255,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/widget/components/settings/WidgetSettingsWidth.vue:42
 	__( 'Show in full-width mode', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports-overview/monsterinsights-ReportOverviewUpsell-Lite.vue:31
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabEcommerce-Lite.vue:56
 	__( 'Upgrade to MonsterInsights Pro', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/store/actions.js:168
@@ -1295,6 +1284,7 @@ $generated_i18n_strings = array(
 	__( 'View Addons', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/store/actions.js:240
+	// Reference: src/modules/seo/components/yoast.vue:266
 	__( 'Dismiss', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/store/actions.js:247
@@ -1469,19 +1459,19 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/woocommerce-insights/woocommerce-insights-Lite.vue:123
 	__( 'Level-up Your eCommerce store with %1$sMonsterInsights + WooCommerce!%1$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:108
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:87
 	/* Translators: placeholders make text small. */
 	__( 'Yes (recommended) %1$s- Get the latest features, bugfixes, and security updates as they are released.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:113
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:92
 	/* Translators: placeholders make text small. */
 	__( 'Minor only %1$s- Get bugfixes and security updates, but not major features.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:118
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:97
 	/* Translators: placeholders make text small. */
 	__( 'None %1$s- Manually update everything.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:85
+	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabGeneral-Lite.vue:104
 	__( 'Automatic Updates', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/steps/monsterinsights-OnboardingStepSuccess.vue:31
@@ -1514,8 +1504,8 @@ $generated_i18n_strings = array(
 	/* Translators: Line break. */
 	__( 'Unique %s Sessions', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportRealTime-Lite.vue:63
-	/* Translators: Number of unique pageviews. */
+	// Reference: src/modules/widget/components/reports/monsterinsights-WidgetReportOverview-Lite.vue:85
+	/* Translators: Line break. */
 	__( 'Unique %s Pageviews', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/widget/components/reports/monsterinsights-WidgetReportOverview-Lite.vue:86
@@ -1611,7 +1601,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:340
 	__( 'Average Age', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:120
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:113
 	__( 'Behavior', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:342
@@ -1802,15 +1792,12 @@ $generated_i18n_strings = array(
 	/* Translators: Number of visitors and device percentage. */
 	__( '%1$s&#37 of your visitors were on a %2$s device.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:205
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:579
 	__( 'Desktop', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:206
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:580
 	__( 'Tablet', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportOverview.vue:207
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:581
 	__( 'Mobile', 'google-analytics-for-wordpress' ),
 
@@ -1839,7 +1826,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/reports/components/reports/monsterinsights-ReportRealTime-Lite.vue:60
 	__( 'There is no need to refresh the browser (doing so won\'t have any effect).', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/reports/monsterinsights-ReportRealTime-Lite.vue:61
+	// Reference: src/plugins/monsterinsights-reports-helper-plugin.js:318
 	__( 'Pageviews Per Minute', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/reports/monsterinsights-ReportRealTime-Lite.vue:64
@@ -1915,37 +1902,35 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/SettingsLiteUpsellLarge.vue:32
 	__( 'Banner Ads', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/input/tab-publisher/monsterinsights-SettingsInputAmp-Lite.vue:22
+	// Reference: src/modules/settings/components/SettingsLiteUpsellLarge.vue:35
 	__( 'Google AMP', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/SettingsLiteUpsellLarge.vue:36
 	__( 'SEO Score Tracking', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/growth-tools/components/GrowthPluginButton.vue:26
+	// Reference: src/modules/addons/components/AddonButton.vue:34
 	__( 'Activating...', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/addons/components/AddonButton.vue:38
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:135
 	__( 'Deactivating...', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/addons/components/AddonButton.vue:46
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:141
 	__( 'Deactivate', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:67
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:68
 	/* Translators: The status of the addon (installed/active/inactive). */
 	__( 'Status: %s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:113
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:115
 	__( 'Not Installed', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:119
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:121
 	__( 'Network Active', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:119
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:121
 	__( 'Active', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:121
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:123
 	__( 'Inactive', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:162
@@ -1964,7 +1949,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:75
 	__( 'Users that have at least one of these roles will be able to view the reports.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:76
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepRecommendedSettings.vue:119
 	__( 'Users that have at least one of these roles will be able to view the reports, along with any user with the manage_options capability.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabAdvanced.vue:77
@@ -2020,8 +2005,8 @@ $generated_i18n_strings = array(
 	/* Translators: Error status and error text. */
 	__( 'Can\'t load settings. Error: %1$s, %2$s', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/auth/api/index.js:129
 	// Reference: src/modules/license/api/index.js:156
-	// Reference: src/modules/settings/api/index.js:28
 	__( 'You appear to be offline.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/auth/api/index.js:232
@@ -2174,24 +2159,30 @@ $generated_i18n_strings = array(
 	__( 'Or manually enter UA code (limited functionality)', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:88
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:97
 	__( 'Dual Tracking Profile', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:90
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:99
 	__( 'The dual tracking feature allows you to continue tracking this site into an existing GAv3 property so you can continue to use the GA reports you are used to already. Learn more about this feature %1$shere%2$s.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:94
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:103
 	__( 'Your Universal Analytics code should look like UA-XXXXXXXXXX where the X\'s are numbers.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:96
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:105
 	__( 'The dual tracking feature allows you to begin tracking this site into a GAv4 property to take advantage of the new GAv4 analysis tools. Learn more about this feature %1$shere%2$s.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/input/tab-general/monsterinsights-SettingsInputAuthenticate-Lite.vue:120
 	__( 'Your Measurement ID should look like G-XXXXXXXXXX where the X\'s are numbers.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:101
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:110
 	__( 'Measurement Protocol API Secret', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:103
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:112
 	__( 'The Measurement Protocol API secret allows your site to send tracking data to Google Analytics. To retrieve your Measurement Protocol API Secret, follow %1$sthis guide%2$s.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/input/tab-general/monsterinsights-SettingsInputAuthenticate-Lite.vue:169
@@ -2240,6 +2231,7 @@ $generated_i18n_strings = array(
 	__( 'Warning: If you use a manual UA code, you won\'t be able to use any of the reporting and some of the tracking features. Your UA code should look like UA-XXXXXX-XX where the X\'s are numbers.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:86
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:95
 	__( 'Manually enter your GA4 Measurement ID', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/tabs/monsterinsights-SettingsTabEngagement.vue:77
@@ -2364,7 +2356,6 @@ $generated_i18n_strings = array(
 	__( 'Pro Tip:', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/ReportTableBox.vue:69
-	// Reference: src/modules/reports/components/reports-year-in-review/ReportYearInReviewListBox.vue:47
 	__( 'Show', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/widget/components/settings/WidgetSettingsHide.vue:14
@@ -2385,19 +2376,19 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/widget/components/settings/WidgetSettingsHide.vue:41
 	__( 'You can re-enable the MonsterInsights widget at any time using the "Screen Options" menu on the top right of this page', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/SettingsAddonUpgrade.vue:39
+	// Reference: src/modules/settings/components/input/tab-engagement/SettingsInputEUCompliance-Lite.vue:22
 	__( 'Upgrade', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:41
+	// Reference: src/modules/settings/components/input/tab-general/SettingsInputUsageTracking-Lite.vue:29
 	__( 'Usage Tracking', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/input/tab-general/SettingsInputUsageTracking-Lite.vue:30
 	__( 'Allow Usage Tracking', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:42
+	// Reference: src/modules/settings/components/input/tab-general/SettingsInputUsageTracking-Lite.vue:31
 	__( 'By allowing us to track usage data we can better help you because we know with which WordPress configurations, themes and plugins we should test.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/components/input/tab-advanced/SettingsInputMisc-Lite.vue:45
+	// Reference: src/modules/settings/components/input/tab-general/SettingsInputUsageTracking-Lite.vue:33
 	/* Translators: Add links to documentation. */
 	__( 'Complete documentation on usage tracking is available %1$shere%2$s.', 'google-analytics-for-wordpress' ),
 
@@ -2442,10 +2433,10 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/seo/components/yoast.vue:167
 	__( 'Automatically migrate all of your SEO settings with just 1 click!', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:165
+	// Reference: src/modules/seo/components/yoast.vue:168
 	__( '1,938', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:166
+	// Reference: src/modules/seo/components/yoast.vue:169
 	__( '2+ Million Active Installs', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/seo/components/yoast.vue:172
@@ -2454,10 +2445,10 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/seo/components/yoast.vue:173
 	__( 'Set up the proper SEO foundations in less than 10 minutes.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:175
+	// Reference: src/modules/seo/components/yoast.vue:174
 	__( 'SEO Audit Checklist', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:176
+	// Reference: src/modules/seo/components/yoast.vue:175
 	__( 'Analyze your entire WordPress site to detect critical errors and get actionable insights to boost your SEO and get more traffic.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/seo/components/yoast.vue:176
@@ -2469,37 +2460,37 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/seo/components/yoast.vue:178
 	__( 'Get AIOSEO for WordPress', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:190
+	// Reference: src/modules/seo/components/yoast.vue:181
 	__( 'Get the #1 Most Powerful WordPress SEO Plugin Today', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:191
+	// Reference: src/modules/seo/components/yoast.vue:182
 	__( 'Try it out today, for free.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:194
+	// Reference: src/modules/seo/components/yoast.vue:185
 	__( 'Join 2,000,000+ Professionals who use AIOSEO to Improve Their Website Search Rankings.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:195
+	// Reference: src/modules/seo/components/yoast.vue:186
 	__( 'Activate and Install the Plugin with just one click!', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/seo/components/yoast.vue:251
 	__( 'Installing AIOSEO...', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:250
+	// Reference: src/modules/seo/components/yoast.vue:260
 	__( 'Congrats! All-in-One SEO Installed.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/seo/components/yoast.vue:277
 	__( 'Switch to AIOSEO', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:271
+	// Reference: src/modules/seo/components/yoast.vue:281
 	__( 'Installation Failed. Please refresh and try again.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:278
+	// Reference: src/modules/seo/components/yoast.vue:288
 	__( 'Activating AIOSEO...', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:285
+	// Reference: src/modules/seo/components/yoast.vue:295
 	__( 'Activate AIOSEO', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/seo/components/aioseo.vue:289
+	// Reference: src/modules/seo/components/yoast.vue:299
 	__( 'Activation Failed. Please refresh and try again.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/input/SettingsInputRepeater.vue:177
@@ -2581,7 +2572,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepRecommendedSettings.vue:86
 	__( 'MonsterInsights uses an advanced system to automatically detect all outbound links, download links, affiliate links, telephone links, mail links, and more automatically. We do all the work for you so you don\'t have to write any code.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/wizard-onboarding/components/steps/monsterinsights-OnboardingStepRecommendedAddons-Lite.vue:94
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepRecommendedSettings.vue:87
 	__( 'Enhanced Link Attribution', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepRecommendedSettings.vue:88
@@ -2644,7 +2635,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:85
 	__( 'Whoops, something went wrong and we weren\'t able to connect to MonsterInsights. Please enter your Google UA code manually.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepWelcome.vue:41
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:88
 	__( 'Save and Continue', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:140
@@ -2780,19 +2771,19 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/popular-posts/components/PopularPostsSettings.vue:95
 	__( 'Error emptying the popular posts cache. Please try again.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:119
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:112
 	__( 'Choose Theme', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:121
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:114
 	__( 'Widget Styling', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:122
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:115
 	__( 'Choose how you want to determine the colors, font sizes and spacing of the widget.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:123
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:116
 	__( 'Sort By', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:124
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:117
 	__( 'Choose how you\'d like the widget to determine your popular posts.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:118
@@ -2804,40 +2795,40 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:120
 	__( 'Title your widget and set its display preferences.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:129
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:121
 	__( 'Include in Post Types', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:130
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:122
 	__( 'Exclude from specific posts', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:132
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:124
 	/* Translators: Placeholders make the text bold. */
 	__( 'Choose which Post Types the widget %1$sWILL%2$s be placed.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:134
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:126
 	/* Translators: Placeholders make the text bold. */
 	__( 'Choose from which Posts the widget %1$sWILL NOT%2$s be placed.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:136
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:127
 	__( 'Loading Themes', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:143
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:132
 	/* Translators: placeholders make text small. */
 	__( 'Default Styles %1$s- As seen above.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:148
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:137
 	/* Translators: placeholders make text small. */
 	__( 'No Styles %1$s- Use your own CSS.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:155
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:144
 	/* Translators: placeholders make text small. */
 	__( 'Comments %1$s- Randomly rotate your most commented on posts from the past 30 days.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:160
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:149
 	/* Translators: placeholders make text small. */
 	__( 'SharedCount %1$s- Connect with your SharedCount account to determine popular posts by share count.%2$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:165
+	// Reference: src/modules/popular-posts/components/PopularPostsWidget.vue:154
 	/* Translators: placeholders make text small. */
 	__( 'Curated %1$s- Choose the posts which will randomly rotate in the widget.%2$s', 'google-analytics-for-wordpress' ),
 
@@ -2853,7 +2844,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:128
 	__( 'Choose where in the post body the widget will be placed.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:135
+	// Reference: src/modules/popular-posts/components/input/PopularPostsThemeCustomizeControls.vue:137
 	__( 'Customize Design', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/PopularPostsInline.vue:137
@@ -2945,7 +2936,7 @@ $generated_i18n_strings = array(
 	/* Translators: Page number of total pages. 1 & 2 make the first part of the text bold. */
 	__( '%1$sPage %3$s%2$s of %4$s', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/popular-posts/components/input/PopularPostsWidgetThemePreview.vue:92
+	// Reference: src/modules/popular-posts/components/input/PopularPostsThemeCustomizeControls.vue:127
 	__( 'Theme Preview', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/popular-posts/components/input/PopularPostsWidgetThemePreview.vue:93
@@ -3753,9 +3744,11 @@ $generated_i18n_strings = array(
 	__( 'Warning: If you use a manual GA4 Measurement ID, you won\'t be able to use any of the reporting and some of the tracking features. Your Measurement ID should look like G-XXXXXXXXXX where the X\'s are combination of numbers and letters.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:100
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:109
 	__( 'Your Measurement ID should look like G-XXXXXXXXXX where the X\'s are combination of numbers and letters.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:87
+	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:96
 	__( 'Warning: If you use a manual GA4 Measurement ID, you won\'t be able to use any of the reporting and some of the tracking features. Your UA code should look like G-XXXXXXXXXX where the X\'s are combination of numbers and letters.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/settings/components/input/tab-general/monsterinsights-SettingsInputAuthenticate-Lite.vue:140
@@ -3776,7 +3769,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/growth-tools/monsterinsights-growth-tools.vue:222
 	__( 'Start accepting one-time and recurring payments on your WordPress site without setting up a shopping cart. No code required.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:73
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:74
 	__( 'License Expired', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/widget/components/WidgetReminder.vue:85
@@ -3798,62 +3791,63 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/frontend/components/FrontendUpsell-Lite.vue:13
 	__( 'View All Reports', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:100
+	// Reference: src/modules/userfeedback/userfeedback.vue:188
 	__( 'Oops! There was an error processing request. Please try again later.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:82
-	/* Translators: tag to make text italic starts, tag end. */
+	// Reference: src/modules/userfeedback/userfeedback.vue:134
 	__( 'See What Your Website Visitors Are %1$sReally%2$s Thinking!', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:83
+	// Reference: src/modules/userfeedback/userfeedback.vue:141
 	__( 'UserFeedback lets you easily collect feedback from your website in real time. You can use this important data to increase your traffic, sales, newsletter signups, engagement, and more.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:86
+	// Reference: src/modules/userfeedback/userfeedback.vue:146
 	__( 'Understand exactly why visitors left your website, what convinced them to make a purchase, why they signed up for a newsletter, and more with real verbatim feedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:87
+	// Reference: src/modules/userfeedback/userfeedback.vue:150
 	__( 'Ask open ended questions, run polls or surveys, gather ratings, and more with an easy survey builder', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:88
+	// Reference: src/modules/userfeedback/userfeedback.vue:154
 	__( 'Customize targeting rules to get specific feedback on certain pages or products', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:89
+	// Reference: src/modules/userfeedback/userfeedback.vue:158
 	__( 'Easily analyze your responses and export data', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:91
+	// Reference: src/modules/userfeedback/userfeedback.vue:163
 	__( 'Install & Activate UserFeedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:92
+	// Reference: src/modules/userfeedback/userfeedback.vue:167
 	__( 'Install UserFeedback by clicking the button below.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:93
+	// Reference: src/modules/userfeedback/userfeedback.vue:171
 	__( 'Install UserFeedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:94
+	// Reference: src/modules/userfeedback/userfeedback.vue:172
 	__( 'Set Up UserFeedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:95
+	// Reference: src/modules/userfeedback/userfeedback.vue:173
 	__( 'Run the UserFeedback setup wizard to launch your first UserFeedback survey.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:96
+	// Reference: src/modules/userfeedback/userfeedback.vue:177
 	__( 'Start Setup', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:97
+	// Reference: src/modules/userfeedback/userfeedback.vue:179
 	__( 'Installing UserFeedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:98
+	// Reference: src/modules/userfeedback/userfeedback.vue:183
 	__( 'Activating UserFeedback', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/userfeedback/exactmetrics-userfeedback.vue:99
+	// Reference: src/modules/userfeedback/userfeedback.vue:187
 	__( 'Installed & Active', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:85
 	__( 'Oops! Something went wrong and we weren\'t able to connect to MonsterInsights. Please enter your Google UA code manually.', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/popular-posts/api/index.js:44
 	// Reference: src/modules/settings/api/index.js:81
 	/* Translators: Error status and error text, Support link tag starts with url and support link tag ends. */
 	__( 'Can\'t save settings. Error: %1$s, %2$s. Please %3$scontact our support%4$s team for assistance.', 'google-analytics-for-wordpress' ),
 
+	// Reference: src/modules/popular-posts/api/index.js:49
 	// Reference: src/modules/settings/api/index.js:86
 	/* Translators: Support link tag starts with url and support link tag ends. */
 	__( 'Oops! There was an error, your settings were not saved. Please try again in a few minutes. If the issue persists, please %1$scontact our support%2$s team.', 'google-analytics-for-wordpress' ),
@@ -3960,7 +3954,6 @@ $generated_i18n_strings = array(
 	/* Translators: Support link tag starts with url and support link tag ends. */
 	__( 'Oops! Can\'t load posts. Please try again in a few minutes. If the issue persists, please %1$scontact our support%2$s team.', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/settings/routes/site.js:120
 	// Reference: src/modules/tools/components/ToolsNavigation.vue:19
 	__( 'Website Badge', 'google-analytics-for-wordpress' ),
 
@@ -4079,7 +4072,6 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/reports/routes/index.js:102
 	__( 'Year in Review', 'google-analytics-for-wordpress' ),
 
-	// Reference: src/modules/reports/components/monsterinsights-ReportsNavigation.vue:64
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:414
 	__( '%s Year in Review', 'google-analytics-for-wordpress' ),
 
@@ -4138,6 +4130,12 @@ $generated_i18n_strings = array(
 	__( 'No records found.', 'google-analytics-for-wordpress' ),
 
 	// Reference: src/modules/reports/components/reports/monsterinsights-YearInReview-Lite.vue:347
-	__( 'Take advantage of what you’ve already built. See how to get more traffic from existing content in our 32 Marketing Hacks to Grow Your Traffic guide.', 'google-analytics-for-wordpress' )
+	__( 'Take advantage of what you’ve already built. See how to get more traffic from existing content in our 32 Marketing Hacks to Grow Your Traffic guide.', 'google-analytics-for-wordpress' ),
+
+	// Reference: src/modules/userfeedback/userfeedback.vue:178
+	__( 'View Surveys', 'google-analytics-for-wordpress' ),
+
+	// Reference: src/modules/addons/components/monsterinsights-AddonBlock.vue:75
+	__( 'Status: Upgrade Required', 'google-analytics-for-wordpress' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */

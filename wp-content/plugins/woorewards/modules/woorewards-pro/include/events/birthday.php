@@ -60,10 +60,10 @@ EOT;
 
 		$settingsUrl = \esc_attr(\add_query_arg(
 			array(
-				'page' => LWS_WOOREWARDS_PAGE.'.settings',
-				'tab' => 'woocommerce'
+				'page' => LWS_WOOREWARDS_PAGE.'.loyalty',
+				'tab' => 'general_settings'
 			),
-			admin_url('admin.php#lws_group_targetable_birthday')
+			admin_url('admin.php#lws_group_targetable_wc_birthday')
 		));
 		$help = sprintf(__("If you don't already have a birthday field in your customer registration form, go <a %s>here</a> to add one.", 'woorewards-pro'), " target='_blank' href='{$settingsUrl}'");
 		$form .= "<div class='field-help displayed'>$help</div>";

@@ -159,6 +159,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __('Select an event', 'woorewards-pro'),
 									'type'  => 'radiogrid',
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'blackfriday', 'label' => __("Black Friday", 'woorewards-pro')),
 											array('value' => 'christmas', 'label' => __("Christmas", 'woorewards-pro')),
@@ -185,6 +187,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __('Select an Event', 'woorewards-pro'),
 									'type'  => 'radiogrid',
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'blackfriday', 'label' => __("Black Friday", 'woorewards-pro')),
 											array('value' => 'cybermonday', 'label' => __("Cyber Monday", 'woorewards-pro')),
@@ -235,6 +239,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-pro')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-pro')),
@@ -420,6 +426,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-pro')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-pro')),
@@ -452,6 +460,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __('Number of images', 'woorewards-pro'),
 									'type'  => 'radiogrid',
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => '1', 'label' => "1"),
 											array('value' => '2', 'label' => "2"),
@@ -515,6 +525,8 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-pro')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-pro')),
@@ -547,7 +559,7 @@ EOT;
 	{
 		$data = $this->getData();
 		$summary = "<div class='lws-wizard-summary-container'>";
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Black Friday / Cyber Monday Settings", 'woorewards-pro') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Black Friday / Cyber Monday Settings", 'woorewards-pro') . "</div>";
 		if ($this->getValue($data['data'], 'bf_event', 'bf_set/*') == "blackfriday") {
 			$validity = '4';
 		} else {
@@ -577,7 +589,7 @@ EOT;
 	{
 		$data = $this->getData();
 		$summary = "<div class='lws-wizard-summary-container'>";
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Christmas Advent Calendar Settings", 'woorewards-pro') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Christmas Advent Calendar Settings", 'woorewards-pro') . "</div>";
 		$value = sprintf(__("Christmas %s", 'woorewards-pro'), \date("Y"));
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Loyalty System Name", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
@@ -617,7 +629,7 @@ EOT;
 	{
 		$data = $this->getData();
 		$summary = "<div class='lws-wizard-summary-container'>";
-		$summary .= "<div class='lws-wizard-summary-title'>" . __("Easter Egg Image Hunt Settings", 'woorewards-pro') . "</div>";
+		$summary .= "<div class='summary-title'>" . __("Easter Egg Image Hunt Settings", 'woorewards-pro') . "</div>";
 		$nbimages = $this->getValue($data['data'], 'ea_count', 'ea_set/*');
 		for ($i = 1; $i <= $nbimages; $i++) {
 			$value = "<img class='lws-wizard-small-image' src='" . LWS_WOOREWARDS_PRO_IMG . "/easter_{$i}.png" . "'/>";
@@ -658,10 +670,10 @@ EOT;
 		{
 			$blackfriday = \date_create('fourth thursday of november ' . $now->format('Y'))->add(new \DateInterval('P1D'));
 			if( $blackfriday < $now )
-				$blackfriday = \date_create('fourth thursday of november ' . $now->format('Y')+1)->add(new \DateInterval('P1D'));
+				$blackfriday = \date_create('fourth thursday of november ' . ($now->format('Y')+1))->add(new \DateInterval('P1D'));
 			$cybermonday = \date_create('fourth thursday of november ' . $now->format('Y'))->add(new \DateInterval('P4D'));
 			if( $cybermonday < $now )
-				$cybermonday = \date_create('fourth thursday of november ' . $now->format('Y')+1)->add(new \DateInterval('P4D'));
+				$cybermonday = \date_create('fourth thursday of november ' . ($now->format('Y')+1))->add(new \DateInterval('P4D'));
 
 			/* Pool Details */
 			if ($this->getValue($data['data'], 'bf_event', 'bf_set/*') == "blackfriday")

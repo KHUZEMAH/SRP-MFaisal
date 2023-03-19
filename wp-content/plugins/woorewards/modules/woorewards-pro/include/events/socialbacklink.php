@@ -31,7 +31,7 @@ class SocialBacklink extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Constraints", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Constraints", 'woorewards-pro'));
 
 		// The social networks
 		$label   = _x("Social network", "Social network sharing Event", 'woorewards-pro');

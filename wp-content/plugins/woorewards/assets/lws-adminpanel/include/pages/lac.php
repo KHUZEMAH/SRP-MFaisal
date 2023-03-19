@@ -108,7 +108,7 @@ abstract class LAC extends \LWS\Adminpanel\Pages\Field
 			return '';
 	}
 
-	protected function modelScript()
+	public static function modelScript()
 	{
 		$dep = array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'lws-base64');
 		foreach( $dep as $uid )

@@ -50,21 +50,31 @@ class EventList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		);
 	}
 
+	function getPopupTitle()
+	{
+		return __("Action to perform to earn points", 'woorewards-lite');
+	}
+
 	protected function getStepInfo()
 	{
 		if (empty($this->stepInfo)) {
-			$this->stepInfo = array(
-				array(
-					"icon" => "lws-icon-questionnaire",
-					"title" => __("Action to perform to earn points", 'woorewards-lite'),
-				),
-				array(
-					"icon" => "lws-icon-setup-preferences",
-					"title" => __("Points value and options", 'woorewards-lite'),
-				)
-			);
+			$this->stepInfo = __("Points value and options", 'woorewards-lite');
 		}
 		return $this->stepInfo;
+	}
+
+	protected function getGroupTitles()
+	{
+		return array(
+			array(
+				'idle' 		=> __("Select a category", 'woorewards-lite'),
+				'selected' 	=> __("Category : ", 'woorewards-lite')
+			),
+			array(
+				'idle' 		=> __("Select an action", 'woorewards-lite'),
+				'selected' 	=> __("Action : ", 'woorewards-lite')
+			)
+		);
 	}
 
 	protected function loadChoices()
@@ -88,11 +98,11 @@ class EventList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 	{
 		$dftIcon = 'lws-icon-c-pulse';
 		return \apply_filters('lws_woorewards_system_item_type_groups', array(
-			'order'            => array('label' => _x("Orders", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points when placing an order", 'woorewards-lite'),'color' => '#cc1d25', 'icon' => 'lws-icon-cart-2'),
-			'site'             => array('label' => _x("Website", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points when performing actions on the website", 'woorewards-lite'), 'color' => '#0e97af', 'icon' => 'lws-icon-home-3'),
-			'social'           => array('label' => _x("Social Media", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points for social media actions", 'woorewards-lite'), 'color' => '#0136a7', 'icon' => 'lws-icon-network-communication'),
-			'sponsorship'      => array('label' => _x("Sponsorship/Referral", "Option Group", 'woorewards-lite'), 'descr' => __("Only sponsors/referrers will earn points with these", 'woorewards-lite'), 'color' => '#7801a7', 'icon' => 'lws-icon-handshake'),
-			'miscellaneous'    => array('label' => _x("Miscellaneous", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points for various reasons", 'woorewards-lite'), 'color' => '#a70190', 'icon' => 'lws-icon-c-pulse'),
+			'order'            => array('label' => _x("Orders", "Option Group", 'woorewards-lite'), 'descr' => __("Customers earn points when they place an order", 'woorewards-lite'), 'color' => '#cc1d25', 'icon' => 'lws-icon-cart-2'),
+			'site'             => array('label' => _x("Website", "Option Group", 'woorewards-lite'), 'descr' => __("Users earn points by registering or posting content", 'woorewards-lite'), 'color' => '#0e97af', 'icon' => 'lws-icon-home-3'),
+			'social'           => array('label' => _x("Social Media", "Option Group", 'woorewards-lite'), 'descr' => __("Users earn points for sharing on social media", 'woorewards-lite'), 'color' => '#0136a7', 'icon' => 'lws-icon-network-communication'),
+			'sponsorship'      => array('label' => _x("Referral", "Option Group", 'woorewards-lite'), 'descr' => __("Referrers earn points when they refer someone", 'woorewards-lite'), 'color' => '#7801a7', 'icon' => 'lws-icon-handshake'),
+			'miscellaneous'    => array('label' => _x("Miscellaneous", "Option Group", 'woorewards-lite'), 'descr' => __("Users earn points for various reasons", 'woorewards-lite'), 'color' => '#a70190', 'icon' => 'lws-icon-c-pulse'),
 			'woovip'           => array('label' => _x("WooVIP", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points related to the WooVIP Plugin", 'woorewards-lite'), 'color' => '#c79648', 'icon' => 'lws-icon-crown'),
 			'woovirtualwallet' => array('label' => _x("WooVirtualWallet", "Option Group", 'woorewards-lite'), 'descr' => __("Earn points related to the WooVirtualWallet Plugin", 'woorewards-lite'), 'color' => '#cd7627', 'icon' => $dftIcon),
 		), 'event');

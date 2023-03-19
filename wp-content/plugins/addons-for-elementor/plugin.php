@@ -45,7 +45,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __clone()
         {
             // Cloning instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.3' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.5' );
         }
         
         /**
@@ -55,7 +55,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __wakeup()
         {
             // Unserializing instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.3' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '7.5' );
         }
         
         private function setup_debug_constants()
@@ -409,6 +409,13 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
                 true
             );
             wp_register_script(
+                'lae-timeline-scripts',
+                LAE_PLUGIN_URL . 'assets/js/widgets/timeline' . $suffix . '.js',
+                array( 'lae-carousel-helper-scripts', 'elementor-frontend' ),
+                LAE_VERSION,
+                true
+            );
+            wp_register_script(
                 'lae-portfolio-scripts',
                 LAE_PLUGIN_URL . 'assets/js/widgets/portfolio' . $suffix . '.js',
                 array( 'elementor-frontend' ),
@@ -645,6 +652,13 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
             if ( !$deactivate_element_posts_multislider ) {
                 require_once LAE_ADDONS_DIR . 'posts-multislider.php';
                 $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Posts_Multislider_Widget() );
+            }
+            
+            $deactivate_element_timeline = lae_get_option( 'lae_deactivate_element_timeline', false );
+            
+            if ( !$deactivate_element_timeline ) {
+                require_once LAE_ADDONS_DIR . 'timeline.php';
+                $widgets_manager->register( new \LivemeshAddons\Widgets\LAE_Timeline_Widget() );
             }
         
         }

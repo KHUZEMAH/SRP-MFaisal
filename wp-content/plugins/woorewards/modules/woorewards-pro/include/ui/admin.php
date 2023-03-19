@@ -17,7 +17,7 @@ class Admin
 		\LWS\WOOREWARDS\PRO\Ui\Editlists\UsersPointsPoolFilter::install();
 
 		\add_action('admin_enqueue_scripts', array($this, 'scripts'));
-		\add_filter('lws_woorewards_ui_loyalty_tab_get', array($this, 'getLoyaltyPage'));
+		\add_filter('lws_woorewards_ui_settings_page_get', array($this, 'getSettingsPage'));
 		\add_filter('lws_adminpanel_pages_' . LWS_WOOREWARDS_PAGE, array($this, 'managePages'));
 		\add_filter('lws_woorewards_admin_pool_general_settings', array($this, 'poolGeneralSettings'), 15, 2); // priority to set after
 		\add_filter('lws_woorewards_admin_userspoints_filters', array($this, 'userspointsFilters'));
@@ -80,7 +80,6 @@ class Admin
 			\do_action('lws_adminpanel_enqueue_lac_scripts', array('select'));
 
 			\wp_enqueue_script('lws-radio');
-			\wp_enqueue_script('lws-switch');
 
 			$tab = isset($_GET['tab']) ? $_GET['tab'] : '';
 			if (strpos($hook, 'loyalty') !== false) {
@@ -113,17 +112,6 @@ class Admin
 		return $scripts;
 	}
 
-	protected function getCurrentPage()
-	{
-		if (isset($this->currentPage))
-			return $this->currentPage;
-		if (isset($_REQUEST['page']) && ($this->currentPage = \sanitize_text_field($_REQUEST['page'])))
-			return $this->currentPage;
-		if (isset($_REQUEST['option_page']) && ($this->currentPage = \sanitize_text_field($_REQUEST['option_page'])))
-			return $this->currentPage;
-		return false;
-	}
-
 	/** Reorganise pages from the free version to the pro version */
 	function managePages($pages)
 	{
@@ -135,9 +123,8 @@ class Admin
 		}
 
 		$proPages['wr_customers'] = $this->getCustomerPage();
-		$proPages['wr_loyalty'] = $this->getLoyaltyPage();
+		$proPages['wr_settings'] = $this->getSettingsPage();
 		$proPages['wr_wizard'] = $this->getWizardPage();
-		$proPages['wr_features'] = $this->getFeaturesPage();
 		$proPages['wr_appearance'] = $this->getAppearancePage();
 		$proPages['wr_system'] = $this->getSystemPage();
 		$proPages['wr_teaser'] = array(
@@ -153,48 +140,12 @@ class Admin
 	{
 		$customerPage = $this->standardPages['wr_customers'];
 
-		$customerPage['description'] = array(
-			'cast' => 'p',
-			__("The customers page lets you track your customers loyalty activity and perform some actions :", 'woorewards-pro'),
-			array(
-				'tag' => 'ul',
-				__("See customers points and history", 'woorewards-pro'),
-				__("See customers owned coupons", 'woorewards-pro'),
-				__("Add/Subtract Points", 'woorewards-pro'),
-				__("Add/Remove Rewards", 'woorewards-pro'),
-				__("Add/Remove Badges", 'woorewards-pro'),
-				__("Filter by points, activity or inactivity periods", 'woorewards-pro'),
-			),
-		);
+		$customerPage['description'] = __("Use this page to see your customers activity, manage their points and their rewards", 'woorewards-pro');
 		return $customerPage;
 	}
 
-	function getLoyaltyPage($tab = false)
+	function getSettingsPage($tab = false)
 	{
-		$description = array(
-			array(
-				'tag' => 'p',
-				__("Points and Rewards systems is the core mechanism of MyRewards.", 'woorewards-pro'),
-				__("You can create an infinity of points and rewards systems working together or apart.", 'woorewards-pro'),
-				__("For each system, you can set up the following options :", 'woorewards-pro'),
-			),
-			array(
-				'tag' => 'ul',
-				array(
-					__("How to earn points :", 'woorewards-pro'),
-					__("Select how your customers will earn points. More than 20 Methods available", 'woorewards-pro'),
-				),
-				array(
-					__("Rewards :", 'woorewards-pro'),
-					__("Set the rewards that your customers will receive for their loyalty", 'woorewards-pro'),
-				),
-				__("System Type : Use Standard systems or Leveling systems", 'woorewards-pro'),
-				__("Currency : Choose how points will be displayed to users", 'woorewards-pro'),
-				__("Restricted access : Restrict access to your systems depending on the user role", 'woorewards-pro'),
-				__("Points Expiration : Choose between 3 methods for points to expire ... or not", 'woorewards-pro'),
-			),
-		);
-
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/editlists/pools.php';
 		$tabId = 'wr_loyalty';
 		$title = __("Points and Rewards", 'woorewards-pro');
@@ -207,24 +158,25 @@ class Admin
 		}
 		$filter = new \LWS\Adminpanel\EditList\FilterSimpleLinks($links, array(), false, $labels);
 
-		$loyaltyPage = array(
-			'title' => __("Points and Rewards", 'woorewards-pro'),
-			'color' => '#526981',
-			'image'		=> LWS_WOOREWARDS_IMG . '/r-loyalty-systems.png',
-			'description' => $description,
-			'rights'   => 'manage_rewards',
-			'id'       => LWS_WOOREWARDS_PAGE . '.loyalty',
-			'tabs'   => array(
+		$settingsPage = array(
+			'title'       => __("Settings", 'woorewards-pro'),
+			'color'       => '#526981',
+			'image'       => LWS_WOOREWARDS_IMG . '/r-loyalty-systems.png',
+			'description' => __("This is the place where you set up your loyalty program and activate the different available features", 'woorewards-pro'),
+			'rights'      => 'manage_rewards',
+			'id'          => LWS_WOOREWARDS_PAGE . '.loyalty',
+			'tabs'        => array(
 				$tabId  => array(
 					'title'  => $title,
 					'id'     => $tabId,
-					'hidden' => true,
-					'tabs'    => array(
-						array(
+					'icon'	 => 'lws-icon-gold-coin',
+					'vertnav'=> true,
+					'tabs'   => array(
+						'systems' => array(
 							'title'  => $title,
 							'id'     => 'systems',
-							'hidden' => true,
-							'groups' => array(
+							'icon'	 => 'lws-icon-present',
+							'groups' => \array_merge(array(
 								'systems' => array(
 									'id'       => 'systems',
 									'title'    => __("Points and Rewards Systems", 'woorewards-pro'),
@@ -240,7 +192,7 @@ class Admin
 											__("<b>Leveling System</b> : Customers earn points and unlock levels and rewards as they progress. <b>In a leveling system, customers never spend their points</b>.", 'woorewards-pro'),
 										),
 									),
-									'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/advanced-mechanisms/points-and-rewards-systems/'),
+										'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('pools')),
 									'editlist' => \lws_editlist(
 										\LWS\WOOREWARDS\PRO\Ui\Editlists\Pools::SLUG,
 										\LWS\WOOREWARDS\PRO\Ui\Editlists\Pools::ROW_ID,
@@ -248,7 +200,8 @@ class Admin
 										\LWS\Adminpanel\EditList::DDA,
 										$filter
 									)
-								)
+								)),
+								$this->getPointsSettingsGroup()
 							)
 						)
 					)
@@ -260,7 +213,7 @@ class Admin
 		$pool = $this->guessCurrentPool($tabId);
 		if ($pool) {
 			$subtab = $pool->getTabId();
-			$loyaltyPage['tabs'][$tabId]['tabs'][$subtab] = \apply_filters('lws_woorewards_ui_loyalty_edit_pool_tab', array(
+			$settingsPage['tabs'][$tabId]['tabs'][$subtab] = \apply_filters('lws_woorewards_ui_loyalty_edit_pool_tab', array(
 				'title'  => $pool->getOption('display_title'),
 				'id'     => $subtab,
 				'hidden' => true,
@@ -273,130 +226,144 @@ class Admin
 			), $pool);
 		}
 
-		return $loyaltyPage;
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/achievements.php';
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/generalsettings.php';
+		$settingsPage['tabs']['achievements'] = \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Achievements::getTab();
+		$settingsPage['tabs']['settings'] = \LWS\WOOREWARDS\PRO\Ui\AdminScreens\GeneralSettings::getTab();
+
+		return $settingsPage;
+	}
+
+	function getPointsSettingsGroup()
+	{
+		return array(
+			'pointssettings' => array(
+				'id'		=> "pointssettings",
+				'title'		=> __("Points Additional Settings", 'woorewards-pro'),
+				'icon'		=> 'lws-icon-gold-coin',
+				'color'		=> '#34509a',
+				'class'		=> 'half',
+				'text'     => array(
+					'join' => '<br/>',
+					__("Set here additional options for points management.", 'woorewards-pro'),
+					__("All options set below will apply for all your points and rewards systems", 'woorewards-pro'),
+				),
+				'fields'	=> array(
+					'inc_taxes' => array(
+						'id'    => 'lws_woorewards_order_amount_includes_taxes',
+						'title' => __("Includes taxes", 'woorewards-pro'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'help' => __("If checked, taxes will be included in the points earned when spending money", 'woorewards-pro'),
+						)
+					),
+					'order_state' => array(
+						'id'    => 'lws_woorewards_points_distribution_status',
+						'title' => __("Order status to earn points", 'woorewards-pro'),
+						'type'  => 'lacchecklist',
+						'extra' => array(
+							'ajax' => 'lws_adminpanel_get_order_status',
+							'help' => __("Default status to get points is the processing order status.<br/>If you want to use other status instead, select them here", 'woorewards-pro'),
+						)
+					),
+					'refund' => array(
+						'id'    => 'lws_woorewards_refund_on_status',
+						'title' => __("Order status to remove points", 'woorewards-pro'),
+						'type'  => 'lacchecklist',
+						'extra' => array(
+							'ajax' => 'lws_adminpanel_get_order_status',
+							'help' => __("When an order is cancelled or refunded, points can be removed from the customer. Select which order status will lead to points being removed", 'woorewards-pro'),
+						)
+					),
+					'enable_multicurrency' => array(
+						'id' => 'lws_woorewards_enable_multicurrency',
+						'title' => __("Enable multi currency support", 'woorewards-pro'),
+						'type' => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+						)
+					),
+					'show_cooldown ' => array(
+						'id'    => 'lws_woorewards_show_event_cooldown',
+						'title' => __("Show Points Cooldown", 'woorewards-pro'),
+						'type'  => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'help'  => __("If you set a cooldown on the methods to earn points, select if you want to show the cooldown to customers or not", 'woorewards-pro'),
+						)
+					)
+				)
+			),
+			'pocsettings' => array(
+				'id'		=> "pocsettings",
+				'title'		=> __("Point Discounts Settings", 'woorewards-pro'),
+				'icon'		=> 'lws-icon-coupon',
+				'color'		=> '#4430aa',
+				'class'		=> 'half',
+				'text'	 => __("Use these options to configure how WooRewards behaves when customers use their points for immediate cart discount", 'woorewards-pro'),
+				'fields' => array(
+					'poc_order_status' => array(
+						'id'    => 'lws_woorewards_pointdiscount_pay_order_status',
+						'title' => __("Order status to consume points", 'woorewards-pro'),
+						'type'  => 'lacchecklist',
+						'extra' => array(
+							'ajax'    => 'lws_adminpanel_get_order_status',
+							'default' => array('processing', 'completed'),
+						)
+					),
+					'poc_failure'     => array(
+						'id'    => 'lws_woorewards_pointdiscount_pay_order_failure',
+						'title' => __("Order status on points consumption failure", 'woorewards-pro'),
+						'type'  => 'lacselect',
+						'extra' => array(
+							'mode'    => 'select',
+							'source'  => array(
+								array('value' => '_', 'label' => __("[do nothing]", 'woorewards-pro'))
+							),
+							'ajax'    => 'lws_adminpanel_get_order_status',
+							'default' => 'failed',
+							'help'    => __("Change order status if points cannot be paid after all.", 'woorewards-pro'),
+						)
+					),
+					'convert_virtual_coupon_currency' => array(
+						'id' => 'lws_woorewards_convert_virtual_coupon_currency',
+						'title' => __("Force 'Points on Cart' currency switch", 'woorewards-pro'),
+						'type' => 'box',
+						'extra' => array(
+							'layout' => 'toggle',
+							'help'  => __("Some multi-currency plugins don't manage virtual coupons used by WooRewards even if it's a standard WooCommerce feature.", 'woorewards-pro')
+								. '<br/>' . __("We can try to take over that missing feature.", 'woorewards-pro'),
+						)
+					),
+				)
+			),
+		);
 	}
 
 	function getWizardPage()
 	{
 		$customerPage = $this->standardPages['wr_wizard'];
-		$customerPage['description'] = array(
-			array(
-				'tag' => 'p',
-				__("Wizards are made to help you get started or create some specific points and rewards systems more easily.", 'woorewards-pro'),
-				__("Select a wizard, follow the setup steps and everything will be generated automatically according to your preferences.", 'woorewards-pro'),
-				__("Here are the wizards available :", 'woorewards-pro'),
-			),
-			array(
-				'tag' => 'ul',
-				array(
-					__("Standard System :", 'woorewards-pro'),
-					__("Set up a standard system to let customers win coupons", 'woorewards-pro'),
-				),
-				array(
-					__("Leveling System :", 'woorewards-pro'),
-					__("This wizard will help you create a bronze/silver/gold system", 'woorewards-pro'),
-				),
-				array(
-					__("Special Events :", 'woorewards-pro'),
-					__("points and rewards systems for special occasions like Christmas", 'woorewards-pro'),
-				),
-				array(
-					__("Double Points :", 'woorewards-pro'),
-					__("Create an event where customers can earn twice the points", 'woorewards-pro'),
-				),
-				array(
-					__("Sponsorship :", 'woorewards-pro'),
-					__("Sponsors and sponsored are rewarded in this points and rewards system", 'woorewards-pro'),
-				),
-				array(
-					__("Birthday or Anniversary ", 'woorewards-pro'),
-					__("Send a special gift on customers birthday or registration anniversary", 'woorewards-pro'),
-				),
-			)
-		);
+		$customerPage['description'] = __("Use the wizard to set up your loyalty program in no time. Answer some questions, set some values and let the magic operate", 'woorewards-pro');
+
 		return $customerPage;
 	}
 
-	function getFeaturesPage()
+	protected function isIn($suffix, $includeResume=true)
 	{
-		$this->standardPages['wr_features']['description'] = array(
-			'cast' => 'p',
-			__("Activate and set up different MyRewards features in this section : ", 'woorewards-pro'),
-			array(
-				'tag' => 'ul',
-				array(
-					__("General Features :", 'woorewards-pro'),
-					__("Enable or disable a list of general features that you can decide to use or not", 'woorewards-pro'),
-				),
-				array(
-					__("Sponsorship & Referral :", 'woorewards-pro'),
-					__("Set up the sponsorship/referral options", 'woorewards-pro'),
-				),
-				array(
-					__("Badges and Achievements :", 'woorewards-pro'),
-					__("Create and manage user badges, achievements and badges rarity", 'woorewards-pro'),
-				),
-				array(
-					__("API :", 'woorewards-pro'),
-					__("Set up the API to connect MyRewards with a third party app", 'woorewards-pro'),
-				),
-			)
-		);
-
-		if ((LWS_WOOREWARDS_PAGE . '.settings') != $this->getCurrentPage())
-			return $this->standardPages['wr_features'];
-
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/socials.php';
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/sponsorship.php';
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/achievements.php';
-
-		$featuresPage = array_merge(
-			$this->standardPages['wr_features'],
-			array(
-				'tabs'     => array(
-					'features' => $this->getGeneralFeaturesTab(),
-					'sponsorship' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Sponsorship::getTab(),
-					'badges_achievements' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Achievements::getTab(),
-					'social' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Socials::getTab(),
-					'api' => $this->getAPITab(),
-				)
-			)
-		);
-
-		return $featuresPage;
+		$page = \LWS\Adminpanel\Tools\Conveniences::getCurrentAdminPage();
+		if ((LWS_WOOREWARDS_PAGE . $suffix) == $page)
+			return true;
+		if ($includeResume && LWS_WOOREWARDS_PAGE == $page)
+			return true;
+		return false;
 	}
 
 	function getAppearancePage()
 	{
-		$this->standardPages['wr_appearance']['description'] = array(
-			'cast' => 'p',
-			__("Set the appearance of everything your customers will see on your website regarding points and rewards systems : ", 'woorewards-pro'),
-			array(
-				'tag' => 'ul',
-				array(
-					__("Widgets :", 'woorewards-pro'),
-					__("Setup the widgets/shortcodes options and appearance", 'woorewards-pro'),
-				),
-				array(
-					__("Shortcodes :", 'woorewards-pro'),
-					__("List of all shortcodes available in MyRewards and how to use them", 'woorewards-pro'),
-				),
-				array(
-					__("WooCommerce :", 'woorewards-pro'),
-					__("Additional loyalty information displayed on WooCommerce pages", 'woorewards-pro'),
-				),
-				array(
-					__("Emails :", 'woorewards-pro'),
-					__("Customize emails sent to your customers", 'woorewards-pro'),
-				),
-				array(
-					__("Popup :", 'woorewards-pro'),
-					__("Setup the popup that your customers see when they unlock a reward", 'woorewards-pro'),
-				),
-			)
-		);
+		$this->standardPages['wr_appearance']['description'] = __("Set the appearance of everything your customers will see on your website regarding your loyalty program ", 'woorewards-pro');
 
-		if ((LWS_WOOREWARDS_PAGE . '.appearance') != $this->getCurrentPage())
+		if (!$this->isIn('.appearance'))
 			return $this->standardPages['wr_appearance'];
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/shortcodes.php';
@@ -409,8 +376,9 @@ class Admin
 				'tabs'     => array(
 					'woocommerce' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\WooCommerce::getTab($this->standardPages['wr_appearance']),
 					'shortcodes'  => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Shortcodes::getTab(),
-					'emails'	  => $this->getEmailsTab(),
-					'popups'	  => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Popups::getTab(),
+					'emails'      => $this->getEmailsTab(),
+					'popups'      => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Popups::getTab(),
+					'styling'     => \LWS\WOOREWARDS\Ui\AdminScreens\Styling::getTab(true),
 				)
 			)
 		);
@@ -424,148 +392,6 @@ class Admin
 			\LWS\WOOREWARDS\PRO\Ui\AdminScreens\Legacy::setOptionCheck();
 		}
 		return $appearancePage;
-	}
-
-	function getGeneralFeaturesTab()
-	{
-		$lite = array(
-			'settings' => $this->standardPages['wr_features']['tabs']['wc_settings']['groups']['settings'],
-		);
-		if (isset($this->standardPages['wr_features']['tabs']['wc_settings']['groups']['pointsoncart']))
-			$lite['pointsoncart'] = $this->standardPages['wr_features']['tabs']['wc_settings']['groups']['pointsoncart'];
-		foreach ($lite as &$grp)
-			$grp['class'] = 'half';
-
-		$lite['settings']['fields']['show_cooldown'] = array(
-			'id'    => 'lws_woorewards_show_event_cooldown',
-			'title' => __("Show Points Cooldown", 'woorewards-pro'),
-			'type'  => 'box',
-			'extra' => array(
-				'class' => 'lws_checkbox',
-				'help'  => __("If you set a cooldown on the methods to earn points, select if you want to show the cooldown to customers or not", 'woorewards-pro'),
-			)
-		);
-		$gfTab = array(
-			'id'	=> 'general_features',
-			'title'	=>  __("General Features", 'woorewards-pro'),
-			'icon'	=> 'lws-icon-questionnaire',
-			'vertnav' => true,
-			'groups' => array_merge($lite, array(
-				'a_features' => array(
-					'id' 	=> 'advanced_features',
-					'title' => __("Advanced Features", 'woorewards-pro'),
-					'icon'	=> 'lws-icon-adv-settings',
-					'class'	=> 'half',
-					'text' 	=> __("The following options are only used in a handful of cases and should only be enabled if you're certain you want to use them", 'woorewards-pro'),
-					'fields' => array(
-						'enable_multicurrency' => array(
-							'id' => 'lws_woorewards_enable_multicurrency',
-							'title' => __("Enable multi currency support", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-							)
-						),
-						'convert_virtual_coupon_currency' => array(
-							'id' => 'lws_woorewards_convert_virtual_coupon_currency',
-							'title' => __("Force 'Points on Cart' currency switch", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-								'help'  => __("Some multi-currency plugins don't manage virtual coupons used by WooRewards even if it's a standard WooCommerce feature.", 'woorewards-pro')
-									. '<br/>' . __("We can try to take over that missing feature.", 'woorewards-pro'),
-							)
-						),
-						'enable_leaderboard' => array(
-							'id' => 'lws_woorewards_enable_leaderboard',
-							'title' => __("Enable the leaderboard shortcode", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-								'help'	=> 	__("If you enable this shortcode, a new option will be added to the user's My Account page.", 'woorewards-pro') . "<br/>" .
-									__("The user will have the possibility to set if he/she accepts to appear on the leaderboard or not.", 'woorewards-pro'),
-							)
-						),
-						'show_levels' => array(
-							'id' => 'lws_woorewards_show_levels_in_editlist',
-							'title' => __("Show levels", 'woorewards-pro'),
-							'type' => 'lacselect',
-							'extra' => array(
-								'maxwidth' => '10em;',
-								'mode'     => 'select',
-								'help'     => __("Show user level information with its points in customers admin screen.", 'woorewards-pro'),
-								'source'   => array(
-									array('value' => '', 'label' => __("Points only", 'woorewards-pro')),
-									array('value' => 'level', 'label' => __("Level only", 'woorewards-pro')),
-									array('value' => 'both', 'label' => __("Points and Level", 'woorewards-pro')),
-								),
-							)
-						),
-					)
-				),
-				'birthday' => array(
-					'id' 	=> 'wc_birthday',
-					'title' => __("Birthday Settings", 'woorewards-pro'),
-					'icon'	=> 'lws-icon-birthday-cake',
-					'class'	=> 'half',
-					'text' 	=> __("If you decide to give points for customers birthdays, you should check some of the following options to give customers the opportunity to fill in their birthday date.", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points/birthday/'),
-					'fields' => array(
-						'birthday_checkout' => array(
-							'id' => 'lws_woorewards_registration_birthday_field',
-							'title' => __("Display a birthday field in the 'checkout' page when the user register at the same time.", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-							)
-						),
-						'birthday_register' => array(
-							'id' => 'lws_woorewards_myaccount_register_birthday_field',
-							'title' => __("Display a birthday field in the 'my account register' page.", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-							)
-						),
-						'birthday_detail' => array(
-							'id' => 'lws_woorewards_myaccount_detail_birthday_field',
-							'title' => __("Display a birthday field in the 'my account -> details' page.", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-							)
-						),
-						'birthday_debug' => array(
-							'id' => 'lws_woorewards_myaccount_birthday_debug',
-							'title' => __("Display Debug information about birthday point earning in user backend profile.", 'woorewards-pro'),
-							'type' => 'box',
-							'extra' => array(
-								'class' => 'lws_checkbox',
-								'default' => 'on',
-							)
-						),
-					)
-				),
-				'refund' => array(
-					'id'    => 'refund',
-					'icon'	=> 'lws-icon-refund',
-					'title' => __("Remove points on order refunds", 'woorewards-pro'),
-					'class'	=> 'half',
-					'text'  => __("If an order is cancelled or refunded, you have the option to also remove points earned for that order. Select here the order status for which you want to remove loyalty points.", 'woorewards-pro'),
-					'fields' => array(
-						'refund' => array(
-							'id'    => 'lws_woorewards_refund_on_status',
-							'title' => __("Order status", 'woorewards-pro'),
-							'type'  => 'lacchecklist',
-							'extra' => array(
-								'ajax' => 'lws_adminpanel_get_order_status',
-							)
-						),
-					)
-				),
-			)),
-		);
-		return $gfTab;
 	}
 
 	function getAPITab()
@@ -582,14 +408,14 @@ class Admin
 					'icon'	=> 'lws-icon-api',
 					'title'  => __("REST API", 'woorewards-pro'),
 					'text'   => sprintf(__("Define MyRewards REST API settings. API endpoint will be %s", 'woorewards-pro'), $restPrefix),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/api/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('api')),
 					'fields' => array(
 						'enabled' => array(
 							'id'    => 'lws_woorewards_rest_api_enabled',
 							'title' => __("Enable REST API", 'woorewards-pro'),
 							'type'  => 'box',
 							'extra' => array(
-								'class' => 'lws_checkbox',
+								'layout' => 'toggle',
 							)
 						),
 						'wc_auth' => array(
@@ -598,7 +424,7 @@ class Admin
 							'type'  => 'box',
 							'extra' => array(
 								'default' => 'on',
-								'class' => 'lws_checkbox',
+								'layout' => 'toggle',
 							)
 						),
 					)
@@ -608,7 +434,7 @@ class Admin
 					'icon'	=> 'lws-icon-users-mm',
 					'title'  => __("User Permissions", 'woorewards-pro'),
 					'text'   => __("Define the website users that can access the different features of the API", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/api/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('api')),
 					'fields' => array(
 						'info' => array(
 							'id'    => 'lws_woorewards_rest_api_user_info',
@@ -649,26 +475,6 @@ class Admin
 	{
 		$emailsTab = $this->standardPages['wr_appearance']['tabs']['sty_mails'];
 		$emailsTab['vertnav'] = true;
-		$emailsTab['groups']['wr_achieved'] = array_merge($emailsTab['groups']['wr_achieved'], array(
-			'icon' => 'lws-icon-trophy',
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/achievement-email/')
-		));
-		$emailsTab['groups']['wr_available_unlockables'] = array_merge($emailsTab['groups']['wr_available_unlockables'], array(
-			'icon' => 'lws-icon-questionnaire',
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/reward-choice/')
-		));
-		$emailsTab['groups']['couponreminder'] = array_merge($emailsTab['groups']['couponreminder'], array(
-			'icon' => 'lws-icon-coupon',
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/reward-expiration/')
-		));
-		$emailsTab['groups']['pointsreminder'] = array_merge($emailsTab['groups']['pointsreminder'], array(
-			'icon' => 'lws-icon-calendar',
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/points-expiration/')
-		));
-		$emailsTab['groups']['wr_sponsored'] = array_merge($emailsTab['groups']['wr_sponsored'], array(
-			'icon' => 'lws-icon-users-mm',
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/sponsorship-email/')
-		));
 		return $emailsTab;
 	}
 
@@ -715,7 +521,6 @@ class Admin
 			'cast' => 'p',
 			array(
 				__("General Settings are used to start or stop your points and rewards system, rename it or change some other basic options.", 'woorewards-pro'),
-				__("If you're not sure how to use them, please refer to the dedicated documentation by clicking the book icon on the top right.", 'woorewards-pro'),
 			),
 			array('tag' => 'strong', __("Don't forget to start your points and rewards system when you've finished your settings.", 'woorewards-pro'))
 		);
@@ -734,7 +539,7 @@ class Admin
 				'image'   => LWS_WOOREWARDS_IMG . '/ls-earning.png',
 				'color'   => '#38bebe',
 				'text'    => $earningText,
-				'extra'   => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points/'),
+				'extra'   => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('emails')),
 				'editlist' => \lws_editlist(
 					'EventList-' . $pool->getId(),
 					\LWS\WOOREWARDS\Ui\Editlists\EventList::ROW_ID,
@@ -750,7 +555,7 @@ class Admin
 				'class'  => 'half',
 				'title'  => __("General Settings", 'woorewards-pro'),
 				'text'   => $settingsText,
-				'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/tutorials/points-and-rewards/'),
+				'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('pools')),
 				'fields' => \apply_filters('lws_woorewards_admin_pool_general_settings', array(), $pool)
 			),
 			'expiration' => $this->getPoolPointExpirationGroup($pool),
@@ -779,7 +584,7 @@ class Admin
 			'class'		=> 'half',
 			'title'		=> __("Advanced Settings", 'woorewards-pro'),
 			'text'		=> $asettingsText,
-			'extra'		=> array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/advanced-mechanisms/advanced-settings/'),
+			'extra'		=> array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('pools-as')),
 			'fields'	=> array(
 				'stackid' => array(
 					'id'    => self::POOL_OPTION_PREFIX . 'stack',
@@ -833,6 +638,10 @@ class Admin
 			)
 		);
 
+		if (!\get_option('lws_woorewards_show_loading_order_and_priority')) {
+			unset($group['fields']['order']);
+		}
+
 		if ($pool->getOption('type') == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING) {
 			$group['fields']['adapt'] = array(
 				'id'    => self::POOL_OPTION_PREFIX . 'adapt_level',
@@ -841,7 +650,7 @@ class Admin
 				'extra' => array(
 					'id'       => self::POOL_OPTION_PREFIX . 'adapt_level',
 					'checked'  => $pool->getOption('adapt_level'),
-					'class'    => 'lws_checkbox',
+					'layout' => 'toggle',
 					'tooltips' => __("If checked, customers can lose their levels and rewards when points go down. Rewards from previous levels are restored if possible.", 'woorewards-pro')
 				),
 				'require' => array('selector' => '#' . self::POOL_OPTION_PREFIX . 'confiscation', 'value' => ''),
@@ -854,7 +663,7 @@ class Admin
 				'extra' => array(
 					'id'       => self::POOL_OPTION_PREFIX . 'confiscation',
 					'checked'  => $pool->getOption('confiscation'),
-					'class'    => 'lws_checkbox',
+					'layout' => 'toggle',
 					'tooltips' => __("After a points loss due to points expiration, the customer will have to earn the rewards again. Ignored if points expiration isn’t set. Incompatible with the option above", 'woorewards-pro')
 				),
 				'require' => array('selector' => '#' . self::POOL_OPTION_PREFIX . 'adapt_level', 'value' => ''),
@@ -867,7 +676,7 @@ class Admin
 				'extra' => array(
 					'checked' => $pool->getOption('clamp_level'),
 					'default' => false,
-					'class' => 'lws_checkbox',
+					'layout' => 'toggle',
 					'tooltips' => __("If checked, customers can't earn more points than the points needed to reach the next level in one time.", 'woorewards-pro')
 				)
 			);
@@ -920,7 +729,7 @@ class Admin
 			'class'		=> 'half',
 			'title'		=> __("Points Expiration", 'woorewards-pro'),
 			'text'		=> $expirationText,
-			'extra'		=> array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/advanced-mechanisms/points-expiration/'),
+			'extra'		=> array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('points-ex')),
 			'fields'	=> array(
 				'lifetime' => array(
 					'id'    => self::POOL_OPTION_PREFIX . 'point_timeout',
@@ -939,7 +748,11 @@ class Admin
 						'value' => $pool->getOption('transactional_expiry'),
 						'help' => sprintf(
 							__("Defines if customers lose unused points periodically. Please read the %s for settings explanation.", 'woorewards-pro'),
-							"<a href='https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/#6-%E2%80%93-points-expiration' target='_blank'>" . __("documentation", 'woorewards-pro') . "</a>"
+							sprintf(
+								"<a href='%s' target='_blank'>%s</a>",
+								\LWS\WOOREWARDS\PRO\DocLinks::get('points-ex'),
+								__("documentation", 'woorewards-pro')
+							)
 						),
 					)
 				)
@@ -964,7 +777,7 @@ class Admin
 			'color'		=> '#a67c52',
 			'class'		=> 'half',
 			'title'    => __("Points Currency", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/#points-currency'),
+			'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('pools-cur')),
 			'text' 	   => $currencyText,
 			'fields'   => array(
 				'point_name' => array(
@@ -1031,7 +844,7 @@ class Admin
 			'color'  => '#526981',
 			'title'  => '',
 			'text'   => '',
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/rewards/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('rewards')),
 			'fields' => array(),
 		);
 
@@ -1058,7 +871,6 @@ class Admin
 				),
 				array(
 					__("After creating a level, you can add one or more rewards to the level.", 'woorewards-pro'),
-					__("If you're not sure how to set up levels and rewards, please refer to the dedicated documentation by clicking the book icon on the top right.", 'woorewards-pro'),
 				),
 				array(
 					array('tag' => 'strong', __("You can define as many levels and rewards as you want", 'woorewards-pro')),
@@ -1072,7 +884,6 @@ class Admin
 			$group['text'] = array(
 				__("In a standard system, you have to choose how customers will spend their points.", 'woorewards-pro'),
 				array('tag' => 'strong', __("They can either spend them directly on the cart to get an immediate discount or you can setup various rewards they buy with their points.", 'woorewards-pro')),
-				__("If you're not sure how to set up rewards, please refer to the dedicated documentation by clicking the book icon on the top right.", 'woorewards-pro'),
 			);
 
 			$group['fields']['mode'] = array(
@@ -1228,25 +1039,25 @@ class Admin
 		);
 		$groupBy['head'] = <<<EOT
 <div class='lws-wr-levelling-node-head'>
-	<div class='lws-wr-levelling-node-item grouped_title'>
-		<div class='lws-wr-levelling-node-value'><span data-name='grouped_title'>{$labels['group_value']}</span></div>
-		<div class='lws-wr-levelling-node-label'>{$labels['group_title']}</div>
-	</div>
 	<div class='lws-wr-levelling-node-item cost'>
 		<div class='lws-wr-levelling-node-value'><span data-name='cost'>1</span></div>
 		<div class='lws-wr-levelling-node-label'>{$labels['group_point']}</div>
+	</div>
+	<div class='lws-wr-levelling-node-item grouped_title'>
+		<div class='lws-wr-levelling-node-value'><span data-name='grouped_title'>{$labels['group_value']}</span></div>
+		<div class='lws-wr-levelling-node-label'>{$labels['group_title']}</div>
 	</div>
 </div>
 EOT;
 		$groupBy['form'] = <<<EOT
 <div class='lws-wr-levelling-node-form'>
-	<div class='lws-wr-levelling-node-item grouped_title'>
-		<div class='lws-wr-levelling-node-value'><input type='text' class='lws-input lws-wr-title-input' name='grouped_title' data-pattern='[^\\s]+' data-pattern-title='{$labels['form_title']}'/></div>
-		<div class='lws-wr-levelling-node-label'>{$labels['title_title']}</div>
-	</div>
 	<div class='lws-wr-levelling-node-item cost'>
 		<div class='lws-wr-levelling-node-value'><input name='cost' class='lws-input lws-wr-cost-input' type='text' data-pattern='^\\d*[1-9]\\d*$' data-pattern-title='{$labels['form_point']}'/></div>
 		<div class='lws-wr-levelling-node-label'>{$labels['title_point']}</div>
+	</div>
+	<div class='lws-wr-levelling-node-item grouped_title'>
+		<div class='lws-wr-levelling-node-value'><input type='text' class='lws-input lws-wr-title-input' name='grouped_title' data-pattern='[^\\s]+' data-pattern-title='{$labels['form_title']}'/></div>
+		<div class='lws-wr-levelling-node-label'>{$labels['title_title']}</div>
 	</div>
 </div>
 EOT;
@@ -1423,7 +1234,7 @@ EOT;
 
 	function getSystemPage()
 	{
-		if ((LWS_WOOREWARDS_PAGE . '.system') != $this->getCurrentPage())
+		if (!$this->isIn('.system'))
 			return $this->standardPages['wr_system'];
 
 		$system = $this->standardPages['wr_system'];
@@ -1467,7 +1278,7 @@ EOT;
 				),
 				'historydel_date_end' => array(
 					'id'    => 'historydel_date_end',
-					'title' => __("End date", 'woorewards-lite'),
+					'title' => __("End date", 'woorewards-pro'),
 					'type'  => 'input',
 					'extra' => array(
 						'gizmo' => true,
@@ -1549,6 +1360,7 @@ EOT;
 			unset($system['tabs']['data_management']['groups']['delete']);
 			$system['tabs']['data_management']['groups']['delete'] = $delete;
 		}
+		$system['tabs']['api'] = $this->getAPITab();
 		return $system;
 	}
 
@@ -1675,7 +1487,7 @@ Please provide the following information in your request</p>
 <ul>
 <li>How will your customers earn points ?</li>
 <li>What are the rewards you want to offer ?</li>
-<li>Do you plan on using sponsorship ?</li>
+<li>Do you plan on using referrals ?</li>
 <li>Do you plan on using leveling points and rewards systems ?</li>
 <li>How do you plan to display loyalty information to your customers ?</li>
 </ul>
@@ -1732,7 +1544,6 @@ EOT;
 
 		// clean options
 		foreach (array(
-			'lws_wooreward_max_sponsorship_count',
 			'lws_wre_product_points_preview',
 			'lws_wre_cart_points_preview',
 		) as $opt) {

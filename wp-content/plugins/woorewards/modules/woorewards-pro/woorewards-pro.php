@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 4.9.10
+ * Version: 5.0.5
  * Text Domain: woorewards-pro
  * WC requires at least: 3.7.0
- * WC tested up to: 7.2
+ * WC tested up to: 7.4
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -100,7 +100,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '4.9.10');
+		define('LWS_WOOREWARDS_PRO_VERSION', '5.0.5');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -279,9 +279,6 @@ final class LWS_WooRewards_Pro
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/editlists/badges.php';
 		new \LWS\WOOREWARDS\PRO\Ui\Editlists\Badges();
 
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/sponsorship.php';
-		\LWS\WOOREWARDS\PRO\Core\Sponsorship::register();
-
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/rewardclaim.php';
 		new \LWS\WOOREWARDS\PRO\Core\RewardClaim();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/ajax.php';
@@ -298,6 +295,7 @@ final class LWS_WooRewards_Pro
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/conveniences.php';
 		\LWS\WOOREWARDS\PRO\Conveniences::install();
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/doclinks.php';
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/unlockables/freeproduct.php';
 		\LWS\WOOREWARDS\PRO\Unlockables\FreeProduct::registerFeatures();
@@ -341,10 +339,10 @@ final class LWS_WooRewards_Pro
 		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\ConditionalDisplay::install();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/rewardbutton.php';
 		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\RewardButton::install();
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/productpointspreview.php';
+		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\ProductPointsPreview::install();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/orderpointspreview.php';
 		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\OrderPointsPreview::install();
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/shortcodes/referrallink.php';
-		\LWS\WOOREWARDS\PRO\Ui\ShortCodes\ReferralLink::install();
 
 		/** Endpoints */
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/endpoints/loyalty.php';
@@ -383,6 +381,8 @@ final class LWS_WooRewards_Pro
 		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.9.8')) {
 			require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/legacy/referralwidget.php';
 			\LWS\WOOREWARDS\PRO\Ui\Legacy\ReferralWidget::install();
+			require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/legacy/productpointspreview.php';
+			\LWS\WOOREWARDS\PRO\Ui\Legacy\ProductPointsPreview::register();
 		}
 
 		/** WooCommerce */
@@ -392,9 +392,8 @@ final class LWS_WooRewards_Pro
 		\LWS\WOOREWARDS\PRO\Ui\LeaderboardAuth::register();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/woocommerce/orderpointinformation.php';
 		\LWS\WOOREWARDS\PRO\Ui\OrderPointInformation::register();
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/woocommerce/productpointspreview.php';
-		\LWS\WOOREWARDS\PRO\Ui\ProductPointsPreview::register();
-
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/woocommerce/productcontent.php';
+		\LWS\WOOREWARDS\PRO\Ui\Woocommerce\ProductContent::install();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/pointsflow/action.php';
 		\LWS\WOOREWARDS\PRO\PointsFlow\Action::register();
 

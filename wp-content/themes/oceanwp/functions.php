@@ -4003,3 +4003,16 @@ function add_export_buttons_to_email( array $ticket ) {
  
   echo $calendar_links;
 }
+
+function events_calendar_title() {
+	global $post;
+  if($post->ID == '16404')
+  {
+      ?>
+      <script>
+        jQuery('.tribe-events-event-url').prepend('<dt class="tribe-events-event-categories-label">Zoom Registration Link:</dt>');
+      </script>
+      <?php
+  }
+}
+add_action( 'wp_footer','events_calendar_title');

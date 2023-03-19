@@ -47,14 +47,22 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		// permanent on/off
 		$label = _x("Permanent", "Coupon Unlockable", 'woorewards-pro');
 		$tooltip = __("Applied on all future orders.", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'permanent', array(
+			'id'      => $prefix . 'permanent',
+			'layout'  => 'toggle',
+		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}permanent' name='{$prefix}permanent' class='lws_checkbox'/></div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// autoapply on/off
 		$label = _x("Auto-apply on next cart", "Coupon Unlockable", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
+			'id'      => $prefix . 'autoapply',
+			'layout'  => 'toggle',
+		));
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}autoapply' name='{$prefix}autoapply' class='lws_checkbox'/></div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 		return $this->filterForm($form, $prefix, $context);
@@ -319,7 +327,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return array_merge(parent::getCategories(), array(
 			'woocommerce' => __("WooCommerce", 'woorewards-pro'),
 			'shop_coupon' => __("Coupon", 'woorewards-pro'),
-			'sponsorship' => _x("Sponsored", "unlockable category", 'woorewards-pro')
+			'sponsorship' => _x("Referee", "unlockable category", 'woorewards-pro')
 		));
 	}
 }

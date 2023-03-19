@@ -8,7 +8,7 @@ class WooCommerce
 	static function getTab(&$page)
 	{
 		$legacy = \LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.7.0');
-		$tab = array(
+		return array(
 			'id'	=> 'wc_settings',
 			'title'	=>  __("WooCommerce", 'woorewards-pro'),
 			'icon'	=> 'lws-icon-cart-2',
@@ -24,7 +24,6 @@ class WooCommerce
 				'myaccountachievementsview' => self::getGroupMyAccountAchievements($legacy),
 			),
 		);
-		return $tab;
 	}
 
 	/** @see getGroupMyAccountLoyalty  legacy mode*/
@@ -36,13 +35,13 @@ class WooCommerce
 				'title' => __("Display Mode", 'woorewards-pro'),
 				'type'  => 'box',
 				'extra' => array(
-					'class'   => 'lws_switch',
+					'layout' => 'switch',
 					'id'      => 'lws_woorewards_wc_my_account_mode',
 					'default' => 'on',
 					'data'    => array(
 						'left'       => __("Custom Page", 'woorewards-pro'),
 						'right'      => __("Prebuilt Page", 'woorewards-pro'),
-						'colorleft'  => '#425981',
+						'colorleft'  => '#22a971',
 						'colorright' => '#5279b1',
 					),
 				)
@@ -52,7 +51,7 @@ class WooCommerce
 				'title' => __("Display the Loyalty and Rewards tab.", 'woorewards-pro'),
 				'type'  => 'box',
 				'extra' => array(
-					'class'   => 'lws_checkbox',
+					'layout' => 'toggle',
 					'default' => 'on'
 				),
 				'require' => array('selector' => '#lws_woorewards_wc_my_account_mode', 'value' => 'on')
@@ -88,7 +87,7 @@ class WooCommerce
 						array('value' => 'rewards', 'active' => 'yes', 'label' => __("Unlockable Rewards", 'woorewards-pro')),
 						array('value' => 'systems', 'active' => 'yes', 'label' => __("Points and rewards systems Details", 'woorewards-pro')),
 						array('value' => 'history', 'active' => 'yes', 'label' => __("Customer Points History", 'woorewards-pro')),
-						array('value' => 'sponsoremail', 'active' => '', 'label' => __("Sponsorship Mailing", 'woorewards-pro')),
+						array('value' => 'sponsoremail', 'active' => '', 'label' => __("Mailing Referral", 'woorewards-pro')),
 						array('value' => 'sponsorlink', 'active' => '', 'label' => __("Referral Link", 'woorewards-pro')),
 					),
 					'dragndrop' => 'yes',
@@ -157,7 +156,7 @@ class WooCommerce
 					'data'    => array(
 						'left'       => __("Custom Page", 'woorewards-pro'),
 						'right'      => __("Prebuilt Page", 'woorewards-pro'),
-						'colorleft'  => '#425981',
+						'colorleft'  => '#22a971',
 						'colorright' => '#5279b1',
 					),
 				)
@@ -167,7 +166,7 @@ class WooCommerce
 				'title' => __("Display the Badges tab.", 'woorewards-pro'),
 				'type'  => 'box',
 				'extra' => array(
-					'class'   => 'lws_checkbox',
+					'layout' => 'toggle',
 					'default' => 'on'
 				),
 				'require' => array(
@@ -230,7 +229,7 @@ class WooCommerce
 					'data'    => array(
 						'left'       => __("Custom Page", 'woorewards-pro'),
 						'right'      => __("Prebuilt Page", 'woorewards-pro'),
-						'colorleft'  => '#425981',
+						'colorleft'  => '#22a971',
 						'colorright' => '#5279b1',
 					),
 				),
@@ -240,7 +239,7 @@ class WooCommerce
 				'title' => __("Display the Achievements tab.", 'woorewards-pro'),
 				'type'  => 'box',
 				'extra' => array(
-					'class'   => 'lws_checkbox',
+					'layout' => 'toggle',
 					'default' => 'on'
 				),
 				'require' => array(
@@ -292,9 +291,10 @@ class WooCommerce
 		$group = array(
 			'id'     => 'myaccountlarview',
 			'icon'   => 'lws-icon-users',
+			'color'  => '#425981',
 			'title'  => __("My Account - Loyalty", 'woorewards-pro'),
 			'text'   => __("Show to the customer all loyalty and rewards information in a dedicated 'Loyalty and Rewards' Tab inside WooCommerce's My Account.", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/my-account/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('wc-account')),
 			'fields' => array(),
 		);
 
@@ -315,9 +315,10 @@ class WooCommerce
 		$group = array(
 			'id' => 'myaccountbadgesview',
 			'icon'	=> 'lws-icon-cockade',
+			'color' => '#425981',
 			'title' => __("My Account - Badges", 'woorewards-pro'),
 			'text' => __("Show to the customer all badges he owns in a 'Badges' Tab inside WooCommerce's My Account.", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/my-account/'),
+			'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('wc-account')),
 		);
 
 		if ($legacy) {
@@ -337,9 +338,10 @@ class WooCommerce
 		$group = array(
 			'id'    => 'myaccountachievementsview',
 			'icon'	=> 'lws-icon-trophy',
+			'color' => '#425981',
 			'title' => __("My Account - Achievements", 'woorewards-pro'),
 			'text'  => __("Show to the customer all possible achievements in a 'Achievements' Tab inside WooCommerce's My Account.", 'woorewards-pro'),
-			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/my-account/'),
+			'extra' => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('wc-account')),
 		);
 
 		if ($legacy) {
@@ -357,72 +359,71 @@ class WooCommerce
 	protected static function getGroupProductPointsPreview()
 	{
 		return array(
-			'id' => 'productpointspreview',
+			'id'    => 'productpointspreview',
 			'icon'	=> 'lws-icon-barcode',
+			'color' => '#425981',
 			'title' => __("Product Page Preview", 'woorewards-pro'),
-			'text' => __("Shows points that a customer could earn purchasing a given product. That block stay hidden if the product produces no points.", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/product-earned-points/'),
+			'text'  => array(
+				array(
+					'join' => '<br/>',
+					__("Show to your customers how many points they can earn when purchasing a product", 'woorewards-pro'),
+					__("You can set a different content for regular products and for variable products", 'woorewards-pro'),
+					__("Use the following options to display specific information :", 'woorewards-pro'),
+				),
+				array(
+					'tag' => 'ul',
+					array('[wr_product_points] : ', __("Displays the amount of points earned for purchasing a regular product", 'woorewards-pro')),
+					array('[wr_product_points value="min"] : ', __("Displays the minimum amount of points earned for purchasing a variable product", 'woorewards-pro')),
+					array('[wr_product_points value="max"] : ', __("Displays the maximum amount of points earned for purchasing a variable product", 'woorewards-pro')),
+				),
+				array(
+					'tag' => 'strong',
+					__("In addition, there are several options you can use to customize the display :", 'woorewards-pro')
+				),
+				array(
+					'tag' => 'ul',
+					array('system : ', __("Select for which system you want to show points (example : [wr_product_points system='default'])", 'woorewards-pro')),
+					array('showcurrency : ', __("Set this option to display the points currency next to the points amount (example : [wr_product_points showcurrency='true'])", 'woorewards-pro')),
+				),
+			),
 			'fields' => array(
-				array(
-					'id' => 'lws_woorewards_product_potential_position',
-					'title' => __("Location", 'woorewards-pro'),
-					'type'  => 'lacselect',
+				'layout' => array(
+					'id'    => 'lws_woorewards_product_preview_position',
+					'title' => __("Display Location", 'woorewards-pro'),
+					'type'  => 'radiogrid',
 					'extra' => array(
-						'maxwidth' => '400px',
-						'default'  => 'not_displayed',
-						'mode'     => 'select',
-						'notnull'  => true,
-						'source'   => array(
-							array('value' => 'not_displayed', 'label' => __("Not displayed at all", 'woorewards-pro')),
-							array('value' => 'before_summary', 'label' => __("Before product summary", 'woorewards-pro')),
-							array('value' => 'inside_summary', 'label' => __("Inside product summary", 'woorewards-pro')),
-							array('value' => 'after_form', 'label' => __("After product form", 'woorewards-pro')),
-							array('value' => 'after_summary', 'label' => __("After product summary", 'woorewards-pro')),
+						'type'    => 'big-icon',
+						'columns' => 'repeat(auto-fit, minmax(160px, 1fr))',
+						'default' => 'none',
+						'source'  => array(
+							array('value' => 'none',                                      'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/none.png',							'label' => __("Not Displayed", 'woorewards-pro')),
+							array('value' => 'woocommerce_before_single_product_summary', 'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/before_single_product_summary.png',	'label' => __("Top of Product Summary", 'woorewards-pro')),
+							array('value' => 'woocommerce_single_product_summary',        'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/single_product_summary.png',		'label' => __("Before Product Summary", 'woorewards-pro')),
+							array('value' => 'woocommerce_before_add_to_cart_form',       'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/before_add_to_cart_form.png',		'label' => __("After Short Description", 'woorewards-pro')),
+							array('value' => 'woocommerce_before_add_to_cart_quantity',   'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/before_add_to_cart_quantity.png',	'label' => __("Before Quantity", 'woorewards-pro')),
+							array('value' => 'woocommerce_after_add_to_cart_button',      'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/after_add_to_cart_button.png',		'label' => __("After Add to Cart", 'woorewards-pro')),
+							array('value' => 'woocommerce_after_single_product_summary',  'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/after_single_product_summary.png',	'label' => __("After Product Summary", 'woorewards-pro')),
 						)
+					),
+				),
+				'regular' => array(
+					'id' => 'lws_woorewards_product_preview_regular',
+					'type' => 'wpeditor',
+					'title' => __("Regular Products Content", 'woorewards-pro'),
+					'extra' => array(
+						'editor_height' => 30,
+						'wpml'    => "WooRewards - Products Points Preview - Regular Product Content",
 					)
 				),
-				array(
-					'id' => 'lws_woorewards_ppp_unlogged_text',
-					'title' => __("Text for unlogged customers", 'woorewards-pro'),
-					'type' => 'text',
+				'variable' => array(
+					'id' => 'lws_woorewards_product_preview_variable',
+					'type' => 'wpeditor',
+					'title' => __("Variable Products Content", 'woorewards-pro'),
 					'extra' => array(
-						'size' => '50',
-						'wpml' => "WooRewards - Product Points Preview - Unlogged Text",
-						'tooltips' => __("Fill this if you want to show a text for unlogged customers", 'woorewards-pro'),
+						'editor_height' => 30,
+						'wpml'    => "WooRewards - Products Points Preview - Variable Product Content",
 					)
 				),
-				array(
-					'id' => 'lws_woorewards_ppp_show_unlogged',
-					'title' => __("Show for unlogged customers", 'woorewards-pro'),
-					'type' => 'box',
-					'extra' => array(
-						'default' => 'on',
-						'class' => 'lws_checkbox',
-						'tooltips' => __("Check this option if you want to show potentially earned points to unlogged customers", 'woorewards-pro'),
-					)
-				),
-				array(
-					'id' => 'lws_woorewards_product_potential_pool',
-					'title' => __("Points and rewards systems", 'woorewards-pro'),
-					'type' => 'lacchecklist',
-					'extra' => array(
-						'ajax' => 'lws_woorewards_pool_list',
-						'tooltips' => __("If you select several systems, they will be displayed separately, one after the other.", 'woorewards-pro'),
-					)
-				),
-				array(
-					'id' => 'lws_wre_product_points_preview',
-					'type' => 'stygen',
-					'extra' => array(
-						'purpose' => 'filter',
-						'template' => 'productpointspreview',
-						'html' => false,
-						'css' => LWS_WOOREWARDS_PRO_CSS . '/templates/productpointspreview.css',
-						'subids' => array(
-							'lws_woorewards_label_ppp' => "WooRewards - Product Points Preview - Title",
-						)
-					)
-				)
 			)
 		);
 	}
@@ -430,43 +431,67 @@ class WooCommerce
 	protected static function getGroupShopPointsPreview()
 	{
 		return array(
-			'id' => 'shoppointspreview',
-			'icon'	=> 'lws-icon-shopping-tag',
+			'id'    => 'shoppointspreview',
+			'icon'	=> 'lws-icon-tags-stack',
+			'color' => '#425981',
 			'title' => __("Shop Page Preview", 'woorewards-pro'),
-			'text' => __("Shows points that a customer could earn purchasing products on a products list page. That block stay hidden if customers can't earn points with products.", 'woorewards-pro'),
-			//'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/product-earned-points/'),
+			'text'  => array(
+				array(
+					'join' => '<br/>',
+					__("Show to your customers how many points they can earn when purchasing products", 'woorewards-pro'),
+					__("You can set a different content for regular products and for variable products", 'woorewards-pro'),
+					__("Use the following options to display specific information :", 'woorewards-pro'),
+				),
+				array(
+					'tag' => 'ul',
+					array('[wr_product_points] : ', __("Displays the amount of points earned for purchasing a regular product", 'woorewards-pro')),
+					array('[wr_product_points value="min"] : ', __("Displays the minimum amount of points earned for purchasing a variable product", 'woorewards-pro')),
+					array('[wr_product_points value="max"] : ', __("Displays the maximum amount of points earned for purchasing a variable product", 'woorewards-pro')),
+				),
+				array(
+					'tag' => 'strong',
+					__("In addition, there are several options you can use to customize the display :", 'woorewards-pro')
+				),
+				array(
+					'tag' => 'ul',
+					array('system : ', __("Select for which system you want to show points (example : [wr_product_points system='default'])", 'woorewards-pro')),
+					array('showcurrency : ', __("Set this option to display the points currency next to the points amount (example : [wr_product_points showcurrency='true'])", 'woorewards-pro')),
+				),
+			),
 			'fields' => array(
-				array(
-					'id' => 'lws_woorewards_product_loop_points_preview',
-					'title' => __("Enable", 'woorewards-pro'),
-					'type' => 'box',
+				'layout' => array(
+					'id'    => 'lws_woorewards_archive_product_preview_position',
+					'title' => __("Display Location", 'woorewards-pro'),
+					'type'  => 'radiogrid',
 					'extra' => array(
-						'default' => '',
-						'class' => 'lws_checkbox',
-						'tooltips' => __("In Shop page, points preview is appended for each item in the loop. Warning ! It can be a heavy process if your lists shows many products.", 'woorewards-pro'),
+						'type'    => 'big-icon',
+						'columns' => 'repeat(auto-fit, minmax(160px, 1fr))',
+						'default' => 'none',
+						'source'  => array(
+							array('value' => 'none',                                   'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/archive_none.png',               'label' => __("Not Displayed", 'woorewards-pro')),
+							array('value' => 'woocommerce_before_shop_loop_item',      'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/before_shop_loop_item.png',      'label' => __("Before Image", 'woorewards-pro')),
+							array('value' => 'woocommerce_shop_loop_item_title',       'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/shop_loop_item_title.png',       'label' => __("After Description", 'woorewards-pro')),
+							array('value' => 'woocommerce_after_shop_loop_item_title', 'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/after_shop_loop_item_title.png',	'label' => __("After Price", 'woorewards-pro')),
+							array('value' => 'woocommerce_after_shop_loop_item',       'image' => LWS_WOOREWARDS_PRO_IMG . '/admin/after_shop_loop_item.png',       'label' => __("Below Add to Cart", 'woorewards-pro')),
+						)
+					),
+				),
+				'regular' => array(
+					'id' => 'lws_woorewards_archive_product_preview_regular',
+					'type' => 'wpeditor',
+					'title' => __("Regular Products Content", 'woorewards-pro'),
+					'extra' => array(
+						'editor_height' => 30,
+						'wpml'    => "WooRewards - Shop Points Preview - Regular Product Content",
 					)
 				),
-				array(
-					'id' => 'lws_woorewards_product_loop_points_preview_pattern',
-					'title' => __("Pattern", 'woorewards-pro'),
-					'type' => 'text',
+				'variable' => array(
+					'id' => 'lws_woorewards_archive_product_preview_variable',
+					'type' => 'wpeditor',
+					'title' => __("Variable Products Content", 'woorewards-pro'),
 					'extra' => array(
-						'placeholder' => __("Earn [points] in [system]", 'woorewards-pro'),
-						'tooltips' => sprintf(
-							__('In the preview text, shortcodes %1$s and %2$s will be replaced by the points amount and Points and Rewards System title.', 'woorewards-pro'),
-							'<b>[points]</b>',
-							'<b>[system]</b>'
-						),
-						'wpml' => "WooRewards - Product loop - Points Preview pattern",
-					)
-				),
-				array(
-					'id' => 'lws_woorewards_product_loop_preview_pools',
-					'title' => __("Points and rewards systems", 'woorewards-pro'),
-					'type' => 'lacchecklist',
-					'extra' => array(
-						'ajax' => 'lws_woorewards_pool_list',
-						'tooltips' => __("If you select several systems, they will be displayed separately, one after another.", 'woorewards-pro'),
+						'editor_height' => 30,
+						'wpml'    => "WooRewards - Shop Points Preview - Variable Product Content",
 					)
 				),
 			)
@@ -478,6 +503,7 @@ class WooCommerce
 		return array(
 			'id' => 'orderpoints',
 			'icon'	=> 'lws-icon-letter',
+			'color' => '#425981',
 			'title' => __("Order Email Points Information", 'woorewards-pro'),
 			'text' => array(
 				array('join' => '<br/>',
@@ -495,7 +521,7 @@ class WooCommerce
 					__("If multiple points and rewards systems gave points with the order, the text will be repeated for each system.", 'woorewards-pro')
 				),
 			),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/new-order-email/'),
+			'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('wc-order-email')),
 			'fields' => array(
 				array(
 					'id' => 'lws_woorewards_wc_new_order_enable',
@@ -503,7 +529,7 @@ class WooCommerce
 					'type' => 'box',
 					'extra' => array(
 						'default' => '',
-						'class' => 'lws_checkbox',
+						'layout' => 'toggle',
 						'tooltips' => __("Check this option if you want to show a message in new order emails", 'woorewards-pro'),
 					)
 				),
@@ -513,7 +539,7 @@ class WooCommerce
 					'type' => 'box',
 					'extra' => array(
 						'default' => '',
-						'class' => 'lws_checkbox',
+						'layout' => 'toggle',
 						'tooltips' => __("Check this option if you want to show a message in the Thank you page after Order validation", 'woorewards-pro'),
 					)
 				),
@@ -523,7 +549,7 @@ class WooCommerce
 					'type' => 'box',
 					'extra' => array(
 						'default' => '',
-						'class' => 'lws_checkbox',
+						'layout' => 'toggle',
 						'tooltips' => __("Check this option if you want to show a message in the Order details, in Customer My Account page", 'woorewards-pro'),
 					)
 				),

@@ -89,9 +89,12 @@ class BirthdayField
 		$label = __("Date of birth", 'woorewards-pro');
 		$value = \esc_attr(\get_user_meta($userId, $field, true));
 
+		echo "<fieldset>";
+		echo "<legend>" . $label . "</legend>";
 		echo "<p class='woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide'>";
 		echo "<label for='{$field}'>{$label}</label>";
 		echo "<input type='date' class='woocommerce-Input woocommerce-Input--text input-text' name='{$field}' id='{$field}' value='{$value}' />";
+		echo "</fieldset>";
 		echo "</p><div class='clear'></div>";
 	}
 

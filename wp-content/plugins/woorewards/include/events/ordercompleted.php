@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn point each time a customer complete an order. */
 class OrderCompleted extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	use \LWS\WOOREWARDS\Events\T_SponsorshipOrigin;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -27,6 +29,7 @@ class OrderCompleted extends \LWS\WOOREWARDS\Abstracts\Event
 		$prefix = $this->getDataKeyPrefix();
 		$data = parent::getData();
 		$data[$prefix.'event_priority'] = $this->getEventPriority();
+		$data = $this->filterSponsorshipData($data, $prefix);
 		return $data;
 	}
 
@@ -35,12 +38,14 @@ class OrderCompleted extends \LWS\WOOREWARDS\Abstracts\Event
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
 
+		// just hidden since we do not want to reset the value on save
+		$noPri = (\get_option('lws_woorewards_show_loading_order_and_priority') ? '' : ' style="display: none;"');
 		$label = __("Priority", 'woorewards-lite');
 		$tooltip = __("Customer orders will run by ascending priority value.", 'woorewards-lite');
 		$str = <<<EOT
-		<div class='field-help'>$tooltip</div>
-		<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>
-		<div class='lws-$context-opt-input value'>
+		<div class='field-help'{$noPri}>$tooltip</div>
+		<div class='lws-$context-opt-title label'{$noPri}>$label<div class='bt-field-help'>?</div></div>
+		<div class='lws-$context-opt-input value'{$noPri}>
 			<input type='text' id='{$prefix}event_priority' name='{$prefix}event_priority' placeholder='10' size='5' />
 		</div>
 EOT;
@@ -48,7 +53,7 @@ EOT;
 		$phb0 = $this->getFieldsetPlaceholder(false, 0);
 		$form = str_replace($phb0, $str.$phb0, $form);
 
-		return $form;
+		return $this->filterSponsorshipForm($form, $prefix, $context, 10);
 	}
 
 	function submit($form=array(), $source='editlist')
@@ -71,6 +76,8 @@ EOT;
 			return isset($values['error']) ? $values['error'] : false;
 
 		$valid = parent::submit($form, $source);
+		if ($valid === true)
+			$valid = $this->optSponsorshipSubmit($prefix, $form, $source);
 		if( $valid === true )
 		{
 			$this->setEventPriority  ($values['values'][$prefix.'event_priority']);
@@ -81,12 +88,14 @@ EOT;
 	protected function _fromPost(\WP_Post $post)
 	{
 		$this->setEventPriority($this->getSinglePostMeta($post->ID, 'wre_event_priority', $this->getEventPriority()));
+		$this->optSponsorshipFromPost($post);
 		return $this;
 	}
 
 	protected function _save($id)
 	{
 		\update_post_meta($id, 'wre_event_priority', $this->getEventPriority());
+		$this->optSponsorshipSave($id);
 		return $this;
 	}
 
@@ -110,6 +119,8 @@ EOT;
 	{
 		$userId = \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order->order);
 		if (!$userId)
+			return $order;
+		if (!$this->isValidOriginByOrder($order->order, $this->isGuestAllowed()))
 			return $order;
 
 		if( $points = \apply_filters('trigger_'.$this->getType(), 1, $this, $order->order) )
@@ -140,5 +151,10 @@ EOT;
 			'woocommerce' => __("WooCommerce", 'woorewards-lite'),
 			'order' => __("Order", 'woorewards-lite')
 		));
+	}
+
+	function isGuestAllowed()
+	{
+		return false;
 	}
 }

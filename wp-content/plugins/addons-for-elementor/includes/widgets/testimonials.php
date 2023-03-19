@@ -192,13 +192,14 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
         ] );
         $this->add_control( 'style', [
             'type'    => Controls_Manager::SELECT,
-            'label'   => __( 'Choose Testimonials Style', 'livemesh-el-addons' ),
+            'label'   => __( 'Testimonials Style', 'livemesh-el-addons' ),
             'default' => 'style1',
             'options' => [
             'style1' => __( 'Style 1', 'livemesh-el-addons' ),
             'style2' => __( 'Style 2', 'livemesh-el-addons' ),
             'style3' => __( 'Style 3', 'livemesh-el-addons' ),
             'style4' => __( 'Style 4 (List)', 'livemesh-el-addons' ),
+            'style5' => __( 'Style 5', 'livemesh-el-addons' ),
         ],
         ] );
         $this->add_control( 'layout', [
@@ -210,7 +211,12 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
             'carousel' => __( 'Carousel', 'livemesh-el-addons' ),
         ],
             'condition' => [
-            'style' => [ 'style1', 'style2', 'style3' ],
+            'style' => [
+            'style1',
+            'style2',
+            'style3',
+            'style5'
+        ],
         ],
         ] );
         $this->end_controls_section();
@@ -218,7 +224,12 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
             'label'     => __( 'Carousel Settings', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => [ 'style1', 'style2', 'style3' ],
+            'style'  => [
+            'style1',
+            'style2',
+            'style3',
+            'style5'
+        ],
             'layout' => [ 'carousel' ],
         ],
         ] );
@@ -315,7 +326,12 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
             'label'     => __( 'Responsive Options', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => [ 'style1', 'style2', 'style3' ],
+            'style'  => [
+            'style1',
+            'style2',
+            'style3',
+            'style5'
+        ],
             'layout' => [ 'carousel' ],
         ],
         ] );
@@ -399,7 +415,12 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
             'label'     => __( 'Grid Settings', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => [ 'style1', 'style2', 'style3' ],
+            'style'  => [
+            'style1',
+            'style2',
+            'style3',
+            'style5'
+        ],
             'layout' => [ 'grid' ],
         ],
         ] );
@@ -524,11 +545,12 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
         ],
             'px' => [
             'min' => 50,
-            'max' => 156,
+            'max' => 150,
         ],
         ],
             'selectors'  => [
             '{{WRAPPER}} .lae-testimonials .lae-testimonial-user .lae-image-wrapper img' => 'max-width: {{SIZE}}{{UNIT}};',
+            '{{WRAPPER}} .lae-testimonials .lae-testimonial-user'                        => 'transform: translateY( calc(  -{{SIZE}}{{UNIT}}/2 ))',
         ],
         ] );
         $this->end_controls_section();
@@ -545,7 +567,27 @@ class LAE_Testimonials_Widget extends LAE_Widget_Base
         ],
             'isLinked'   => false,
             'condition'  => [
-            'style' => [ 'style1', 'style3' ],
+            'style' => [ 'style1', 'style3', 'style5' ],
+        ],
+        ] );
+        $this->add_control( 'text_background_color', [
+            'label'     => __( 'Text Background Color', 'livemesh-el-addons' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+            '{{WRAPPER}} .lae-testimonials .lae-testimonial-text' => 'background: {{VALUE}};',
+        ],
+            'condition' => [
+            'style' => [ 'style5' ],
+        ],
+        ] );
+        $this->add_control( 'user_background_color', [
+            'label'     => __( 'User Information Background Color', 'livemesh-el-addons' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+            '{{WRAPPER}} .lae-testimonial .lae-testimonial-user-wrap' => 'background: {{VALUE}};',
+        ],
+            'condition' => [
+            'style' => [ 'style5' ],
         ],
         ] );
         $this->add_control( 'text_color', [

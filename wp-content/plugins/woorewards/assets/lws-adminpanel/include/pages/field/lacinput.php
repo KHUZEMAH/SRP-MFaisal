@@ -51,23 +51,11 @@ class LacInput extends \LWS\Adminpanel\Pages\LAC
 			$name = esc_attr($this->m_Id);
 			$source = $this->data('source');
 			$spec = $this->data('spec');
-			if( !isset($this->scriptAdded) || !$this->scriptAdded )
-			{
-				$this->script();
-			}
 			$inputClass = $this->ignoreConfirm('lac_input');
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
 			}
 			return "<input class='{$inputClass}' name='$name' value='$value'$attrs$source$spec$id>";
 		}
-	}
-
-	public function script()
-	{
-		$this->scriptAdded = true;
-		$this->modelScript();
-		wp_enqueue_script('lws-lac-input');
-		wp_enqueue_style('lws-lac-input-style');
 	}
 }

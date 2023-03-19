@@ -198,7 +198,7 @@ class Pages
 					$page->setAllPagesData($this->pageInstances);
 
 				$page->build();
-				$page->setHead(new \LWS\Adminpanel\Pages\Head($page, $this->getResumePage()));
+				$page->setHead(new \LWS\Adminpanel\Pages\Head($page, $this->getResumePage(), $this->pageInstances));
 			}
 		}
 	}
@@ -372,13 +372,14 @@ class Pages
 		if( $this->isOurPage(self::currentPage()) )
 		{
 			\wp_enqueue_style('wp-jquery-ui-dialog');
-
+			\wp_enqueue_style('wp-color-picker');
 			\wp_enqueue_style('lws-wp-override');
 			\wp_enqueue_style('lws-admin-interface');
 			\wp_enqueue_style('lws-admin-controls');
 			\wp_enqueue_style('lws-editlist');
 			\wp_enqueue_style('lws-adminpanel-wpcss', LWS_ADMIN_PANEL_CSS . '/wp.css', array('lws-icons'), LWS_ADMIN_PANEL_VERSION);
 			\wp_enqueue_style('lws-adminpanel-pseudocss', LWS_ADMIN_PANEL_CSS . '/pseudocss.css', array('lws-adminpanel-css'), LWS_ADMIN_PANEL_VERSION);
+			// DEPRECATED - But used by StyGen
 			\wp_enqueue_style('lws-adminpanel-colorselector', LWS_ADMIN_PANEL_CSS . '/controls/colorselector.css', array('lws-adminpanel-css'), LWS_ADMIN_PANEL_VERSION);
 			\wp_enqueue_style('lws-adminpanel-colorpicker', LWS_ADMIN_PANEL_CSS . '/controls/colorpicker.css', array('lws-adminpanel-css'), LWS_ADMIN_PANEL_VERSION);
 			\wp_enqueue_style('lws-adminpanel-fontselector', LWS_ADMIN_PANEL_CSS . '/controls/fontselector.css', array('lws-adminpanel-css'), LWS_ADMIN_PANEL_VERSION);
@@ -404,9 +405,11 @@ class Pages
 			\wp_enqueue_script('jquery-ui-tooltip');
 			\wp_enqueue_script('jquery-ui-autocomplete');
 
+			\wp_enqueue_script('wp-color-picker');
+			\wp_enqueue_script('wp-color-picker-alpha', LWS_ADMIN_PANEL_JS . '/controls/wp-color-picker-alpha.js', array('jquery', 'wp-color-picker'), LWS_ADMIN_PANEL_VERSION, true);
+
 			\wp_enqueue_script('lws-base64');
 			\wp_enqueue_script('lws-tools');
-			\wp_enqueue_script('lws-checkbox');
 			\wp_enqueue_script('lws-field-validation');
 
 			\wp_enqueue_script('lws-admin-interface');
@@ -415,38 +418,39 @@ class Pages
 			\wp_enqueue_script('lws-adminpanel-formfields',    LWS_ADMIN_PANEL_JS . '/interface/formfields.js', array('jquery'), LWS_ADMIN_PANEL_VERSION, true);
 			\wp_enqueue_script('lws-adminpanel-fontselector',  LWS_ADMIN_PANEL_JS . '/controls/fontselector.js', array('lws-tools', 'jquery'), LWS_ADMIN_PANEL_VERSION, true);
 			\wp_enqueue_script('lws-adminpanel-pseudocss',     LWS_ADMIN_PANEL_JS . '/pseudocss.js', array('lws-tools', 'jquery'), LWS_ADMIN_PANEL_VERSION, true);
+			// DEPRECATED - But used by StyGen
 			\wp_enqueue_script('lws-adminpanel-colorselector', LWS_ADMIN_PANEL_JS . '/controls/colorselector.js', array('jquery', 'jquery-ui-core', 'jquery-effects-slide'), LWS_ADMIN_PANEL_VERSION, true);
 
 			\wp_register_script('lws-adminpanel-fields', LWS_ADMIN_PANEL_JS . '/fields.js', array('lws-tools', 'lws-base64', 'jquery', 'jquery-ui-autocomplete'), LWS_ADMIN_PANEL_VERSION, true);
 			\wp_register_script('lws-adminpanel-autocomplete', LWS_ADMIN_PANEL_JS . '/controls/autocomplete.js', array('lws-tools', 'lws-base64', 'jquery','jquery-ui-tooltip','jquery-ui-autocomplete'), LWS_ADMIN_PANEL_VERSION, true);
 
 			\wp_localize_script('lws-adminpanel-fields', 'lws_adminpanel', array(
-				'confirmLeave' => __("Changes not commited.", 'lws-adminpanel'),
-				'editlistOnHold' => __("Please confirm or cancel the active form before submit that page.", 'lws-adminpanel'),
-				'confirmDel' => __("Do you really want to delete the line?", 'lws-adminpanel'),
-				'updateAlert' => __("Update error, please check the values.", 'lws-adminpanel'),
-				'triggerError' => __("An error occured, please try later.", 'lws-adminpanel'),
-				'noSelection' => __("Please, select an item.", 'lws-adminpanel'),
-				'fontPlaceHolder' => __("Select a font", 'lws-adminpanel'),
-				'fontToggleMore' => _x("Show more", "Font list", 'lws-adminpanel'),
-				'fontToggleLess' => _x("Show less", "Font list", 'lws-adminpanel'),
+				'confirmLeave' => __("Changes not commited.", LWS_ADMIN_PANEL_DOMAIN),
+				'editlistOnHold' => __("Please confirm or cancel the active form before submit that page.", LWS_ADMIN_PANEL_DOMAIN),
+				'confirmDel' => __("Do you really want to delete the line?", LWS_ADMIN_PANEL_DOMAIN),
+				'updateAlert' => __("Update error, please check the values.", LWS_ADMIN_PANEL_DOMAIN),
+				'triggerError' => __("An error occured, please try later.", LWS_ADMIN_PANEL_DOMAIN),
+				'noSelection' => __("Please, select an item.", LWS_ADMIN_PANEL_DOMAIN),
+				'fontPlaceHolder' => __("Select a font", LWS_ADMIN_PANEL_DOMAIN),
+				'fontToggleMore' => _x("Show more", "Font list", LWS_ADMIN_PANEL_DOMAIN),
+				'fontToggleLess' => _x("Show less", "Font list", LWS_ADMIN_PANEL_DOMAIN),
 				'fontWeightTr' => array(
-					'100' => _x("Thin", "Font weight", 'lws-adminpanel'),
-					'200' => _x("Extra Light", "Font weight", 'lws-adminpanel'),
-					'300' => _x("Light", "Font weight", 'lws-adminpanel'),
-					'400' => _x("Normal", "Font weight", 'lws-adminpanel'),
-					'regular' => _x("Normal", "Font weight", 'lws-adminpanel'),
-					'500' => _x("Medium", "Font weight", 'lws-adminpanel'),
-					'600' => _x("Semi Bold", "Font weight", 'lws-adminpanel'),
-					'700' => _x("Bold", "Font weight", 'lws-adminpanel'),
-					'800' => _x("Extra Bold", "Font weight", 'lws-adminpanel'),
-					'900' => _x("Black", "Font weight", 'lws-adminpanel')
+					'100' => _x("Thin", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'200' => _x("Extra Light", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'300' => _x("Light", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'400' => _x("Normal", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'regular' => _x("Normal", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'500' => _x("Medium", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'600' => _x("Semi Bold", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'700' => _x("Bold", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'800' => _x("Extra Bold", "Font weight", LWS_ADMIN_PANEL_DOMAIN),
+					'900' => _x("Black", "Font weight", LWS_ADMIN_PANEL_DOMAIN)
 				)
 			));
 
 			\wp_localize_script('lws-adminpanel-autocomplete', 'lws_autocomplete_localize', array(
-				'notMatch'=>__(" didn't match any items", 'lws-adminpanel'),
-				'btnTitle'=>__("Show All Items", 'lws-adminpanel')
+				'notMatch'=>__(" didn't match any items", LWS_ADMIN_PANEL_DOMAIN),
+				'btnTitle'=>__("Show All Items", LWS_ADMIN_PANEL_DOMAIN)
 			));
 
 			\wp_enqueue_script('lws-adminpanel-fields');

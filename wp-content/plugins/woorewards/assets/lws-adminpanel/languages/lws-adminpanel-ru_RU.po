@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LWS Admin Panel\n"
-"POT-Creation-Date: 2021-03-09 19:36+0100\n"
-"PO-Revision-Date: 2021-03-09 19:36+0100\n"
+"POT-Creation-Date: 2023-01-31 09:45+0100\n"
+"PO-Revision-Date: 2023-01-31 09:45+0100\n"
 "Last-Translator: Paley\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: lws-adminpanel.php\n"
@@ -22,15 +22,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: include/admin.php:230 include/pages/head.php:380
+#: include/admin.php:240 include/pages/head.php:466
 msgid "Expand All"
 msgstr "Развернуть все"
 
-#: include/admin.php:231
+#: include/admin.php:241
 msgid "Collapse All"
 msgstr "Свернуть все"
 
-#: include/admin.php:239
+#: include/admin.php:249
 msgid "At least one value is unknown."
 msgstr "По крайней мере одно значение неизвестно."
 
@@ -47,6 +47,10 @@ msgid "Filter the results"
 msgstr "Фильтровать результаты"
 
 #: include/editlist/pager.php:82
+msgid "Order By"
+msgstr ""
+
+#: include/editlist/pager.php:105
 #, php-format
 msgid "%d item"
 msgid_plural "%d items"
@@ -54,11 +58,11 @@ msgstr[0] "%d элемент"
 msgstr[1] "%d элемента"
 msgstr[2] "%d элементов"
 
-#: include/editlist/pager.php:89
+#: include/editlist/pager.php:112
 msgid "Items per page"
 msgstr "Элементов на странице"
 
-#: include/editlist/pager.php:109
+#: include/editlist/pager.php:132
 #, php-format
 msgctxt "Total page number"
 msgid "/ %d"
@@ -67,56 +71,69 @@ msgstr[0] "/ %d"
 msgstr[1] "/ %d"
 msgstr[2] "/ %d"
 
+#: include/editlist/source.php:51 include/internal/editlistcontroler.php:554
+#, fuzzy
+#| msgid "Email Settings"
+msgid "Settings"
+msgstr "Настройки Email"
+
 #: include/internal/editlistcontroler.php:143
 msgctxt "editlist groupby"
 msgid "Add a group"
 msgstr "Добавить группу"
 
-#: include/internal/editlistcontroler.php:279
+#: include/internal/editlistcontroler.php:152
+#, fuzzy
+#| msgid "Edit..."
+msgid "Edit"
+msgstr "Pедактировать..."
+
+#: include/internal/editlistcontroler.php:156
+#: include/internal/editlistcontroler.php:596
+msgid "Delete"
+msgstr "Удалить"
+
+#: include/internal/editlistcontroler.php:305
 msgid "Apply"
 msgstr "Применить"
 
-#: include/internal/editlistcontroler.php:322
+#: include/internal/editlistcontroler.php:348
 msgid "Action"
 msgstr "Действие"
 
-#: include/internal/editlistcontroler.php:335
+#: include/internal/editlistcontroler.php:361
 msgid "Add"
 msgstr "Добавить"
 
-#: include/internal/editlistcontroler.php:460
+#: include/internal/editlistcontroler.php:505
 msgid "Values"
 msgstr ""
 
-#: include/internal/editlistcontroler.php:502
+#: include/internal/editlistcontroler.php:547
 msgid "Cancel"
 msgstr "Отменить"
 
-#: include/internal/editlistcontroler.php:503
+#: include/internal/editlistcontroler.php:548
 msgid "Save"
 msgstr "Сохранить"
 
-#: include/internal/editlistcontroler.php:506
+#: include/internal/editlistcontroler.php:551
 msgctxt "Confirm event/unlockable type choice"
 msgid "Next"
 msgstr "Далее"
 
-#: include/internal/editlistcontroler.php:507
+#: include/internal/editlistcontroler.php:552
 msgctxt "Undo event/unlockable type choice"
 msgid "Back"
 msgstr "Назад"
 
-#: include/internal/editlistcontroler.php:550
+#: include/internal/editlistcontroler.php:594
 msgid "Quick Edit"
 msgstr "Быстрое редактирование"
 
-#: include/internal/editlistcontroler.php:551
+#: include/internal/editlistcontroler.php:595
 msgid "Copy"
 msgstr "Копировать"
-
-#: include/internal/editlistcontroler.php:552
-msgid "Delete"
-msgstr "Удалить"
 
 #: include/internal/helpers/pages.php:59
 msgid "Used to get google fonts."
@@ -141,20 +158,20 @@ msgstr "Вы ДОЛЖНЫ войти в свой аккаунт Google для с
 msgid "Google account"
 msgstr "Аккаунт Google"
 
-#: include/internal/mailer.php:334
+#: include/internal/mailer.php:356
 msgid "This is a test."
 msgstr "Это тест."
 
-#: include/internal/mailer.php:408
+#: include/internal/mailer.php:430
 msgid "Email Settings"
 msgstr "Настройки Email"
 
-#: include/internal/mailer.php:408
+#: include/internal/mailer.php:430
 #, php-format
 msgid "%s Email Settings"
 msgstr "%s Настройки Email"
 
-#: include/internal/mailer.php:410
+#: include/internal/mailer.php:432
 msgid ""
 "Once you've finished the email settings, <b>save your changes</b><br/>You "
 "will then see the result in the style editor below<br/>Select the elements "
@@ -164,136 +181,178 @@ msgstr ""
 ">Вы увидите результат в редакторе стилей ниже<br/>Выберите элементы, которые "
 "хотите изменить и веселитесь!"
 
-#: include/internal/mailer.php:414
+#: include/internal/mailer.php:436
 msgid "Header picture"
 msgstr "Изображение хэдера"
 
-#: include/internal/mailer.php:422
+#: include/internal/mailer.php:444
 msgid "Footer text"
 msgstr "Текст футера"
 
-#: include/internal/mailer.php:443
+#: include/internal/mailer.php:465
 msgid "Email details"
 msgstr "Детали email"
 
-#: include/internal/mailer.php:448
+#: include/internal/mailer.php:470
 msgid "Subject"
 msgstr "Тема"
 
-#: include/internal/mailer.php:459
+#: include/internal/mailer.php:481
 msgid "Preheader"
 msgstr "Прехедер"
 
-#: include/internal/mailer.php:496
+#: include/internal/mailer.php:522
 msgid "Receiver Email"
 msgstr "Получатель email'а"
 
-#: include/internal/mailer.php:499
+#: include/internal/mailer.php:525
 msgid "Test your email to see how it looks"
 msgstr "Проверьте своё email-письмо, чтобы увидеть, как оно выглядит"
 
-#: include/internal/mailer.php:506
+#: include/internal/mailer.php:532
 msgid "Send test email"
 msgstr "Отправить тестовое email-письмо"
 
-#: include/internal/mailer.php:524
+#: include/internal/mailer.php:550
 msgid "Test email sent."
 msgstr "Тестовое письмо отправлено."
 
-#: include/internal/mailer.php:527
+#: include/internal/mailer.php:553
 msgid "Test email is not valid."
 msgstr "Тестовое письмо не действительно."
 
-#: include/internal/pages.php:424
+#: include/internal/menuitems.php:68
+msgid "Custom item"
+msgstr ""
+
+#: include/internal/menuitems.php:411
+#, fuzzy
+#| msgid "Select..."
+msgid "Select All"
+msgstr "Выбрать..."
+
+#: include/internal/menuitems.php:412
+#, fuzzy
+#| msgid "Admin Menu"
+msgid "Add to Menu"
+msgstr "Меню Админа"
+
+#: include/internal/menushortcode.php:18
+#, fuzzy
+#| msgid "Shortcode"
+msgid "Shortcode item"
+msgstr "Шорткод"
+
+#: include/internal/menushortcode.php:21 include/internal/menushortcode.php:57
+msgid "Logged"
+msgstr ""
+
+#: include/internal/menushortcode.php:23 include/internal/menushortcode.php:55
+msgid "Guest"
+msgstr ""
+
+#: include/internal/menushortcode.php:51
+msgid "Item content"
+msgstr ""
+
+#: include/internal/menushortcode.php:54
+msgid "Visitor type"
+msgstr ""
+
+#: include/internal/menushortcode.php:56
+msgid "All"
+msgstr ""
+
+#: include/internal/pages.php:428
 msgid "Changes not commited."
 msgstr "Изменения не внесены."
 
-#: include/internal/pages.php:425
+#: include/internal/pages.php:429
 msgid "Please confirm or cancel the active form before submit that page."
 msgstr ""
 "Пожалуйста, подтвердите или отмените активную форму перед отправкой этой "
 "страницы."
 
-#: include/internal/pages.php:426
+#: include/internal/pages.php:430
 msgid "Do you really want to delete the line?"
 msgstr "Вы действительно хотите удалить строку?"
 
-#: include/internal/pages.php:427
+#: include/internal/pages.php:431
 msgid "Update error, please check the values."
 msgstr "Ошибка обновления, пожалуйста, проверьте значения."
 
-#: include/internal/pages.php:428
+#: include/internal/pages.php:432
 msgid "An error occured, please try later."
 msgstr "Произошла ошибка. Пожалуйста, попробуйте позже."
 
-#: include/internal/pages.php:429
+#: include/internal/pages.php:433
 msgid "Please, select an item."
 msgstr "Пожалуйста, выберите элемент."
 
-#: include/internal/pages.php:430
+#: include/internal/pages.php:434
 msgid "Select a font"
 msgstr "Выбрать шрифт"
 
-#: include/internal/pages.php:431
+#: include/internal/pages.php:435
 msgctxt "Font list"
 msgid "Show more"
 msgstr "Показать больше"
 
-#: include/internal/pages.php:432
+#: include/internal/pages.php:436
 msgctxt "Font list"
 msgid "Show less"
 msgstr "Показать меньше"
 
-#: include/internal/pages.php:434
+#: include/internal/pages.php:438
 msgctxt "Font weight"
 msgid "Thin"
 msgstr "Тонкий"
 
-#: include/internal/pages.php:435
+#: include/internal/pages.php:439
 msgctxt "Font weight"
 msgid "Extra Light"
 msgstr "Очень светлый"
 
-#: include/internal/pages.php:436
+#: include/internal/pages.php:440
 msgctxt "Font weight"
 msgid "Light"
 msgstr "Светлый"
 
-#: include/internal/pages.php:437 include/internal/pages.php:438
+#: include/internal/pages.php:441 include/internal/pages.php:442
 msgctxt "Font weight"
 msgid "Normal"
 msgstr "Нормальный"
 
-#: include/internal/pages.php:439
+#: include/internal/pages.php:443
 msgctxt "Font weight"
 msgid "Medium"
 msgstr "Средний"
 
-#: include/internal/pages.php:440
+#: include/internal/pages.php:444
 msgctxt "Font weight"
 msgid "Semi Bold"
 msgstr "Полужирный"
 
-#: include/internal/pages.php:441
+#: include/internal/pages.php:445
 msgctxt "Font weight"
 msgid "Bold"
 msgstr "Жирный"
 
-#: include/internal/pages.php:442
+#: include/internal/pages.php:446
 msgctxt "Font weight"
 msgid "Extra Bold"
 msgstr "Экстра-жирный"
 
-#: include/internal/pages.php:443
+#: include/internal/pages.php:447
 msgctxt "Font weight"
 msgid "Black"
 msgstr "Черный"
 
-#: include/internal/pages.php:448
+#: include/internal/pages.php:452
 msgid " didn't match any items"
 msgstr " не совпадают с какими-либо элементами"
 
-#: include/internal/pages.php:449
+#: include/internal/pages.php:453
 msgid "Show All Items"
 msgstr "Показать все элементы"
 
@@ -346,190 +405,107 @@ msgstr[0] "День"
 msgstr[1] "Дня"
 msgstr[2] "Дней"
 
-#: include/legacy/duration.php:286 include/tools/duration.php:286
+#: include/legacy/duration.php:286 include/tools/duration.php:291
+#: include/tools/duration.php:299
 msgid "Days"
 msgstr "Дни"
 
-#: include/legacy/duration.php:287 include/tools/duration.php:287
+#: include/legacy/duration.php:287 include/tools/duration.php:292
+#: include/tools/duration.php:301
 msgid "Months"
 msgstr "Месяцев"
 
-#: include/legacy/duration.php:288 include/tools/duration.php:288
+#: include/legacy/duration.php:288 include/tools/duration.php:293
+#: include/tools/duration.php:302
 msgid "Years"
 msgstr "Лет"
 
-#: include/legacy/duration.php:291 include/tools/duration.php:291
+#: include/legacy/duration.php:291 include/tools/duration.php:300
 msgid "Weeks"
 msgstr "Недель"
 
-#: include/legacy/duration.php:292 include/tools/duration.php:292
+#: include/legacy/duration.php:292 include/tools/duration.php:298
 msgid "Hours"
 msgstr "Часы"
 
-#: include/legacy/duration.php:293 include/tools/duration.php:293
+#: include/legacy/duration.php:293 include/tools/duration.php:297
 msgid "Minutes"
 msgstr "Минуты"
 
-#: include/legacy/duration.php:294 include/tools/duration.php:294
+#: include/legacy/duration.php:294 include/tools/duration.php:296
 msgid "Seconds"
 msgstr "Секунды"
 
-#: include/pages/field/border.php:25
-msgctxt "CSS margin tooltip"
-msgid ""
-"1 to 4 values accepted<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Sets a global margin of 5 pixels</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, bottom, "
-"left margins</p>"
+#: include/pages/endpoint.php:63
+msgid "Enable"
 msgstr ""
-"Принимается от 1 до 4 значений<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Устанавливает общий внешний отступ в 5 "
-"пикселей</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
-"правый, нижний, левый внешние отступы</p>"
 
-#: include/pages/field/border.php:33
-msgctxt "CSS padding tooltip"
-msgid ""
-"1 to 4 values accepted<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Sets a global padding of 5 pixels</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, bottom, "
-"left padding</p>"
+#: include/pages/endpoint.php:72
+msgid "Tab title"
 msgstr ""
-"Принимается от 1 до 4 значений<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Устанавливает общий внутренний отступ "
-"в 5 пикселей</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
-"правый, нижний, левый внутренние отступы</p>"
 
-#: include/pages/field/border.php:41
-msgctxt "CSS border tooltip"
-msgid ""
-"1 to 4 values accepted<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Sets a global border size of 5 pixels</"
-"p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, bottom, "
-"left borders</p>"
+#: include/pages/endpoint.php:81
+msgid "Slug"
 msgstr ""
-"Принимается от 1 до 4 значений<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Устанавливает общий размер границы в 5 "
-"пикселей</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхнюю, "
-"правую, нижнюю, левую границы</p>"
 
-#: include/pages/field/border.php:49
-msgctxt "CSS radius tooltip"
-msgid ""
-"1 to 4 values accepted<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Sets a global border radius of 5 "
-"pixels</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, bottom, "
-"left border radius</p>"
+#: include/pages/endpoint.php:89
+msgid "Role restriction"
 msgstr ""
-"Принимается от 1 до 4 значений<br/>\n"
-"<p class='lwss-tooltip-exemple'>5px | Устанавливает общий радиус границы в 5 "
-"пикселей</p>\n"
-"<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
-"правый, нижний, левый радиусы границы</p>"
 
-#: include/pages/field/border.php:73
-msgctxt "CSS border size edition"
-msgid "Margin"
-msgstr "Внеш. отступ"
+#: include/pages/endpoint.php:92
+msgid ""
+"Restrict this tab to given roles. No roles selected means no restriction at "
+"all."
+msgstr ""
 
-#: include/pages/field/border.php:75
-msgctxt "CSS border size editoin"
-msgid "Padding"
-msgstr "Внут. отступ"
+#: include/pages/endpoint.php:98
+msgid "Content page"
+msgstr ""
 
-#: include/pages/field/border.php:77
-msgctxt "CSS border size editoin"
-msgid "Border"
-msgstr "Граница"
+#: include/pages/endpoint.php:112
+#, fuzzy
+#| msgctxt "Singular object edition screen"
+#| msgid "Permanent deletion"
+msgid "Content Edition"
+msgstr "Перманентное удаление"
 
-#: include/pages/field/border.php:79
-msgctxt "CSS border size editoin"
-msgid "Radius"
-msgstr "Радиус"
+#: include/pages/endpoint.php:120
+msgid "Edit Page"
+msgstr ""
 
-#: include/pages/field/border.php:81
-msgctxt "CSS color edition"
-msgid "Border Color"
-msgstr "Цвет границы"
+#: include/pages/endpoint.php:126
+#, fuzzy
+#| msgid "Select a font"
+msgid "Selected Page not found"
+msgstr "Выбрать шрифт"
 
-#: include/pages/field/border.php:83
-msgctxt "CSS color edition"
-msgid "Background"
-msgstr "Фон"
+#: include/pages/endpoint.php:137
+#, fuzzy
+#| msgid "Default CSS values"
+msgid "Default Content"
+msgstr "Значения CSS по умолчанию"
 
-#: include/pages/field/border.php:155
-msgctxt "LWSS border text demo"
-msgid "This is a sample text"
-msgstr "Это образец текста"
+#: include/pages/endpoint.php:140
+msgid "Create a new default page"
+msgstr ""
 
-#: include/pages/field/cssbutton.php:67
-msgctxt "LWSS button colors"
-msgid "Normal"
-msgstr "Нормальный"
+#: include/pages/endpoint.php:167
+msgid "Edit the page"
+msgstr ""
 
-#: include/pages/field/cssbutton.php:68
-msgctxt "LWSS button colors"
-msgid "Over"
-msgstr "Наведение"
+#: include/pages/endpoint.php:168
+msgid "Page created and setup as tab."
+msgstr ""
 
-#: include/pages/field/cssbutton.php:69
-msgctxt "LWSS button colors"
-msgid "Focused"
-msgstr "В Фокусе"
+#: include/pages/endpoint.php:187
+#, fuzzy
+#| msgid "An error occured during form validation."
+msgid "An error occured during page creation."
+msgstr "Произошла ошибка во время валидации формы."
 
-#: include/pages/field/cssbutton.php:70
-msgctxt "LWSS button colors"
-msgid "Text"
-msgstr "Текст"
-
-#: include/pages/field/cssbutton.php:71
-msgctxt "LWSS button colors"
-msgid "Background"
-msgstr "Фон"
-
-#: include/pages/field/cssbutton.php:88
-msgctxt "CSS color edition"
-msgid "Normal Text"
-msgstr "Нормальный текст"
-
-#: include/pages/field/cssbutton.php:89
-msgctxt "CSS color edition"
-msgid "On Hover Text"
-msgstr "Текст при наведении"
-
-#: include/pages/field/cssbutton.php:90
-msgctxt "CSS color edition"
-msgid "On Click Text"
-msgstr "Текст при нажатии"
-
-#: include/pages/field/cssbutton.php:95
-msgctxt "CSS color edition"
-msgid "Normal Background"
-msgstr "Нормальный фон"
-
-#: include/pages/field/cssbutton.php:96
-msgctxt "CSS color edition"
-msgid "On Hover Background"
-msgstr "Фон при наведении"
-
-#: include/pages/field/cssbutton.php:97
-msgctxt "CSS color edition"
-msgid "On Click Background"
-msgstr "Фон при нажатии"
-
-#: include/pages/field/duration.php:82
+#: include/pages/field/duration.php:88
 msgid "An integer value greater than zero."
 msgstr "Целое число больше нуля."
-
-#: include/pages/field/font.php:83
-msgctxt "LWSS font text demo"
-msgid "This is a sample text"
-msgstr "Это образец текста"
 
 #: include/pages/field/googleapiskey.php:24
 msgid "Your Google API key"
@@ -539,15 +515,19 @@ msgstr "Ваш ключ Google API"
 msgid "You should define a Google API key in this settings."
 msgstr "Вы должны определить ключ API Google в этих настройках."
 
-#: include/pages/field/lacchecklist.php:60
+#: include/pages/field/iconpicker.php:48
+msgid "Pick an Icon"
+msgstr ""
+
+#: include/pages/field/lacchecklist.php:62
 msgid "Select..."
 msgstr "Выбрать..."
 
-#: include/pages/field/lacchecklist.php:61
+#: include/pages/field/lacchecklist.php:63
 msgid "Search..."
 msgstr "Поиск..."
 
-#: include/pages/field/lactaglist.php:51
+#: include/pages/field/lactaglist.php:53
 msgctxt "lac-taglist \"add\" button"
 msgid "Add"
 msgstr "Добавить"
@@ -568,25 +548,29 @@ msgstr "Использовать выбранный элемент"
 msgid "Edit..."
 msgstr "Pедактировать..."
 
-#: include/pages/field/shortcode.php:17
+#: include/pages/field/shortcode.php:25
 msgid "Shortcode"
 msgstr "Шорткод"
 
-#: include/pages/field/shortcode.php:18
+#: include/pages/field/shortcode.php:26
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: include/pages/field/shortcode.php:19
+#: include/pages/field/shortcode.php:27
 msgid "Description"
 msgstr "Описание"
 
-#: include/pages/field/shortcode.php:20
+#: include/pages/field/shortcode.php:28
 msgid "Styling"
 msgstr "Стайлинг"
 
-#: include/pages/field/shortcode.php:21
+#: include/pages/field/shortcode.php:29
 msgid "Customize the look of this shortcode"
 msgstr "Настройте внешний вид этого короткого кода"
+
+#: include/pages/field/shortcode.php:89
+msgid "Example"
+msgstr ""
 
 #: include/pages/field/stygen.php:46
 msgid "Available Elements"
@@ -605,67 +589,63 @@ msgstr "Сбросить Стиль"
 msgid "Snippet unknown"
 msgstr "Фрагмент неизвестен"
 
-#: include/pages/head.php:213
-msgid "Admin Menu"
-msgstr "Меню Админа"
-
-#: include/pages/head.php:214 include/pages/head.php:509
-msgid "Advanced Settings"
-msgstr "Расширенные Настройки"
-
-#: include/pages/head.php:215
-msgid "Support"
-msgstr "Поддержка"
-
-#: include/pages/head.php:216
-msgid "Troubleshooting"
-msgstr "Решение проблем"
-
-#: include/pages/head.php:217
-msgid "Live Chat"
-msgstr "Онлайн-чат"
-
-#: include/pages/head.php:218
+#: include/pages/group.php:283 include/pages/head.php:307
 msgid "Documentation"
 msgstr "Документация"
 
-#: include/pages/head.php:219
+#: include/pages/head.php:302
+msgid "Admin Menu"
+msgstr "Меню Админа"
+
+#: include/pages/head.php:303 include/pages/head.php:614
+msgid "Advanced Settings"
+msgstr "Расширенные Настройки"
+
+#: include/pages/head.php:304
+msgid "Support"
+msgstr "Поддержка"
+
+#: include/pages/head.php:305
+msgid "Troubleshooting"
+msgstr "Решение проблем"
+
+#: include/pages/head.php:306
+msgid "Live Chat"
+msgstr "Онлайн-чат"
+
+#: include/pages/head.php:308
 msgid "Patch Notes"
 msgstr "Патчноут"
 
-#: include/pages/head.php:220
+#: include/pages/head.php:309
 msgid "License Information"
 msgstr "Сведения о лицензии"
 
-#: include/pages/head.php:221
+#: include/pages/head.php:310
 msgid "Try Premium for Free"
 msgstr "Попробуйте Премиум бесплатно"
 
-#: include/pages/head.php:259
+#: include/pages/head.php:348
 msgid "Plugin Notifications"
 msgstr "Уведомления Плагина"
 
-#: include/pages/head.php:265
+#: include/pages/head.php:354
 msgid "Other Notifications"
 msgstr "Другие Уведомления"
 
-#: include/pages/head.php:335
+#: include/pages/head.php:424
 msgid "Dismiss"
 msgstr "Отклонить"
 
-#: include/pages/head.php:368
-msgid "Discard Changes"
-msgstr "Отклонить изменения"
-
-#: include/pages/head.php:371
+#: include/pages/head.php:457
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: include/pages/head.php:447
+#: include/pages/head.php:552
 msgid "https://plugins.longwatchstudio.com/"
 msgstr "https://plugins.longwatchstudio.com/"
 
-#: include/pages/head.php:450
+#: include/pages/head.php:555
 msgid "https://plugins.longwatchstudio.com/documentation/"
 msgstr "https://plugins.longwatchstudio.com/documentation/"
 
@@ -673,9 +653,21 @@ msgstr "https://plugins.longwatchstudio.com/documentation/"
 msgid "Dismiss this notice"
 msgstr "Закрыть это уведомление"
 
-#: include/pages/screens/admin.php:147 include/pages/screens/singular.php:194
+#: include/pages/screens/admin.php:152 include/pages/screens/singular.php:194
 msgid "Your settings have been saved."
 msgstr "Ваши настройки сохранены."
+
+#: include/pages/screens/admin.php:218
+#, fuzzy
+#| msgid "Shortcode"
+msgid "Shortcodes Summary"
+msgstr "Шорткод"
+
+#: include/pages/screens/admin.php:219
+msgid ""
+"This section groups all the shortcodes presented in that page. Click on an "
+"item to go to the shortcode detail"
+msgstr ""
 
 #: include/pages/screens/singular.php:93
 msgctxt "Singular object edition screen"
@@ -735,7 +727,20 @@ msgstr "Ошибка проверки безопасности."
 msgid "Element permanently removed."
 msgstr "Элемент удалён навсегда."
 
-#: include/pages/wizard.php:189
+#: include/pages/screens/teaser.php:45
+msgid "No data loaded."
+msgstr ""
+
+#: include/pages/screens/teaser.php:62
+#, php-format
+msgid "Last checked on %1$s at %2$s."
+msgstr ""
+
+#: include/pages/screens/teaser.php:67
+msgid "Check again."
+msgstr ""
+
+#: include/pages/wizard.php:193
 #, php-format
 msgid ""
 "If you can see this, an error occured. Click %s here %s to resolve. Then "
@@ -744,167 +749,255 @@ msgstr ""
 "Если вы видите это, то произошла ошибка. Нажмите %s здесь %s, чтобы "
 "разрешить. Затем, перезапустите мастер настройки."
 
-#: include/pages/wizard.php:202
+#: include/pages/wizard.php:206
 msgid "Leave the wizard"
 msgstr "Покинуть мастер настройки"
 
-#: include/pages/wizard.php:202 include/pages/wizard.php:1005
+#: include/pages/wizard.php:206 include/pages/wizard.php:1098
 msgid "You can come back later and continue from that point."
 msgstr "Вы можете вернуться позже и продолжить с этого момента."
 
-#: include/pages/wizard.php:358
+#: include/pages/wizard.php:363
 msgid "An error occured during form validation."
 msgstr "Произошла ошибка во время валидации формы."
 
-#: include/pages/wizard.php:754
+#: include/pages/wizard.php:785
 #, php-format
 msgctxt "wizard critical path tab title with loop count"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: include/pages/wizard.php:965
+#: include/pages/wizard.php:849
+msgid "Step : "
+msgstr ""
+
+#: include/pages/wizard.php:1058
 msgctxt "previous wizard step"
 msgid "Previous"
 msgstr "Назад"
 
-#: include/pages/wizard.php:976
+#: include/pages/wizard.php:1069
 msgctxt "repeat a wizard portion"
 msgid "Add"
 msgstr "Добавить"
 
-#: include/pages/wizard.php:985
+#: include/pages/wizard.php:1078
 msgctxt "next wizard step"
 msgid "Next"
 msgstr "Далее"
 
-#: include/pages/wizard.php:989
+#: include/pages/wizard.php:1082
 msgctxt "final wizard submit"
 msgid "Submit"
 msgstr "Отправить"
 
-#: include/pages/wizard.php:1004
+#: include/pages/wizard.php:1097
 msgid "Leave this wizard"
 msgstr "Покинуть этот мастер настройки"
 
-#: include/pages/wizard.php:1006
+#: include/pages/wizard.php:1099
 msgid "Cancel this wizard"
 msgstr "Отменить этот мастер настройки"
 
-#: include/pages/wizard.php:1007
+#: include/pages/wizard.php:1100
 msgid "You will lose all prepared settings."
 msgstr "Вы потеряете все подготовленные настройки."
 
-#: include/tools/argparser.php:160
+#: include/tools/argparser.php:171
 #, php-format
 msgctxt "Input array validation"
 msgid "%s value rejected"
 msgstr "%s значение отклонено"
 
-#: include/tools/argparser.php:171
+#: include/tools/argparser.php:182
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is not an array"
 msgstr "%s не массив"
 
-#: include/tools/argparser.php:175
+#: include/tools/argparser.php:186
 #, php-format
 msgid "A value in %s"
 msgstr "Значение в %s"
 
-#: include/tools/argparser.php:194
+#: include/tools/argparser.php:206
+#, php-format
+msgctxt "Input array validation"
+msgid "%s value is required and must be a valid datetime format"
+msgstr ""
+
+#: include/tools/argparser.php:210
+#, php-format
+msgctxt "Input array validation"
+msgid "%s must be a valid datetime format"
+msgstr ""
+
+#: include/tools/argparser.php:216
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is not valid"
 msgstr "%s не действителен"
 
-#: include/tools/argparser.php:199
+#: include/tools/argparser.php:222 include/tools/argparser.php:295
+#, php-format
+msgctxt "Input array validation"
+msgid "%1$s must be a valid number or an expression: %2$s"
+msgstr ""
+
+#: include/tools/argparser.php:233
 #, php-format
 msgctxt "Input array validation"
 msgid "%s must be equal or greater than zero"
 msgstr "%s должен быть равен или больше нуля"
 
-#: include/tools/argparser.php:205
+#: include/tools/argparser.php:240 include/tools/argparser.php:249
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is not a decimal number"
 msgstr "%s не десятичное число"
 
-#: include/tools/argparser.php:207 include/tools/argparser.php:217
+#: include/tools/argparser.php:242 include/tools/argparser.php:260
+#: include/tools/argparser.php:270
 #, php-format
 msgctxt "Input array validation"
 msgid "%s must be greater than zero"
 msgstr "%s должен быть больше нуля"
 
-#: include/tools/argparser.php:215
+#: include/tools/argparser.php:251
+#, fuzzy, php-format
+#| msgctxt "Input array validation"
+#| msgid "%s must be greater than zero"
+msgctxt "Input array validation"
+msgid "%s must be greater or equal to zero"
+msgstr "%s должен быть больше нуля"
+
+#: include/tools/argparser.php:258
+#, fuzzy, php-format
+#| msgctxt "Input array validation"
+#| msgid "%s must be equal or greater than zero"
+msgctxt "Input array validation"
+msgid "%s must be a valid date interval"
+msgstr "%s должен быть равен или больше нуля"
+
+#: include/tools/argparser.php:267
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is not a number"
 msgstr "%s не число"
 
-#: include/tools/argparser.php:221
+#: include/tools/argparser.php:275
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is not a string"
 msgstr "%s не string"
 
-#: include/tools/argparser.php:233
+#: include/tools/argparser.php:287
 #, php-format
 msgctxt "Input array validation"
 msgid "%s is empty"
 msgstr "%s пусто"
 
-#: include/tools/argparser.php:283
+#: include/tools/argparser.php:342
 #, php-format
 msgctxt "Input array validation"
 msgid "Missing required value for %s"
 msgstr "Отсутствует требуемое значение для %s"
 
-#: include/tools/argparser.php:293
+#: include/tools/argparser.php:352
 #, php-format
 msgctxt "Input array validation"
 msgid "Missing entry %s"
 msgstr "Отсутствующие входные данные %s"
 
-#: include/tools/argparser.php:299
+#: include/tools/argparser.php:358
 #, php-format
 msgctxt "Input array validation"
 msgid "Missing value for %s"
 msgstr "Отсутствует значение для %s"
 
-#: include/tools/argparser.php:366
+#: include/tools/argparser.php:425
 #, php-format
 msgctxt "Input array validation"
 msgid "Unknown entry %s"
 msgstr "Неизвестные входные данные %s"
 
-#: include/tools/conveniences.php:23
+#: include/tools/conveniences.php:26
 msgid "Pending payment"
 msgstr ""
 
-#: include/tools/conveniences.php:24
+#: include/tools/conveniences.php:27
 msgid "Processing"
 msgstr ""
 
-#: include/tools/conveniences.php:25
+#: include/tools/conveniences.php:28
 msgid "On hold"
 msgstr ""
 
-#: include/tools/conveniences.php:26
+#: include/tools/conveniences.php:29
 msgid "Completed"
 msgstr ""
 
-#: include/tools/conveniences.php:27
+#: include/tools/conveniences.php:30
 #, fuzzy
 #| msgid "Cancel"
 msgid "Cancelled"
 msgstr "Отменить"
 
-#: include/tools/conveniences.php:28
+#: include/tools/conveniences.php:31
 msgid "Refunded"
 msgstr ""
 
-#: include/tools/conveniences.php:29
+#: include/tools/conveniences.php:32
 msgid "Failed"
+msgstr ""
+
+#: include/tools/expression.php:203
+#, php-format
+msgctxt "expression"
+msgid "Placeholder mark mismatch near `%s`"
+msgstr ""
+
+#: include/tools/expression.php:206
+#, php-format
+msgctxt "expression"
+msgid "Empty placeholder near `%s`"
+msgstr ""
+
+#: include/tools/expression.php:209
+#, fuzzy, php-format
+#| msgctxt "Input array validation"
+#| msgid "Unknown entry %s"
+msgctxt "expression"
+msgid "Unknown placeholder `%s`"
+msgstr "Неизвестные входные данные %s"
+
+#: include/tools/expression.php:218
+#, php-format
+msgctxt "expression"
+msgid "Parenthesis mismatch near `%s`"
+msgstr ""
+
+#: include/tools/expression.php:244
+#, php-format
+msgctxt "expression"
+msgid "Placeholder `%s` requires a meta key"
+msgstr ""
+
+#: include/tools/expression.php:273
+msgctxt "expression"
+msgid "Bad expression, operand missing"
+msgstr ""
+
+#: include/tools/expression.php:282
+#, php-format
+msgctxt "expression"
+msgid "Cannot be reduced `%s`"
+msgstr ""
+
+#: include/tools/expression.php:408
+#, php-format
+msgctxt "expression"
+msgid "Unknown function `%s` or missing arguments"
 msgstr ""
 
 #: include/tools/pseudocss.php:243
@@ -935,6 +1028,141 @@ msgstr "Long Watch Studio"
 #. Author URI of the plugin/theme
 msgid "https://longwatchstudio.com"
 msgstr "https://longwatchstudio.com"
+
+#~ msgctxt "CSS margin tooltip"
+#~ msgid ""
+#~ "1 to 4 values accepted<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Sets a global margin of 5 pixels</"
+#~ "p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, "
+#~ "bottom, left margins</p>"
+#~ msgstr ""
+#~ "Принимается от 1 до 4 значений<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Устанавливает общий внешний отступ "
+#~ "в 5 пикселей</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
+#~ "правый, нижний, левый внешние отступы</p>"
+
+#~ msgctxt "CSS padding tooltip"
+#~ msgid ""
+#~ "1 to 4 values accepted<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Sets a global padding of 5 pixels</"
+#~ "p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, "
+#~ "bottom, left padding</p>"
+#~ msgstr ""
+#~ "Принимается от 1 до 4 значений<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Устанавливает общий внутренний "
+#~ "отступ в 5 пикселей</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
+#~ "правый, нижний, левый внутренние отступы</p>"
+
+#~ msgctxt "CSS border tooltip"
+#~ msgid ""
+#~ "1 to 4 values accepted<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Sets a global border size of 5 "
+#~ "pixels</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, "
+#~ "bottom, left borders</p>"
+#~ msgstr ""
+#~ "Принимается от 1 до 4 значений<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Устанавливает общий размер границы "
+#~ "в 5 пикселей</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхнюю, "
+#~ "правую, нижнюю, левую границы</p>"
+
+#~ msgctxt "CSS radius tooltip"
+#~ msgid ""
+#~ "1 to 4 values accepted<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Sets a global border radius of 5 "
+#~ "pixels</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Sets top, right, "
+#~ "bottom, left border radius</p>"
+#~ msgstr ""
+#~ "Принимается от 1 до 4 значений<br/>\n"
+#~ "<p class='lwss-tooltip-exemple'>5px | Устанавливает общий радиус границы "
+#~ "в 5 пикселей</p>\n"
+#~ "<p class='lwss-tooltip-exemple'>1px 2px 3px 4px | Устанавливает верхний, "
+#~ "правый, нижний, левый радиусы границы</p>"
+
+#~ msgctxt "CSS border size edition"
+#~ msgid "Margin"
+#~ msgstr "Внеш. отступ"
+
+#~ msgctxt "CSS border size editoin"
+#~ msgid "Padding"
+#~ msgstr "Внут. отступ"
+
+#~ msgctxt "CSS border size editoin"
+#~ msgid "Border"
+#~ msgstr "Граница"
+
+#~ msgctxt "CSS border size editoin"
+#~ msgid "Radius"
+#~ msgstr "Радиус"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "Border Color"
+#~ msgstr "Цвет границы"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "Background"
+#~ msgstr "Фон"
+
+#~ msgctxt "LWSS border text demo"
+#~ msgid "This is a sample text"
+#~ msgstr "Это образец текста"
+
+#~ msgctxt "LWSS button colors"
+#~ msgid "Normal"
+#~ msgstr "Нормальный"
+
+#~ msgctxt "LWSS button colors"
+#~ msgid "Over"
+#~ msgstr "Наведение"
+
+#~ msgctxt "LWSS button colors"
+#~ msgid "Focused"
+#~ msgstr "В Фокусе"
+
+#~ msgctxt "LWSS button colors"
+#~ msgid "Text"
+#~ msgstr "Текст"
+
+#~ msgctxt "LWSS button colors"
+#~ msgid "Background"
+#~ msgstr "Фон"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "Normal Text"
+#~ msgstr "Нормальный текст"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "On Hover Text"
+#~ msgstr "Текст при наведении"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "On Click Text"
+#~ msgstr "Текст при нажатии"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "Normal Background"
+#~ msgstr "Нормальный фон"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "On Hover Background"
+#~ msgstr "Фон при наведении"
+
+#~ msgctxt "CSS color edition"
+#~ msgid "On Click Background"
+#~ msgstr "Фон при нажатии"
+
+#~ msgctxt "LWSS font text demo"
+#~ msgid "This is a sample text"
+#~ msgstr "Это образец текста"
+
+#~ msgid "Discard Changes"
+#~ msgstr "Отклонить изменения"
 
 #~ msgid "Show Advanced Settings"
 #~ msgstr "Показать расширенные настройки"
@@ -1484,8 +1712,8 @@ msgstr "https://longwatchstudio.com"
 #~ "If you do not have any license, please visit <a href='%3$s'>%2$s</a></p>\n"
 #~ "<p>%4$s</p>"
 #~ msgstr ""
-#~ "<p>Активируйте этот плагин, чтобы использовать все pro-функции <strong>"
-#~ "%1$s</strong><br/>\n"
+#~ "<p>Активируйте этот плагин, чтобы использовать все pro-функции "
+#~ "<strong>%1$s</strong><br/>\n"
 #~ "Если у Вас еще нет лицензии, пожалуйста, посетите <a href='%3$s'>%2$s</"
 #~ "a></p>\n"
 #~ "<p>%4$s</p>"
@@ -1500,11 +1728,11 @@ msgstr "https://longwatchstudio.com"
 
 #, php-format
 #~ msgid ""
-#~ "You are using the free version of %1$s. You can use it <a href=\"%2$s"
-#~ "\">here</a> or upgrade to the Trial/Pro version down below."
+#~ "You are using the free version of %1$s. You can use it <a "
+#~ "href=\"%2$s\">here</a> or upgrade to the Trial/Pro version down below."
 #~ msgstr ""
-#~ "Вы используете бесплатную версию %1$s. Вы можете просмотреть его <a href="
-#~ "\"%2$s\">здесь</a> или обновитесь до Пробной/Pro версии ниже."
+#~ "Вы используете бесплатную версию %1$s. Вы можете просмотреть его <a "
+#~ "href=\"%2$s\">здесь</a> или обновитесь до Пробной/Pro версии ниже."
 
 #~ msgctxt "plugin activation link"
 #~ msgid "Activate"

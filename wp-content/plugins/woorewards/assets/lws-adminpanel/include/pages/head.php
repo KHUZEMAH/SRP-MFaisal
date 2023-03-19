@@ -12,12 +12,13 @@ class Head
 	const CHAT    = 'https://discord.gg/TMeQ3KX4Bf';
 	const MAILTO  = 'support@longwatchstudio.com';
 
-	function __construct(\LWS\Adminpanel\Pages\Page &$current, $resume = false)
+	function __construct(\LWS\Adminpanel\Pages\Page &$current, $resume = false, $others=false)
 	{
 		$this->id = $current->getId();
 		$this->data = $current->getData();
 		$this->page = &$current;
 		$this->resumePage = $resume;
+		$this->others = $others;
 	}
 
 	function getMainId()
@@ -61,6 +62,7 @@ class Head
 
 		$format = $this->formatLevelEntry($this->page);
 		$lastTitle = $format->title;
+		$format->siblings = $this->getSiblings();
 		$breadcrumbs[] = $format;
 
 		if( $currentIsResume )
@@ -167,17 +169,36 @@ class Head
 	{
 		if (\is_a($level, '\LWS\Adminpanel\Pages\Page')) {
 			return (object) array(
-				'id'    => $level->getId(),
-				'title' => $level->getPageTitle(),
-				'url'   => $level->getLink($tabPath),
+				'id'       => $level->getId(),
+				'title'    => $level->getPageTitle(),
+				'url'      => $level->getLink($tabPath),
+				'siblings' => array(),
 			);
 		} else {
 			return (object) array(
-				'id'    => $level['id'],
-				'title' => $level['title'],
-				'url'   => $this->page->getLink($tabPath),
+				'id'       => $level['id'],
+				'title'    => $level['title'],
+				'url'      => $this->page->getLink($tabPath),
+				'siblings' => array(),
 			);
 		}
+	}
+
+	function getSiblings()
+	{
+		$siblings = array();
+		if ($this->others) {
+			foreach ($this->others as $id => $other) {
+				if ($id == $this->getMainId()) continue;
+				if ($id == $this->getCurrentId()) continue;
+				$siblings[$id] = (object)array(
+					'id'       => $id,
+					'title'    => $other->getPageTitle(),
+					'url'      => \esc_attr($other->getLink()),
+				);
+			}
+		}
+		return $siblings;
 	}
 
 	/** Echo transient notices if any */
@@ -187,7 +208,7 @@ class Head
 		$html = '';
 		foreach($notices as $notice)
 		{
-			// ... take care admin-interface.js uses classes below
+			/// take care admin-interface.js uses classes below
 			// * the full bloc: lws-adminpanel-transient-notices
 			// * the close button: lws-notice-dismiss
 			// * the notice row: lws-adminpanel-notice
@@ -214,7 +235,17 @@ class Head
 			if( $crumb->title )
 			{
 				// duplicates url in data since href could be modified by JS scripts @see editlistfilters
-				echo "<li><a href='{$crumb->url}' data-id='{$crumb->id}' data-href='{$crumb->url}'>{$crumb->title}</a></li>";
+				$link = "<a class='level' href='{$crumb->url}' data-id='{$crumb->id}' data-href='{$crumb->url}'>{$crumb->title}</a>";
+				// submenu to sibling pages
+				if ($crumb->siblings) {
+					$link .= "<div class='lws-breadcrumb-siblings-icon lws-icon-nav-down'></div>";
+					$link .= "<ul class='lws-breadcrumb-siblings'>";
+					foreach ($crumb->siblings as $sibling) {
+						$link .= "<li><a href='{$sibling->url}' data-id='{$sibling->id}' data-href='{$sibling->url}'>{$sibling->title}</a></li>";
+					}
+					$link .= "</ul>";
+				}
+				echo "<li class='particle'>{$link}</li>";
 			}
 		}
 		echo "</ul>";
@@ -236,16 +267,14 @@ class Head
 			$secondLine = false;
 			$submit = '';
 			$expand = '';
-			$shrinked = '';
 			$hasTabs = ($this->getTabCount($this->page->getData()) > 1);
-			if ($hasTabs) $shrinked = ' shrinked';
 			$tabs = '';
 			if ($this->page->allowSubmit()) {
-				$submit = $this->getSubmitButtons($shrinked);
+				$submit = $this->getSubmitButtons();
 				$secondLine = true;
 			}
 			if ($this->page->getGroups() && count($this->page->getGroups()) > 1) {
-				$expand = $this->getExpandButton($shrinked);
+				$expand = $this->getExpandButton();
 				$secondLine = true;
 			}
 			if ($hasTabs) {
@@ -270,15 +299,15 @@ class Head
 	function showAdminMenu()
 	{
 		$labels = \apply_filters('lws_adminpanel_topbar_labels_' . $this->id, array(
-			'amenu'    => __("Admin Menu", 'lws-adminpanel'),
-			'asettings'=> __("Advanced Settings", 'lws-adminpanel'),
-			'support'  => __("Support", 'lws-adminpanel'),
-			'tshooting'=> __("Troubleshooting", 'lws-adminpanel'),
-			'chat'     => __("Live Chat", 'lws-adminpanel'),
-			'doc'      => __("Documentation", 'lws-adminpanel'),
-			'patch'    => __("Patch Notes", 'lws-adminpanel'),
-			'lic'      => __("License Information", 'lws-adminpanel'),
-			'trialtext'=> __("Try Premium for Free", 'lws-adminpanel'),
+			'amenu'    => __("Admin Menu", LWS_ADMIN_PANEL_DOMAIN),
+			'asettings'=> __("Advanced Settings", LWS_ADMIN_PANEL_DOMAIN),
+			'support'  => __("Support", LWS_ADMIN_PANEL_DOMAIN),
+			'tshooting'=> __("Troubleshooting", LWS_ADMIN_PANEL_DOMAIN),
+			'chat'     => __("Live Chat", LWS_ADMIN_PANEL_DOMAIN),
+			'doc'      => __("Documentation", LWS_ADMIN_PANEL_DOMAIN),
+			'patch'    => __("Patch Notes", LWS_ADMIN_PANEL_DOMAIN),
+			'lic'      => __("License Information", LWS_ADMIN_PANEL_DOMAIN),
+			'trialtext'=> __("Try Premium for Free", LWS_ADMIN_PANEL_DOMAIN),
 		));
 
 		$settings = $this->getAdminMenuSettings();
@@ -316,13 +345,13 @@ EOT;
 		/** Notifications */
 		echo $this->getNoticeMenuItem(
 			\LWS\Adminpanel\Pages\Notices::instance()->getNotices('persistant'),
-			__("Plugin Notifications", 'lws-adminpanel'),
+			__("Plugin Notifications", LWS_ADMIN_PANEL_DOMAIN),
 			'',
 			'internal'
 		);
 		echo $this->getNoticeMenuItem(
 			\LWS\Adminpanel\Pages\Page::getAdminNotices(),
-			__("Other Notifications", 'lws-adminpanel'),
+			__("Other Notifications", LWS_ADMIN_PANEL_DOMAIN),
 			'separator',
 			'external'
 		);
@@ -392,7 +421,7 @@ EOT;
 					if($notice->dismissible || $notice->forgettable)
 					{
 						$key = \esc_attr($notice->key);
-						$text = __("Dismiss", 'lws-adminpanel');
+						$text = __("Dismiss", LWS_ADMIN_PANEL_DOMAIN);
 						$close = "<div class='dismiss-btn' data-forget='{$key}'>{$text}</div>";
 					}
 					$wrapper .= "<div class='lws-notice {$notice->level}'><div class='text'>{$notice->message}</div>{$close}</div>";
@@ -421,23 +450,20 @@ EOT;
 	}
 
 	/** Submit and Cancel buttons */
-	function getSubmitButtons($shrinked = '')
+	function getSubmitButtons()
 	{
-		$buttons  = "<div id='discard_changes' class='second-row-button discard$shrinked'>";
-		$buttons .= "<div class='button-icon lws-icon-undo'></div>";
-		$buttons .= "<div class='button-text'>" . __('Discard Changes', 'lws-adminpanel') . "</div></div>";
-		$buttons .= "<button id='save_changes' class='second-row-button save' type='submit' form='{$this->id}'>";
+		$buttons = "<button id='save_changes' class='second-row-button save' type='submit' form='{$this->id}'>";
 		$buttons .= "<div class='button-icon lws-icon-floppy-disk-2'></div>";
-		$buttons .= "<div class='button-text'>" . __('Save Changes', 'lws-adminpanel') . "</div></button>";
+		$buttons .= "<div class='button-text'>" . __('Save Changes', LWS_ADMIN_PANEL_DOMAIN) . "</div></button>";
 		return $buttons;
 	}
 
 	/** Groups Expand Button */
-	function getExpandButton($shrinked='')
+	function getExpandButton()
 	{
-		$buttons  = "<div id='expand_groups' class='second-row-button expand$shrinked'>";
+		$buttons  = "<div id='expand_groups' class='second-row-button expand'>";
 		$buttons .= "<div class='button-icon lws-icon-plus'></div>";
-		$buttons .= "<div class='button-text'>".__('Expand All', 'lws-adminpanel')."</div></div>";
+		$buttons .= "<div class='button-text'>".__('Expand All', LWS_ADMIN_PANEL_DOMAIN)."</div></div>";
 		return $buttons;
 	}
 
@@ -477,6 +503,7 @@ EOT;
 
 				$menu .= "<div class='$class'>";
 				$menu .= "<a id='{$tab->id}' class='$classa' href='{$href}'>";
+				$menu .= "<div class='tab-menu-item-arrow'></div>";
 				if(isset($tab->icon) && !empty($tab->icon))
 				{
 					$menu .= "<div class='menu-item-icon {$tab->icon}'></div>";
@@ -522,10 +549,10 @@ EOT;
 			'title'      => $this->getMainTitle(),
 			'subtitle'   => isset($this->data['subtitle']) ? $this->data['subtitle'] : '',
 			'pagetitle'   => isset($this->data['pagetitle']) ? $this->data['pagetitle'] : '',
-			'url'        => __("https://plugins.longwatchstudio.com/", 'lws-adminpanel'),
+			'url'        => __("https://plugins.longwatchstudio.com/", LWS_ADMIN_PANEL_DOMAIN),
 			'version'    => \apply_filters('lws_adminpanel_plugin_version_'     . $id, '', $this->id),
 			'origin'     => \apply_filters('lws_adminpanel_plugin_origin_'      . $id, array('LWS', 'Long Watch Studio'), $this->id),
-			'doc'        => \apply_filters('lws_adminpanel_documentation_url_'  . $id, __("https://plugins.longwatchstudio.com/documentation/", 'lws-adminpanel'), $this->id),
+			'doc'        => \apply_filters('lws_adminpanel_documentation_url_'  . $id, __("https://plugins.longwatchstudio.com/documentation/", LWS_ADMIN_PANEL_DOMAIN), $this->id),
 			'chat'       => \apply_filters('lws_adminpanel_plugin_chat_url_'    . $id, self::CHAT, $this->id),
 			'mailto'     => \apply_filters('lws_adminpanel_plugin_support_email'. $id, self::MAILTO, $this->id),
 			'purchase'   => false,
@@ -584,7 +611,7 @@ EOT;
 <?php
 		}
 
-		$advTitle = __("Advanced Settings", 'lws-adminpanel');
+		$advTitle = __("Advanced Settings", LWS_ADMIN_PANEL_DOMAIN);
 		echo "<div class='lws-sub-description'>";
 		echo "<div id='lws_toc_options'><div class='lws-toc-options-wrapper'><div class='lws-toc-options-icon lws-icon lws-icon-settings-gear'></div><div class='lws-toc-options-text'>$advTitle</div></div></div>";
 		if (isset($this->data['subtext']))

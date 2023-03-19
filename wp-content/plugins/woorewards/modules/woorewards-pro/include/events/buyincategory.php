@@ -71,12 +71,14 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
 
+		// just hidden since we do not want to reset the value on save
+		$noPri = (\get_option('lws_woorewards_show_loading_order_and_priority') ? '' : ' style="display: none;"');
 		$label = __("Priority", 'woorewards-pro');
 		$tooltip = __("Customer orders will run by ascending priority value.", 'woorewards-pro');
 		$str = <<<EOT
-		<div class='field-help'>$tooltip</div>
-		<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>
-		<div class='lws-$context-opt-input value'>
+		<div class='field-help'{$noPri}>$tooltip</div>
+		<div class='lws-$context-opt-title label'{$noPri}>$label<div class='bt-field-help'>?</div></div>
+		<div class='lws-$context-opt-input value'{$noPri}>
 			<input type='text' id='{$prefix}event_priority' name='{$prefix}event_priority' placeholder='10' size='5' />
 		</div>
 EOT;
@@ -94,20 +96,25 @@ EOT;
 		{
 			$tooltip = __("If checked, points will be earned for each product in the cart meeting the conditions. Otherwise, points will be earned only once per order", 'woorewards-pro');
 		}
-		$checked = $this->isQtyMultiply() ? 'checked' : '';
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'qty_multiply', array(
+			'id'      => $prefix . 'qty_multiply',
+			'layout'  => 'toggle',
+			'checked' => $this->isQtyMultiply() ? 'checked' : ''
+		));
+
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}qty_multiply' name='{$prefix}qty_multiply' $checked/></div>";
+		$form .= "<div class='lws-$context-opt-input value'>{$toggle}</div>";
 
 		// value
 		$label = _x("Minimum product count", "Coupon Unlockable", 'woorewards-pro');
 		$value = \esc_attr($this->getMinProductCount());
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}product_count' name='{$prefix}product_count' value='$value' placeholder='1' pattern='\\d*(\\.|,)?\\d*' /></div>";
+		$form .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}product_count' name='{$prefix}product_count' value='$value' placeholder='1' /></div>";
 
 		$form .= $this->getFieldsetEnd(2);
 
-		$form .= $this->getFieldsetBegin(3, __("Product categories", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(3, __("Product categories", 'woorewards-pro'));
 
 		// The product category
 		$label   = _x("Categories", "Buy In Category Event", 'woorewards-pro');
@@ -325,7 +332,7 @@ EOT;
 					(1 == count($categories) ? "Product bought in category %s" : "Product bought in categories %s"),
 					$this->getProductCategoriesNames($categories, 'raw')
 				),
-				LWS_WOOREWARDS_PRO_DOMAIN
+				'woorewards-pro'
 			);
 	}
 

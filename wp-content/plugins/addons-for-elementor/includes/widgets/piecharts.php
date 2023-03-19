@@ -236,6 +236,15 @@ class LAE_Piecharts_Widget extends LAE_Widget_Base
             'tab'        => Controls_Manager::TAB_STYLE,
             'show_label' => false,
         ] );
+        $this->add_control( 'style', [
+            'type'    => Controls_Manager::SELECT,
+            'label'   => __( 'Choose Style', 'livemesh-el-addons' ),
+            'default' => 'style1',
+            'options' => array(
+            'style1' => __( 'Style 1', 'livemesh-el-addons' ),
+            'style2' => __( 'Style 2', 'livemesh-el-addons' ),
+        ),
+        ] );
         $this->add_control( 'toggle_dark_mode', [
             'label'        => __( 'Dark Mode', 'elementor-pro' ),
             'description'  => __( 'Enable dark mode when this widget is placed in those pages or sections/rows within a page that have a dark color (such as black) set as background color. ', 'livemesh-el-addons' ),
@@ -247,6 +256,32 @@ class LAE_Piecharts_Widget extends LAE_Widget_Base
         $this->start_controls_section( 'section_styling', [
             'label' => __( 'Piechart Styling', 'livemesh-el-addons' ),
             'tab'   => Controls_Manager::TAB_STYLE,
+        ] );
+        $this->add_control( 'chart_size', [
+            'label'   => __( 'Chart Size', 'livemesh-el-addons' ),
+            'type'    => Controls_Manager::SLIDER,
+            'default' => [
+            'size' => 220,
+        ],
+            'range'   => [
+            'px' => [
+            'min' => 80,
+            'max' => 400,
+        ],
+        ],
+        ] );
+        $this->add_control( 'line_width', [
+            'label'   => __( 'Line Width', 'livemesh-el-addons' ),
+            'type'    => Controls_Manager::SLIDER,
+            'default' => [
+            'size' => 10,
+        ],
+            'range'   => [
+            'px' => [
+            'min' => 1,
+            'max' => 50,
+        ],
+        ],
         ] );
         $this->add_control( 'bar_color', [
             'label'   => __( 'Bar color', 'livemesh-el-addons' ),

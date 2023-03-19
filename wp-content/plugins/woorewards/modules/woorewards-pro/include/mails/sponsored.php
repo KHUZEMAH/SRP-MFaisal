@@ -32,7 +32,7 @@ class Sponsored
 	{
 		if( \is_wp_error($data) )
 			$data = $this->placeholders();
-		$user = isset($data['sponsor']) ? $data['sponsor'] : \wp_get_current_user();
+		$user = isset($data['referrer']) ? $data['referrer'] : \wp_get_current_user();
 		if( !($name = $user->display_name) )
 		{
 			if( !($name = $user->user_nicename) )
@@ -40,7 +40,7 @@ class Sponsored
 		}
 
 		foreach( array('subject', 'title', 'header', 'footer', 'preheader') as $key )
-			$settings[$key] = str_replace('[sponsor]', $name, $settings[$key]);
+		$settings[$key] = str_replace('[sponsor]', $name, $settings[$key]);
 		return $settings;
 	}
 
@@ -48,12 +48,14 @@ class Sponsored
 	{
 		$settings['domain']        = 'woorewards';
 		$settings['settings']      = 'Sponsorship';
-		$settings['settings_name'] = __("Sponsorship", 'woorewards-pro');
-		$settings['about']         = sprintf(__("Inform a user about a sponsorship. Use the shortcode %s to insert the name of the sponsor.", 'woorewards-pro'),'<b>[sponsor]</b>');
-		$settings['subject']       = sprintf(__("An advise from %s", 'woorewards-pro'),'[sponsor]');
-		$settings['title']         = sprintf(__("%s wants you to know us", 'woorewards-pro'),'[sponsor]');
+		$settings['settings_name'] = __("Referral", 'woorewards-pro');
+		$settings['about']         = sprintf(__("Inform a user about a referral. Use the shortcode %s to insert the name of the referrer.", 'woorewards-pro'), '<b>[sponsor]</b>');
+		$settings['subject']       = sprintf(__("An advise from %s", 'woorewards-pro'), '[sponsor]');
+		$settings['title']         = sprintf(__("%s wants you to know us", 'woorewards-pro'), '[sponsor]');
 		$settings['header']        = __("Register and enjoy the reward below with your next order.", 'woorewards-pro');
 		$settings['footer']        = __("Powered by MyRewards", 'woorewards-pro');
+		$settings['doclink']       = \LWS\WOOREWARDS\PRO\DocLinks::get('emails');
+		$settings['icon']          = 'lws-icon-users-mm';
 		$settings['css_file_url']  = LWS_WOOREWARDS_PRO_CSS . '/mails/sponsored.css';
 		$settings['subids']        = array('lws_woorewards_mail_site_url_text'=>"{$settings['domain']} mail - {$settings['settings']} - home page URL label");
 		$settings['fields']['url'] = array(
@@ -62,7 +64,7 @@ class Sponsored
 			'type'  => 'text',
 			'extra' => array(
 				'size'	=> '60',
-				'help'        => __("The URL provided to the sponsored people to go to your site. Default value is your home page.", 'woorewards-pro'),
+				'help'        => __("The URL provided to referee people to go to your site. Default value is your home page.", 'woorewards-pro'),
 				'placeholder' => \home_url(),
 			)
 		);

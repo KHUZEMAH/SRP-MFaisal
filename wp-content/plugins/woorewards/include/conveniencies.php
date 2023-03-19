@@ -106,4 +106,15 @@ EOT;
 		}
 		return $result;
 	}
+
+	/**	Avoid overstock WC_Order::add_order_note and pack them in our own metabox.
+	 *	As WC, comment the order.
+	 *	@param $order (WC_Order|int)
+	 *	@param $note (string) the message
+	 *	@param $source (Pool|string|false) the pool, the stack id or any relevant origin
+	 *	@return the new comment id or false on error. */
+	public static function addOrderNote($order, $note, $source=false)
+	{
+		return \LWS\WOOREWARDS\Core\OrderNote::add($order, $note, $source);
+	}
 }

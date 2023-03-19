@@ -46,12 +46,16 @@ abstract class Wizard
 
 	/** to be override.
 	 *
-	 * return a tree (as array of string|array) containing the full step hierarchy.
+	 * return a graph (as array of string|array) containing the full step hierarchy.
 	 * A simple step will be a string value (the step slug).
 	 * An array value means a fork and so is an array of branch array.
 	 * Each branch array contains a 'condition' key to let us choose the path depending on getData() content.
 	 * The rest are simple strings as usual.
 	 * A branch without 'condition' will be the default branch, it should not be more than one through siblings.
+	 * After unrolled a branch, the process go up and continue the rest of the parent one.
+	 *
+	 * Arrays indexes MUST be successive integers except for 'condition' and 'relation' !
+	 * Never user same names for steps and fields ! (then getValue return the full step data instead a field value)
 	 *
 	 * A condition will be tested against data @see getData
 	 * * It is an array like WP_Query 'meta_query'.
@@ -186,7 +190,7 @@ abstract class Wizard
 	 * This expose a button to clean that data (same as leave the wizard) */
 	function errorFallback()
 	{
-		$text = __("If you can see this, an error occured. Click %s here %s to resolve. Then restart the wizard.", 'lws-adminpanel');
+		$text = __("If you can see this, an error occured. Click %s here %s to resolve. Then restart the wizard.", LWS_ADMIN_PANEL_DOMAIN);
 		$text = sprintf($text, "<button class='lws-wizard-action-cancel' name='submit' type='submit' value='cancel'>", "</button>");
 		$formAttrs = '';
 		foreach( $this->getFormAttributes() as $attr => $val )
@@ -199,7 +203,7 @@ abstract class Wizard
 	{
 		$args = array(
 			'id' => 'lws-wizard-cancel',
-			'title' => sprintf('<span class="label">%s</span> %s', __("Leave the wizard", 'lws-adminpanel'), \lws_get_tooltips_html(__("You can come back later and continue from that point."))),
+			'title' => sprintf('<span class="label">%s</span> %s', __("Leave the wizard", LWS_ADMIN_PANEL_DOMAIN), \lws_get_tooltips_html(__("You can come back later and continue from that point."))),
 			'href' => $this->getCancelledURL(),
 		);
 		$wp_admin_bar->add_node($args);
@@ -356,7 +360,7 @@ abstract class Wizard
 		else
 		{
 			if( !$err )
-				$this->lastError = array(__("An error occured during form validation.", 'lws-adminpanel'));
+				$this->lastError = array(__("An error occured during form validation.", LWS_ADMIN_PANEL_DOMAIN));
 			else if( is_array($err) )
 				$this->lastError = $err;
 			else
@@ -492,26 +496,27 @@ abstract class Wizard
 		while( $index < count($hierarchy) )
 		{
 			$step = $this->fork($index, $hierarchy);
-			$path[$step] = array(
-				'label' => $this->getStepTitle($step),
-				'state' => $state,
-			);
-			$state = 'futur';
+			if ($step) {
+				$path[$step] = array(
+					'label' => $this->getStepTitle($step),
+					'state' => $state,
+				);
+				$state = 'futur';
+			}
 			++$index;
 		}
-
 		return $path;
 	}
 
 	/** flat array and recurse until $hierarchy[$index] is only a string */
 	protected function fork($index, &$hierarchy)
 	{
-		if( is_array($hierarchy[$index]) )
+		while( isset($hierarchy[$index]) && is_array($hierarchy[$index]) )
 		{
 			$choice = false;
 			foreach( $hierarchy[$index] as $branch )
 			{
-				if( isset($branch['condition']) )
+				if( \is_array($branch) && isset($branch['condition']) )
 				{
 					if( $this->test($branch['condition']) )
 					{
@@ -523,20 +528,39 @@ abstract class Wizard
 					$choice = $branch;
 			}
 
-			if( false === $choice )
-				$choice = reset($hierarchy[$index]);
+			if (false === $choice) {
+				unset($hierarchy[$index]);
+				$hierarchy = \array_values($hierarchy);
+			} else {
+				if (!\is_array($choice))
+					$choice = array($choice);
+				if( isset($choice['condition']) )
+					unset($choice['condition']);
 
-			if( isset($choice['condition']) )
-				unset($choice['condition']);
-
-			$hierarchy = array_merge(array_slice($hierarchy, 0, $index), $choice, array_slice($hierarchy, $index+1));
-
-			if( is_array($hierarchy[$index]) )
-				$this->fork($index, $hierarchy);
+				$hierarchy = array_merge(array_slice($hierarchy, 0, $index), $choice, array_slice($hierarchy, $index+1));
+			}
 		}
-		return $hierarchy[$index];
+		return (isset($hierarchy[$index]) ? $hierarchy[$index] : false);
 	}
 
+	/** @param $path (string|array) since step can be repeated, they always have a subtable inside a step.
+	 *	So use `*` to match any, (that last step occurence always returns first).
+	 *
+	 *	Then to get value of field `example` inside step `page`, call:
+	 *	@example
+	 *	$this->getValue($this->data['data'], 'example', 'page/*');
+	 *	@endexample
+	 *
+	 *	Note if a step has the same name than a field, the whole step data (array)
+	 *	will be returned before the field.
+	 *
+	 *	You can explore all occurence of a repeatable step (named for example 'loop'):
+	 *	@example
+	 *	foreach ($this->getValue($this->data['data'], 'loop', false, array()) as $step) {
+	 *		error_log("A loop with value = " . $this->getValue($step, 'example'));
+	 *	}
+	 *	@endexample
+	 **/
 	public function getValue(&$data, $field, $path=false, $default=null)
 	{
 		$exists = false;
@@ -551,7 +575,8 @@ abstract class Wizard
 		return $value;
 	}
 
-	/** @param $field (sring)
+	/**	@see getValue()
+	 *	@param $field (sring)
 	 *  @param $path (array|false)
 	 *  @param $exists (ref bool) out
 	 *  @return the value in $this->data or null if not found. */
@@ -573,6 +598,7 @@ abstract class Wizard
 			else // dig
 			{
 				$dir = array_shift($path);
+
 				foreach( array_reverse($data) as $key => &$subdata )
 				{
 					if( is_array($subdata) && \fnmatch($dir, $key) )
@@ -620,9 +646,13 @@ abstract class Wizard
 			return false;
 		if( isset($condition['field']) )
 		{
-			$value = isset($condition['value']) ? $condition['value'] : '';
+			$value  = isset($condition['value']) ? $condition['value'] : '';
 			$exists = false;
-			$data = $this->getDataValue($this->data, $condition['field'], isset($condition['path']) ? explode('/', $condition['path']) : false, $exists);
+			$data   = null;
+			if (isset($this->data['data'])) {
+				$path = (isset($condition['path']) ? explode('/', $condition['path']) : false);
+				$data = $this->getDataValue($this->data['data'], $condition['field'], $path, $exists);
+			}
 			switch(isset($condition['compare']) ? strtolower($condition['compare']) : '==')
 			{
 				case '==':
@@ -752,10 +782,10 @@ EOT;
 				}
 
 				if( isset($item['loop']) && ($loop = intval($item['loop'])) > 1 )
-					$item['label'] = sprintf(_x('%s (%s)', 'wizard critical path tab title with loop count', 'lws-adminpanel'), $item['label'], $loop);
+					$item['label'] = sprintf(_x('%s (%s)', 'wizard critical path tab title with loop count', LWS_ADMIN_PANEL_DOMAIN), $item['label'], $loop);
 
 				$tabs[$step] = <<<EOT
-<{$tag} class='item {$state}'{$attr}>
+<{$tag} class='step-item {$state}'{$attr}>
 	<div class='line'></div>
 	<div class='text'>{$item['label']}</div>
 </{$tag}>
@@ -769,6 +799,7 @@ EOT;
 	{
 		$loop = 1;
 		$step = '';
+		$label = '';
 		foreach($criticalPath as $k => $item)
 		{
 			if( is_array($item) )
@@ -778,6 +809,7 @@ EOT;
 					if( $item['state'] == 'current' )
 					{
 						$step = $k;
+						$label = $item['label'];
 						break;
 					}
 					else if( !$step && !$item['state'] )
@@ -792,27 +824,29 @@ EOT;
 
 		if( isset($criticalPath[$k]) && is_array($criticalPath[$k]) && isset($criticalPath[$k]['loop']) )
 			$loop = intval($criticalPath[$k]['loop']);
-		return array($step, $loop);
+		return array($step, $loop, $label);
 	}
 
 	function wizard()
 	{
 		$this->getData();
 		$criticalPath = $this->getCriticalPath();
-		list($step, $loop) = $this->findCurrentStep($criticalPath);
+		list($step, $loop, $label) = $this->findCurrentStep($criticalPath);
 		$page = $this->getPage($step, 'view');
 
 		$head = $this->getHead();
 		$tabs = implode('', $this->getPathTabs($criticalPath));
 
 		$formAttrs = '';
-		foreach( $this->getFormAttributes() as $attr => $val )
+		foreach ($this->getFormAttributes() as $attr => $val) {
 			$formAttrs .= sprintf(' %s="%s"', $attr, \esc_attr($val));
+		}
 		$nonce = \wp_nonce_field('lws-wizard-'.$this->slug, '_wpnonce', true, false);
 		$eStep = \esc_attr($step);
 		$time = \esc_attr(\microtime());
 		$color = $this->getColor();
-		$colorstring = \lws_get_theme_colors('--wizard-color', $color);
+		$colorstring = \lws_get_theme_colors('--group-color', $color);
+		$steplabel = __("Step : ", LWS_ADMIN_PANEL_DOMAIN);
 		echo <<<EOT
 <div class="lws_wizard" style="$colorstring">
 	<form $formAttrs>
@@ -820,25 +854,40 @@ EOT;
 		<input type='hidden' name='loop' value='{$loop}'>
 		<input type='hidden' name='timestamp' value='{$time}'>
 		{$nonce}
+		{$head}
 		<div class="big-container">
-			{$head}
-			<div class='progress-container'>
-				{$tabs}
+			<div class="upper-container">
+				<div class="steps-container">
+					<div class="step-label">{$steplabel}{$label}</div>
+					<div class="step-more lws-icon-menu-bars">
+						<div class="steps-dropdown">
+							{$tabs}
+						</div>
+					</div>
+				</div>
+				<button class='cancel-button' name='submit' type='submit' value='cancel'>
+					<div class='icon lws-icon lws-icon-e-remove'></div>
+					<div class='text'>Cancel</div>
+				</button>
 			</div>
 EOT;
 
-		if( $title = isset($page['title']) ? trim($page['title']) : '' )
+		if ($title = isset($page['title']) ? trim($page['title']) : '') {
 			$title = "<div class='form-title'>{$title}</div>";
-		if( $help = isset($page['help']) ? trim($page['help']) : '' )
-			$help = "<div class='form-help'>{$help}</div>";
+		}
+		$help = $this->getGroupHelp($page, '<div class="form-help">%s</div>');
 		if( isset($this->lastError) && $this->lastError )
 		{
 			$err = implode('</li><li>', $this->lastError);
 			$help .= "<div class='form-help form-error'><ul><li>{$err}</li></ul></div>";
 		}
 
+		$mainclass = '';
+		if (isset($page['class']) && !empty($page['class'])) {
+			$mainclass = ' ' . $page['class'];
+		}
 		echo <<<EOT
-			<div class='main-container' data-step='{$eStep}' data-occurrence='$loop'>
+			<div class='main-container$mainclass' data-step='{$eStep}' data-occurrence='$loop'>
 				<div class='form-title-line'>{$title}{$help}</div>
 EOT;
 
@@ -849,17 +898,39 @@ EOT;
 		}
 
 		$buttons = implode('', $this->getButtons($criticalPath, $step, $page));
-		$foot = $this->getFoot();
+
+		//$foot = $this->getFoot();
 		echo <<<EOT
-				<div class='action-line'>
-					{$buttons}
-				</div>
+		</div>
+			<div class='action-line'>
+				{$buttons}
 			</div>
-			{$foot}
 		</div>
 	</form>
 </div>
 EOT;
+	}
+
+	/** help is not compatible with usual page group, but only available in wizard page.
+	 *	@param $format (string) if set, used in sprintf. */
+	private function getGroupHelp($page, $format=false)
+	{
+		$text = '';
+		if (isset($page['help']) && $page['help']) {
+			if (\is_array($page['help']))
+				$text = \lws_array_to_html($page['help']);
+			elseif (\is_string($page['help']))
+				$text = $page['help'];
+		} elseif (isset($page['text']) && $page['text']) {
+			if (\is_array($page['text']))
+				$text = \lws_array_to_html($page['text']);
+			elseif (\is_string($page['text']))
+				$text = $page['text'];
+		}
+		if ($text && $format) {
+			$text = sprintf($format, $text);
+		}
+		return $text;
 	}
 
 	/** @param $depth (int) group can contain groups, set the group depth (default 0)
@@ -908,11 +979,17 @@ EOT;
 
 			echo "<div class='{$class}'$attributes style='{$style}'>";
 
+			$title = '';
+			$help = $this->getGroupHelp($group, '<div class="group-help">%s</div>');
 			if( isset($group['title']) && ($title = trim($group['title'])) )
 			{
-				echo "<div class='group-title'>{$title}</div>";
+				$title = "<div class='group-title'>{$title}</div>";
 			}
-
+			if ($title && $help) {
+				echo "<div class='group-title-line'>{$title}{$help}</div>";
+			} else {
+				echo $title . $help;
+			}
 			if( isset($group['groups']) && count($group['groups']) )
 			{
 				$this->groups($group['groups'], $depth+1);
@@ -924,10 +1001,21 @@ EOT;
 					$field = \LWS\Adminpanel\Pages\Field::create(strtolower($row['type']), $row['id'], isset($row['title'])?$row['title']:'', isset($row['extra'])?$row['extra']:array());
 					if( $field )
 					{
-						if( isset($this->data['rollback']) && $this->data['rollback'] && isset($this->data['rollback'][$field->id()]) )
-						{
-							if( !isset($field->extra['value']) )
-								$field->extra['value'] = $this->data['rollback'][$field->id()];
+						if (isset($this->data['rollback']) && $this->data['rollback'] && !isset($field->extra['value'])) {
+							$rollback = $this->data['rollback'];
+							// dig into array if needed
+							$digger = \array_map(function($s) {return \rtrim($s, ']');}, \explode('[', $field->id()));
+							while (count($digger) > 1 && $rollback && \is_array($rollback)) {
+								$fieldName = \array_shift($digger);
+								if (isset($rollback[$fieldName]))
+									$rollback = $rollback[$fieldName];
+								else
+									break;
+							}
+							$fieldName = $digger[0];
+							if ($rollback && \is_array($rollback) && isset($rollback[$fieldName])) {
+								$field->extra['value'] = $rollback[$fieldName];
+							}
 						}
 
 						if( !$field->isHidden() )
@@ -935,12 +1023,16 @@ EOT;
 							$tooltip = '';
 							if (!empty($help = $field->help())) {
 								echo "<div class='item-help'><div class='icon lws-icons lws-icon-bulb'></div><div class='text'>{$help}</div></div>";
-								$tooltip = "<div class='toggle-help'>?</div>";
+								$tooltip = "<div class='help-container'><div class='toggle-help'>?</div></div>";
 							}
 
 							$title = $field->title();
-							$labelClass = $field->addStrongClass('item-label');
-							echo "<div class='{$labelClass}'>{$title}{$tooltip}</div><div class='item-value' style='{$vStyle}'>";
+							if ($title) {
+								$labelClass = $field->addStrongClass('item-label');
+								echo "<div class='{$labelClass}'><span class='label'>{$title}</span>{$tooltip}</div><div class='item-value' style='{$vStyle}'>";
+							} else {
+								echo "<div class='item-value twocols' style='{$vStyle}'>";
+							}
 							$field->input();
 							echo "</div>";
 						}
@@ -963,10 +1055,10 @@ EOT;
 
 		if( $curIndex > 0 )
 		{
-			$button = _x("Previous", 'previous wizard step', 'lws-adminpanel');
+			$button = _x("Previous", 'previous wizard step', LWS_ADMIN_PANEL_DOMAIN);
 			$buttons['previous'] = <<<EOT
 	<button class='button back' name='submit' type='submit' value='previous'>
-		<div class='icon lws-icon lws-icon-arrow-left'></div>
+		<div class='icon lws-icon lws-icon-circle-left'></div>
 		<div class='label'>{$button}</div>
 	</button>
 EOT;
@@ -974,7 +1066,7 @@ EOT;
 
 		if( isset($page['repeatable']) && $page['repeatable'] )
 		{
-			$button = (isset($page['repeat_btn_text']) && $page['repeat_btn_text']) ? $page['repeat_btn_text'] : _x("Add", 'repeat a wizard portion', 'lws-adminpanel');
+			$button = (isset($page['repeat_btn_text']) && $page['repeat_btn_text']) ? $page['repeat_btn_text'] : _x("Add", 'repeat a wizard portion', LWS_ADMIN_PANEL_DOMAIN);
 			$buttons['repeat'] = <<<EOT
 	<button class='button redo' name='submit' type='submit' value='repeat'>
 		<div class='icon lws-icon lws-icon-repeat'></div>
@@ -983,17 +1075,17 @@ EOT;
 EOT;
 		}
 
-		$button =  _x("Next", 'next wizard step', 'lws-adminpanel');
+		$button =  _x("Next", 'next wizard step', LWS_ADMIN_PANEL_DOMAIN);
 		$value = 'next';
 		if( ++$curIndex >= count($criticalPath) )
 		{
-			$button = _x("Submit", 'final wizard submit', 'lws-adminpanel');
+			$button = _x("Submit", 'final wizard submit', LWS_ADMIN_PANEL_DOMAIN);
 			$value = 'submit';
 		}
 		$buttons['next'] = <<<EOT
 	<button class='button next' name='submit' type='submit' value='{$value}'>
 		<div class='label'>{$button}</div>
-		<div class='icon lws-icon lws-icon-arrow-right'></div>
+		<div class='icon lws-icon lws-icon-circle-right'></div>
 	</button>
 EOT;
 		return $buttons;
@@ -1002,10 +1094,10 @@ EOT;
 	protected function getFoot()
 	{
 		$href = $this->getCancelledURL();
-		$leave = __("Leave this wizard", 'lws-adminpanel');
-		$leavetip = \lws_get_tooltips_html(__("You can come back later and continue from that point.", 'lws-adminpanel'));
-		$cancel = __("Cancel this wizard", 'lws-adminpanel');
-		$canceltip = \lws_get_tooltips_html(__("You will lose all prepared settings.", 'lws-adminpanel'));
+		$leave = __("Leave this wizard", LWS_ADMIN_PANEL_DOMAIN);
+		$leavetip = \lws_get_tooltips_html(__("You can come back later and continue from that point.", LWS_ADMIN_PANEL_DOMAIN));
+		$cancel = __("Cancel this wizard", LWS_ADMIN_PANEL_DOMAIN);
+		$canceltip = \lws_get_tooltips_html(__("You will lose all prepared settings.", LWS_ADMIN_PANEL_DOMAIN));
 		return <<<EOT
 <div class='cancel-container'>
 	<button class='button cancel' name='submit' type='submit' value='cancel'>

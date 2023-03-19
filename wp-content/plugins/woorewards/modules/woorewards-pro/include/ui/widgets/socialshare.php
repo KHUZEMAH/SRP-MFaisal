@@ -247,7 +247,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		if( !$sponsor->id && \get_option('lws_woorewards_socialshare_back_give_sponsorship', '') )
 		{
-			$sponsorship = new \LWS\WOOREWARDS\PRO\Core\Sponsorship();
+			$sponsorship = new \LWS\WOOREWARDS\Core\Sponsorship();
 			$ref = $sponsorship->getCurrentReferral();
 
 			if( $ref->user_id && $ref->hash && $ref->origin && \LWS\WOOREWARDS\PRO\Core\Socials::instance()->isSupportedNetwork($ref->origin) )
@@ -274,7 +274,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 	}
 
 	/** Keep referral in session to let visitor continues without losing referral info.
-	 * @see \LWS\WOOREWARDS\PRO\Core\Sponsorship::setCurrentReferral() */
+	 * @see \LWS\WOOREWARDS\Core\Sponsorship::setCurrentReferral() */
 	public function grabReferral(&$query)
 	{
 		$referral = isset($query->query[self::URL_ARG]) ? trim($query->query[self::URL_ARG]) : '';
@@ -282,7 +282,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 
 		if( !empty($referral) && !empty($hash) )
 		{
-			$sponsorship = new \LWS\WOOREWARDS\PRO\Core\Sponsorship();
+			$sponsorship = new \LWS\WOOREWARDS\Core\Sponsorship();
 			$ref = $sponsorship->getCurrentReferral();
 
 			if( $ref->hash != $hash || !$ref->user_id || !$ref->origin )

@@ -78,13 +78,15 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 	{
 		if( !$this->pointLifetime->isNull() )
 		{
-			$confiscate = $this->getOption('type') == self::T_LEVELLING && $this->getOption('confiscation');
-			$users = $this->getStack(0)->reset(\date_create()->sub($this->pointLifetime->toInterval()), $confiscate);
+			$confiscation = \array_filter($this->getSharingPools()[self::T_LEVELLING], function($p) {
+				return ($p->getOption('confiscation') || $p->getOption('adapt_level'));
+			});
+			$users = $this->getStack(0)->reset(\date_create()->sub($this->pointLifetime->toInterval()), (bool)$confiscation);
 
-			if( $confiscate && !empty($users) )
-			{
+			if ($confiscation && $users) {
 				$c = new \LWS\WOOREWARDS\PRO\Core\Confiscator();
-				$c->setByPool($this);
+				foreach ($confiscation as $pool)
+					$c->setByPool($pool);
 				$c->setUserFilter($users);
 				$c->revoke();
 			}
@@ -116,9 +118,12 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 		if( !$this->transactionalExpiry['date'] || \date_create() >= $this->transactionalExpiry['date'] )
 		{
 			@set_time_limit(0); // could be a long deal
-			$refDate = $this->transactionalExpiry['date'] ? $this->transactionalExpiry['date'] : \date_create()->setTime(0,0);
-			//$ceil = $refDate->format('Y-m-d');
-			$floor = $refDate->sub($this->transactionalExpiry['period']->toInterval())->format('Y-m-d');
+			$refDate = $this->transactionalExpiry['date'] ? $this->transactionalExpiry['date'] : \date_create();
+			// since logs are UTC, use current time for refDate and floor
+			// so ref is not an arbitrary midnight UTC but CRON running time
+			// unless we reset on referenced date
+			$floor = $refDate->sub($this->transactionalExpiry['period']->toInterval())->format('Y-m-d H:i:s');
+
 			$stack = $this->getStackId();
 			$metaKey = $this->getStack(0)->metaKey();
 			$comment = \LWS\WOOREWARDS\Core\Trace::serializeReason(array("Lose points unused since %s", $floor), 'woorewards-pro');
@@ -137,13 +142,14 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 			// points to lose = (lost.earned - IFNULL(used.consumed, 0))
 			// current points = IFNULL(m.meta_value, 0)
 			// rest of points = (IFNULL(m.meta_value, 0) - (lost.earned - IFNULL(used.consumed, 0)))
+			// force mvt_date UTC
 			$sql = <<<EOT
 INSERT INTO {$wpdb->lwsWooRewardsHistoric} (
 	`user_id`, `points_moved`, `new_total`,
-	`stack`, `commentar`, `origin`, `blog_id`
+	`stack`, `commentar`, `origin`, `blog_id`, `mvt_date`
 )
 SELECT lost.user_id, -(lost.earned - IFNULL(used.consumed, 0)), (IFNULL(m.meta_value, 0) - (lost.earned - IFNULL(used.consumed, 0))),
-	%s, %s, %s, %d
+	%s, %s, %s, %d, %s
 FROM (
 	SELECT t.user_id, t.new_total as earned
 	FROM {$wpdb->lwsWooRewardsHistoric} as t
@@ -151,7 +157,7 @@ FROM (
 		SELECT p.user_id, max(p.id) as p_id
 		FROM {$wpdb->lwsWooRewardsHistoric} as p
 		WHERE p.stack=%s
-		AND p.mvt_date<DATE(%s)
+		AND p.mvt_date < %s
 		GROUP BY p.user_id
 	) as p ON p_id=t.id
 ) as lost
@@ -159,7 +165,7 @@ LEFT JOIN (
 	SELECT u.user_id, -sum(u.points_moved) as consumed
 	FROM {$wpdb->lwsWooRewardsHistoric} as u
 	WHERE u.stack=%s
-	AND u.mvt_date>=DATE(%s)
+	AND u.mvt_date >= %s
 	AND u.points_moved IS NOT NULL AND u.points_moved<0
 	GROUP BY u.user_id
 ) as used ON used.user_id=lost.user_id
@@ -171,6 +177,7 @@ EOT;
 					$comment,
 					$origin,
 					\get_current_blog_id(),
+					\gmdate('Y-m-d H:i:s', \time()),
 					$stack,
 					$floor,
 					$stack,
@@ -216,7 +223,7 @@ EOT;
 	 *	@param $userPoints (array of userId => object[user_id, points]) all the users that loose points. */
 	protected function checkRewardsAfterExpiry(array $userPoints)
 	{
-		$confiscation = $this->getSharablePools()->filter(function($p) {
+		$confiscation = $this->getSharablePools()->filterByStackId($this->getStackId())->filter(function($p) {
 				return (self::T_LEVELLING == $p->type && ($p->getOption('confiscation') || $p->getOption('adapt_level')));
 		})->asArray();
 		if (!$confiscation)
@@ -960,7 +967,6 @@ EOT;
 		$sharing = $this->getSharingPools($user, true, true, false);
 		if( !\array_sum(array_map('\count', $sharing)) )
 			return 0;
-
 		return self::enqueueUnlock($sharing, $user, $force);
 	}
 
@@ -977,37 +983,45 @@ EOT;
 			$waiters[] = array($sharing, $user, $force);
 			while( $waiters )
 			{
-				list($s, $u, $f) = reset($waiters);
-				$sCount = 0; // standard unlocked
-				foreach( $s as $type => $pools )
-				{
-					if( self::T_STANDARD == $type )
-						usort($pools, array(\get_class(), 'unlockStandardSort'));
-					$pools = \apply_filters('lws_woorewards_unlock_sort', $pools, $type);
+				list($s, $u, $f) = \reset($waiters);
+				if (\is_a($s, '\LWS\WOOREWARDS\Abstracts\Unlockable')) {
+					// a given and unique reward
+					if ($s->getPool()->_unlock($u, $s, $f)) {
+						$uCount++;
+					}
+				} else {
+					// Pools
+					$sCount = 0; // standard unlocked
+					foreach( $s as $type => $pools )
+					{
+						if( self::T_STANDARD == $type )
+							usort($pools, array(\get_class(), 'unlockStandardSort'));
+						$pools = \apply_filters('lws_woorewards_unlock_sort', $pools, $type);
 
-					if (self::T_LEVELLING == $type) {
-						// levelling, full process
-						foreach ($pools as $p) {
-							if ($p->getOption('adapt_level'))
-								$uCount += $p->grantLevel($u, $f);
-							else
-								$uCount += $p->tryUnlockLevelling($u, $f);
-						}
-					} elseif ('adapt_level' == $type) { // should be the last type in the array
-						if ($sCount) { // adapt_level, processed again if standard used points
-							foreach ($pools as $p)
-								$uCount += $p->grantLevel($u, $f);
-						}
-					} else {
-						// as standrard
-						foreach ($pools as $p) {
-							$unlocked = $p->tryUnlockStandard($u, $f);
-							$sCount += $unlocked;
-							$uCount += $unlocked;
+						if (self::T_LEVELLING == $type) {
+							// levelling, full process
+							foreach ($pools as $p) {
+								if ($p->getOption('adapt_level'))
+									$uCount += $p->grantLevel($u, $f);
+								else
+									$uCount += $p->tryUnlockLevelling($u, $f);
+							}
+						} elseif ('adapt_level' == $type) { // should be the last type in the array
+							if ($sCount) { // adapt_level, processed again if standard used points
+								foreach ($pools as $p)
+									$uCount += $p->grantLevel($u, $f);
+							}
+						} else {
+							// as standrard
+							foreach ($pools as $p) {
+								$unlocked = $p->tryUnlockStandard($u, $f);
+								$sCount += $unlocked;
+								$uCount += $unlocked;
+							}
 						}
 					}
 				}
-				array_shift($waiters);
+				\array_shift($waiters);
 			}
 		}
 		else
@@ -1049,6 +1063,8 @@ EOT;
 		{
 			if( !\apply_filters('lws_woorewards_use_can_unlock_reward', true, $user, $this, $force) )
 				break;
+			if (!$this->userMutexLock($user))
+				break;
 
 			$tryUnlock = false;
 			$points = $this->getPoints($user->ID);
@@ -1067,9 +1083,13 @@ EOT;
 						$tryUnlock = $this->_payAndContinue($user->ID, $unlockable) && ('on' != $bestUnlock);
 						$uCount++;
 					}
+
+					$this->userMutexUnlock($user);
 				}
 				else
 				{
+					$this->userMutexUnlock($user);
+
 					// send mail
 					$mailTemplate = 'wr_available_unlockables';
 					if( !empty(\get_option('lws_woorewards_enabled_mail_'.$mailTemplate, '')) && $this->isUserUnlockStateChanged($user, true) )
@@ -1083,6 +1103,8 @@ EOT;
 						);
 					}
 				}
+			} else {
+				$this->userMutexUnlock($user);
 			}
 		}
 		return $uCount;
@@ -1095,24 +1117,27 @@ EOT;
 		{
 			if( \apply_filters('lws_woorewards_use_can_unlock_reward', true, $user, $this, $force) )
 			{
-				$points = $this->getPoints($user->ID);
-				$done = \get_user_meta($user->ID, 'lws-loyalty-done-steps', false);
-				$availables = $this->getGrantedLocalUnlockables($points, $user);
+				if ($this->userMutexLock($user)) {
+					$points = $this->getPoints($user->ID);
+					$done = \get_user_meta($user->ID, 'lws-loyalty-done-steps', false);
+					$availables = $this->getGrantedLocalUnlockables($points, $user);
 
-				if( 'off' != $this->getOption('best_unlock', 'off') )
-					$availables = $this->getBestUnlockable($availables, false, $user->ID);
+					if( 'off' != $this->getOption('best_unlock', 'off') )
+						$availables = $this->getBestUnlockable($availables, false, $user->ID);
 
-				foreach( $availables->asArray() as $unlockable )
-				{
-					// if user not already got it
-					if( !in_array($unlockable->getId(), $done) )
+					foreach( $availables->asArray() as $unlockable )
 					{
-						if( $this->_applyUnlock($user, $unlockable) )
-							$uCount++;
-						// trace
-						$this->setPoints($user->ID, $this->getPoints($user->ID), $unlockable->getRawReason(), $unlockable);
-						\add_user_meta($user->ID, 'lws-loyalty-done-steps', $unlockable->getId(), false);
+						// if user not already got it
+						if( !in_array($unlockable->getId(), $done) )
+						{
+							if( $this->_applyUnlock($user, $unlockable) )
+								$uCount++;
+							// trace
+							$this->setPoints($user->ID, $this->getPoints($user->ID), $unlockable->getRawReason(), $unlockable);
+							\add_user_meta($user->ID, 'lws-loyalty-done-steps', $unlockable->getId(), false);
+						}
 					}
+					$this->userMutexUnlock($user);
 				}
 			}
 		}
@@ -1423,8 +1448,9 @@ EOT;
 				$cost = $this->getPoints($userId);
 			else
 				$cost = \method_exists($unlockable, 'getUserCost') ? $unlockable->getUserCost($userId) : $unlockable->getCost('pay');
-			if( $cost > 0 )
+			if( $cost > 0 ) {
 				$this->usePoints($userId, $cost, $unlockable->getRawReason(), $unlockable);
+			}
 			return ($cost > 0);
 		}
 		else
@@ -1451,9 +1477,19 @@ EOT;
 			error_log("Unlock reward attempt for user(".$user->ID.") for unlockable(".$unlockable->getId().") that do not belong to the pool:".$this->getId());
 			return false;
 		}
+		if (!$unlockable->getPool()) {
+			$unlockable->setPool($this);
+		}
+		return self::enqueueUnlock($unlockable, $user, $force);
+	}
+
+	protected function _unlock($user, $unlockable, $force=false)
+	{
 		if( $this->isUnlockPrevented() && !$force )
 			return false;
 		if( !\apply_filters('lws_woorewards_use_can_unlock_the_reward', true, $user, $this, $force, $unlockable) )
+			return false;
+		if (!$this->userMutexLock($user))
 			return false;
 
 		$points = $this->getPoints($user->ID);
@@ -1463,14 +1499,17 @@ EOT;
 			{
 				$this->_payAndContinue($user->ID, $unlockable);
 
-				if( $this->getOption('type') == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING )
-				{
+				if( $this->getOption('type') == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING ) {
 					// trace
 					$this->setPoints($user->ID, $this->getPoints($user->ID), $unlockable->getRawReason(), $unlockable);
 					\add_user_meta($user->ID, 'lws-loyalty-done-steps', $unlockable->getId(), false);
+
+					$this->userMutexUnlock($user);
 				} else {
+					$this->userMutexUnlock($user);
+
 					// shares points with an adapt_level levelling
-					$pools = $this->getSharablePools()->filter(function($p){
+					$pools = $this->getSharablePools()->filterByStackId($this->getStackId())->filter(function($p){
 						return $p->getOption('adapt_level');
 					})->asArray();
 					if ($pools) {
@@ -1480,7 +1519,34 @@ EOT;
 				return true;
 			}
 		}
+		$this->userMutexUnlock($user);
 		return false;
+	}
+
+	/**	Use database feature to perform a mutex
+	 *	@param $timeout (int) in second.
+	 *	@see https://dev.mysql.com/doc/refman/5.7/en/locking-functions.html
+	 *	@return true if lock, false on timeout. */
+	protected function userMutexLock($user, $cleanUserCache=true, $timeout=10)
+	{
+		$userId = (\is_object($user) ? $user->ID : $user);
+		global $wpdb;
+		$lock = (bool)$wpdb->query($wpdb->prepare('SELECT GET_LOCK(%s, %d)',
+			'lws_woorewards_pool_mutex_' . $userId,
+			(int)$timeout
+		));
+		if ($cleanUserCache) {
+			\LWS\WOOREWARDS\Core\PointStack::cleanCache($userId);
+		}
+		return $lock;
+	}
+
+	protected function userMutexUnlock($user)
+	{
+		global $wpdb;
+		$wpdb->query($wpdb->prepare('DO RELEASE_LOCK(%s)',
+			'lws_woorewards_pool_mutex_' . (\is_object($user) ? $user->ID : $user)
+		));
 	}
 
 	/** @param $points (false|int) if false, this method will read it for given user. */

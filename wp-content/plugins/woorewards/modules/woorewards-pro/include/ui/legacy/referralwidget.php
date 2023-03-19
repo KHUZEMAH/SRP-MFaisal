@@ -30,15 +30,15 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		$fields['sponsorshiplink'] = array(
 			'id' => 'lws_woorewards_sc_link_sponsorship',
-			'title' => __("Sponsorship Link", 'woorewards-pro'),
+			'title' => __("Referral Link", 'woorewards-pro'),
 			'type' => 'shortcode',
 			'extra' => array(
 				'shortcode' => '[lws_sponsorship_link header="your header" display="link"]',
-				'description' =>  __("This shortcode shows to customers a sponsorship/referral link or QR Code.", 'woorewards-pro'),
+				'description' =>  __("This shortcode shows to customers a referral link or QR Code.", 'woorewards-pro'),
 				'options'   => array(
 					array(
 						'option' => 'header',
-						'desc' => __("The text displayed before the sponsorship link or QR Code.", 'woorewards-pro'),
+						'desc' => __("The text displayed before the referral link or QR Code.", 'woorewards-pro'),
 					),
 					array(
 						'option' => 'display',
@@ -86,9 +86,9 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 		{
 			parent::__construct(
 				'lws_woorewards_referral',
-				__("MyRewards Sponsorship Link", 'woorewards-pro'),
+				__("MyRewards Referral Link", 'woorewards-pro'),
 				array(
-					'description' => __("Provide a Sponsorship link to your customers.", 'woorewards-pro')
+					'description' => __("Provide a Referral link to your customers.", 'woorewards-pro')
 				)
 			);
 		}
@@ -117,7 +117,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 				echo $args['after_title'];
 			}
 			if( isset($instance['url']) && !empty($instance['url']) )
-				$instance['url'] = \apply_filters('wpml_translate_single_string', $instance['url'], 'Widgets', "WooRewards - Referral Widget - Redirection");
+			$instance['url'] = \apply_filters('wpml_translate_single_string', $instance['url'], 'Widgets', "WooRewards - Sponsorship Widget - Redirection");
 			echo $this->shortcode($instance);
 			echo $args['after_widget'];
 		}
@@ -131,9 +131,9 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			$this->defaultArgs()
 		);
 
-		\do_action('wpml_register_single_string', 'Widgets', "WooRewards - Referral Widget - Header", $new_instance['header']);
+		\do_action('wpml_register_single_string', 'Widgets', "WooRewards - Sponsorship Widget - Header", $new_instance['header']);
 		if( !empty($new_instance['url']) )
-			\do_action('wpml_register_single_string', 'Widgets', "WooRewards - Referral Widget - Redirection", $new_instance['url']);
+			\do_action('wpml_register_single_string', 'Widgets', "WooRewards - Sponsorship Widget - Redirection", $new_instance['url']);
 
 		return $new_instance;
 	}
@@ -156,7 +156,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			__("Header", 'woorewards-pro'),
 			$this->get_field_name('header'),
 			\esc_attr($instance['header']),
-			\esc_attr(_x("Share that sponsorship link", "frontend widget", 'woorewards-pro'))
+			\esc_attr(_x("Share that referral link", "frontend widget", 'woorewards-pro'))
 		);
 		// behavior
 		$this->eFormFieldRadio(
@@ -200,7 +200,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			return $content;
 
 		if( !isset($atts['header']) || empty($atts['header']) )
-			$atts['header'] = \lws_get_option('lws_woorewards_referral_widget_message', __("Share that Sponsorship link", 'woorewards-pro'));
+		$atts['header'] = \lws_get_option('lws_woorewards_referral_widget_message', __("Share that Referral link", 'woorewards-pro'));
 		if( !isset($this->stygen) )
 			$atts['header'] = \apply_filters('wpml_translate_single_string', $atts['header'], 'Widgets', "WooRewards - Sponsorship Widget - Header");
 		if( !isset($atts['display']) || empty($atts['display']) )
@@ -217,7 +217,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			$url = \add_query_arg('referral', $this->getOrCreateToken($userId), \LWS\Adminpanel\Tools\Conveniences::getCurrentPermalink());
 
 		if (!\is_admin() && !(isset($this->stygen) && $this->stygen) && \get_option('lws_woorewards_sponsorship_tinify_enabled', ''))
-			$url = \LWS\WOOREWARDS\PRO\Ui\Shortcodes\ReferralLink::tinifyUrl($url);
+			$url = \LWS\WOOREWARDS\Ui\Shortcodes\ReferralLink::tinifyUrl($url);
 
 		$content = 	"<div class='lwss_selectable lws-woorewards-referral-widget' data-type='Main'>";
 		$content .= "<div class='lwss_selectable lwss_modify lws-woorewards-referral-description' data-id='lws_woorewards_referral_widget_message' data-type='Header'>";
@@ -235,7 +235,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 		if($atts['display']=='link' || $atts['display']=='both')
 		{
 			$link = \htmlentities($url);
-			$content .= "<div class='lwss_selectable lws-woorewards-referral-field-copy lws_referral_value_copy' data-type='Sponsorship link'>";
+			$content .= "<div class='lwss_selectable lws-woorewards-referral-field-copy lws_referral_value_copy' data-type='Referral link'>";
 			$content .= "<div class='lwss_selectable lws-woorewards-referral-field-copy-text content' tabindex='0' data-type='Link'>{$link}</div>";
 			$content .= "<div class='lwss_selectable lws-woorewards-referral-field-copy-icon lws-icon lws-icon-copy copy' data-type='Copy button'></div>";
 			$content .= "</div>";
@@ -249,7 +249,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		static $proxy = false;
 		if (!$proxy)
-			$proxy = new \LWS\WOOREWARDS\PRO\Ui\Shortcodes\ReferralLink();
+			$proxy = new \LWS\WOOREWARDS\Ui\Shortcodes\ReferralLink();
 		return $proxy->getOrCreateToken($userId);
 	}
 }

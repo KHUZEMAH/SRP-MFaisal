@@ -34,12 +34,14 @@ class FirstOrder extends \LWS\WOOREWARDS\Abstracts\Event
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
 
+		// just hidden since we do not want to reset the value on save
+		$noPri = (\get_option('lws_woorewards_show_loading_order_and_priority') ? '' : ' style="display: none;"');
 		$label = __("Priority", 'woorewards-lite');
 		$tooltip = __("Customer orders will run by ascending priority value.", 'woorewards-lite');
 		$str = <<<EOT
-		<div class='field-help'>$tooltip</div>
-		<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>
-		<div class='lws-$context-opt-input value'>
+		<div class='field-help'{$noPri}>$tooltip</div>
+		<div class='lws-$context-opt-title label'{$noPri}>$label<div class='bt-field-help'>?</div></div>
+		<div class='lws-$context-opt-input value'{$noPri}>
 			<input type='text' id='{$prefix}event_priority' name='{$prefix}event_priority' placeholder='10' size='5' />
 		</div>
 EOT;

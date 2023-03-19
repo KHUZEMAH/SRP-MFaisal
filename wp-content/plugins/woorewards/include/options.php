@@ -46,11 +46,18 @@ class Options
 	/** grab pool options */
 	function whitelistPoolOptions($whitelistOptions)
 	{
+		// we are from settings screen
 		if( $this->isOptionPage() && isset($whitelistOptions[$this->pagePool]) )
 		{
+			// take all page fields except pool id tweak
 			$lastOptions = array($this->optPool);
 			$this->whitelist = array_diff($whitelistOptions[$this->pagePool], $lastOptions);
-			$whitelistOptions[$this->pagePool] = $lastOptions;
+			// if include the pool id saving tweak field,
+			// means we are explicitely from one pool edition
+			// only this one will be saved, the rest is done by savePool()
+			if (count($whitelistOptions[$this->pagePool]) != count($this->whitelist)) {
+				$whitelistOptions[$this->pagePool] = $lastOptions;
+			}
 		}
 		return $whitelistOptions;
 	}

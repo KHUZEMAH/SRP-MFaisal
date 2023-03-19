@@ -13,8 +13,8 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		return array_merge(parent::getInformation(), array(
 			'icon'  => 'lws-icon-user-plus',
-			'short' => __("The customer will earn points when a person he sponsored registers on your website.", 'woorewards-pro'),
-			'help'  => __("This method will only reward the sponsor, not the sponsored", 'woorewards-pro'),
+			'short' => __("The customer will earn points when a person he referred registers on your website.", 'woorewards-pro'),
+			'help'  => __("This method will only reward the referrer, not the referee", 'woorewards-pro'),
 		));
 	}
 
@@ -59,7 +59,7 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return a human readable type for UI */
 	public function getDisplayType()
 	{
-		return _x("Sponsored user registration", "getDisplayType", 'woorewards-pro');
+		return _x("Referred user registration", "getDisplayType", 'woorewards-pro');
 	}
 
 	/** Add hook to grab events and add points. */
@@ -84,7 +84,7 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 			if( $points = \apply_filters('trigger_'.$this->getType(), 1, $this, $sponsorId, $user, $oldSonpsorId, $origin) )
 			{
 				\add_user_meta($sponsorId, $metaKey, $user->ID, false);
-				$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array("The sponsored friend %s registered", $user->user_email), 'woorewards-pro');
+				$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array("The referred friend %s registered", $user->user_email), 'woorewards-pro');
 				$this->addPoint(array(
 					'user'    => $sponsorId,
 					'sponsee' => $user,
@@ -96,7 +96,7 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 	/** Never call, only to have poedit/wpml able to extract the sentance. */
 	private function poeditDeclare()
 	{
-		__("The sponsored friend %s registered", 'woorewards-pro');
+		__("The referred friend %s registered", 'woorewards-pro');
 	}
 
 	/**	Event categories, used to filter out events from pool options.
@@ -104,7 +104,7 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 	public function getCategories()
 	{
 		return array_merge(parent::getCategories(), array(
-			'sponsorship' => __("Available for sponsored", 'woorewards-pro')
+			'sponsorship' => __("Available for referred", 'woorewards-pro')
 		));
 	}
 }

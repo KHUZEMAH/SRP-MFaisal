@@ -79,7 +79,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 		$label = _x("Offered Product", "Coupon Unlockable", 'woorewards-pro');
 		$tooltip = __("If you select multiple products, the customer will have the possibility to choose the free product in that list.", 'woorewards-pro');
 		$form .= "<div class='field-help'>$tooltip</div>";
-		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$form .= "<div class='lws-$context-opt-title label bold'>$label<div class='bt-field-help'>?</div></div>";
 		$form .= "<div class='lws-$context-opt-input value'>";
 		$form .= \LWS\Adminpanel\Pages\Field\LacChecklist::compose($prefix . 'product_id', array(
 			'comprehensive' => true,
@@ -97,10 +97,13 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 
 		// autoapply on/off
 		$label = _x("Auto-apply on next cart", "Free Product Unlockable", 'woorewards-pro');
-		$checked = ($this->isAutoApply() ? ' checked' : '');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
+			'id'      => $prefix . 'autoapply',
+			'layout'  => 'toggle',
+			'checked' => ($this->isAutoApply() ? ' checked' : ''),
+		));
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox'$checked id='{$prefix}autoapply' name='{$prefix}autoapply' class='lws_checkbox'/>";
-		$form .= "</div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 		return $this->filterForm($form, $prefix, $context);
@@ -468,7 +471,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 			'woocommerce' => __("WooCommerce", 'woorewards-pro'),
 			'shop_coupon' => __("Coupon", 'woorewards-pro'),
 			'wc_product'  => __("Product", 'woorewards-pro'),
-			'sponsorship' => _x("Sponsored", "unlockable category", 'woorewards-pro')
+			'sponsorship' => _x("Referee", "unlockable category", 'woorewards-pro')
 		));
 	}
 }

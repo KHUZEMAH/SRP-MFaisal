@@ -17,7 +17,9 @@ class Legacy
 		);
 
 		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.9.8')) {
-			$tab['groups']['sp_referral_widget'] = self::getGroupReferralWidget();
+			$tab['groups']['sp_referral_widget']   = self::getGroupReferralWidget();
+			$tab['groups']['productpointspreview'] = self::getGroupProductPointsPreview();
+			$tab['groups']['shoppointspreview']    = self::getGroupShopPointsPreview();
 		}
 
 		if (\LWS\WOOREWARDS\Conveniences::instance()->isLegacyShown('4.8.0')) {
@@ -66,7 +68,6 @@ class Legacy
 			'icon'   => 'lws-icon-coupon',
 			'title'  => __("Cart Coupons", 'woorewards-pro'),
 			'text'   => __("Show to the customer his available coupons. That block stay hidden if customer doesn't have coupons.", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/available-coupons/'),
 			'fields' => array(
 				array(
 					'id'    => 'lws_woorewards_apply_coupon_by_reload',
@@ -119,7 +120,7 @@ class Legacy
 			'title'  => __('Owned Coupons', 'woorewards-pro'),
 			'icon'   => 'lws-icon-coupon',
 			'text'   => __("In this Widget, customers can see the WooCommerce coupons they own.", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/owned-coupons/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('legacy-oc')),
 			'fields' => array(
 				'clunconnected' => array(
 					'id'    => 'lws_wooreward_wc_coupons_nouser',
@@ -166,7 +167,7 @@ class Legacy
 				sprintf(__("If you change the 'Reward Cost' text, use %s to display the reward cost (eg : 100 Points)", 'woorewards-pro'), "<span style='font-weight:bold;color:#366'>[rw_cost]</span>"),
 				sprintf(__("If you change the 'Need More Points' text, use %s to display the reward cost and %s to display the points still needed", 'woorewards-pro'), "<span style='font-weight:bold;color:#366'>[rw_cost]</span>", "<span style='font-weight:bold;color:#366'>[rw_more]</span>"),
 			),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/rewards/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('rewards')),
 			'fields' => array(
 				'stdusegrid' => array(
 					'id'    => 'lws_woorewards_rewards_use_grid',
@@ -218,7 +219,7 @@ class Legacy
 			'title'  => __('Leveling System Rewards', 'woorewards-pro'),
 			'icon'   => 'lws-icon-g-chart',
 			'text'   => __("In this Widget, customers can see the Rewards they can win in a Levelling points and rewards system.", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/rewards/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('rewards')),
 			'fields' => array(
 				'levrewards' => array(
 					'id'    => 'lws_woorewards_loyalties_template',
@@ -242,7 +243,7 @@ class Legacy
 			'title'  => __('Earning Points', 'woorewards-pro'),
 			'icon'   => 'lws-icon-trend-up',
 			'text'   => __("In this Widget, customers can see what they need to do in order to earn points", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/points/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('points')),
 			'fields' => array(
 				'events' => array(
 					'id'    => 'lws_woorewards_events_template',
@@ -269,7 +270,7 @@ class Legacy
 			'icon'   => 'lws-icon-cockade',
 			'title'  => __("Badges", 'woorewards-pro'),
 			'text'   => __("In this Widget, customers can see the badges available and the ones they own", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/badges/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 			'fields' => array(
 				'badges' => array(
 					'id'    => 'lws_woorewards_badges_template',
@@ -295,7 +296,7 @@ class Legacy
 			'icon'   => 'lws-icon-trophy',
 			'title'  => __("Achievements", 'woorewards-pro'),
 			'text'   => __("In this Widget, customers can see the achievements and their progress", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/achievements/'),
+			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('achievements')),
 			'fields' => array(
 				'achievements' => array(
 					'id'   => 'lws_woorewards_achievements_template',
@@ -321,7 +322,6 @@ class Legacy
 			'icon'   => 'lws-icon-cart-2',
 			'title'  => __("Cart Page Preview", 'woorewards-pro'),
 			'text'   => __("Show points that a customer could earn with his current cart. That block stay hidden if customer does not earn points.", 'woorewards-pro'),
-			'extra'  => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/cart-earned-points/'),
 			'fields' => array(
 				array(
 					'id'    => 'lws_woorewards_cart_potential_position',
@@ -403,9 +403,9 @@ class Legacy
 		if (!$shortcodes) {
 			$shortcodes = array(
 				'id'     => 'shortcodes',
-				'title'  => __('Shortcodes', 'woorewards-lite'), // text translated in wr free
+				'title'  => __('Shortcodes', 'woorewards-pro'),
 				'icon'   => 'lws-icon-shortcode',
-				'text'   => __("These shortcodes are deprecated and are kept here for compatibility. Try to replace them with other shortcodes", 'woorewards-lite'),
+				'text'   => __("These shortcodes are deprecated and are kept here for compatibility. Try to replace them with other shortcodes", 'woorewards-pro'),
 				'fields' => array(),
 			);
 		}
@@ -566,7 +566,6 @@ class Legacy
 			'icon'	=> 'lws-icon-url',
 			'title' => __("Referral Link", 'woorewards-pro'),
 			'text' => __("In this Widget, customers get a referral link they can share.", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/sponsorship/#splink'),
 			'fields' => array(
 				'display' => array(
 					'id'    => 'lws_woorewards_sponsorship_link_display',
@@ -624,6 +623,124 @@ class Legacy
 						)
 					)
 				)
+			)
+		);
+	}
+
+	protected static function getGroupProductPointsPreview()
+	{
+		return array(
+			'id' => 'productpointspreview',
+			'icon'	=> 'lws-icon-barcode',
+			'title' => __("Product Page Preview", 'woorewards-pro'),
+			'text' => __("Shows points that a customer could earn purchasing a given product. That block stay hidden if the product produces no points.", 'woorewards-pro'),
+			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/woocommerce-integration/product-earned-points/'),
+			'fields' => array(
+				array(
+					'id' => 'lws_woorewards_product_potential_position',
+					'title' => __("Location", 'woorewards-pro'),
+					'type'  => 'lacselect',
+					'extra' => array(
+						'maxwidth' => '400px',
+						'default'  => 'not_displayed',
+						'mode'     => 'select',
+						'notnull'  => true,
+						'source'   => array(
+							array('value' => 'not_displayed', 'label' => __("Not displayed at all", 'woorewards-pro')),
+							array('value' => 'before_summary', 'label' => __("Before product summary", 'woorewards-pro')),
+							array('value' => 'inside_summary', 'label' => __("Inside product summary", 'woorewards-pro')),
+							array('value' => 'after_form', 'label' => __("After product form", 'woorewards-pro')),
+							array('value' => 'after_summary', 'label' => __("After product summary", 'woorewards-pro')),
+						)
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_ppp_unlogged_text',
+					'title' => __("Text for unlogged customers", 'woorewards-pro'),
+					'type' => 'text',
+					'extra' => array(
+						'size' => '50',
+						'wpml' => "WooRewards - Product Points Preview - Unlogged Text",
+						'tooltips' => __("Fill this if you want to show a text for unlogged customers", 'woorewards-pro'),
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_ppp_show_unlogged',
+					'title' => __("Show for unlogged customers", 'woorewards-pro'),
+					'type' => 'box',
+					'extra' => array(
+						'default' => 'on',
+						'layout' => 'toggle',
+						'tooltips' => __("Check this option if you want to show potentially earned points to unlogged customers", 'woorewards-pro'),
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_product_potential_pool',
+					'title' => __("Points and rewards systems", 'woorewards-pro'),
+					'type' => 'lacchecklist',
+					'extra' => array(
+						'ajax' => 'lws_woorewards_pool_list',
+						'tooltips' => __("If you select several systems, they will be displayed separately, one after the other.", 'woorewards-pro'),
+					)
+				),
+				array(
+					'id' => 'lws_wre_product_points_preview',
+					'type' => 'stygen',
+					'extra' => array(
+						'purpose' => 'filter',
+						'template' => 'productpointspreview',
+						'html' => false,
+						'css' => LWS_WOOREWARDS_PRO_CSS . '/templates/productpointspreview.css',
+						'subids' => array(
+							'lws_woorewards_label_ppp' => "WooRewards - Product Points Preview - Title",
+						)
+					)
+				)
+			)
+		);
+	}
+
+	protected static function getGroupShopPointsPreview()
+	{
+		return array(
+			'id' => 'shoppointspreview',
+			'icon'	=> 'lws-icon-shopping-tag',
+			'title' => __("Shop Page Preview", 'woorewards-pro'),
+			'text' => __("Shows points that a customer could earn purchasing products on a products list page. That block stay hidden if customers can't earn points with products.", 'woorewards-pro'),
+			'fields' => array(
+				array(
+					'id' => 'lws_woorewards_product_loop_points_preview',
+					'title' => __("Enable", 'woorewards-pro'),
+					'type' => 'box',
+					'extra' => array(
+						'default' => '',
+						'layout' => 'toggle',
+						'tooltips' => __("In Shop page, points preview is appended for each item in the loop. Warning ! It can be a heavy process if your lists shows many products.", 'woorewards-pro'),
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_product_loop_points_preview_pattern',
+					'title' => __("Pattern", 'woorewards-pro'),
+					'type' => 'text',
+					'extra' => array(
+						'placeholder' => __("Earn [points] in [system]", 'woorewards-pro'),
+						'tooltips' => sprintf(
+							__('In the preview text, shortcodes %1$s and %2$s will be replaced by the points amount and Points and Rewards System title.', 'woorewards-pro'),
+							'<b>[points]</b>',
+							'<b>[system]</b>'
+						),
+						'wpml' => "WooRewards - Product loop - Points Preview pattern",
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_product_loop_preview_pools',
+					'title' => __("Points and rewards systems", 'woorewards-pro'),
+					'type' => 'lacchecklist',
+					'extra' => array(
+						'ajax' => 'lws_woorewards_pool_list',
+						'tooltips' => __("If you select several systems, they will be displayed separately, one after another.", 'woorewards-pro'),
+					)
+				),
 			)
 		);
 	}

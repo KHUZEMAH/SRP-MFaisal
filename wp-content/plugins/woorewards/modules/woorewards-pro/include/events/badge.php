@@ -28,7 +28,7 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Badges", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Badges", 'woorewards-pro'));
 
 		// The badges
 		if( $context == 'achievements' ) {

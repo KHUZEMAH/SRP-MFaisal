@@ -30,17 +30,9 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 	protected function getStepInfo()
 	{
 		if (empty($this->stepInfo)) {
-			$this->stepInfo = array(
-				array(
-					"icon" => "lws-icon-questionnaire",
-					"title" => __("Action to perform to advance in the achievement", 'woorewards-pro'),
-				),
-				array(
-					"icon" => "lws-icon-setup-preferences",
-					"title" => __("Points value and options", 'woorewards-pro'),
-				)
-			);
+			$this->stepInfo = __("Action to perform", 'woorewards-pro');
 		}
+
 		return $this->stepInfo;
 	}
 
@@ -81,7 +73,6 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 			$data['action_descr'] = $event->getDescription();
 			$data = array_merge($event->getData(), $data);
 		}
-
 		return $data;
 	}
 
@@ -92,6 +83,7 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		$values['achievement_badge'] = '';
 		$values['cost']              = 1;
 		$values['roles']             = '';
+		$values['badge_new']         = (\LWS\WOOREWARDS\PRO\Core\Badge::countInDB() ? '' : 'on');
 		return $values;
 	}
 
@@ -107,7 +99,8 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 			'stitle' => __("Achievement settings", 'woorewards-pro'),
 			'atitle' => __("Action settings", 'woorewards-pro'),
 			'title'  => __("Title", 'woorewards-pro'),
-			'badge'  => __("Reward", 'woorewards-pro'),
+			'reward' => __("Achievement Reward", 'woorewards-pro'),
+			'badge'  => __("Badge", 'woorewards-pro'),
 			'cost'   => __("Action occurences", 'woorewards-pro'),
 			'action' => __("Action", 'woorewards-pro'),
 			'roles'  => __("Allowed roles", 'woorewards-pro'),
@@ -118,26 +111,37 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 			'action' => __("Action to perform", 'woorewards-pro'),
 		);
 		$tooltips = array(
-			'cost'   => __("The number of time the user must perform the chosen action.", 'woorewards-pro'),
+			'cost'   => \implode('<br/>', array(
+				__("The number of time the user must perform the chosen action.", 'woorewards-pro'),
+				__("The action will be defined below.", 'woorewards-pro'),
+			)),
 			'roles'  => __("Only users with the selected roles can get that achievement. Leave empty if all users are authorized to do it.", 'woorewards-pro'),
 		);
 
-		$badgeInput = '';
+		$badgeImg = \LWS\Adminpanel\Pages\Field\Media::compose('badge_img', array('type' => 'image'));
 		if( \LWS\WOOREWARDS\PRO\Core\Badge::countInDB() )
 		{
-			$badgeInput = \LWS\Adminpanel\Pages\Field\LacSelect::compose('achievement_badge', array(
-				'ajax'     => 'lws_woorewards_badge_list',
-				'value'    => '',
-				'class'    => 'achievement_badge_field',
-				//'maxwidth' => '100%',
+			$rewardType = \LWS\Adminpanel\Pages\Field\Checkbox::compose('badge_new', array(
+				'id'     => 'badge_new',
+				'layout' => 'switch',
+				'data'    => array(
+					'left'       => __("Existing Badge", 'woorewards-pro'),
+					'right'      => __("New Badge", 'woorewards-pro'),
+					'colorleft'  => '#226971',
+					'colorright' => '#324971',
+				),
 			));
 		}
 		else
 		{
-			$badgeInput = __("Please, create a badge first.", 'woorewards-pro');
-			$editurl = \esc_attr(\add_query_arg(array('post_type'=>'lws_badge'), \admin_url('edit.php')));
-			$badgeInput = "<div class='warning lws-icon-warning'><a href='{$editurl}' target='_blank'>{$badgeInput}</a></div>";
+			$rewardType = '<input type="hidden" id="badge_new" name="badge_new" value="on"/>';
 		}
+		$badgeInput = \LWS\Adminpanel\Pages\Field\LacSelect::compose('achievement_badge', array(
+			'ajax'     => 'lws_woorewards_badge_list',
+			'value'    => '',
+			'class'    => 'achievement_badge_field',
+			'placeholder' => $placeholders['badge']
+		));
 
 		$roles = \LWS\Adminpanel\Pages\Field\LacChecklist::compose('roles', array(
 			'ajax'     => 'lws_adminpanel_get_roles',
@@ -155,14 +159,31 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 <div class='lws-achievement-main-settings editlist-content-grid'>
 
+	<div class='lws-editlist-group-wrapper'>
+		<div class='group-header-line'>
+			<div class='header'>{$labels['stitle']}</div>
+		</div>
+	</div>
 	<div class='fieldset'>
-		<div class='title'>{$labels['stitle']}</div>
 		<div class='fieldset-grid'>
 			<div class='lws-editlist-opt-input label'>{$labels['title']}</div>
 			<div class='lws-editlist-opt-input value'><input type='text' name='title' placeholder='{$placeholders['title']}' class='lws_woorewards_pool_title' /></div>
+			<div class='lws-editlist-opt-input label'>{$labels['reward']}</div>
+			<div class='value lws-editlist-opt-input lws-editlist-opt-badge-type'>
+				{$rewardType}
+			</div>
 			<div class='lws-editlist-opt-input label'>{$labels['badge']}</div>
-			<div class='value lws-editlist-opt-input value lws-editlist-opt-badge' placeholder='{$placeholders['badge']}'>
-				$badgeInput
+			<div class='lws-editlist-opt-input lws_adm_field_require' data-selector="#badge_new" data-value="">
+				{$badgeInput}
+			</div>
+			<div class='lws-editlist-opt-badge-create lws_adm_field_require' data-selector="#badge_new" data-value="on">
+				<div class='badge-create-texts'>
+					<label>Badge title</label><input type='text' name='badge_title'/>
+					<label>Description</label><textarea name='badge_descr'></textarea>
+				</div>
+				<div class='badge-create-img'>
+					{$badgeImg}
+				</div>
 			</div>
 			<div class='field-help'>{$tooltips['cost']}</div>
 			<div class='lws-editlist-opt-input label'>{$labels['cost']}<div class='bt-field-help'>?</div></div>
@@ -192,16 +213,25 @@ EOT;
 				self::ROW_ID         => 'd',
 				'src_id'             => 'd',
 				'title'              => 't',
-				'achievement_badge'  => 'D',
+				'achievement_badge'  => 'd',
 				'cost'               => 'D',
 				'roles'              => array('s'),
-				'wre_type' => 'K',
+				'wre_type'           => 'K',
+				'badge_new'          => 'k',
+				'badge_img'          => 'd',
+				'badge_title'        => 't',
+				'badge_descr'        => 't',
 			),
 			'defaults' => array(
-				self::ROW_ID => '',
-				'src_id'     => '',
-				'title'      => '',
-				'roles'      => array(),
+				self::ROW_ID        => '',
+				'src_id'            => '',
+				'title'             => '',
+				'roles'             => array(),
+				'achievement_badge' => 0,
+				'badge_new'         => '',
+				'badge_img'         => 0,
+				'badge_title'       => '',
+				'badge_descr'       => '',
 			),
 			'labels'   => array(
 				'title'              => __("Title", 'woorewards-pro'),
@@ -209,18 +239,43 @@ EOT;
 				'cost'               => __("Occurence", 'woorewards-pro'),
 				'roles'              => __("Allowed Roles", 'woorewards-pro'),
 				'wre_type'           => __("Action", 'woorewards-pro'),
+				'badge_img'          => __("Badge image", 'woorewards-pro'),
 			)
 		));
 		if (!(isset($values['valid']) && $values['valid'])) {
-			if( !$row['achievement_badge'] )
-				return new \WP_Error('400', __("You have to pick a badge as achievement reward.", 'woorewards-pro'));
 			return isset($values['error']) ? new \WP_Error('400', $values['error']) : false;
+		}
+		$values = $values['values'];
+
+		// check existant or creation badge consistency
+		if ($values['badge_new']) {
+			if (!$values['badge_img']) {
+				return new \WP_Error('400', __("Please, select an image for the badge.", 'woorewards-pro'));
+			}
+			if (!$values['badge_title']) {
+				$values['badge_title'] = $values['title'];
+				if (!$values['badge_title']) {
+					return new \WP_Error('400', __("An achievement or badge title is required.", 'woorewards-pro'));
+				}
+			}
+			// create the badge
+			$badge = new \LWS\WOOREWARDS\PRO\Core\Badge();
+			$badge->setData(0, $values['badge_title'], $values['badge_descr']);
+			if (!$badge->save()) {
+				return new \WP_Error('400', __("Badge creation failure.", 'woorewards-pro'));
+			} elseif (!$badge->setThumbnail($values['badge_img'])) {
+				return new \WP_Error('400', __("Cannot attach the media to the badge.", 'woorewards-pro'));
+			}
+			$values['achievement_badge'] = $badge->getId();
+		}
+		if (!$values['achievement_badge']) {
+			return new \WP_Error('400', __("You have to pick a badge as achievement reward.", 'woorewards-pro'));
 		}
 
 		$pool = false;
 		$creation = false;
 
-		if (isset($row[self::ROW_ID]) && !empty($id = intval($row[self::ROW_ID]))) {
+		if (isset($values[self::ROW_ID]) && !empty($id = intval($values[self::ROW_ID]))) {
 			// quick update
 			$pool = $this->getCollection()->find($id);
 			if (empty($pool)) {
@@ -229,7 +284,7 @@ EOT;
 		} else {
 			$creation = true; // new pool
 
-			if (isset($row['src_id']) && !empty($srcId = intval($row['src_id']))) {
+			if (isset($values['src_id']) && !empty($srcId = intval($values['src_id']))) {
 				// copy that source pool
 				$pool = $this->getCollection()->find($srcId);
 				if (empty($pool)) {
@@ -247,7 +302,7 @@ EOT;
 		if (!empty($pool)) {
 			$event = $pool->getEvents()->last();
 			// can we reuse existant
-			if ($event && $event->getType() != $row['wre_type']) {
+			if ($event && $event->getType() != $values['wre_type']) {
 				foreach ($pool->getEvents()->asArray() as $item) {
 					$pool->removeEvent($item);
 					$item->delete();
@@ -256,7 +311,7 @@ EOT;
 			}
 
 			// create new if needed
-			$action = ($event ? $event : \LWS\WOOREWARDS\Collections\Events::instanciate()->create($row['wre_type'])->last());
+			$action = ($event ? $event : \LWS\WOOREWARDS\Collections\Events::instanciate()->create($values['wre_type'])->last());
 			if (!$action) {
 				return new \WP_Error('404', __("The selected action type cannot be found.", 'woorewards-pro'));
 			}
@@ -276,31 +331,31 @@ EOT;
 			}
 
 			if ($badge) {
-				$badge->setBadgeId($row['achievement_badge']);
-				$badge->setCost($row['cost']);
-				if (empty($row['title'])) {
-					$row['title'] = $badge->getBadge()->getTitle();
+				$badge->setBadgeId($values['achievement_badge']);
+				$badge->setCost($values['cost']);
+				if (empty($values['title'])) {
+					if ($b = $badge->getBadge())
+						$values['title'] = $b->getTitle();
 				}
 			}
 
-			if (empty($row['roles'])) {
-				$row['roles'] = array();
+			if (empty($values['roles'])) {
+				$values['roles'] = array();
 			}
 
 			$pool->setOptions(array(
-				'title' => $row['title'],
-				'roles' => $row['roles']
+				'title' => $values['title'],
+				'roles' => $values['roles']
 			));
 
 			if ($creation) {
-				$pool->setName($row['title']);
+				$pool->setName($values['title']);
 			}
 
 			$pool->ensureNameUnicity();
 			$pool->save(true, true);
 
-			$row = $this->objectToArray($pool);
-			return $row;
+			return $this->objectToArray($pool);
 		}
 		return false;
 	}

@@ -2,16 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-01 08:45+0100\n"
-"PO-Revision-Date: 2022-12-01 08:45+0100\n"
-"Last-Translator: leon <lion.su@gmail.com>\n"
+"POT-Creation-Date: 2023-02-05 12:18+0100\n"
+"PO-Revision-Date: 2023-02-05 12:18+0100\n"
+"Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: 简体中文\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: woorewards.php\n"
@@ -25,12 +25,10 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: include/abstracts/event.php:82
-#, fuzzy, php-format
-#| msgctxt "Point per money spent"
-#| msgid "%1$s %2$s / %3$s"
+#, php-format
 msgctxt "cooldown period eg. \"3 Months\""
 msgid "%1$s %2$s"
-msgstr "%1$s %2$s / %3$s"
+msgstr "%1$s %2$s"
 
 #: include/abstracts/event.php:84
 #, php-format
@@ -50,7 +48,7 @@ msgstr "达成目标"
 
 #: include/abstracts/event.php:408
 msgid "Action"
-msgstr ""
+msgstr "目标"
 
 #: include/abstracts/event.php:413
 #, fuzzy
@@ -89,7 +87,7 @@ msgstr ""
 #: include/abstracts/event.php:451
 msgctxt "Event cooldown"
 msgid "Cooldown"
-msgstr ""
+msgstr "冷却"
 
 #: include/abstracts/event.php:452
 msgid ""
@@ -124,11 +122,11 @@ msgstr ""
 
 #: include/abstracts/event.php:472
 msgid "Hour"
-msgstr ""
+msgstr "小时"
 
 #: include/abstracts/event.php:473
 msgid "Minute"
-msgstr ""
+msgstr "分钟"
 
 #: include/abstracts/event.php:490
 msgctxt "Event max triggers"
@@ -180,7 +178,7 @@ msgid "Earned points alternative text"
 msgstr "获得积分"
 
 #: include/abstracts/event.php:580 include/abstracts/event.php:856
-#: include/abstracts/unlockable.php:190 include/abstracts/unlockable.php:365
+#: include/abstracts/unlockable.php:194 include/abstracts/unlockable.php:369
 #: include/core/pool.php:676 include/ui/legacy/pointsdisplayer.php:91
 msgid "Title"
 msgstr "标题"
@@ -199,7 +197,7 @@ msgstr ""
 
 #: include/abstracts/event.php:584
 msgid "Delay"
-msgstr ""
+msgstr "延迟"
 
 #: include/abstracts/event.php:585
 msgid "Occurences"
@@ -230,27 +228,25 @@ msgid "Error occured during rewarding event saving."
 msgstr "保存积分奖励获取事件时发生错误。"
 
 #: include/abstracts/event.php:1057
-#, fuzzy
-#| msgid "Variable Discount"
 msgctxt "event points expression alternative"
 msgid "Variable"
-msgstr "浮动折扣"
+msgstr "变量"
 
-#: include/abstracts/event.php:1249 include/abstracts/unlockable.php:853
+#: include/abstracts/event.php:1249 include/abstracts/unlockable.php:857
+#: include/events/sponsoredorderamount.php:87
 msgid "Standard"
 msgstr "普通"
 
-#: include/abstracts/event.php:1250 include/abstracts/unlockable.php:854
-#, fuzzy
-#| msgid "Levelling"
+#: include/abstracts/event.php:1250 include/abstracts/unlockable.php:858
 msgid "Leveling"
 msgstr "等级"
 
-#: include/abstracts/event.php:1251
+#: include/abstracts/event.php:1251 include/events/sponsoredorderamount.php:89
 msgid "Achievement"
 msgstr "成就"
 
-#: include/abstracts/event.php:1252 include/abstracts/unlockable.php:855
+#: include/abstracts/event.php:1252 include/abstracts/unlockable.php:859
+#: include/events/sponsoredorderamount.php:90
 msgid "Events"
 msgstr "事件"
 
@@ -278,6 +274,7 @@ msgid "Featured Image"
 msgstr "图片"
 
 #: include/abstracts/unlockable.php:127
+#: include/ui/editlists/unlockablelist.php:50
 msgid "Reward Settings"
 msgstr "奖励设置"
 
@@ -291,64 +288,64 @@ msgctxt "Unlockable cost"
 msgid "Send Reward email"
 msgstr ""
 
-#: include/abstracts/unlockable.php:144
+#: include/abstracts/unlockable.php:148
 msgctxt "Unlockable max redeems"
 msgid "Max Redeems"
 msgstr ""
 
-#: include/abstracts/unlockable.php:145
+#: include/abstracts/unlockable.php:149
 msgid ""
 "Define how many times this reward can be redeemed by customers. Leave empty "
 "or set to 0 for no limits"
 msgstr ""
 
-#: include/abstracts/unlockable.php:189
+#: include/abstracts/unlockable.php:193
 msgid "Cost"
 msgstr "所需积分"
 
-#: include/abstracts/unlockable.php:191 include/abstracts/unlockable.php:367
-#: include/ui/admin.php:97 include/ui/shortcodes/userhistory.php:243
+#: include/abstracts/unlockable.php:195 include/abstracts/unlockable.php:371
+#: include/ui/admin.php:100 include/ui/shortcodes/userhistory.php:243
 msgid "Description"
 msgstr "描述"
 
-#: include/abstracts/unlockable.php:192
+#: include/abstracts/unlockable.php:196
 msgid "Validity Starting Date"
 msgstr "有效期开始"
 
-#: include/abstracts/unlockable.php:193
+#: include/abstracts/unlockable.php:197
 msgid "Validity Ending Date"
 msgstr "有效期截止"
 
-#: include/abstracts/unlockable.php:194
+#: include/abstracts/unlockable.php:198
 msgid "Featured Image"
 msgstr "图片"
 
-#: include/abstracts/unlockable.php:195
+#: include/abstracts/unlockable.php:199
 msgid "Enable Reward email"
 msgstr ""
 
-#: include/abstracts/unlockable.php:196
+#: include/abstracts/unlockable.php:200
 msgid "Max Redeems"
 msgstr ""
 
-#: include/abstracts/unlockable.php:197
+#: include/abstracts/unlockable.php:201
 msgid "Level Title"
 msgstr "等级名称"
 
-#: include/abstracts/unlockable.php:360
+#: include/abstracts/unlockable.php:364
 msgid "Error occured during unlockable reward saving."
 msgstr "可解锁奖励保存时发生错误。"
 
-#: include/abstracts/unlockable.php:369
+#: include/abstracts/unlockable.php:373
 msgid "Level"
 msgstr "等级"
 
-#: include/abstracts/unlockable.php:818
+#: include/abstracts/unlockable.php:822
 msgctxt "Cannot be redeemed"
 msgid "Not redeemable"
 msgstr "不可兑换"
 
-#: include/abstracts/unlockable.php:820
+#: include/abstracts/unlockable.php:824
 #, php-format
 msgctxt "Out of valid date range"
 msgid "%d [Delayed]"
@@ -374,12 +371,12 @@ msgstr "未找到积分系统或客户。"
 msgid "You do not have permission to see other history."
 msgstr "您不具备查看他人积分历史的权限。"
 
-#: include/core/pointstack.php:650
+#: include/core/pointstack.php:669
 #, php-format
 msgid "Points merged from %s"
 msgstr "积分由 %s 合并"
 
-#: include/core/pointstack.php:651
+#: include/core/pointstack.php:670
 msgid "Lost due to inactivity"
 msgstr "由于不活跃而损失"
 
@@ -397,6 +394,66 @@ msgstr "无法删除积分奖励系统<b>%s</b>/%s."
 msgid "The reward system <b>%s</b>/%s successfully deleted."
 msgstr "奖励系统 <b>%s</b>/%s 已成功删除."
 
+#: include/core/pool.php:811
+#, php-format
+msgid "<b>%1$s</b> earned <b>%2$s</b> in <b>%3$s</b> for this order"
+msgstr ""
+
+#: include/core/pool.php:818
+#, fuzzy, php-format
+#| msgid " %s extra points for the first order"
+msgid "No %1$s earned in <b>%2$s</b> for this order"
+msgstr "首单获得 %s 额外积分"
+
+#: include/core/sponsorship.php:342 include/core/sponsorship.php:346
+msgid "You must be logged in."
+msgstr "您需要登陆."
+
+#: include/core/sponsorship.php:344
+msgid "Unknown user."
+msgstr "未知用户."
+
+#: include/core/sponsorship.php:348
+msgid "Referee email is empty."
+msgstr ""
+
+#: include/core/sponsorship.php:351
+msgid "Referral has been temporary disabled."
+msgstr ""
+
+#: include/core/sponsorship.php:354
+msgid "Maximum referrals reached."
+msgstr ""
+
+#: include/core/sponsorship.php:358
+#, fuzzy
+#| msgid "Error occured during reward system saving."
+msgid "An error occured during referees emails reading."
+msgstr "保存积分奖励系统时发生错误。"
+
+#: include/core/sponsorship.php:365
+msgid "You cannot refer yourself."
+msgstr ""
+
+#: include/core/sponsorship.php:367
+msgid "Some emails was omitted, maximum referrals reached."
+msgstr ""
+
+#: include/core/sponsorship.php:413
+#, php-format
+msgid "'%s' Email address is not valid."
+msgstr "'%s' 邮件地址无效。"
+
+#: include/core/sponsorship.php:417
+#, php-format
+msgid "%s is already referred."
+msgstr ""
+
+#: include/core/sponsorship.php:420
+#, php-format
+msgid "%s is already an active customer."
+msgstr "%s 已是活跃客户。"
+
 #: include/events/firstorder.php:14
 msgid "The customer will receive points when placing his first order."
 msgstr ""
@@ -410,116 +467,109 @@ msgctxt "getDisplayType"
 msgid "Place a first order"
 msgstr "首个订单"
 
-#: include/events/firstorder.php:37 include/events/orderamount.php:46
-#: include/events/ordercompleted.php:38
+#: include/events/firstorder.php:39 include/events/orderamount.php:51
+#: include/events/ordercompleted.php:43 include/events/sponsoredorder.php:39
 msgid "Priority"
-msgstr ""
+msgstr "优先级"
 
-#: include/events/firstorder.php:38 include/events/orderamount.php:47
-#: include/events/ordercompleted.php:39
+#: include/events/firstorder.php:40 include/events/orderamount.php:52
+#: include/events/ordercompleted.php:44 include/events/sponsoredorder.php:40
 msgid "Customer orders will run by ascending priority value."
-msgstr ""
+msgstr "客户订单将按优先级值升序进行处理"
 
-#: include/events/firstorder.php:66 include/events/orderamount.php:91
-#: include/events/ordercompleted.php:67
+#: include/events/firstorder.php:68 include/events/orderamount.php:100
+#: include/events/ordercompleted.php:72
 msgid "Event Priority"
-msgstr ""
+msgstr "事件优先权"
 
-#: include/events/firstorder.php:183 include/events/orderamount.php:314
-#: include/events/ordercompleted.php:140 include/events/productreview.php:239
-#: include/ui/admin.php:380 include/ui/admin.php:731
+#: include/events/firstorder.php:185 include/events/orderamount.php:329
+#: include/events/ordercompleted.php:151 include/events/productreview.php:243
+#: include/events/sponsoredorder.php:226
+#: include/events/sponsoredorderamount.php:91 include/ui/admin.php:684
 #: include/unlockables/coupon.php:461
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: include/events/firstorder.php:184 include/events/orderamount.php:316
-#: include/events/ordercompleted.php:141
+#: include/events/firstorder.php:186 include/events/orderamount.php:331
+#: include/events/ordercompleted.php:152
 msgid "Order"
 msgstr "订单"
 
-#: include/events/firstorder.php:191
+#: include/events/firstorder.php:193
 #, php-format
 msgid "First customer order #%s"
 msgstr "客户的首个订单 #%s"
 
-#: include/events/orderamount.php:14
+#: include/events/orderamount.php:16
 msgid ""
 "The customer will receive points depending on the amount spent on the order"
 msgstr ""
 
-#: include/events/orderamount.php:15
+#: include/events/orderamount.php:17
 msgid "Most used method on MyRewards. Lots of options"
 msgstr ""
 
-#: include/events/orderamount.php:35
-#, fuzzy
-#| msgctxt "Order Amount Event money diviser"
-#| msgid "Money spent (%s)"
+#: include/events/orderamount.php:38
 msgctxt "Order Amount Event money diviser"
 msgid "Money spent"
-msgstr "订单消费 (%s)"
+msgstr "花费的钱"
 
-#: include/events/orderamount.php:59 include/events/productreview.php:50
+#: include/events/orderamount.php:64 include/events/productreview.php:50
+#: include/events/sponsoredorder.php:51
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
-#: include/events/orderamount.php:62
-#, fuzzy
-#| msgid "Percentage discount"
+#: include/events/orderamount.php:67
 msgctxt "Order Amount Event"
 msgid "Use amount after discount"
-msgstr "百分比折扣"
+msgstr "折扣后使用"
 
-#: include/events/orderamount.php:90
-#, fuzzy
-#| msgid "Fixed Discount"
+#: include/events/orderamount.php:99
 msgid "After Discount"
-msgstr "固定折扣"
+msgstr "折扣后"
 
-#: include/events/orderamount.php:166
+#: include/events/orderamount.php:177
 msgctxt "getDisplayType"
 msgid "Spend money"
 msgstr "消费"
 
-#: include/events/orderamount.php:253
+#: include/events/orderamount.php:268
 #, php-format
 msgid "Spent %1$s from order #%2$s"
 msgstr "订单 #%2$s 消费 %1$s"
 
-#: include/events/orderamount.php:299
+#: include/events/orderamount.php:314
 #, fuzzy, php-format
 #| msgctxt "Point per money spent"
 #| msgid "%1$s %2$s / %3$s"
 msgctxt "Point per money spent"
 msgid "[%1$s] / %2$s"
-msgstr "%1$s %2$s / %3$s"
+msgstr "%1$s 于 %2$s"
 
-#: include/events/orderamount.php:302
-#, fuzzy, php-format
-#| msgctxt "Point per money spent"
-#| msgid "%1$s %2$s / %3$s"
+#: include/events/orderamount.php:317
+#, php-format
 msgctxt "Point per money spent"
 msgid "%1$s / %2$s"
-msgstr "%1$s %2$s / %3$s"
+msgstr "%1$s / %2$s"
 
-#: include/events/orderamount.php:315
+#: include/events/orderamount.php:330
 msgid "Money"
 msgstr "金额"
 
-#: include/events/ordercompleted.php:15
+#: include/events/ordercompleted.php:17
 msgid "The customer will receive points upon completing an order"
 msgstr ""
 
-#: include/events/ordercompleted.php:16
+#: include/events/ordercompleted.php:18
 msgid "This method can also be used to give extra points on a first order"
 msgstr ""
 
-#: include/events/ordercompleted.php:22
+#: include/events/ordercompleted.php:24
 msgctxt "getDisplayType"
 msgid "Place an order"
 msgstr "下单"
 
-#: include/events/ordercompleted.php:132
+#: include/events/ordercompleted.php:143
 #, php-format
 msgid "Order #%s completed"
 msgstr "订单 #%s 已完成"
@@ -539,36 +589,125 @@ msgid ""
 "number of times a user can earn points for his reviews during a set period."
 msgstr ""
 
-#: include/events/productreview.php:53 include/events/productreview.php:76
+#: include/events/productreview.php:53 include/events/productreview.php:80
 #, fuzzy
 #| msgid "Dates are required"
 msgid "Purchase Required"
 msgstr "日期必填"
 
-#: include/events/productreview.php:54
+#: include/events/productreview.php:58
 msgid ""
 "If checked, points are earned only if the customer already purchased the "
 "product and order status is 'Complete'."
 msgstr ""
 
-#: include/events/productreview.php:118
-#, fuzzy
-#| msgid "Products"
+#: include/events/productreview.php:122
 msgctxt "getDisplayType"
 msgid "Product review"
-msgstr "商品"
+msgstr "产品评审"
 
-#: include/events/productreview.php:175
+#: include/events/productreview.php:179
 #, php-format
 msgid "Review about a product (%s)"
 msgstr ""
 
-#: include/events/productreview.php:240
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "Website"
+#: include/events/productreview.php:244
 msgid "Website"
 msgstr "网站"
+
+#: include/events/sponsoredorder.php:17
+msgid ""
+"The customer will earn points when a person he referred placed an order. You "
+"can restrict this to the first referee order."
+msgstr ""
+
+#: include/events/sponsoredorder.php:18
+#: include/events/sponsoredorderamount.php:17
+msgid "This method will only reward the Referrer, not the Referee"
+msgstr ""
+
+#: include/events/sponsoredorder.php:54
+msgctxt "Referral Order Event"
+msgid "First order only"
+msgstr "仅首单"
+
+#: include/events/sponsoredorder.php:55
+msgid ""
+"If checked, only the first order placed by each referee will give points."
+msgstr ""
+
+#: include/events/sponsoredorder.php:83
+msgid "First order only"
+msgstr "仅首单"
+
+#: include/events/sponsoredorder.php:84
+msgid "Event priority"
+msgstr ""
+
+#: include/events/sponsoredorder.php:142
+msgid " (first order only)"
+msgstr " (仅首单)"
+
+#: include/events/sponsoredorder.php:150
+#, fuzzy
+#| msgid "Products"
+msgctxt "getDisplayType"
+msgid "Referee orders"
+msgstr "商品"
+
+#: include/events/sponsoredorder.php:218
+#, fuzzy, php-format
+#| msgid "Order #%s completed"
+msgid "Referred friend %s order #%s completed"
+msgstr "订单 #%s 已完成"
+
+#: include/events/sponsoredorder.php:227
+msgid "Available for referees"
+msgstr ""
+
+#: include/events/sponsoredorderamount.php:16
+msgid ""
+"The customer will earn points when a person he referred spends money on your "
+"shop."
+msgstr ""
+
+#: include/events/sponsoredorderamount.php:28
+#, fuzzy
+#| msgctxt "getDisplayType"
+#| msgid "Spend money"
+msgctxt "getDisplayType"
+msgid "Referee spends money"
+msgstr "消费"
+
+#: include/events/sponsoredorderamount.php:79
+#, fuzzy, php-format
+#| msgid "Spent %1$s from order #%2$s"
+msgid "Referred friend %3$s spent %1$s from order #%2$s"
+msgstr "订单 #%2$s 消费 %1$s"
+
+#: include/events/sponsoredorderamount.php:88
+msgid "Levelling"
+msgstr "等级"
+
+#: include/events/sponsoredorderamount.php:92
+msgid "Available for referred"
+msgstr ""
+
+#: include/events/t_sponsorshiporigin.php:13
+msgid "Referral link"
+msgstr "推广链接"
+
+#: include/events/t_sponsorshiporigin.php:84
+msgid "Constraints"
+msgstr "限制"
+
+#: include/events/t_sponsorshiporigin.php:87
+msgid "Referral Origin"
+msgstr ""
+
+#: include/events/t_sponsorshiporigin.php:114
+msgid "Origin restrictions"
+msgstr "来源限制"
 
 #: include/mails/newreward.php:32 include/mails/newreward.php:35
 msgid "New Reward"
@@ -592,7 +731,7 @@ msgstr "咖啡妈北美放心购"
 
 #: include/mails/newreward.php:41
 msgid "Enabled"
-msgstr ""
+msgstr "启用"
 
 #: include/mails/newreward.php:61
 msgid "That feature requires WooCommerce."
@@ -619,15 +758,15 @@ msgctxt "permanent coupon"
 msgid "(reusable)"
 msgstr "(可重复使用)"
 
-#: include/options.php:71
+#: include/options.php:78
 msgid "Requested loyalty system cannot be loaded or created."
 msgstr "请求的积分系统无法载入或创建."
 
-#: include/options.php:100
+#: include/options.php:107
 msgid "Please, set a <b>Title</b> for this Points and Rewards System."
 msgstr ""
 
-#: include/options.php:104
+#: include/options.php:111
 msgid ""
 "A Points and Rewards System without a <b>Title</b> cannot be turned <b>On</"
 "b>."
@@ -724,397 +863,179 @@ msgstr ""
 msgid "Use %1$s from %2$s"
 msgstr "订单 #%2$s 消费 %1$s"
 
-#: include/ui/admin.php:55
+#: include/ui/admin.php:58
 msgid ""
 "WooCommerce Coupons are disabled. Several MyRewards features will be broken "
 "without Coupons."
 msgstr "WooCommerce 优惠券已禁用. 一些 MyRewards 功能将会因禁用而受到影响."
 
-#: include/ui/admin.php:56
+#: include/ui/admin.php:59
 msgid ""
 "You can check your WooCommerce General Settings and look for : <b>Enable "
 "coupons</b>."
 msgstr "请查看 WooCommerce 一般设置，并寻找: <b>启用优惠券</b>."
 
-#: include/ui/admin.php:58
+#: include/ui/admin.php:61
 #, php-format
 msgid "%1$s or %2$s this warning at your own risks."
 msgstr "%1$s 或 %2$s 警告需要您自行承担后果."
 
-#: include/ui/admin.php:62
+#: include/ui/admin.php:65
 msgid "Click here to resolve the problem immediately"
 msgstr "点击这里立即解决问题"
 
-#: include/ui/admin.php:67
+#: include/ui/admin.php:70
 msgid "ignore"
 msgstr "忽略"
 
-#: include/ui/admin.php:96 include/ui/shortcodes/userhistory.php:40
+#: include/ui/admin.php:99 include/ui/shortcodes/userhistory.php:40
 msgid "Points History"
 msgstr "积分变动记录"
 
-#: include/ui/admin.php:98 include/ui/shortcodes/userhistory.php:240
+#: include/ui/admin.php:101 include/ui/shortcodes/userhistory.php:240
 msgid "Date"
 msgstr "日期"
 
-#: include/ui/admin.php:99 include/ui/admin.php:1038
+#: include/ui/admin.php:102 include/ui/admin.php:995
 #: include/ui/legacy/pointsdisplayer.php:193
-#: include/ui/shortcodes/userhistory.php:246 woorewards.php:238
+#: include/ui/shortcodes/userhistory.php:246 woorewards.php:235
 msgid "Points"
 msgstr "积分"
 
-#: include/ui/admin.php:100
+#: include/ui/admin.php:103
 msgid "Total"
 msgstr "总计"
 
-#: include/ui/admin.php:132
+#: include/ui/admin.php:133
 msgid "Add fun and achievements for your customers with the <a>Pro Version</a>"
 msgstr "想让您的客户体验更多有趣的优惠和成就么？试试<a>专业版</a>"
 
-#: include/ui/admin.php:133
+#: include/ui/admin.php:134
 msgid "Try the <a>Pro Version</a> for free for 30 days"
 msgstr "免费试用 <a>专业版</a> 30天"
 
-#: include/ui/admin.php:134
+#: include/ui/admin.php:135
 msgid "The <a>Pro Version</a> adds Events and Levelling systems. Try <a>it</a>"
 msgstr "<a>专业版</a> 更有事件及等级管理系统，<a>试试看</a>"
 
-#: include/ui/admin.php:137
+#: include/ui/admin.php:138
 msgid "Your settings have been saved."
 msgstr "您的设置已经被保存."
 
 #. Plugin Name of the plugin/theme
-#: include/ui/admin.php:173
+#: include/ui/admin.php:174
 msgid "MyRewards"
 msgstr "MyRewards"
 
-#: include/ui/admin.php:181 include/ui/admin.php:214 include/ui/admin.php:224
+#: include/ui/admin.php:182 include/ui/admin.php:207 include/ui/admin.php:215
 msgid "Customers"
 msgstr "客户积分"
 
-#: include/ui/admin.php:199
+#: include/ui/admin.php:200
 msgid "Search..."
 msgstr "搜索..."
 
-#: include/ui/admin.php:205
-msgid ""
-"The customers page lets you track your customers loyalty activity and "
-"perform some actions :"
-msgstr ""
-
-#: include/ui/admin.php:206
-msgid "See customers points and history"
-msgstr ""
-
-#: include/ui/admin.php:207
-msgid "See customers owned coupons"
-msgstr ""
-
-#: include/ui/admin.php:208
+#: include/ui/admin.php:212
 #, fuzzy
-#| msgid "Add/Substract points"
-msgid "Add/Subtract Points"
-msgstr "增加/减少 积分"
+#| msgid "Let your customers see their points."
+msgid ""
+"Use this page to manage your customers, see and edit their points and rewards"
+msgstr "客户可查看积分。"
 
-#: include/ui/admin.php:209
-msgid "Add/Remove Rewards (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:210
-msgid "Add/Remove Badges (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:211
-msgid "Filter by points, activity or inactivity periods (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:229
+#: include/ui/admin.php:220
 msgid "Points Management"
 msgstr "积分管理"
 
-#: include/ui/admin.php:232
+#: include/ui/admin.php:223
 msgid "Here you can see and manage your customers reward points"
 msgstr "您可以在这里查看和编辑客户的奖励积分"
 
-#: include/ui/admin.php:233
+#: include/ui/admin.php:224
 msgid ""
 "You can view the points <b>history</b> by clicking the points total in the "
 "table"
 msgstr "您可以点击积分来查看积分变动记录"
 
-#: include/ui/admin.php:247
-msgid "Setup how customers will earn points and what rewards they can get."
-msgstr ""
+#: include/ui/admin.php:238 woorewards.php:138
+msgid "Settings"
+msgstr "设置"
 
-#: include/ui/admin.php:248
+#: include/ui/admin.php:243
 msgid ""
-"In MyRewards Lite, there's only 3 ways to earn points (20+ in MyRewards "
-"Pro) :"
+"Use this page to manage your loyalty program, see and edit actions and "
+"rewards"
 msgstr ""
 
-#: include/ui/admin.php:251
-#, fuzzy
-#| msgid "Place an order"
-msgid "Place an order :"
-msgstr "每次下单"
+#: include/ui/admin.php:246
+msgid "Points and Rewards"
+msgstr "积分与奖励"
 
 #: include/ui/admin.php:252
-msgid ""
-"Earn points when placing an order, independently of the order's amount. "
-msgstr ""
+msgid "Other Settings"
+msgstr "其他设置"
 
-#: include/ui/admin.php:255
-#, fuzzy
-#| msgid "Spend Money"
-msgid "Spend Money :"
-msgstr "消费金额"
-
-#: include/ui/admin.php:256
-msgid "Earn points when placing an order, depending on the order's amount."
-msgstr ""
-
-#: include/ui/admin.php:259
-#, fuzzy
-#| msgid "Free Product"
-msgid "Review a product :"
-msgstr "免费商品"
-
-#: include/ui/admin.php:260
-msgid "Earn points by reviewing a product on your website."
-msgstr ""
-
-#: include/ui/admin.php:263
-msgid ""
-"In MyRewards Lite, you can choose between 2 rewards (10+ in MyRewards Pro) :"
-msgstr ""
-
-#: include/ui/admin.php:266
-#, fuzzy
-#| msgid "Coupon"
-msgid "Coupon :"
-msgstr "优惠券"
-
-#: include/ui/admin.php:267
-msgid ""
-"Points are converted into WooCommerce coupons that customers can use on "
-"their cart."
-msgstr ""
-
-#: include/ui/admin.php:270
-#, fuzzy
-#| msgid "Points cost"
-msgid "Points on Cart :"
-msgstr "所需积分"
-
-#: include/ui/admin.php:271
-msgid ""
-"Set the value of a point and customers will use their points on the cart to "
-"get immediate discounts."
-msgstr ""
-
-#: include/ui/admin.php:277 include/ui/admin.php:292
-#, fuzzy
-#| msgctxt "Unlockable cost"
-#| msgid "Points needed"
-msgid "Points and Rewards"
-msgstr "所需积分"
-
-#: include/ui/admin.php:306
-msgid ""
-"Wizards are made to help you get started or create some specific loyalty "
-"systems more easily."
-msgstr ""
-
-#: include/ui/admin.php:307
-msgid ""
-"Select a wizard, follow the setup steps and everything will be generated "
-"automatically according to your preferences."
-msgstr ""
-
-#: include/ui/admin.php:308
-msgid "Here are the wizards available :"
-msgstr ""
-
-#: include/ui/admin.php:313
-#, fuzzy
-#| msgid "Standard System"
-msgid "Standard System :"
-msgstr "标准积分"
-
-#: include/ui/admin.php:314
-msgid "Set up a standard system to let customers win coupons"
-msgstr ""
-
-#: include/ui/admin.php:317
-#, fuzzy
-#| msgid "Leveling System"
-msgid "Leveling System :"
-msgstr "等级系统"
-
-#: include/ui/admin.php:318
-msgid ""
-"This wizard will help you create a bronze/silver/gold system (Pro Version "
-"Only)"
-msgstr ""
-
-#: include/ui/admin.php:321
-#, fuzzy
-#| msgid "Special Events"
-msgid "Special Events :"
-msgstr "特殊事件"
-
-#: include/ui/admin.php:322
-msgid "Loyalty systems for special occasions like Christmas (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:325
-#, fuzzy
-#| msgid "Double Points"
-msgid "Double Points :"
-msgstr "双倍积分"
-
-#: include/ui/admin.php:326
-msgid ""
-"Create an event where customers can earn twice the points (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:329
-#, fuzzy
-#| msgid "Sponsorship"
-msgid "Sponsorship :"
-msgstr "引荐"
-
-#: include/ui/admin.php:330
-msgid ""
-"Sponsors and sponsored are rewarded in this loyalty system (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:333
-#, fuzzy
-#| msgid "Customer Birthday or Registration Anniversary"
-msgid "Birthday or Anniversary "
-msgstr "客户生日或注册周年"
-
-#: include/ui/admin.php:334
-#, fuzzy
-#| msgid "Customer Birthday or Registration Anniversary"
-msgid ""
-"Send a special gift on customers birthday or registration anniversary (Pro "
-"Version Only)"
-msgstr "客户生日或注册周年"
-
-#: include/ui/admin.php:339 include/ui/admin.php:340
+#: include/ui/admin.php:264 include/ui/admin.php:265
 msgid "Wizard"
 msgstr "向导"
 
-#: include/ui/admin.php:353
-msgid "Activate and set up different MyRewards features in this section : "
-msgstr ""
-
-#: include/ui/admin.php:354
-#, fuzzy
-#| msgid "WooCommerce"
-msgid "WooCommerce :"
-msgstr "WooCommerce"
-
-#: include/ui/admin.php:355
+#: include/ui/admin.php:270
 msgid ""
-"WooCommerce related rules and additional loyalty information on woocommerce "
-"pages"
+"The wizard page lets you setup your points and rewards program in a few "
+"minutes"
 msgstr ""
 
-#: include/ui/admin.php:356
-#, fuzzy
-#| msgid "Sponsorship"
-msgid "Sponsorship/Referral :"
-msgstr "引荐"
-
-#: include/ui/admin.php:357
-msgid "Set up the sponsorship/referral options (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:358
-#, fuzzy
-#| msgctxt "Option Group"
-#| msgid "Achievements"
-msgid "Badges and Achievements :"
-msgstr "成就"
-
-#: include/ui/admin.php:359
-msgid ""
-"Create and manage user badges, achievements and badges rarity (Pro Version "
-"Only)"
-msgstr ""
-
-#: include/ui/admin.php:360
-msgid "API :"
-msgstr ""
-
-#: include/ui/admin.php:361
-msgid ""
-"Set up the API to connect MyRewards with a third party app (Pro Version Only)"
-msgstr ""
-
-#: include/ui/admin.php:365 include/ui/admin.php:366
-#, fuzzy
-#| msgid "Featured Image"
-msgid "Features"
-msgstr "图片"
-
-#: include/ui/admin.php:386
+#: include/ui/admin.php:280
 msgid "General settings"
 msgstr "常规设置"
 
-#: include/ui/admin.php:387
+#: include/ui/admin.php:281
 msgid ""
 "Check the options below according to your needs. If you want to exclude "
 "shipping fees from points calculation, it can be done inside your loyalty "
 "systems."
 msgstr ""
 
-#: include/ui/admin.php:392
+#: include/ui/admin.php:286
 msgid "Includes taxes"
 msgstr "包括税费"
 
-#: include/ui/admin.php:396
+#: include/ui/admin.php:290
 msgid ""
 "If checked, taxes will be included in the points earned when spending money"
 msgstr "如果选取，客户所支付金额中的税费也会计算为积分"
 
-#: include/ui/admin.php:401
-#, fuzzy
-#| msgid "Coupon Details"
+#: include/ui/admin.php:295
 msgid "Coupon prefix"
-msgstr "优惠券详情"
+msgstr "优惠券前缀"
 
-#: include/ui/admin.php:405
+#: include/ui/admin.php:299
 msgid ""
 "Set a prefix code that will be added on all coupon codes generated by "
 "MyRewards"
 msgstr ""
 
-#: include/ui/admin.php:410
+#: include/ui/admin.php:304
 #, fuzzy
 #| msgid "Coupon code : %s"
 msgid "Coupon code length"
 msgstr "优惠码: %s"
 
-#: include/ui/admin.php:416
+#: include/ui/admin.php:310
 msgid ""
 "Set the length of the generated coupon code. The length comes in addition to "
 "the code prefix."
 msgstr ""
 
-#: include/ui/admin.php:417
+#: include/ui/admin.php:311
 #, php-format
 msgid "Minimum length is %s."
 msgstr ""
 
-#: include/ui/admin.php:422
+#: include/ui/admin.php:316
 msgid "Order statuses for points"
 msgstr ""
 
-#: include/ui/admin.php:426
+#: include/ui/admin.php:320
 #, fuzzy
 #| msgid ""
 #| "Default state to get points is the processing order status.<br/>If you "
@@ -1127,134 +1048,152 @@ msgstr ""
 "默认情况下，订单状态为 ”正在处理“ 时即计算积分. <br/>如果您想设置为当订单状态"
 "变为 ”已完成“ 后再计算积分(推荐)，请勾选下方设置"
 
-#: include/ui/admin.php:431
+#: include/ui/admin.php:325
 #, fuzzy
 #| msgid "Customer Email"
 msgid "Deep customer search"
 msgstr "客户电子邮件"
 
-#: include/ui/admin.php:435
+#: include/ui/admin.php:330
 msgid ""
 "If you have troubles with searching in WooRewards Customers administration "
 "screen, disable this option. This will speed up the search but it will take "
 "less data into account."
 msgstr ""
 
-#: include/ui/admin.php:443
+#: include/ui/admin.php:335
+msgid "Show loading orders"
+msgstr ""
+
+#: include/ui/admin.php:339
+msgid ""
+"For some advanced setups, managing loyalty system loading order and event "
+"trigger priority could be meaningful."
+msgstr ""
+
+#: include/ui/admin.php:347
 msgid "Order statuses to consume used points"
 msgstr ""
 
-#: include/ui/admin.php:444
+#: include/ui/admin.php:348
 msgid "Points used to get a discount are consumed when order status changes."
 msgstr ""
 
-#: include/ui/admin.php:448
+#: include/ui/admin.php:352
 msgid "Order statuses to pay discount"
 msgstr ""
 
-#: include/ui/admin.php:457
+#: include/ui/admin.php:361
 msgid "Order status on payment failure"
 msgstr ""
 
-#: include/ui/admin.php:462
+#: include/ui/admin.php:366
 msgid "[do nothing]"
 msgstr ""
 
-#: include/ui/admin.php:466
+#: include/ui/admin.php:370
 msgid "Change order status if points cannot be paid after all."
 msgstr ""
 
-#: include/ui/admin.php:481
-msgid ""
-"Set the appearance of everything your customers will see on your website "
-"regarding loyalty systems : "
-msgstr ""
-
-#: include/ui/admin.php:482
+#: include/ui/admin.php:379
 #, fuzzy
-#| msgid "Widgets"
-msgid "Widgets :"
-msgstr "小工具"
+#| msgid "Featured Image"
+msgid "Referral Features"
+msgstr "图片"
 
-#: include/ui/admin.php:483
-msgid "Setup the widgets/shortcodes options and appearance"
-msgstr ""
-
-#: include/ui/admin.php:484
-#, fuzzy
-#| msgid "Emails"
-msgid "Emails :"
-msgstr "电子邮件"
-
-#: include/ui/admin.php:485
-msgid "Customize emails sent to your customers"
-msgstr ""
-
-#: include/ui/admin.php:486
-msgid "Popup :"
-msgstr ""
-
-#: include/ui/admin.php:487
+#: include/ui/admin.php:380
 msgid ""
-"Setup the popup that your customers see when they unlock a reward (Pro "
-"Version Only)"
+"Here, you'll find the different tools customers can use to refer their "
+"friends and the reward given to referred users."
 msgstr ""
 
-#: include/ui/admin.php:490 include/ui/admin.php:491
+#: include/ui/admin.php:381
+msgid ""
+"To reward the referrers, either use the dedicated wizard or select an "
+"appropriate earning method inside a points and rewards system."
+msgstr ""
+
+#: include/ui/admin.php:386
+msgid "Enable Referrals"
+msgstr "启用推荐"
+
+#: include/ui/admin.php:396
+msgid "Allow referrals via referral link"
+msgstr ""
+
+#: include/ui/admin.php:400
+msgid ""
+"When a visitor comes from a referral link and registers, he will be referred "
+"by the user that posted the link."
+msgstr ""
+
+#: include/ui/admin.php:405
+msgid "Try to shorten the referral URL"
+msgstr ""
+
+#: include/ui/admin.php:408
+msgid ""
+"Disable that feature if you encounter plugin conflicts or redirection "
+"problems. Disable that feature makes bigger and less readable QR codes."
+msgstr ""
+
+#: include/ui/admin.php:416
+msgid "Alternative Short Site URL"
+msgstr ""
+
+#: include/ui/admin.php:419
+msgid ""
+"To make the QR-Code as simple as possible, you can specify a shorter version "
+"of your site URL here that will be used as base for the image generation."
+msgstr ""
+
+#: include/ui/admin.php:426
+msgid "Max referrals per customer"
+msgstr ""
+
+#: include/ui/admin.php:431
+msgid ""
+"Set the maximum referrals allowed for users. No restriction on empty value "
+"or zero (0)."
+msgstr ""
+
+#: include/ui/admin.php:444 include/ui/admin.php:445
 msgid "Appearance"
+msgstr "外观"
+
+#: include/ui/admin.php:450
+msgid ""
+"Use this page to display loyalty content to your customers on your website"
 msgstr ""
 
-#: include/ui/admin.php:507
+#: include/ui/admin.php:456
 msgid "Emails"
 msgstr "电子邮件"
 
-#: include/ui/admin.php:523
-msgid "Manage different system related options :"
-msgstr ""
-
-#: include/ui/admin.php:524
-#, fuzzy
-#| msgid "Place an order"
-msgid "Process past orders :"
-msgstr "每次下单"
-
-#: include/ui/admin.php:525
-msgid ""
-"Process existing orders to give points for orders placed before the loyalty "
-"program"
-msgstr ""
-
-#: include/ui/admin.php:526
-msgid "Database :"
-msgstr ""
-
-#: include/ui/admin.php:527
-msgid "Manage MyRewards data in the database"
-msgstr ""
-
-#: include/ui/admin.php:530 include/ui/admin.php:531
-#, fuzzy
-#| msgid "Loyalty System"
+#: include/ui/admin.php:473 include/ui/admin.php:474
 msgid "System"
-msgstr "积分系统"
+msgstr "系统"
 
-#: include/ui/admin.php:545
-#, fuzzy
-#| msgid "Points Management"
+#: include/ui/admin.php:479
+msgid ""
+"Export or import your customers points, process past orders in this page"
+msgstr ""
+
+#: include/ui/admin.php:484
 msgid "Data Management"
-msgstr "积分管理"
+msgstr "数据管理"
 
-#: include/ui/admin.php:551
+#: include/ui/admin.php:490
 msgid "Give Points for Past orders"
 msgstr "为以往订单发放积分"
 
-#: include/ui/admin.php:552
+#: include/ui/admin.php:491
 msgid ""
 "If you want to give points for orders that pre-existed your loyalty system, "
 "you can do it here"
 msgstr "如果您想为积分系统建立前已存在的订单发放积分，您可以在这里实现"
 
-#: include/ui/admin.php:553
+#: include/ui/admin.php:492
 msgid ""
 "This operation can take several minutes. Depending on you server "
 "configuration and date range, you should run this operation several times on "
@@ -1263,309 +1202,272 @@ msgstr ""
 "该操作将会执行数分钟。取决于服务器设置及时间范围，您可以尝试缩短时间范围并多"
 "次执行本操作。"
 
-#: include/ui/admin.php:557
+#: include/ui/admin.php:496
 msgid "Start date"
 msgstr "开始日期"
 
-#: include/ui/admin.php:568
+#: include/ui/admin.php:507
 msgid "End date"
 msgstr "结束日期"
 
-#: include/ui/admin.php:579 include/ui/admin.php:1161
+#: include/ui/admin.php:518 include/ui/admin.php:1119
 msgid "Launch the procedure"
 msgstr "执行发放"
 
-#: include/ui/admin.php:589
+#: include/ui/admin.php:528
 msgid "Delete all data"
-msgstr ""
+msgstr "删除所有数据"
 
-#: include/ui/admin.php:591
+#: include/ui/admin.php:530
 msgid "Remove all loyalty systems, user points and all MyRewards related data."
 msgstr ""
 
-#: include/ui/admin.php:592
+#: include/ui/admin.php:531
 msgid "Use this feature with care since this action is <b>irreversible</b>."
 msgstr ""
 
-#: include/ui/admin.php:596 include/ui/admin.php:1225
+#: include/ui/admin.php:535 include/ui/admin.php:1183
 msgid "Delete All Data"
-msgstr ""
+msgstr "删除所有数据"
 
-#: include/ui/admin.php:616
+#: include/ui/admin.php:555
 #, php-format
 msgid "Next CRON action planned at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:618
+#: include/ui/admin.php:557
 msgid ""
 "CRON action is not registered. To fix it, deactivate then re-activate this "
 "plugin."
 msgstr ""
 
-#: include/ui/admin.php:622
+#: include/ui/admin.php:561
 #, php-format
 msgid "Last CRON action ran at %1$s (UTC%2$s)."
 msgstr ""
 
-#: include/ui/admin.php:631 include/ui/admin.php:632 include/ui/admin.php:633
-#: include/ui/admin.php:702
+#: include/ui/admin.php:570 include/ui/admin.php:571 include/ui/admin.php:572
+#: include/ui/admin.php:637
 msgid "Pro Version"
+msgstr "专业版"
+
+#: include/ui/admin.php:578
+msgid ""
+"Unlock this plugin's full potential by switching to the pro version. Check "
+"all the features and discover how to install it"
 msgstr ""
 
-#: include/ui/admin.php:641
-msgid "Discover all Pro Version features :"
+#: include/ui/admin.php:642
+msgid "Pro Version - How to Install"
 msgstr ""
 
 #: include/ui/admin.php:645
-#, fuzzy
-#| msgctxt "Unlockable cost"
-#| msgid "Points needed"
-msgid "Points and Rewards Systems :"
-msgstr "所需积分"
-
-#: include/ui/admin.php:646
-msgid "Create as many systems as you want, working together or separately"
-msgstr ""
-
-#: include/ui/admin.php:649
-#, fuzzy
-#| msgid "Methods to earn points"
-msgid "20+ methods to earn points :"
-msgstr "积分获取方式"
-
-#: include/ui/admin.php:650
 msgid ""
-"Lots of possibilities for your customers to earn points, including social "
-"media and sponsorship"
+"If you already purchased the pro version, follow the instructions below to "
+"install and activate it"
 msgstr ""
 
-#: include/ui/admin.php:653
-#, fuzzy
-#| msgid "Sponsorship"
-msgid "Referrals/Sponsorship :"
-msgstr "引荐"
-
-#: include/ui/admin.php:654
-msgid "Complete referral and sponsorship system to grow your customers base"
-msgstr ""
-
-#: include/ui/admin.php:657
-#, fuzzy
-#| msgid "New Reward"
-msgid "New Rewards :"
-msgstr "新的奖励"
-
-#: include/ui/admin.php:658
-msgid ""
-"New types of rewards including free products, free shipping and custom "
-"rewards."
-msgstr ""
-
-#: include/ui/admin.php:707
+#: include/ui/admin.php:659
 msgid "Pro Version - Test if for free for 1 month !"
 msgstr ""
 
-#: include/ui/admin.php:710
+#: include/ui/admin.php:662
 msgid ""
 "Discover the features of the pro version and how it will help your online "
 "store grow."
 msgstr ""
 
-#: include/ui/admin.php:737
+#: include/ui/admin.php:691
 msgid "Cart Page Content"
 msgstr ""
 
-#: include/ui/admin.php:738
+#: include/ui/admin.php:692
 msgid ""
 "Select what and where you want to display content on the WooCommerce Cart "
 "Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:744
+#: include/ui/admin.php:699
 msgid "Checkout Page Content"
 msgstr ""
 
-#: include/ui/admin.php:745
+#: include/ui/admin.php:700
 msgid ""
 "Select what and where you want to display content on the WooCommerce "
 "Checkout Page. You can even display other plugins shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:768 include/ui/admin.php:773 include/ui/admin.php:913
+#: include/ui/admin.php:723 include/ui/admin.php:728 include/ui/admin.php:870
 msgid "Shortcodes"
-msgstr ""
+msgstr "短代码"
 
-#: include/ui/admin.php:775
+#: include/ui/admin.php:730
 msgid ""
 "In this section, you will find various shortcodes you can use on your "
 "website."
 msgstr ""
 
-#: include/ui/admin.php:787
+#: include/ui/admin.php:744
 msgid "Legacy"
-msgstr ""
+msgstr "旧版"
 
-#: include/ui/admin.php:793
+#: include/ui/admin.php:750
 #, fuzzy
 #| msgid "Points cost"
 msgid "Points On Cart"
 msgstr "所需积分"
 
-#: include/ui/admin.php:794
+#: include/ui/admin.php:751
 msgid ""
 "Select where the Points on Cart tool will be displayed and how it will look"
 msgstr ""
 
-#: include/ui/admin.php:798
+#: include/ui/admin.php:755
 msgid "Cart Display"
-msgstr ""
+msgstr "购物车显示屏"
 
-#: include/ui/admin.php:805 include/ui/admin.php:831
+#: include/ui/admin.php:762 include/ui/admin.php:788
 msgid "Not displayed at all"
-msgstr ""
+msgstr "不显示"
 
-#: include/ui/admin.php:806
+#: include/ui/admin.php:763
 msgid "Between products and totals"
-msgstr ""
+msgstr "位于商品和总价之间"
 
-#: include/ui/admin.php:807
+#: include/ui/admin.php:764
 msgid "Aside from cart totals"
-msgstr ""
+msgstr "除了购物车总数"
 
-#: include/ui/admin.php:810
+#: include/ui/admin.php:767
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the cart page"
 msgstr ""
 
-#: include/ui/admin.php:815
+#: include/ui/admin.php:772
 msgid "Reload cart page after amount modification"
 msgstr ""
 
-#: include/ui/admin.php:819 include/ui/admin.php:846
+#: include/ui/admin.php:776 include/ui/admin.php:803
 msgid ""
 "By default, changing the amount will provoke a javascript (ajax) update. "
 "Check this box if the default behavior doesn't work."
 msgstr ""
 
-#: include/ui/admin.php:824
+#: include/ui/admin.php:781
 msgid "Checkout Display"
-msgstr ""
+msgstr "签出显示"
 
-#: include/ui/admin.php:832 include/ui/woocommerce/cartcheckoutcontent.php:66
+#: include/ui/admin.php:789 include/ui/woocommerce/cartcheckoutcontent.php:66
 msgid "Top of the page"
-msgstr ""
+msgstr "页面顶部"
 
-#: include/ui/admin.php:833
+#: include/ui/admin.php:790
 msgid "Before customer details"
-msgstr ""
+msgstr "客户详细信息之前"
 
-#: include/ui/admin.php:834
-#, fuzzy
-#| msgid "Products"
+#: include/ui/admin.php:791
 msgid "Before order review"
-msgstr "商品"
+msgstr "订单审核前"
 
-#: include/ui/admin.php:837
+#: include/ui/admin.php:794
 msgid ""
 "The following options are used to decide where and how the Points on Cart "
 "tool will be displayed in the checkout page"
 msgstr ""
 
-#: include/ui/admin.php:842
+#: include/ui/admin.php:799
 msgid "Reload checkout page after amount modification"
 msgstr ""
 
-#: include/ui/admin.php:851 include/ui/woocommerce/pointsoncart.php:139
+#: include/ui/admin.php:808 include/ui/woocommerce/pointsoncart.php:139
 #, fuzzy
 #| msgid "Header"
 msgid "Tool Header"
 msgstr "标题"
 
-#: include/ui/admin.php:854 include/ui/woocommerce/pointsoncart.php:142
+#: include/ui/admin.php:811 include/ui/woocommerce/pointsoncart.php:142
 #: include/ui/woocommerce/pointsoncart.php:600
 msgid "Loyalty points discount"
 msgstr ""
 
-#: include/ui/admin.php:867 include/ui/woocommerce/pointsoncart.php:155
+#: include/ui/admin.php:824 include/ui/woocommerce/pointsoncart.php:155
 msgid "Use the styling tool to change the tool's frontend appearance"
 msgstr ""
 
-#: include/ui/admin.php:881
+#: include/ui/admin.php:838
 msgid "Display Points Widget"
 msgstr "显示积分小工具"
 
-#: include/ui/admin.php:883
+#: include/ui/admin.php:840
 msgid ""
 "Legacy : This widget is no longer maintained or updated. Use the points "
 "balance shortcode instead."
 msgstr ""
 
-#: include/ui/admin.php:887
+#: include/ui/admin.php:844
 msgid "Text displayed if user not connected"
 msgstr "当用户未加入时所显示的文字"
 
-#: include/ui/admin.php:891 include/ui/legacy/pointsdisplayer.php:253
+#: include/ui/admin.php:848 include/ui/legacy/pointsdisplayer.php:253
 msgid "Please log in if you want to see your loyalty points"
 msgstr "请登入后查看您的奖励与积分"
 
-#: include/ui/admin.php:902
+#: include/ui/admin.php:859
 msgid ""
 "Here you can customize the look and displayed text of the shortcode/widget"
 msgstr "您可以在这里自定义 短代码/小工具 中所显示的样式及文字"
 
-#: include/ui/admin.php:915
+#: include/ui/admin.php:872
 msgid ""
 "These shortcodes are deprecated and are kept here for compatibility. Try to "
 "replace them with other shortcodes"
 msgstr ""
 
-#: include/ui/admin.php:919
+#: include/ui/admin.php:876
 #, fuzzy
 #| msgid "MyRewards Points Displayer"
 msgid "Simple Points Display"
 msgstr "MyRewards 积分显示器"
 
-#: include/ui/admin.php:923
+#: include/ui/admin.php:880
 msgid ""
 "This simple shortcode is used to display the user's points with no "
 "decoration."
 msgstr ""
 
-#: include/ui/admin.php:924
+#: include/ui/admin.php:881
 msgid ""
 "This is very convenient if you want to display points within a phrase for "
 "example."
 msgstr ""
 
-#: include/ui/admin.php:931
-#, fuzzy
-#| msgid "Display Points Widget"
+#: include/ui/admin.php:888
 msgid "Display Points"
-msgstr "显示积分小工具"
+msgstr "显示积分"
 
-#: include/ui/admin.php:935
+#: include/ui/admin.php:892
 msgid ""
 "This shortcode shows to customers the points they have on a loyalty system."
 msgstr ""
 
-#: include/ui/admin.php:939
+#: include/ui/admin.php:896
 #, fuzzy
 #| msgid "Text displayed if user not connected"
 msgid "The text displayed before the points."
 msgstr "当用户未加入时所显示的文字"
 
-#: include/ui/admin.php:943
+#: include/ui/admin.php:900
 msgid ""
 "(Optional) If set, the number of points displayed will show the points "
 "currency."
-msgstr ""
+msgstr "(可选) 如设置，积分将会显示积分单位"
 
-#: include/ui/admin.php:963 include/ui/editlists/multiformlist.php:128
+#: include/ui/admin.php:920
 msgid "Information"
 msgstr "信息"
 
-#: include/ui/admin.php:965
+#: include/ui/admin.php:922
 #, fuzzy
 #| msgid ""
 #| "MyRewards Standard uses WooCommerce <i>orders</i> and <i>coupons</i>.\n"
@@ -1593,26 +1495,26 @@ msgstr ""
 "然后即可体验更多新颖的积分获取方式 (社交媒体, 引荐... 已安装/未安装 "
 "WooCommerce 均可) 以及更多的奖励种类 !"
 
-#: include/ui/admin.php:998
+#: include/ui/admin.php:955
 msgid ""
 "You are now using the Free Version of WooRewards. However, we detect that "
 "you still have Premium Version settings that are not compatible with the "
 "Free Version."
 msgstr ""
 
-#: include/ui/admin.php:999
+#: include/ui/admin.php:956
 msgid ""
 "If you buy a Premium Version License and activate it, it will restore all "
 "the Premium Version data (points and rewards systems, user points, settings)."
 msgstr ""
 
-#: include/ui/admin.php:1000
+#: include/ui/admin.php:957
 msgid ""
 "If you prefer to only use the free version, please follow the instructions "
 "below :"
 msgstr ""
 
-#: include/ui/admin.php:1007
+#: include/ui/admin.php:964
 #, fuzzy, php-format
 #| msgid ""
 #| "It seems the prefab pool does not exists. Please run the <a%s>wizard</a> "
@@ -1622,7 +1524,7 @@ msgid ""
 "the <a%s>wizard</a> tool to create one."
 msgstr "似乎预设积分池类型不存在。请运行<a%s>向导</a>来创建一个。"
 
-#: include/ui/admin.php:1012
+#: include/ui/admin.php:969
 #, fuzzy
 #| msgid ""
 #| "It seems the prefab pool does not exists. Try to re-activate this plugin. "
@@ -1634,132 +1536,270 @@ msgstr ""
 "似乎预设积分池类型不存在。请尝试重新激活插件，如果问题依旧，请联系系统管理"
 "员。"
 
-#: include/ui/admin.php:1018
+#: include/ui/admin.php:975
 msgid "Loading failure"
 msgstr "载入失败"
 
-#: include/ui/admin.php:1030
+#: include/ui/admin.php:987
 msgid "General Settings"
 msgstr "常规设置"
 
-#: include/ui/admin.php:1032
+#: include/ui/admin.php:989
 msgid ""
 "Before activating your loyalty program, make sure you've read the "
 "documentation. You will find links to the documentation on the top right of "
 "each group."
 msgstr ""
 
-#: include/ui/admin.php:1041
+#: include/ui/admin.php:998
 msgid "Here you can manage how your customers earn loyalty points"
 msgstr "您可以在这里管理客户获取忠诚度积分的方式"
 
-#: include/ui/admin.php:1053 include/ui/editlists/userspoints.php:18
-#: woorewards.php:397
+#: include/ui/admin.php:1010 include/ui/editlists/userspoints.php:18
+#: woorewards.php:413
 msgid "Rewards"
 msgstr "奖励"
 
-#: include/ui/admin.php:1056
+#: include/ui/admin.php:1013
 msgid ""
 "Here you can manage the rewards for your customers. Rewards can either be "
 "automatically generated WooCommerce Coupons or points usable on cart for "
 "immediate discounts"
 msgstr ""
 
-#: include/ui/admin.php:1062
-#, fuzzy
-#| msgid "Reward type"
+#: include/ui/admin.php:1019
 msgid "Reward Type"
 msgstr "奖励类型"
 
-#: include/ui/admin.php:1068
+#: include/ui/admin.php:1025
 #, fuzzy
 #| msgid "WooCommerce"
 msgid "WooCommerce Coupon"
 msgstr "WooCommerce"
 
-#: include/ui/admin.php:1069 include/wizards/standard.php:125
-#: include/wizards/standard.php:319
-#, fuzzy
-#| msgid "Points cost"
+#: include/ui/admin.php:1026 include/wizards/standard.php:145
+#: include/wizards/standard.php:355
 msgid "Points on Cart"
-msgstr "所需积分"
+msgstr "积分抵扣"
 
-#: include/ui/admin.php:1078
+#: include/ui/admin.php:1035
 #, php-format
 msgid "Point Value in %s"
-msgstr ""
+msgstr "每 1 积分抵扣 %s"
 
-#: include/ui/admin.php:1081
+#: include/ui/admin.php:1038
 msgid ""
 "Each point spent on the cart will decrease the order total of that value"
-msgstr ""
+msgstr "每积分可减少订单总价金额"
 
-#: include/ui/admin.php:1088 include/unlockables/coupon.php:462
+#: include/ui/admin.php:1045 include/unlockables/coupon.php:462
 msgid "Coupon"
 msgstr "优惠券"
 
-#: include/ui/admin.php:1135
+#: include/ui/admin.php:1093
 msgctxt "pool enabled switch"
 msgid "Off"
 msgstr "停用"
 
-#: include/ui/admin.php:1136
+#: include/ui/admin.php:1094
 msgctxt "pool enabled switch"
 msgid "On"
 msgstr "启用"
 
-#: include/ui/admin.php:1144
+#: include/ui/admin.php:1102
 msgctxt "Pool title"
 msgid "Title"
 msgstr "名称"
 
-#: include/ui/admin.php:1160
+#: include/ui/admin.php:1118
 #, php-format
 msgid ""
 "If you really want to process pre-existing orders, check this box and click "
 "on <i>'%s'</i> again."
 msgstr ""
 
-#: include/ui/admin.php:1162
+#: include/ui/admin.php:1120
 msgid ""
 "If your loyalty program is live, this could lead to lots of rewards being "
 "generated and lots of emails being sent"
 msgstr ""
 
-#: include/ui/admin.php:1163
+#: include/ui/admin.php:1121
 msgid ""
 "Please make sure you reviewed all the settings before launching this "
 "procedure."
 msgstr ""
 
-#: include/ui/admin.php:1175 include/ui/admin.php:1176
+#: include/ui/admin.php:1133 include/ui/admin.php:1134
 msgid "Dates are required"
 msgstr "日期必填"
 
-#: include/ui/admin.php:1216
+#: include/ui/admin.php:1174
 #, php-format
 msgid "<b>%s</b> order(s) processed."
 msgstr "<b>%s</b> 订单已处理."
 
-#: include/ui/admin.php:1224
+#: include/ui/admin.php:1182
 #, php-format
 msgid ""
 "If you really want to reset all MyRewards data, check this box and click on "
 "<i>'%s'</i> again."
 msgstr ""
 
-#: include/ui/admin.php:1226
+#: include/ui/admin.php:1184
 msgid "This operation is irreversible!"
 msgstr ""
 
-#: include/ui/admin.php:1227
+#: include/ui/admin.php:1185
 msgid "Consider making a backup of your database before continue."
 msgstr ""
 
-#: include/ui/admin.php:1286
+#: include/ui/admin.php:1256
 msgid ""
 "You can now create new Points and Rewards System for your customers or "
 "uninstall MyRewards."
+msgstr ""
+
+#: include/ui/admin.php:1269 include/wizard.php:174 woorewards.php:546
+#: woorewards.php:564
+msgid "Referrals"
+msgstr "介绍人"
+
+#: include/ui/admin.php:1283
+#, fuzzy
+#| msgid "Reward Information"
+msgid "Referrals Information"
+msgstr "奖励信息"
+
+#: include/ui/admin.php:1287
+msgid "You will find here a list of all customers who referred other people."
+msgstr ""
+
+#: include/ui/admin.php:1289
+#, php-format
+msgid "See %s to let your customer share a referral link and get referees."
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:15
+msgid "Styling"
+msgstr "样式"
+
+#: include/ui/adminscreens/styling.php:57
+msgid "Blocks"
+msgstr "区块"
+
+#: include/ui/adminscreens/styling.php:60
+msgid ""
+"Set the styling of wrapping elements used on front-end elements and "
+"shortcodes"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:64
+msgid "Border Width"
+msgstr "边框宽度"
+
+#: include/ui/adminscreens/styling.php:70
+#: include/ui/adminscreens/styling.php:154
+#, php-format
+msgid ""
+"Define the blocks border width. Set 0px for no border. You can set up to 4 "
+"values. %s works, %s also works"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:76
+msgid "Border Radius"
+msgstr "边框半径"
+
+#: include/ui/adminscreens/styling.php:82
+#: include/ui/adminscreens/styling.php:166
+#, php-format
+msgid ""
+"Define the blocks border radius. Set 0px for no radius. You can set up to 4 "
+"values. %s works, %s also works"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:88
+msgid "Border Color"
+msgstr "边框颜色"
+
+#: include/ui/adminscreens/styling.php:92
+#: include/ui/adminscreens/styling.php:176
+msgid "Define the blocks border color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:97
+msgid "Background Color"
+msgstr "背景颜色"
+
+#: include/ui/adminscreens/styling.php:101
+#: include/ui/adminscreens/styling.php:185
+msgid "Define the blocks background color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:106
+msgid "Text Color"
+msgstr "文本颜色"
+
+#: include/ui/adminscreens/styling.php:110
+#: include/ui/adminscreens/styling.php:194
+msgid "Define the text color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:115
+#: include/ui/adminscreens/styling.php:226
+msgid "Preview"
+msgstr "预览"
+
+#: include/ui/adminscreens/styling.php:141
+msgid "Buttons"
+msgstr "按钮"
+
+#: include/ui/adminscreens/styling.php:144
+msgid "Set the styling of buttons used on front-end elements and shortcodes"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:148
+msgid "Button Border Width"
+msgstr "按钮边框宽度"
+
+#: include/ui/adminscreens/styling.php:160
+msgid "Button Border Radius"
+msgstr "按钮边框半径"
+
+#: include/ui/adminscreens/styling.php:172
+msgid "Button Border Color"
+msgstr "按钮边框颜色"
+
+#: include/ui/adminscreens/styling.php:181
+msgid "Button Background Color"
+msgstr "按钮背景颜色"
+
+#: include/ui/adminscreens/styling.php:190
+msgid "Button Text Color"
+msgstr "按钮文本颜色"
+
+#: include/ui/adminscreens/styling.php:199
+msgid "Mouseover Border Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:203
+msgid "Define the blocks border color on mouse over"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:208
+msgid "Mouseover Background Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:212
+msgid "Define the blocks background color on mouse over"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:217
+msgid "Mouseover Text Color"
+msgstr ""
+
+#: include/ui/adminscreens/styling.php:221
+msgid "Define the text color on mouse over"
 msgstr ""
 
 #: include/ui/editlists/eventlist.php:15
@@ -1769,199 +1809,246 @@ msgstr "展示名称"
 
 #: include/ui/editlists/eventlist.php:38
 msgid "Formula"
-msgstr ""
+msgstr "公式"
 
-#: include/ui/editlists/eventlist.php:59
+#: include/ui/editlists/eventlist.php:55
 #, fuzzy
 #| msgid "Action to perform"
 msgid "Action to perform to earn points"
 msgstr "达成目标"
 
-#: include/ui/editlists/eventlist.php:63
-#, fuzzy
-#| msgid "Points added to user."
-#| msgid_plural "Points added to users."
+#: include/ui/editlists/eventlist.php:61
 msgid "Points value and options"
-msgstr "为客户增加的积分。"
+msgstr "分值及选项"
 
-#: include/ui/editlists/eventlist.php:91
+#: include/ui/editlists/eventlist.php:70
+msgid "Select a category"
+msgstr "选择一个类别"
+
+#: include/ui/editlists/eventlist.php:71
+msgid "Category : "
+msgstr "类别: "
+
+#: include/ui/editlists/eventlist.php:74
+msgid "Select an action"
+msgstr "选择操作"
+
+#: include/ui/editlists/eventlist.php:75
+msgid "Action : "
+msgstr "操作："
+
+#: include/ui/editlists/eventlist.php:101
 msgctxt "Option Group"
 msgid "Orders"
 msgstr "订单"
 
-#: include/ui/editlists/eventlist.php:91
+#: include/ui/editlists/eventlist.php:101
 #, fuzzy
 #| msgid " %s extra points for the first order"
-msgid "Earn points when placing an order"
+msgid "Customers earn points when they place an order"
 msgstr "首单获得 %s 额外积分"
 
-#: include/ui/editlists/eventlist.php:92
+#: include/ui/editlists/eventlist.php:102
 msgctxt "Option Group"
 msgid "Website"
 msgstr "网站"
 
-#: include/ui/editlists/eventlist.php:92
-msgid "Earn points when performing actions on the website"
+#: include/ui/editlists/eventlist.php:102
+msgid "Users earn points by registering or posting content"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:93
-#, fuzzy
-#| msgid "Select a reward"
+#: include/ui/editlists/eventlist.php:103
 msgctxt "Option Group"
 msgid "Social Media"
-msgstr "选择奖励"
+msgstr "社交媒体"
 
-#: include/ui/editlists/eventlist.php:93
-msgid "Earn points for social media actions"
-msgstr ""
-
-#: include/ui/editlists/eventlist.php:94
-#, fuzzy
-#| msgid "Sponsorship"
-msgctxt "Option Group"
-msgid "Sponsorship/Referral"
-msgstr "引荐"
-
-#: include/ui/editlists/eventlist.php:94
-msgid "Only sponsors/referrers will earn points with these"
-msgstr ""
-
-#: include/ui/editlists/eventlist.php:95
-#: include/ui/editlists/unlockablelist.php:90
-msgctxt "Option Group"
-msgid "Miscellaneous"
-msgstr ""
-
-#: include/ui/editlists/eventlist.php:95
+#: include/ui/editlists/eventlist.php:103
 #, fuzzy
 #| msgid " %s points for each placed order"
-msgid "Earn points for various reasons"
+msgid "Users earn points for sharing on social media"
 msgstr "每单获得 %s 积分"
 
-#: include/ui/editlists/eventlist.php:96
+#: include/ui/editlists/eventlist.php:104
 msgctxt "Option Group"
-msgid "WooVIP"
+msgid "Referral"
+msgstr "推荐"
+
+#: include/ui/editlists/eventlist.php:104
+msgid "Referrers earn points when they refer someone"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:96
+#: include/ui/editlists/eventlist.php:105
+#: include/ui/editlists/unlockablelist.php:96
+msgctxt "Option Group"
+msgid "Miscellaneous"
+msgstr "杂项"
+
+#: include/ui/editlists/eventlist.php:105
+#, fuzzy
+#| msgid " %s points for each placed order"
+msgid "Users earn points for various reasons"
+msgstr "每单获得 %s 积分"
+
+#: include/ui/editlists/eventlist.php:106
+msgctxt "Option Group"
+msgid "WooVIP"
+msgstr "WooVIP"
+
+#: include/ui/editlists/eventlist.php:106
 msgid "Earn points related to the WooVIP Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:97
+#: include/ui/editlists/eventlist.php:107
 msgctxt "Option Group"
 msgid "WooVirtualWallet"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:97
+#: include/ui/editlists/eventlist.php:107
 msgid "Earn points related to the WooVirtualWallet Plugin"
 msgstr ""
 
-#: include/ui/editlists/eventlist.php:114
+#: include/ui/editlists/eventlist.php:124
 msgid "The selected Earning Points System cannot be found."
 msgstr "无法找到选择的积分赚取系统。"
 
-#: include/ui/editlists/eventlist.php:116
+#: include/ui/editlists/eventlist.php:126
 msgid ""
 "Earning Points System Type cannot be changed. Delete this and create a new "
 "one instead."
 msgstr ""
 "当前积分赚取系统的类型无法变更，不过可以尝试删除并以另一种类型来重新创建一个."
 
-#: include/ui/editlists/eventlist.php:122
+#: include/ui/editlists/eventlist.php:132
 msgid "The selected Earning Points System type cannot be found."
 msgstr "无法找到选择的积分赚取系统。"
 
-#: include/ui/editlists/eventlist.php:145
+#: include/ui/editlists/eventlist.php:155
 msgid "The selected Earning Point System cannot be found."
 msgstr "无法找到选择的积分赚取系统。"
 
-#: include/ui/editlists/multiformlist.php:129
-msgid "Select an element below to see more information about it"
+#: include/ui/editlists/multiformlist.php:49
+msgid "First Step"
+msgstr "第一步"
+
+#: include/ui/editlists/multiformlist.php:50
+#: include/ui/editlists/multiformlist.php:54
+msgid "Step : "
+msgstr "步骤："
+
+#: include/ui/editlists/multiformlist.php:53
+msgid "Second Step"
+msgstr "第二步"
+
+#: include/ui/editlists/sponsorships.php:23
+msgid "Search Users..."
+msgstr "搜索用户..."
+
+#: include/ui/editlists/sponsorships.php:31
+msgid "Referrer"
+msgstr "推荐人"
+
+#: include/ui/editlists/sponsorships.php:32
+msgid "Referee"
 msgstr ""
 
-#: include/ui/editlists/multiformlist.php:130
-msgid "You will have some extra information displayed if need be."
+#: include/ui/editlists/sponsorships.php:120
+#, php-format
+msgid ""
+"Not available here. Please take a look at our PRO version and its free "
+"Referral addon %s!"
 msgstr ""
+
+#: include/ui/editlists/sponsorships.php:123
+msgid "here"
+msgstr "这里"
 
 #: include/ui/editlists/unlockablelist.php:15
 msgid "Points cost"
 msgstr "所需积分"
 
 #: include/ui/editlists/unlockablelist.php:17
-#, fuzzy
-#| msgid "Reward descriptions"
 msgid "Reward description"
 msgstr "奖励描述"
 
-#: include/ui/editlists/unlockablelist.php:39
+#: include/ui/editlists/unlockablelist.php:37
+#, fuzzy
+#| msgid "Select a Category"
+msgid "Select a reward category"
+msgstr "选择种类"
+
+#: include/ui/editlists/unlockablelist.php:38
+#, fuzzy
+#| msgid "Select a Category"
+msgid "Reward Category : "
+msgstr "选择种类"
+
+#: include/ui/editlists/unlockablelist.php:41
 #, fuzzy
 #| msgid "Select a reward"
-msgid "Select the Reward"
+msgid "Select a Reward"
 msgstr "选择奖励"
 
-#: include/ui/editlists/unlockablelist.php:43
+#: include/ui/editlists/unlockablelist.php:42
 #, fuzzy
-#| msgid "Select a reward"
-msgid "Setup the Reward"
-msgstr "选择奖励"
+#| msgid "Reward"
+msgid "Reward : "
+msgstr "奖励"
 
-#: include/ui/editlists/unlockablelist.php:86
-#, fuzzy
-#| msgid "Coupon"
+#: include/ui/editlists/unlockablelist.php:92
 msgctxt "Option  Group"
 msgid "Coupons"
 msgstr "优惠券"
 
-#: include/ui/editlists/unlockablelist.php:86
+#: include/ui/editlists/unlockablelist.php:92
 msgid "Rewards that will generate WooCommerce Coupons"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:87
+#: include/ui/editlists/unlockablelist.php:93
 msgctxt "Option Group"
 msgid "User's status"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:87
+#: include/ui/editlists/unlockablelist.php:93
 msgid "Rewards that will change the user's status"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:88
+#: include/ui/editlists/unlockablelist.php:94
 msgctxt "Option  Group"
 msgid "WooVirtualWallet"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:88
+#: include/ui/editlists/unlockablelist.php:94
 #, fuzzy
 #| msgid "Free Product"
 msgid "Wallet Credit rewards"
 msgstr "免费商品"
 
-#: include/ui/editlists/unlockablelist.php:89
+#: include/ui/editlists/unlockablelist.php:95
 msgctxt "Option  Group"
 msgid "WooVIP"
-msgstr ""
+msgstr "WooVIP"
 
-#: include/ui/editlists/unlockablelist.php:89
+#: include/ui/editlists/unlockablelist.php:95
 #, fuzzy
 #| msgid "VIP Membership"
 msgid "Memberships rewards"
 msgstr "VIP会员"
 
-#: include/ui/editlists/unlockablelist.php:90
+#: include/ui/editlists/unlockablelist.php:96
 msgid "Other types of rewards"
 msgstr ""
 
-#: include/ui/editlists/unlockablelist.php:122
-#: include/ui/editlists/unlockablelist.php:158
+#: include/ui/editlists/unlockablelist.php:128
+#: include/ui/editlists/unlockablelist.php:164
 msgid "The selected reward cannot be found."
 msgstr "无法找到选择的奖励。"
 
-#: include/ui/editlists/unlockablelist.php:124
+#: include/ui/editlists/unlockablelist.php:130
 msgid ""
 "The reward type cannot be changed. Delete this and create a new one instead."
 msgstr "奖励类型无法变更，请尝试删除后已新的类型重新创建。"
 
-#: include/ui/editlists/unlockablelist.php:130
+#: include/ui/editlists/unlockablelist.php:136
 msgid "The selected reward type cannot be found."
 msgstr "无法找到选择的奖励。"
 
@@ -1970,22 +2057,16 @@ msgid "Users"
 msgstr "客户"
 
 #: include/ui/editlists/userspoints.php:163
-#, fuzzy
-#| msgid "User Role"
 msgid "User Login"
-msgstr "用户角色"
+msgstr "用户登录"
 
 #: include/ui/editlists/userspoints.php:164
-#, fuzzy
-#| msgid "Emails"
 msgid "Email"
-msgstr "电子邮件"
+msgstr "邮箱"
 
 #: include/ui/editlists/userspoints.php:165
-#, fuzzy
-#| msgid "Display Points Widget"
 msgid "Display Name"
-msgstr "显示积分小工具"
+msgstr "显示名称"
 
 #: include/ui/editlists/userspoints.php:167
 #, fuzzy, php-format
@@ -2000,8 +2081,6 @@ msgid ""
 msgstr "输入'=42' 来将选择的客户的积分统一调整为42，而不是增加到已有积分上."
 
 #: include/ui/editlists/userspointsbulkaction.php:15
-#, fuzzy
-#| msgid "Add/Substract points"
 msgid "Add/Subtract points"
 msgstr "增加/减少 积分"
 
@@ -2042,14 +2121,12 @@ msgid "Header"
 msgstr "标题"
 
 #: include/ui/legacy/pointsdisplayer.php:115
-#, fuzzy
-#| msgid "Select Loyalty System"
 msgid "Select a Loyalty System"
 msgstr "选择积分系统"
 
 #: include/ui/legacy/pointsdisplayer.php:124
 msgid "Force display for all users"
-msgstr ""
+msgstr "强制对所有用户展示"
 
 #: include/ui/legacy/pointsdisplayer.php:132
 msgid "A <i>More details</i> page URL"
@@ -2067,7 +2144,7 @@ msgstr "查看详情"
 
 #: include/ui/shortcodes/availablecoupons.php:39
 msgid "Available Coupons"
-msgstr ""
+msgstr "有效优惠码"
 
 #: include/ui/shortcodes/availablecoupons.php:43
 msgid ""
@@ -2135,7 +2212,7 @@ msgstr ""
 #: include/ui/shortcodes/availablecoupons.php:156
 #: include/ui/woocommerce/pointsoncart.php:564
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: include/ui/shortcodes/availablecoupons.php:167
 #, php-format
@@ -2144,11 +2221,8 @@ msgstr ""
 
 #: include/ui/shortcodes/pointsbalance.php:41
 #: include/ui/shortcodes/userhistory.php:249
-#, fuzzy
-#| msgctxt "Unlockable cost"
-#| msgid "Points needed"
 msgid "Points Balance"
-msgstr "所需积分"
+msgstr "积分余额"
 
 #: include/ui/shortcodes/pointsbalance.php:45
 msgid "Use this shortcode to display their points balance to your customers."
@@ -2255,6 +2329,71 @@ msgid ""
 "in <strong>MyRewards → Points and Rewards</strong>, in the <b>Shortcode "
 "Attribute</b> column. If you don’t set this value, nothing will be displayed."
 msgstr ""
+"您希望显示的积分与奖励系统 (英文逗号分割)，您可以在<strong>MyRewards → 积分与"
+"奖励系统</strong>中, 位于<b>短代码参数</b> 栏目下找到所需的内容. 如果您不进行"
+"设置，将不显示任何内容."
+
+#: include/ui/shortcodes/referrallink.php:43
+msgid "Referral Link"
+msgstr "推荐链接"
+
+#: include/ui/shortcodes/referrallink.php:47
+msgid "Use this shortcode to show a referral link button."
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:48
+msgid "Customers can use then share this link with their friends."
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:53
+msgid "Select the type of referral link your customers will get :"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:56
+msgid "(Default Value) Customers will get an url link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:57
+msgid "Customers will get a QR Code link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:64
+msgid ""
+"(Optional) If set, customers will see the referral link or QR-Code above the "
+"copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:69
+msgid "(Optional, default is 'true') Show or hide the copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:74
+msgid ""
+"(Optional) By default, the shortcode shares the url of the page it’s "
+"displayed on. You can override that setting by setting an url in this option."
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:79
+msgid "(Optional) Set the text customers will see on the copy button"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:84
+msgid ""
+"(Optional) Set the text customers will see when the code is copied to the "
+"clipboard"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:152
+msgid "Get your referral link"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:159
+msgid "Get your referral QR Code"
+msgstr ""
+
+#: include/ui/shortcodes/referrallink.php:163
+msgid "Your code has been copied !"
+msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:44
 msgid "This shortcode displays a user's points history."
@@ -2262,13 +2401,14 @@ msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:48
 msgid "(Optional) The number of rows displayed. Default is 15."
-msgstr ""
+msgstr "(可选) 显示行数，默认为15."
 
 #: include/ui/shortcodes/userhistory.php:56
 msgid ""
 "(Optional) The Columns to display (comma separated). <b>The order in which "
 "you specify the columns will be the grid columns order</b>."
 msgstr ""
+"(可选) 展示列 (英文逗号分割). <b>您排列的顺序将会是表格中列展示的顺序</b>."
 
 #: include/ui/shortcodes/userhistory.php:57
 msgid ""
@@ -2278,7 +2418,7 @@ msgstr ""
 
 #: include/ui/shortcodes/userhistory.php:58
 msgid " Here are the different options available :"
-msgstr ""
+msgstr "有效选项："
 
 #: include/ui/shortcodes/userhistory.php:64
 #, fuzzy
@@ -2312,6 +2452,8 @@ msgid ""
 "specified the columns option</b>. The headers must respect the same order "
 "than the ones of the previous option."
 msgstr ""
+"(可选) 列标题 (英文逗号分割). <b>如果您指定了列的设置，则此处也必须指定</b>. "
+"标题将遵守上一设置的排列顺序"
 
 #: include/ui/shortcodes/userhistory.php:99
 msgid ""
@@ -2320,8 +2462,8 @@ msgid ""
 "rewards systems</strong>, in the <b>Shortcode Attribute</b> column."
 msgstr ""
 
-#: include/ui/shortcodes/userhistory.php:237 include/wizards/standard.php:267
-#: woorewards.php:380
+#: include/ui/shortcodes/userhistory.php:237 include/wizards/standard.php:291
+#: woorewards.php:396
 msgid "Loyalty System"
 msgstr "积分系统"
 
@@ -2334,16 +2476,12 @@ msgid "Aside From Totals"
 msgstr ""
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:67
-#, fuzzy
-#| msgid "Customer Email"
 msgid "Before Customer Details"
-msgstr "客户电子邮件"
+msgstr "客户详情之前"
 
 #: include/ui/woocommerce/cartcheckoutcontent.php:68
-#, fuzzy
-#| msgid "Products"
 msgid "Before Order Review"
-msgstr "商品"
+msgstr "订购之前审查"
 
 #: include/ui/woocommerce/pointsoncart.php:103
 #, fuzzy
@@ -2426,7 +2564,7 @@ msgstr ""
 #: include/ui/woocommerce/pointsoncart.php:652
 #, php-format
 msgid "Every %s you use is worth %s"
-msgstr ""
+msgstr "您使用的每 %s 价值 %s"
 
 #: include/ui/woocommerce/pointsoncart.php:663
 #, php-format
@@ -2441,17 +2579,17 @@ msgstr ""
 #: include/ui/woocommerce/pointsoncart.php:685
 #, php-format
 msgid "You can only use your %s to reduce the cart total by %s%%"
-msgstr ""
+msgstr "您最多可以使用 %s 来抵扣购物车总额中的 %s%%"
 
 #: include/ui/woocommerce/pointsoncart.php:696
 #, php-format
 msgid "You can only use your %s to reduce the cart total to %s"
-msgstr ""
+msgstr "您您最多可以使用 %s 来抵扣购物车总额中的 %s%%"
 
 #: include/ui/woocommerce/pointsoncart.php:707
 #, php-format
 msgid "The cart subtotal needs to be over %s if you want to use %s"
-msgstr ""
+msgstr "购物车总额需要大于 %s 如果您希望使用 %s"
 
 #: include/unlockables/coupon.php:18
 msgid ""
@@ -2461,7 +2599,7 @@ msgstr ""
 
 #: include/unlockables/coupon.php:19
 msgid "The generated coupon can be used like any other WooCommerce coupon."
-msgstr ""
+msgstr "生成的优惠券与其他WooCommerce的优惠券使用方法一样"
 
 #: include/unlockables/coupon.php:39
 msgctxt "Coupon Unlockable"
@@ -2524,7 +2662,7 @@ msgstr ""
 
 #: include/unlockables/coupon.php:225
 msgid " (incl. tax)"
-msgstr ""
+msgstr "(含税)"
 
 #: include/unlockables/coupon.php:250
 msgctxt "Cannot be bought cause no discount"
@@ -2554,16 +2692,16 @@ msgstr "查看优惠券"
 
 #: include/unlockables/coupon.php:463
 msgctxt "unlockable category"
-msgid "Sponsored"
-msgstr "被引荐人"
+msgid "Referred"
+msgstr ""
 
-#: include/updater.php:309 include/wizard.php:136
+#: include/updater.php:332 include/wizard.php:135
 #: include/wizards/standard.php:27 include/wizards/standard.php:56
-#: include/wizards/standard.php:268 include/wizards/standard.php:381
+#: include/wizards/standard.php:292 include/wizards/standard.php:422
 msgid "Standard System"
 msgstr "标准积分"
 
-#: include/updater.php:367
+#: include/updater.php:390
 msgid ""
 "Your settings have been migrated during MyRewards update.\n"
 "We tried our best to conserve the same behavior as before but we advise you "
@@ -2585,7 +2723,7 @@ msgstr "选择向导"
 msgid "Settings…"
 msgstr "设置"
 
-#: include/wizard.php:137
+#: include/wizard.php:136
 msgid ""
 "The standard system is the most common loyalty system available. Users earn "
 "points by performing various actions. When they have enough points, they can "
@@ -2594,11 +2732,11 @@ msgstr ""
 "标准积分是可用积分系统中最常用的一种。用户可经由多种方式获取积分。当用户获得"
 "足够积分，将可解锁各种奖励，比如折扣券等。"
 
-#: include/wizard.php:146
+#: include/wizard.php:143
 msgid "Leveling System"
 msgstr "等级系统"
 
-#: include/wizard.php:147
+#: include/wizard.php:144
 msgid ""
 "Leveling systems works differently than standard systems. Users earn points "
 "by performing various actions. But they don't spend their points. Instead, "
@@ -2609,11 +2747,11 @@ msgstr ""
 "用” 积分。相应的，用户可以通过累积积分，达到不同等级后来解锁该等级对应的奖"
 "励。"
 
-#: include/wizard.php:157
+#: include/wizard.php:152
 msgid "Special Events"
 msgstr "特殊事件"
 
-#: include/wizard.php:158
+#: include/wizard.php:153
 msgid ""
 "Use the special events wizard to create temporary loyalty programs for "
 "various occasions. This wizard proposes scenarios for the following events :"
@@ -2621,23 +2759,23 @@ msgstr ""
 "使用特殊事件向导来为偶发性活动创建临时的积分系统。本向导可以用于以下事件场"
 "景："
 
-#: include/wizard.php:160
+#: include/wizard.php:155
 msgid "Black Friday"
 msgstr "黑五"
 
-#: include/wizard.php:161
+#: include/wizard.php:156
 msgid "Christmas"
 msgstr "圣诞节"
 
-#: include/wizard.php:162
+#: include/wizard.php:157
 msgid "Easter"
 msgstr "复活节"
 
-#: include/wizard.php:172
+#: include/wizard.php:165
 msgid "Double Points"
 msgstr "双倍积分"
 
-#: include/wizard.php:173
+#: include/wizard.php:166
 msgid ""
 "Create a special event and allow customers to earn twice the points for a "
 "limited period of time. You can also choose to allow users with a special "
@@ -2646,24 +2784,25 @@ msgstr ""
 "创建一个特殊事件积分系统，允许用户在限定时间内获得双倍积分。您也可以选择并设"
 "置具有特定角色权限的用户获得双倍积分。当然，您也可以双管齐下。"
 
-#: include/wizard.php:183
-msgid "Sponsorship"
-msgstr "引荐"
-
-#: include/wizard.php:184
+#: include/wizard.php:175
+#, fuzzy
+#| msgid ""
+#| "Add a loyalty system that rewards customers for sponsoring new people on "
+#| "your website. Sponsored also receive a reward to encourage them to "
+#| "subscribe and buy on your website."
 msgid ""
-"Add a loyalty system that rewards customers for sponsoring new people on "
-"your website. Sponsored also receive a reward to encourage them to subscribe "
-"and buy on your website."
+"Add a points and rewards system that rewards customers for referring new "
+"people on your website. Referees also receive a reward to encourage them to "
+"subscribe and buy on your website."
 msgstr ""
 "增加一个积分系统，以答谢引荐新朋友到访网站的客户。被引荐的用户也将收到奖励，"
 "以激励他们订阅或在您的网站上进行消费。"
 
-#: include/wizard.php:194
+#: include/wizard.php:183
 msgid "Customer Birthday or Registration Anniversary"
 msgstr "客户生日或注册周年"
 
-#: include/wizard.php:195
+#: include/wizard.php:184
 msgid ""
 "Celebrate your customers birthday or registration anniversary by sending "
 "them a discount coupon on that occasion. Really easy to set up and very "
@@ -2672,12 +2811,12 @@ msgstr ""
 "抓住机会，为您的客户庆祝生日或注册周年。给他们送去一张优惠券，您的客户会非常"
 "高兴，但对您来说却只是小事一桩。"
 
-#: include/wizards/standard.php:29 include/wizards/standard.php:275
+#: include/wizards/standard.php:29 include/wizards/standard.php:299
 msgid "Methods to earn points"
 msgstr "积分获取方式"
 
-#: include/wizards/standard.php:31 include/wizards/standard.php:303
-#: woorewards.php:398
+#: include/wizards/standard.php:31 include/wizards/standard.php:339
+#: woorewards.php:414
 msgid "Reward"
 msgstr "奖励"
 
@@ -2730,27 +2869,23 @@ msgid "Some categories are not accessible in the free version of MyRewards."
 msgstr "免费版 MyRewards 无法使用部分类别。"
 
 #: include/wizards/standard.php:75
-#, fuzzy, php-format
-#| msgid " %s points earned for each %s spent"
+#, php-format
 msgid "Points for each %s spent"
-msgstr " %s 分每消费 %s 元"
+msgstr "每消费 1 %s 获得积分"
 
 #: include/wizards/standard.php:79 include/wizards/standard.php:88
 #: include/wizards/standard.php:97 include/wizards/standard.php:105
+#: include/wizards/standard.php:114 include/wizards/standard.php:123
 msgid "Number | Empty to ignore"
 msgstr "数值 | 留空忽略"
 
 #: include/wizards/standard.php:84
-#, fuzzy
-#| msgid "Points on 'Complete' order only"
 msgid "Points on order placed"
-msgstr "仅计算 ”已完成“ 订单的积分"
+msgstr "下单后获得积分"
 
 #: include/wizards/standard.php:93
-#, fuzzy
-#| msgid " %s extra points for the first order"
 msgid "Extra points on first order"
-msgstr "首单获得 %s 额外积分"
+msgstr "首单获得额外积分"
 
 #: include/wizards/standard.php:102
 #, fuzzy
@@ -2758,51 +2893,63 @@ msgstr "首单获得 %s 额外积分"
 msgid "Points on product review"
 msgstr "商品"
 
-#: include/wizards/standard.php:115
+#: include/wizards/standard.php:110
+#, fuzzy, php-format
+#| msgid " %s points earned for each %s spent"
+msgid "Points for each %s spent by Referee"
+msgstr " %s 分每消费 %s 元"
+
+#: include/wizards/standard.php:119
+#, fuzzy
+#| msgid " %s extra points for the first order"
+msgid "Points on Referee orders"
+msgstr "首单获得 %s 额外积分"
+
+#: include/wizards/standard.php:133
 msgid ""
 "Select the reward for your customers. The rewards types are limited in the "
 "standard version. You can change these settings later."
 msgstr "为您的客户选择奖励。标准版可以使用有限的奖励类型。您可以稍后变更设置。"
 
-#: include/wizards/standard.php:121
+#: include/wizards/standard.php:139
 msgid "Select a reward"
 msgstr "选择奖励"
 
-#: include/wizards/standard.php:126
+#: include/wizards/standard.php:146
 #, php-format
 msgctxt "Coupon Unlockable"
 msgid "Coupon (%s)"
 msgstr "优惠券 (%s)"
 
-#: include/wizards/standard.php:127 include/wizards/standard.php:183
+#: include/wizards/standard.php:147 include/wizards/standard.php:203
 msgid "Discount (%)"
 msgstr "折扣(%)"
 
-#: include/wizards/standard.php:128
+#: include/wizards/standard.php:148
 msgid "Free Product"
 msgstr "免费商品"
 
-#: include/wizards/standard.php:129
+#: include/wizards/standard.php:149
 msgid "Free Shipping"
 msgstr "免运费"
 
-#: include/wizards/standard.php:130
+#: include/wizards/standard.php:150
 msgid "Variable Discount"
 msgstr "浮动折扣"
 
-#: include/wizards/standard.php:131
+#: include/wizards/standard.php:151
 msgid "Badge"
 msgstr "徽章"
 
-#: include/wizards/standard.php:132
+#: include/wizards/standard.php:152
 msgid "User Role"
 msgstr "用户角色"
 
-#: include/wizards/standard.php:133
+#: include/wizards/standard.php:153
 msgid "VIP Membership"
 msgstr "VIP会员"
 
-#: include/wizards/standard.php:145
+#: include/wizards/standard.php:165
 #, fuzzy, php-format
 #| msgid "Points added to user."
 #| msgid_plural "Points added to users."
@@ -2810,319 +2957,344 @@ msgctxt "Points on Cart Reward"
 msgid "Point value in %s"
 msgstr "为客户增加的积分。"
 
-#: include/wizards/standard.php:149
+#: include/wizards/standard.php:169
 msgid ""
 "Set the monetary value of a point. Each point used on a cart will discount "
 "the total by that value."
 msgstr ""
 
-#: include/wizards/standard.php:159
+#: include/wizards/standard.php:179
 msgid "Points Needed"
 msgstr "所需积分"
 
-#: include/wizards/standard.php:169
+#: include/wizards/standard.php:189
 #, php-format
 msgctxt "Coupon Unlockable"
 msgid "Coupon Amount (%s)"
 msgstr "优惠券值 (%s)"
 
-#: include/wizards/standard.php:173
+#: include/wizards/standard.php:193
 msgid ""
 "Every time customers have enough points, those points will be used to "
 "generate a coupon of that amount."
 msgstr "每当客户积累到一定的积分，这些积分将可用于兑换所设置价值的优惠券。"
 
-#: include/wizards/standard.php:187
+#: include/wizards/standard.php:207
 msgid ""
 "Every time customers have enough points, those points will be used to "
 "generate a discount coupon with that percentage."
 msgstr ""
 "每当客户积累到一定的积分，这些积分将可用于兑换所设置折扣百分比的优惠券。"
 
-#: include/wizards/standard.php:197
+#: include/wizards/standard.php:217
 msgid ""
 "You're almost done. Check your settings below and submit if you're satisfied "
 "with the settings."
 msgstr "已经快大功告成了。请再次检查以下设置，如果觉得满意，请提交保存。"
 
-#: include/wizards/standard.php:203
+#: include/wizards/standard.php:223
 msgid "Settings Summary"
 msgstr "设置总览"
 
-#: include/wizards/standard.php:207 include/wizards/standard.php:233
+#: include/wizards/standard.php:227 include/wizards/standard.php:257
 msgid ""
 "Do you want to start your loyalty system at the end of this wizard ? If you "
 "select No, you'll have to start it manually later."
 msgstr ""
 "您希望在完成向导后立即启用积分系统么？如选择 “否”，您也可以稍后手动启用。"
 
-#: include/wizards/standard.php:212
+#: include/wizards/standard.php:232
 msgid "Enable rewards emails ?"
 msgstr ""
 
-#: include/wizards/standard.php:216 include/wizards/standard.php:229
+#: include/wizards/standard.php:238 include/wizards/standard.php:253
 msgid "Yes"
 msgstr "是"
 
-#: include/wizards/standard.php:217 include/wizards/standard.php:230
+#: include/wizards/standard.php:239 include/wizards/standard.php:254
 msgid "No"
 msgstr "否"
 
-#: include/wizards/standard.php:220
+#: include/wizards/standard.php:242
 msgid ""
 "By setting this option to Yes, customers will receive an email every time "
 "they receive a new coupon reward."
 msgstr ""
 
-#: include/wizards/standard.php:225
+#: include/wizards/standard.php:247
 msgid "Start the program ?"
 msgstr "开始么？"
 
-#: include/wizards/standard.php:269
+#: include/wizards/standard.php:293
 msgid "Loyalty System Name"
 msgstr "积分系统名称"
 
-#: include/wizards/standard.php:278
+#: include/wizards/standard.php:302
 #, php-format
 msgid " %s points earned for each %s spent"
 msgstr " %s 分每消费 %s 元"
 
-#: include/wizards/standard.php:279
+#: include/wizards/standard.php:303
 msgid "Spend Money"
 msgstr "消费金额"
 
-#: include/wizards/standard.php:284
+#: include/wizards/standard.php:308
 #, php-format
 msgid " %s points for each placed order"
 msgstr "每单获得 %s 积分"
 
-#: include/wizards/standard.php:285
+#: include/wizards/standard.php:309
 msgid "Place an order"
 msgstr "每次下单"
 
-#: include/wizards/standard.php:290
+#: include/wizards/standard.php:314
 #, php-format
 msgid " %s extra points for the first order"
 msgstr "首单获得 %s 额外积分"
 
-#: include/wizards/standard.php:291
+#: include/wizards/standard.php:315
 msgid "Place a first order"
 msgstr "首次下单"
 
-#: include/wizards/standard.php:296
+#: include/wizards/standard.php:320
 #, fuzzy, php-format
 #| msgid " %s points for each placed order"
 msgid " %s points for a product review"
 msgstr "每单获得 %s 积分"
 
-#: include/wizards/standard.php:297
-#, fuzzy
-#| msgid "Products"
+#: include/wizards/standard.php:321
 msgid "Product Review"
-msgstr "商品"
+msgstr "商品评价"
 
-#: include/wizards/standard.php:306
+#: include/wizards/standard.php:326
+#, fuzzy, php-format
+#| msgid " %s points earned for each %s spent"
+msgid " %s points earned for each %s spent by a Referee"
+msgstr " %s 分每消费 %s 元"
+
+#: include/wizards/standard.php:327
+#, fuzzy
+#| msgid "Spend Money"
+msgid "Referee Spends Money"
+msgstr "消费金额"
+
+#: include/wizards/standard.php:332
+#, fuzzy, php-format
+#| msgid " %s points for each placed order"
+msgid " %s points for each time a Referee places order"
+msgstr "每单获得 %s 积分"
+
+#: include/wizards/standard.php:333
+#, fuzzy
+#| msgid "Place an order"
+msgid "Referee places an order"
+msgstr "每次下单"
+
+#: include/wizards/standard.php:342
 #, php-format
 msgid " %s percent discount for %s points"
 msgstr " %s 的百分数折扣使用  %s 积分"
 
-#: include/wizards/standard.php:307
+#: include/wizards/standard.php:343
 msgid "Percentage Discount"
 msgstr "百分数折扣"
 
-#: include/wizards/standard.php:312
+#: include/wizards/standard.php:348
 #, php-format
 msgid " %s%s discount for %s points"
 msgstr " %s %s 的折扣使用  %s 积分"
 
-#: include/wizards/standard.php:313
+#: include/wizards/standard.php:349
 msgid "Fixed Discount"
 msgstr "固定折扣"
 
-#: include/wizards/standard.php:318
+#: include/wizards/standard.php:354
 #, fuzzy, php-format
 #| msgid " %s%s discount for %s points"
 msgid " %s%s discount for each point"
 msgstr " %s %s 的折扣使用  %s 积分"
 
-#: include/wizards/standard.php:333
+#: include/wizards/standard.php:369
 #, php-format
 msgid ""
 "Points for each %s spent expects numeric value greater than zero or leave "
 "blank."
 msgstr "每 %s 消费获得的积分，数值需大于零或留空。"
 
-#: include/wizards/standard.php:336
+#: include/wizards/standard.php:372
 msgid ""
 "Points on order placed expects numeric value greater than zero or leave "
 "blank."
 msgstr "每 个订单获得的积分，数值需大于零或留空。"
 
-#: include/wizards/standard.php:339
+#: include/wizards/standard.php:375
 msgid ""
 "Extra points on first order expects numeric value greater than zero or leave "
 "blank."
 msgstr "首次消费获得的额外积分，数值需大于零或留空。"
 
-#: include/wizards/standard.php:341
-#, fuzzy
+#: include/wizards/standard.php:377
+msgid ""
+"Points for product review expects numeric value greater than zero or leave "
+"blank."
+msgstr "商品评价获得积分，需设置为大于零的数值或留空。"
+
+#: include/wizards/standard.php:380
+#, fuzzy, php-format
 #| msgid ""
 #| "Points for each %s spent expects numeric value greater than zero or leave "
 #| "blank."
 msgid ""
-"Points for product review expects numeric value greater than zero or leave "
-"blank."
+"Points for each %s spent by Referee expects numeric value greater than zero "
+"or leave blank."
 msgstr "每 %s 消费获得的积分，数值需大于零或留空。"
 
-#: include/wizards/standard.php:349
+#: include/wizards/standard.php:382
+#, fuzzy
+#| msgid ""
+#| "Points on order placed expects numeric value greater than zero or leave "
+#| "blank."
+msgid ""
+"Points on order placed by Referee expects numeric value greater than zero or "
+"leave blank."
+msgstr "每 个订单获得的积分，数值需大于零或留空。"
+
+#: include/wizards/standard.php:390
 msgid "Points Needed expects numeric value greater than zero."
 msgstr "所需积分，数值需大于零或留空。"
 
-#: include/wizards/standard.php:354
+#: include/wizards/standard.php:395
 msgid "Please, set a reward percentage greater than 0% up to 100%."
 msgstr "请设置奖励的百分比，需大于 0% 且小于 100%"
 
-#: include/wizards/standard.php:359
+#: include/wizards/standard.php:400
 msgid "Please, set a positive reward amount."
 msgstr "请设置奖励的数值，需为正数。"
 
-#: include/wizards/standard.php:364
+#: include/wizards/standard.php:405
 #, fuzzy
 #| msgid "Please, set a positive reward amount."
 msgid "Please, set a positive point value."
 msgstr "请设置奖励的数值，需为正数。"
 
-#: include/wizards/standard.php:367
+#: include/wizards/standard.php:408
 msgid "Please, select a reward type."
 msgstr "请选择奖励类型。"
 
 #: woorewards.php:141
-msgid "Settings"
-msgstr "设置"
-
-#: woorewards.php:144
 msgid "Help"
 msgstr "帮助"
 
 #. Plugin URI of the plugin/theme
-#: woorewards.php:152
+#: woorewards.php:149
 msgid "https://plugins.longwatchstudio.com/product/woorewards/"
 msgstr "https://plugins.longwatchstudio.com/product/woorewards/"
 
-#: woorewards.php:162
+#: woorewards.php:159
 #, fuzzy
 #| msgid "https://plugins.longwatchstudio.com/docs/woorewards/"
 msgid "https://plugins.longwatchstudio.com/docs/woorewards-4/"
 msgstr "https://plugins.longwatchstudio.com/docs/woorewards/"
 
-#: woorewards.php:238
-#, fuzzy
-#| msgid "Point"
-#| msgid_plural "Points"
+#: woorewards.php:235
 msgid "Point"
 msgstr "积分"
 
-#: woorewards.php:282
+#: woorewards.php:285
 msgid "MyRewards Thumbnail"
 msgstr "MyRewards 缩略图"
 
-#: woorewards.php:283
+#: woorewards.php:286
 msgid "MyRewards Thumbnail Small"
 msgstr "MyRewards 缩略图-小"
 
-#: woorewards.php:379
+#: woorewards.php:395
 msgid "Loyalty Systems"
 msgstr "积分系统"
 
-#: woorewards.php:388
+#: woorewards.php:404
 msgid "Earning Points Methods"
 msgstr "积分获取方式"
 
-#: woorewards.php:389
+#: woorewards.php:405
 msgid "Earning Points Method"
 msgstr "积分获取方式"
 
-#: woorewards.php:445
+#: woorewards.php:461
 msgid ""
 "We detect a MyRewards licence downgrade: Click here to restore missing "
 "configuration."
 msgstr "检测到 MyRewards 授权变动: 点击这里恢复丢失的设置."
 
-#: woorewards.php:446
+#: woorewards.php:462
 msgid "Restore"
 msgstr "恢复"
 
-#: woorewards.php:526
+#: woorewards.php:542
 msgid "Your MyRewards Premium trial period is about to expire"
 msgstr ""
 
-#: woorewards.php:527 woorewards.php:546
+#: woorewards.php:543 woorewards.php:562
 #, php-format
 msgid ""
 "Thank you for trying MyRewards Premium. The trial period will end on <b>%s</"
 "b>"
 msgstr ""
 
-#: woorewards.php:528
+#: woorewards.php:544
 #, php-format
 msgid ""
 "If you want to keep using all Pro Features, please purchase a %s License"
 msgstr ""
 
-#: woorewards.php:529 woorewards.php:547
+#: woorewards.php:545 woorewards.php:563
 msgid "Premium Version features include :"
 msgstr ""
 
-#: woorewards.php:530 woorewards.php:548
-#, fuzzy
-#| msgid "Sponsorship"
-msgid "Referrals and Sponsorship"
-msgstr "引荐"
-
-#: woorewards.php:531 woorewards.php:549
+#: woorewards.php:547 woorewards.php:565
 #, fuzzy
 #| msgid "Free Product"
 msgid "Free products rewards"
 msgstr "免费商品"
 
-#: woorewards.php:532 woorewards.php:550
+#: woorewards.php:548 woorewards.php:566
 #, fuzzy
 #| msgid "Commercial operation"
 msgid "WooCommerce integration tools"
 msgstr "商家设置"
 
-#: woorewards.php:533 woorewards.php:551
+#: woorewards.php:549 woorewards.php:567
 #, fuzzy
 #| msgctxt "Unlockable cost"
 #| msgid "Points needed"
 msgid "Multiple points and rewards systems"
 msgstr "所需积分"
 
-#: woorewards.php:534 woorewards.php:552
+#: woorewards.php:550 woorewards.php:568
 msgid "Lots of widgets and shortcodes"
 msgstr ""
 
-#: woorewards.php:535 woorewards.php:553
+#: woorewards.php:551 woorewards.php:569
 msgid "And a lot more ..."
-msgstr ""
+msgstr "还有更多..."
 
-#: woorewards.php:537
+#: woorewards.php:553
 msgid ""
 "Purchase WooRewads Premium today to keep the most powerful and customizable "
 "loyalty program"
 msgstr ""
 
-#: woorewards.php:545
+#: woorewards.php:561
 msgid "Welcome to your MyRewards Premium trial"
 msgstr ""
 
-#: woorewards.php:555
+#: woorewards.php:571
 msgid ""
 "Try all these premium features and create the perfect loyalty program for "
 "your website"
 msgstr ""
 
-#: woorewards.php:556
+#: woorewards.php:572
 msgid "At the end of your trial, consider purchasing a MyRewards License"
 msgstr ""
 
@@ -3142,8 +3314,154 @@ msgstr "Long Watch Studio"
 msgid "https://longwatchstudio.com"
 msgstr "https://longwatchstudio.com"
 
-#~ msgid "Levelling"
-#~ msgstr "等级"
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Sponsorships"
+#~ msgstr "引荐"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Sponsorship Information"
+#~ msgstr "引荐"
+
+#, fuzzy
+#~| msgid "Add/Substract points"
+#~ msgid "Add/Subtract Points"
+#~ msgstr "增加/减少 积分"
+
+#, fuzzy
+#~| msgid "Place an order"
+#~ msgid "Place an order :"
+#~ msgstr "每次下单"
+
+#, fuzzy
+#~| msgid "Spend Money"
+#~ msgid "Spend Money :"
+#~ msgstr "消费金额"
+
+#, fuzzy
+#~| msgid "Free Product"
+#~ msgid "Review a product :"
+#~ msgstr "免费商品"
+
+#, fuzzy
+#~| msgid "Coupon"
+#~ msgid "Coupon :"
+#~ msgstr "优惠券"
+
+#, fuzzy
+#~| msgid "Points cost"
+#~ msgid "Points on Cart :"
+#~ msgstr "所需积分"
+
+#, fuzzy
+#~| msgid "Standard System"
+#~ msgid "Standard System :"
+#~ msgstr "标准积分"
+
+#, fuzzy
+#~| msgid "Leveling System"
+#~ msgid "Leveling System :"
+#~ msgstr "等级系统"
+
+#, fuzzy
+#~| msgid "Special Events"
+#~ msgid "Special Events :"
+#~ msgstr "特殊事件"
+
+#, fuzzy
+#~| msgid "Double Points"
+#~ msgid "Double Points :"
+#~ msgstr "双倍积分"
+
+#, fuzzy
+#~| msgid "Customer Birthday or Registration Anniversary"
+#~ msgid "Birthday or Anniversary "
+#~ msgstr "客户生日或注册周年"
+
+#, fuzzy
+#~| msgid "Customer Birthday or Registration Anniversary"
+#~ msgid ""
+#~ "Send a special gift on customers birthday or registration anniversary "
+#~ "(Pro Version Only)"
+#~ msgstr "客户生日或注册周年"
+
+#, fuzzy
+#~| msgid "WooCommerce"
+#~ msgid "WooCommerce :"
+#~ msgstr "WooCommerce"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Sponsorship/Referral :"
+#~ msgstr "引荐"
+
+#, fuzzy
+#~| msgctxt "Option Group"
+#~| msgid "Achievements"
+#~ msgid "Badges and Achievements :"
+#~ msgstr "成就"
+
+#, fuzzy
+#~| msgid "Widgets"
+#~ msgid "Widgets :"
+#~ msgstr "小工具"
+
+#, fuzzy
+#~| msgid "Emails"
+#~ msgid "Emails :"
+#~ msgstr "电子邮件"
+
+#, fuzzy
+#~| msgid "Place an order"
+#~ msgid "Process past orders :"
+#~ msgstr "每次下单"
+
+#, fuzzy
+#~| msgctxt "Unlockable cost"
+#~| msgid "Points needed"
+#~ msgid "Points and Rewards Systems :"
+#~ msgstr "所需积分"
+
+#, fuzzy
+#~| msgid "Methods to earn points"
+#~ msgid "20+ methods to earn points :"
+#~ msgstr "积分获取方式"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Referrals/Sponsorship :"
+#~ msgstr "引荐"
+
+#, fuzzy
+#~| msgid "New Reward"
+#~ msgid "New Rewards :"
+#~ msgstr "新的奖励"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgctxt "Option Group"
+#~ msgid "Sponsorship/Referral"
+#~ msgstr "引荐"
+
+#, fuzzy
+#~| msgid "Select a reward"
+#~ msgid "Select the Reward"
+#~ msgstr "选择奖励"
+
+#, fuzzy
+#~| msgid "Select a reward"
+#~ msgid "Setup the Reward"
+#~ msgstr "选择奖励"
+
+#~ msgctxt "unlockable category"
+#~ msgid "Sponsored"
+#~ msgstr "被引荐人"
+
+#, fuzzy
+#~| msgid "Sponsorship"
+#~ msgid "Referrals and Sponsorship"
+#~ msgstr "引荐"
 
 #, fuzzy
 #~| msgid "Products"
@@ -3200,9 +3518,6 @@ msgstr "https://longwatchstudio.com"
 #~ msgid "Achievements"
 #~ msgstr "成就"
 
-#~ msgid "Select a Category"
-#~ msgstr "选择种类"
-
 #~ msgid "Orders"
 #~ msgstr "订单"
 
@@ -3219,10 +3534,6 @@ msgstr "https://longwatchstudio.com"
 #~| msgid "Points Management"
 #~ msgid "Data Management :"
 #~ msgstr "积分管理"
-
-#~ msgctxt "link to licence tab in admin notice"
-#~ msgid "here"
-#~ msgstr "这里"
 
 #~ msgctxt "link to plugin selling site"
 #~ msgid "Long Watch Studio - MyRewards"
@@ -3312,11 +3623,6 @@ msgstr "https://longwatchstudio.com"
 #~ msgstr "请选择奖励类型。"
 
 #, fuzzy
-#~| msgid "Select a Category"
-#~ msgid "Select a font"
-#~ msgstr "选择种类"
-
-#, fuzzy
 #~| msgid "Medium"
 #~ msgctxt "Font weight"
 #~ msgid "Medium"
@@ -3343,12 +3649,6 @@ msgstr "https://longwatchstudio.com"
 #~ msgstr "https://plugins.longwatchstudio.com/docs/woorewards/"
 
 #, fuzzy
-#~| msgid "Order"
-#~ msgctxt "CSS border size editoin"
-#~ msgid "Border"
-#~ msgstr "订单"
-
-#, fuzzy
 #~| msgid "Points Needed expects numeric value greater than zero."
 #~ msgid "An integer value greater than zero."
 #~ msgstr "所需积分，数值需大于零或留空。"
@@ -3364,11 +3664,6 @@ msgstr "https://longwatchstudio.com"
 #~ msgctxt "Default css values"
 #~ msgid "Reset"
 #~ msgstr "重置为 %d"
-
-#, fuzzy
-#~| msgid "Error occured during reward system saving."
-#~ msgid "An error occured during form validation."
-#~ msgstr "保存积分奖励系统时发生错误。"
 
 #~ msgid "Earning Method"
 #~ msgstr "积分获取方式"

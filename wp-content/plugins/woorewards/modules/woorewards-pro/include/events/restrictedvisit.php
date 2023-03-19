@@ -52,7 +52,7 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Targets", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Targets", 'woorewards-pro'));
 
 		// The post category
 		$label   = _x("Post Categories", "Visit Category", 'woorewards-pro');
@@ -87,9 +87,13 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 
 		// hide from search and robots on/off
 		$label = __("Hide from search and robots", 'woorewards-pro');
-		$checked = ($this->isHiddenPage() ? ' checked' : '');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'post_hidden', array(
+			'id'      => $prefix . 'post_hidden',
+			'layout'  => 'toggle',
+			'checked' => ($this->isHiddenPage() ? ' checked' : '')
+		));
 		$form .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$form .= "<div class='lws-$context-opt-input value'><input type='checkbox'$checked id='{$prefix}post_hidden' name='{$prefix}post_hidden' class='lws_checkbox'/></div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$form .= $this->getFieldsetEnd(2);
 		return $form;

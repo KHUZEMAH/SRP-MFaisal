@@ -41,8 +41,8 @@ class NewReward
 			'title' => __("Enabled", 'woorewards-lite'),
 			'type' => 'box',
 			'extra' => array(
+				'layout' => 'toggle',
 				'default' => '',
-				'class' => 'lws_checkbox',
 			)
 		);
 

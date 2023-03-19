@@ -240,13 +240,13 @@ class PseudoCss
 		{
 			$fields = array_merge( array(array(
 					'id' => $me->MasterID,
-					'title' => __("Default CSS values", 'lws-adminpanel'),
+					'title' => __("Default CSS values", LWS_ADMIN_PANEL_DOMAIN),
 					'type' => 'button',
 					'extra' => array(
 						'master' => $me->MasterID,
 						'class' => 'lwss-reset-btn',
-						'text' => _x("Reset", "Default css values", 'lws-adminpanel')
-						//,'help' => _x("", "Help about reset css to default values", 'lws-adminpanel')
+						'text' => _x("Reset", "Default css values", LWS_ADMIN_PANEL_DOMAIN)
+						//,'help' => _x("", "Help about reset css to default values", LWS_ADMIN_PANEL_DOMAIN)
 					)
 				)),
 				$fields
@@ -545,7 +545,9 @@ class PseudoCss
 	{
 		$part = explode('?', $src, 2);
 		$args = array();
-		parse_str( parse_url( $src, PHP_URL_QUERY ), $args );
+		$query = \parse_url((string)$src, PHP_URL_QUERY);
+		if ($query)
+			\parse_str($query, $args);
 
 		$key = isset($args['stygen']) ? \sanitize_key($args['stygen']) : '';
 		if( empty($key) )

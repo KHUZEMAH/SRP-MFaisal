@@ -188,7 +188,7 @@ EOT;
 						'icon'	=> 'lws-icon-window-add',
 						'title' => __("Badge Popup", 'woorewards-pro'),
 						'text' => __("Style the popup that will be displayed to customers when they earn a new badge.", 'woorewards-pro'),
-						'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/badges-and-achievements/create-and-edit-badges/'),
+						'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 						'fields' => array(
 							'stygen' => array(
 								'id' => 'lws_wr_badge_style',
@@ -209,7 +209,7 @@ EOT;
 						'title' => __("Badges Rarity Levels", 'woorewards-pro'),
 						'text' => __("Define the rarity levels of Badges.", 'woorewards-pro') . "<br/>" .
 						__("The percentage value is the max percentage of users owning the badge to get the corresponding rarity.", 'woorewards-pro'),
-						'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/badges-and-achievements/badges-rarity/'),
+						'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 						'editlist' => \lws_editlist(
 							'Rarity',
 							\LWS\WOOREWARDS\PRO\Ui\Editlists\BadgeRarity::ROW_ID,

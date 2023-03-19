@@ -23,13 +23,13 @@ class Conveniences
 			else
 			{
 				$orderStatusList = array(
-					array('value' => 'pending', 'label' => __("Pending payment", 'lws-adminpanel')),
-					array('value' => 'processing', 'label' => __("Processing", 'lws-adminpanel')),
-					array('value' => 'on-hold', 'label' => __("On hold", 'lws-adminpanel')),
-					array('value' => 'completed', 'label' => __("Completed", 'lws-adminpanel')),
-					array('value' => 'cancelled', 'label' => __("Cancelled", 'lws-adminpanel')),
-					array('value' => 'refunded', 'label' => __("Refunded", 'lws-adminpanel')),
-					array('value' => 'failed', 'label' => __("Failed", 'lws-adminpanel')),
+					array('value' => 'pending', 'label' => __("Pending payment", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'processing', 'label' => __("Processing", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'on-hold', 'label' => __("On hold", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'completed', 'label' => __("Completed", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'cancelled', 'label' => __("Cancelled", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'refunded', 'label' => __("Refunded", LWS_ADMIN_PANEL_DOMAIN)),
+					array('value' => 'failed', 'label' => __("Failed", LWS_ADMIN_PANEL_DOMAIN)),
 				);
 			}
 			$orderStatusList = \apply_filters('lws_adminpanel_order_status_list', $orderStatusList);
@@ -339,6 +339,7 @@ class Conveniences
 
 		static $redondant = array("/\t+/", '/ +/', "/(\n[ \t]*\n[ \t]*)+/", "/\n[ \t]*/");
 		static $single = array("\t", ' ', "\n\n", "\n");
-		$body = \html_entity_decode(preg_replace($redondant, $single, $body));
+		$body = \html_entity_decode(\preg_replace($redondant, $single, $body));
+		return $body ? $body : '';
 	}
 }

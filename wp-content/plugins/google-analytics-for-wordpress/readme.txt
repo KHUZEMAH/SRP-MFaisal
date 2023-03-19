@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 4.8.0
 Tested up to: 6.1.1
-Stable tag: 8.12.1
+Stable tag: 8.13.1
 Requires PHP: 5.6
 License: GPL v3
 
@@ -241,7 +241,7 @@ After reading this exhaustive feature list, you can probably imagine why Monster
 
 Give MonsterInsights a try.
 
-Want to unlock even more features? <a href="?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend">Upgrade to our Pro version</a>.
+Want to unlock even more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend">Upgrade to our Pro version</a>.
 
 >Simple, yet powerful. Amazing piece of plugin, does exactly what expected and even more.<br>
 > Matt Jaworski
@@ -298,6 +298,14 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 8.13.1: Mar 14, 2023 =
+- Fixed: We fixed a bug that could cause an issue if Google's API endpoint returned a non-200 response.
+
+= 8.13.0: Mar 13, 2023 =
+- Enhancement: We enhanced the notifications user experience.
+- Fixed: We fixed the PDF reports header.
+- Update: We applied additional security hardening.
+
 = 8.12.1: Jan 12, 2023 =
 - Fix: We made updates to authentication
 

@@ -36,6 +36,8 @@ class PointsReminder
 		$settings['title']         = __("Your loyalty points will expire the [deadline]", 'woorewards-pro');
 		$settings['header']        = __("Your loyalty points are about to expire due to inactivity.", 'woorewards-pro');
 		$settings['footer']        = __("Powered by MyRewards", 'woorewards-pro');
+		$settings['doclink']       = \LWS\WOOREWARDS\PRO\DocLinks::get('emails');
+		$settings['icon']          = 'lws-icon-calendar';
 		$settings['css_file_url']  = LWS_WOOREWARDS_PRO_CSS . '/mails/pointsreminder.css';
 		$settings['fields']['remind'] = array(
 			'id' => 'lws_woorewards_points_reminder_days',

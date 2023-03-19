@@ -25,7 +25,7 @@ class Button extends \LWS\Adminpanel\Pages\Field
 
 	public function label()
 	{
-		if( isset($this->extra['text']) )
+		if (isset($this->extra['text']) || isset($this->extra['html']))
 			return parent::label();
 		else
 			return ""; /// title will be used as button text
@@ -33,7 +33,7 @@ class Button extends \LWS\Adminpanel\Pages\Field
 
 	public function title()
 	{
-		if( isset($this->extra['text']) )
+		if (isset($this->extra['text']) || isset($this->extra['html']))
 			return parent::title();
 		else
 			return ""; /// title will be used as button text
@@ -41,33 +41,33 @@ class Button extends \LWS\Adminpanel\Pages\Field
 
 	public function input()
 	{
-		$text = esc_attr($this->getExtraValue('text', $this->m_Title));
+		$text = $this->getExtraValue('html');
+		if (!$text)
+			$text = esc_attr($this->getExtraValue('text', $this->m_Title));
 		$class = (isset($this->extra['class']) && is_string($this->extra['class']) ? " {$this->extra['class']}" : '');
 
 		$triggable = (isset($this->extra['callback']) && is_callable($this->extra['callback']));
 		if( $triggable )
 			$class .= ' lws_adm_btn_trigger';
 
-		$attrs = '';
+		$attrs = array();
 		$submit = $this->getExtraValue('link');
 		if( $submit )
 		{
 			$class .= ' lws_adm_btn_group_submit';
+			$attrs['data-method'] = 'post';
 
-			if( \is_array($submit) )
-			{
+			if (\is_array($submit)) {
 				$method = \array_keys($submit)[0];
-				$action = $submit[$method];
-				$method = \strtolower($method);
-				if( 'ajax' == $method )
-					$attrs = sprintf(' data-method="get" data-action="%s"', \esc_attr($action));
-				else
-					$attrs = sprintf(' data-method="post" data-action="%s"', \esc_attr($action));
+				$attrs['data-action'] = $submit[$method];
+				if ('ajax' == \strtolower($method))
+					$attrs['data-method'] = 'get';
+			} else {
+				$attrs['data-action'] = $submit;
 			}
-			else
-				$attrs = sprintf(' data-method="post" data-action="%s"', \esc_attr($submit));
 		}
-		$attrs .= $this->getExtraValue('disabled', false) ? ' disabled' : '';
+		if ($this->getExtraValue('disabled', false))
+			$attrs['disabled'] = 'disabled';
 
 		if( $triggable || $submit )
 			$class .= ' lws-adm-btn-trigger';
@@ -88,6 +88,7 @@ class Button extends \LWS\Adminpanel\Pages\Field
 			echo "<$tag class='$cc'>";
 		}
 
+		$attrs = $this->getDomAttributes($attrs);
 		echo "<div class='lws-adm-btn$class' id='{$this->m_Id}' type='button'{$attrs}>$text</div>";
 		if( $triggable || $submit ) // answer zone
 			echo "<div class='lws-adm-btn-trigger-response'></div>";

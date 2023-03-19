@@ -147,9 +147,13 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		// permanent on/off
 		$label = _x("Permanent", "Coupon Unlockable", 'woorewards-pro');
 		$tooltip = __("Applied on all future orders. That reward will replace any previous permanent coupon reward of the same type owned by the customer.", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'permanent', array(
+			'id'      => $prefix . 'permanent',
+			'layout'  => 'toggle',
+		));
 		$str = "<div class='field-help'>$tooltip</div>";
 		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}permanent' name='{$prefix}permanent' class='lws_checkbox'/></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// limit to X products
 		$label = _x("Limit to X items", "Coupon Unlockable", 'woorewards-pro');
@@ -160,20 +164,28 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 
 		// autoapply on/off
 		$label = _x("Auto-apply on next cart", "Coupon Unlockable", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
+			'id'      => $prefix . 'autoapply',
+			'layout'  => 'toggle',
+		));
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}autoapply' name='{$prefix}autoapply' class='lws_checkbox'/></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		// free shipping
 		$label = _x("Also gives free shipping", "Coupon Unlockable", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'free_shipping', array(
+			'id'      => $prefix . 'free_shipping',
+			'layout'  => 'toggle',
+		));
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='checkbox' id='{$prefix}free_shipping' name='{$prefix}free_shipping' class='lws_checkbox'/></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$str .= $this->getFieldsetPlaceholder(false, 1);
 		$form = str_replace($this->getFieldsetPlaceholder(false, 1), $str, $form);
 
 		$form = $this->filterForm($form, $prefix, $context, 1);
 
-		$form .= $this->getFieldsetBegin(2, __("Allow / Deny Product Categories", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Allow / Deny Product Categories", 'woorewards-pro'));
 
 		// restriction by product category
 		$label   = _x("Product categories", "Coupon Unlockable", 'woorewards-pro');

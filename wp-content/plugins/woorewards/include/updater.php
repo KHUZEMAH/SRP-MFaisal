@@ -119,8 +119,31 @@ class Updater
 			self::setOldMailEnabledDefaultValue();
 		}
 
-		if (false === \get_option('lws_woorewards_hide_internal_meta', false))
-			\update_option('lws_woorewards_hide_internal_meta', 'on');
+		if ($fromVersion && \version_compare($fromVersion, '5.0.0', '<')) {
+			// moved from pro
+			$type = array(
+				'lws_woorewards_pro_events_sponsoredorderamount' => 'lws_woorewards_events_sponsoredorderamount',
+				'lws_woorewards_pro_events_sponsoredfirstorder'  => 'lws_woorewards_events_sponsoredorder',
+			);
+			foreach ($type as $src => $dst) {
+				$wpdb->query("UPDATE {$wpdb->postmeta} SET meta_value='{$dst}' WHERE meta_key='wre_event_type' AND meta_value='{$src}'");
+			}
+			self::addV5PrefabEvents();
+		}
+
+		$defaultOptions = array(
+			'lws_woorewards_show_loading_order_and_priority' => '',
+			'lws_woorewards_hide_internal_meta' => 'on',
+			'lws_woorewards_event_enabled_sponsorship' => 'on',
+			'lws_woorewards_referral_back_give_sponsorship' => 'on',
+			'lws_woorewards_sponsorship_tinify_enabled' => '',
+			'lws_woorewards_sponsorship_short_url' => '',
+		);
+		foreach ($defaultOptions as $optName => $optValue) {
+			if (false === \get_option($optName, false)) {
+				\update_option($optName, $optValue);
+			}
+		}
 
 		// woorewards is based on woocommerce coupons, so enable them
 		\update_option('woocommerce_enable_coupons', 'yes');
@@ -396,6 +419,42 @@ We tried our best to conserve the same behavior as before but we advise you to c
 		return false;
 	}
 
+	/** @return dirty status (if something changed in pool) */
+	public static function addV5PrefabEvents($pool=false, $saveIfDirty=true)
+	{
+		$dirty = false;
+		if (!$pool) {
+			$pools = self::loadStandardPool(true);
+			if ($pools->count())
+				$pool = $pools->get(0);
+		}
+
+		if ($pool) {
+
+			$e = $pool->getEvents()->filter(function($item){return $item->getType() == 'lws_woorewards_events_sponsoredorderamount';});
+			if ($e->count() <= 0) {
+				require_once LWS_WOOREWARDS_INCLUDES . '/events/sponsoredorderamount.php';
+				$event = new \LWS\WOOREWARDS\Events\SponsoredOrderAmount();
+				$pool->addEvent($event, 0);
+				$dirty = true;
+			}
+
+			$e = $pool->getEvents()->filter(function($item){return $item->getType() == 'lws_woorewards_events_sponsoredorder';});
+			if ($e->count() <= 0) {
+				require_once LWS_WOOREWARDS_INCLUDES . '/events/sponsoredorder.php';
+				$event = new \LWS\WOOREWARDS\Events\SponsoredOrder();
+				$event->setFirstOrderOnly(false);
+				$pool->addEvent($event, 0);
+				$dirty = true;
+			}
+
+			if ($dirty && $saveIfDirty) {
+				$pool->save();
+			}
+		}
+		return $dirty;
+	}
+
 	/** Look at pool prefabs type='standard',
 	 * add missing orderCompleted, firstOrder, OrderAmount and Coupon.
 	 *
@@ -485,6 +544,9 @@ We tried our best to conserve the same behavior as before but we advise you to c
 			{
 				require_once LWS_WOOREWARDS_INCLUDES.'/unlockables/coupon.php';
 				$pool->addUnlockable(new \LWS\WOOREWARDS\Unlockables\Coupon(), 0);
+				$dirty = true;
+			}
+			if (self::addV5PrefabEvents($pool, false)) {
 				$dirty = true;
 			}
 

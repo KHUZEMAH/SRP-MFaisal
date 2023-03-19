@@ -11,8 +11,8 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		return array_merge(parent::getInformation(), array(
 			'icon'  => 'lws-icon-b-meeting',
-			'short' => __("The customer will receive points for sending a sponsorship by email.", 'woorewards-pro'),
-			'help'  => __("This method will only reward the sponsor, not the sponsored", 'woorewards-pro'),
+			'short' => __("The customer will receive points for sending a referral by email.", 'woorewards-pro'),
+			'help'  => __("This method will only reward the referrer, not the referee", 'woorewards-pro'),
 		));
 	}
 
@@ -33,7 +33,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return a human readable type for UI */
 	public function getDisplayType()
 	{
-		return _x("Send a sponsorship email", "getDisplayType", 'woorewards-pro');
+		return _x("Send a referral email", "getDisplayType", 'woorewards-pro');
 	}
 
 	/** Add hook to grab events and add points. */
@@ -49,7 +49,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 
 		if( $points = \apply_filters('trigger_'.$this->getType(), 1, $this, $sponsor, $sponsored) )
 		{
-			$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array("Customer sponsors %s", $sponsored), 'woorewards-pro');
+			$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array("Customer refers %s", $sponsored), 'woorewards-pro');
 			$this->addPoint($sponsor->ID, $reason, $points);
 		}
 	}
@@ -57,7 +57,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 	/** Never call, only to have poedit/wpml able to extract the sentance. */
 	private function poeditDeclare()
 	{
-		__("Customer sponsors %s", 'woorewards-pro');
+		__("Customer refers %s", 'woorewards-pro');
 	}
 
 	/**	Event categories, used to filter out events from pool options.
@@ -65,7 +65,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 	public function getCategories()
 	{
 		return array_merge(parent::getCategories(), array(
-			'sponsorship' => __("Available for sponsored", 'woorewards-pro')
+			'sponsorship' => __("Available for referred", 'woorewards-pro')
 		));
 	}
 }

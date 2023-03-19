@@ -4,9 +4,9 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, the events calendar, widget, pro
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.7
+Stable tag: 6.0.9.2
 Tested up to: 6.1.1
-Requires PHP: 7.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -213,6 +213,43 @@ Previous versions of Events Calendar PRO are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.0.9.2] 2023-03-06 =
+
+* Fix - Restructure how Recurring blocks are bundled with WebPack to resolve inconsistencies with loading that caused the Series creation to not work
+
+= [6.0.9.1] 2023-02-28 =
+
+* Fix - Prevent blocks editor loading order of Assets from breaking Recurring events and Related blocks. [ECP-1467]
+
+= [6.0.9] 2023-02-22 =
+
+* Version - Events Calendar PRO 6.0.9 is only compatible with The Events Calendar 6.0.10 and higher.
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
+* Deprecation - `TEC\Events_Pro\Custom_Tables\V1\Editors\Block\Provider::enqueue_block_editor_duplicate_assets()`.
+
+= [6.0.8] 2023-02-09 =
+
+* Fix - Weekly recurrence message fatal on PHP 8.0+ resolved, also resolves translations that were not applying. [ECP-1451]
+* Fix - On classic editor, when editing a single occurrence that has a recurring rule, the start time for the single occurrence is displayed in the description of the recurring rule. [ECP-1295]
+* Fix - Fix issue where splitting the first occurrence in a recurring event that has a limit by a count, will generate an additional occurrence at the end of the range. [ECP-1344]
+* Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the venue meta page. [TEC-4634]
+* Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
+* Fix - Ensure the `Navigation Style` setting in the `Elementor Event Widget` doesn't appear to be blank when the corresponding `Navigation Option` is disabled in the `Content tab`. [ECP-1204]
+* Tweak - Update the Event Series tooltip label on hover. [ECP-1428]
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+* Tweak - Replace the `elementor/widgets/widgets_registered` hook with `elementor/widgets/register` since it was deprecated since Elementor version 3.5.0. [ECP-1449]
+* Tweak - Replace the `Elementor\Widgets_Manager::register_widget_type` method with `Elementor\Widgets_Manager::register` since it was deprecated since Elementor version 3.5.0. [ECP-1449]
+* Tweak - Display the `Recurring Event` label in the classic editor when an event has a ticket. [ECP-1234]
+* Tweak - Fix the template path in the src/views/v2/photo/event/date-tag.php docblock [ECP-1448]
+* Tweak - Added actions: `tribe_log`
+* Tweak - Changed views: `v2/map/map/google-maps/default`, `v2/photo/event/date-tag`, `v2/venue/meta/map`
+* Language - 3 new strings added, 79 updated, 55 fuzzied, and 0 obsoleted
 
 = [6.0.7] 2023-01-26 =
 

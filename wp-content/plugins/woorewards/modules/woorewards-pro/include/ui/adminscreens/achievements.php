@@ -31,7 +31,7 @@ class Achievements
 					'title'	=> __("Badges & Achievements Features", 'woorewards-pro'),
 					'text' 	=> __("Enable badges and achievements to add all their specific features to MyRewards.", 'woorewards-pro') .
 						__("Achievements can be used to earn badges. Badges can be used to unlock rewards.", 'woorewards-pro'),
-					'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/badges/'),
+					'extra' => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 					'fields' => array(
 						'badge-enable' => array(
 							'id'    => 'lws_woorewards_manage_badge_enable',
@@ -39,7 +39,7 @@ class Achievements
 							'type'  => 'box',
 							'extra' => array(
 								'default' => 'on',
-								'class' => 'lws_checkbox',
+								'layout' => 'toggle',
 								'help' => __("Enable/disable badge menu, rewards, earning methods and achievements system.", 'woorewards-pro')
 							)
 						)
@@ -52,7 +52,7 @@ class Achievements
 					'title'	=> __("Badges Management", 'woorewards-pro'),
 					'text' 	=> __("Badges are a special kind of wordpress posts. For that reason, they're handled in their own interface.", 'woorewards-pro') .
 						__("Please follow the link below to add, edit or delete badges.", 'woorewards-pro'),
-					'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/badges/'),
+					'extra' => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 					'fields' => array(
 						'badge-link' => array(
 							'id'    => 'lws_woorewards_badge_link',
@@ -72,7 +72,7 @@ class Achievements
 					'icon'	=> 'lws-icon-trophy',
 					'editlist' => $editlist,
 					'text' => __("After creating some badges, you can set up achievements that customers need to achieve in order to earn the badges.", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/achievements/'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('achievements')),
 					'function' => function ()
 					{
 						\wp_enqueue_style('lws-wr-achievements', LWS_WOOREWARDS_PRO_CSS . '/editlists/achievements.min.css', array(), LWS_WOOREWARDS_PRO_VERSION);
@@ -83,7 +83,7 @@ class Achievements
 					'icon'	=> 'lws-icon-window-add',
 					'title' => __("Badge Popup", 'woorewards-pro'),
 					'text' => __("Style the popup that will be displayed to customers when they earn a new badge.", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/badges/#2-%E2%80%93-badges-styling'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 					'fields' => array(
 						'stygen' => array(
 							'id' => 'lws_wr_badge_style',
@@ -104,7 +104,7 @@ class Achievements
 					'title' => __("Badges Rarity Levels", 'woorewards-pro'),
 					'text' => __("Define the rarity levels of Badges.", 'woorewards-pro') . "<br/>" .
 						__("The percentage value is the max percentage of users owning the badge to get the corresponding rarity.", 'woorewards-pro'),
-					'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/other-features/badges/#3-%E2%80%93-badges-rarity'),
+					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
 					'editlist' => \lws_editlist(
 						'Rarity',
 						\LWS\WOOREWARDS\PRO\Ui\Editlists\BadgeRarity::ROW_ID,

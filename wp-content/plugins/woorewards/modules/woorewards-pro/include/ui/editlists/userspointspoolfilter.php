@@ -31,7 +31,18 @@ class UsersPointsPoolFilter
 			$label = \apply_filters('the_title', $details->post_title, $details->ID);
 			$checked = (isset($visibles[$name]) && $visibles[$name]) ? ' checked' : '';
 			$id = 'lws-wr-pool-column-visibility-' . $name;
-			$str .= "<div class='lws-wr-pool-column-checkbox'><input type='checkbox' id='$id' class='lws_checkbox lws-ignore-confirm lws_wre_pool_visibility' data-name='lws_wre_pool_$name' data-size='15' name='lws_wre_pool_visibility_$name'$checked/><div class='lws-wr-pool-column-label'>$label</div></div>";
+			$checkbox = \LWS\Adminpanel\Pages\Field\Checkbox::compose('lws_wre_pool_visibility_' . $name, array(
+				'id'        => $id,
+				'layout'    => 'box',
+				'noconfirm' => true,
+				'class'     => 'lws_wre_pool_visibility',
+				'size'      => 'small',
+				'checked'   => $checked,
+				'attributes'    => array(
+					'name' => 'lws_wre_pool_' . $name
+				)
+			));
+			$str .= "<div class='lws-wr-pool-column-checkbox'>$checkbox<div class='lws-wr-pool-column-label'>$label</div></div>";
 		}
 		$title = __("Show/Hide loyalty systems points", 'woorewards-pro');
 
@@ -79,11 +90,10 @@ class UsersPointsPoolFilter
 
 	public function scripts($hook='', $tab='')
 	{
-		\wp_enqueue_script('lws-checkbox');
 		\wp_enqueue_script('lws-wr-poolfilter', LWS_WOOREWARDS_PRO_JS.'/poolfilter.js', array('jquery'), LWS_WOOREWARDS_PRO_VERSION, true);
 		\wp_localize_script('lws-wr-poolfilter', 'lws_wr_userspoints_visible_pools', $this->visiblePools());
 		\wp_enqueue_script('lws-wr-poolfilter');
-		\wp_enqueue_style('lws-wr-poolfilter', LWS_WOOREWARDS_PRO_CSS.'/poolfilter.css', array(), LWS_WOOREWARDS_PRO_VERSION);
+		\wp_enqueue_style('lws-wr-poolfilter', LWS_WOOREWARDS_PRO_CSS . '/editlists/poolfilter.min.css', array(), LWS_WOOREWARDS_PRO_VERSION);
 	}
 
 	protected function load()

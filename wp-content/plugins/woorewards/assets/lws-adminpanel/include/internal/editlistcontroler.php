@@ -140,27 +140,51 @@ class EditlistControler
 			if( !empty($this->groupBy['form']) && $this->groupBy['add'] && ($this->m_Mode & \LWS\Adminpanel\EditList::ADD) ) // no edit -> no add
 			{
 				if( $this->groupBy['add'] === true )
-					$this->groupBy['add'] = _x("Add a group", "editlist groupby", 'lws-adminpanel');
+					$this->groupBy['add'] = _x("Add a group", "editlist groupby", LWS_ADMIN_PANEL_DOMAIN);
 				$add = (" data-add='" . \esc_attr($this->groupBy['add']) . "'");
 			}
 
 			$str .= "<div data-groupby='{$this->groupBy['key']}'$add class='lws_editlist_groupby_settings' style='display:none;'>";
 
-			$str .= "<div class='lws_editlist_groupby_head'>";
-			$str .= "<div class='lws-editlist-groupby-header'>{$this->groupBy['head']}";
-			if( !empty($this->groupBy['form']) && ($this->m_Mode & \LWS\Adminpanel\EditList::MOD) ) // edit
-				$str .= "<button class='lws-editlist-group-btn lws_editlist_modal_edit_button lws_editlist_group_head_edit lws-icon lws-icon-pencil'></button>";
-			if( $this->m_Mode & \LWS\Adminpanel\EditList::DEL ) // del (no add -> no del)
-				$str .= "<button class='lws-editlist-group-btn lws_editlist_modal_edit_button lws_editlist_group_del lws-icon lws-icon-bin'></button>";
-			$str .= "</div></div>";
+			$actionbuttons = '';
+			/** Group Edition */
+			if (!empty($this->groupBy['form']) && ($this->m_Mode & \LWS\Adminpanel\EditList::MOD)) {
+				$actionbuttons .= "<button class='lws-editlist-group-btn lws_editlist_modal_edit_button lws_editlist_group_head_edit edit'><div class='icon lws-icon-pencil'></div><div class='label'>" . __('Edit', LWS_ADMIN_PANEL_DOMAIN) . "</div></button>";
+			}
+			/** Group Deletion */
+			if ($this->m_Mode & \LWS\Adminpanel\EditList::DEL) {
+				$actionbuttons .= "<button class='lws-editlist-group-btn lws_editlist_modal_edit_button lws_editlist_group_del del'><div class='icon lws-icon-bin'></div><div class='label'>" . __('Delete', LWS_ADMIN_PANEL_DOMAIN) . "</div></button>";
+			}
+			if ($actionbuttons != '') {
+				$actionbuttons = <<<EOT
+				<div class='lws-editlist-action-button lws-icon-menu-5'>
+					<div class="editlist-actions-popup hidden">
+						<div class="lws-el-buttons-wrapper">
+							$actionbuttons
+						</div>
+					</div>
+				</div>
+EOT;
+			}
+
+			$str .= <<<EOT
+			<div class='lws_editlist_groupby_head'>
+				<div class='lws-editlist-groupby-header'>
+					{$this->groupBy['head']}
+					$actionbuttons
+				</div>
+			</div>
+EOT;
+
 
 			if( !empty($this->groupBy['form']) )
 			{
 				$str .= "<div class='lws_editlist_groupby_form lws_editlist_modal_form' style='display:none;'>";
 				$str .= "<div class='lws-editlist-groupby-header'>{$this->groupBy['form']}";
-				$str .= "<button class='lws-editlist-group-btn lws_editlist_group_form_submit lws-icon lws-icon-checkmark'></button>"; // submit
-				$str .= "<button class='lws-editlist-group-btn lws_editlist_group_form_cancel lws-icon lws-icon-cross'></button>"; // submit
-				$str .= "</div></div>";
+				$str .= "<div class='form-buttons'>";
+				$str .= "<button class='lws-editlist-btn lws_editlist_group_form_submit lws-icon submit lws-icon-check'></button>"; // submit
+				$str .= "<button class='lws-editlist-btn lws_editlist_group_form_cancel lws-icon cancel lws-icon-e-remove'></button>"; // submit
+				$str .= "</div></div></div>";
 			}
 
 			$str .= "</div>";
@@ -278,7 +302,7 @@ EOT;
 
 	protected function displayActions()
 	{
-		$ph = __('Apply', 'lws-adminpanel');
+		$ph = __('Apply', LWS_ADMIN_PANEL_DOMAIN);
 		echo "<div class='lws_editlist_actions'>";
 		echo "<div class='lws-editlist-actions-cont'>";
 		echo "<div class='lws-editlist-actions-left'><div class='lws-editlist-actions-icon lws-icon lws-icon-arrow-right'></div></div>";
@@ -321,7 +345,7 @@ EOT;
 				$lab[$k][] = $width;
 		}
 		if ($hasActions) {
-			$lab['lws_ap_editlist_item_actions'] = array(__('Action', 'lws-adminpanel'), 'min-content');
+			$lab['lws_ap_editlist_item_actions'] = array(__('Action', LWS_ADMIN_PANEL_DOMAIN), 'min-content');
 		}
 		return $lab;
 	}
@@ -334,7 +358,7 @@ EOT;
 			$buttons['add'] = sprintf(
 				"<button class='lws-adm-btn lws_editlist_modal_edit_button lws-editlist-add lws_editlist_item_add' data-id='%s'>%s</button>",
 				$this->m_Id,
-				__("Add", 'lws-adminpanel')
+				__("Add", LWS_ADMIN_PANEL_DOMAIN)
 			);
 		}
 		$buttons = \apply_filters('lws_ap_editlist_button_add_value_'.$this->slug, $buttons, $this);
@@ -370,7 +394,12 @@ EOT;
 
 		if( $this->m_Actions )
 		{
-			$chk = "<input type='checkbox' class='lws_checkbox lws_editlist_check_selectall lws-ignore-confirm' data-size='16' data-class='select-all'>";
+			$chk = \LWS\Adminpanel\Pages\Field\Checkbox::compose('', array(
+				'layout'  => 'box',
+				'class'   => 'lws_editlist_check_selectall select-all',
+				'noconfirm' => true,
+				'size'    => 'medium',
+			));
 			$cells[] = array(
 				'class'   => 'lws-editlist-checkbox',
 				'content' => $chk,
@@ -405,7 +434,8 @@ EOT;
 		$template = (false === $values ? ' data-template="1"' : '');
 		if( $template )
 			$values = $this->getTemplateValues($this->hasActions);
-		$rowId = sprintf(' data-id="%s"', isset($values[$this->m_UId]) ? \base64_encode($values[$this->m_UId]) : '');
+		$rowId = (isset($values[$this->m_UId]) ? \base64_encode($values[$this->m_UId]) : '');
+		$attrs = sprintf(' data-id="%s"', $rowId);
 
 		$cells = array();
 		foreach( $this->columns as $k => $td )
@@ -420,7 +450,16 @@ EOT;
 
 		if( $this->m_Actions )
 		{
-			$chk = "<input type='checkbox'{$rowId} class='lws_checkbox lws_editlist_check_selectitem lws-ignore-confirm' data-size='16'>";
+			$chk = \LWS\Adminpanel\Pages\Field\Checkbox::compose('', array(
+				'layout'  => 'box',
+				'class'   => 'lws_editlist_check_selectitem',
+				'noconfirm' => true,
+				'size'    => 'small',
+				'attributes' => array(
+					'id' => $rowId
+				)
+			));
+
 			\array_unshift($cells, array(
 				'class'   => 'lws-editlist-checkbox',
 				'content' => $chk,
@@ -428,8 +467,8 @@ EOT;
 			));
 		}
 
-		$rowId .= sprintf(' data-line="%s"', \base64_encode(\json_encode($this->entityEncode($values))));
-		return $this->flattenCells($cells, 'td', $template ? 'template' : 'editable', $rowId . $template);
+		$attrs .= sprintf(' data-line="%s"', \base64_encode(\json_encode($this->entityEncode($values))));
+		return $this->flattenCells($cells, 'td', $template ? 'template' : 'editable', $attrs . $template);
 	}
 
 	/**	Flat an array to make a grid row.
@@ -463,7 +502,7 @@ EOT;
 					$str[] = sprintf(
 						"<div class='lws-small-media-cell lws-editlist-cell lws_deep_cell{$head}' style='grid-column:span %d;'>%s</div>",
 						$colspan,
-						$head ? __("Values", 'lws-adminpanel') : $this->getSmallEditableRow($cells)
+						$head ? __("Values", LWS_ADMIN_PANEL_DOMAIN) : $this->getSmallEditableRow($cells)
 					);
 				}
 				$cell['class'] .= ' large-media-cell-content';
@@ -505,42 +544,36 @@ EOT;
 	protected function getEditionForm()
 	{
 		$ph = array(
-			'cancel' => __('Cancel', 'lws-adminpanel'),
-			'save'   => __('Save', 'lws-adminpanel')
+			'cancel' => __('Cancel', LWS_ADMIN_PANEL_DOMAIN),
+			'save'   => __('Save', LWS_ADMIN_PANEL_DOMAIN)
 		);
 		$form = \apply_filters('lws_adminpanel_editlist_input_' . $this->slug, $this->m_Source->input());
-		$next = _x("Next", 'Confirm event/unlockable type choice', 'lws-adminpanel');
-		$back = _x("Back", 'Undo event/unlockable type choice', 'lws-adminpanel');
+		$next = _x("Next", 'Confirm event/unlockable type choice', LWS_ADMIN_PANEL_DOMAIN);
+		$back = _x("Back", 'Undo event/unlockable type choice', LWS_ADMIN_PANEL_DOMAIN);
 
-		$title = $this->m_Source ? $this->m_Source->getPopupTitle() : false;
-		if ($title) {
-			$title = "<div class='lws-editlist-line-head lws-popup'>{$title}</div>";
-		}
+		$title = $this->m_Source ? $this->m_Source->getPopupTitle() : __("Settings", LWS_ADMIN_PANEL_DOMAIN);
 
 		$popup = <<<EOT
 <div class='lws-editlist-form-container lws_editlist_form_hidden lws_editlist_line_form' data-editlist='{$this->m_Id}'>
-	<div class='lws-editlist-form-popup lws_editlist_modal_form'>{$title}
+	<div class='lws-editlist-form-popup lws_editlist_modal_form'>
+		<div class='upper-container'>
+			<div class='editlist-title'>{$title}</div>
+			<div class='cancel-button btn-cancel'>
+				<div class='icon lws-icon-e-remove'></div>
+				<div class='text'>{$ph['cancel']}</div>
+			</div>
+		</div>
 		<div class='lws-editlist-line-inputs lws-popup'>
 			{$form}
 		</div>
-		<div class='lws-editlist-line-btns lws-popup'>
-			<button class='button lws-adm-btn btn-cancel'>
-				<div class='button-icon lws-icon-undo'></div>
-				<div class='button-text'>{$ph['cancel']}</div>
+		<div class='buttons-container'>
+			<button class='el-popup-btn btn-cancel'>
+				<div class='icon lws-icon-c-remove'></div>
+				<div class='text'>{$ph['cancel']}</div>
 			</button>
-			<div class='back_button'>
-				<button class='button lws-adm-btn lws-type-btn undo bt-hidden'>
-					<div class="button-icon lws-icon-arrow-left"></div>
-					<div class="button-text">{$back}</div>
-				</button>
-			</div>
-			<button class='button lws-adm-btn lws-type-btn confirm bt-hidden'>
-				<div class="button-text">{$next}</div>
-				<div class="button-icon lws-icon-arrow-right"></div>
-			</button>
-			<button class='button lws-adm-btn btn-save'>
-				<div class='button-icon lws-icon-floppy-disk-2'></div>
-				<div class='button-text'>{$ph['save']}</div>
+			<button class='el-popup-btn btn-save'>
+				<div class='text'>{$ph['save']}</div>
+				<div class='icon lws-icon-c-check'></div>
 			</button>
 		</div>
 	</div>
@@ -558,9 +591,9 @@ EOT;
 			$ph = apply_filters(
 				'lws_ap_editlist_item_action_names_' . $this->slug,
 				array(
-					\LWS\Adminpanel\EditList\Modes::MOD => __('Quick Edit', 'lws-adminpanel'),
-					\LWS\Adminpanel\EditList\Modes::DUP => __('Copy', 'lws-adminpanel'),
-					\LWS\Adminpanel\EditList\Modes::DEL => __('Delete', 'lws-adminpanel'),
+					\LWS\Adminpanel\EditList\Modes::MOD => __('Quick Edit', LWS_ADMIN_PANEL_DOMAIN),
+					\LWS\Adminpanel\EditList\Modes::DUP => __('Copy', LWS_ADMIN_PANEL_DOMAIN),
+					\LWS\Adminpanel\EditList\Modes::DEL => __('Delete', LWS_ADMIN_PANEL_DOMAIN),
 				),
 				$id,
 				$data
@@ -582,7 +615,7 @@ EOT;
 			{
 				$hasActions = true;
 				$btns = implode('', $btns);
-				$data['lws_ap_editlist_item_actions'] = "<div class='lws-editlist-action-button lws-icon-menu-5'><div class='editlist-actions-popup hidden'>{$btns}</div></div>";
+				$data['lws_ap_editlist_item_actions'] = "<div class='lws-editlist-action-button lws-icon-menu-5'><div class='editlist-actions-popup hidden'><div class='lws-el-buttons-wrapper'>{$btns}</div></div></div>";
 			}
 			else
 				$data['lws_ap_editlist_item_actions'] = '';

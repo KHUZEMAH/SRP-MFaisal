@@ -33,6 +33,8 @@ class CouponReminder
 		$settings['title']         = __("Your coupon will soon expire", 'woorewards-pro');
 		$settings['header']        = __("Here is the list of coupon that will soon expire", 'woorewards-pro');
 		$settings['footer']        = __("Powered by MyRewards", 'woorewards-pro');
+		$settings['doclink']       = \LWS\WOOREWARDS\PRO\DocLinks::get('emails');
+		$settings['icon']          = 'lws-icon-coupon';
 		$settings['css_file_url']  = LWS_WOOREWARDS_PRO_CSS . '/mails/couponreminder.css';
 		$settings['fields']['remind'] = array(
 			'id' => 'lws_woorewards_reminder_days',

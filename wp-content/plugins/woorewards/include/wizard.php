@@ -126,74 +126,62 @@ class Wizard extends \LWS\Adminpanel\Wizard
 							'title' => '',
 							'type'  => 'radiogrid', // radiogrid is specific to the wizard
 							'extra' => array(
-								'type' => 'large',
+								'type' => 'wizard-choice',
 								'source' => array(
 									array(
 										'value'=>'standard',
-										'img' => LWS_WOOREWARDS_IMG . '/standard_system.png',
+										'image' => LWS_WOOREWARDS_IMG . '/standard_system.png',
 										'color' => '#526981',
-										'texts'=> array(
-											'title' => __("Standard System", 'woorewards-lite'),
-											'descr' => __("The standard system is the most common loyalty system available. Users earn points by performing various actions. When they have enough points, they can unlock rewards such as discount coupons.", 'woorewards-lite'),
-										),
+										'label' => __("Standard System", 'woorewards-lite'),
+										'descr' => __("The standard system is the most common loyalty system available. Users earn points by performing various actions. When they have enough points, they can unlock rewards such as discount coupons.", 'woorewards-lite'),
 									),
 									array(
 										'value'=>'leveling',
-										'img' => LWS_WOOREWARDS_IMG . '/leveling_system.png',
+										'image' => LWS_WOOREWARDS_IMG . '/leveling_system.png',
 										'color' => '#999999',
 										'pro-color' => '#16b9ba',
-										'texts'=> array(
-											'title' => __("Leveling System", 'woorewards-lite'),
-											'descr' => __("Leveling systems works differently than standard systems. Users earn points by performing various actions. But they don't spend their points. Instead, they reach different levels and unlock all rewards set at a level when they have enough points.", 'woorewards-lite'),
-										),
+										'label' => __("Leveling System", 'woorewards-lite'),
+										'descr' => __("Leveling systems works differently than standard systems. Users earn points by performing various actions. But they don't spend their points. Instead, they reach different levels and unlock all rewards set at a level when they have enough points.", 'woorewards-lite'),
 										'pro-only' => 'yes',
 									),
 									array(
 										'value'=>'event',
-										'img' => LWS_WOOREWARDS_IMG . '/events.png',
+										'image' => LWS_WOOREWARDS_IMG . '/events.png',
 										'color' => '#999999',
 										'pro-color' => '#ff9a4c',
-										'texts'=> array(
-											'title' => __("Special Events", 'woorewards-lite'),
-											'descr' => __("Use the special events wizard to create temporary loyalty programs for various occasions. This wizard proposes scenarios for the following events :", 'woorewards-lite')."<br/>".
+										'label' => __("Special Events", 'woorewards-lite'),
+										'descr' => __("Use the special events wizard to create temporary loyalty programs for various occasions. This wizard proposes scenarios for the following events :", 'woorewards-lite')."<br/>".
 											"<div class='lws-wizard-desc-grid'>".
 											"<ul><li>".__("Black Friday", 'woorewards-lite')."</li>".
 											"<li>" . __("Christmas", 'woorewards-lite') . "</li>" .
 											"<li>" . __("Easter", 'woorewards-lite') . "</li></ul></div>",
-										),
 										'pro-only' => 'yes',
 									),
 									array(
 										'value'=>'double',
-										'img' => LWS_WOOREWARDS_IMG . '/double_points.png',
+										'image' => LWS_WOOREWARDS_IMG . '/double_points.png',
 										'color' => '#999999',
 										'pro-color' => '#6e96b5',
-										'texts'=> array(
-											'title' => __("Double Points", 'woorewards-lite'),
-											'descr' => __("Create a special event and allow customers to earn twice the points for a limited period of time. You can also choose to allow users with a special role to earn twice the points. Or both.", 'woorewards-lite'),
-										),
+										'label' => __("Double Points", 'woorewards-lite'),
+										'descr' => __("Create a special event and allow customers to earn twice the points for a limited period of time. You can also choose to allow users with a special role to earn twice the points. Or both.", 'woorewards-lite'),
 										'pro-only' => 'yes',
 									),
 									array(
 										'value'=>'sponsorship',
-										'img' => LWS_WOOREWARDS_IMG.'/sponsorship.png',
+										'image' => LWS_WOOREWARDS_IMG.'/sponsorship.png',
 										'color' => '#999999',
 										'pro-color' => '#59515c',
-										'texts'=> array(
-											'title' => __("Sponsorship", 'woorewards-lite'),
-											'descr' => __("Add a loyalty system that rewards customers for sponsoring new people on your website. Sponsored also receive a reward to encourage them to subscribe and buy on your website.", 'woorewards-lite'),
-										),
+										'label' => __("Referrals", 'woorewards-lite'),
+										'descr' => __("Add a points and rewards system that rewards customers for referring new people on your website. Referees also receive a reward to encourage them to subscribe and buy on your website.", 'woorewards-lite'),
 										'pro-only' => 'yes',
 									),
 									array(
 										'value'=>'anniversary',
-										'img' => LWS_WOOREWARDS_IMG.'/anniversary.png',
+										'image' => LWS_WOOREWARDS_IMG.'/anniversary.png',
 										'color' => '#999999',
 										'pro-color' => '#a4255b',
-										'texts'=> array(
-											'title' => __("Customer Birthday or Registration Anniversary", 'woorewards-lite'),
-											'descr' => __("Celebrate your customers birthday or registration anniversary by sending them a discount coupon on that occasion. Really easy to set up and very appreciated by customers.", 'woorewards-lite'),
-										),
+										'label' => __("Customer Birthday or Registration Anniversary", 'woorewards-lite'),
+										'descr' => __("Celebrate your customers birthday or registration anniversary by sending them a discount coupon on that occasion. Really easy to set up and very appreciated by customers.", 'woorewards-lite'),
 										'pro-only' => 'yes',
 									),
 								),

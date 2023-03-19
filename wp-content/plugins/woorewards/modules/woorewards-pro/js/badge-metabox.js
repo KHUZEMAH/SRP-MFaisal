@@ -1,1 +1,1 @@
-jQuery(function($){$("#achievement-preview").click(function(event){$("<div>").lws_badge({imageUrl:$("#set-post-thumbnail").find("img").attr("src"),bgUrl:$(this).data("achievement-bg"),title:$("#title").val(),text:$("#excerpt").val()})})});
+jQuery(function($){$('#achievement-preview').click(function(event){$('<div>').lws_badge({imageUrl:$('#set-post-thumbnail').find('img').attr('src'),bgUrl:$(this).data('achievement-bg'),title:$('#title').val(),text:$('#excerpt').val(),})})})

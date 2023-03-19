@@ -203,10 +203,6 @@
 
 /* Summary */
 
-.lws-wizard-summary-container{width:600px;display:grid;grid-template-columns: 200px auto;grid-gap:10px;}
-.lws-wizard-summary-title{grid-column: 1 / 3; text-transform: uppercase; font-weight: 300;
-	border-bottom: 1px solid #ddd;height:30px;color:#666;font-size:18px;line-height: 30px;
-}
 .lws-wizard-summary-label{line-height:20px;color:#666;font-weight: bold;font-style: italic;display: flex;align-items: center;}
 .lws-wizard-summary-value{line-height:20px;color:#333;color:var(--lws-wizard-main-color)}
 .lws-wizard-summary-help{grid-column: 1 / 3;background-color:#eee;padding:5px;border-radius:4px;font-weight: 300;font-size:14px}

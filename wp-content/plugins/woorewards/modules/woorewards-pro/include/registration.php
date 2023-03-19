@@ -3,6 +3,7 @@
 if( !defined('LWS_WOOREWARDS_PRO_INCLUDES') ) exit();
 if( !defined('LWS_WOOREWARDS_FILE') ) exit();
 
+require_once LWS_WOOREWARDS_PRO_INCLUDES . '/events/t_sponsorshiporigin.php';
 
 \LWS\WOOREWARDS\Abstracts\Unlockable::register('\LWS\WOOREWARDS\PRO\Unlockables\Coupon', LWS_WOOREWARDS_PRO_INCLUDES.'/unlockables/coupon.php', false, 'lws_woorewards_unlockables_coupon');
 \LWS\WOOREWARDS\Abstracts\Unlockable::register('\LWS\WOOREWARDS\PRO\Unlockables\UserTitle', LWS_WOOREWARDS_PRO_INCLUDES.'/unlockables/usertitle.php');
@@ -18,7 +19,7 @@ if( !defined('LWS_WOOREWARDS_FILE') ) exit();
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\FirstOrder', LWS_WOOREWARDS_PRO_INCLUDES.'/events/firstorder.php', false, 'lws_woorewards_events_firstorder');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\Sponsorship', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsorship.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredRegistration', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredregistration.php');
-\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredFirstOrder', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredfirstorder.php');
+\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredOrder', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredorder.php', false, 'lws_woorewards_events_sponsoredorder');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\EasterEgg', LWS_WOOREWARDS_PRO_INCLUDES.'/events/easteregg.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\BuyInCategory', LWS_WOOREWARDS_PRO_INCLUDES.'/events/buyincategory.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\BuySpecificProduct', LWS_WOOREWARDS_PRO_INCLUDES.'/events/buyspecificproduct.php');
@@ -31,7 +32,7 @@ if( !defined('LWS_WOOREWARDS_FILE') ) exit();
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\RestrictedVisit', LWS_WOOREWARDS_PRO_INCLUDES.'/events/restrictedvisit.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SocialSharing', LWS_WOOREWARDS_PRO_INCLUDES.'/events/socialsharing.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SocialBacklink', LWS_WOOREWARDS_PRO_INCLUDES.'/events/socialbacklink.php');
-\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredOrderAmount', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredorderamount.php');
+\LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredOrderAmount', LWS_WOOREWARDS_PRO_INCLUDES.'/events/sponsoredorderamount.php', false, 'lws_woorewards_events_sponsoredorderamount');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredBuyProducts', LWS_WOOREWARDS_PRO_INCLUDES . '/events/sponsoredbuyproducts.php');
 \LWS\WOOREWARDS\Abstracts\Event::register('\LWS\WOOREWARDS\PRO\Events\SponsoredBuyInCategory', LWS_WOOREWARDS_PRO_INCLUDES . '/events/sponsoredbuyincategory.php');
 

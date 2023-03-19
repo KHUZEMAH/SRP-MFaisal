@@ -37,7 +37,7 @@ class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-		$form .= $this->getFieldsetBegin(2, __("Restrictions", 'woorewards-pro'), 'span2');
+		$form .= $this->getFieldsetBegin(2, __("Restrictions", 'woorewards-pro'));
 
 		// The pages
 		$label   = _x("Pages", "Visit Website", 'woorewards-pro');

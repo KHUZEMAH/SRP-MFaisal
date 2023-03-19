@@ -42,6 +42,20 @@ abstract class MultiFormList extends \LWS\Adminpanel\EditList\Source
 		return "<input type='hidden' name='{$rowId}' class='lws_woorewards_system_id' />";
 	}
 
+	protected function getGroupTitles()
+	{
+		return array(
+			array(
+				'idle' 		=> __("First Step", 'woorewards-lite'),
+				'selected' 	=> __("Step : ", 'woorewards-lite')
+			),
+			array(
+				'idle' 		=> __("Second Step", 'woorewards-lite'),
+				'selected' 	=> __("Step : ", 'woorewards-lite')
+			)
+		);
+	}
+
 	/** radio-grid */
 	protected function optionGroups()
 	{
@@ -51,7 +65,7 @@ abstract class MultiFormList extends \LWS\Adminpanel\EditList\Source
 		foreach( $groups as &$group )
 		{
 			$group['items'] = array();
-			if( !$group['color'] ) $group['color'] = 'darkgray';
+			if( !$group['color'] ) $group['color'] = '#a9a9a9';
 			if( !$group['icon'] )  $group['icon']  = 'lws-icon-show-more';
 			if( !isset($group['descr']) ) $group['descr'] = '';
 		}
@@ -80,26 +94,60 @@ abstract class MultiFormList extends \LWS\Adminpanel\EditList\Source
 	protected function groupsToRadioGrid($groups)
 	{
 		$html = '';
+		$groupTitles = $this->getGroupTitles();
+		$maingrid = '';
+		$itemsgrids = '';
+		$colors = array();
 		foreach( $groups as $key => $group )
 		{
 			if( !$group['items'] ) continue;
-			// Add group selector as subgrid if needed
-			$html .= "<div class='lws_editlist_popup_group_fold lws-radiogrid-group-fold' style='--radiogrid-group-color:{$group['color']};'><div class='fold-icon {$group['icon']}'></div><div class='group-label'><b>{$group['label']}</b> - {$group['descr']}</div><div class='group-fold lws-icon-minus'></div></div>";
-			$html .= "<div class='lws_woorewards_system_type_choices radiogrid'>";
+			$colorstring = " style='" . \lws_get_theme_colors('--radiogrid-group-color', $group['color']) . "'";
+			$maingrid .= "<div class='radiogrid-item main lws_radiobutton_radio'{$colorstring} data-key='{$key}'>";
+			$maingrid .= "<div class='inner-background'></div>";
+			$maingrid .= "<div class='icon {$group['icon']}'></div>";
+			$maingrid .= "<div class='label'>{$group['label']}</div>";
+			$maingrid .= "<div class='descr'>{$group['descr']}</div>";
+			$maingrid .= "</div>";
+
+			$itemsgrids .= "<div class='lws_woorewards_system_type_choices radiogrid-container big-items hidden'{$colorstring}' data-key='{$key}'>";
 			foreach( $group['items'] as $type => $info )
 			{
 				$info['group'] = $group['label'];
+				$colors[$type] = $colorstring;
 				$data = \base64_encode(\json_encode($info));
-				$html .= <<<EOT
-<div class='item lws_wre_system_selector_item radiogrid-item' value='{$type}' style='--radiogrid-item-color:{$info['color']};' data-info='{$data}' tabindex='0'>
-	<div class='icon lws-icons {$info['icon']}'></div>
-	<div class='label'>{$info['label']}</div>
-</div>
+				$itemsgrids .= <<<EOT
+				<div class='radiogrid-item lws_radiobutton_radio lws_wre_system_selector_item'{$colorstring} value='{$type}' data-info='{$data}' tabindex='0'>
+					<div class='inner-background'></div>
+					<div class='icon lws-icons {$info['icon']}'></div>
+					<div class='label'>{$info['label']}</div>
+					<div class='descr'>{$info['short']}</div>
+				</div>
 EOT;
 			}
-			$html .= "</div>";
+			$itemsgrids .= "</div>";
 		}
-		return $html;
+		$html = <<<EOT
+		<div class='lws-editlist-group-wrapper first_group canfold'>
+			<div class='group-header-line'>
+				<div class='header' data-selected='{$groupTitles[0]['selected']}' data-idle='{$groupTitles[0]['idle']}'>{$groupTitles[0]['idle']}</div>
+				<div class='fold-button'></div>
+			</div>
+			<div class='radiogrid-container big-items'>
+				$maingrid
+			</div>
+		</div>
+		<div class='lws-editlist-group-wrapper second_group canfold hidden'>
+			<div class='group-header-line'>
+				<div class='header' data-selected='{$groupTitles[1]['selected']}' data-idle='{$groupTitles[1]['idle']}'>{$groupTitles[1]['idle']}</div>
+				<div class='fold-button'></div>
+			</div>
+			$itemsgrids
+		</div>
+EOT;
+		return array(
+			'html' => $html,
+			'colors' => $colors,
+		);
 	}
 
 	/** no edition, use bulk action */
@@ -109,57 +157,35 @@ EOT;
 		\wp_enqueue_style('lws_wre_system_selector');
 
 		$divs = array();
+		$uppergroups = $this->groupsToRadioGrid($this->optionGroups());
 		foreach( $this->loadChoices()->asArray() as $choice )
 		{
-			if( null != $this->pool )
+			if (null != $this->pool) {
 				$choice->setPool($this->pool);
+			}
 			$type = \esc_attr($choice->getType());
-			$divs[] = "<div data-type='$type' class='lws-wr-choice-content lws_woorewards_system_choice editlist-content-grid $type'>"
+			$colorstring = $uppergroups['colors'][$type];
+			$divs[] = "<div data-type='$type' class='lws_woorewards_system_choice editlist-content-grid hidden $type'$colorstring>"
 				. $choice->getForm('editlist')
 				. "</div>";
 		}
 
-		$opts = $this->groupsToRadioGrid($this->optionGroups());
 		$divs = implode("\n\t", $divs);
 		$hiddens = $this->getHiddenInputs();
-		$stepsInfo = $this->getStepInfo();
-		$idleInfo = array(
-			'icon'  => 'lws-icon-bulb',
-			'label' => __('Information', 'woorewards-lite'),
-			'short' => __('Select an element below to see more information about it', 'woorewards-lite'),
-			'help'  => __('You will have some extra information displayed if need be.', 'woorewards-lite'),
-		);
-		$idleData = \base64_encode(\json_encode($idleInfo));
-
+		$stepInfo = $this->getStepInfo();
 		return <<<EOT
-<div class='lws-woorewards-system-edit lws_woorewards_system_master'>
-	{$hiddens}
-	<div class='lws_woorewards_system_type_select lws-editlist-opt-input multiform-item'>
-		<input class='lws_woorewards_system_type' name='wre_type' type='hidden'>
-		<div class='step-title'>
-			<div class="icon lws-icons {$stepsInfo[0]['icon']}"></div>
-			<div class="title">{$stepsInfo[0]['title']}</div>
-		</div>
-		<div class='lws_wre_system_selected_item_info selected-info' data-info='{$idleData}'>
-			<div class='icon lws-icons {$idleInfo['icon']}'></div>
-			<div class='description'>
-				<div class='desc-title'> {$idleInfo['label']}</div>
-				<div class='desc'> {$idleInfo['short']}</div>
-				<div class='extra'> {$idleInfo['help']}</div>
+		<div class='lws-woorewards-system-edit lws_woorewards_system_master'>
+			{$hiddens}
+			<input class='lws_woorewards_system_type' name='wre_type' type='hidden'>
+			{$uppergroups['html']}
+			<div class='lws_woorewards_system_screens lws-editlist-group-wrapper third_group canfold hidden'>
+				<div class='group-header-line'>
+					<div class='header'>{$stepInfo}</div>
+					<div class='fold-button'></div>
+				</div>
+				$divs
 			</div>
 		</div>
-		<div class='radiogrid-wrapper'>{$opts}</div>
-	</div>
-	<div class='lws-woorewards-system-screens lws_woorewards_system_screens multiform-item'>
-		<div class='screens'>
-			<div class='step-title'>
-				<div class="icon lws-icons {$stepsInfo[1]['icon']}"></div>
-				<div class="title">{$stepsInfo[1]['title']}</div>
-			</div>
-			{$divs}
-		</div>
-	</div>
-</div>
 EOT;
 	}
 }

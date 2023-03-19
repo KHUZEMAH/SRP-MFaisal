@@ -7,7 +7,7 @@ Tags: elementor, elementor addons, elementor extensions, elementor widgets, page
 Requires at least: 5.4
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable Tag: 7.3
+Stable Tag: 7.5
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -259,6 +259,15 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.5 =
+* Added - New elegant Timeline widget. Presently only supports horizontal timeline with touch swipe functions for navigation.
+
+= 7.4 =
+* Added - Two new styles to piecharts widget with additional customization options for line width, canvas size
+* Added - A elegant new style to testimonials widget with the required customizations
+* Updated - Compatibility with Elementor 3.11
+* Updated - Freemius SDK 2.5.3 update
 
 = 7.3 =
 * Added - New Device Slider widget

@@ -27,6 +27,7 @@ class Popups
 			'id'     => 'claim',
 			'icon'   => 'lws-icon-window-add',
 			'title'  => __("Reward Popup", 'woorewards-pro'),
+			'color'   => '#425981',
 			'text'   => __("Defines the popup options when a user unlocks a reward.", 'woorewards-pro'),
 			'fields' => array(),
 		);
@@ -50,6 +51,7 @@ class Popups
 			'icon'   => 'lws-icon-window-add',
 			'title'  => __("Free Product Popup", 'woorewards-pro'),
 			'text'   => __("Defines the popup options when a customer uses a free product coupon with multiple choices.", 'woorewards-pro'),
+			'color'   => '#425981',
 			'fields' => array(),
 		);
 
@@ -75,7 +77,7 @@ class Popups
 				'type'  => 'box',
 				'extra' => array(
 					'default' => 'on',
-					'class' => 'lws_checkbox',
+					'layout' => 'toggle',
 				)
 			),
 			'ptitle' => array(
@@ -105,7 +107,7 @@ class Popups
 				'extra' => array(
 					'default' => '',
 					'id'      => 'lws_wr_rewardclaim_notice_with_rest',
-					'class' => 'lws_checkbox',
+					'layout' => 'toggle',
 					'tooltips' => __("Displays a list of other redeemable rewards inside the popup", 'woorewards-pro')
 				),
 			),
@@ -124,8 +126,7 @@ class Popups
 				'title' => __("Popup layout", 'woorewards-pro'),
 				'type'  => 'radiogrid',
 				'extra' => array(
-					'type'    => 'container',
-					'color'   => '#425981',
+					'type'    => 'big-icon',
 					'default' => 'all',
 					'source'  => array(
 						array('value' => 'all',			 'icon' => 'lws-icon-lines',			'label' => __("All with scrollbar", 'woorewards-pro')),
@@ -165,7 +166,7 @@ class Popups
 				'type'  => 'box',
 				'extra' => array(
 					'default' => '',
-					'class' => 'lws_checkbox',
+					'layout' => 'toggle',
 				),
 				'require' => array(
 					'selector' => '#lws_woorewards_reward_popup_legacy', 'value' => 'on'
@@ -191,7 +192,7 @@ class Popups
 				'type'  => 'box',
 				'extra' => array(
 					'default' => 'on',
-					'class' => 'lws_checkbox',
+					'layout' => 'toggle',
 					'tooltips' => __("When a customer clicks a reward redeem button, he will be redirected to a page with an unlock feedback.", 'woorewards-pro')
 						. '<br/>' . __("That popup includes the rest of available rewards.", 'woorewards-pro')
 				),
@@ -261,8 +262,7 @@ class Popups
 				'title' => __("Popup layout", 'woorewards-pro'),
 				'type'  => 'radiogrid',
 				'extra' => array(
-					'type'    => 'container',
-					'color'   => '#425981',
+					'type'    => 'big-icon',
 					'default' => 'all',
 					'source'  => array(
 						array('value' => 'all',			 'icon' => 'lws-icon-lines',			'label' => __("All with scrollbar", 'woorewards-pro')),

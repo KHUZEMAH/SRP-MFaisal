@@ -14,7 +14,7 @@ class Register extends \LWS\WOOREWARDS\Abstracts\Event
 		return array_merge(parent::getInformation(), array(
 			'icon'  => 'lws-icon-user-plus',
 			'short' => __("The customer will earn points when registering on your website.", 'woorewards-pro'),
-			'help'  => __("You can use this method to give points for sponsored registrations", 'woorewards-pro'),
+			'help'  => __("You can use this method to give points for referred registrations", 'woorewards-pro'),
 		));
 	}
 
@@ -91,8 +91,8 @@ class Register extends \LWS\WOOREWARDS\Abstracts\Event
 			{
 				\update_user_meta($user_id, $metaKey, \date(DATE_W3C));
 				$reason = \LWS\WOOREWARDS\Core\Trace::byReason(
-					$origin == 'none' ? "User registered" : "User registered via sponsorship",
-					LWS_WOOREWARDS_PRO_DOMAIN
+					$origin == 'none' ? "User registered" : "User registered via referral",
+					'woorewards-pro'
 				);
 				$this->addPoint($user_id, $reason, $points);
 			}
@@ -103,7 +103,7 @@ class Register extends \LWS\WOOREWARDS\Abstracts\Event
 	private function poeditDeclare()
 	{
 		__("User registered", 'woorewards-pro');
-		__("User registered via sponsorship", 'woorewards-pro');
+		__("User registered via referral", 'woorewards-pro');
 	}
 
 	public function getCategories()

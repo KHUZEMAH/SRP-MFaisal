@@ -94,7 +94,7 @@ class Achievements
 				'badge_title'       => 'The White Horse',
 				'badge_description' => "Arya Stark : I'm out of this s***",
 				'ach_title'         => 'Flee the city',
-				'action'            => 'Sponsor a friend',
+				'action'            => 'Refer a friend',
 				'occurences'        => '5',
 				'done'              => '1',
 			),

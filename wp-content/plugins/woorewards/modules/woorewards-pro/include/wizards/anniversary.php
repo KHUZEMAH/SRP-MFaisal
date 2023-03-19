@@ -56,6 +56,8 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __('Occasion to celebrate', 'woorewards-pro'),
 									'type'  => 'radiogrid',
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'birthday', 'icon' => 'lws-icon lws-icon-birthday-cake', 'label' => __("Customer's Birthday", 'woorewards-pro')),
 											array('value' => 'anniversary', 'icon' => 'lws-icon lws-icon-calendar', 'label' => __("Registration Anniversary", 'woorewards-pro')),
@@ -74,6 +76,8 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Add Birthday Field ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-pro')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-pro')),
@@ -144,6 +148,8 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'yes', 'label' => __("Yes", 'woorewards-pro')),
 											array('value' => 'no', 'label' => __("No", 'woorewards-pro')),
@@ -171,9 +177,9 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$settings = reset($usedData);
 		if ($settings['type'] == "birthday")
 		{
-			$summary .= "<div class='lws-wizard-summary-title'>" . __("Customer's Birthday Settings", 'woorewards-pro') . "</div>";
+			$summary .= "<div class='summary-title'>" . __("Customer's Birthday Settings", 'woorewards-pro') . "</div>";
 		} else {
-			$summary .= "<div class='lws-wizard-summary-title'>" . __("Registration Anniversary Settings", 'woorewards-pro') . "</div>";
+			$summary .= "<div class='summary-title'>" . __("Registration Anniversary Settings", 'woorewards-pro') . "</div>";
 		}
 		if ($settings['type'] == "birthday" && $settings['add_birthday_field']) {
 			$summary .= "<div class='lws-wizard-summary-label'>" . __("Add Birthday Field ?", 'woorewards-pro') . "</div>";

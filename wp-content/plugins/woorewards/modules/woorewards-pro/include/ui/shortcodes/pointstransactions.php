@@ -15,6 +15,18 @@ class PointsTransactions
 
 		/** Admin */
 		\add_filter('lws_woorewards_points_shortcodes', array($me, 'admin'));
+		// Scripts
+		\add_action('wp_enqueue_scripts', array($me, 'registerScripts'));
+	}
+
+	function registerScripts()
+	{
+		\wp_register_style('wr-transactional-points-expiration', LWS_WOOREWARDS_PRO_CSS . '/shortcodes/transactional-points-expiration.min.css', array(), LWS_WOOREWARDS_PRO_VERSION);
+	}
+
+	protected function enqueueScripts()
+	{
+		\wp_enqueue_style('wr-transactional-points-expiration');
 	}
 
 	public function admin($fields)
@@ -80,7 +92,7 @@ class PointsTransactions
 				if ($logs->logs) {
 					$this->dateFormat = \get_option('date_format', 'Y-m-d');
 					$atts['columns'] = $this->parseColumns($atts['columns'], $atts);
-
+					$this->enqueueScripts();
 					if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['tiles']))
 						$content = $this->getTiles($logs, $atts);
 					else
@@ -93,7 +105,7 @@ class PointsTransactions
 
 	protected function getTable($logs, $atts)
 	{
-		$content = '<table class="wr-transactional-points-expiration">';
+		$content = '<table class="wr-table wr-transactional-points-expiration">';
 		if (!isset($atts['titles']) || $atts['titles']) {
 			$content .= '<thead><tr>';
 			foreach ($atts['columns'] as $c => $label) {
@@ -121,7 +133,7 @@ class PointsTransactions
 		$head = (!isset($atts['titles']) || $atts['titles']);
 
 		foreach ($logs->logs as $log) {
-			$content .= '<table class="wr-tpe-tile"><tbody>';
+			$content .= '<table class="wr-table wr-tpe-tile"><tbody>';
 			$cells = $this->getCells($log, $atts['columns'], $logs);
 
 			foreach ($cells as $c => $value) {
@@ -230,11 +242,15 @@ class PointsTransactions
 			'condition' => 'OR',
 		);
 		foreach ($floors as $stack => $floor) {
-			$stacks[] = array(
-				'condition' => 'AND',
-				sprintf('`stack` = "%s"', \esc_sql($stack)),
-				sprintf('`mvt_date` >= DATE("%s")', $floor->format('Y-m-d')),
-			);
+			if ($floor) {
+				$stacks[] = array(
+					'condition' => 'AND',
+					sprintf("`stack` = '%s'", \esc_sql($stack)),
+					sprintf("`mvt_date` > '%s'", $floor->format('Y-m-d H:i:s')),
+				);
+			} else {
+				$stacks[] = sprintf("`stack` = '%s'", \esc_sql($stack));
+			}
 		}
 		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->lwsWooRewardsHistoric);
 		$query->select('*');
@@ -264,16 +280,49 @@ class PointsTransactions
 	protected function getFloors($userId, $periods)
 	{
 		$floors = array();
+		if (!$periods) {
+			return $floors;
+		} else {
+			foreach ($periods as $stack => $local) {
+				$floors[$stack] = false;
+			}
+		}
+
+		// look for expiry check exact date in logs
+		$userId = (int)$userId;
+		$stacks = \implode("', '", \array_map('\esc_sql', \array_keys($periods)));
+		global $wpdb;
+		$sql = <<<EOT
+SELECT `stack`, MAX(mvt_date) as `floor` FROM {$wpdb->lwsWooRewardsHistoric}
+WHERE `origin` LIKE 'trans_expiry_%' AND `user_id`={$userId}
+AND `stack` IN ('{$stacks}')
+GROUP BY `stack`
+EOT;
+		$expiries = $wpdb->get_results($sql, OBJECT_K); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
+		if ($expiries) {
+			foreach ($expiries as $stack => $date) {
+				$floors[$stack] = \date_create($date->floor);
+			}
+		}
+
+		// go back by expiry period to get floor
 		foreach ($periods as $stack => $local) {
 			$floor = false;
 			foreach ($local as $poolId => $period) {
-				$ref = $period['date'] ? clone($period['date']) : \date_create()->setTime(0,0);
+				if ($period['date']) {
+					$ref = clone($period['date']); // theorically next planned expiry
+				} elseif ($floors[$stack]) {
+					$ref = clone($floors[$stack]); // last expiry trigger
+				} else {
+					$ref = \date_create()->setTime(0,0); // today, this morning
+				}
 				$date = $ref->sub($period['period']->toInterval());
 				if (!$floor || $floor < $date)
 					$floor = $date;
 			}
 			$floors[$stack] = $floor;
 		}
+
 		return $floors;
 	}
 
@@ -286,11 +335,15 @@ class PointsTransactions
 			'condition' => 'OR',
 		);
 		foreach ($floors as $stack => $floor) {
-			$stacks[] = array(
-				'condition' => 'AND',
-				sprintf('`stack` = "%s"', \esc_sql($stack)),
-				sprintf('`mvt_date` >= DATE("%s")', $floor->format('Y-m-d')),
-			);
+			if ($floor) {
+				$stacks[] = array(
+					'condition' => 'AND',
+					sprintf("`stack` = '%s'", \esc_sql($stack)),
+					sprintf("`mvt_date` > '%s'", $floor->format('Y-m-d H:i:s')),
+				);
+			} else {
+				$stacks[] = sprintf("`stack` = '%s'", \esc_sql($stack));
+			}
 		}
 		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->lwsWooRewardsHistoric);
 		$query->select('`stack`, -SUM(`points_moved`) as `used`');
@@ -300,8 +353,10 @@ class PointsTransactions
 			sprintf('`user_id` = %d', (int)$userId),
 			'`points_moved` IS NOT NULL',
 			'`points_moved` < 0', // used
+			"`origin` NOT LIKE 'trans_expiry_%'",
 			$stacks,
 		));
+
 		$used = $query->getResults(OBJECT_K);
 		if (!$used)
 			return $logs;

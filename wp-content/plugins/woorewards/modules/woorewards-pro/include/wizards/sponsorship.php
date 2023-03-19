@@ -27,8 +27,10 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 	{
 		switch($slug)
 		{
-			case 'ini' : return __("Sponsorship", 'woorewards-pro');
-			case 'set' : return __("Sponsorship Settings", 'woorewards-pro');
+			case 'ini':
+				return __("Referral", 'woorewards-pro');
+			case 'set':
+				return __("Referral Settings", 'woorewards-pro');
 			case 'sum' : return __("Summary", 'woorewards-pro');
 		}
 		return $slug;
@@ -41,8 +43,8 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 			case 'ini':
 				return array(
 					'title' => $this->getStepTitle($slug),
-					'help'  => __("Welcome to this Wizard. This tool will help you configure a sponsorship.", 'woorewards-pro')."<br/>".
-					__("You will set the rewards for both the sponsor and the sponsored as well as the requirements for the sponsor to earn his reward.", 'woorewards-pro'),
+					'help'  => __("Welcome to this Wizard. This tool will help you configure a referral system.", 'woorewards-pro') . "<br/>" .
+					__("You will set the rewards for both the referrer and the referee as well as the requirements for the referrer to earn his reward.", 'woorewards-pro'),
 					'groups' => array(
 						array(
 							'fields'  => array(
@@ -51,7 +53,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __('Loyalty system name', 'woorewards-pro'),
 									'type'  => 'text',
 									'extra' => array(
-										'placeholder' => __('Sponsorship System', 'woorewards-pro'),
+										'placeholder' => __('Referral System', 'woorewards-pro'),
 										'help' => __("Name your loyalty system. If you leave it empty, it will be named automatically", 'woorewards-pro'),
 									),
 								),
@@ -62,28 +64,30 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 			case 'set':
 				return array(
 					'title' => $this->getStepTitle($slug),
-					'help'  => __("The sponsorship system has 2 main goals :", 'woorewards-pro').
+					'help'  => __("The referral system has 2 main goals :", 'woorewards-pro') .
 					"<br/><ul><li>".
-					__("Give a reward to the sponsored to encourage him to visit your website and order", 'woorewards-pro').
+						__("Give a reward to referees to encourage them to visit your website and order", 'woorewards-pro') .
 					"</li><li>".
-					__("Encourage you customers to sponsor their friends", 'woorewards-pro').
+						__("Encourage you customers to refer their friends", 'woorewards-pro') .
 					"</li></ul><br/>".
-					__("Here, you will set some basic settings for your sponsorship system. You can change them later with advanced options.", 'woorewards-pro'),
+					__("Here, you will set some basic settings for your referral system. You can change them later with advanced options.", 'woorewards-pro'),
 					'groups' => array(
 						array(
 							'value-columns' => '1fr 1fr',
 							'fields'  => array(
 								array(
 									'id'    => 'event_type',
-									'title' => __('Sponsored Action', 'woorewards-pro'),
+									'title' => __('Referee Action', 'woorewards-pro'),
 									'type'  => 'radiogrid',
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value'=>'register'	,'icon'=>'lws-icon lws-icon-user-plus'	,'label'=>__("Register", 'woorewards-pro')),
 											array('value'=>'order'		,'icon'=>'lws-icon lws-icon-cart'		,'label'=>__("Place an order", 'woorewards-pro')),
 										),
 										'default' => 'register',
-										'help' => __("Choose the action the sponsored has to perform for the sponsor to earn points", 'woorewards-pro'),
+										'help' => __("Choose the action the referee has to perform for the referrer to earn points", 'woorewards-pro'),
 									),
 								),
 							)
@@ -92,40 +96,40 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields' => array(
 								array(
 									'id'    => 'sponsor_number',
-									'title' => __('How many sponsored', 'woorewards-pro'),
+									'title' => __('How many referees', 'woorewards-pro'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
 										'default' => '1',
 										'placeholder' => __('Number', 'woorewards-pro'),
-										'help' => __("Number of people to sponsor before the sponsor earns his reward", 'woorewards-pro'),
+										'help' => __("Number of people to refer before the referrer earns his reward", 'woorewards-pro'),
 									),
 								),
 								array(
 									'id'    => 'max_sponsored',
-									'title' => __('Max Sponsorships', 'woorewards-pro'),
+									'title' => __('Max Referrals', 'woorewards-pro'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
 										'default' => '10',
 										'placeholder' => __('Number | Empty to ignore', 'woorewards-pro'),
-										'help' => __("Maximum number of people a customer can sponsor", 'woorewards-pro'),
+										'help' => __("Maximum number of people a customer can refer", 'woorewards-pro'),
 									),
 								),
 								array(
 									'id'    => 'sponsor_amount',
-									'title' => sprintf(__("Sponsor Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
 										'default' => '10',
 										'placeholder' => __('Number ', 'woorewards-pro'),
-										'help' => __("Set the rewards for the sponsor and the sponsored", 'woorewards-pro'),
+										'help' => __("Set the rewards for the referrer and the referee", 'woorewards-pro'),
 									),
 								),
 								array(
 									'id'    => 'sponsored_amount',
-									'title' => sprintf(__("Sponsored Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -157,6 +161,8 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 									'title' => __("Start the program ?", 'woorewards-pro'),
 									'type'  => 'radiogrid', // radiogrid is specific to the wizard
 									'extra' => array(
+										'type' => 'auto-cols',
+										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value'=>'yes','label'=>__("Yes", 'woorewards-pro')),
 											array('value'=>'no'	,'label'=>__("No", 'woorewards-pro')),
@@ -181,19 +187,19 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 		if( $step == 'set' )
 		{
 			if( !isset($submit['event_type']) || !in_array($submit['event_type'], array('register', 'order')) )
-				$err[] = __("Please, select a 'Sponsored Action'.", 'woorewards-pro');
+			$err[] = __("Please, select a 'Referee Action'.", 'woorewards-pro');
 
 			if( !$this->isIntGT0($submit, 'sponsor_number', false) )
-				$err[] = __("'How many sponsored' expects numeric value greater than zero.", 'woorewards-pro');
+			$err[] = __("'How many referred' expects numeric value greater than zero.", 'woorewards-pro');
 
 			if( !$this->isIntGE0($submit, 'max_sponsored') )
-				$err[] = __("'Max Sponsorships' expects numeric value greater than zero or leave blank.", 'woorewards-pro');
+			$err[] = __("'Max Referrals' expects numeric value greater than zero or leave blank.", 'woorewards-pro');
 
 			if( !$this->isFloatGT0($submit, 'sponsor_amount', false) )
-				$err[] = __("'Sponsor Reward' expects amount greater than zero or leave blank.", 'woorewards-pro');
+			$err[] = __("'Referrer Reward' expects amount greater than zero or leave blank.", 'woorewards-pro');
 
 			if( !$this->isFloatGT0($submit, 'sponsored_amount', false) )
-				$err[] = __("'Sponsored Rewards' expects amount greater than zero or leave blank.", 'woorewards-pro');
+			$err[] = __("'Referee Rewards' expects amount greater than zero or leave blank.", 'woorewards-pro');
 		}
 		return $err ? $err : true;
 	}
@@ -202,44 +208,45 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 	{
 		$data = $this->getData();
 		$exists = false;
-		$summary = "<div class='lws-wizard-summary-container'>";
-		/* Loyalty system name */
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Sponsorship", 'woorewards-pro')."</div>";
-		$title = $this->getValue($data['data'], 'system_title', 'ini/*', __("Sponsorship System", 'woorewards-pro'));
-		$summary .= "<div class='lws-wizard-summary-label'>".__("Loyalty System", 'woorewards-pro')."</div>";
-		$summary .= "<div class='lws-wizard-summary-value'>{$title}</div>";
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Sponsor Settings", 'woorewards-pro')."</div>";
 
 		$url = add_query_arg('page', LWS_WOOREWARDS_PAGE.'.settings', \admin_url('admin.php'));
 		$url.= "&tab=sponsorship#lws_group_targetable_sponsor_widget_style";
-		$value = sprintf(__("Don't forget to add the %s to your pages to allow customers to sponsor their friends", 'woorewards-pro'),"<a target='_blank' href='{$url}'>".__("Sponsorship widget", 'woorewards-pro')."</a>");
-		$summary .= "<div class='lws-wizard-summary-help'>{$value}</div>";
+		$value = sprintf(__("Don't forget to add the %s to your pages to allow customers to sponsor their friends", 'woorewards-pro'), "<a target='_blank' href='{$url}'>" . __("Referral widget", 'woorewards-pro') . "</a>");
+		$summary = "<div class='item-help visible'><div class='icon lws-icons lws-icon-bulb'></div><div class='text'>{$value}</div></div>";
+
+		$summary .= "<div class='lws-wizard-summary-container'>";
+		/* Loyalty system name */
+		$summary .= "<div class='summary-title'>" . __("Referral", 'woorewards-pro') . "</div>";
+		$title = $this->getValue($data['data'], 'system_title', 'ini/*', __("Referral System", 'woorewards-pro'));
+		$summary .= "<div class='lws-wizard-summary-label'>".__("Loyalty System", 'woorewards-pro')."</div>";
+		$summary .= "<div class='lws-wizard-summary-value'>{$title}</div>";
+		$summary .= "<div class='summary-title'>" . __("Referral Settings", 'woorewards-pro') . "</div>";
 
 		$value = $this->getValue($data['data'], 'sponsor_amount', 'set/*');
-		$summary .= "<div class='lws-wizard-summary-label'>".sprintf(__("Sponsor Reward (%s)", 'woorewards-pro'),\LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?')."</div>";
+		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
-		$summary .= "<div class='lws-wizard-summary-label'>".__("Sponsored Action to perform", 'woorewards-pro')."</div>";
+		$summary .= "<div class='lws-wizard-summary-label'>" . __("Referee Action to perform", 'woorewards-pro') . "</div>";
 		$action = $this->getValue($data['data'], 'event_type', 'set/*');
 		if( 'register' === $action )
 		{
-			$value = __("Sponsored registers", 'woorewards-pro');
+			$value = __("Referee registers", 'woorewards-pro');
 		}
 		else if( 'order' === $action )
 		{
-			$value = __("Sponsored places an order", 'woorewards-pro');
+			$value = __("Referee places an order", 'woorewards-pro');
 		}
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
 		if(($value = \absint($this->getValue($data['data'], 'max_sponsored', 'set/*', 0))) > 0)
 		{
-			$summary .= "<div class='lws-wizard-summary-label'>".__("Max Sponsorships", 'woorewards-pro')."</div>";
+			$summary .= "<div class='lws-wizard-summary-label'>" . __("Max Referrals", 'woorewards-pro') . "</div>";
 			$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 		}
 
-		$summary .= "<div class='lws-wizard-summary-title'>".__("Sponsored Settings", 'woorewards-pro')."</div>";
+		$summary .= "<div class='summary-title'>" . __("Referee Settings", 'woorewards-pro') . "</div>";
 		$value = $this->getValue($data['data'], 'sponsored_amount', 'set/*');
-		$summary .= "<div class='lws-wizard-summary-label'>".sprintf(__("Sponsored Reward (%s)", 'woorewards-pro'),\LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?')."</div>";
+		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
 		$summary .= "</div>";
@@ -256,7 +263,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 
 		/* Create Pool */
 		$pool = \LWS\WOOREWARDS\Collections\Pools::instanciate()->create()->last();
-		$title = $this->getValue($data['data'], 'system_title', 'ini/*', __("Sponsorship System", 'woorewards-pro'));
+		$title = $this->getValue($data['data'], 'system_title', 'ini/*', __("Referral System", 'woorewards-pro'));
 		$pool->setName($title);
 		$pool->ensureNameUnicity();
 		$pool->setOptions(array(

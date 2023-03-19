@@ -17,11 +17,33 @@ class PointStack
 		$this->userId = $userId;
 	}
 
+	/** relevant when several pages opened at the same time.
+	 *	WP load meta very soon, then all is read from cache if possible,
+	 *	no way to know other thread changed something, db never called again. */
+	static function cleanCache($userId)
+	{
+		if (\function_exists('\wp_cache_flush_group')) {
+			// require at least WP 6.1.0
+			if (\wp_cache_supports('flush_group')) {
+				\wp_cache_flush_group('user_meta');
+			} // else means another cache system exists that does not support flush_group
+		}
+	}
+
+	/** $force bypass any cache and directly call DB. */
 	function get($force = false)
 	{
 		if( !isset($this->amount) || $force )
 		{
-			$val = \get_user_meta($this->userId, $this->metaKey(), true);
+			if ($force) {
+				global $wpdb;
+				$val = $wpdb->get_var($wpdb->prepare(
+					"SELECT `meta_value` FROM {$wpdb->usermeta} WHERE `user_id`=%d AND `meta_key`=%s",
+					$userId, $this->metaKey()
+				));
+			} else {
+				$val = \get_user_meta($this->userId, $this->metaKey(), true);
+			}
 			$this->amount = ($val && \is_numeric($val)) ? (int)$val : 0;
 		}
 		return $this->amount;
@@ -91,8 +113,8 @@ class PointStack
 
 		// insert reset line for customers with '' as point value
 		$reason = $reason ? $this->formatReason($reason) : \LWS\WOOREWARDS\Core\Trace::byReason("Lost due to inactivity", 'woorewards-lite');
-		$fields = array('new_total', 'stack', 'commentar', 'blog_id', 'origin');
-		$values =  array('%d', '%s', '%s', '%d', '%s');
+		$fields = array('new_total', 'stack', 'commentar', 'blog_id', 'origin', 'mvt_date');
+		$values =  array('%d', '%s', '%s', '%d', '%s', \gmdate("'Y-m-d H:i:s'", \time()));
 		$args = array(
 			$resetTo,
 			$this->name,
@@ -171,8 +193,9 @@ EOT;
 
 		// mark the merge in history, let stack empty for futur reference
 		$insert = <<<EOT
-INSERT INTO {$wpdb->lwsWooRewardsHistoric} (user_id, new_total, points_moved, stack, commentar, origin, blog_id)
-SELECT m.user_id, SUM(m.meta_value), SUM(m.diff), '', %s, 'merge', %d FROM (
+INSERT INTO {$wpdb->lwsWooRewardsHistoric} (user_id, new_total, points_moved, stack, commentar, origin, blog_id, mvt_date)
+SELECT m.user_id, SUM(m.meta_value), SUM(m.diff), '', %s, 'merge', %d, %s
+FROM (
 	SELECT s.user_id, s.meta_value, 0 as diff FROM {$wpdb->usermeta} as s
 	WHERE s.meta_key=%s
 	UNION
@@ -185,6 +208,7 @@ EOT;
 			$insert,
 			\LWS\WOOREWARDS\Core\Trace::serializeReason(array("Points merged from %s", $otherStackName), 'woorewards-lite'),
 			\get_current_blog_id(),
+			\gmdate('Y-m-d H:i:s', \time()),
 			$this->metaKey(),
 			$this->metaKey($otherStackName)
 		));

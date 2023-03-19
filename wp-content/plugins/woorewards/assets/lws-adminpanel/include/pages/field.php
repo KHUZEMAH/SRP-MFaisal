@@ -17,6 +17,7 @@ abstract class Field
 		'autocomplete' => '\LWS\Adminpanel\Pages\Field\Autocomplete',
 		'box'          => '\LWS\Adminpanel\Pages\Field\Checkbox',
 		'button'       => '\LWS\Adminpanel\Pages\Field\Button',
+		'color'        => '\LWS\Adminpanel\Pages\Field\Color',
 		'custom'       => '\LWS\Adminpanel\Pages\Field\Custom',
 		'checkgrid'    => '\LWS\Adminpanel\Pages\Field\CheckGrid',
 		'datetime'     => '\LWS\Adminpanel\Pages\Field\DateTime',
@@ -203,7 +204,7 @@ abstract class Field
 	{
 		if ($this->isStrong()) {
 			if ($class) {
-				if (\is_array())
+				if (\is_array($class))
 					$class[] = 'strong';
 				else
 					$class .= ' strong';
@@ -226,6 +227,40 @@ abstract class Field
 		if ($help && \is_array($help))
 			$help = \lws_array_to_html($help);
 		return $help;
+	}
+
+	protected function formatAttributes($attrs)
+	{
+		if ($attrs && \is_array($attrs)) {
+			foreach ($attrs as $attr => $val) {
+				$attrs[$attr] = sprintf(" %s='%s'", $attr, \esc_attr($val));
+			}
+			return \implode('', $attrs);
+		} else {
+			return '';
+		}
+	}
+
+	public function getDomAttributes(array $merge=array(), $asString=true, $prefix=' ', $extraKey='attributes')
+	{
+		$attrs = array();
+		if ($merge) {
+			$attrs = \array_merge($attrs, $merge);
+		}
+		if (isset($this->extra[$extraKey]) && \is_array($this->extra[$extraKey])) {
+			$attrs = \array_merge($attrs, $this->extra[$extraKey]);
+		}
+		if ($asString) {
+			if ($attrs) {
+				foreach ($attrs as $k => &$v)
+					$v = sprintf('%s="%s"', $k, \esc_attr($v));
+				return $prefix . \implode(' ', $attrs);
+			} else {
+				return '';
+			}
+		} else {
+			return $attrs;
+		}
 	}
 
 	/** @param $strict not null/zero and not empty. */
@@ -271,6 +306,9 @@ abstract class Field
 	public function getExtraCss($key='class', $attr='class', $default=false, $merge='')
 	{
 		$values = array();
+		if ($this->isIgnoredByConfirmation())
+			$values[] = 'lws-ignore-confirm';
+
 		if ($merge) {
 			if (\is_array($merge))
 				$values = \array_merge($values, $merge);
@@ -291,7 +329,7 @@ abstract class Field
 
 		$values = \array_filter($values);
 		if ($values) {
-			return sprintf(" %s='%s'", $attr, esc_attr($this->ignoreConfirm(\implode(' ', $values))));
+			return sprintf(" %s='%s'", $attr, esc_attr(\implode(' ', $values)));
 		} else {
 			return '';
 		}

@@ -95,7 +95,7 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 				}
 				else
 				{
-					\lws_admin_add_notice_once('lws_addon_toggle', __("Please set a the extension license key to activate it.", 'lwsmanager'), array('level'=>'error'));
+					\lws_admin_add_notice_once('lws_addon_toggle', __("Please set a the extension license key to activate it.", LWS_MANAGER_DOMAIN), array('level'=>'error'));
 				}
 			}
 		}
@@ -110,23 +110,23 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 			if (true === $result) {
 				if ($this->getManager()->isRunning()) {
 					\lws_admin_add_notice_once('lws_license_force_check',
-						__("License resumed. Enjoy your plugin.", 'lwsmanager'),
+						__("License resumed. Enjoy your plugin.", LWS_MANAGER_DOMAIN),
 						array('level'=>'success')
 					);
 				} else {
 					\lws_admin_add_notice_once('lws_license_force_check',
-						__("Cannot resume your license. Please ensure you renewed your subscription first.", 'lwsmanager'),
+						__("Cannot resume your license. Please ensure you renewed your subscription first.", LWS_MANAGER_DOMAIN),
 						array('level'=>'notice')
 					);
 				}
 			} elseif (false === $result) {
 				\lws_admin_add_notice_once('lws_license_force_check',
-					__("Your license seems to be not active anymore. Perhaps your subscription has been cancelled.", 'lwsmanager'),
+					__("Your license seems to be not active anymore. Perhaps your subscription has been cancelled.", LWS_MANAGER_DOMAIN),
 					array('level'=>'warning')
 				);
 			} else {
 				\lws_admin_add_notice_once('lws_license_force_check',
-					__("There was a problem establishing a connection to the license service. Please retry later.", 'lwsmanager'),
+					__("There was a problem establishing a connection to the license service. Please retry later.", LWS_MANAGER_DOMAIN),
 					array('level'=>'error')
 				);
 			}
@@ -200,8 +200,17 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 		return $status;
 	}
 
-	protected function getTab()
+	protected function getTab($full=true)
 	{
+		$page = array(
+			'id'     => $this->getTabId(),
+			'title'  => __("License Management", LWS_MANAGER_DOMAIN),
+			'icon'   => 'lws-icon-key',
+			'nosave' => true,
+		);
+		if (!$full)
+			return $page;
+
 		$manager =& $this->getManager();
 		$groups = array();
 
@@ -240,14 +249,8 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 		}
 
 		\ksort($groups);
-		$page = array(
-			'id'     => $this->getTabId(),
-			'title'  => __("License Management", 'lwsmanager'),
-			'icon'   => 'lws-icon-key',
-			'nosave' => true,
-			'groups' => $groups,
-			'delayedFunction' => array($this, 'smallLinks'),
-		);
+		$page['groups'] = $groups;
+		$page['delayedFunction'] = array($this, 'smallLinks');
 		return $page;
 	}
 
@@ -256,11 +259,11 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 		$links = array(
 			array(
 				\esc_attr(\add_query_arg(array('lws-log'=>'lic'))),
-				__('Show logs', 'lwsmanager'),
+				__('Show logs', LWS_MANAGER_DOMAIN),
 			),
 			array(
 				\esc_attr(\add_query_arg(array('lws-alt'=>'on'))),
-				__('Alternative activation', 'lwsmanager'),
+				__('Alternative activation', LWS_MANAGER_DOMAIN),
 			),
 		);
 		echo <<<EOT
@@ -300,7 +303,7 @@ EOT;
 		if ($key = $manager->getKey())
 			$key = \apply_filters('lws_format_copypast', $key);
 		else
-			$key = sprintf('<b>%s</b>', __("The key you received by email with your order.", 'lwsmanager'));
+			$key = sprintf('<b>%s</b>', __("The key you received by email with your order.", LWS_MANAGER_DOMAIN));
 
 		$formLink = 'https://plugins.longwatchstudio.com/remote-plugin-activation/';
 		if (\defined('LWS_DEV_ALT') && LWS_DEV_ALT)
@@ -309,18 +312,18 @@ EOT;
 		$groups['10.alt'] = array(
 			'id'     => 'addons',
 			'icon'   => 'lws-icon-click',
-			'title'  => __("Remote activation", 'lwsmanager'),
+			'title'  => __("Remote activation", LWS_MANAGER_DOMAIN),
 			'color'  => '#e16921',
 			'class'  => 'onecol',
 			//~ 'class'  => 'half',
 			'text'   => implode('<br/>', array(
-				__("If your server can't reach our license server, it's probably because it's blocked by our firewall.", 'lwsmanager'),
-				__("It can happen if you use shared hosting and if another website sharing your IP address is fraudulent.", 'lwsmanager'),
-				__("You can use the following procedure to activate your license remotely. You will be notified by email when new versions are available.", 'lwsmanager'),
-				__("You'll have to update the plugin manually", 'lwsmanager'),
+				__("If your server can't reach our license server, it's probably because it's blocked by our firewall.", LWS_MANAGER_DOMAIN),
+				__("It can happen if you use shared hosting and if another website sharing your IP address is fraudulent.", LWS_MANAGER_DOMAIN),
+				__("You can use the following procedure to activate your license remotely. You will be notified by email when new versions are available.", LWS_MANAGER_DOMAIN),
+				__("You'll have to update the plugin manually", LWS_MANAGER_DOMAIN),
 				'',
 				sprintf(
-					__("Please visit %s and fill the form to register your website and activate your license.", 'lwsmanager'),
+					__("Please visit %s and fill the form to register your website and activate your license.", LWS_MANAGER_DOMAIN),
 					sprintf(
 						'<a target="_blank" href="%s">%s</a>',
 						\esc_attr($formLink),
@@ -331,7 +334,7 @@ EOT;
 			'fields' => array(
 				array(
 					'id'    => 'lws_mgr_url',
-					'title' => __("Your website URL", 'lwsmanager'),
+					'title' => __("Your website URL", LWS_MANAGER_DOMAIN),
 					'type'  => 'custom',
 					'extra' => array(
 						'gizmo'   => true,
@@ -340,7 +343,7 @@ EOT;
 				),
 				array(
 					'id'    => 'lws_mgr_url',
-					'title' => __("Your website fingerprint", 'lwsmanager'),
+					'title' => __("Your website fingerprint", LWS_MANAGER_DOMAIN),
 					'type'  => 'custom',
 					'extra' => array(
 						'gizmo'   => true,
@@ -349,7 +352,7 @@ EOT;
 				),
 				array(
 					'id'    => 'lws_mgr_key',
-					'title' => __("Your license key", 'lwsmanager'),
+					'title' => __("Your license key", LWS_MANAGER_DOMAIN),
 					'type'  => 'custom',
 					'extra' => array(
 						'gizmo'   => true,
@@ -391,10 +394,10 @@ EOT;
 				$group = array(
 					'id'     => 'lws-log',
 					'icon'   => 'lws-icon-debug',
-					'title'  => sprintf(__("License logs (%s)", 'lwsmanager'), $source),
+					'title'  => sprintf(__("License logs (%s)", LWS_MANAGER_DOMAIN), $source),
 					'color'  => '#6EB579',
 					'class'  => 'onecol',
-					'text'   => array('tag'=>'small', sprintf(__('Your server IP: %s', 'lwsmanager'), $ip)),
+					'text'   => array('tag'=>'small', sprintf(__('Your server IP: %s', LWS_MANAGER_DOMAIN), $ip)),
 					'fields' => array(),
 				);
 				foreach ($actions as $action) {
@@ -425,13 +428,13 @@ EOT;
 			$groups['9999.logs'] = array(
 				'id'     => 'lws-log',
 				'icon'   => 'lws-icon-debug',
-				'title'  => __("License logs", 'lwsmanager'),
+				'title'  => __("License logs", LWS_MANAGER_DOMAIN),
 				'color'  => '#6EB579',
 				'class'  => 'onecol',
 				'text'   => array(
 					'join'=> '<br/>',
-					__('No log', 'lwsmanager'),
-					array('tag'=>'small', sprintf(__('Your server IP: %s', 'lwsmanager'), $ip)),
+					__('No log', LWS_MANAGER_DOMAIN),
+					array('tag'=>'small', sprintf(__('Your server IP: %s', LWS_MANAGER_DOMAIN), $ip)),
 				),
 			);
 		}
@@ -462,7 +465,7 @@ EOT;
 		$opt     = \esc_attr($manager->getKeyOption());
 		$key     = \esc_attr($manager->getKey());
 		$value   = \esc_attr('toggle_' . $manager->getSlug());
-		$button  = $manager->isActive() ? __("Deactivate my license", 'lwsmanager') : __("Activate license", 'lwsmanager');
+		$button  = $manager->isActive() ? __("Deactivate my license", LWS_MANAGER_DOMAIN) : __("Activate license", LWS_MANAGER_DOMAIN);
 
 		$content = <<<EOT
 <div class='lws-addon-license-field'>
@@ -480,11 +483,11 @@ EOT;
 		if( $addons )
 		{
 			$text = array(
-				__("The following extensions have been found on your system.", 'lwsmanager'),
-				__("Here you manage the license keys for each one of them.", 'lwsmanager'),
+				__("The following extensions have been found on your system.", LWS_MANAGER_DOMAIN),
+				__("Here you manage the license keys for each one of them.", LWS_MANAGER_DOMAIN),
 			);
 			if( !$manager->isActive() )
-				$text[] = sprintf(__("The Premium version of %s must be active for extensions to work.", 'lwsmanager'), $manager->getName());
+				$text[] = sprintf(__("The Premium version of %s must be active for extensions to work.", LWS_MANAGER_DOMAIN), $manager->getName());
 
 			$fields = array(array(), array());
 			foreach($addons as $slug => $addon)
@@ -499,7 +502,7 @@ EOT;
 				if ($index) {
 					$fields[$index][$slug]['extra'] = array(
 						'gizmo'   => true,
-						'content' => sprintf('<button disabled class="lws-adm-btn">%s</button>', __('Activated', 'lwsmanager')),
+						'content' => sprintf('<button disabled class="lws-adm-btn">%s</button>', __('Activated', LWS_MANAGER_DOMAIN)),
 					);
 				} else {
 					$fields[$index][$slug]['extra'] = array(
@@ -511,7 +514,7 @@ EOT;
 			$groups['50.addons'] = array(
 				'id'     => 'addons',
 				'icon'   => 'lws-icon-books',
-				'title'  => __("Installed Extensions", 'lwsmanager'),
+				'title'  => __("Installed Extensions", LWS_MANAGER_DOMAIN),
 				'color'  => '#336666',
 				'class'  => 'onecol',
 				'text'  => sprintf('<p>%s</p>', implode('</p><p>', $text)),
@@ -528,11 +531,11 @@ EOT;
 		if( $teasers )
 		{
 			$text = array(
-				__("Make your site even greater.", 'lwsmanager'),
-				sprintf('<a href="%s" target="_blank">%s</a>', \esc_attr($manager->getRemoteUrl()), __("All these extensions are available here.", 'lwsmanager')),
+				__("Make your site even greater.", LWS_MANAGER_DOMAIN),
+				sprintf('<a href="%s" target="_blank">%s</a>', \esc_attr($manager->getRemoteUrl()), __("All these extensions are available here.", LWS_MANAGER_DOMAIN)),
 			);
 			if( !$this->getManager()->isActive() )
-				$text[] = __("Addons need an active Premium version.", 'lwsmanager');
+				$text[] = __("Addons need an active Premium version.", LWS_MANAGER_DOMAIN);
 
 			$fields = array();
 			foreach($teasers as $k => $content)
@@ -550,7 +553,7 @@ EOT;
 			$groups['90.teasers'] = array(
 				'id'     => 'teasers',
 				'icon'   => 'lws-icon-show-more',
-				'title'  => __("Available Extensions", 'lwsmanager'),
+				'title'  => __("Available Extensions", LWS_MANAGER_DOMAIN),
 				'color'  => '#018A37',
 				'class'  => 'onecol',
 				'text'  => sprintf('<p>%s</p>', implode('</p><p>', $text)),
@@ -570,20 +573,20 @@ EOT;
 		$link = sprintf('<a href="%s">%s</a>', $url, __("WordPress Updates")); // use WP translation
 		$name = sprintf('<b>%s</b>', $manager->getName());
 		$text = array(
-			__('<b>Your license is activated.</b>', 'lwsmanager'),
-			sprintf(__('Look in %1$s page for a %2$s update.', 'lwsmanager'), $link,$name),
-			__('You should have to click "<i>Check Again</i>" button to force WordPress refresh its list.', 'lwsmanager'),
-			__('If the Plugin Update still does not appears, please wait few minutes and try again.', 'lwsmanager'),
+			__('<b>Your license is activated.</b>', LWS_MANAGER_DOMAIN),
+			sprintf(__('Look in %1$s page for a %2$s update.', LWS_MANAGER_DOMAIN), $link,$name),
+			__('You should have to click "<i>Check Again</i>" button to force WordPress refresh its list.', LWS_MANAGER_DOMAIN),
+			__('If the Plugin Update still does not appears, please wait few minutes and try again.', LWS_MANAGER_DOMAIN),
 		);
 		if( !$manager->isActive() )
-			$text[0] = __('<b>Your Trial is active.</b>', 'lwsmanager');
+			$text[0] = __('<b>Your Trial is active.</b>', LWS_MANAGER_DOMAIN);
 
-		$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", $url, __("Check for Updates", 'lwsmanager'));
+		$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", $url, __("Check for Updates", LWS_MANAGER_DOMAIN));
 
 		$groups['00.update'] = array(
 			'id'     => 'update',
 			'icon'   => 'lws-icon-settings-gear',
-			'title'  => __("An update is waiting for you", 'lwsmanager'),
+			'title'  => __("An update is waiting for you", LWS_MANAGER_DOMAIN),
 			'color'  => '#a4489a',
 			'class'  => 'onecol',
 			'text'  => sprintf('<p>%s</p>', implode('</p><p>', $text)),
@@ -612,41 +615,41 @@ EOT;
 		$text = array();
 		if( $expired )
 		{
-			$text[] = __("Your Subscription is currently inactive.", 'lwsmanager');
+			$text[] = __("Your Subscription is currently inactive.", LWS_MANAGER_DOMAIN);
 			if( $zomb )
-				$text[] = __("You can't download new versions or send requests to the support.", 'lwsmanager');
+				$text[] = __("You can't download new versions or send requests to the support.", LWS_MANAGER_DOMAIN);
 			else
-				$text[] = __("You can't use Premium features of this plugin, download new versions or send requests to the support.", 'lwsmanager');
-			$text[] = __("You can resume your subscription at any time to get access to updates and support.", 'lwsmanager');
-			$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("Resume my subscription", 'lwsmanager'));
+				$text[] = __("You can't use Premium features of this plugin, download new versions or send requests to the support.", LWS_MANAGER_DOMAIN);
+			$text[] = __("You can resume your subscription at any time to get access to updates and support.", LWS_MANAGER_DOMAIN);
+			$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("Resume my subscription", LWS_MANAGER_DOMAIN));
 		}
 		else
 		{
-			$text[] = __("Your Subscription is currently active.", 'lwsmanager');
+			$text[] = __("Your Subscription is currently active.", LWS_MANAGER_DOMAIN);
 			$ending = $manager->getSubscriptionEnd();
 			if( $ending )
 			{
 				if( $zomb )
-					$text[] = __("Updates and Support are available until :", 'lwsmanager');
+					$text[] = __("Updates and Support are available until :", LWS_MANAGER_DOMAIN);
 				else
-					$text[] = __("To avoid a service interruption, you should renew your subscription before :", 'lwsmanager');
+					$text[] = __("To avoid a service interruption, you should renew your subscription before :", LWS_MANAGER_DOMAIN);
 				$content  = sprintf("<div class='lws-license-big-text'>%s</div>", \date_i18n(\get_option('date_format'), $ending->getTimestamp()));
-				$content .= sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("See my subscription", 'lwsmanager'));
+				$content .= sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("See my subscription", LWS_MANAGER_DOMAIN));
 			}
 			else
 			{
 				if( $zomb )
-					$text[] = __("Your Subscription includes Updates and Support.", 'lwsmanager');
+					$text[] = __("Your Subscription includes Updates and Support.", LWS_MANAGER_DOMAIN);
 				else
-					$text[] = __("Your Subscription includes the usage of this plugin, updates and support.", 'lwsmanager');
-				$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("Manage my subscription", 'lwsmanager'));
+					$text[] = __("Your Subscription includes the usage of this plugin, updates and support.", LWS_MANAGER_DOMAIN);
+				$content = sprintf("<a class='lws-button-link' href='%s' target='_blank'>%s</a>", \esc_attr($link), __("Manage my subscription", LWS_MANAGER_DOMAIN));
 			}
 		}
 
 		if( $zomb )
-			$title = __("Maintenance and Updates", 'lwsmanager');
+			$title = __("Maintenance and Updates", LWS_MANAGER_DOMAIN);
 		else
-			$title = __("Usage Permission", 'lwsmanager');
+			$title = __("Usage Permission", LWS_MANAGER_DOMAIN);
 		$groups['12.subscript'] = array(
 			'id'		=> 'subscript',
 			'icon'		=> 'lws-icon-version',
@@ -670,7 +673,7 @@ EOT;
 			$button = sprintf(
 				"<button type='submit' name='%s' value='recheck' class='button'>%s</button>",
 				$this->getRecheckOption(),
-				__("Force a license check", 'lwsmanager')
+				__("Force a license check", LWS_MANAGER_DOMAIN)
 			);
 
 			$groups['12.subscript']['fields']['recheck'] = array(
@@ -678,7 +681,7 @@ EOT;
 				'type'  => 'custom',
 				'extra' => array(
 					'content' => sprintf('<p>%s</p>', sprintf(
-						__("Or, if you already renewed your subscription %s.", 'lwsmanager'),
+						__("Or, if you already renewed your subscription %s.", LWS_MANAGER_DOMAIN),
 						$button
 					)),
 				),
@@ -693,19 +696,19 @@ EOT;
 	{
 		$manager = & $this->getManager();
 		$text = array(
-			__("If you have a Premium License Key, please input it in the field below and click on the Activation button.", 'lwsmanager'),
-			__("If the activation is successful, the Premium version will be activated and installed automatically.", 'lwsmanager'),
+			__("If you have a Premium License Key, please input it in the field below and click on the Activation button.", LWS_MANAGER_DOMAIN),
+			__("If the activation is successful, the Premium version will be activated and installed automatically.", LWS_MANAGER_DOMAIN),
 		);
 
 		$content = sprintf(
 			"<button type='submit' class='lws-button-link'>%s</button>",
-			__("Activate my license", 'lwsmanager')
+			__("Activate my license", LWS_MANAGER_DOMAIN)
 		);
 
 		$groups['31.idle'] = array(
 			'id'     => 'idle',
 			'icon'   => 'lws-icon-key',
-			'title'  => sprintf(__("%s Premium License", 'lwsmanager'), $manager->getName()),
+			'title'  => sprintf(__("%s Premium License", LWS_MANAGER_DOMAIN), $manager->getName()),
 			'color'  => '#336666',
 			'class'  => 'half',
 			'text'   => implode('</br>', $text),
@@ -713,11 +716,11 @@ EOT;
 				'key' => array(
 					'id'    => $manager->getKeyOption(),
 					'type'  => 'text',
-					'title' => __('License Key', 'lwsmanager'),
+					'title' => __('License Key', LWS_MANAGER_DOMAIN),
 					'extra' => array(
 						'size' => '30',
 						'placeholder' => 'XX-XXXX-XXXX-XXXX-XXXX',
-						'help' => __("Your license key has been provided to you in the Order Confirmation eMail.", 'lwsmanager'),
+						'help' => __("Your license key has been provided to you in the Order Confirmation eMail.", LWS_MANAGER_DOMAIN),
 					)
 				),
 				'custom' => array(
@@ -753,27 +756,27 @@ EOT;
 	{
 		$manager = & $this->getManager();
 		$text = array(
-			sprintf(__("You're actually using a licensed version of %s Premium.", 'lwsmanager'), $manager->getName()),
-			__("Your license key is :", 'lwsmanager'),
+			sprintf(__("You're actually using a licensed version of %s Premium.", LWS_MANAGER_DOMAIN), $manager->getName()),
+			__("Your license key is :", LWS_MANAGER_DOMAIN),
 		);
 
 		$content = sprintf("<div class='lws-license-big-text'>%s</div>", $manager->getKey());
 		$content .= sprintf(
 			"<button type='submit' name='%s' value='deactivate' class='lws-button-link'>%s</button>",
 			$this->getActionOption(),
-			__("Deactivate my license", 'lwsmanager')
+			__("Deactivate my license", LWS_MANAGER_DOMAIN)
 		);
 
-		$details = sprintf(__("If you deactivate your license, you will be reverted to the free version of %s. Your license count will be updated on our server and you'll be able to activate your license on another website.", 'lwsmanager'), $manager->getName());
+		$details = sprintf(__("If you deactivate your license, you will be reverted to the free version of %s. Your license count will be updated on our server and you'll be able to activate your license on another website.", LWS_MANAGER_DOMAIN), $manager->getName());
 		$content .= "<div class='lws-license-small-text'>{$details}</div>";
-		$subscription  = __("Deactivating your license won't cancel your subscription!", 'lwsmanager');
-		$subscription2 = __("If you want to cancel your subscription, do it on ", 'lwsmanager');
+		$subscription  = __("Deactivating your license won't cancel your subscription!", LWS_MANAGER_DOMAIN);
+		$subscription2 = __("If you want to cancel your subscription, do it on ", LWS_MANAGER_DOMAIN);
 		$content .= "<p style='text-align:justify'><b>{$subscription}</b> {$subscription2}<a href='https://plugins.longwatchstudio.com' target='_blank'>https://plugins.longwatchstudio.com</a></p>";
 
 		$groups['11.pro'] = array(
 			'id'     => 'pro',
 			'icon'   => 'lws-icon-key',
-			'title'  => sprintf(__("%s Premium License", 'lwsmanager'), $manager->getName()),
+			'title'  => sprintf(__("%s Premium License", LWS_MANAGER_DOMAIN), $manager->getName()),
 			'color'  => '#336666',
 			'class'  => 'half',
 			'text'   => implode('</br>', $text),
@@ -794,26 +797,26 @@ EOT;
 	private function addGroupFreeVersion($groups)
 	{
 		$manager = & $this->getManager();
-		$teaser = \apply_filters('lws_adm_license_trial_teaser_texts', __("This version contains only a few features of the premium version.", 'lwsmanager'), $manager->getSlug());
+		$teaser = \apply_filters('lws_adm_license_trial_teaser_texts', __("This version contains only a few features of the premium version.", LWS_MANAGER_DOMAIN), $manager->getSlug());
 		$text = array(
-			sprintf(__("You're actually using the free version of %s.", 'lwsmanager'), $manager->getName()),
+			sprintf(__("You're actually using the free version of %s.", LWS_MANAGER_DOMAIN), $manager->getName()),
 			$teaser,
-			sprintf(__("If you're happy with %s Standard features, <b>please consider reviewing it</b> on wordpress.org", 'lwsmanager'), $manager->getName()),
+			sprintf(__("If you're happy with %s Standard features, <b>please consider reviewing it</b> on wordpress.org", LWS_MANAGER_DOMAIN), $manager->getName()),
 		);
 
 		if( $manager->isTrialAvailable() )
-			$text[] = __("If you want to gain access to more features, you can try the premium version for free for 30 days.", 'lwsmanager');
+			$text[] = __("If you want to gain access to more features, you can try the premium version for free for 30 days.", LWS_MANAGER_DOMAIN);
 
 		$content = sprintf(
 			"<a class='lws-button-link' href='%s' target='_blank'>%s</a>",
 			\esc_attr(sprintf('https://wordpress.org/support/plugin/%s/reviews/#new-post', $manager->getSlug())),
-			__("Review on wordpress.org", 'lwsmanager')
+			__("Review on wordpress.org", LWS_MANAGER_DOMAIN)
 		);
 
 		$groups['21.free'] = array(
 			'id'     => 'free',
 			'icon'   => 'lws-icon-free',
-			'title'  => __("Free Version", 'lwsmanager'),
+			'title'  => __("Free Version", LWS_MANAGER_DOMAIN),
 			'color'  => '#016087',
 			'class'  => 'half',
 			'text'   => implode('</br>', $text),
@@ -835,26 +838,26 @@ EOT;
 	private function addGroupTeaseTrial($groups)
 	{
 		$manager = & $this->getManager();
-		$teaser = \apply_filters('lws_adm_license_trial_teaser_texts', __("This version contains only a few features of the premium version.", 'lwsmanager'), $manager->getSlug());
+		$teaser = \apply_filters('lws_adm_license_trial_teaser_texts', __("This version contains only a few features of the premium version.", LWS_MANAGER_DOMAIN), $manager->getSlug());
 		$text = sprintf(
 			'%s</br>%s<ul><b><li>%s</li><li>%s</li><li>%s</li></b></ul>',
 			$teaser,
-			sprintf(__("Try %s Premium for free for 30 days.", 'lwsmanager'), $manager->getName()),
-			sprintf(__("Instant access to all %s Premium features.", 'lwsmanager'), $manager->getName()),
-			__("No payment required.", 'lwsmanager'),
-			__("No registration required.", 'lwsmanager')
+			sprintf(__("Try %s Premium for free for 30 days.", LWS_MANAGER_DOMAIN), $manager->getName()),
+			sprintf(__("Instant access to all %s Premium features.", LWS_MANAGER_DOMAIN), $manager->getName()),
+			__("No payment required.", LWS_MANAGER_DOMAIN),
+			__("No registration required.", LWS_MANAGER_DOMAIN)
 		);
 
 		$content = sprintf(
 			"<button type='submit' name='%s' value='trial' class='lws-button-link'>%s</button>",
 			$this->getActionOption(),
-			__("Start the free trial", 'lwsmanager')
+			__("Start the free trial", LWS_MANAGER_DOMAIN)
 		);
 
 		$groups['32.lite2trial'] = array(
 			'id'     => 'lite2trial',
 			'icon'   => 'lws-icon-free',
-			'title'  => sprintf(__("Free %s Premium Trial", 'lwsmanager'), $manager->getName()),
+			'title'  => sprintf(__("Free %s Premium Trial", LWS_MANAGER_DOMAIN), $manager->getName()),
 			'color'  => '#018A07',
 			'class'  => 'half',
 			'text'   => $text,
@@ -879,33 +882,33 @@ EOT;
 		$content = '';
 
 		if( $t = $manager->isTrial() )
-			$text[] = sprintf(__("You're actually trying %s Premium for free for a limited period of time. You will be reminded that your trial period is about to end 5 days and 3 days before it ends.", 'lwsmanager'), $manager->getName());
+			$text[] = sprintf(__("You're actually trying %s Premium for free for a limited period of time. You will be reminded that your trial period is about to end 5 days and 3 days before it ends.", LWS_MANAGER_DOMAIN), $manager->getName());
 		else
-			$text[] = sprintf(__("You're actually trying %s Free with limited features.", 'lwsmanager'), $manager->getName());
-		$text[] = sprintf(__("If you like %s, you can purchase a license on our website by clicking on the button below.", 'lwsmanager'), $manager->getName());
+			$text[] = sprintf(__("You're actually trying %s Free with limited features.", LWS_MANAGER_DOMAIN), $manager->getName());
+		$text[] = sprintf(__("If you like %s, you can purchase a license on our website by clicking on the button below.", LWS_MANAGER_DOMAIN), $manager->getName());
 
 		if( $t && $ending = $manager->getTrialEnding() )
 		{
 			$diff = $ending->diff(\date_create(), true)->format('%a');
 			$text[] = '';
-			$text[] = __("Your trial will expire in :", 'lwsmanager');
-			$remainings = sprintf("%d %s", $diff, __("Days", 'lwsmanager'));
+			$text[] = __("Your trial will expire in :", LWS_MANAGER_DOMAIN);
+			$remainings = sprintf("%d %s", $diff, __("Days", LWS_MANAGER_DOMAIN));
 			$content = "<div class='lws-license-big-text'>{$remainings}</div>";
 		}
 
 		$content .= sprintf(
 			"<a class='lws-button-link' href='%s' target='_blank'>%s</a>",
 			\esc_attr(\apply_filters('lws_adm_license_product_page_url', $manager->getPluginURI(), $manager->getSlug())),
-			sprintf(__("Purchase %s Premium", 'lwsmanager'), $manager->getName())
+			sprintf(__("Purchase %s Premium", LWS_MANAGER_DOMAIN), $manager->getName())
 		);
 
-		$details = __("Premium Version is a paid service. This service features the plugin, the support and regular updates. You can cancel your subscription at any time by changing your preferences on your account on plugins.longwatchstudio.com. Cancelling your subscription will remove the access to premium features, support and updates.", 'lwsmanager');
+		$details = __("Premium Version is a paid service. This service features the plugin, the support and regular updates. You can cancel your subscription at any time by changing your preferences on your account on plugins.longwatchstudio.com. Cancelling your subscription will remove the access to premium features, support and updates.", LWS_MANAGER_DOMAIN);
 		$content .= "<div class='lws-license-small-text'>{$details}</div>";
 
 		$groups['22.trial2pro'] = array(
 			'id'		=> 'trial2pro',
 			'icon'		=> 'lws-icon-free',
-			'title' 	=> sprintf(__("Purchase %s Premium", 'lwsmanager'), $manager->getName()),
+			'title' 	=> sprintf(__("Purchase %s Premium", LWS_MANAGER_DOMAIN), $manager->getName()),
 			'color' 	=> '#018A07',
 			'class'		=> 'half',
 			'text'  	=> implode('</br>', $text),
@@ -967,8 +970,8 @@ EOT;
 					\lws_admin_add_notice(
 						'lws_lic_udt_error_'.$slug,
 						implode('<br/>', array(
-							sprintf(__("The Trial License found for the plugin <b>%s</b> cannot be migrated to the new system.", 'lwsmanager'), $manager->getName()),
-							__("If you are sure your license should still be valid, try to restart the trial manually or contact the support of the plugin.", 'lwsmanager'),
+							sprintf(__("The Trial License found for the plugin <b>%s</b> cannot be migrated to the new system.", LWS_MANAGER_DOMAIN), $manager->getName()),
+							__("If you are sure your license should still be valid, try to restart the trial manually or contact the support of the plugin.", LWS_MANAGER_DOMAIN),
 						)),
 						array('level'=>'error')
 					);
@@ -986,8 +989,8 @@ EOT;
 					\lws_admin_add_notice(
 						'lws_lic_udt_error_'.$slug,
 						implode('<br/>', array(
-							sprintf(__("The license found for the plugin <b>%s</b> cannot be migrated to the new system.", 'lwsmanager'), $manager->getName()),
-							__("If you are sure your license should still be valid, try to reactivate it manually or contact the support of the plugin.", 'lwsmanager'),
+							sprintf(__("The license found for the plugin <b>%s</b> cannot be migrated to the new system.", LWS_MANAGER_DOMAIN), $manager->getName()),
+							__("If you are sure your license should still be valid, try to reactivate it manually or contact the support of the plugin.", LWS_MANAGER_DOMAIN),
 						)),
 						array('level'=>'error')
 					);
@@ -1014,7 +1017,7 @@ EOT;
 				$actions['go_to_lws'] = sprintf(
 					'<a href="%s" target="_parent">%s</a>',
 					\add_query_arg($args, \admin_url('admin.php')),
-					sprintf(__('Go to <b>%s</b> Settings', 'lwsmanager'), $manager->getName())
+					sprintf(__('Go to <b>%s</b> Settings', LWS_MANAGER_DOMAIN), $manager->getName())
 				);
 			}
 		}
@@ -1034,7 +1037,7 @@ EOT;
 				$actions['go_to_lws'] = sprintf(
 					'<a href="%s" target="_parent">%s</a>',
 					$url,
-					sprintf(__('Go to <b>%s</b> Settings', 'lwsmanager'), $manager->getName())
+					sprintf(__('Go to <b>%s</b> Settings', LWS_MANAGER_DOMAIN), $manager->getName())
 				);
 			}
 		}

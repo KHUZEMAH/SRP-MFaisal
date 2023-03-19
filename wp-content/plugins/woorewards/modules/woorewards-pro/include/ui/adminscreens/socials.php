@@ -3,6 +3,9 @@ namespace LWS\WOOREWARDS\PRO\Ui\AdminScreens;
 // don't call the file directly
 if (!defined('ABSPATH')) exit();
 
+
+/** NOT USED ANYMORE - SHOULD BE REMOVED IN A FUTURE VERSION */
+
 class Socials
 {
 	static function getTab()
@@ -73,7 +76,6 @@ class Socials
 				__("You need to setup different tools if you want your customers to earn points for actions they perform on Facebook", 'woorewards-pro'),
 				self::getVerifiedStatus('facebook')[0],
 			),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/facebook/'),
 			'fields' => array(
 				'guide' => array(
 					'id'    => 'facebook_documentation',
@@ -178,7 +180,7 @@ class Socials
 			'icon'	=> 'lws-icon-plug-2',
 			'title'  => __("Social Media Connect", 'woorewards-pro'),
 			'text'   => $text,
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/api/'),
+			'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('api')),
 			'fields' => array(
 				'medias' => array(
 					'id'    => 'lws_woorewards_social_connect_medias',
@@ -212,7 +214,7 @@ class Socials
 			'icon'	=> 'lws-icon-network-communication',
 			'title' => __("Social Share", 'woorewards-pro'),
 			'text' => __("With this Widget, customers can share a page link on social media.", 'woorewards-pro'),
-			'extra'    => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards-4/widgets/social-share/'),
+			'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('social')),
 			'fields' => array(
 				array(
 					'id' => 'lws_woorewards_smshare_socialmedias',

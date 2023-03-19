@@ -102,13 +102,13 @@ class Order
 				foreach ($stacks as $stack => $value) {
 					foreach ($value as $userId => $points) {
 						if ($points) {
-							$order->add_order_note(sprintf(
+							\LWS\WOOREWARDS\Core\OrderNote::add($order, sprintf(
 								__('<b>%1$s</b> removed in <i>%4$s</i> from customer <i>[%2$d]</i> since order passed to <i>%3$s</i>.', 'woorewards-pro'),
 								\LWS_WooRewards::formatPointsWithSymbol($points, ''),
 								$userId,
 								$order->get_status(),
 								$stack
-							));
+							), $stack);
 						}
 					}
 				}

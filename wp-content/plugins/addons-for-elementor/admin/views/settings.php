@@ -21,6 +21,7 @@ $deactivate_element_portfolio = lae_get_option( 'lae_deactivate_element_portfoli
 $deactivate_element_posts_carousel = lae_get_option( 'lae_deactivate_element_posts_carousel', false );
 $deactivate_element_posts_slider = lae_get_option( 'lae_deactivate_element_posts_slider', false );
 $deactivate_element_posts_multislider = lae_get_option( 'lae_deactivate_element_posts_multislider', false );
+$deactivate_element_timeline = lae_get_option( 'lae_deactivate_element_timeline', false );
 $deactivate_element_posts_gridbox_slider = lae_get_option( 'lae_deactivate_element_posts_gridbox_slider', false );
 $deactivate_element_pricing_table = lae_get_option( 'lae_deactivate_element_pricing_table', false );
 $deactivate_element_services = lae_get_option( 'lae_deactivate_element_services', false );
@@ -440,6 +441,27 @@ echo  $deactivate_element_posts_multislider ;
 echo  checked( !empty($deactivate_element_posts_multislider), 1, false ) ;
 ?>>
                                     <label for="lae_deactivate_element_posts_multislider"></label>
+                                </div>
+                            </div>
+
+                            <div class="lae-row lae-type-checkbox lae-field">
+                                <label class="lae-label"><?php 
+echo  __( 'Deactivate Timeline', 'livemesh-el-addons' ) ;
+?></label>
+                                <p class="lae-desc"><?php 
+echo  __( 'Deactivate the Timeline element.', 'livemesh-el-addons' ) ;
+?></p>
+                                <div class="lae-spacer" style="height: 5px"></div>
+                                <div class="lae-toggle">
+                                    <input type="checkbox" class="lae-checkbox"
+                                           name="lae_deactivate_element_timeline"
+                                           id="lae_deactivate_element_timeline" data-default=""
+                                           value="<?php 
+echo  $deactivate_element_timeline ;
+?>" <?php 
+echo  checked( !empty($deactivate_element_timeline), 1, false ) ;
+?>>
+                                    <label for="lae_deactivate_element_timeline"></label>
                                 </div>
                             </div>
 

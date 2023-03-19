@@ -179,12 +179,14 @@ class Group
 		$class .= $this->getRequirementClass();
 		$args = $this->getRequirementArgs();
 
+		if (isset($this->extra['doclink']) && $this->extra['doclink']) {
+			$class .= ' has-doc';
+		}
+
 		$colorStyle = '';
 		if (isset($this->color) && $this->color)
 		{
-			$mediumColor = $this->color . '60';
-			$lightColor = $this->color . '20';
-			$colorStyle = " style='--group-color:{$this->color};--group-medium-color:{$mediumColor};--group-light-color:{$lightColor};'";
+			$colorStyle = " style='" . \lws_get_theme_colors("--group-color", $this->color) . "'";
 		}
 		echo "<div class='lws-form-div group-item$class'$colorStyle id='{$txtid}'{$args}>";
 
@@ -219,6 +221,7 @@ class Group
 		{
 			if (!$field->isHidden())
 			{
+				echo sprintf("<div %s>", $field->getExtraCss('row_class', 'class', false, 'lws-group-row'));
 				$id = esc_attr($field->id());
 				$class = '';
 				//$class .= ($field->isAdvanced() ? " lws_advanced_option" : '');
@@ -254,6 +257,7 @@ class Group
 				echo "<div class='field-input{$class}'$args>";
 				$field->input();
 				echo "</div>";
+				echo "</div>";
 			}
 			else
 				$field->input();
@@ -277,6 +281,13 @@ class Group
 		}
 
 		echo "</div>";
+		if (isset($this->extra['doclink']) && $this->extra['doclink']) {
+			$label = __("Documentation", LWS_ADMIN_PANEL_DOMAIN);
+			echo "<div class='doc-line'><div class='doc-left'></div><div class='doc-right'>";
+			echo "<a href='{$this->extra['doclink']}'  target='_blank' class='group-doc'>{$label}</a>";
+			echo "</div></div>";
+		}
+
 		echo "</div>";
 	}
 
@@ -287,26 +298,16 @@ class Group
 			$icon = $this->getIcon('group-icon');
 			if ($icon)
 				$class .= ' has-icon';
-			$doc = $this->getDoc();
 			$expandIcon = ((isset($this->collapsed) && $this->collapsed) ? 'lws-icon-plus' : 'lws-icon-minus');
 
 			return <<<EOT
 <div class='{$class}'>
 	{$icon}<div class='group-title'>{$this->title}</div>
-	<div class='group-expand {$expandIcon}'></div>{$doc}
+	<div class='group-expand {$expandIcon}'></div>
 </div>
 EOT;
 		} else {
 			return sprintf("<div id='%s'></div>", $this->titleId());
-		}
-	}
-
-	protected function getDoc()
-	{
-		if (isset($this->extra['doclink']) && $this->extra['doclink']) {
-			return "<a href='{$this->extra['doclink']}' target='_blank' class='group-doc lws-icon-books'></a>";
-		} else {
-			return '';
 		}
 	}
 

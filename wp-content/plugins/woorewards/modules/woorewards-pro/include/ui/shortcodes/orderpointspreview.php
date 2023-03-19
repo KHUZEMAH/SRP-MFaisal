@@ -129,7 +129,7 @@ class OrderPointsPreview
 					),
 					'totallabel' => array(
 						'option' => 'totallabel',
-						'desc' => __("(Optional) Set the 'Total' label. Only displayed if detail is set to true", 'woorewards-pro'),
+						'desc' => __("(Optional) Set the 'Total' label. Only displayed if showdetail is set to true", 'woorewards-pro'),
 						'example' => '[wr_order_points_preview totallabel="Your Total"]'
 					),
 				),
@@ -145,7 +145,7 @@ class OrderPointsPreview
 		exit();
 	}
 
-	/** Shows methods to earn points
+	/** Shows points earned for placing an order
 	 * [wr_order_points_preview systems='poolname1, poolname2']
 	 * @param system 		→ Default: '' | Pools
 	 * @param layout 		→ Default: 'vertical' | 4 possible values : grid, vertical, horizontal, none.

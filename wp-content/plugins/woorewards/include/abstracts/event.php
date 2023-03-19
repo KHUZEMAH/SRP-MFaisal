@@ -406,7 +406,7 @@ abstract class Event implements ICategorisable, IRegistrable
 		$str = $this->getFieldsetBegin(0, __("Action to perform", 'woorewards-lite'), '', false);
 
 		$str .= "<div class='lws-$context-opt-title label'>" . __("Action", 'woorewards-lite') . "</div>";
-		$str .= "<div class='value large lws_woorewards_system_type_info'>" . $this->getDisplayType() . "</div>";
+		$str .= "<div class='value simple-text large lws_woorewards_system_type_info'>" . $this->getDisplayType() . "</div>";
 		$str .= $this->getFieldsetPlaceholder(true, 0); // type will always be first, so exceptionnaly put at second place
 
 		// custom title
@@ -423,7 +423,7 @@ abstract class Event implements ICategorisable, IRegistrable
 		$tooltip = sprintf(__("Expects an integer or an expression starting by %s", 'woorewards-lite'), '<b>=</b>');
 		$str .= <<<EOT
 <div class='field-help'>$tooltip</div>
-<div for='{$prefix}multiplier' class='lws-$context-opt-title label'>
+<div for='{$prefix}multiplier' class='lws-$context-opt-title label bold'>
 	$label<div class='bt-field-help'>?</div>
 </div>
 <div class='lws-$context-opt-input value'>
@@ -803,8 +803,8 @@ EOT;
 				error_log("Cannot instanciate an woorewards Event: " . $e->getMessage());
 			}
 		}
-//		else
-//			error_log("Unknown wooreward event registered type from : ".print_r($type, true));
+		//~ else
+			//~ error_log("Unknown wooreward event registered type from : ".print_r($type, true));
 
 		return $instance;
 	}

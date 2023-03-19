@@ -37,6 +37,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class LacSelect extends \LWS\Adminpanel\Pages\LAC
 {
+	private static $scriptAdded = false;
+
 	public function __construct($id, $title, $extra=null)
 	{
 		parent::__construct($id, $title, $extra);
@@ -72,10 +74,7 @@ class LacSelect extends \LWS\Adminpanel\Pages\LAC
 			{
 				$source = $this->prebuild($value, $this->hasExtra('spec', 'a') ? $this->extra['spec'] : array());
 			}
-			if( !isset($this->scriptAdded) || !$this->scriptAdded )
-			{
-				$this->script();
-			}
+			$this->script();
 			$inputClass = $this->ignoreConfirm('lac_select');
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
@@ -86,10 +85,18 @@ class LacSelect extends \LWS\Adminpanel\Pages\LAC
 
 	public function script()
 	{
-		$this->scriptAdded = true;
-		$this->modelScript();
-		wp_enqueue_script('lws-lac-select');
-		wp_enqueue_style('lws-lac-select-style');
+		if (!self::$scriptAdded) {
+			self::$scriptAdded = true;
+			if (\did_action('admin_enqueue_scripts')) {
+				\LWS\Adminpanel\Pages\LAC::modelScript();
+				\wp_enqueue_script('lws-lac-select');
+			} else {
+				\add_action('admin_enqueue_scripts', function() {
+					\LWS\Adminpanel\Pages\LAC::modelScript();
+					\wp_enqueue_script('lws-lac-select');
+				});
+			}
+		}
 	}
 
 }

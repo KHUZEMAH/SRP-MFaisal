@@ -30,6 +30,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class LacChecklist extends \LWS\Adminpanel\Pages\LAC
 {
+	private static $scriptAdded = false;
+
 	public function __construct($id, $title, $extra=null)
 	{
 		parent::__construct($id, $title, $extra);
@@ -57,16 +59,13 @@ class LacChecklist extends \LWS\Adminpanel\Pages\LAC
 			$name = esc_attr($this->m_Id);
 			$source = $this->data('source');
 			$spec = $this->data('spec');
-			$placeholder = __("Select...", 'lws-adminpanel');
-			$inputph = __("Search...", 'lws-adminpanel');
+			$placeholder = __("Select...", LWS_ADMIN_PANEL_DOMAIN);
+			$inputph = __("Search...", LWS_ADMIN_PANEL_DOMAIN);
 			if( empty($source) && $this->hasExtra('prebuild') )
 			{
 				$source = $this->prebuild($originalValue, $this->hasExtra('spec', 'a') ? $this->extra['spec'] : array());
 			}
-			if( !isset($this->scriptAdded) || !$this->scriptAdded )
-			{
-				$this->script();
-			}
+			$this->script();
 			$inputClass = $this->ignoreConfirm('lac_checklist');
 			if ($ic = $this->getExtraValue('rootclass')) {
 				$inputClass .= (' ' . $ic);
@@ -101,9 +100,17 @@ EOT;
 
 	public function script()
 	{
-		$this->scriptAdded = true;
-		$this->modelScript();
-		wp_enqueue_script('lws-lac-checklist');
-		//wp_enqueue_style('lws-lac-checklist-style');
+		if (!self::$scriptAdded) {
+			self::$scriptAdded = true;
+			if (\did_action('admin_enqueue_scripts')) {
+				\LWS\Adminpanel\Pages\LAC::modelScript();
+				\wp_enqueue_script('lws-lac-checklist');
+			} else {
+				\add_action('admin_enqueue_scripts', function() {
+					\LWS\Adminpanel\Pages\LAC::modelScript();
+					\wp_enqueue_script('lws-lac-checklist');
+				});
+			}
+		}
 	}
 }

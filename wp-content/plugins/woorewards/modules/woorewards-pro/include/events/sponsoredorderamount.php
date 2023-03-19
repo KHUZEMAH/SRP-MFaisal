@@ -15,19 +15,19 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 	{
 		return array_merge(parent::getInformation(), array(
 			'icon'  => 'lws-icon-coins',
-			'short' => __("The customer will earn points when a sponsored spends money on your shop.", 'woorewards-pro'),
-			'help'  => __("This method will only reward the sponsor, not the sponsored", 'woorewards-pro'),
+			'short' => __("The customer will earn points when a person he referred spends money on your shop.", 'woorewards-pro'),
+			'help'  => __("This method will only reward the Referrer, not the Referee", 'woorewards-pro'),
 		));
 	}
 
 	function getClassname()
 	{
-		return \get_class($this);
+		return 'LWS\WOOREWARDS\Events\SponsoredOrderAmount';
 	}
 
 	public function getDisplayType()
 	{
-		return _x("Sponsored spends money", "getDisplayType", 'woorewards-pro');
+		return _x("Referee spends money", "getDisplayType", 'woorewards-pro');
 	}
 
 	function getForm($context='editlist')
@@ -36,19 +36,23 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		$form = ($placeholder = $this->getFieldsetPlaceholder(true, 2));
 
 		// Allow guest order
-		$label   = _x("Guest order", "Sponsored Order Event", 'woorewards-pro');
+		$label   = _x("Guest order", "Referee Order Event", 'woorewards-pro');
 		$tooltip = __("By default, customer must be registered. Check that option to accept guests. Customer will be tested on billing email.", 'woorewards-pro');
-		$checked = $this->isGuestAllowed() ? 'checked' : '';
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'guest', array(
+			'id'      => $prefix . 'guest',
+			'layout'  => 'toggle',
+			'checked' => ($this->isGuestAllowed() ? ' checked' : '')
+		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$form .= "<div class='lws-$context-opt-input value'><input class='lws_checkbox' type='checkbox' id='{$prefix}guest' name='{$prefix}guest' $checked/></div>";
+		$form .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
 		$form = str_replace($placeholder, $form, parent::getForm($context));
 
 		$placeholder = $this->getFieldsetPlaceholder(false, 10);
 
 		// Sponsee role
-		$label = _x("Sponsee roles", "Sponsored Order Event", 'woorewards-pro');
+		$label = _x("Sponsee roles", "Referee Order Event", 'woorewards-pro');
 		$tooltip = __("The sponsee needs to have at least one of the selected roles to grant points to his referral. Leave empty for no restriction.", 'woorewards-pro');
 		$field = "<div class='field-help'>{$tooltip}</div>";
 		$field .= "<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>";
@@ -173,7 +177,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 	/** override */
 	function orderDone($order)
 	{
-		$sponsorship = new \LWS\WOOREWARDS\PRO\Core\Sponsorship();
+		$sponsorship = new \LWS\WOOREWARDS\Core\Sponsorship();
 		$this->sponsorship = $sponsorship->getUsersFromOrder($order->order, $this->isGuestAllowed());
 
 		if( !$this->sponsorship->sponsor_id )
@@ -190,10 +194,10 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 	protected function isTheFirst(&$order)
 	{
 		$orderId = $order->order->get_id();
-		if( $this->sponsorship->sponsored_id && \LWS\WOOREWARDS\PRO\Core\Sponsorship::getOrderCountById($this->sponsorship->sponsored_id, $orderId) > 0 )
+		if( $this->sponsorship->sponsored_id && \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountById($this->sponsorship->sponsored_id, $orderId) > 0 )
 			return false;
 
-		if( \LWS\WOOREWARDS\PRO\Core\Sponsorship::getOrderCountByEMail($this->sponsorship->sponsored_email, $orderId) > 0 )
+		if( \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountByEMail($this->sponsorship->sponsored_email, $orderId) > 0 )
 			return false;
 
 		return true;
@@ -225,11 +229,11 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		return \LWS\WOOREWARDS\Core\Trace::byOrder($order)
 			->setProvider($order->get_customer_id('edit'))
 			->setReason(array(
-					'Sponsored friend %3$s spent %1$s from order #%2$s',
+				'Referred friend %3$s spent %1$s from order #%2$s',
 					$price,
 					$order->get_order_number(),
 					$order->get_billing_email()
-				), LWS_WOOREWARDS_PRO_DOMAIN
+				), 'woorewards-pro'
 			);
 	}
 
@@ -242,7 +246,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 	/** Never call, only to have poedit/wpml able to extract the sentance. */
 	private function poeditDeclare()
 	{
-		__('Sponsored friend %3$s spent %1$s from order #%2$s', 'woorewards-pro');
+		__('Referred friend %3$s spent %1$s from order #%2$s', 'woorewards-pro');
 	}
 
 	/**	Event categories, used to filter out events from pool options.
@@ -255,7 +259,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 			'achievement' => __("Achievement", 'woorewards-pro'),
 			'custom'      => __("Events", 'woorewards-pro'),
 			'woocommerce' => __("WooCommerce", 'woorewards-pro'),
-			'sponsorship' => __("Available for sponsored", 'woorewards-pro')
+			'sponsorship' => __("Available for referred", 'woorewards-pro')
 		);
 	}
 }

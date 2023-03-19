@@ -21,7 +21,7 @@ abstract class Page
 	abstract function getTabId();
 
 	/**	@return (array) a tab definition @see \LWS\Adminpanel\Pages\Page::tabFormat() */
-	abstract protected function getTab();
+	abstract protected function getTab($full=true);
 
 	/**	@param $targetPage (bool|string|array) if false, create a dedicated page; else insert in specifed page[s].
 	 *	@param $create (bool) create the page in admin */
@@ -87,7 +87,7 @@ abstract class Page
 		);
 		$page = array(
 			'id'       => $this->pageQueryArgs['page'],
-			'title'    => __("License", 'lwsmanager'),
+			'title'    => __("License", LWS_MANAGER_DOMAIN),
 			'rights'   => 'manage_options',
 			'tabs'     => array()
 		);
@@ -123,7 +123,7 @@ abstract class Page
 			$oneOfUs = false;
 			foreach($pages as &$p)
 			{
-				if( isset($p['id']) && $current == $p['id'] )
+				if( isset($p['id']) && (0 === \strpos($p['id'], $current)) )
 				{
 					$oneOfUs = true;
 					if( $this->matchDestinationPage($p, true) )
@@ -138,10 +138,10 @@ abstract class Page
 							unset($p['groups']);
 						}
 
-						$p['tabs'][$this->getTabId()] = $this->getTab();
+						$p['tabs'][$this->getTabId()] = $this->getTab($p['id'] == $current);
 						$this->pageQueryArgs = array('page' => $p['id'], 'tab' => $this->getTabId());
+						break;
 					}
-					break;
 				}
 			}
 
