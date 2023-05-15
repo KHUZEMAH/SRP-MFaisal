@@ -90,11 +90,11 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 			if( !empty($this->singularId) && !empty($this->singularKey) && isset($this->data['singular_edit']['delete']) )
 			{
 				$delete = array(
-					'btn' => _x("Delete element", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN),
-					'yes' => esc_attr(_x("I really want to delete it", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN)),
-					'no' => esc_attr(_x("Cancel", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN)),
-					'confirm' => _x("This element will be permanently removed. Are you sure?", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN),
-					'title' => esc_attr(_x("Permanent deletion", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN))
+					'btn' => _x("Delete element", "Singular object edition screen", 'lws-adminpanel'),
+					'yes' => esc_attr(_x("I really want to delete it", "Singular object edition screen", 'lws-adminpanel')),
+					'no' => esc_attr(_x("Cancel", "Singular object edition screen", 'lws-adminpanel')),
+					'confirm' => _x("This element will be permanently removed. Are you sure?", "Singular object edition screen", 'lws-adminpanel'),
+					'title' => esc_attr(_x("Permanent deletion", "Singular object edition screen", 'lws-adminpanel'))
 				);
 
 				$args = array(
@@ -111,7 +111,7 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 
 			if( isset($this->data['singular_edit']['save']) )
 			{
-				$submit = empty($this->singularId) ? _x("Create", "Singular object creation screen", LWS_ADMIN_PANEL_DOMAIN) : _x("Update", "Singular object edition screen", LWS_ADMIN_PANEL_DOMAIN);
+				$submit = empty($this->singularId) ? _x("Create", "Singular object creation screen", 'lws-adminpanel') : _x("Update", "Singular object edition screen", 'lws-adminpanel');
 				$publish .= "<div class='singular-metabox-action'>";
 				$publish .= "<button class='lws-adminpanel-singular-commit-button lws-adm-btn button button-primary'>$submit</button>";
 				$publish .= "</div>";
@@ -119,7 +119,7 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 
 			$publish = \apply_filters('lws_adminpanel_singular_buttons_'.$this->id, $publish, $this->singularId);
 			if( !empty($publish) )
-				echo $this->getActionBox('singular-publishing', __("Publish", LWS_ADMIN_PANEL_DOMAIN), $publish, 'lws-adminpanel-singular-publish-actions');
+				echo $this->getActionBox('singular-publishing', __("Publish", 'lws-adminpanel'), $publish, 'lws-adminpanel-singular-publish-actions');
 
 			/** Hook lws_adminpanel_singular_boxes_{$page_id}
 			 * List the available meta boxes.
@@ -163,7 +163,7 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 		{
 			if( !\current_user_can($this->data['rights']) )
 			{
-				\lws_admin_add_notice_once('singular_edit', __("Action rejected for current user. Insufficient capacities.", LWS_ADMIN_PANEL_DOMAIN), array('level'=>'error'));
+				\lws_admin_add_notice_once('singular_edit', __("Action rejected for current user. Insufficient capacities.", 'lws-adminpanel'), array('level'=>'error'));
 				return;
 			}
 		}
@@ -191,7 +191,7 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 
 		if( $doaction )
 		{
-			\lws_admin_add_notice_once('singular_edit', __("Your settings have been saved.", LWS_ADMIN_PANEL_DOMAIN), array('level'=>'success'));
+			\lws_admin_add_notice_once('singular_edit', __("Your settings have been saved.", 'lws-adminpanel'), array('level'=>'success'));
 			$id = call_user_func($this->data['singular_edit']['save'], $this->singularId);
 
 			if( empty($this->singularId) && (is_string($id) || is_numeric($id) || is_bool($id)) )
@@ -216,19 +216,19 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 
 			if( !isset($this->data['singular_edit']['delete']) )
 			{
-				\lws_admin_add_notice_once('singular_edit', _x("Unavailable action.", "post deletion", LWS_ADMIN_PANEL_DOMAIN), array('level'=>'error'));
+				\lws_admin_add_notice_once('singular_edit', _x("Unavailable action.", "post deletion", 'lws-adminpanel'), array('level'=>'error'));
 				if( !empty($this->singularKey) )
 					$args[$this->singularKey] = $this->singularId;
 			}
 			elseif( !isset($_GET['lws-nonce']) || !\wp_verify_nonce($_GET['lws-nonce'], $this->id . '-' . $this->singularId) )
 			{
-				\lws_admin_add_notice_once('singular_edit', _x("Security check failed.", "post deletion", LWS_ADMIN_PANEL_DOMAIN), array('level'=>'error'));
+				\lws_admin_add_notice_once('singular_edit', _x("Security check failed.", "post deletion", 'lws-adminpanel'), array('level'=>'error'));
 				if( !empty($this->singularKey) )
 					$args[$this->singularKey] = $this->singularId;
 			}
 			else // trustable origin
 			{
-				\lws_admin_add_notice_once('singular_edit', __("Element permanently removed.", LWS_ADMIN_PANEL_DOMAIN), array('level'=>'success'));
+				\lws_admin_add_notice_once('singular_edit', __("Element permanently removed.", 'lws-adminpanel'), array('level'=>'success'));
 
 				if( false !== call_user_func($this->data['singular_edit']['delete'], $this->singularId) )
 					\do_action('lws_adminpanel_singular_delete_'.$this->id, $this->singularId);

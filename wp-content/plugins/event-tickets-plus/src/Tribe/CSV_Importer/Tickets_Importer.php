@@ -190,6 +190,8 @@ abstract class Tribe__Tickets_Plus__CSV_Importer__Tickets_Importer extends Tribe
 	/**
 	 * @param array $record
 	 *
+	 * @since 5.6.10 Added new entry for IAC settings.
+	 *
 	 * @return array
 	 */
 	protected function get_ticket_data_from( array $record ) {
@@ -198,6 +200,7 @@ abstract class Tribe__Tickets_Plus__CSV_Importer__Tickets_Importer extends Tribe
 		$data['ticket_description'] = $this->get_value_by_key( $record, 'ticket_description' );
 		$data['ticket_start_date']  = $this->get_value_by_key( $record, 'ticket_start_sale_date' );
 		$data['ticket_end_date']    = $this->get_value_by_key( $record, 'ticket_end_sale_date' );
+		$data['ticket_iac']         = $this->get_value_by_key( $record, 'ticket_iac' );
 
 		$show_description = trim( (string) $this->get_value_by_key( $record, 'ticket_show_description' ) );
 
@@ -227,6 +230,10 @@ abstract class Tribe__Tickets_Plus__CSV_Importer__Tickets_Importer extends Tribe
 
 		if ( '' !== $price ) {
 			$data['ticket_price'] = $price;
+		}
+
+ 		if ( empty( $data['ticket_iac'] ) ) {
+			$data['ticket_iac'] = tribe( 'tickets-plus.attendee-registration.iac' )->get_default_iac_setting();
 		}
 
 		$data = $this->modify_data( $record, $data );

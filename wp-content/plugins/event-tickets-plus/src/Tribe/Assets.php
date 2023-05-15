@@ -254,8 +254,11 @@ class Tribe__Tickets_Plus__Assets {
 			$enqueue_array,
 			'admin_enqueue_scripts',
 			[
-				'priority' => 0,
-				'groups'       => 'event-tickets-plus-admin',
+				'priority'     => 0,
+				'groups'       => [
+					'event-tickets-admin-attendees',
+					'event-tickets-plus-admin',
+				],
 				'conditionals' => [ $this, 'should_enqueue_admin' ],
 				'localize' => (object) [
 					'name' => 'tribe_qr',

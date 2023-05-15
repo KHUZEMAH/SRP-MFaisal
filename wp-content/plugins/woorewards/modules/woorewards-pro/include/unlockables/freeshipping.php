@@ -283,7 +283,8 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			\update_post_meta($coupon->get_id(), 'reward_origin', $this->getType());
 			\update_post_meta($coupon->get_id(), 'reward_origin_id', $this->getId());
 			if ($this->isPermanent())
-				$this->setPermanentcoupon($coupon, $user, $this->getType());
+				$this->setPermanentcoupon($coupon, $user, $this->getType(), $this->getPoolId());
+			$this->applyOnCoupon($coupon, $user, $this->getPoolId(), $demo);
 			if ($this->isAutoApply())
 				\update_post_meta($coupon->get_id(), 'lws_woorewards_auto_apply', 'on');
 

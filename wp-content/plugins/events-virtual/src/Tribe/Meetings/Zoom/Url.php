@@ -83,6 +83,7 @@ class Url extends Abstract_Url {
 	 * Returns the full OAuth URL to authorize the application.
 	 *
 	 * @since 1.13.2
+	 * @since 1.13.5 Changed the `state` var name.
 	 *
 	 * @return string The full OAuth URL to authorize the application.
 	 */

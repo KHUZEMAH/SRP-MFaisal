@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'Related orders', 'woocommerce-subscriptions' ); ?></h2>
 </header>
 
-<table class="shop_table shop_table_responsive my_account_orders woocommerce-orders-table woocommerce-MyAccount-orders woocommerce-orders-table--orders">
+<table class="shop_table shop_table_responsive my_account_orders test_dev woocommerce-orders-table woocommerce-MyAccount-orders woocommerce-orders-table--orders">
 
 	<thead>
 		<tr>

@@ -1,16 +1,16 @@
-# Copyright (C) 2022 The Events Calendar
+# Copyright (C) 2023 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar: Virtual Events 1.13.3\n"
+"Project-Id-Version: The Events Calendar: Virtual Events 1.13.4\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-25T10:28:11-08:00\n"
-"PO-Revision-Date: 2022-11-25 18:28\n"
+"POT-Creation-Date: 2023-02-07T07:12:55-08:00\n"
+"PO-Revision-Date: 2023-02-07 15:12\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: events-virtual\n"
 
@@ -777,12 +777,12 @@ msgctxt "Moved Online event status label"
 msgid "Moved Online"
 msgstr ""
 
-#: src/Tribe/Hooks.php:1026
+#: src/Tribe/Hooks.php:1029
 msgctxt "The label of the video source option."
 msgid "Search for video or meeting link"
 msgstr ""
 
-#: src/Tribe/Hooks.php:1063
+#: src/Tribe/Hooks.php:1066
 msgctxt "The name of the autodetect source."
 msgid "OEmbed"
 msgstr ""
@@ -1229,47 +1229,47 @@ msgctxt "Facebook video valid success message."
 msgid "Success! Save your event to add this video."
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:228
+#: src/Tribe/Meetings/Facebook_Provider.php:247
 msgctxt "The name of the video source."
 msgid "Facebook Live"
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:288
+#: src/Tribe/Meetings/Facebook_Provider.php:307
 msgctxt "The name of the autodetect source."
 msgid "Facebook Video"
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:448
+#: src/Tribe/Meetings/Facebook_Provider.php:467
 msgctxt "The message to display if no local id is found when trying to authorize a facebook page."
 msgid "The local id for the Facebook is not set."
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:463
+#: src/Tribe/Meetings/Facebook_Provider.php:482
 msgctxt "The message to display if no Facebook page wrap found."
 msgid "No Facebook Page data found."
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:478
+#: src/Tribe/Meetings/Facebook_Provider.php:497
 msgctxt "The message to display if no connection is established to the Facebook sdk."
 msgid "The Facebook Page could not be connected to your site, please try again."
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:493
+#: src/Tribe/Meetings/Facebook_Provider.php:512
 msgctxt "The message to display if a Facebook user could not obtain an extended access token."
 msgid "The attempt to get an extended Facebook user access token failed with error"
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:508
+#: src/Tribe/Meetings/Facebook_Provider.php:527
 msgctxt "The message to display if a Facebook Page could not obtain an access token."
 msgid "Unable to capture the Facebook page’s access token. Please verify your Facebook app credentials. The attempt failed with error"
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:523
+#: src/Tribe/Meetings/Facebook_Provider.php:542
 msgctxt "The message to display to confirm when deleting a Facebook Page."
 msgid "Are you sure you want to delete the Facebook Page? Deleting it will disconnect any upcoming virtual events using this Facebook Page."
 msgstr ""
 
-#: src/Tribe/Meetings/Facebook_Provider.php:538
+#: src/Tribe/Meetings/Facebook_Provider.php:557
 msgctxt "The message to display to confirm clear Facebook Page's access token."
 msgid "Are you sure you want to clear the access token? Clearing it will disconnect any upcoming virtual events using this Facebook Page until you authorize the page again."
 msgstr ""
@@ -1396,12 +1396,12 @@ msgctxt "Google Meet connected success message."
 msgid "Google Meet successfully connected!"
 msgstr ""
 
-#: src/Tribe/Meetings/Google_Provider.php:122
+#: src/Tribe/Meetings/Google_Provider.php:123
 msgctxt "The name of the video source."
 msgid "Google Meet"
 msgstr ""
 
-#: src/Tribe/Meetings/Google_Provider.php:145
+#: src/Tribe/Meetings/Google_Provider.php:146
 msgctxt "The name of the autodetect source."
 msgid "Google Meet"
 msgstr ""
@@ -1553,12 +1553,12 @@ msgctxt "Microsoft Meet connected success message."
 msgid "Microsoft Meet successfully connected!"
 msgstr ""
 
-#: src/Tribe/Meetings/Microsoft_Provider.php:139
+#: src/Tribe/Meetings/Microsoft_Provider.php:140
 msgctxt "The name of the video source."
 msgid "Microsoft (Teams and Skype)"
 msgstr ""
 
-#: src/Tribe/Meetings/Microsoft_Provider.php:162
+#: src/Tribe/Meetings/Microsoft_Provider.php:163
 msgctxt "The name of the autodetect source."
 msgid "Microsoft (Teams and Skype)"
 msgstr ""
@@ -1697,12 +1697,12 @@ msgctxt "Webex meeting/webinar connected success message."
 msgid "Webex meeting successfully connected!"
 msgstr ""
 
-#: src/Tribe/Meetings/Webex_Provider.php:297
+#: src/Tribe/Meetings/Webex_Provider.php:316
 msgctxt "The name of the video source."
 msgid "Webex"
 msgstr ""
 
-#: src/Tribe/Meetings/Webex_Provider.php:320
+#: src/Tribe/Meetings/Webex_Provider.php:339
 msgctxt "The name of the autodetect source."
 msgid "Webex"
 msgstr ""
@@ -1802,12 +1802,12 @@ msgctxt "YouTube offline message"
 msgid "The Live Stream is Offline."
 msgstr ""
 
-#: src/Tribe/Meetings/YouTube_Provider.php:146
+#: src/Tribe/Meetings/YouTube_Provider.php:147
 msgctxt "The name of the video source."
 msgid "YouTube Live"
 msgstr ""
 
-#: src/Tribe/Meetings/YouTube_Provider.php:289
+#: src/Tribe/Meetings/YouTube_Provider.php:290
 msgctxt "The message to display to confirm a user would like to delete a YouTube channel ID."
 msgid "Are you sure you want to delete your default YouTube channel ID?"
 msgstr ""
@@ -2000,17 +2000,17 @@ msgctxt "Zoom API loading error message for Zoom user validation."
 msgid "The Zoom API did not return the user settings. Please try refreshing the account in the Events Integration Settings."
 msgstr ""
 
-#: src/Tribe/Meetings/Zoom_Provider.php:479
+#: src/Tribe/Meetings/Zoom_Provider.php:497
 msgctxt "The name of the video source."
 msgid "Zoom"
 msgstr ""
 
-#: src/Tribe/Meetings/Zoom_Provider.php:557
+#: src/Tribe/Meetings/Zoom_Provider.php:575
 msgctxt "The name of the autodetect source."
 msgid "Zoom"
 msgstr ""
 
-#: src/Tribe/Meetings/Zoom_Provider.php:740
+#: src/Tribe/Meetings/Zoom_Provider.php:759
 msgctxt "The message to display to confirm a user would like to remove the Zoom connection from an event."
 msgid "Are you sure you want to remove this Zoom meeting from this event? This operation cannot be undone."
 msgstr ""

@@ -88,6 +88,7 @@ class Tribe__Tickets_Plus__Service_Provider extends tad_DI52_ServiceProvider {
 		$tickets_plus_main->admin_enqueue_scripts();
 
 		add_filter( 'event_tickets_attendees_edd_checkin_stati', tribe_callback( 'tickets-plus.commerce.edd.checkin-stati', 'filter_attendee_ticket_checkin_stati' ) );
+		add_filter( 'tec_tickets_completed_status_by_provider_name', tribe_callback( 'tickets-plus.commerce.edd.checkin-stati', 'filter_attendee_ticket_checkin_stati' ) );
 
 		add_filter( 'tribe_tickets_ticket_repository_map', tribe_callback( 'tickets.ticket-repository', 'filter_ticket_repository_map' ) );
 		add_filter( 'tribe_tickets_attendee_repository_map', tribe_callback( 'tickets.attendee-repository', 'filter_attendee_repository_map' ) );

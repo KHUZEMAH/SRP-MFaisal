@@ -23,12 +23,17 @@
 		border-radius: 0;
 		height: 100%;
 		max-width: 100vw;
+		min-height: 200px;
 		padding: 0;
 		width: 565px;
 
 		@media (--viewport-medium) {
 			border-radius: var(--tec-border-radius-default);
 			height: auto;
+		}
+
+		div[role="document"] {
+			min-height: 200px;
 		}
 
 		.tribe-common-c-loader {

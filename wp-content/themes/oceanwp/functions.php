@@ -4015,4 +4015,4 @@ function events_calendar_title() {
       <?php
   }
 }
-add_action( 'wp_footer','events_calendar_title');
+add_action('wp_footer','events_calendar_title');

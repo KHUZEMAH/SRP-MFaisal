@@ -220,7 +220,7 @@ class Manager
 		$this->ignoreSavingConfirmation();
 		if( $this->isTrialConsumed() )
 		{
-			$this->notice(__("Seems like your trial period has been already consumed.", LWS_MANAGER_DOMAIN));
+			$this->notice(__("Seems like your trial period has been already consumed.", 'lwsmanager'));
 			return false;
 		}
 
@@ -234,7 +234,7 @@ class Manager
 
 		if( \is_wp_error($data) || !\in_array(\intval($data['response']['code']), array(200, 301, 302)) )
 		{
-			$this->notice(__("There was a problem establishing a connection to the trial server.", LWS_MANAGER_DOMAIN));
+			$this->notice(__("There was a problem establishing a connection to the trial server.", 'lwsmanager'));
 			return false;
 		}
 
@@ -250,7 +250,7 @@ class Manager
 			/// s215 key is active and valid for domain
 			if( $dataBody->status == 'success' && \in_array($dataBody->status_code, array('s100', 's101', 's205', 's215')) && isset($dataBody->trial_status, $dataBody->trial_expire) )
 			{
-				$txt = array(__("Update to the premium Trial is now available.", LWS_MANAGER_DOMAIN));
+				$txt = array(__("Update to the premium Trial is now available.", 'lwsmanager'));
 				if( isset($dataBody->message) )
 					$txt[] = sprintf('<div class="lws-license-small-text">%s</div>', $this->serverMessage($dataBody->message, $dataBody->status_code));
 				$this->notice(implode('</br>', $txt), 'success');
@@ -260,11 +260,11 @@ class Manager
 				if( $d > \time() ){
 					$notice = \apply_filters('lws_adm_trialstart_msg', '', $this->getSlug(), $e, $d);
 					if (!$notice)
-						$notice = sprintf(__('The Trial for <i>%2$s</i> will expire the <b>%1$s</b>.', LWS_MANAGER_DOMAIN), $e, $this->getName());
+						$notice = sprintf(__('The Trial for <i>%2$s</i> will expire the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName());
 					$this->notice($notice, 'warning', '-e', false);
 				}
 				else
-					$this->notice(sprintf(__('The Trial for <i>%2$s</i> already expired the <b>%1$s</b>.', LWS_MANAGER_DOMAIN), $e, $this->getName()), 'error', '-e');
+					$this->notice(sprintf(__('The Trial for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName()), 'error', '-e');
 
 				$this->updateGlobalOption($this->getId('lwstrial_'), $d ? $d : 0);
 
@@ -277,7 +277,7 @@ class Manager
 			}
 			else
 			{
-				$txt = array(__("There was a problem activating the Trial. You may retry later.", LWS_MANAGER_DOMAIN));
+				$txt = array(__("There was a problem activating the Trial. You may retry later.", 'lwsmanager'));
 				if( isset($dataBody->message) )
 					$txt[] = $this->serverMessage($dataBody->message, $dataBody->status_code);
 				$this->notice(implode('</br>', $txt));
@@ -285,7 +285,7 @@ class Manager
 		}
 		else
 		{
-			$this->notice(__("There was a problem establishing a connection to the license service.", LWS_MANAGER_DOMAIN));
+			$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
 		}
 
 		return false;
@@ -469,7 +469,7 @@ class Manager
 
 		if( \is_wp_error($data) || !\in_array(\intval($data['response']['code']), array(200, 301, 302)) )
 		{
-			$this->notice(__("There was a problem establishing a connection to the license server.", LWS_MANAGER_DOMAIN));
+			$this->notice(__("There was a problem establishing a connection to the license server.", 'lwsmanager'));
 			return false;
 		}
 
@@ -489,12 +489,12 @@ class Manager
 				$level = $obsoleteKey ? 'info' : 'success';
 				$txt = array();
 				if( $obsoleteKey )
-					$txt[] = sprintf(__("The previews license key (%s) has been deactivated.", LWS_MANAGER_DOMAIN), $key);
+					$txt[] = sprintf(__("The previews license key (%s) has been deactivated.", 'lwsmanager'), $key);
 
 				if( isset($dataBody->message) )
 					$txt[] = sprintf('<div class="lws-license-small-text">%s</div>', $this->serverMessage($dataBody->message, $dataBody->status_code));
 				else
-					$txt[] = __("Licence Key Successfully Unassigned.", LWS_MANAGER_DOMAIN);
+					$txt[] = __("Licence Key Successfully Unassigned.", 'lwsmanager');
 
 				if ($notice)
 					$this->notice(implode('</br>', $txt), $level);
@@ -509,9 +509,9 @@ class Manager
 				$level = $obsoleteKey ? 'warning' : 'error';
 				$txt = array();
 				if( $obsoleteKey )
-					$txt[] = sprintf(__("There was a problem deactivating the previews license key (%s).", LWS_MANAGER_DOMAIN), $key);
+					$txt[] = sprintf(__("There was a problem deactivating the previews license key (%s).", 'lwsmanager'), $key);
 				else{
-					$txt[] = __("There was a problem deactivating the license.", LWS_MANAGER_DOMAIN);
+					$txt[] = __("There was a problem deactivating the license.", 'lwsmanager');
 					$this->updateGlobalOption($this->getId(), '');
 					$this->updateGlobalOption($this->getId('lwschk_'), false);
 				}
@@ -524,7 +524,7 @@ class Manager
 		else
 		{
 			if ($notice)
-				$this->notice(__("There was a problem establishing a connection to the license service.", LWS_MANAGER_DOMAIN));
+				$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
 		}
 		return false;
 	}
@@ -563,10 +563,10 @@ class Manager
 				{
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
 					if( $d->getTimestamp() < \date_create()->setTime(0,0,0)->getTimestamp() ){
-						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> expired the <b>%1$s</b> unless you opted for automatic renewal.', LWS_MANAGER_DOMAIN), $e, $this->getName(), $this->getKey()), 'error', '-e', false);
+						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> expired the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $this->getKey()), 'error', '-e', false);
 					}else{
 						$this->clearNotice('error', '-e');
-						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b>.', LWS_MANAGER_DOMAIN), $e, $this->getName(), $this->getKey()), 'warning', '-e', false);
+						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $this->getKey()), 'warning', '-e', false);
 					}
 				}
 
@@ -576,7 +576,7 @@ class Manager
 			}
 			else
 			{
-				$this->notice(sprintf(__('The license <b>%2$s</b> for <i>%1$s</i> expired.', LWS_MANAGER_DOMAIN), $this->getName(), $this->getKey()), 'error', '-c', false);
+				$this->notice(sprintf(__('The license <b>%2$s</b> for <i>%1$s</i> expired.', 'lwsmanager'), $this->getName(), $this->getKey()), 'error', '-c', false);
 				$this->readSubscription($dataBody, true);
 				$this->updateGlobalOption($this->getId(), '');
 				$dataBody->slug = $this->getSlug();
@@ -611,7 +611,7 @@ class Manager
 		if( \is_wp_error($data) || !\in_array(\intval($data['response']['code']), array(200, 301, 302)) )
 		{
 			\update_option('lws_lic_alternative_enabled', 'on'); // let's show an alternative way
-			$this->notice(__("There was a problem establishing a connection to the license server.", LWS_MANAGER_DOMAIN));
+			$this->notice(__("There was a problem establishing a connection to the license server.", 'lwsmanager'));
 			if (\is_wp_error($data))
 				$this->log('activate', $data->get_error_message());
 			else
@@ -649,9 +649,9 @@ class Manager
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
 					if ($notice) {
 						if( $d->getTimestamp() >= \date_create()->setTime(0,0,0)->getTimestamp() )
-							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', LWS_MANAGER_DOMAIN), $e, $this->getName(), $key), 'warning', '-e', false);
+							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $key), 'warning', '-e', false);
 						else
-							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', LWS_MANAGER_DOMAIN), $e, $this->getName(), $key), 'error', '-e');
+							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key), 'error', '-e');
 					}
 				} else {
 					if ($notice)
@@ -673,7 +673,7 @@ class Manager
 			}
 			else
 			{
-				$txt = array(sprintf(__("There was a problem activating the license (%s).", LWS_MANAGER_DOMAIN), $key));
+				$txt = array(sprintf(__("There was a problem activating the license (%s).", 'lwsmanager'), $key));
 				if( isset($dataBody->message) )
 					$txt[] = $this->serverMessage($dataBody->message, $dataBody->status_code);
 				if ($notice)
@@ -683,7 +683,7 @@ class Manager
 		else
 		{
 			if ($notice)
-				$this->notice(__("There was a problem establishing a connection to the license service.", LWS_MANAGER_DOMAIN));
+				$this->notice(__("There was a problem establishing a connection to the license service.", 'lwsmanager'));
 		}
 
 		return false;
@@ -714,14 +714,14 @@ class Manager
 	{
 		switch($code)
 		{
-			case 'e002': return __("Invalid licence key.", LWS_MANAGER_DOMAIN);
-			case 'e110': return __("Invalid licence key or licence not active for domain.", LWS_MANAGER_DOMAIN);
-			case 'e112': return __("You had reached the maximum number of domains for this key.", LWS_MANAGER_DOMAIN);
-			case 'e301': return __("Licence Key does not match this product.", LWS_MANAGER_DOMAIN);
-			case 's201': return __("Licence Key Successfully Unassigned.", LWS_MANAGER_DOMAIN);
-			case 's203': return __("Licence Key Is Unassigned.", LWS_MANAGER_DOMAIN);
-			case 's205': return __("Licence key Is Active and Valid for Domain.", LWS_MANAGER_DOMAIN);
-			case 's215': return __("Licence key Is Active and Valid for Domain.", LWS_MANAGER_DOMAIN);
+			case 'e002': return __("Invalid licence key.", 'lwsmanager');
+			case 'e110': return __("Invalid licence key or licence not active for domain.", 'lwsmanager');
+			case 'e112': return __("You had reached the maximum number of domains for this key.", 'lwsmanager');
+			case 'e301': return __("Licence Key does not match this product.", 'lwsmanager');
+			case 's201': return __("Licence Key Successfully Unassigned.", 'lwsmanager');
+			case 's203': return __("Licence Key Is Unassigned.", 'lwsmanager');
+			case 's205': return __("Licence key Is Active and Valid for Domain.", 'lwsmanager');
+			case 's215': return __("Licence key Is Active and Valid for Domain.", 'lwsmanager');
 		}
 		return $msg;
 	}
@@ -781,7 +781,7 @@ class Manager
 			|| false !== strpos($package, '/wordpress.org/')) {
 				// reject download from host of free version
 				return new \WP_Error('no_package', sprintf(
-					__("You have a %s PRO version installed but license seems deactivated. Please try to activate your license again before update the plugin.", LWS_MANAGER_DOMAIN),
+					__("You have a %s PRO version installed but license seems deactivated. Please try to activate your license again before update the plugin.", 'lwsmanager'),
 					$this->getName()
 				));
 			}
@@ -937,7 +937,7 @@ class Manager
 
 		if( \is_wp_error($data) || !\in_array(\intval($data['response']['code']), array(200, 301, 302)) )
 		{
-			$txt = __('An Unexpected HTTP Error occurred during the API request.' , LWS_MANAGER_DOMAIN);
+			$txt = __('An Unexpected HTTP Error occurred during the API request.' , 'lwsmanager');
 			return new \WP_Error('plugins_api_failed', $txt, $data);
 		}
 
@@ -974,7 +974,7 @@ class Manager
 		}
 		else
 		{
-			$txt = __('Unexpected response from API.' , LWS_MANAGER_DOMAIN);
+			$txt = __('Unexpected response from API.' , 'lwsmanager');
 			return new \WP_Error('plugins_api_failed', $txt, $response);
 		}
 	}
@@ -1018,7 +1018,7 @@ class Manager
 					if( $this->isZombie() )
 					{
 						$msg = sprintf(
-							__('Your support access for the plugin <b>%1$s</b> is no longer available. Please visit %2$s to expend your support period.', LWS_MANAGER_DOMAIN),
+							__('Your support access for the plugin <b>%1$s</b> is no longer available. Please visit %2$s to expend your support period.', 'lwsmanager'),
 							$this->getName(),
 							sprintf('<a href="%s" target="_blank">%s</a>', $this->getRemoteMyAccountURL(), $this->getPluginAuthor())
 						);
@@ -1027,7 +1027,7 @@ class Manager
 					else
 					{
 						$msg = sprintf(
-							__('Your subscription to plugin <b>%1$s</b> Premium Services expired. Please visit %2$s to expend your license period.', LWS_MANAGER_DOMAIN),
+							__('Your subscription to plugin <b>%1$s</b> Premium Services expired. Please visit %2$s to expend your license period.', 'lwsmanager'),
 							$this->getName(),
 							sprintf('<a href="%s" target="_blank">%s</a>', $this->getRemoteMyAccountURL(), $this->getPluginAuthor())
 						);
@@ -1104,12 +1104,12 @@ class Manager
 					$link = sprintf(
 						"<a href='%s' target='_blank'>%s</a>",
 						\esc_attr(\apply_filters('lws_adm_license_product_page_url', $this->getPluginURI(), $this->getSlug())),
-						sprintf(__("%s Premium", LWS_MANAGER_DOMAIN), $this->getName())
+						sprintf(__("%s Premium", 'lwsmanager'), $this->getName())
 					);
 					$date = \date_i18n(\get_option('date_format'), $e->getTimestamp());
 					$msg = \apply_filters('lws_adm_trialend_msg', '', $this->getSlug(), $date, $link, $delay, $diff, $e);
 					if (!$msg)
-						$msg = sprintf('<h2>' . __('Your Trial period expires the %1$d. Consider purchasing %2$s.', LWS_MANAGER_DOMAIN) . '</h2>', $date, $link);
+						$msg = sprintf('<h2>' . __('Your Trial period expires the %1$d. Consider purchasing %2$s.', 'lwsmanager') . '</h2>', $date, $link);
 					\lws_admin_add_notice($k, $msg, array('level' => 'warning', 'dismissible' => true, 'forgettable' => true));
 				}
 			}

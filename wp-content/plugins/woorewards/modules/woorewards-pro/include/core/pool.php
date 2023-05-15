@@ -19,6 +19,7 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 	protected $drmMaxPointsOnCart  = 0;         /// directRewardMode restriction: maximum usable points
 	protected $drmTotalFloor       = 0.0;       /// directRewardMode restriction: cart grandtotal cannot be less than
 	protected $drmMinSubtotal      = 0.0;       /// directRewardMode restriction: cart subtotal minimum amount to use points
+	protected $drmCats             = array();   /// directRewardMode restriction: assign category to virtual coupon
 	protected $adaptLevel          = false;     /// adapt user leveling rewards from going up or down, prodived for shared points.
 
 	public function getData()
@@ -490,6 +491,7 @@ EOT;
 			$this->drmMaxPointsOnCart  = \intval($this->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_max_points_on_cart', 0));
 			$this->drmTotalFloor       = \floatval($this->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_total_floor', 0.0));
 			$this->drmMinSubtotal      = \floatval($this->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_min_subtotal', 0.0));
+			$this->drmCats             = $this->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_discount_cats', array());
 		}
 
 		return parent::_customLoad($post, $load);
@@ -542,6 +544,7 @@ EOT;
 		\update_post_meta($this->id, 'wre_pool_direct_reward_max_points_on_cart',  $this->drmMaxPointsOnCart);
 		\update_post_meta($this->id, 'wre_pool_direct_reward_total_floor',         $this->drmTotalFloor);
 		\update_post_meta($this->id, 'wre_pool_direct_reward_min_subtotal',        $this->drmMinSubtotal);
+		\update_post_meta($this->id, 'wre_pool_direct_reward_discount_cats',       $this->drmCats);
 
 		$pn = (isset($this->pointName) && $this->pointName) ? $this->pointName : array('singular'=>'', 'plural'=>'');
 		\update_post_meta($this->id, 'wre_pool_point_name', $pn);
@@ -599,6 +602,7 @@ EOT;
 	 * * direct_reward_max_points_on_cart : (int) directRewardMode restriction: maximum points that can be used on the cart
 	 * * direct_reward_total_floor        : (float) directRewardMode restriction: cart subtotal cannot be less than
 	 * * direct_reward_min_subtotal       : (float) directRewardMode restriction: cart subtotal minimum amount to use points
+	 * * direct_reward_discount_cats      : (int[]) categories applied on the virtual coupon
 	 **/
 	function _getCustomOption($option, $default)
 	{
@@ -714,6 +718,12 @@ EOT;
 			case 'direct_reward_min_subtotal':
 				$value = $this->drmMinSubtotal;
 				break;
+			case 'direct_reward_discount_cats':
+				if ($this->drmCats && \is_array($this->drmCats))
+					$value = $this->drmCats;
+				else
+					$value = array();
+				break;
 			case 'loading_order':
 				$value = isset($this->order) ? $this->order : 1024;
 				break;
@@ -748,6 +758,7 @@ EOT;
 	 * * direct_reward_max_points_on_cart : (int) directRewardMode restriction: maximum points that can be used on the cart
 	 * * direct_reward_total_floor        : (float) directRewardMode restriction: cart subtotal cannot be less than
 	 * * direct_reward_min_subtotal       : (float) directRewardMode restriction: cart subtotal minimum amount to use points
+	 * * direct_reward_discount_cats      : (int[]) categories applied on the virtual coupon
 	 **/
 	protected function _setCustomOption($option, $value)
 	{
@@ -897,6 +908,12 @@ EOT;
 					$this->drmMinSubtotal = 0.0;
 				elseif (\is_numeric($value))
 					$this->drmMinSubtotal = \max(0.0, \floatval($value));
+				break;
+			case 'direct_reward_discount_cats':
+				if ($value)
+					$this->drmCats = (\is_array($value) ? $value : array($value));
+				else
+					$this->drmCats = array();
 				break;
 			case 'loading_order':
 				if (\is_numeric($value))

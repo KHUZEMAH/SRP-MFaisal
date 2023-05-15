@@ -19,6 +19,7 @@ use TEC\Events_Pro\Custom_Tables\V1\Series\Relationship;
 use TEC\Events_Pro\Custom_Tables\V1\Traits\With_Event_Recurrence;
 use TEC\Events_Pro\Custom_Tables\V1\Updates\Update_Controllers\Update_Controller_Interface as Update_Controller;
 use TEC\Events_Pro\Custom_Tables\V1\Updates\Transient_Occurrence_Redirector as Occurrence_Redirector;
+use Tribe__Date_Utils;
 use WP_Post;
 use WP_REST_Request;
 use Tribe__Events__Main as TEC;
@@ -156,6 +157,34 @@ class Controller {
 		$this->blocks_meta           = $blocks_meta;
 		$this->provisional_post      = $provisional_post;
 		$this->set_original_request( $this->requests->from_http_request() );
+	}
+
+	/**
+	 * Ensures our redirected ID does not show up in the REST response.
+	 *
+	 * @since 6.0.11
+	 *
+	 * @param WP_REST_Response $response Result to send to the client.
+	 *                                   Usually a WP_REST_Response or WP_Error.
+	 * @param array            $handler  Route handler used for the request.
+	 * @param WP_REST_Request  $request  Request used to generate the response.
+	 *
+	 * @return WP_REST_Response The modified WP_REST_Response.
+	 */
+	public function retain_original_id_in_response( WP_REST_Response $response, $handler, WP_REST_Request $request ): WP_REST_Response {
+		$redirected = $request->get_param( '_tec_initial_meta' );
+		if ( ! isset( $redirected['id'], $response->data['id'] ) ) {
+			return $response;
+		}
+
+		/**
+		 * Grab our original ID, and set it for the response.
+		 * Block Editor will get confused if it gets a response with a different ID.
+		 * It will think the save did not finish and remain in a 'dirty' state.
+		 */
+		$response->data['id'] = (int) $redirected['id'];
+
+		return $response;
 	}
 
 	/**
@@ -537,7 +566,7 @@ class Controller {
 			$request_start_date = null;
 			$meta               = $original_request->get_param( 'meta' );
 			if ( $original_request->get_param( 'EventStartDate' ) ) {
-				$request_start_date = $original_request->get_param( 'EventStartDate' ) . ' ' . $original_request->get_param( 'EventStartTime' );
+				$request_start_date = $original_request->get_param( 'EventStartDate' );
 			} else if ( isset( $meta['_EventStartDate'] ) ) {
 				$request_start_date = $meta['_EventStartDate'];
 			}
@@ -545,12 +574,18 @@ class Controller {
 			// Did we move this occurrence? Find it again.
 			$occurrence = null;
 			if ( $request_start_date ) {
+				// Normalize from datepicker to database format.
+				$request_start_date = Tribe__Date_Utils::maybe_format_from_datepicker( $request_start_date );
+				if ( $original_request->get_param( 'EventStartTime' ) ) {
+					$request_start_date = $request_start_date . ' ' . $original_request->get_param( 'EventStartTime' );
+				}
 				$request_start_date = new DateTime( $request_start_date );
-				$occurrence         = Occurrence::where(
+
+				$occurrence = Occurrence::where(
 					'start_date', '=', $request_start_date->format( 'Y-m-d H:i:s' ) )
-				                                ->where( 'post_id', $post_id )
-				                                ->order_by( 'start_date', 'ASC' )
-				                                ->first();
+				                        ->where( 'post_id', $post_id )
+				                        ->order_by( 'start_date', 'ASC' )
+				                        ->first();
 			}
 
 			// If we didn't find the adjusted occurrence let's grab the first one for this recurring event.
@@ -569,6 +604,23 @@ class Controller {
 						null,
 						false
 					);
+			}
+		} else if ( $updated && static::$should_redirect_occurrence ) {
+			/**
+			 * We updated something, but if it still exists stay on it.
+			 * When we change the global request variables, it will by default redirect (in classic editor) to that routed
+			 * occurrence. This avoids that default behavior and stays on the current occurrence.
+			 */
+			$transient_redirect = tribe( Transient_Occurrence_Redirector::class );
+			$from_id            = static::get_id( $original_request );
+			$redirect           = $transient_redirect->get_redirect_data( $from_id );
+			// If no explicitly defined redirect and this Occurrence still exists.
+			if ( ! $redirect && Occurrence::find( tribe( ID_Generator::class )->unprovide_id( $from_id ) ) ) {
+				// Store the old ID (our request may have been routed to a different occurrence, this ensures we retain it for this scenario).
+				$transient_redirect->set_redirected_id(
+					$from_id,
+					$from_id
+				);
 			}
 		}
 

@@ -1,14 +1,16 @@
 @import 'utilities/_all.pcss';
 
 /** Attendee Table Styles **/
+.column-attendee_actions,
 .column-edit_attendee {
+	text-align: center;
 	width: 50px;
 }
 
-.edit_attendee {
+.edit_attendee,
+.attendee_actions {
 	.edit-attendee-column-icon.dashicons {
 		margin-top: 4px;
-		transform: rotate(90deg);
 	}
 }
 
@@ -467,4 +469,15 @@ tr.event-tickets-meta-toggle-open {
 
 .tribe-tickets__admin-attendee-info-field-title-label--required {
 	font-style: italic;
+}
+
+.tec-tickets__admin-attendees {
+	button.tribe-tickets__manual-attendee-button--edit-attendee {
+		color: #aaa;
+
+		&:hover,
+		&:focus {
+			color: #333;
+		}
+	}
 }

@@ -87,7 +87,7 @@ abstract class Page
 		);
 		$page = array(
 			'id'       => $this->pageQueryArgs['page'],
-			'title'    => __("License", LWS_MANAGER_DOMAIN),
+			'title'    => __("License", 'lwsmanager'),
 			'rights'   => 'manage_options',
 			'tabs'     => array()
 		);

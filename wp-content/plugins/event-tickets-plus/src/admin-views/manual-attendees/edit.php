@@ -60,6 +60,8 @@ $classes = [
 
 	<?php $this->template( 'manual-attendees/fields/email' ); ?>
 
+	<?php $this->template( 'manual-attendees/fields/rsvp-status' ); ?>
+
 	<?php $this->template( 'manual-attendees/fields/meta-fields' ); ?>
 
 	<?php $this->template( 'manual-attendees/edit/buttons' ); ?>

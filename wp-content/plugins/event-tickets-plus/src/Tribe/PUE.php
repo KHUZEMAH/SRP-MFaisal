@@ -15,9 +15,11 @@ class Tribe__Tickets_Plus__PUE {
 	/**
 	 * This string must match the plugin slug as set in the PUE plugin library.
 	 *
+	 * @since 5.6.6 Make the property static.
+	 *
 	 * @var string
 	 */
-	private $pue_slug = 'event-tickets-plus';
+	private static $pue_slug = 'event-tickets-plus';
 
 	/**
 	 * @var string
@@ -59,13 +61,13 @@ class Tribe__Tickets_Plus__PUE {
 		 * @var bool   $enable_pue
 		 * @var string $pue_slug
 		 */
-		if ( ! class_exists( 'Tribe__PUE__Checker' ) || ! apply_filters( 'tribe_enable_pue', true, $this->pue_slug ) ) {
+		if ( ! class_exists( 'Tribe__PUE__Checker' ) || ! apply_filters( 'tribe_enable_pue', true, self::$pue_slug ) ) {
 			return;
 		}
 
 		$this->pue_instance = new Tribe__PUE__Checker(
 			$this->update_url,
-			$this->pue_slug,
+			self::$pue_slug,
 			array(),
 			plugin_basename( EVENT_TICKETS_PLUS_FILE )
 		);
@@ -100,16 +102,18 @@ class Tribe__Tickets_Plus__PUE {
 
 	/**
 	 * Register the uninstall hook on activation.
+	 *
+	 * @since 5.6.6 Make the method static.
 	 */
 	public function register_uninstall_hook() {
-		register_uninstall_hook( EVENT_TICKETS_PLUS_FILE, array( $this, 'uninstall' ) );
+		register_uninstall_hook( EVENT_TICKETS_PLUS_FILE, [ __CLASS__, 'uninstall' ] );
 	}
 
 	/**
 	 * Plugin has been uninstalled: clean up by purging various options from the database.
 	 */
-	public function uninstall() {
-		$slug = str_replace( '-', '_', $this->pue_slug );
+	public static function uninstall() {
+		$slug = str_replace( '-', '_', self::$pue_slug );
 		delete_option( 'pue_install_key_' . $slug );
 		delete_option( 'pu_dismissed_upgrade_' . $slug );
 	}

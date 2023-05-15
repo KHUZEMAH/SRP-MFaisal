@@ -27,11 +27,11 @@ class Media extends \LWS\Adminpanel\Pages\Field
 	private function html()
 	{
 		$img = '';
-		$del = esc_attr(__("Remove", LWS_ADMIN_PANEL_DOMAIN));
-		$title = esc_attr(__("Select a media", LWS_ADMIN_PANEL_DOMAIN));
-		$pick = esc_attr(__("Use the selected item", LWS_ADMIN_PANEL_DOMAIN));
-		$add = esc_attr(__("Select a media", LWS_ADMIN_PANEL_DOMAIN));
-		$edit = esc_attr(__("Edit...", LWS_ADMIN_PANEL_DOMAIN));
+		$del = esc_attr(__("Remove", 'lws-adminpanel'));
+		$title = esc_attr(__("Select a media", 'lws-adminpanel'));
+		$pick = esc_attr(__("Use the selected item", 'lws-adminpanel'));
+		$add = esc_attr(__("Select a media", 'lws-adminpanel'));
+		$edit = esc_attr(__("Edit...", 'lws-adminpanel'));
 
 		$value = $this->readOption();
 		$size = $this->getExtraValue('size', 'small');

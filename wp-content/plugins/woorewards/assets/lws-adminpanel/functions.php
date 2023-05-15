@@ -362,12 +362,19 @@ if( !function_exists('lws_array_to_html') )
 	 *		to surround the whole array.
 	 *	* use a 'join' to specify a separator as '</br>'
 	 *	* use a 'cast' entry to specify a default dom element for first level children.
+	 *	* use a 'wp' to add a gutenberg surrounding tag over the whole bloc (do not put the wp: prefix in the value).
 	 *	Default dom element is a <p> if 'tag' is not specified
 	 *	Special cases:
 	 *	* UL children are deployed as LI.
 	 *	* By default, LI children are embeded in a <span>, if several children, the first is in a <strong>. */
 	function lws_array_to_html(array $descr, $default='')
 	{
+		$gutenberg = false;
+		if( isset($descr['wp']) ){
+			$gutenberg = $descr['wp'];
+			unset($descr['wp']);
+		}
+
 		$bal = $default;
 		if( isset($descr['tag']) ){
 			$bal = $descr['tag'];
@@ -418,6 +425,8 @@ if( !function_exists('lws_array_to_html') )
 		$html = implode($join, $descr);
 		if( $tag )
 			$html = sprintf("<{$tag}{$args}>%s</{$tag}>", $html);
+		if ($gutenberg)
+			$html = sprintf("<!-- wp:%s -->%s<!-- /wp:%s -->", $gutenberg, $html, $gutenberg);
 		return $html;
 	}
 }

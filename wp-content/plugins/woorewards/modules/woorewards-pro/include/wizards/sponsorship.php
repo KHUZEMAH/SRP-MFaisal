@@ -281,9 +281,9 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 		}
 		else if( 'order' === $action )
 		{
-			$event = new \LWS\WOOREWARDS\PRO\Events\SponsoredFirstOrder();
+			$event = new \LWS\WOOREWARDS\Events\SponsoredOrder();
 			$event->setFirstOrderOnly(true);
-			$pool->addEvent($event,'1');
+			$pool->addEvent($event, '1');
 		}
 
 		/* Reward */

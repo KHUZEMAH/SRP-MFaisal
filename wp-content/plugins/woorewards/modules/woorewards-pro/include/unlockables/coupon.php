@@ -412,8 +412,9 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 	{
 		$coupon = parent::createShopCoupon($code, $user, $demo);
 		if (!$demo && $this->isPermanent() && $coupon && !empty($coupon->get_id())) {
-			$this->setPermanentcoupon($coupon, $user, $this->getType());
+			$this->setPermanentcoupon($coupon, $user, $this->getType(), $this->getPoolId());
 		}
+		$this->applyOnCoupon($coupon, $user, $this->getPoolId(), $demo);
 		if (!$demo && $this->isAutoApply() && $coupon && !empty($coupon->get_id())) {
 			\update_post_meta($coupon->get_id(), 'lws_woorewards_auto_apply', 'on');
 		}

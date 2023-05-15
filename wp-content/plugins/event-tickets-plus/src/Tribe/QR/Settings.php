@@ -61,7 +61,7 @@ class Tribe__Tickets_Plus__QR__Settings {
 				'html' => $this->get_app_banner(),
 			],
 			'tickets-enable-qr-codes'                  => [
-				'type'            => 'checkbox_bool',
+				'type'            => 'toggle',
 				'label'           => esc_html__( 'Use QR Codes', 'event-tickets-plus' ),
 				'tooltip'         => esc_html(
 					sprintf(
@@ -80,7 +80,7 @@ class Tribe__Tickets_Plus__QR__Settings {
 			$events_label_singular_lower = tribe_get_event_label_singular_lowercase( 'check_in_app' );
 			if ( in_array( Tribe__Events__Main::POSTTYPE, $enabled_post_types ) ) {
 				$qr_settings['tickets-plus-qr-check-in-events-happening-now'] = [
-					'type'            => 'checkbox_bool',
+					'type'            => 'toggle',
 					'label'           => esc_html__( 'Restrict Check-In', 'event-tickets-plus' ),
 					'tooltip'         => esc_html(
 						sprintf(

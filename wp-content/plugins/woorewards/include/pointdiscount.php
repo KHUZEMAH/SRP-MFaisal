@@ -18,7 +18,7 @@ class PointDiscount
 		\add_filter('woocommerce_cart_totals_coupon_label', array($me, 'asLabel'), 20, 2);
 		\add_filter('woocommerce_order_item_get_code', array($me, 'asCode'), 20, 2);
 		\add_filter('woocommerce_coupon_error', array($me, 'asError'), 20, 3);
-		\add_filter('woocommerce_get_shop_coupon_data', array($me, 'asData'), PHP_INT_MAX, 3);
+		\add_filter('woocommerce_get_shop_coupon_data', array($me, 'asData'), PHP_INT_MAX - 8, 3);
 		// save coupon meta
 		\add_action('woocommerce_checkout_create_order_coupon_item', array($me, 'createOrderItem'), 10, 4);
 		// release points

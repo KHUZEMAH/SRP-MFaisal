@@ -118,6 +118,18 @@ class View {
 			'attendee_added_by' => get_current_user_id(),
 		];
 
+		// Setup RSVP order status if provided.
+		$rsvp_status = Arr::get( $submission, 'tribe-tickets-plus-ma-rsvp-status', false );
+		if ( $rsvp_status ) {
+			$rsvp_status_options = \Tribe__Tickets__Tickets_View::instance()->get_rsvp_options();
+			$attendee_data['attendee_status'] = $rsvp_status;
+
+			// check if rsvp status is valid.
+			if ( ! isset( $rsvp_status_options[ $attendee_data['attendee_status'] ] ) ) {
+				return new WP_Error( 'tribe-tickets-plus-manual-attendees-view-invalid-rsvp-status', __( 'Invalid RSVP status, please try again.', 'event-tickets-plus' ) );
+			}
+		}
+
 		// Handle editing attendees.
 		if ( 'edit' === $step ) {
 			$attendee_data['send_ticket_email'] = $attendee_email_resend;
@@ -279,6 +291,11 @@ class View {
 			'attendee_meta'         => $attendee_meta,
 			'allow_resending_email' => $allow_resending_email,
 		];
+
+		// Add the RSVP options if this is an RSVP ticket with not going option enabled.
+		if ( $is_rsvp && tribe( 'tickets.rsvp' )->is_not_going_enabled( $ticket_id ) ) {
+			$template_args['rsvp_options'] = tribe( 'tickets.tickets-view' )->get_rsvp_options();
+		}
 
 		return $template_args;
 	}

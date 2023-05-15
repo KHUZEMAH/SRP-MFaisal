@@ -12,7 +12,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '5.6.5';
+		const VERSION = '5.6.10';
 
 		/**
 		 * Used to store the version history.
@@ -143,6 +143,8 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 
 			// Force Woo cart functionality over REST API.
 			add_action( 'before_woocommerce_init', tribe_callback( Tribe__Tickets_Plus__Commerce__WooCommerce__Cart::class, 'force_woo_cart_for_rest_api' ) );
+
+			add_action( 'plugins_loaded', [ $this, 'tec_tickets_plus_plugins_loaded' ] );
 		}
 
 		/**
@@ -179,9 +181,6 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			// Views v2 compatibility.
 			tribe_register_provider( Tribe\Tickets\Plus\Views\V2\Service_Provider::class );
 
-			// Attendee List Resend Tickets Handler.
-			tribe_register_provider( Tribe\Tickets\Plus\Service_Providers\Resend_Tickets_Handler::class );
-
 			// WooCommerce Enhanced Templates.
 			tribe_register_provider( Tribe\Tickets\Plus\Commerce\WooCommerce\Enhanced_Templates\Service_Provider::class );
 
@@ -197,6 +196,18 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 
 			$this->apm_filters();
 			$this->maybe_set_event_tickets_plus_version();
+		}
+
+		/**
+		 * Method executed on `plugins_loaded`.
+		 *
+		 * @since 5.6.8
+		 *
+		 * @return void
+		 */
+		public function tec_tickets_plus_plugins_loaded() {
+			// Attendee List Resend Tickets Handler.
+			tribe_register_provider( Tribe\Tickets\Plus\Service_Providers\Resend_Tickets_Handler::class );
 		}
 
 		/**

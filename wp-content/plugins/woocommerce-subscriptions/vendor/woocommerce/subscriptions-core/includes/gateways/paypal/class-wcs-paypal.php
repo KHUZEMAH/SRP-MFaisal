@@ -104,6 +104,9 @@ class WCS_PayPal {
 		// Remove PayPal from the available payment methods if it's disabled for subscription purchases.
 		add_filter( 'woocommerce_available_payment_gateways', array( __CLASS__, 'maybe_remove_paypal_standard' ) );
 
+		// Add PayPal domains to the list of allowed hosts for safe redirect.
+		add_filter( 'allowed_redirect_hosts', __CLASS__ . '::allow_paypal_redirect' );
+
 		WCS_PayPal_Supports::init();
 		WCS_PayPal_Status_Manager::init();
 		WCS_PayPal_Standard_Switcher::init();
@@ -439,26 +442,31 @@ class WCS_PayPal {
 	}
 
 	/**
-	 * Maybe adds a warning message to subscription script parameters which is used in a Javascript dialog if the
-	 * payment method of the subscription is set to be changed. The warning message is only added if the subscriptions
-	 * payment gateway is PayPal Standard.
+	 * Adds script parameters necessary to display a JS dialog when changing a PayPal subscription's payment method.
+	 *
+	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v2.0
 	 *
 	 * @param array $script_parameters The script parameters used in subscription meta boxes.
 	 * @return array $script_parameters
-	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v2.0
 	 */
 	public static function maybe_add_change_payment_method_warning( $script_parameters ) {
-		global $post;
-		$subscription = wcs_get_subscription( $post );
+		global $post, $theorder;
 
-		if ( 'paypal' === $subscription->get_payment_method() ) {
+		if ( wcs_is_custom_order_tables_usage_enabled() ) {
+			$subscription = $theorder; // $theorder is a subscription object on Edit subscription admin screens.
+		} else {
+			$subscription = wcs_get_subscription( $post->ID );
+		}
 
-			$paypal_profile_id  = wcs_get_paypal_id( $subscription->get_id() );
-			$is_paypal_standard = ! wcs_is_paypal_profile_a( $paypal_profile_id, 'billing_agreement' );
+		if ( ! $subscription || 'paypal' !== $subscription->get_payment_method() ) {
+			return $script_parameters;
+		}
 
-			if ( $is_paypal_standard ) {
-				$script_parameters['change_payment_method_warning'] = __( "Are you sure you want to change the payment method from PayPal standard?\n\nThis will suspend the subscription at PayPal.", 'woocommerce-subscriptions' );
-			}
+		$paypal_profile_id  = wcs_get_paypal_id( $subscription->get_id() );
+		$is_paypal_standard = ! wcs_is_paypal_profile_a( $paypal_profile_id, 'billing_agreement' );
+
+		if ( $is_paypal_standard ) {
+			$script_parameters['change_payment_method_warning'] = __( "Are you sure you want to change the payment method from PayPal standard?\n\nThis will suspend the subscription at PayPal.", 'woocommerce-subscriptions' );
 		}
 
 		return $script_parameters;
@@ -530,6 +538,21 @@ class WCS_PayPal {
 			$order->delete_meta_data( 'wcs_lock_order_payment' );
 			$order->save();
 		}
+	}
+
+	/**
+	 * Allow PayPal domains for redirect.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $hosts Add PayPal domains for `wp_safe_redirect`.
+	 *
+	 * @return array
+	 */
+	public static function allow_paypal_redirect( $hosts ) {
+		$hosts[] = 'www.paypal.com';
+		$hosts[] = 'www.sandbox.paypal.com';
+		return $hosts;
 	}
 
 	/** Getters ******************************************************/

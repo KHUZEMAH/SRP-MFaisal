@@ -50,7 +50,7 @@ class SupportPage extends \LWS\Manager\Ui\Page
 		if (\preg_match('/no-?reply/i', $email)) {
 			\lws_admin_add_notice_once(
 				'lws_adm_support_request',
-				__("You cannot use a <b>no-reply</b> address to contact the support. Please make sure this is a valid email that you consult frequently.", LWS_MANAGER_DOMAIN),
+				__("You cannot use a <b>no-reply</b> address to contact the support. Please make sure this is a valid email that you consult frequently.", 'lwsmanager'),
 				array('level' => 'error')
 			);
 			return false;
@@ -92,13 +92,13 @@ class SupportPage extends \LWS\Manager\Ui\Page
 
 		if( !$sent )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', sprintf(__("Sorry, the mail failed to be sent. You can try again or use the &lt;%s&gt; contact address.", LWS_MANAGER_DOMAIN), 'contact@longwatchstudio.com'));
+			\lws_admin_add_notice_once('lws_adm_support_request', sprintf(__("Sorry, the mail failed to be sent. You can try again or use the &lt;%s&gt; contact address.", 'lwsmanager'), 'contact@longwatchstudio.com'));
 			$this->saveLastValues();
 			return $value;
 		}
 
 		$this->saveLastValues(true);
-		\lws_admin_add_notice_once('lws_adm_support_request', __("Your request has been sent to our support team. We will respond as soon as possible.", LWS_MANAGER_DOMAIN), array('level' => 'success'));
+		\lws_admin_add_notice_once('lws_adm_support_request', __("Your request has been sent to our support team. We will respond as soon as possible.", 'lwsmanager'), array('level' => 'success'));
 		return $value;
 	}
 
@@ -237,22 +237,22 @@ class SupportPage extends \LWS\Manager\Ui\Page
 
 		if( !$values['lws_adm_support_user_name'] )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, fill your Name before sending the mail.", LWS_MANAGER_DOMAIN));
+			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, fill your Name before sending the mail.", 'lwsmanager'));
 			return false;
 		}
 		if( !$values['lws_adm_support_email'] )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, set a response EMail.", LWS_MANAGER_DOMAIN));
+			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, set a response EMail.", 'lwsmanager'));
 			return false;
 		}
 		if( !$values['lws_adm_support_subject'] )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, select a Subject before sending the mail.", LWS_MANAGER_DOMAIN));
+			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, select a Subject before sending the mail.", 'lwsmanager'));
 			return false;
 		}
 		if( !$values['lws_adm_support_request'] )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, Fill your request before sending the mail.", LWS_MANAGER_DOMAIN));
+			\lws_admin_add_notice_once('lws_adm_support_request', __("Please, Fill your request before sending the mail.", 'lwsmanager'));
 			return false;
 		}
 		return $values;
@@ -306,7 +306,7 @@ class SupportPage extends \LWS\Manager\Ui\Page
 	{
 		$page = array(
 			'id'     => $this->getTabId(),
-			'title'  => __("Support", LWS_MANAGER_DOMAIN),
+			'title'  => __("Support", 'lwsmanager'),
 			'icon'   => 'lws-icon-support',
 			'nosave' => true,
 		);
@@ -321,8 +321,12 @@ class SupportPage extends \LWS\Manager\Ui\Page
 		return $page;
 	}
 
-	function forceTinyMceInHtmlMode()
+	public function doLateSettings()
 	{
+		\wp_enqueue_script('lws-support', LWS_MANAGER_JS . '/support.js', array('lws-base64', 'jquery'), LWS_MANAGER_VERSION, true);
+		\wp_enqueue_style('lws-support', LWS_MANAGER_CSS . '/support.min.css', array('lws-icons'), LWS_MANAGER_VERSION);
+
+		// force TinyMce in HTML mode
 		\add_filter('wp_editor_settings', function($settings){
 			$settings['quicktags'] = false;
 			$settings['wpautop'] = false;
@@ -370,10 +374,10 @@ EOT;
 		$groups['info'] = array(
 			'id'     => 'help',
 			'icon'   => 'lws-icon-info',
-			'title'  => __("Support Instructions", LWS_MANAGER_DOMAIN),
+			'title'  => __("Support Instructions", 'lwsmanager'),
 			'color'  => '#335696',
 			'class'  => 'half',
-			'text'   => __("Please read the instructions carefully before sending a support request.", LWS_MANAGER_DOMAIN),
+			'text'   => __("Please read the instructions carefully before sending a support request.", 'lwsmanager'),
 			'fields' => array(
 				'subject' => array(
 					'id'    => '',
@@ -435,11 +439,11 @@ EOT;
 		$groups['form'] = array(
 			'id'     => 'form',
 			'icon'   => 'lws-icon-support',
-			'title'  => sprintf(__("Support Request for <b>%s</b>", LWS_MANAGER_DOMAIN), $this->getPluginInfo('Name')),
+			'title'  => sprintf(__("Support Request for <b>%s</b>", 'lwsmanager'), $this->getPluginInfo('Name')),
 			'color'  => '#336666',
 			'class'  => 'half',
-			'text'   => __("Fill in the form below to send a support request.", LWS_MANAGER_DOMAIN),
-			'function' => array($this, 'forceTinyMceInHtmlMode'),
+			'text'   => __("Fill in the form below to send a support request.", 'lwsmanager'),
+			'function' => array($this, 'doLateSettings'),
 			'delayedFunction' => function()use($subjects){echo implode('', $subjects['texts']);},
 			'fields' => array(
 				'timestamp' => array(
@@ -453,7 +457,7 @@ EOT;
 				'username' => array(
 					'id'    => 'lws_adm_support_user_name',
 					'type'  => 'input',
-					'title' => __('Your Name', LWS_MANAGER_DOMAIN),
+					'title' => __('Your Name', 'lwsmanager'),
 					'extra' => array(
 						'noconfirm' => true,
 						'value'     => $values['lws_adm_support_user_name'],
@@ -464,19 +468,19 @@ EOT;
 				'email' => array(
 					'id'    => 'lws_adm_support_email',
 					'type'  => 'input',
-					'title' => __('Your Email', LWS_MANAGER_DOMAIN),
+					'title' => __('Your Email', 'lwsmanager'),
 					'extra' => array(
 						'noconfirm' => true,
 						'value' => $values['lws_adm_support_email'],
 						'size'	=> '40',
 						'gizmo' => true,
-						'help'  => __("The email we will response to. Please make sure this is a valid email that you consult frequently.", LWS_MANAGER_DOMAIN),
+						'help'  => __("The email we will response to. Please make sure this is a valid email that you consult frequently.", 'lwsmanager'),
 					)
 				),
 				'subject' => array(
 					'id'    => 'lws_adm_support_subject',
 					'type'  => 'lacselect',
-					'title' => __('Subject', LWS_MANAGER_DOMAIN),
+					'title' => __('Subject', 'lwsmanager'),
 					'extra' => array(
 						'noconfirm' => true,
 						'source'    => $subjects['select'],
@@ -488,10 +492,10 @@ EOT;
 				'request' => array(
 					'id'    => 'lws_adm_support_request',
 					'type'  => 'wpeditor',
-					'title' => __("Your Request", LWS_MANAGER_DOMAIN),
+					'title' => __("Your Request", 'lwsmanager'),
 					'extra' => array(
 						'value' => $values['lws_adm_support_request'],
-						'help'      => __("Describe your problem here, what happen, what is expected, what did you do.", LWS_MANAGER_DOMAIN),
+						'help'      => __("Describe your problem here, what happen, what is expected, what did you do.", 'lwsmanager'),
 						'textarea_rows' => 12,
 						'gizmo'     => true,
 					)
@@ -503,7 +507,7 @@ EOT;
 						'gizmo'   => true,
 						'content' => sprintf(
 							"<button type='submit' class='lws-button-link'>%s</button>",
-							__("Send the support request", LWS_MANAGER_DOMAIN)
+							__("Send the support request", 'lwsmanager')
 						),
 					)
 				),

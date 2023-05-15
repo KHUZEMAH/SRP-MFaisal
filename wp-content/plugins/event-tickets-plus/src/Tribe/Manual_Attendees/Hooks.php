@@ -101,7 +101,7 @@ class Hooks {
 		return \Tribe__Main::array_insert_after_key(
 			'check_in',
 			$columns,
-			[ 'edit_attendee' => esc_html_x( 'Edit', 'attendee table edit column header', 'event-tickets-plus' ) ]
+			[ 'attendee_actions' => esc_html_x( 'Actions', 'attendee table actions column header', 'event-tickets-plus' ) ]
 		);
 	}
 
@@ -117,7 +117,7 @@ class Hooks {
 	 * @return string Link with edit icon for edit column.
 	 */
 	public function render_column_edit_attendee( $value, $item, $column ) {
-		if ( 'edit_attendee' != $column ) {
+		if ( 'attendee_actions' != $column ) {
 			return $value;
 		}
 
@@ -143,7 +143,7 @@ class Hooks {
 		}
 
 		$button_text  = '<span class="screen-reader-text tribe-common-a11y-visual-hide">' . esc_html_x( 'Edit Attendee', 'edit attendee button', 'event-tickets-plus' ) . '</span>';
-		$button_text .= '<span class="edit-attendee-column-icon dashicons dashicons-ellipsis"></span>';
+		$button_text .= '<span class="edit-attendee-column-icon dashicons dashicons-edit"></span>';
 
 		$button_args = [
 			'button_text'       => $button_text,
@@ -157,6 +157,7 @@ class Hooks {
 			'button_classes'    => [
 				'button-link',
 				'edit-attendee',
+				'tribe-tickets__manual-attendee-button--edit-attendee',
 			],
 		];
 

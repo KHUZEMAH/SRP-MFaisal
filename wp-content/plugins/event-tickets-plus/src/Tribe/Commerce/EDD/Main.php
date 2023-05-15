@@ -549,7 +549,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		 *
 		 * @param int $order_id The order ID.
 		 */
-		do_action( 'tribe_tickets_plus_woo_before_generate_tickets', $order_id );
+		do_action( 'tribe_tickets_plus_edd_before_generate_tickets', $order_id );
 
 		// Bail if we already generated the info for this order
 		$done = get_post_meta( $order_id, $this->order_has_tickets, true );
@@ -574,7 +574,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		}
 
 		if ( $has_tickets ) {
-			update_post_meta( $order_id, $this->order_has_tickets, '1' );
+			edd_update_payment_meta( $order_id, $this->order_has_tickets, '1' );
 
 			// Send the email to the user
 			do_action( 'eddtickets-send-tickets-email', $order_id );
@@ -1261,7 +1261,10 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		}
 
 		$tickets_in_cart = tribe( 'tickets-plus.commerce.edd.cart' )->get_tickets_in_cart();
-		$cart_has_meta   = Tribe__Tickets_Plus__Main::instance()->meta()->cart_has_meta( $tickets_in_cart );
+
+		/** @var Tribe__Tickets_Plus__Meta $meta */
+		$meta = tribe( 'tickets-plus.meta' );
+		$cart_has_meta   = $meta->cart_has_meta( $tickets_in_cart );
 
 		if ( $tickets_in_cart && $cart_has_meta ) {
 			$url = add_query_arg( tribe_tickets_get_provider_query_slug(), $this->attendee_object, tribe( 'tickets.attendee_registration' )->get_url() );
@@ -1568,6 +1571,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 				'optout'        => $optout,
 				'user_id'       => $user_id,
 				'ticket_sent'   => $ticket_sent,
+				'order_id_url'  => $this->get_order_edit_url( $order_id ),
 
 				// Fields for Email Tickets.
 				'event_id'      => get_post_meta( $attendee->ID, $this->attendee_event_key, true ),
@@ -1673,6 +1677,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 			return array();
 		}
 
+		$payment   = edd_get_payment( $order_id );
 		$user_info = edd_get_payment_meta_user_info( $order_id );
 
 		// The order does not exist so return some default values.
@@ -1692,8 +1697,8 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 
 		$name          = $user_info['first_name'] . ' ' . $user_info['last_name'];
 		$email         = $user_info['email'];
-		$order_status  = get_post_field( 'post_status', $order_id );
-		$status_label  = edd_get_payment_status( get_post( $order_id ), true );
+		$order_status  = edd_get_payment_status( $order_id );
+		$status_label  = edd_get_payment_status( $order_id, true );
 
 		// Warning flag for refunded, cancelled, failed, and revoked orders
 		$order_warning      = false;
@@ -1711,7 +1716,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 			'purchaser_email'    => $email,
 			'provider'           => __CLASS__,
 			'provider_slug'      => $this->orm_provider,
-			'purchase_time'      => get_post_time( Tribe__Date_Utils::DBDATETIMEFORMAT, false, $order_id ),
+			'purchase_time'      => Tribe__Date_Utils::reformat( $payment->date, Tribe__Date_Utils::DBDATETIMEFORMAT ),
 		];
 
 		/**
@@ -2493,24 +2498,43 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 			$individual_attendee_email = apply_filters( 'tribe_tickets_attendee_create_individual_email', $email, $i, $order_id, $product_id, $post_id, $this );
 
 			$attendee_data = [
-				'title'					=> $order_id . ' | ' . $individual_attendee_name . ' | ' . ( $i + 1 ),
-				'full_name'				=> $individual_attendee_name,
-				'email'					=> $individual_attendee_email,
-				'ticket_id'				=> $product_id,
-				'order_id'				=> $order_id,
-				// Order of submitted attendees, used for meta data.
-				'order_attendee_id'		=> $i,
-				'post_id'				=> $post_id,
-				'optout'					=> $optout,
-				'price_paid'				=> $this->get_price_value( $product_id ),
-				'price_currency'			=> $currency_symbol,
-				'user_id'				=> $user_id,
+					'title'             => $order_id . ' | ' . $individual_attendee_name . ' | ' . ( $i + 1 ),
+					'full_name'         => $individual_attendee_name,
+					'email'             => $individual_attendee_email,
+					'ticket_id'         => $product_id,
+					'order_id'          => $order_id,
+					// Order of submitted attendees, used for meta data.
+					'order_attendee_id' => $i,
+					'post_id'           => $post_id,
+					'optout'            => $optout,
+					'price_paid'        => $this->get_price_value( $product_id ),
+					'price_currency'    => $currency_symbol,
+					'user_id'           => $user_id,
 			];
 
 			$this->create_attendee( $ticket, $attendee_data );
 		}
 
 		return true;
+	}
+
+	/**
+	 * Returns the order edit link for the given id.
+	 *
+	 * @since 5.6.6
+	 *
+	 * @param int $order_id The order id.
+	 *
+	 * @return string The order edit link
+	 */
+	public function get_order_edit_url( $order_id ): string {
+		return edd_get_admin_url(
+				[
+					'page' => 'edd-payment-history',
+					'view' => 'view-order-details',
+					'id'   => absint( $order_id ),
+				]
+		);
 	}
 
 	/**

@@ -32,6 +32,7 @@
 	}
 
 	.tribe-report-panel .welcome-panel-content {
+		border: 1px solid #c3c4c7;
 		min-height: initial;
 	}
 
@@ -132,9 +133,6 @@
 
 .tribe-report-page .tickets_uncheckin {
 		display: none;
-		height: auto;
-		line-height: 1.5;
-		white-space: normal;
 	}
 
 .tribe-report-page .tickets_checked td {

@@ -1,9 +1,6 @@
 <?php
 namespace Automattic\WooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-
-
 /**
  * ProductImageGallery class.
  */
@@ -16,6 +13,13 @@ class ProductImageGallery extends AbstractBlock {
 	protected $block_name = 'product-image-gallery';
 
 	/**
+	 * It isn't necessary register block assets because it is a server side block.
+	 */
+	protected function register_block_type_assets() {
+		return null;
+	}
+
+	/**
 	 *  Register the context
 	 *
 	 * @var string
@@ -23,7 +27,6 @@ class ProductImageGallery extends AbstractBlock {
 	protected function get_block_type_uses_context() {
 		return [ 'query', 'queryId', 'postId' ];
 	}
-
 
 	/**
 	 * Include and render the block.
@@ -45,14 +48,18 @@ class ProductImageGallery extends AbstractBlock {
 		}
 
 		$classname = $attributes['className'] ?? '';
+		ob_start();
+		woocommerce_show_product_sale_flash();
+		$sale_badge_html = ob_get_clean();
 
 		ob_start();
 		woocommerce_show_product_images();
 		$product_image_gallery_html = ob_get_clean();
 
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-image-gallery %1$s">%2$s</div>',
+			'<div class="wp-block-woocommerce-product-image-gallery %1$s">%2$s %3$s</div>',
 			esc_attr( $classname ),
+			$sale_badge_html,
 			$product_image_gallery_html
 		);
 

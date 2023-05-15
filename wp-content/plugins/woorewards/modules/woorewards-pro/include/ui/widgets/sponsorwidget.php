@@ -88,7 +88,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		$fields['mailsponsorship'] = array(
 			'id' => 'lws_woorewards_sc_email_sponsorship',
-			'title' => __("Email Sponsorship", 'woorewards-pro'),
+			'title' => __("Email Referral", 'woorewards-pro'),
 			'type' => 'shortcode',
 			'extra' => array(
 				'shortcode' => '[lws_sponsorship header="your header" button="Send" unlogged="true"]',

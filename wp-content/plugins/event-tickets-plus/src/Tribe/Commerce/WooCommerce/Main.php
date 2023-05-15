@@ -2753,6 +2753,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	 * Currently, that includes the sku, ecommerce links, and ticket history
 	 *
 	 * @since 4.6
+	 * @since 5.6.9 Removed `tribe_is_frontend` so the SKU displays when using Community Tickets.
 	 *
 	 * @param int $post_id id of the event post
 	 * @param int $ticket_id (null) id of the ticket
@@ -2762,10 +2763,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 
 		echo '<div id="' . sanitize_html_class( $provider ) . '_advanced" class="tribe-dependent" data-depends="#' . sanitize_html_class( $provider ) . '_radio" data-condition-is-checked>';
 
-		if ( ! tribe_is_frontend() ) {
-			$this->do_metabox_sku_options( $post_id, $ticket_id );
-			$this->do_metabox_ecommerce_links( $post_id, $ticket_id );
-		}
+		$this->do_metabox_sku_options( $post_id, $ticket_id );
+		$this->do_metabox_ecommerce_links( $post_id, $ticket_id );
 
 		/**
 		 * Allows for the insertion of additional content into the ticket edit form - advanced section

@@ -45,7 +45,7 @@ class IconPicker extends \LWS\Adminpanel\Pages\Field
 
 		\wp_enqueue_script('lws-icon-picker');
 		$filled = ($value ? ' filled' : '');
-		$buttonlabel = __("Pick an Icon", LWS_ADMIN_PANEL_DOMAIN);
+		$buttonlabel = __("Pick an Icon", 'lws-adminpanel');
 
 		$position = $this->getExtraValue('position', 'below');
 

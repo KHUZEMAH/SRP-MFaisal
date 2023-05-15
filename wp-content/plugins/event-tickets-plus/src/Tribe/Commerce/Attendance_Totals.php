@@ -79,7 +79,7 @@ class Tribe__Tickets_Plus__Commerce__Attendance_Totals extends Tribe__Tickets__A
 
 		/** @var Tribe__Tickets__Admin__Views $admin_views */
 		$admin_views = tribe( 'tickets.admin.views' );
-		$admin_views->template( 'attendees-totals-list', $args, true );
+		$admin_views->template( 'attendees/attendees-event/totals-list', $args, true );
 	}
 
 	/**

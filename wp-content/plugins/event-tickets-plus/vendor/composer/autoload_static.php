@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2
+class ComposerStaticInit50e3e4090c69709295e41ecd67475a8d
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -21,6 +21,7 @@ class ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'TEC\\Tickets_Plus\\Admin\\Tabs\\Attendee_Registration' => __DIR__ . '/../..' . '/src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php',
         'TEC\\Tickets_Plus\\Admin\\Tabs\\Integrations' => __DIR__ . '/../..' . '/src/Tickets_Plus/Admin/Tabs/Integrations.php',
         'TEC\\Tickets_Plus\\Admin\\Tabs\\Provider' => __DIR__ . '/../..' . '/src/Tickets_Plus/Admin/Tabs/Provider.php',
@@ -35,6 +36,11 @@ class ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2
         'TEC\\Tickets_Plus\\Commerce\\Hooks' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Hooks.php',
         'TEC\\Tickets_Plus\\Commerce\\Order' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Order.php',
         'TEC\\Tickets_Plus\\Commerce\\Provider' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Provider.php',
+        'TEC\\Tickets_Plus\\Emails\\Email\\RSVP' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Email/RSVP.php',
+        'TEC\\Tickets_Plus\\Emails\\Email\\Ticket' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Email/Ticket.php',
+        'TEC\\Tickets_Plus\\Emails\\Hooks' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Hooks.php',
+        'TEC\\Tickets_Plus\\Emails\\Provider' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Provider.php',
+        'TEC\\Tickets_Plus\\Emails\\Settings' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Settings.php',
         'TEC\\Tickets_Plus\\Hooks' => __DIR__ . '/../..' . '/src/Tickets_Plus/Hooks.php',
         'TEC\\Tickets_Plus\\Provider' => __DIR__ . '/../..' . '/src/Tickets_Plus/Provider.php',
     );
@@ -42,9 +48,9 @@ class ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3ad6273a1072cfea411c8216c4d331a2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -436,14 +436,30 @@ class Admin
 					'text'   => __("Define the website users that can access the different features of the API", 'woorewards-pro'),
 					'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('api')),
 					'fields' => array(
+						'mode' => array(
+							'id'    => 'lws_woorewards_rest_api_permission_mode',
+							'title' => __("Permission mode", 'woorewards-pro'),
+							'type'  => 'box',
+							'extra' => array(
+								'id'      => 'lws_woorewards_rest_api_permission_mode',
+								'layout'  => 'switch',
+								'data'    => array(
+									'left'       => __("User selection", 'woorewards-pro'),
+									'right'      => __("Capability check", 'woorewards-pro'),
+									'colorleft'  => '#22a971',
+									'colorright' => '#5279b1',
+								),
+							),
+						),
 						'info' => array(
 							'id'    => 'lws_woorewards_rest_api_user_info',
 							'title' => __("Users allowed to read general information", 'woorewards-pro'),
 							'type'  => 'lacchecklist',
 							'extra' => array(
 								'predefined' => 'user',
-								'tooltips' => __("The checked users can get points and rewards system list.", 'woorewards-pro'),
-							)
+								'tooltips'   => __("The checked users can get points and rewards system list.", 'woorewards-pro'),
+							),
+							'require' => array('selector' => '#lws_woorewards_rest_api_permission_mode', 'value' => ''),
 						),
 						'read' => array(
 							'id'    => 'lws_woorewards_rest_api_user_read',
@@ -451,8 +467,9 @@ class Admin
 							'type'  => 'lacchecklist',
 							'extra' => array(
 								'predefined' => 'user',
-								'tooltips' => __("The checked users can get other users point amounts and history.", 'woorewards-pro'),
-							)
+								'tooltips'   => __("The checked users can get other users point amounts and history.", 'woorewards-pro'),
+							),
+							'require' => array('selector' => '#lws_woorewards_rest_api_permission_mode', 'value' => ''),
 						),
 						'write' => array(
 							'id'    => 'lws_woorewards_rest_api_user_write',
@@ -460,8 +477,36 @@ class Admin
 							'type'  => 'lacchecklist',
 							'extra' => array(
 								'predefined' => 'user',
-								'tooltips' => __("The checked users can add points to other users.", 'woorewards-pro'),
-							)
+								'tooltips'   => __("The checked users can add points to other users.", 'woorewards-pro'),
+							),
+							'require' => array('selector' => '#lws_woorewards_rest_api_permission_mode', 'value' => ''),
+						),
+						'cap' => array(
+							'id'    => 'lws_woorewards_rest_api_info',
+							'title' => __("User/role capabilies", 'woorewards-pro'),
+							'type'  => 'custom',
+							'extra' => array(
+								'gizmo'   => true,
+								'help'    => __("Add the capabilies below to users or role", 'woorewards-pro'),
+								'content' => function() {return \lws_array_to_html(array('tag' => 'ul',
+									array('lws_wr_read_settings',
+										__("Read the Loyalty system settings, its point earning methods and rewards.", 'woorewards-pro')
+									),
+									array('lws_wr_read_points',
+										__("Read the connected user points.", 'woorewards-pro')
+									),
+									array('lws_wr_read_other_points',
+										__("The connected user can read the points of any user", 'woorewards-pro')
+									),
+									array('lws_wr_edit_points',
+										__("The connected user can edit its own points and trigger rewards for him", 'woorewards-pro')
+									),
+									array('lws_wr_edit_other_points',
+										__("The connected user can edit the points and trigger rewards of any user", 'woorewards-pro')
+									),
+								));},
+							),
+							'require' => array('selector' => '#lws_woorewards_rest_api_permission_mode', 'value' => 'on'),
 						),
 					)
 				),
@@ -596,7 +641,11 @@ class Admin
 						'value'    => $pool->getRawStackId(),
 						'ajax'     => 'lws_woorewards_pointstack_list',
 						'source'   => array(
-							array('value' => '', 'label' => sprintf('<i>%s</i>', __("&lt;Create a new reserve&gt;", 'woorewards-pro'))),
+							array(
+								'value' => '',
+								'label' => __("Create a new reserve", 'woorewards-pro'),
+								'html'  => sprintf('<i>&lt;%s&gt;</i>', __("Create a new reserve", 'woorewards-pro'))
+							),
 						),
 						'mode' => 'select',
 						'tooltips' => sprintf(
@@ -973,6 +1022,21 @@ class Admin
 				),
 				'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
 			);
+
+			if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+				$group['fields']['discount_cats'] = array(
+					'id'    => self::POOL_OPTION_PREFIX . 'direct_reward_discount_cats',
+					'title' => __("Exclusive categories", 'woorewards-pro'),
+					'type'  => 'lacchecklist',
+					'extra' => array(
+						'comprehensive' => true,
+						'ajax'          => 'lws_coupon_individual_use_solver_categories',
+						'value'         => $pool->getOption('direct_reward_discount_cats'),
+						'help'          => __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-pro'),
+					),
+					'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
+				);
+			}
 
 			if ($pool->getOption('type') != \LWS\WOOREWARDS\Core\Pool::T_LEVELLING) {
 				$group['fields']['best_unlock'] = array(

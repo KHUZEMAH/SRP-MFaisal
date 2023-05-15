@@ -48,7 +48,7 @@ abstract class Source
 	/** Override to add a title line over the popup dialog. */
 	public function getPopupTitle()
 	{
-		return __("Settings", LWS_ADMIN_PANEL_DOMAIN);
+		return __("Settings", 'lws-adminpanel');
 	}
 
 	/** @return array LAC source format [[value, label], etc.]

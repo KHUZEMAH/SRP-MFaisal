@@ -102,15 +102,16 @@ class Tribe_Tickets_Attendees extends Shortcode_Abstract {
 		/** @var Tribe__Tickets__Editor__Blocks__Attendees $attendees_block */
 		$attendees_block = tribe( 'tickets.editor.blocks.attendees' );
 
-		$post_id             = $post->ID;
-		$title               = $this->get_argument( 'title' );
-		$attributes          = [];
-		$attributes['title'] = empty( $title ) ? esc_html__( "Who's coming?", 'tribe-ext-tickets-shortcodes' ) : $title;
-		$args['post_id']     = $post_id;
-		$args['attributes']  = $attendees_block->attributes( $attributes );
-		$args['attendees']   = $attendees_block->get_attendees( $post_id );
+		$post_id                 = $post->ID;
+		$title                   = $this->get_argument( 'title' );
+		$attributes              = [];
+		$attributes['title']     = empty( $title ) ? esc_html__( "Who's coming?", 'tribe-ext-tickets-shortcodes' ) : $title;
+		$args['post_id']         = $post_id;
+		$args['attributes']      = $attendees_block->attributes( $attributes );
+		$args['attendees']       = $attendees_block->get_attendees( $post_id );
+		$args['attendees_total'] = tribe( 'tickets.events.attendees-list' )->get_attendance_counts( $post_id );
 
-		// Add the rendering attributes into global context
+		// Add the rendering attributes into global context.
 		$template->add_template_globals( $args );
 
 		// Enqueue assets.

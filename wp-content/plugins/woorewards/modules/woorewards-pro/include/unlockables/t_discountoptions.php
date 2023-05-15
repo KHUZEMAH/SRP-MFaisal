@@ -56,6 +56,21 @@ trait T_DiscountOptions
 		return $this;
 	}
 
+	function getCouponCategoryIds()
+	{
+		return isset($this->couponCategoryIds) ? (array)$this->couponCategoryIds : array();
+	}
+
+	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
+	function setCouponCategoryIds($cats=array())
+	{
+		if (!\is_array($cats))
+			$cats = @json_decode(@base64_decode($cats));
+		if (\is_array($cats))
+			$this->couponCategoryIds = $cats;
+		return $this;
+	}
+
 	public function setExcludeSaleItems($yes = false)
 	{
 		$this->excludeSaleItems = boolval($yes);
@@ -147,6 +162,7 @@ trait T_DiscountOptions
 		$data[$prefix . 'exclude_sale_items'] = $this->isExcludeSaleItems() ? 'on' : '';
 		$data[$prefix . 'individual_use']     = $this->isIndividualUse() ? 'on' : '';
 		$data[$prefix . 'coupon_excerpt']     = $this->getCouponExcerpt();
+		$data[$prefix . 'coupon_cat']         = \base64_encode(\json_encode($this->getCouponCategoryIds()));
 		return $data;
 	}
 
@@ -192,6 +208,20 @@ trait T_DiscountOptions
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
 		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
+		if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+			$label   = _x("Exclusive categories", "Coupon category", 'woorewards-pro');
+			$tooltip = __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-pro');
+			$input = \LWS\Adminpanel\Pages\Field\LacChecklist::compose($prefix . 'coupon_cat', array(
+				'comprehensive' => true,
+				'ajax'          => 'lws_coupon_individual_use_solver_categories',
+			));
+			$str .= <<<EOT
+<div class='field-help'>{$tooltip}</div>
+<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-{$context}-opt-input value'>{$input}</div>
+EOT;
+		}
+
 		// exclude sale items on/off
 		$label = _x("Exclude sale items", "Coupon Unlockable", 'woorewards-pro');
 		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'exclude_sale_items', array(
@@ -216,6 +246,7 @@ trait T_DiscountOptions
 				$prefix . 'minimum_amount'     => "/^\\s*\\+?(\\s*\\d*)*[,\\.]?(\\s*\\d*)*$/",
 				$prefix . 'maximum_amount'     => "/^\\s*\\+?(\\s*\\d*)*[,\\.]?(\\s*\\d*)*$/",
 				$prefix . 'individual_use'     => 's',
+				$prefix . 'coupon_cat'         => array('D'),
 				$prefix . 'exclude_sale_items' => 's',
 				$prefix . 'coupon_excerpt'     => 't',
 			),
@@ -223,6 +254,7 @@ trait T_DiscountOptions
 				$prefix . 'minimum_amount'     => '',
 				$prefix . 'maximum_amount'     => '',
 				$prefix . 'individual_use'     => '',
+				$prefix . 'coupon_cat'         => array(),
 				$prefix . 'exclude_sale_items' => '',
 				$prefix . 'coupon_excerpt'     => '',
 			),
@@ -230,6 +262,7 @@ trait T_DiscountOptions
 				$prefix . 'minimum_amount'     => __("Minimum spend", 'woorewards-pro'),
 				$prefix . 'maximum_amount'     => __("Maximum spend", 'woorewards-pro'),
 				$prefix . 'individual_use'     => __("Individual use only", 'woorewards-pro'),
+				$prefix . 'coupon_cat'         => __("Exclusive categories", 'woorewards-pro'),
 				$prefix . 'exclude_sale_items' => __("Exclude sale items", 'woorewards-pro'),
 				$prefix . 'coupon_excerpt'     => __("Coupon description", 'woorewards-pro'),
 			)
@@ -243,6 +276,7 @@ trait T_DiscountOptions
 		$this->setOrderMinimumAmount(ltrim($minAmount, '+'));
 		$this->setOrderMaximumAmount(ltrim($maxAmount, '+'));
 		$this->setIndividualUse($values['values'][$prefix . 'individual_use']);
+		$this->setCouponCategoryIds($values['values'][$prefix . 'coupon_cat']);
 		$this->setExcludeSaleItems($values['values'][$prefix . 'exclude_sale_items']);
 		$this->setCouponExcerpt($values['values'][$prefix . 'coupon_excerpt']);
 		return true;
@@ -255,6 +289,7 @@ trait T_DiscountOptions
 		$this->setRelativeOrderMaximumAmount(\get_post_meta($post->ID, 'relative_maximum_amount', true));
 		$this->setOrderMaximumAmount(\get_post_meta($post->ID, 'maximum_amount', true));
 		$this->setIndividualUse(\get_post_meta($post->ID, 'individual_use', true));
+		$this->setCouponCategoryIds(\get_post_meta($post->ID, 'coupon_cat', true));
 		$this->setExcludeSaleItems(\get_post_meta($post->ID, 'exclude_sale_items', true));
 		$this->setCouponExcerpt(\get_post_meta($post->ID, 'coupon_excerpt', true));
 		return $this;
@@ -267,6 +302,7 @@ trait T_DiscountOptions
 		\update_post_meta($id, 'relative_maximum_amount',  $this->isRelativeOrderMaximumAmount() ? 'on' : '');
 		\update_post_meta($id, 'maximum_amount',     $this->getOrderMaximumAmount());
 		\update_post_meta($id, 'individual_use',     $this->isIndividualUse() ? 'on' : '');
+		\update_post_meta($id, 'coupon_cat',         $this->getCouponCategoryIds());
 		\update_post_meta($id, 'exclude_sale_items', $this->isExcludeSaleItems() ? 'on' : '');
 		\update_post_meta($id, 'coupon_excerpt',     $this->getCouponExcerpt());
 		return $this;
@@ -286,28 +322,55 @@ trait T_DiscountOptions
 		return $txt;
 	}
 
+	function applyOnCoupon($coupon, $user, $poolId=false, $demo=false)
+	{
+		if ($coupon->get_id()) {
+			\do_action('lws_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
+		}
+	}
+
 	/** if permanent, invalidates the old ones.
 	 * A permanent has auto_apply on, and no usage limit. */
-	function setPermanentcoupon($coupon, $user, $unlockType)
+	function setPermanentcoupon($coupon, $user, $unlockType, $poolId=false)
 	{
 		\update_post_meta($coupon->get_id(), 'woorewards_permanent', 'on');
+		if ($poolId)
+			\update_post_meta($coupon->get_id(), 'woorewards_pool_origin_id', $poolId);
 
 		global $wpdb; // get all other post coming from same unlockable type with permanent mark.
-		$sql = <<<EOT
-SELECT p.ID, ucount.meta_value as usage_count FROM {$wpdb->posts} as p
-INNER JOIN {$wpdb->postmeta} as orig ON p.ID=orig.post_id AND orig.meta_key='reward_origin' AND orig.meta_value=%s
-INNER JOIN {$wpdb->postmeta} as perm ON p.ID=perm.post_id AND perm.meta_key='woorewards_permanent' AND perm.meta_value='on'
-INNER JOIN {$wpdb->postmeta} as mail ON p.ID=mail.post_id AND mail.meta_key='customer_email' AND mail.meta_value=%s
-LEFT JOIN {$wpdb->postmeta} as ucount ON p.ID=ucount.post_id AND ucount.meta_key='usage_count'
-WHERE p.ID<>%d
-EOT;
-		$args = array(
-			$unlockType,
-			serialize(array($user->user_email)),
-			$coupon->get_id()
-		);
+		$request = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
+		$request->select('p.ID, ucount.meta_value as usage_count');
+		$request->innerJoin($wpdb->postmeta, 'orig', array(
+			"p.ID=orig.post_id",
+			"orig.meta_key='reward_origin'",
+			"orig.meta_value=%s",
+		))->arg($unlockType);
+		$request->innerJoin($wpdb->postmeta, 'perm', array(
+			"p.ID=perm.post_id",
+			"perm.meta_key='woorewards_permanent'",
+			"perm.meta_value='on'",
+		));
+		$request->innerJoin($wpdb->postmeta, 'mail', array(
+			"p.ID=mail.post_id",
+			"mail.meta_key='customer_email'",
+			"mail.meta_value=%s",
+		))->arg(\serialize(array($user->user_email)));
+		$request->leftJoin($wpdb->postmeta, 'ucount', array(
+			"p.ID=ucount.post_id",
+			"ucount.meta_key='usage_count'",
+		));
 
-		foreach ($wpdb->get_results($wpdb->prepare($sql, $args)) as $old) {
+		if ($poolId && !\get_option('lws_woorewards_permanents_through_levels')) {
+			// test same pool id
+			$request->leftJoin($wpdb->postmeta, 'pool', array(
+				"p.ID=pool.post_id",
+				"pool.meta_key='woorewards_pool_origin_id'",
+			));
+			$request->where('(pool.meta_value IS NULL OR pool.meta_value=%s)')->arg($poolId);
+		}
+
+		$request->where('p.ID<>%d')->arg($coupon->get_id());
+		foreach ($request->getResults() as $old) {
 			$limit = max(intval($old->usage_count), 1);
 			\update_post_meta($old->ID, 'usage_count', $limit);
 			\update_post_meta($old->ID, 'usage_limit', $limit);

@@ -125,6 +125,10 @@ class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
 		if (
 			'cancelled' === strtolower( $item['order_status'] )
 			|| 'refunded' === strtolower( $item['order_status'] )
+			|| tribe( \TEC\Tickets\Commerce\Status\Not_Completed::class )->get_name() === $item['order_status']
+			|| tribe( \TEC\Tickets\Commerce\Status\Denied::class )->get_name() === $item['order_status']
+			|| tribe( \TEC\Tickets\Commerce\Status\Refunded::class )->get_name() === $item['order_status']
+			|| tribe( \TEC\Tickets\Commerce\Status\Pending::class )->get_name() === $item['order_status']
 		) {
 			return $row_actions;
 		}
@@ -143,7 +147,7 @@ class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 5.2.5
 		 *
-		 * @param int $max Maximum allowed nnumber of send tickets.
+		 * @param int $max Maximum allowed number of send tickets.
 		 * @param array $item Attendee Item data.
 		 */
 		$ticket_sent_threshold = absint( apply_filters( 'event_tickets_attendee_resend_tickets_max_allowed', 10, $item ) );
@@ -153,7 +157,22 @@ class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
 		}
 
 		$label = __( 'Re-send Ticket', 'event-tickets-plus' );
-		$link  = sprintf( '<button class="button-link re-send-ticket-action" type="button" data-attendee-id="%1$s" data-provider="%2$s">%3$s</button>', $item['attendee_id'], $item['provider'], $label );
+		$link  = sprintf( '<button
+				class="button-link re-send-ticket-action"
+				type="button"
+				data-attendee-id="%1$s"
+				data-provider="%2$s"
+				data-order-id="%3$s"
+				data-order-status="%4$s"
+				data-post-id="%5$s"
+			>%6$s</button>',
+			$item['attendee_id'],
+			$item['provider'],
+			$item['order_id'],
+			$item['order_status'],
+			$item['event_id'],
+			$label
+		);
 
 		$row_actions[] = '<span class="inline re-send_ticket">' . $link . '</span>';
 
@@ -166,8 +185,7 @@ class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
 	 * @since 5.2.5
 	 */
 	public function handle_resend_ticket_request() {
-
-		$nonce = tribe_get_request_var( 'nonce' ) ;
+		$nonce = tribe_get_request_var( 'nonce' );
 
 		if (
 			empty( $nonce )
@@ -180,12 +198,20 @@ class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
 		$provider       = \Tribe__Tickets__Tickets::get_ticket_provider_instance( $provider_class );
 		$attendee_id    = tribe_get_request_var( 'attendee_id' );
 
-		$sent = $provider->send_tickets_email_for_attendees( [ $attendee_id ] );
+		$args = [
+			'attendee_id'  => $attendee_id,
+			'provider'     => $provider,
+			'order_id'     => tribe_get_request_var( 'order_id' ),
+			'order_status' => tribe_get_request_var( 'order_status' ),
+			'post_id'      => tribe_get_request_var( 'post_id' ),
+		];
+
+		$sent = $provider->send_tickets_email_for_attendees( [ $attendee_id ], $args );
 
 		if ( ! tribe_is_truthy( $sent ) ) {
 			wp_send_json_error( [ 'message' => __( 'Something Went Wrong! Re-sending ticket failed.', 'event-tickets-plus' ) ] );
 		}
 
-		wp_send_json_success( [ 'message' => __( 'Email was sent successfully!', 'event-tickets-plus' ) ]  );
+		wp_send_json_success( [ 'message' => __( 'Email was sent successfully!', 'event-tickets-plus' ) ] );
 	}
 }

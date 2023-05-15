@@ -282,7 +282,7 @@ class Group
 
 		echo "</div>";
 		if (isset($this->extra['doclink']) && $this->extra['doclink']) {
-			$label = __("Documentation", LWS_ADMIN_PANEL_DOMAIN);
+			$label = __("Documentation", 'lws-adminpanel');
 			echo "<div class='doc-line'><div class='doc-left'></div><div class='doc-right'>";
 			echo "<a href='{$this->extra['doclink']}'  target='_blank' class='group-doc'>{$label}</a>";
 			echo "</div></div>";

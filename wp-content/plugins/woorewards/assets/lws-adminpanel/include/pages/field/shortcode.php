@@ -22,11 +22,11 @@ class Shortcode extends \LWS\Adminpanel\Pages\Field
 		$id = $this->getExtraValue('id', $this->m_Id);
 		$content = "<div class='lws-shortcode-description-wrapper' id='{$id}'>";
 		$texts = array(
-			'title' => __("Shortcode", LWS_ADMIN_PANEL_DOMAIN),
-			'options' => __("Attributes", LWS_ADMIN_PANEL_DOMAIN),
-			'desc' => __("Description", LWS_ADMIN_PANEL_DOMAIN),
-			'style' => __("Styling", LWS_ADMIN_PANEL_DOMAIN),
-			'styledesc' => __("Customize the look of this shortcode", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Shortcode", 'lws-adminpanel'),
+			'options' => __("Attributes", 'lws-adminpanel'),
+			'desc' => __("Description", 'lws-adminpanel'),
+			'style' => __("Styling", 'lws-adminpanel'),
+			'styledesc' => __("Customize the look of this shortcode", 'lws-adminpanel'),
 		);
 
 		if(isset($this->extra['shortcode']))
@@ -86,7 +86,7 @@ EOT;
 					if (\is_object($example))
 						$example = $example->toText();
 
-					$optContent .= "<div class='opt-example label'>" . __("Example", LWS_ADMIN_PANEL_DOMAIN) . "</div>";
+					$optContent .= "<div class='opt-example label'>" . __("Example", 'lws-adminpanel') . "</div>";
 					$optContent .= "<div class='opt-example value'>{$example}</div>";
 				}
 			}

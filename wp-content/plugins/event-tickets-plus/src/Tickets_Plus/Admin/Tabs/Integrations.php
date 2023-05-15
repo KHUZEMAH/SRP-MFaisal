@@ -75,10 +75,31 @@ Class Integrations {
 	 */
 	public function get_fields(): array {
 		$settings_start = [
-			'info-start' => [
+			'info-start'           => [
+				'type' => 'html',
+				'html' => '<div class="tec-settings-header">',
+			],
+			'info-box-title'       => [
+				'type' => 'html',
+				'html' => '<h2>' . _x( 'Integrations', 'Integrations tab header', 'event-tickets-plus' ) . '</h2>',
+			],
+			'info-box-description' => [
+				'type' => 'html',
+				'html' => '<p>' .
+					esc_html__(
+						'Event Tickets and its add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to our mobile app and manage your integrations.',
+						'event-tickets-plus'
+					)
+					. '</p>',
+			],
+			'info-end'             => [
+				'type' => 'html',
+				'html' => '</div>',
+			],
+			'settings-start' => [
 				'type' => 'html',
 				'html' => '<div class="tribe-settings-form-wrap">',
-			]
+			],
 		];
 
 		$settings_end = [

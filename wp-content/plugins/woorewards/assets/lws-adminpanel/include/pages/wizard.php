@@ -190,7 +190,7 @@ abstract class Wizard
 	 * This expose a button to clean that data (same as leave the wizard) */
 	function errorFallback()
 	{
-		$text = __("If you can see this, an error occured. Click %s here %s to resolve. Then restart the wizard.", LWS_ADMIN_PANEL_DOMAIN);
+		$text = __("If you can see this, an error occured. Click %s here %s to resolve. Then restart the wizard.", 'lws-adminpanel');
 		$text = sprintf($text, "<button class='lws-wizard-action-cancel' name='submit' type='submit' value='cancel'>", "</button>");
 		$formAttrs = '';
 		foreach( $this->getFormAttributes() as $attr => $val )
@@ -203,7 +203,7 @@ abstract class Wizard
 	{
 		$args = array(
 			'id' => 'lws-wizard-cancel',
-			'title' => sprintf('<span class="label">%s</span> %s', __("Leave the wizard", LWS_ADMIN_PANEL_DOMAIN), \lws_get_tooltips_html(__("You can come back later and continue from that point."))),
+			'title' => sprintf('<span class="label">%s</span> %s', __("Leave the wizard", 'lws-adminpanel'), \lws_get_tooltips_html(__("You can come back later and continue from that point."))),
 			'href' => $this->getCancelledURL(),
 		);
 		$wp_admin_bar->add_node($args);
@@ -360,7 +360,7 @@ abstract class Wizard
 		else
 		{
 			if( !$err )
-				$this->lastError = array(__("An error occured during form validation.", LWS_ADMIN_PANEL_DOMAIN));
+				$this->lastError = array(__("An error occured during form validation.", 'lws-adminpanel'));
 			else if( is_array($err) )
 				$this->lastError = $err;
 			else
@@ -782,7 +782,7 @@ EOT;
 				}
 
 				if( isset($item['loop']) && ($loop = intval($item['loop'])) > 1 )
-					$item['label'] = sprintf(_x('%s (%s)', 'wizard critical path tab title with loop count', LWS_ADMIN_PANEL_DOMAIN), $item['label'], $loop);
+					$item['label'] = sprintf(_x('%s (%s)', 'wizard critical path tab title with loop count', 'lws-adminpanel'), $item['label'], $loop);
 
 				$tabs[$step] = <<<EOT
 <{$tag} class='step-item {$state}'{$attr}>
@@ -846,7 +846,7 @@ EOT;
 		$time = \esc_attr(\microtime());
 		$color = $this->getColor();
 		$colorstring = \lws_get_theme_colors('--group-color', $color);
-		$steplabel = __("Step : ", LWS_ADMIN_PANEL_DOMAIN);
+		$steplabel = __("Step : ", 'lws-adminpanel');
 		echo <<<EOT
 <div class="lws_wizard" style="$colorstring">
 	<form $formAttrs>
@@ -1055,7 +1055,7 @@ EOT;
 
 		if( $curIndex > 0 )
 		{
-			$button = _x("Previous", 'previous wizard step', LWS_ADMIN_PANEL_DOMAIN);
+			$button = _x("Previous", 'previous wizard step', 'lws-adminpanel');
 			$buttons['previous'] = <<<EOT
 	<button class='button back' name='submit' type='submit' value='previous'>
 		<div class='icon lws-icon lws-icon-circle-left'></div>
@@ -1066,7 +1066,7 @@ EOT;
 
 		if( isset($page['repeatable']) && $page['repeatable'] )
 		{
-			$button = (isset($page['repeat_btn_text']) && $page['repeat_btn_text']) ? $page['repeat_btn_text'] : _x("Add", 'repeat a wizard portion', LWS_ADMIN_PANEL_DOMAIN);
+			$button = (isset($page['repeat_btn_text']) && $page['repeat_btn_text']) ? $page['repeat_btn_text'] : _x("Add", 'repeat a wizard portion', 'lws-adminpanel');
 			$buttons['repeat'] = <<<EOT
 	<button class='button redo' name='submit' type='submit' value='repeat'>
 		<div class='icon lws-icon lws-icon-repeat'></div>
@@ -1075,11 +1075,11 @@ EOT;
 EOT;
 		}
 
-		$button =  _x("Next", 'next wizard step', LWS_ADMIN_PANEL_DOMAIN);
+		$button =  _x("Next", 'next wizard step', 'lws-adminpanel');
 		$value = 'next';
 		if( ++$curIndex >= count($criticalPath) )
 		{
-			$button = _x("Submit", 'final wizard submit', LWS_ADMIN_PANEL_DOMAIN);
+			$button = _x("Submit", 'final wizard submit', 'lws-adminpanel');
 			$value = 'submit';
 		}
 		$buttons['next'] = <<<EOT
@@ -1094,10 +1094,10 @@ EOT;
 	protected function getFoot()
 	{
 		$href = $this->getCancelledURL();
-		$leave = __("Leave this wizard", LWS_ADMIN_PANEL_DOMAIN);
-		$leavetip = \lws_get_tooltips_html(__("You can come back later and continue from that point.", LWS_ADMIN_PANEL_DOMAIN));
-		$cancel = __("Cancel this wizard", LWS_ADMIN_PANEL_DOMAIN);
-		$canceltip = \lws_get_tooltips_html(__("You will lose all prepared settings.", LWS_ADMIN_PANEL_DOMAIN));
+		$leave = __("Leave this wizard", 'lws-adminpanel');
+		$leavetip = \lws_get_tooltips_html(__("You can come back later and continue from that point.", 'lws-adminpanel'));
+		$cancel = __("Cancel this wizard", 'lws-adminpanel');
+		$canceltip = \lws_get_tooltips_html(__("You will lose all prepared settings.", 'lws-adminpanel'));
 		return <<<EOT
 <div class='cancel-container'>
 	<button class='button cancel' name='submit' type='submit' value='cancel'>

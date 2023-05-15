@@ -54,6 +54,9 @@ tribe.tickets.resendTickets = {};
 			action: 'event-tickets-plus-resend-tickets',
 			attendee_id: obj.clickedButton.attr( 'data-attendee-id' ),
 			provider: obj.clickedButton.attr( 'data-provider' ),
+			order_id: obj.clickedButton.attr( 'data-order-id' ),
+			order_status: obj.clickedButton.attr( 'data-order-status' ),
+			post_id: obj.clickedButton.attr( 'data-post-id' ),
 			nonce: obj.data.nonce,
 		};
 

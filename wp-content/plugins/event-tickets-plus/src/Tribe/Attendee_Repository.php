@@ -278,6 +278,7 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 		if ( $has_edd ) {
 			// EDD support.
 
+			// todo @rafsuntaskin updated this query to fix the search not working for EDD attendees.
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customers purchaser_edd_customer
 				ON purchaser_edd_customer.id = purchaser_order_meta.meta_value
@@ -392,6 +393,7 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 		if ( $has_edd ) {
 			// EDD support.
 
+			// todo @rafsuntaskin updated this query to fix the search not working for EDD attendees.
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customers purchaser_edd_customer
 				ON purchaser_edd_customer.id = purchaser_order_meta.meta_value

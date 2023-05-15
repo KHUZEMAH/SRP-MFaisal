@@ -87,7 +87,7 @@ class API
 
 		if (!$ctrl) {
 			$this->add('status', 'fail');
-			$this->add('message', __("Security check failed.", LWS_MANAGER_DOMAIN));
+			$this->add('message', __("Security check failed.", 'lwsmanager'));
 		} else {
 			$this->getManager()->updateGlobalOption($this->getManager()->getId('lwschk_'), \time() - 60);
 			$this->add('status', 'asap');
@@ -103,16 +103,16 @@ class API
 
 		if (!$ctrl) {
 			$this->add('status', 'fail');
-			$this->add('message', __("Security check failed.", LWS_MANAGER_DOMAIN));
+			$this->add('message', __("Security check failed.", 'lwsmanager'));
 		} else {
 			$key = isset($_POST['licence_key']) ? \sanitize_text_field($_POST['licence_key']) : false;
 			$query = isset($_POST['query']) ? \json_decode($_POST['query']) : null;
 			if (!($query && \is_object($query) && $key)) {
 				$this->add('status', 'fail');
-				$this->add('message', __("Unexpected or corrupted data.", LWS_MANAGER_DOMAIN));
+				$this->add('message', __("Unexpected or corrupted data.", 'lwsmanager'));
 			} elseif ($key != $this->getManager()->getKey()) {
 				$this->add('status', 'mismatch');
-				$this->add('message', __("Local and remote key mismatch.", LWS_MANAGER_DOMAIN));
+				$this->add('message', __("Local and remote key mismatch.", 'lwsmanager'));
 			} elseif ($this->getManager()->deactivateFromData($query, $key, false, false)) {
 				$this->add('status', 'deactivated');
 			} else {
@@ -130,7 +130,7 @@ class API
 
 		if (!$ctrl) {
 			$this->add('status', 'fail');
-			$this->add('message', __("Security check failed.", LWS_MANAGER_DOMAIN));
+			$this->add('message', __("Security check failed.", 'lwsmanager'));
 		} else {
 			$query = isset($_POST['query']) ? \json_decode($_POST['query']) : null;
 			$key = isset($_POST['licence_key']) ? \sanitize_text_field($_POST['licence_key']) : false;
@@ -140,7 +140,7 @@ class API
 			// bad request
 			if (!($query && \is_object($query) && $key && $rec)) {
 				$this->add('status', 'fail');
-				$this->add('message', __("Unexpected or corrupted data.", LWS_MANAGER_DOMAIN));
+				$this->add('message', __("Unexpected or corrupted data.", 'lwsmanager'));
 				return;
 			}
 			// mismatch test
@@ -148,7 +148,7 @@ class API
 				$local = $this->getManager()->getKey();
 				if ($local && ($local != $key)) {
 					$this->add('status', 'mismatch');
-					$this->add('message', __("Local and remote key mismatch.", LWS_MANAGER_DOMAIN));
+					$this->add('message', __("Local and remote key mismatch.", 'lwsmanager'));
 					return;
 				}
 			}

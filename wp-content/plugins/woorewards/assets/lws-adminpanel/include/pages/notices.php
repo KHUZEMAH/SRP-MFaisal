@@ -136,7 +136,7 @@ class Notices
 		if (!$item->dismissible)
 			return '';
 
-		$html = __("Dismiss this notice", LWS_ADMIN_PANEL_DOMAIN);
+		$html = __("Dismiss this notice", 'lws-adminpanel');
 		$html = "<button type='submit' class='lws-notice-dismiss'><span class='screen-reader-text'>{$html}</span></button>";
 		if( $this->isReloadingForced() )
 		{

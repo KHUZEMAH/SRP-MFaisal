@@ -61,7 +61,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$tooltip = __("Before giving points, all rewards in the system, owned by the customer, are confiscated.", 'woorewards-pro');
 		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'resrew', array(
 			'id'      => $prefix . 'reslev',
-			'layout'  => 'resrew',
+			'layout'  => 'toggle',
 		));
 		$form .= "<div class='field-help'>$tooltip</div>";
 		$form .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";

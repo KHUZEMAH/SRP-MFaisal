@@ -36,6 +36,7 @@ class Updater
 		$reload = false;
 		$this->from = $fromVersion;
 		$this->to = $toVersion;
+		$freshInstall = (!$fromVersion || \version_compare($fromVersion, '1.0.0', '<'));
 
 		$this->createUserBadgeTable();
 		$this->createWebHooksTable();
@@ -145,8 +146,74 @@ class Updater
 				\update_option('lws_wr_reward_popup_enable', $legacy ? '' : 'on');
 		}
 
+		$options = array(
+			'lws_woorewards_permanents_through_levels' => $freshInstall ? '' : 'on',
+		);
+		foreach ($options as $name => $value) {
+			if (false === \get_option($name, false))
+				\update_option($name, $value);
+		}
+
+		if (\version_compare($fromVersion, '5.0.6', '<')) {
+			$this->savePermanentCouponOriginPool();
+		}
+
 		update_option('lws_woorewards_pro_version', LWS_WOOREWARDS_PRO_VERSION);
 		return $reload;
+	}
+
+	/** Maybe update all existant unused permanent coupon
+	 *	to set pool id in meta[woorewards_pool_origin_id]
+	 *	based on meta[reward_origin_id] */
+	public function savePermanentCouponOriginPool()
+	{
+		global $wpdb;
+		// load permanent rewards by pool
+		$request = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'rew');
+		$request->innerJoin($wpdb->postmeta, 'perm', array(
+			"rew.ID=perm.post_id",
+			"perm.meta_key='woorewards_permanent'",
+			"perm.meta_value='on'",
+		));
+		$request->where('rew.post_type = %s')->arg(\LWS\WOOREWARDS\Abstracts\Unlockable::POST_TYPE);
+		$request->where('rew.post_parent != 0');
+		$request->select('rew.post_parent as pool_id, rew.ID as reward_id');
+
+		$results = $request->getResults();
+		if ($results) {
+			$pools = array();
+			foreach ($results as $result) {
+				$result->pool_id = \intval($result->pool_id);
+				if ($result->pool_id)
+					$pools[$result->pool_id][$result->reward_id] = (int)$result->reward_id;
+			}
+			foreach ($pools as $poolId => $rewards) {
+				$ids = \implode(',', $rewards);
+				// get relevant coupons
+				$select = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
+				$select->innerJoin($wpdb->postmeta, 'perm', array(
+					"p.ID=perm.post_id",
+					"perm.meta_key='woorewards_permanent'",
+					"perm.meta_value='on'",
+				));
+				$select->innerJoin($wpdb->postmeta, 'orig', array(
+					"p.ID=orig.post_id",
+					"orig.meta_key='reward_origin_id'",
+				));
+				$select->leftJoin($wpdb->postmeta, 'pool', array(
+					"p.ID=pool.post_id",
+					"pool.meta_key='woorewards_pool_origin_id'",
+				));
+				$select->where("p.post_type = 'shop_coupon'");
+				$select->where("orig.meta_value IN ({$ids})");
+				$select->where('pool.meta_id IS NULL'); // no pool yet
+
+				// now, insert the missing meta
+				$select->select("p.ID, 'woorewards_pool_origin_id', {$poolId}");
+				$select = $select->toString();
+				$wpdb->query("INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) {$select}"); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery
+			}
+		}
 	}
 
 	/** Since version 4.7.0, we don't build my account endpoints with prebuilt tools
@@ -303,7 +370,7 @@ EOT;
 		global $wpdb;
 		$origin = array(
 			'lws_woorewards_pro_events_referralregister'   => 'lws_woorewards_pro_events_sponsoredregistration',
-			'lws_woorewards_pro_events_referralfirstorder' => 'lws_woorewards_pro_events_sponsoredfirstorder',
+			'lws_woorewards_pro_events_referralfirstorder' => 'lws_woorewards_events_sponsoredorder',
 		);
 		foreach ($origin as $src => $dst) {
 			$existants = array(
@@ -327,7 +394,7 @@ SELECT ID, 'woorewards_sponsorship_origin', '{$value}' FROM {$wpdb->posts} WHERE
 
 		$type = array(
 			'lws_woorewards_pro_events_referralregister'   => 'lws_woorewards_pro_events_sponsoredregistration',
-			'lws_woorewards_pro_events_referralfirstorder' => 'lws_woorewards_pro_events_sponsoredfirstorder',
+			'lws_woorewards_pro_events_referralfirstorder' => 'lws_woorewards_events_sponsoredorder',
 		);
 		foreach ($type as $src => $dst) {
 			$wpdb->query("UPDATE {$wpdb->postmeta} SET meta_value='{$dst}' WHERE meta_key='wre_event_type' AND meta_value='{$src}'");
@@ -590,8 +657,11 @@ EOT;
 				}
 
 				// add point maker (1 to 1)
-				if ($pool->getEvents()->count() == 0)
-					$pool->addEvent(new \LWS\WOOREWARDS\PRO\Events\SponsoredFirstOrder(), 1);
+				if ($pool->getEvents()->count() == 0) {
+					$e = new \LWS\WOOREWARDS\Events\SponsoredOrder();
+					$e->setFirstOrderOnly(true);
+					$pool->addEvent($e, 1);
+				}
 
 				// add single (auto-unlock) reward (1 to 1)
 				if ($pool->getUnlockables()->count() == 0) {

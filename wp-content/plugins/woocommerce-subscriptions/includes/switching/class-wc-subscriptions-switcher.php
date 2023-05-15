@@ -188,11 +188,11 @@ class WC_Subscriptions_Switcher {
 		// If the current user doesn't own the subscription, remove the query arg from the URL
 		if ( isset( $_GET['switch-subscription'] ) && isset( $_GET['item'] ) ) {
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
-			$line_item    = wcs_get_order_item( $_GET['item'], $subscription );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
+			$line_item    = wcs_get_order_item( absint( $_GET['item'] ), $subscription );
 
 			// Visiting a switch link for someone elses subscription or if the switch link doesn't contain a valid nonce
-			if ( ! is_object( $subscription ) || empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( $_GET['_wcsnonce'], 'wcs_switch_request' ) || empty( $line_item ) || ! self::can_item_be_switched_by_user( $line_item, $subscription ) ) {
+			if ( ! is_object( $subscription ) || empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wcsnonce'] ) ), 'wcs_switch_request' ) || empty( $line_item ) || ! self::can_item_be_switched_by_user( $line_item, $subscription ) ) {
 
 				wp_redirect( remove_query_arg( array( 'switch-subscription', 'auto-switch', 'item', '_wcsnonce' ) ) );
 				exit();
@@ -293,7 +293,7 @@ class WC_Subscriptions_Switcher {
 
 								if ( $last_order->needs_payment() ) {
 									// translators: 1$: is the "You have already subscribed to this product" notice, 2$-4$: opening/closing link tags, 3$: an order number
-									$subscribed_notice = sprintf( __( '%1$s Complete payment on %2$sOrder %3$s%4$s to be able to change your subscription.', 'woocommerce-subscriptions' ), $subscribed_notice, sprintf( '<a href="%s">', $last_order->get_checkout_payment_url() ), $last_order->get_order_number(), '</a>' );
+									$subscribed_notice = sprintf( __( '%1$s Complete payment on %2$sOrder %3$s%4$s to be able to change your subscription.', 'woocommerce-subscriptions' ), $subscribed_notice, sprintf( '<a href="%s">', esc_url( $last_order->get_checkout_payment_url() ) ), $last_order->get_order_number(), '</a>' );
 								}
 
 								wc_add_notice( $subscribed_notice, 'notice' );
@@ -334,7 +334,7 @@ class WC_Subscriptions_Switcher {
 	public static function add_switch_query_arg_grouped( $permalink ) {
 
 		if ( isset( $_GET['switch-subscription'] ) ) {
-			$permalink = self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+			$permalink = self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 		}
 
 		return $permalink;
@@ -359,7 +359,7 @@ class WC_Subscriptions_Switcher {
 		switch ( $type ) {
 			case 'variable-subscription':
 			case 'subscription':
-				return self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+				return self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 
 			case 'grouped':
 				// Check to see if the group contains a subscription.
@@ -367,7 +367,7 @@ class WC_Subscriptions_Switcher {
 				foreach ( $children as $child ) {
 					$child_product = wc_get_product( $child );
 					if ( 'subscription' === wcs_get_objects_property( $child_product, 'type' ) ) {
-						return self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $permalink );
+						return self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $permalink );
 					}
 				}
 
@@ -527,7 +527,7 @@ class WC_Subscriptions_Switcher {
 
 						echo '<label>';
 						echo sprintf( '<input%s type="checkbox" name="%s" value="1"/> %s', checked( $value, 'yes', false ), esc_attr( $name ), esc_html( $label ) );
-						echo isset( $option['desc_tip'] ) ? wcs_help_tip( $option['desc_tip'], true ) : '';
+						echo isset( $option['desc_tip'] ) ? wc_help_tip( $option['desc_tip'], true ) : '';
 						echo '</label>';
 					}
 					?>
@@ -620,9 +620,10 @@ class WC_Subscriptions_Switcher {
 				'_wcsnonce'           => wp_create_nonce( 'wcs_switch_request' ),
 			)
 		);
-		$permalink  = add_query_arg( $query_args, $permalink );
 
-		return apply_filters( 'woocommerce_subscriptions_add_switch_query_args', $permalink, $subscription_id, $item_id );
+		$permalink = add_query_arg( $query_args, $permalink );
+
+		return apply_filters( 'woocommerce_subscriptions_add_switch_query_args', $permalink, $subscription_id, $item_id ); // nosemgrep: audit.php.wp.security.xss.query-arg -- False positive. $permalink is escaped in the template and escaping URLs should be done at the point of output or usage.
 	}
 
 	/**
@@ -1150,7 +1151,9 @@ class WC_Subscriptions_Switcher {
 			}
 		} catch ( Exception $e ) {
 			// There was an error updating the subscription, delete pending switch order.
-			wp_delete_post( $order_id, true );
+			if ( $order instanceof WC_Order ) {
+				$order->delete( true );
+			}
 			throw $e;
 		}
 	}
@@ -1161,8 +1164,10 @@ class WC_Subscriptions_Switcher {
 	 * @param  WC_Order $order The new order
 	 * @param  WC_Subscription $subscription The original subscription
 	 * @param  WC_Cart $recurring_cart A recurring cart
+	 * @deprecated 4.8.0
 	 */
 	public static function update_shipping_methods( $subscription, $recurring_cart ) {
+		wcs_deprecated_function( __METHOD__, '4.8.0', 'The use of this function is no longer recommended and will be removed in a future version.' );
 
 		// First, archive all the shipping methods
 		foreach ( $subscription->get_shipping_methods() as $shipping_method_id => $shipping_method ) {
@@ -1185,8 +1190,18 @@ class WC_Subscriptions_Switcher {
 	 * @param WC_Subscription $subscription The original subscription
 	 */
 	public static function maybe_update_subscription_address( $order, $subscription ) {
-		$subscription->set_address( array_diff_assoc( $order->get_address( 'billing' ), $subscription->get_address( 'billing' ) ), 'billing' );
-		$subscription->set_address( array_diff_assoc( $order->get_address( 'shipping' ), $subscription->get_address( 'shipping' ) ), 'shipping' );
+		$billing_address_changes  = array_diff_assoc( $order->get_address( 'billing' ), $subscription->get_address( 'billing' ) );
+		$shipping_address_changes = array_diff_assoc( $order->get_address( 'shipping' ), $subscription->get_address( 'shipping' ) );
+
+		if ( wcs_is_woocommerce_pre( '7.1' ) ) {
+			$subscription->set_address( $billing_address_changes, 'billing' );
+			$subscription->set_address( $shipping_address_changes, 'shipping' );
+		} else {
+			$subscription->set_billing_address( $billing_address_changes );
+			$subscription->set_shipping_address( $shipping_address_changes );
+
+			$subscription->save();
+		}
 	}
 
 	/**
@@ -1334,11 +1349,11 @@ class WC_Subscriptions_Switcher {
 				return $is_valid;
 			}
 
-			if ( empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( $_GET['_wcsnonce'], 'wcs_switch_request' ) ) {
+			if ( empty( $_GET['_wcsnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wcsnonce'] ) ), 'wcs_switch_request' ) ) {
 				return false;
 			}
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
 			$item_id      = absint( $_GET['item'] );
 			$item         = wcs_get_order_item( $item_id, $subscription );
 
@@ -1415,7 +1430,7 @@ class WC_Subscriptions_Switcher {
 				return $cart_item_data;
 			}
 
-			$subscription = wcs_get_subscription( $_GET['switch-subscription'] );
+			$subscription = wcs_get_subscription( absint( $_GET['switch-subscription'] ) );
 
 			// Requesting a switch for someone elses subscription
 			if ( ! current_user_can( 'switch_shop_subscription', $subscription->get_id() ) ) {
@@ -1712,7 +1727,7 @@ class WC_Subscriptions_Switcher {
 	public static function addons_add_to_cart_url( $add_to_cart_url ) {
 
 		if ( isset( $_GET['switch-subscription'] ) && false === strpos( $add_to_cart_url, 'switch-subscription' ) ) {
-			$add_to_cart_url = self::add_switch_query_args( $_GET['switch-subscription'], $_GET['item'], $add_to_cart_url );
+			$add_to_cart_url = self::add_switch_query_args( absint( $_GET['switch-subscription'] ), absint( $_GET['item'] ), $add_to_cart_url );
 		}
 
 		return $add_to_cart_url;

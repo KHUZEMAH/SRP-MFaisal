@@ -39,7 +39,7 @@ class PointStack
 				global $wpdb;
 				$val = $wpdb->get_var($wpdb->prepare(
 					"SELECT `meta_value` FROM {$wpdb->usermeta} WHERE `user_id`=%d AND `meta_key`=%s",
-					$userId, $this->metaKey()
+					$this->userId, $this->metaKey()
 				));
 			} else {
 				$val = \get_user_meta($this->userId, $this->metaKey(), true);

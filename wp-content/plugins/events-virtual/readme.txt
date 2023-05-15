@@ -5,8 +5,8 @@ Tags: virtual events, events, calendar, event, venue, organizer, dates, date, sc
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Tested up to: 6.1.1
-Stable tag: 1.13.4
-Requires PHP: 7.3
+Stable tag: 1.13.6
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,22 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.13.6] 2023-02-22 =
+
+* Version - Virtual Events 1.13.6 is only compatible with The Events Calendar 6.0.10 and higher
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
+
+= [1.13.5] 2023-02-09 =
+
+* Feature - Add Virtual Event Fields to the Event Automator event details sent to Zapier when active. [EVA-35]
+* Fix - Fixed a fatal error do to a plugin using the same query var as the Zoom oauth `state` var. [VE-559]
+* Tweak - Added filters: `tec_virtual_automator_map_event_details`
+* Language - 1 new strings added, 21 updated, 0 fuzzied, and 0 obsoleted
 
 = [1.13.4] 2023-01-18 =
 

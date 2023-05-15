@@ -427,13 +427,13 @@ EOT;
 		return array(
 			'id' => 'lws_mail_d_' . $domain,
 			'icon' => 'lws-icon-letter',
-			'title' => empty($title) ? __("Email Settings", LWS_ADMIN_PANEL_DOMAIN) : sprintf(__("%s Email Settings", LWS_ADMIN_PANEL_DOMAIN), $title),
+			'title' => empty($title) ? __("Email Settings", 'lws-adminpanel') : sprintf(__("%s Email Settings", 'lws-adminpanel'), $title),
 			'extra' => array('doclink' => 'https://plugins.longwatchstudio.com/docs/woorewards/emails/'),
-			'text'=> __("Once you've finished the email settings, <b>save your changes</b><br/>You will then see the result in the style editor below<br/>Select the elements you wish to change and have fun!", LWS_ADMIN_PANEL_DOMAIN),
+			'text'=> __("Once you've finished the email settings, <b>save your changes</b><br/>You will then see the result in the style editor below<br/>Select the elements you wish to change and have fun!", 'lws-adminpanel'),
 			'fields' => array(
 				array(
 					'type'  => 'media',
-					'title' => __("Header picture", LWS_ADMIN_PANEL_DOMAIN),
+					'title' => __("Header picture", 'lws-adminpanel'),
 					'id'    => $prefix.'headerpic',
 					'extra' => array(
 						'size' => 'medium',
@@ -441,7 +441,7 @@ EOT;
 				),
 				array(
 					'type'  => 'wpeditor',
-					'title' => __("Footer text", LWS_ADMIN_PANEL_DOMAIN),
+					'title' => __("Footer text", 'lws-adminpanel'),
 					'id'    => $prefix.'footer',
 					'extra' => array(
 						'editor_height' => 30,
@@ -462,12 +462,12 @@ EOT;
 		$mail = array(
 			'id'    => $mailId,
 			'icon'  => $settings['icon'],
-			'title' => $settings['settings_name'] ? $settings['settings_name'] : __("Email details", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => $settings['settings_name'] ? $settings['settings_name'] : __("Email details", 'lws-adminpanel'),
 			'text'  => $settings['about'] ? $settings['about'] : '',
 			'fields' => array(
 				array(
 					'id'    => 'lws_mail_subject_'.$template,
-					'title' => __("Subject", LWS_ADMIN_PANEL_DOMAIN),
+					'title' => __("Subject", 'lws-adminpanel'),
 					'type'  => 'text',
 					'extra' => array(
 						'maxlength'   => 350,
@@ -478,7 +478,7 @@ EOT;
 				),
 				array(
 					'id'    => 'lws_mail_preheader_'.$template,
-					'title' => __("Preheader", LWS_ADMIN_PANEL_DOMAIN),
+					'title' => __("Preheader", 'lws-adminpanel'),
 					'type'  => 'text',
 					'extra' => array(
 						'maxlength'   => 350,
@@ -519,17 +519,17 @@ EOT;
 
 		$mail['fields'][] = array(
 			'id' => 'lws_adminpanel_mail_tester_'.$template,
-			'title' => __("Receiver Email", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Receiver Email", 'lws-adminpanel'),
 			'type' => 'text',
 			'extra' => array(
-				'help' => __("Test your email to see how it looks", LWS_ADMIN_PANEL_DOMAIN),
+				'help' => __("Test your email to see how it looks", 'lws-adminpanel'),
 				'noconfirm' => true,
 				'size' => '40'
 			)
 		);
 		$mail['fields'][] = array(
 			'id' => 'lws_adminpanel_mail_tester_btn_'.$template,
-			'title' => __("Send test email", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Send test email", 'lws-adminpanel'),
 			'type' => 'button',
 			'extra' => array('callback' => array($this, 'test'))
 		);
@@ -547,10 +547,10 @@ EOT;
 			if( \is_email($email) )
 			{
 				do_action('lws_mail_send', $email, $template, new \WP_Error());
-				return __("Test email sent.", LWS_ADMIN_PANEL_DOMAIN);
+				return __("Test email sent.", 'lws-adminpanel');
 			}
 			else
-				return __("Test email is not valid.", LWS_ADMIN_PANEL_DOMAIN);
+				return __("Test email is not valid.", 'lws-adminpanel');
 		}
 		return false;
 	}

@@ -96,6 +96,18 @@ class GeneralSettings
 						'help'   => __("For some advanced setups, managing loyalty system loading order and event trigger priority could be meaningful.", 'woorewards-pro'),
 					)
 				),
+				'perma_level' => array(
+					'id'    => 'lws_woorewards_permanents_through_levels',
+					'title' => __("Permanent coupons override all", 'woorewards-pro'),
+					'type'  => 'box',
+					'extra' => array(
+						'layout' => 'toggle',
+						'help'   => array(
+							__("Permanent coupons will replace any previous permanent coupon reward of the same type owned by the customer inside <b>the same points and rewards system</b>.", 'woorewards-pro'),
+							__("Toggle this to let permanent coupons replace previous ones <b>across all</b> points and rewards systems.", 'woorewards-pro'),
+						),
+					)
+				),
 			)
 		);
 	}

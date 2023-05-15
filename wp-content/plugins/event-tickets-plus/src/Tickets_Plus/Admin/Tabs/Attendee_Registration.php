@@ -88,17 +88,41 @@ Class Attendee_Registration {
 		}
 
 		$settings_start = [
-			'info-start' => [
+
+			'info-start'           => [
 				'type' => 'html',
-				'html' => '<div class="tribe-settings-form-wrap">',
-			]
+				'html' => '<div class="tec-settings-header">',
+			],
+			'info-box-title'       => [
+				'type' => 'html',
+				'html' => '<h2>' . _x( 'Attendee Registration Settings', 'Attendee Registration tab header', 'event-tickets-plus' ) . '</h2>',
+			],
+			'info-box-description' => [
+				'type' => 'html',
+				'html' => '<p>'
+						. sprintf(
+							// Translators: %1$s: opening of HTML link. %2$s: closing of HTML link.
+							__( 'Collecting information about your attendees — such as their names and emails addresses — can give you insights about who is coming to your event, how to communicate with them, and even create personalized experiences for them. %1$sLearn more%2$s', 'event-tickets-plus' ),
+							'<a href="https://evnt.is/attendee-registration" target="_blank" rel="noopener noreferrer">',
+							'</a>'
+						)
+						. '</p>',
+			],
+			'info-end'             => [
+				'type' => 'html',
+				'html' => '</div>',
+			],
+			'settings-start'       => [
+				'type' => 'html',
+				'html' => '<div class="tribe-settings-form-wrap tec-tickets-plus-settings-ar">',
+			],
 		];
 
 		$settings_end = [
-			'info-end' => [
+			'settings-end' => [
 				'type' => 'html',
 				'html' => '</div>',
-			]
+			],
 		];
 
 		$ar_fields = [
@@ -107,7 +131,7 @@ Class Attendee_Registration {
 				'html' => '<h3>' . __( 'Attendee Registration', 'event-tickets-plus' ) . '</h3>',
 			],
 			'ticket-attendee-modal'         => [
-				'type'            => 'checkbox_bool',
+				'type'            => 'toggle',
 				'label'           => esc_html__( 'Attendee Registration Modal ', 'event-tickets-plus' ),
 				'tooltip'         => sprintf(
 				// Translators: %1$s: dynamic "tickets" text. %2$s: opening of HTML link. %3$s: closing of HTML link.
@@ -191,7 +215,7 @@ Class Attendee_Registration {
 				'size'            => 'large',
 				'default'         => $iac_default,
 				'options'         => $iac_options,
-			]
+			],
 		];
 
 		return $options;

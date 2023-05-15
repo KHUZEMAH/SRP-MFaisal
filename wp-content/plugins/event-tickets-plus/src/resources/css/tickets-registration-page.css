@@ -388,16 +388,12 @@ body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__validation-notice, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__validation-notice {
 			display: none;
-			-ms-grid-column: 1;
 			grid-column: 1;
-			-ms-grid-row: 2;
 			grid-row: 2;
 		}
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration-content, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__registration-content {
-			-ms-grid-column: 1;
 			grid-column: 1;
-			-ms-grid-row: 3;
 			grid-row: 3;
 		}
 
@@ -406,9 +402,7 @@ body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__mini-cart {
 			background-color: white;
 			border-top: 1px solid var(--tec-color-border-secondary);
-			-ms-grid-column: 1;
 			grid-column: 1;
-			-ms-grid-row: 1;
 			grid-row: 1;
 			margin: auto auto;
 			max-width: 800px;
@@ -427,18 +421,15 @@ body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart .t
 /* AR override styles */
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart .tribe-tickets__tickets-item, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__mini-cart .tribe-tickets__tickets-item {
-				-ms-grid-columns: 6fr 1fr 2fr 2fr;
 				grid-template-columns: 6fr 1fr 2fr 2fr;
 			}
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart .tribe-tickets__tickets-item.tribe-tickets__tickets-item--price-suffix, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__mini-cart .tribe-tickets__tickets-item.tribe-tickets__tickets-item--price-suffix {
-					-ms-grid-columns: 4fr 3fr 2fr 2fr;
 					grid-template-columns: 4fr 3fr 2fr 2fr;
 				}
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart .tribe-tickets__tickets-item-extra, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__mini-cart .tribe-tickets__tickets-item-extra {
 				align-self: center;
-				-ms-grid-row: 1;
 				grid-row: 1;
 			}
 
@@ -704,23 +695,18 @@ body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration-grid, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__registration-grid {
 				border-top: 1px solid var(--tec-color-border-secondary);
-				-ms-grid-columns: calc(100% - 360px) 360px;
 				grid-template-columns: calc(100% - 360px) 360px;
 				padding-top: var(--tec-spacer-10)
 		}
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__validation-notice, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__validation-notice {
-				-ms-grid-column: 1;
 				grid-column: 1;
-				-ms-grid-row: 1;
 				grid-row: 1;
 				margin-right: var(--tec-spacer-5)
 		}
 
 body.page-tribe-attendee-registration .tribe-common .tribe-tickets__registration-content, body.page-tribe-attendee-registration .event-tickets .tribe-tickets__registration-content {
-				-ms-grid-column: 1;
 				grid-column: 1;
-				-ms-grid-row: 2;
 				grid-row: 2
 		}
 
@@ -728,14 +714,11 @@ body.page-tribe-attendee-registration .tribe-common .tribe-tickets__mini-cart, b
 				align-self: baseline;
 				border: 1px solid var(--tec-color-border-secondary);
 				border-radius: var(--tec-border-radius-default);
-				-ms-grid-column: 2;
 				grid-column: 2;
-				-ms-grid-row: 1;
 				grid-row: 1/span 2;
 				-ms-grid-row-span: 2;
 				margin: 160px 0 var(--tec-spacer-5) 0;
 				padding: var(--tec-spacer-5) var(--tec-spacer-3);
-				position: -webkit-sticky;
 				position: sticky;
 				top: var(--tec-spacer-5);
 				width: 360px

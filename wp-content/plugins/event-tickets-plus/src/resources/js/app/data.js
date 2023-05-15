@@ -1,4 +1,4 @@
-var tribe = typeof tribe === "object" ? tribe : {}; tribe["tickets"] = tribe["tickets"] || {}; tribe["tickets"]["data"] =
+var tribe = typeof tribe === "object" ? tribe : {}; tribe["tickets-plus"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,30 +82,33 @@ var tribe = typeof tribe === "object" ? tribe : {}; tribe["tickets"] = tribe["ti
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = "w+g7");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "ZNLL":
 /***/ (function(module, exports) {
 
 module.exports = tribe.common.data;
 
 /***/ }),
-/* 1 */
+
+/***/ "g8L8":
 /***/ (function(module, exports) {
 
 module.exports = tribe.common.store;
 
 /***/ }),
-/* 2 */
+
+/***/ "w+g7":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ZNLL");
 /* harmony import */ var _moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _moderntribe_common_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _moderntribe_common_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("g8L8");
 /* harmony import */ var _moderntribe_common_store__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_moderntribe_common_store__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * External dependencies
@@ -117,4 +120,5 @@ var TICKETS_PLUS = _moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0__["plugin
 dispatch(_moderntribe_common_data__WEBPACK_IMPORTED_MODULE_0__["plugins"].actions.addPlugin(TICKETS_PLUS));
 
 /***/ })
-/******/ ]);
+
+/******/ });

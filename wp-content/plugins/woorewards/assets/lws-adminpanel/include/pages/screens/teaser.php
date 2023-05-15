@@ -42,7 +42,7 @@ class Teaser extends \LWS\Adminpanel\Pages\Page
 			$data = \wp_remote_get($request, array('timeout' => 60, 'user-agent'  => $agent));
 
 			if (!$this->isValidResponse($data)) {
-				$transiant = sprintf('<h1>%s</h1>', __("No data loaded.", LWS_ADMIN_PANEL_DOMAIN));
+				$transiant = sprintf('<h1>%s</h1>', __("No data loaded.", 'lws-adminpanel'));
 				\set_site_transient($key, $transiant, MINUTE_IN_SECONDS * 5);
 			} else {
 				$transiant = \wp_remote_retrieve_body($data);
@@ -64,7 +64,7 @@ class Teaser extends \LWS\Adminpanel\Pages\Page
 				\date_i18n(\get_option('time_format', 'g:i a'), $lastCheck)
 			),
 			\add_query_arg(array('force-check' => 1)),
-			__("Check again.", LWS_ADMIN_PANEL_DOMAIN)
+			__("Check again.", 'lws-adminpanel')
 		);
 		echo '</div>';
 	}

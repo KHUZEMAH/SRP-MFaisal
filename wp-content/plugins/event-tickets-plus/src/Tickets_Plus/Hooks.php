@@ -116,7 +116,7 @@ class Hooks extends tad_DI52_ServiceProvider {
 	 *
 	 * @since 5.5.2
 	 *
-	 * @param array   $settings Associative array of setting from Tickets Commerce.
+	 * @param array $settings Associative array of setting from Tickets Commerce.
 	 *
 	 * @return array  Filtered settings.
 	 */
@@ -125,7 +125,18 @@ class Hooks extends tad_DI52_ServiceProvider {
 		if ( ! isset( $settings['tickets-commerce-description'] ) ) {
 			return $settings;
 		}
-		$new_description = esc_html_x( 'Tickets Commerce provides a simple and flexible ecommerce checkout for purchasing tickets. Just choose your payment gateway and configure checkout options and you\'re all set.', 'about Tickets Commerce', 'event-tickets-plus' );
+
+		$kb_link = sprintf(
+			'<a href="https://evnt.is/1axt" target="_blank" rel="noopener noreferrer">%s</a>',
+			esc_html__( 'Learn more', 'event-tickets' )
+		);
+
+		$new_description = sprintf(
+			// Translators: %1$s: The Tickets Commerce knowledgebase article link.
+			esc_html_x( 'Tickets Commerce provides a simple and flexible eCommerce checkout for purchasing tickets. Just choose your payment gateway and configure checkout options and you\'re all set. %1$s.', 'about Tickets Commerce', 'event-tickets-plus' ),
+			$kb_link
+		);
+
 		$settings['tickets-commerce-description']['html'] = '<div class="tec-tickets__admin-settings-tickets-commerce-description">' . $new_description . '</div>';
 		return $settings;
 	}

@@ -54,7 +54,7 @@ class Admin
 	 * @endcode
 	 * Take care no text is translated before. */
 	public function load_plugin_textdomain() {
-		\load_plugin_textdomain(LWS_ADMIN_PANEL_DOMAIN, FALSE, substr(dirname(LWS_ADMIN_PANEL_FILE), strlen(WP_PLUGIN_DIR)) . '/languages/');
+		\load_plugin_textdomain('lws-adminpanel', FALSE, substr(dirname(LWS_ADMIN_PANEL_FILE), strlen(WP_PLUGIN_DIR)) . '/languages/');
 	}
 
 	/**
@@ -237,8 +237,8 @@ class Admin
 		\wp_register_script('lws-popup',             LWS_ADMIN_PANEL_JS . '/controls/popup.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);
 		\wp_register_script('lws-admin-interface',   LWS_ADMIN_PANEL_JS . '/interface/admin-interface.js', array('jquery', 'lws-tools', 'lws-md5'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_localize_script('lws-admin-interface', 'button_texts', array(
-			'expand' => __("Expand All", LWS_ADMIN_PANEL_DOMAIN),
-			'collapse' => __("Collapse All", LWS_ADMIN_PANEL_DOMAIN),
+			'expand' => __("Expand All", 'lws-adminpanel'),
+			'collapse' => __("Collapse All", 'lws-adminpanel'),
 		));
 
 		/* Fields */
@@ -246,7 +246,7 @@ class Admin
 		\wp_register_script('lws-lac-select',    LWS_ADMIN_PANEL_JS . '/controls/lac/lacselect.js',    array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-lac-checklist', LWS_ADMIN_PANEL_JS . '/controls/lac/lacchecklist.js', array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true );
 		\wp_register_script('lws-lac-taglist',   LWS_ADMIN_PANEL_JS . '/controls/lac/lactaglist.js',   array('lws-lac-model'), LWS_ADMIN_PANEL_VERSION, true );
-		\wp_localize_script('lws-lac-taglist', 'lws_lac_taglist', array('value_unknown' => __("At least one value is unknown.", LWS_ADMIN_PANEL_DOMAIN)));
+		\wp_localize_script('lws-lac-taglist', 'lws_lac_taglist', array('value_unknown' => __("At least one value is unknown.", 'lws-adminpanel')));
 
 		/** enqueue lac scripts, styles and dependencies. @param (array) lac basenames (eg. 'select'). */
 		\add_action('lws_adminpanel_enqueue_lac_scripts', function($lacs=array()){

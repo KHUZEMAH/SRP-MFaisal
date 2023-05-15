@@ -293,7 +293,7 @@ class Tribe__Tickets_Plus__QR {
 		if ( ! class_exists( 'QRencode' ) ) {
 			include_once( EVENT_TICKETS_PLUS_DIR . '/vendor/phpqrcode/qrlib.php' );
 		}
-		
+
 		// @ToDo @rafsuntaskin @juanfra change the default directory to `tec/tickets-plus/qr-codes` for storing images.
 		$uploads   = wp_upload_dir();
 		$file_name = 'qr_' . md5( $link ) . '.png';
@@ -327,5 +327,47 @@ class Tribe__Tickets_Plus__QR {
 
 			$module_instance->checkin( $ticket_id, false );
 		}
+	}
+
+	/**
+	 * Get QR Code URL from ticket.
+	 *
+	 * @since 5.6.10
+	 *
+	 * @param array $ticket
+	 *
+	 * @return string|null
+	 */
+	public function get_qr_url( $ticket ) {
+		// if gzuncompress doesn't exist, we can't render QR codes
+		if ( ! function_exists( 'gzuncompress' ) ) {
+			tribe( 'logger' )->log_warning( __( 'Could not render QR code because gzuncompress() is not available', 'event-tickets-plus' ), __CLASS__ );
+			return;
+		}
+
+		$enabled = tribe_get_option( 'tickets-enable-qr-codes', true );
+
+		/**
+		 * Filters the QR enabled value
+		 *
+		 * @since 5.6.10
+		 *
+		 * @param bool   $enabled       The bool that comes from the options
+		 * @param array  $ticket        The ticket
+		 */
+		$enabled = apply_filters( 'tribe_tickets_plus_qr_enabled', $enabled, $ticket );
+
+		if ( empty( $enabled ) ) {
+			return;
+		}
+
+		$link = $this->_get_link( $ticket['qr_ticket_id'], $ticket['event_id'], $ticket['security_code'] );
+		$qr   = $this->_get_image( $link );
+
+		if ( ! $qr ) {
+			return;
+		}
+
+		return $qr;
 	}
 }

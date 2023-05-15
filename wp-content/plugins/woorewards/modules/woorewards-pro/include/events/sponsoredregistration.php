@@ -59,7 +59,7 @@ class SponsoredRegistration extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return a human readable type for UI */
 	public function getDisplayType()
 	{
-		return _x("Referred user registration", "getDisplayType", 'woorewards-pro');
+		return _x("Referee registration", "getDisplayType", 'woorewards-pro');
 	}
 
 	/** Add hook to grab events and add points. */

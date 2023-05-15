@@ -2,9 +2,9 @@
 Contributors: lwsdevelopers
 Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social medias, badges, achievements, fidélité, récompenses, bon d'achat, daily, temporary, success, badges, events, anniversary, achievements, succès, événements, referral, chinese, spanish, french, subscriptions, sponsorship,
 Requires at least: 5.3
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.0.0
-Stable tag: 5.0.5
+Stable tag: 5.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,28 @@ This section describes how to install the plugin and get it working.
 5. Styling options
 
 == Changelog ==
+
+= 5.0.8 =
+* MyRewards :
+	* Tag - WordPress 6.2
+	* Tag - WooCommerce 7.6
+	* Fix - Bug on get points with cache protect (raised by addon: points-sync)
+* MyRewards Pro :
+	* Tweak - translations and naming, sponsor becomes referral
+	* Features - REST API permissions per user capabilities
+
+= 5.0.7 =
+* MyRewards Pro :
+	* Minor fix - Referral wizard, points on referral first order
+
+= 5.0.6 =
+* MyRewards :
+	* Tag - WooCommerce 7.5
+* MyRewards Pro :
+	* Feature - Permanent-coupon override can be limited to the points and rewards systems it belongs to
+	* Feature - Free product coupon can be permanent
+	* Feature - Free product coupon can grant free shipping
+	* Improvement - Shortcode Style [wr_available_rewards], [wr_available_coupons]
 
 = 5.0.5 =
 * Fix - border style option pattern control

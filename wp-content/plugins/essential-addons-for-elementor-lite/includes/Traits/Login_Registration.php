@@ -298,7 +298,14 @@ trait Login_Registration {
 			}
 
             //update_option( 'eael_register_errors_' . $widget_id, $errors, false );// if we redirect to other page, we dont need to save value
-            wp_safe_redirect( site_url( 'wp-login.php?registration=disabled' ) );
+            wp_safe_redirect(
+				add_query_arg(
+					array(
+						'registration'      => 'disabled',
+					),
+					wp_login_url()
+				)
+			);
 			exit();
 		}
 		// prepare vars and flag errors
@@ -512,7 +519,15 @@ trait Login_Registration {
 			$user = get_user_by( 'id', $user_id );
 			$key  = get_password_reset_key( $user );
 			if ( ! is_wp_error( $key ) ) {
-				self::$email_options['password_reset_link'] = network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . "\r\n\r\n";
+				self::$email_options['password_reset_link'] = add_query_arg(
+																array(
+																	'action'	=> 'rp',
+																	'key'		=> $key,
+																	'login'		=> rawurlencode( $user->user_login ),
+																),
+																wp_login_url()
+															);
+				self::$email_options['password_reset_link'] = self::$email_options['password_reset_link'] . "\r\n\r\n";
 			}
 		}
 
@@ -591,8 +606,12 @@ trait Login_Registration {
 		$ajax   = wp_doing_ajax();
 		// before even thinking about sending mail, check security and exit early if something is not right.
 		$page_id = 0;
+		$page_id_for_popup = 0;
+		$resetpassword_in_popup_selector = '';
 		if ( ! empty( $_POST['page_id'] ) ) {
 			$page_id = intval( $_POST['page_id'], 10 );
+			$page_id_for_popup = ! empty( $_POST['page_id_for_popup'] ) ? intval( $_POST['page_id_for_popup'], 10 ) : $page_id;
+			$resetpassword_in_popup_selector = ! empty( $_POST['resetpassword_in_popup_selector'] ) ? sanitize_text_field( $_POST['resetpassword_in_popup_selector'] ) : '';
 		} else {
 			$err_msg = esc_html__( 'Page ID is missing', 'essential-addons-for-elementor-lite' );
 		}
@@ -704,7 +723,15 @@ trait Login_Registration {
 		if ( isset($page_id) ) {
 			self::$email_options_lostpassword['page_id'] = sanitize_text_field( $page_id );
 		}
-		
+
+		if ( ! empty( $page_id_for_popup ) ) {
+			self::$email_options_lostpassword['page_id'] = sanitize_text_field( $page_id_for_popup );
+		}
+
+		if ( ! empty( $resetpassword_in_popup_selector ) ) {
+			self::$email_options_lostpassword['resetpassword_in_popup_selector'] = sanitize_text_field( $resetpassword_in_popup_selector );
+		}
+
 		if ( isset($widget_id) ) {
 			self::$email_options_lostpassword['widget_id'] = sanitize_text_field( $widget_id );
 		}
@@ -770,13 +797,6 @@ trait Login_Registration {
 			$err_msg = esc_html__( 'Widget ID is missing', 'essential-addons-for-elementor-lite' );
 		}
 
-		$rp_data = [
-			'rp_key' => ! empty( $_POST['rp_key'] ) ? sanitize_text_field( $_POST['rp_key'] ) : '',
-			'rp_login' => ! empty( $_POST['rp_login'] ) ? sanitize_text_field( $_POST['rp_login'] ) : '',
-		];
-
-		update_option( 'eael_resetpassword_rp_data_' . esc_attr( $widget_id ), maybe_serialize( $rp_data ), false );
-
 		update_option( 'eael_show_reset_password_on_form_submit_' . $widget_id, true, false );
 
 		if (!empty( $err_msg )){
@@ -833,7 +853,6 @@ trait Login_Registration {
 		do_action( 'eael/login-register/before-resetpassword-email' );
 
 		$widget_id = ! empty( $_POST['widget_id'] ) ? sanitize_text_field( $_POST['widget_id'] ) : '';
-
 		// Check if password is one or all empty spaces.
 		$errors = [];
 		if ( ! empty( $_POST['eael-pass1'] ) ) {
@@ -858,9 +877,36 @@ trait Login_Registration {
 		}
 
 		if ( ( ! count( $errors ) ) && isset( $_POST['eael-pass1'] ) && ! empty( $_POST['eael-pass1'] ) ) {
-			$rp_login = isset( $_POST['rp_login']) ? sanitize_text_field( $_POST['rp_login'] ) : '';
-			$user = get_user_by( 'login', $rp_login );
+			$rp_data_db = get_option('eael_resetpassword_rp_data_' . $widget_id);
+			$rp_data_db = !empty( $rp_data_db ) ? maybe_unserialize($rp_data_db) : [];
 			
+			$rp_data_db['rp_key'] = ! empty( $rp_data_db['rp_key'] ) ? $rp_data_db['rp_key'] : '';
+			$rp_data_db['rp_login'] = ! empty( $rp_data_db['rp_login'] ) ? $rp_data_db['rp_login'] : '';
+			
+			$user = check_password_reset_key( $rp_data_db['rp_key'], $rp_data_db['rp_login'] );
+
+			$rp_key       = empty( $_POST['rp_key'] ) ? '' : sanitize_text_field( $_POST['rp_key'] );
+			$is_user_null = isset( $_POST['eael-pass1'] ) && ! hash_equals( $rp_data_db['rp_key'], $rp_key );
+			
+			if ( $is_user_null ) {
+				$user = false;
+			}
+
+			if( is_wp_error( $user ) || ! $user ){
+				delete_option('eael_resetpassword_rp_data_' . esc_attr( $widget_id ) );
+
+				$data['message'] = isset( $settings['error_resetpassword'] ) ? __( Helper::eael_wp_kses( $settings['error_resetpassword'] ), 'essential-addons-for-elementor-lite' ) : esc_html__( 'Invalid user name found!', 'essential-addons-for-elementor-lite' );
+				
+				$success_key = 'eael_resetpassword_success_' . esc_attr( $widget_id );
+				delete_option( $success_key );
+
+				if($ajax){
+					wp_send_json_error( $data );
+				}else {
+					update_option( 'eael_resetpassword_error_' . $widget_id, $data['message'], false );
+				}
+			}
+
 			if( $user || ! is_wp_error( $user ) ){
 				reset_password( $user, sanitize_text_field( $_POST['eael-pass1'] ) );
 				$data['message'] = isset( $settings['success_resetpassword'] ) ? __( Helper::eael_wp_kses( $settings['success_resetpassword'] ), 'essential-addons-for-elementor-lite' ) : esc_html__( 'Your password has been reset.', 'essential-addons-for-elementor-lite' );
@@ -885,17 +931,6 @@ trait Login_Registration {
 					exit();
 				}
 
-			} else {
-				$data['message'] = isset( $settings['error_resetpassword'] ) ? __( Helper::eael_wp_kses( $settings['error_resetpassword'] ), 'essential-addons-for-elementor-lite' ) : esc_html__( 'Invalid user name found!', 'essential-addons-for-elementor-lite' );
-				
-				$success_key = 'eael_resetpassword_success_' . esc_attr( $widget_id );
-				delete_option( $success_key );
-
-				if($ajax){
-					wp_send_json_error( $data );
-				}else {
-					update_option( 'eael_resetpassword_error_' . $widget_id, $data['message'], false );
-				}
 			}
 
 			if (isset($_SERVER['HTTP_REFERER'])) {
@@ -931,7 +966,8 @@ trait Login_Registration {
 
 		$this->page_id = isset( $_GET['page_id'] ) ? intval( $_GET['page_id'] ) : 0;
 		$this->widget_id = isset( $_GET['widget_id'] ) ? sanitize_text_field( $_GET['widget_id'] ) : '';
-		$rp_page_url = get_permalink( $this->page_id ); 
+		$this->resetpassword_in_popup_selector = isset( $_GET['popup-selector'] ) ? sanitize_text_field( $_GET['popup-selector'] ) : '';
+		$rp_page_url = get_permalink( $this->page_id );
 		
 		list( $rp_path ) = explode( '?', wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		$rp_cookie       = 'wp-resetpass-' . COOKIEHASH;
@@ -982,7 +1018,12 @@ trait Login_Registration {
 		update_option( 'eael_resetpassword_rp_data_' . esc_attr( $this->widget_id ), maybe_serialize( $rp_data ), false );
 		setcookie( $rp_cookie, ' ', time() - YEAR_IN_SECONDS, $rp_path, COOKIE_DOMAIN, is_ssl(), true );
 
-		wp_redirect( $rp_page_url . '?eael-resetpassword=1' );
+		if( $this->resetpassword_in_popup_selector ){
+			wp_redirect( $rp_page_url . '?eael-resetpassword=1&popup-selector=' . $this->resetpassword_in_popup_selector );
+		} else {
+			wp_redirect( $rp_page_url . '?eael-resetpassword=1' );
+		}
+
 		exit;
 	}
 
@@ -997,11 +1038,25 @@ trait Login_Registration {
 
 		$page_id = self::$email_options_lostpassword['page_id'] ? self::$email_options_lostpassword['page_id'] : 0;
 		$widget_id = self::$email_options_lostpassword['widget_id'] ? self::$email_options_lostpassword['widget_id'] : '';
+		$resetpassword_in_popup_selector = self::$email_options_lostpassword['resetpassword_in_popup_selector'] ? str_replace(' ', '_', self::$email_options_lostpassword['resetpassword_in_popup_selector']) : '';
 
 		if ( ! empty( self::$email_options_lostpassword['message'] ) ) {
 			if ( ! empty( $key ) ) {
 				$locale = get_user_locale( $user_data );
-				self::$email_options_lostpassword['password_reset_link'] = network_site_url( "wp-login.php?action=rp&eael-resetpassword=1&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . '&page_id='. $page_id . '&widget_id='. $widget_id .'&wp_lang=' . $locale . "\r\n\r\n";
+				self::$email_options_lostpassword['password_reset_link'] = add_query_arg(
+					array(
+						'action'				=> 'rp',
+						'eael-resetpassword'	=> 1,
+						'key'					=> $key,
+						'login'					=> rawurlencode( $user_login ),
+					),
+					wp_login_url()
+				);
+				self::$email_options_lostpassword['password_reset_link'] = self::$email_options_lostpassword['password_reset_link'] . '&page_id='. $page_id . '&widget_id='. $widget_id .'&wp_lang=' . $locale . "\r\n\r\n";
+
+                if( ! empty( $resetpassword_in_popup_selector ) ){
+					self::$email_options_lostpassword['password_reset_link'] = network_site_url( "wp-login.php?action=rp&eael-resetpassword=1&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . '&page_id='. $page_id . '&widget_id='. $widget_id . '&popup-selector=' . $resetpassword_in_popup_selector . '&wp_lang=' . $locale . "\r\n\r\n";
+				}
 			}
 
 			if( is_object($user_data) ) {
@@ -1146,7 +1201,15 @@ trait Login_Registration {
 				$_message = substr( $_message, strpos( $_message, $start ) + strlen( $start ) );
 				$key      = substr( $_message, 0, strpos( $_message, $end ) );
 				if ( ! empty( $key ) ) {
-					self::$email_options['password_reset_link'] = network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . "\r\n\r\n";
+					self::$email_options_lostpassword['password_reset_link'] = add_query_arg(
+						array(
+							'action'				=> 'rp',
+							'key'					=> $key,
+							'login'					=> rawurlencode( $user->user_login ),
+						),
+						wp_login_url()
+					);
+					self::$email_options['password_reset_link'] = self::$email_options['password_reset_link'] . "\r\n\r\n";
 				}
 			}
 			$email_data['message'] = $this->replace_placeholders( self::$email_options['message'], 'user' );

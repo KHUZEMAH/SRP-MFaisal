@@ -315,9 +315,14 @@ body.tribe_events_page_tickets-attendees .event-tickets div.tribe-dialog, body.t
 		border-radius: 0;
 		height: 100%;
 		max-width: 100vw;
+		min-height: 200px;
 		padding: 0;
 		width: 565px;
 	}
+
+.event-tickets .tribe-dialog__wrapper.tribe-modal__wrapper--manual-attendees div[role="document"], .tribe-common .tribe-dialog__wrapper.tribe-modal__wrapper--manual-attendees div[role="document"] {
+			min-height: 200px;
+		}
 
 .event-tickets .tribe-dialog__wrapper.tribe-modal__wrapper--manual-attendees .tribe-common-c-loader, .tribe-common .tribe-dialog__wrapper.tribe-modal__wrapper--manual-attendees .tribe-common-c-loader {
 			padding-top: 0;

@@ -277,28 +277,64 @@ class Rest
 		}
 	}
 
+	protected function isPermissionByCapability()
+	{
+		static $byCap = null;
+		if (null === $byCap) {
+			$byCap = (bool)\get_option('lws_woorewards_rest_api_permission_mode', false);
+		}
+		return $byCap;
+	}
+
+	protected function currentUserCan($capability, $fallback=true)
+	{
+		if ($this->isPermissionByCapability()) {
+			if (!\is_array($capability)) {
+				return \current_user_can($capability);
+			} else foreach ($capability as $cap) {
+				if (\current_user_can($cap))
+					return true;
+			}
+			return false;
+		} else {
+			return $fallback;
+		}
+	}
+
 	function permissionGeneral()
 	{
-		if( !($userId = \get_current_user_id()) )
-			return false;
-		$allowed = \get_option('lws_woorewards_rest_api_user_info', array());
-		return is_array($allowed) && in_array($userId, $allowed);
+		if ($this->isPermissionByCapability()) {
+			return \current_user_can('lws_wr_read_settings');
+		} else {
+			if( !($userId = \get_current_user_id()) )
+				return false;
+			$allowed = \get_option('lws_woorewards_rest_api_user_info', array());
+			return is_array($allowed) && in_array($userId, $allowed);
+		}
 	}
 
 	function permissionRead()
 	{
-		if( !($userId = \get_current_user_id()) )
-			return false;
-		$allowed = \get_option('lws_woorewards_rest_api_user_read', array());
-		return is_array($allowed) && in_array($userId, $allowed);
+		if ($this->isPermissionByCapability()) {
+			return \current_user_can('lws_wr_read_points') || \current_user_can('lws_wr_read_other_points	');
+		} else {
+			if( !($userId = \get_current_user_id()) )
+				return false;
+			$allowed = \get_option('lws_woorewards_rest_api_user_read', array());
+			return is_array($allowed) && in_array($userId, $allowed);
+		}
 	}
 
 	function permissionWrite()
 	{
-		if( !($userId = \get_current_user_id()) )
-			return false;
-		$allowed = \get_option('lws_woorewards_rest_api_user_write', array());
-		return is_array($allowed) && in_array($userId, $allowed);
+		if ($this->isPermissionByCapability()) {
+			return \current_user_can('lws_wr_edit_points') || \current_user_can('lws_wr_edit_other_points');
+		} else {
+			if( !($userId = \get_current_user_id()) )
+				return false;
+			$allowed = \get_option('lws_woorewards_rest_api_user_write', array());
+			return is_array($allowed) && in_array($userId, $allowed);
+		}
 	}
 
 	function getUserPoints($data)
@@ -306,6 +342,8 @@ class Rest
 		$user = \get_user_by('email', $data['email']);
 		if( !$user || !$user->ID )
 			return new \WP_Error('no_user', __('Unknown User', 'woorewards-pro'), array('status' => 404));
+		if (\get_current_user_id() != $user->ID && !$this->currentUserCan('lws_wr_read_other_points'))
+			return new \WP_Error('rest_forbidden', __('Cannot view others data', 'woorewards-pro'), array('status' => 403));
 
 		$points = array();
 		if( !isset($data['id']) || empty($data['id']) )
@@ -339,6 +377,8 @@ class Rest
 		$user = \get_user_by('email', $data['email']);
 		if( !$user || !$user->ID )
 			return new \WP_Error('no_user', __('Unknown User', 'woorewards-pro'), array('status' => 404));
+		if (\get_current_user_id() != $user->ID && !$this->currentUserCan('lws_wr_edit_other_points'))
+			return new \WP_Error('rest_forbidden', __('Cannot update others data', 'woorewards-pro'), array('status' => 403));
 
 		$pool = $this->getThePool($data);
 		if( !$pool )
@@ -392,6 +432,8 @@ class Rest
 		$pool = $this->getThePool($data, 'id', true);
 		if( !$pool )
 			return new \WP_Error('no_pool', __('Unknown Loyalty System', 'woorewards-pro'), array('status' => 404));
+		if (\get_current_user_id() != $user->ID && !$this->currentUserCan('lws_wr_edit_other_points'))
+			return new \WP_Error('rest_forbidden', __('Cannot update others data', 'woorewards-pro'), array('status' => 403));
 
 		$user = \get_user_by('email', $data['email']);
 		if( !$user || !$user->ID )

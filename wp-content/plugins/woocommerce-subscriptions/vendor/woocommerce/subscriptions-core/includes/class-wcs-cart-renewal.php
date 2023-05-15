@@ -143,9 +143,6 @@ class WCS_Cart_Renewal {
 		// When loading checkout address details, use the renewal order address details for renewals
 		add_filter( 'woocommerce_checkout_get_value', array( &$this, 'checkout_get_value' ), 10, 2 );
 
-		// If the shipping address on a renewal order differs to the order's billing address, check the "Ship to different address" automatically to make sure the renewal order's fields are used by default
-		add_filter( 'woocommerce_ship_to_different_address_checked', array( &$this, 'maybe_check_ship_to_different_address' ), 100, 1 );
-
 		add_filter( 'woocommerce_get_item_data', array( &$this, 'display_line_item_data_in_cart' ), 10, 2 );
 
 		// Attach hooks which depend on WooCommerce version constants. Differs from @see attach_dependant_hooks() in that this is hooked inside an inherited function and so extended classes will also inherit these callbacks
@@ -515,10 +512,13 @@ class WCS_Cart_Renewal {
 	 * to the order's billing address, tell the checkout to toggle the ship to a different address
 	 * checkbox and make sure the shipping fields are displayed by default.
 	 *
+	 * @deprecated subscriptions-core 5.3.0 - This method has moved to the WC_Subscriptions_Checkout class.
+	 *
 	 * @param bool $ship_to_different_address Whether the order will ship to a different address
 	 * @return bool $ship_to_different_address
 	 */
 	public function maybe_check_ship_to_different_address( $ship_to_different_address ) {
+		wcs_deprecated_function( __METHOD__, '5.3.0', 'WC_Subscriptions_Checkout::maybe_check_ship_to_different_address( $ship_to_different_address )' );
 
 		if ( ! $ship_to_different_address && false !== ( $item = $this->cart_contains() ) ) {
 
@@ -607,7 +607,7 @@ class WCS_Cart_Renewal {
 			$pay_url = add_query_arg( array( $this->cart_item_key => 'true' ), $pay_url );
 		}
 
-		return $pay_url;
+		return $pay_url; // nosemgrep: audit.php.wp.security.xss.query-arg -- False positive. $pay_url should be escaped at the point of output or usage. Keep the URL in tact for functions hooked in further down the chain.
 	}
 
 	/**
@@ -1159,22 +1159,25 @@ class WCS_Cart_Renewal {
 		$cart_renewal_item = $this->cart_contains();
 
 		if ( false !== $cart_renewal_item ) {
-			$subscription    = wcs_get_subscription( $cart_renewal_item[ $this->cart_item_key ]['subscription_id'] );
-			$billing_address = $shipping_address = array();
-			foreach ( array( 'billing', 'shipping' ) as $address_type ) {
+			$subscription         = wcs_get_subscription( $cart_renewal_item[ $this->cart_item_key ]['subscription_id'] );
+			$subscription_updated = false;
+
+			foreach ( [ 'billing', 'shipping' ] as $address_type ) {
 				$checkout_fields = WC()->checkout()->get_checkout_fields( $address_type );
 
 				if ( is_array( $checkout_fields ) ) {
 					foreach ( array_keys( $checkout_fields ) as $field ) {
-						if ( isset( $checkout_data[ $field ] ) ) {
-							$field_name                                  = str_replace( $address_type . '_', '', $field );
-							${$address_type . '_address'}[ $field_name ] = $checkout_data[ $field ];
+						if ( isset( $checkout_data[ $field ] ) && is_callable( [ $subscription, "set_$field" ] ) ) {
+							$subscription->{"set_$field"}( $checkout_data[ $field ] );
+							$subscription_updated = true;
 						}
 					}
 				}
 			}
-			$subscription->set_address( $billing_address, 'billing' );
-			$subscription->set_address( $shipping_address, 'shipping' );
+
+			if ( $subscription_updated ) {
+				$subscription->save();
+			}
 		}
 	}
 
@@ -1198,10 +1201,17 @@ class WCS_Cart_Renewal {
 					$customer->{"set_billing_$key"}( $value );
 				}
 			}
-			// Billing address is a required field.
-			$subscription->set_address( $request['billing_address'], 'billing' );
-			// If shipping address (optional field) was not provided, set it to the given billing address (required field).
-			$subscription->set_address( $request['shipping_address'] ?? $request['billing_address'], 'shipping' );
+
+			// Save Billing & Shipping addresses. Billing address is a required field, if shipping address (optional field) was not provided, set it to the given billing address.
+			if ( wcs_is_woocommerce_pre( '7.1' ) ) {
+				$subscription->set_address( $request['billing_address'], 'billing' );
+				$subscription->set_address( $request['shipping_address'] ?? $request['billing_address'], 'shipping' );
+			} else {
+				$subscription->set_billing_address( $request['billing_address'] );
+				$subscription->set_shipping_address( $request['shipping_address'] ?? $request['billing_address'] );
+
+				$subscription->save();
+			}
 		}
 	}
 

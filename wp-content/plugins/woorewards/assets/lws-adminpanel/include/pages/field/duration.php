@@ -85,7 +85,7 @@ class Duration extends \LWS\Adminpanel\Pages\Field
 
 	protected function value($duration)
 	{
-		$title = esc_attr(__("An integer value greater than zero.", LWS_ADMIN_PANEL_DOMAIN));
+		$title = esc_attr(__("An integer value greater than zero.", 'lws-adminpanel'));
 		$hidden = $this->isStartHidden($duration) ? ' style="display:none"' : '';
 		$v = $duration->getCount();
 		if (!$v)

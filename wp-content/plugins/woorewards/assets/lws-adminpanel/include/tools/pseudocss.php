@@ -240,13 +240,13 @@ class PseudoCss
 		{
 			$fields = array_merge( array(array(
 					'id' => $me->MasterID,
-					'title' => __("Default CSS values", LWS_ADMIN_PANEL_DOMAIN),
+					'title' => __("Default CSS values", 'lws-adminpanel'),
 					'type' => 'button',
 					'extra' => array(
 						'master' => $me->MasterID,
 						'class' => 'lwss-reset-btn',
-						'text' => _x("Reset", "Default css values", LWS_ADMIN_PANEL_DOMAIN)
-						//,'help' => _x("", "Help about reset css to default values", LWS_ADMIN_PANEL_DOMAIN)
+						'text' => _x("Reset", "Default css values", 'lws-adminpanel')
+						//,'help' => _x("", "Help about reset css to default values", 'lws-adminpanel')
 					)
 				)),
 				$fields

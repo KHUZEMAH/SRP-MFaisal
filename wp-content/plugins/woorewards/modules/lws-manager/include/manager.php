@@ -67,15 +67,29 @@ class Manager
 	protected function init()
 	{
 		if (!defined('LWS_MANAGER_PATH')) {
-			define('LWS_MANAGER_PATH',     \dirname(__FILE__).'/..');
+			define('LWS_MANAGER_PATH',     \realpath(\dirname(__FILE__).'/..'));
 			define('LWS_MANAGER_FILE',     LWS_MANAGER_PATH . '/lws-manager.php');
 			define('LWS_MANAGER_INCLUDES', LWS_MANAGER_PATH . '/include');
 			define('LWS_MANAGER_URL',      \plugins_url('', LWS_MANAGER_FILE));
 			define('LWS_MANAGER_JS',       \plugins_url('/js', LWS_MANAGER_FILE));
 			define('LWS_MANAGER_CSS',      \plugins_url('/styling/css', LWS_MANAGER_FILE));
 			define('LWS_MANAGER_DOMAIN',  'lwsmanager');
+			define('LWS_MANAGER_VERSION' , '2.4.0');
 
 			require_once LWS_MANAGER_INCLUDES . '/api.php';
 		}
+	}
+
+	/** Read version from main plugin file.
+	 *	@return string */
+	public function v()
+	{
+		static $version = '';
+		if( empty($version) ){
+			if( !function_exists('get_plugin_data') ) require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+			$data = \get_plugin_data(LWS_MANAGER_FILE, false);
+			$version = (isset($data['Version']) ? $data['Version'] : '0');
+		}
+		return $version;
 	}
 }

@@ -31,6 +31,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 		// Loads Admin Providers.
 		$this->container->register( Admin\Tabs\Provider::class );
+
+		// Loads Tickets Emails.
+		$this->container->register( Emails\Provider::class );
 	}
 
 	/**
@@ -54,7 +57,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		// Allow Hooks to be removed, by having the them registered to the container
+		// Allow Hooks to be removed, by having the them registered to the container.
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'tickets-plus.hooks', $hooks );
 	}

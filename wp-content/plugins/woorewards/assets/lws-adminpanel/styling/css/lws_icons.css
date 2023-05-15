@@ -1,18 +1,18 @@
 @font-face {
   font-family: "lws-icons";
-  src: url("../fonts/lws-icons.eot?v20221106");
-    src: url("../fonts/lws-icons.eot?v20221106") format("embedded-opentype"),
-      url("../fonts/lws-icons.woff2?v20221106") format("woff2"), url("../fonts/lws-icons.woff?v20221106") format("woff"),
-      url("../fonts/lws-icons.ttf?v20221106") format("truetype"), url("../fonts/lws-icons.svg?v20221106") format("svg");
+  src: url("../fonts/lws-icons.eot?v20230413");
+    src: url("../fonts/lws-icons.eot?v20230413") format("embedded-opentype"),
+      url("../fonts/lws-icons.woff2?v20230413") format("woff2"), url("../fonts/lws-icons.woff?v20230413") format("woff"),
+      url("../fonts/lws-icons.ttf?v20230413") format("truetype"), url("../fonts/lws-icons.svg?v20230413") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 /*------------------------
 	base class definition
 -------------------------*/
-.lws-icon,
-[class^="lws-icon-"],
-[class*=" lws-icon-"] {
+.lws-icon::before,
+[class^="lws-icon-"]::before,
+[class*=" lws-icon-"]::before {
   font-family: "lws-icons";
   speak: none;
   text-transform: none;
@@ -1816,4 +1816,48 @@
 
 .lws-icon-bat::before {
   content: "\f234";
+}
+
+.lws-icon-button-play-1::before {
+  content: "\f235";
+}
+
+.lws-icon-btn-play-2::before {
+  content: "\f236";
+}
+
+.lws-icon-btn-play-3::before {
+  content: "\f237";
+}
+
+.lws-icon-button-play-2::before {
+  content: "\f238";
+}
+
+.lws-icon-btn-play-4::before {
+  content: "\f239";
+}
+
+.lws-icon-btn-play-1::before {
+  content: "\f23a";
+}
+
+.lws-icon-data-table::before {
+  content: "\f23b";
+}
+
+.lws-icon-row-table::before {
+  content: "\f23c";
+}
+
+.lws-icon-layout::before {
+  content: "\f23d";
+}
+
+.lws-icon-layout-grid::before {
+  content: "\f23e";
+}
+
+.lws-icon-sales_campaigns::before {
+  content: "\f23f";
 }

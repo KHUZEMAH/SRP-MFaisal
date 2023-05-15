@@ -60,7 +60,7 @@ class Endpoint
 
 		$fields['enable'] = array(
 			'id'    => $me->options['prefix'] . '_enable',
-			'title' => __("Enable", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Enable", 'lws-adminpanel'),
 			'type'  => 'box',
 			'extra' => array(
 				'layout'  => 'toggle',
@@ -69,7 +69,7 @@ class Endpoint
 		);
 		$fields['title']  = array(
 			'id'    => $me->options['prefix'] . '_title',
-			'title' => __("Tab title", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Tab title", 'lws-adminpanel'),
 			'type'  => 'text',
 			'extra' => array(
 				'placeholder' => $me->options['title'],
@@ -78,7 +78,7 @@ class Endpoint
 		);
 		$fields['slug']  = array(
 			'id'    => $me->options['prefix'] . '_slug',
-			'title' => __("Slug", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Slug", 'lws-adminpanel'),
 			'type'  => 'text',
 			'extra' => array(
 				'placeholder' => $me->options['slug'],
@@ -86,16 +86,16 @@ class Endpoint
 		);
 		$fields['roles']  = array(
 			'id'    => $me->options['prefix'] . '_role',
-			'title' => __("Role restriction", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Role restriction", 'lws-adminpanel'),
 			'type'  => 'lacchecklist',
 			'extra' => array(
-				'help'   => __("Restrict this tab to given roles. No roles selected means no restriction at all.", LWS_ADMIN_PANEL_DOMAIN),
+				'help'   => __("Restrict this tab to given roles. No roles selected means no restriction at all.", 'lws-adminpanel'),
 				'source' => $roles,
 			)
 		);
 		$fields['page'] = array(
 			'id'    => $me->options['prefix'] . '_page',
-			'title' => __("Content page", LWS_ADMIN_PANEL_DOMAIN),
+			'title' => __("Content page", 'lws-adminpanel'),
 			'type'  => 'lacselect',
 			'extra' => array(
 				'id'         => $me->options['prefix'] . '_page',
@@ -109,7 +109,7 @@ class Endpoint
 			$fields['see'] = array(
 				'id'    => 'lws_adminpanel_myaccount_page_edit',
 				'type'  => 'custom',
-				'title' => __("Content Edition", LWS_ADMIN_PANEL_DOMAIN),
+				'title' => __("Content Edition", 'lws-adminpanel'),
 				'extra' => array(
 					'content' => function()use($me, $pageId){
 						$href = \get_edit_post_link($pageId, 'raw');
@@ -117,13 +117,13 @@ class Endpoint
 							return sprintf(
 								'<a target="_blank" class="lws-adm-btn big" href="%s">%s</a>',
 								\esc_attr($href),
-								__('Edit Page', LWS_ADMIN_PANEL_DOMAIN)
+								__('Edit Page', 'lws-adminpanel')
 							);
 						} else {
 							return sprintf(
 								'<strong id="%s" class="lws-warning">%s</strong>',
 								$me->options['prefix'] . '_warning',
-								__('Selected Page not found', LWS_ADMIN_PANEL_DOMAIN)
+								__('Selected Page not found', 'lws-adminpanel')
 							);
 						}
 					},
@@ -134,10 +134,10 @@ class Endpoint
 		if ($me->options['content'] && \current_user_can('edit_pages') && \current_user_can('publish_pages')) {
 			$fields['create'] = array(
 				'id'    => $me->options['prefix'] . '_create',
-				'title' => __("Default Content", LWS_ADMIN_PANEL_DOMAIN),
+				'title' => __("Default Content", 'lws-adminpanel'),
 				'type'  => 'button',
 				'extra' => array(
-					'text' => __("Create a new default page", LWS_ADMIN_PANEL_DOMAIN),
+					'text' => __("Create a new default page", 'lws-adminpanel'),
 					'callback' => array($me, 'createPage'),
 				)
 			);
@@ -152,6 +152,15 @@ class Endpoint
 		return $this->_createPage();
 	}
 
+	function hasPage()
+	{
+		$pageId = \intval(\get_option($this->options['prefix'] . '_page'));
+		if (!$pageId)
+			return false;
+		$post = \get_post($pageId);
+		return $post && $post->ID;
+	}
+
 	function _createPage()
 	{
 		$pageId = \wp_insert_post(array(
@@ -164,8 +173,8 @@ class Endpoint
 		if ($pageId) {
 			\update_option($this->options['prefix'] . '_page', $pageId);
 			$href = \esc_attr(\get_edit_post_link($pageId, 'raw'));
-			$link = __('Edit the page', LWS_ADMIN_PANEL_DOMAIN);
-			$text = __("Page created and setup as tab.", LWS_ADMIN_PANEL_DOMAIN);
+			$link = __('Edit the page', 'lws-adminpanel');
+			$text = __("Page created and setup as tab.", 'lws-adminpanel');
 		//var pageElt = document.getElementById('{$eltId}');
 		//pageElt.value = {$pageId};
 		//pageElt.dispatchEvent(new Event('change'));
@@ -184,7 +193,7 @@ class Endpoint
 	</div>
 EOT;
 		} else {
-			return sprintf('<div class="notice notice-error"><p>%s</p></div>', __("An error occured during page creation.", LWS_ADMIN_PANEL_DOMAIN));
+			return sprintf('<div class="notice notice-error"><p>%s</p></div>', __("An error occured during page creation.", 'lws-adminpanel'));
 		}
 	}
 
