@@ -12,8 +12,8 @@
 get_header(); ?>
 
 	<?php do_action( 'ocean_before_content_wrap' ); ?>
-
-	<?php if (is_page(1850) ):?>
+      
+      <?php if (is_page(1850) ):?>
 	
 	<div class="clr">
 	 
@@ -22,7 +22,7 @@ get_header(); ?>
       <div id="content-wrap" class="container clr">
      
      <?php endif; ?>
-
+		
 		<?php do_action( 'ocean_before_primary' ); ?>
 
 		<div id="primary" class="content-area clr">

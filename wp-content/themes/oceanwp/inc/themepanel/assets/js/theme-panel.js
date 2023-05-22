@@ -28,24 +28,22 @@ jQuery(document).ready(function ($) {
 
     window['addSuccessNotify'] = function addSuccessNotify(message = 'Saved successfully', timeout = true, seconds = 4000) {
         $('#oceanwp-notifyType').text(message);
-        $(".oceanwp-notify").addClass("active");
-        $("#oceanwp-notifyType").addClass("success");
+        $(".oceanwp-notify").removeClass("failure");
+        $(".oceanwp-notify").addClass("active success");
         if (timeout) {
             setTimeout(function () {
                 $(".oceanwp-notify").removeClass("active");
-                $("#oceanwp-notifyType").removeClass("success");
             }, seconds);
         }
     }
 
     window['addFailureNotify'] = function (message = 'Something went wrong', timeout = true) {
         $('#oceanwp-notifyType').text(message);
-        $(".oceanwp-notify").addClass("active");
-        $("#oceanwp-notifyType").addClass("failure");
+        $(".oceanwp-notify").removeClass("success");
+        $(".oceanwp-notify").addClass("active failure");
         if (timeout) {
             setTimeout(function () {
                 $(".oceanwp-notify").removeClass("active");
-                $("#oceanwp-notifyType").removeClass("failure");
             }, 4000);
         }
     }
@@ -119,6 +117,17 @@ jQuery(document).ready(function ($) {
 
         window.location.hash = hash;
         tpGoTo(slug);
+    });
+
+    $(document).on('click', 'li.wp-menu-open.toplevel_page_oceanwp ul > li > a', function (event) {
+        var $this = $(this);
+        var href = $this.attr('href');
+        var href_parts = href.split("#");
+        if( window.location.href.indexOf('page=oceanwp#') !== -1 && href.indexOf('page=oceanwp#') !== -1 && href_parts.length > 1 ) {
+            event.preventDefault();
+            window.location.hash = href_parts[1];
+            tpGoTo(href_parts[1]);
+        }
     });
 
     $(document).on('click', '#wp-admin-bar-ocean-menu-default>li>a', function (event) {
@@ -209,16 +218,16 @@ jQuery(document).ready(function ($) {
                 ThemePanelSidebar.find('.oceanwp-is-active').removeClass('oceanwp-is-active');
                 ThemePanelSidebar.find('[href=#' + slug + ']').parent().addClass('oceanwp-is-active');
 
-                if (slug == 'install-demos' && window['owpDemoImport'] !== undefined) {
+                if (slug === 'install-demos' && window['owpDemoImport'] !== undefined) {
                     window['owpDemoImport'].init();
                 }
-                if( slug == 'system-info' && window['owpSystemInfoGetter'] !== undefined ) {
+                if( slug === 'system-info' && window['owpSystemInfoGetter'] !== undefined ) {
                     window['owpSystemInfoGetter']();
                 }
-                if(slug == 'white-label' && window['init_white_label_uploader'] !== undefined) {
+                if(slug === 'white-label' && window['init_white_label_uploader'] !== undefined) {
                     window['init_white_label_uploader']();
                 }
-                if(slug == 'customizer') {
+                if(slug === 'customizer') {
                     maybeAllCheckboxesActive();
                 }
 
