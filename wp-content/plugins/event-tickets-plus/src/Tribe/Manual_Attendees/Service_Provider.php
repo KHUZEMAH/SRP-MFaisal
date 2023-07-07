@@ -2,8 +2,6 @@
 
 namespace Tribe\Tickets\Plus\Manual_Attendees;
 
-use tad_DI52_ServiceProvider;
-
 /**
  * Class Service_Provider
  *
@@ -11,7 +9,7 @@ use tad_DI52_ServiceProvider;
  *
  * @since   5.2.0
  */
-class Service_Provider extends tad_DI52_ServiceProvider {
+class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Register the provider singletons.
 	 *

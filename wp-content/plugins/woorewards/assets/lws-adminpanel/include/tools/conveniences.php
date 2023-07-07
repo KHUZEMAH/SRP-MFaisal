@@ -78,28 +78,29 @@ class Conveniences
 			$amount = $price;
 		}
 
-		if($formatted) {
-			if($calcdecimals){
+		if ($formatted) {
+			if ($calcdecimals) {
 				if ((int)$amount == $amount) {
 					$dec = 0;
 				} else {
 					$dec = strlen($amount) - strrpos($amount, '.') - 1;
+					if (\function_exists('\wc_get_price_decimals')) {
+						$dec = \max($dec, \wc_get_price_decimals());
+					}
 				}
+				$dec = \apply_filters('lws_adminpanel_currency_price_decimals', $dec, $amount, $price, true);
+				if (\function_exists('\wc_price'))
+					$amount = \wc_price($amount, array('decimals' => $dec));
+				else
+					$amount = \number_format_i18n($amount, $dec);
+			} elseif (\function_exists('\wc_price')) {
+				$amount = \wc_price($amount);
 			} else {
-				if( \function_exists('\wc_get_price_decimals') ){
-					$dec = \wc_get_price_decimals();
-				} else {
-					$dec = 2;
-				}
+				$dec = \apply_filters('lws_adminpanel_currency_price_decimals', 2, $amount, $price, false);
+				$amount = \number_format_i18n($amount, $dec);
 			}
-
-			if( \function_exists('\wc_price') )
-				return \wc_price($amount, array('decimals' => $dec));
-			else
-				return \number_format_i18n($amount, $dec);
-		} else {
-			return $amount;
 		}
+		return $amount;
 	}
 
 	/** Provided for convenience.

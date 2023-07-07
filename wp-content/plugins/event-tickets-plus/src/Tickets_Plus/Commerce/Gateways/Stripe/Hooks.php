@@ -9,7 +9,7 @@ namespace TEC\Tickets_Plus\Commerce\Gateways\Stripe;
  *
  * @package TEC\Tickets_Plus\Commerce\Gateways\Stripe
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

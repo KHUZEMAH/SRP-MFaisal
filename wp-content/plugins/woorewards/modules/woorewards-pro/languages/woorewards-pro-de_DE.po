@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewardsPro\n"
 "POT-Creation-Date: 2023-02-05 12:20+0100\n"
-"PO-Revision-Date: 2023-04-14 12:57+0200\n"
+"PO-Revision-Date: 2023-06-06 15:54+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -4194,126 +4194,6 @@ msgid ""
 msgstr ""
 "Wenn Sie mehrere Systeme auswählen, werden diese nacheinander separat "
 "angezeigt."
-
-#: include/ui/adminscreens/pointsmanagement.php:23
-msgid "Export Points from MyRewards"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:24
-msgid ""
-"Select a points and rewards system to export the users points from that "
-"system."
-msgstr ""
-"Wählen Sie ein Punkte- und Belohnungssystem aus, um die Benutzerpunkte aus "
-"diesem System zu exportieren."
-
-#: include/ui/adminscreens/pointsmanagement.php:29
-msgid "points and rewards system"
-msgstr ""
-"Bitte gib einen <b>Titel</b> für dieses Punkte- und Belohnungssystem an"
-
-#: include/ui/adminscreens/pointsmanagement.php:40
-#: include/ui/adminscreens/pointsmanagement.php:89
-msgid "Export"
-msgstr "Export"
-
-#: include/ui/adminscreens/pointsmanagement.php:51
-msgid "Export from other plugins"
-msgstr "Export aus anderen Plugins"
-
-#: include/ui/adminscreens/pointsmanagement.php:54
-msgid ""
-"If you're migrating from another loyalty plugin, you can export the users "
-"points from the other plugin and import them into MyRewards."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:55
-msgid ""
-"The other plugin needs to be installed and active for this procedure to work."
-msgstr ""
-"Das andere Plugin muss installiert und aktiv sein, damit dieses Verfahren "
-"funktioniert."
-
-#: include/ui/adminscreens/pointsmanagement.php:61
-msgid "Loyalty Plugin or Meta Key"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:69
-msgid "Do not change that value if you are not sure about what you are doing."
-msgstr ""
-"Ändern Sie diesen Wert nicht, wenn Sie sich nicht sicher sind, was Sie tun."
-
-#: include/ui/adminscreens/pointsmanagement.php:75
-msgid "Some Plugin need extra arguments"
-msgstr "Einige Plugins benötigen zusätzliche Argumente"
-
-#: include/ui/adminscreens/pointsmanagement.php:83
-msgid ""
-"Main purpose is for plugins that support several point pools. If the plugin "
-"is not listed here, it does not need an extra argument."
-msgstr ""
-"Hauptzweck sind Plugins, die mehrere Punktpools unterstützen. Wenn das "
-"Plugin hier nicht aufgeführt ist, benötigt es kein zusätzliches Argument."
-
-#: include/ui/adminscreens/pointsmanagement.php:99
-msgid "Import Points"
-msgstr "Importpunkte"
-
-#: include/ui/adminscreens/pointsmanagement.php:102
-msgid "Select the exported file, then click on «Import»."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:103
-msgid "The Import process does <b>not</b> generate any reward."
-msgstr "Der Importvorgang generiert <b>keine</b> Belohnung."
-
-#: include/ui/adminscreens/pointsmanagement.php:109
-msgid "Round imported points"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:114
-msgid "MyRewards only support integer points"
-msgstr "MyRewards unterstützt nur ganzzahlige Punkte"
-
-#: include/ui/adminscreens/pointsmanagement.php:116
-msgid "Round fractions down"
-msgstr "Brüche nach unten runden"
-
-#: include/ui/adminscreens/pointsmanagement.php:117
-msgid "Round fractions up"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:118
-msgid "Round to nearest integer, half way round up"
-msgstr "Auf die nächste ganze Zahl runden, auf halbem Weg aufrunden"
-
-#: include/ui/adminscreens/pointsmanagement.php:119
-msgid "Round to nearest integer, half way round down"
-msgstr "Auf die nächste ganze Zahl runden, auf halbem Weg nach unten runden"
-
-#: include/ui/adminscreens/pointsmanagement.php:126
-msgid "Multiply imported points by"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:135
-msgid "Import Mode"
-msgstr "Importmodus"
-
-#: include/ui/adminscreens/pointsmanagement.php:141
-msgid "Replace customers points"
-msgstr "Kundenpunkte ersetzen"
-
-#: include/ui/adminscreens/pointsmanagement.php:142
-msgid "Add points to customers totals"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:149
-msgid "Add points to that points and rewards system"
-msgstr "Fügen Sie diesem Punkte- und Belohnungssystem Punkte hinzu"
-
-#: include/ui/adminscreens/pointsmanagement.php:173
-msgid "Import"
-msgstr "Importieren"
 
 #: include/ui/adminscreens/popups.php:14
 msgid "Popups"

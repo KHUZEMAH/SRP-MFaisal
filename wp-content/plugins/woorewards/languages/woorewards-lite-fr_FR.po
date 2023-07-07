@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
 "POT-Creation-Date: 2023-01-30 15:24+0100\n"
-"PO-Revision-Date: 2023-01-30 15:24+0100\n"
+"PO-Revision-Date: 2023-06-06 15:54+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Geany / PoHelper 1.36\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: woorewards.php\n"
@@ -4856,3 +4856,126 @@ msgstr "https://longwatchstudio.com"
 #~ msgid "The selected Spending Point System type cannot be found."
 #~ msgstr ""
 #~ "Le type de système de points de dépense sélectionné est introuvable."
+
+#: include/ui/adminscreens/pointsmanagement.php:23
+msgid "Export Points from MyRewards"
+msgstr "Exporter les points depuis MyRewards"
+
+#: include/ui/adminscreens/pointsmanagement.php:24
+msgid ""
+"Select a points and rewards system to export the users points from that "
+"system."
+msgstr ""
+"Sélectionnez un système de points et de récompenses pour exporter les points "
+"utilisateurs à partir de ce système."
+
+#: include/ui/adminscreens/pointsmanagement.php:29
+msgid "points and rewards system"
+msgstr "système de points et de récompenses"
+
+#: include/ui/adminscreens/pointsmanagement.php:40
+#: include/ui/adminscreens/pointsmanagement.php:89
+msgid "Export"
+msgstr "Exporter"
+
+#: include/ui/adminscreens/pointsmanagement.php:51
+msgid "Export from other plugins"
+msgstr "Export à partir d’autres plugins"
+
+#: include/ui/adminscreens/pointsmanagement.php:54
+msgid ""
+"If you're migrating from another loyalty plugin, you can export the users "
+"points from the other plugin and import them into MyRewards."
+msgstr ""
+"Si vous migrez depuis un autre plugin de fidélité, vous pouvez exporter les "
+"points utilisateurs de l’autre plugin et les importer dans MyRewards."
+
+#: include/ui/adminscreens/pointsmanagement.php:55
+msgid ""
+"The other plugin needs to be installed and active for this procedure to work."
+msgstr ""
+"L’autre plugin doit être installé et actif pour que cette procédure "
+"fonctionne."
+
+#: include/ui/adminscreens/pointsmanagement.php:61
+msgid "Loyalty Plugin or Meta Key"
+msgstr "Plugin de fidélité ou clé Meta"
+
+#: include/ui/adminscreens/pointsmanagement.php:69
+msgid "Do not change that value if you are not sure about what you are doing."
+msgstr ""
+"Ne modifiez pas cette valeur si vous n’êtes pas sûr de ce que vous faites."
+
+#: include/ui/adminscreens/pointsmanagement.php:75
+msgid "Some Plugin need extra arguments"
+msgstr "Certains Plugin ont besoin d’arguments supplémentaires"
+
+#: include/ui/adminscreens/pointsmanagement.php:83
+msgid ""
+"Main purpose is for plugins that support several point pools. If the plugin "
+"is not listed here, it does not need an extra argument."
+msgstr ""
+"L’objectif principal est pour les plugins qui supportent plusieurs pools de "
+"points. Si le plugin n’est pas répertorié ici, il n’a pas besoin d’un "
+"argument supplémentaire."
+
+#: include/ui/adminscreens/pointsmanagement.php:99
+msgid "Import Points"
+msgstr "Importer des points"
+
+#: include/ui/adminscreens/pointsmanagement.php:102
+msgid "Select the exported file, then click on «Import»."
+msgstr "Sélectionnez le fichier exporté, puis cliquez sur « Importation »."
+
+#: include/ui/adminscreens/pointsmanagement.php:103
+msgid "The Import process does <b>not</b> generate any reward."
+msgstr "Le processus d’importation <b>ne</b> génère aucune récompense."
+
+#: include/ui/adminscreens/pointsmanagement.php:109
+msgid "Round imported points"
+msgstr "Arrondir les points importés"
+
+#: include/ui/adminscreens/pointsmanagement.php:114
+msgid "MyRewards only support integer points"
+msgstr "MyRewards ne supporte que les points entiers"
+
+#: include/ui/adminscreens/pointsmanagement.php:116
+msgid "Round fractions down"
+msgstr "Fractions arrondies vers le bas"
+
+#: include/ui/adminscreens/pointsmanagement.php:117
+msgid "Round fractions up"
+msgstr "Fractions arrondies vers le haut"
+
+#: include/ui/adminscreens/pointsmanagement.php:118
+msgid "Round to nearest integer, half way round up"
+msgstr "Arrondit à l’entier le plus proche, à mi-chemin arrondir au supérieur"
+
+#: include/ui/adminscreens/pointsmanagement.php:119
+msgid "Round to nearest integer, half way round down"
+msgstr "Arrondit à l’entier le plus proche, à mi-chemin arrondit vers le bas"
+
+#: include/ui/adminscreens/pointsmanagement.php:126
+msgid "Multiply imported points by"
+msgstr "Multiplier les points importés par"
+
+#: include/ui/adminscreens/pointsmanagement.php:135
+msgid "Import Mode"
+msgstr "Mode d’importation"
+
+#: include/ui/adminscreens/pointsmanagement.php:141
+msgid "Replace customers points"
+msgstr "Remplacer les points clients"
+
+#: include/ui/adminscreens/pointsmanagement.php:142
+msgid "Add points to customers totals"
+msgstr "Ajouter des points aux totaux des clients"
+
+#: include/ui/adminscreens/pointsmanagement.php:149
+msgid "Add points to that points and rewards system"
+msgstr ""
+"Les points de l’utilisateur dans le système de points et de récompenses"
+
+#: include/ui/adminscreens/pointsmanagement.php:173
+msgid "Import"
+msgstr "Importer"

@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Event Tickets Plus 5.6.10\n"
+"Project-Id-Version: Event Tickets Plus 5.7.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-27T19:45:16-07:00\n"
-"PO-Revision-Date: 2023-04-28 02:45\n"
+"POT-Creation-Date: 2023-06-26T09:37:06-07:00\n"
+"PO-Revision-Date: 2023-06-26 16:37\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: event-tickets-plus\n"
 
@@ -535,87 +535,87 @@ msgstr ""
 msgid "Contact your Host or your system administrator and ask to upgrade to the latest version of PHP."
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:53
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:131
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:61
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:143
 msgid "Attendee Registration"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:78
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:86
 msgid "Optional: select an existing page to act as your attendee registration page. <strong>Requires</strong> use of the `[tribe_attendee_registration]` shortcode and overrides the above template and URL slug."
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:87
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:99
 msgid "<span class=\"notice notice-error\">Selected page <strong>must</strong> use the `[tribe_attendee_registration]` shortcode. While the shortcode is missing the default redirect will be used.</span>"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:98
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:110
 msgctxt "Attendee Registration tab header"
 msgid "Attendee Registration Settings"
 msgstr ""
 
 #. Translators: %1$s: opening of HTML link. %2$s: closing of HTML link.
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:105
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:117
 msgid "Collecting information about your attendees — such as their names and emails addresses — can give you insights about who is coming to your event, how to communicate with them, and even create personalized experiences for them. %1$sLearn more%2$s"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:135
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:147
 msgid "Attendee Registration Modal "
 msgstr ""
 
 #. Translators: %1$s: dynamic "tickets" text. %2$s: opening of HTML link. %3$s: closing of HTML link.
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:138
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:150
 msgctxt "checkbox to enable Attendee Registration Modal"
 msgid "Enabling the Attendee Registration Modal provides a new sales flow for purchasing %1$s that include Attendee Registration. [%2$sLearn more%3$s]"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:154
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:166
 msgid "Attendee Registration URL slug"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:155
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:167
 msgid "The slug used for building the URL for the Attendee Registration Info page."
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:163
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:175
 msgid "Attendee Registration template"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:164
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:176
 msgid "Choose a page template to control the appearance of your attendee registration page."
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:172
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:184
 msgid "Attendee Registration page"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:192
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:204
 msgctxt "tooltip for Individual Attendee Collection setting"
 msgid "The default Individual Attendee Collection option when you create new tickets, which may be customized per ticket."
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:208
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:220
 msgid "Individual Attendee Collection"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:212
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:224
 msgctxt "Individual Attendee Collection settings label"
 msgid "Individual Attendee Collection Default Setting"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:233
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:245
 msgctxt "dropdown option"
 msgid "Default Page Template"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:237
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:249
 msgid "Same as Event Page Template"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:261
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:273
 msgid "You must create a page before using this functionality"
 msgstr ""
 
-#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:266
+#: src/Tickets_Plus/Admin/Tabs/Attendee_Registration.php:278
 msgid "Choose a page or leave blank."
 msgstr ""
 
@@ -697,26 +697,58 @@ msgstr ""
 msgid "WeChat Pay"
 msgstr ""
 
+#: src/Tickets_Plus/Emails/Email/Components.php:25
+msgid "Age"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:25
+msgid "32"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:26
+msgid "T-Shirt Size"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:26
+msgid "Medium"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:27
+msgid "Parking Required"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:27
+msgid "Yes"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:28
+msgid "Phone"
+msgstr ""
+
+#: src/Tickets_Plus/Emails/Email/Components.php:28
+msgid "555-555-5555"
+msgstr ""
+
 #: src/Tickets_Plus/Emails/Email/RSVP.php:55
-#: src/Tickets_Plus/Emails/Email/Ticket.php:54
-msgid "Include QR Codes"
+#: src/Tickets_Plus/Emails/Email/Ticket.php:55
+msgid "QR Codes"
 msgstr ""
 
 #. Translators: %1$s: 'tickets' label (plural, lowercase).
 #: src/Tickets_Plus/Emails/Email/RSVP.php:59
-#: src/Tickets_Plus/Emails/Email/Ticket.php:58
-msgid "Include QR codes in %1$s emails (required for Event Tickets Plus App)"
+#: src/Tickets_Plus/Emails/Email/Ticket.php:59
+msgid "Include QR codes in %1$s emails (required for Event Tickets Plus App)."
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/RSVP.php:69
-#: src/Tickets_Plus/Emails/Email/Ticket.php:68
-msgid "Include Attendee Registration Fields"
+#: src/Tickets_Plus/Emails/Email/RSVP.php:73
+#: src/Tickets_Plus/Emails/Email/Ticket.php:69
+msgid "Attendee Registration Fields"
 msgstr ""
 
 #. Translators: %1$s: 'tickets' label (plural, lowercase).
-#: src/Tickets_Plus/Emails/Email/RSVP.php:73
-#: src/Tickets_Plus/Emails/Email/Ticket.php:72
-msgid "Include Attendee Registration fields in your %1$s emails"
+#: src/Tickets_Plus/Emails/Email/RSVP.php:77
+#: src/Tickets_Plus/Emails/Email/Ticket.php:73
+msgid "Include Attendee Registration fields in your %1$s emails."
 msgstr ""
 
 #: src/Tickets_Plus/Emails/Settings.php:36
@@ -724,11 +756,11 @@ msgid "Footer Credit"
 msgstr ""
 
 #: src/Tickets_Plus/Emails/Settings.php:37
-msgid "Include \"Ticket powered by Event Tickets\" in the footer"
+msgid "Include \"Powered by Event Tickets\" in the footer"
 msgstr ""
 
 #. Translators: %1$s: The Tickets Commerce knowledgebase article link.
-#: src/Tickets_Plus/Hooks.php:136
+#: src/Tickets_Plus/Hooks.php:135
 msgctxt "about Tickets Commerce"
 msgid "Tickets Commerce provides a simple and flexible eCommerce checkout for purchasing tickets. Just choose your payment gateway and configure checkout options and you're all set. %1$s."
 msgstr ""
@@ -1049,11 +1081,11 @@ msgstr ""
 msgid "( Deleted )"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Service_Provider.php:67
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Service_Provider.php:65
 msgid "Event Tickets Plus Extension: Enhance Woo Order Templates"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Service_Provider.php:68
+#: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Service_Provider.php:66
 msgid "was deactivated, as this feature is now available within Event Tickets Plus"
 msgstr ""
 
@@ -1558,74 +1590,74 @@ msgstr ""
 msgid "Could not render QR code because gzuncompress() is not available"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:53
+#: src/Tribe/QR/Settings.php:62
 msgid "Event Tickets Plus App"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:65
+#: src/Tribe/QR/Settings.php:74
 msgid "Use QR Codes"
 msgstr ""
 
 #. Translators: %s: 'tickets' label (plural, lowercase).
-#: src/Tribe/QR/Settings.php:69
+#: src/Tribe/QR/Settings.php:78
 msgid "Include QR codes in %s emails (required for Event Tickets Plus App)"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:84
+#: src/Tribe/QR/Settings.php:93
 msgid "Restrict Check-In"
 msgstr ""
 
 #. Translators: %1$s: 'tickets' label (plural, lowercase). %2$s: 'event' label (singular, lowercase).
-#: src/Tribe/QR/Settings.php:88
+#: src/Tribe/QR/Settings.php:97
 msgid "Only allow check-in of QR %1$s during the date and time of the %2$s, including the check-in window below."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:99
+#: src/Tribe/QR/Settings.php:108
 msgid "Check-in Window"
 msgstr ""
 
 #. Translators: %1$s: 'event' label (singular, lowercase).
-#: src/Tribe/QR/Settings.php:103
+#: src/Tribe/QR/Settings.php:112
 msgid "minutes before the %1$s"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:133
+#: src/Tribe/QR/Settings.php:142
 msgid "Permission Error"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:139
+#: src/Tribe/QR/Settings.php:148
 msgid "The QR API key was not generated, please try again."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:145
+#: src/Tribe/QR/Settings.php:154
 msgid "The QR API key was generated, but generating the connection QR Code image failed."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:151
+#: src/Tribe/QR/Settings.php:160
 msgid "QR API Key Generated"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:249
+#: src/Tribe/QR/Settings.php:258
 msgid "In order to have QR codes for your tickets you will need to have both the `php_gd2` and `gzuncompress` PHP extensions installed on your server. Please contact your hosting provider."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:250
+#: src/Tribe/QR/Settings.php:259
 msgid "Learn more."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:300
+#: src/Tribe/QR/Settings.php:309
 msgid "App Store"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:301
+#: src/Tribe/QR/Settings.php:310
 msgid "Google Play Store"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:302
+#: src/Tribe/QR/Settings.php:311
 msgid "Knowledgebase"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:305
+#: src/Tribe/QR/Settings.php:314
 msgid ""
 "Our Event Tickets Plus app makes on-site ticket validation and attendee management a breeze. Available for mobile devices through the iOS %1$s and %2$s\n"
 "store. Learn more about the app in our %3$s."
@@ -1947,13 +1979,13 @@ msgid "Attendee Details"
 msgstr ""
 
 #. translators: %1$s: Event name, %2$s: Tickets label
-#: src/views/v2/tickets/submit/button-modal.php:30
+#: src/views/v2/tickets/submit/button-modal.php:34
 msgctxt "Tickets modal title."
 msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: %s: Tickets label
-#: src/views/v2/tickets/submit/button-modal.php:33
+#: src/views/v2/tickets/submit/button-modal.php:37
 msgctxt "Get Tickets button."
 msgid "Get %s"
 msgstr ""

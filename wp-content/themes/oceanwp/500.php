@@ -1,5 +1,5 @@
 <?php
-/**
+/** 
  * The template for displaying 500 pages in PWA.
  *
  * @package OceanWP WordPress theme

@@ -112,6 +112,29 @@ class Rewards
 						'desc' => __("(Optional) If set, possible rewards will be visible to unlogged customers", 'woorewards-pro'),
 						'example' => '[wr_rewards force="yes"]',
 					),
+					'imagesize' => array(
+						'option' => 'imagesize',
+						'desc' => __("(Optional) Select the size of the reward image shown. 4 possible values :", 'woorewards-pro'),
+						'options' => array(
+							array(
+								'option' => 'lws_wr_thumbnail',
+								'desc'   => __("Default Value. Displays an image up to 96x96 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'thumbnail',
+								'desc'   => __("Displays an image up to 150x150 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'medium',
+								'desc'   => __("Displays an image up to 300x300 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'large',
+								'desc'   => __("Displays an image up to 1024 pixels wide", 'woorewards-pro'),
+							),
+						),
+						'example' => '[wr_rewards imagesize="thumbnail"]'
+					),
 				),
 				'flags' => array('current_user_id'),
 			)
@@ -137,6 +160,8 @@ class Rewards
 	 * 					  Shows the name of the points and rewards system if set
 	 * @param force	→ Default: false
 	 * 					  Shows for unlogged users, acces to system users cannot
+	 * @param imagesize		→ Default: 'lws_wr_thumbnail'
+	 * 					  	  Set the reward image's size
 	 */
 	public function shortcode($atts = array(), $content = '')
 	{
@@ -147,6 +172,7 @@ class Rewards
 			'display'  => 'formatted',
 			'showname' => '',
 			'force'    => false,
+			'imagesize'   => 'lws_wr_thumbnail',
 		));
 		$userId = \apply_filters('lws_woorewards_shortcode_current_user_id', \get_current_user_id(), $atts, 'wr_rewards');
 		if (!($userId || $atts['force'])) {
@@ -237,7 +263,7 @@ class Rewards
 						$class = sprintf('item %s %s', \esc_attr($atts['element']), $item['name']);
 						if ($reward['buyable'])
 							$class .= ' buyable';
-						$img = (($img = $reward['unlockable']->getThumbnailImage()) ? "<div class='reward-img'>{$img}</div>" : '');
+						$img = (($img = $reward['unlockable']->getThumbnailImage($this->getVerifiedSize($atts['imagesize']))) ? "<div class='reward-img'>{$img}</div>" : '');
 
 						$group .= <<<EOT
 	<div class='{$class}'>{$img}
@@ -290,7 +316,7 @@ EOT;
 						$class = sprintf('item %s %s', \esc_attr($atts['element']), $item['name']);
 						if ($reward['buyable'])
 							$class .= ' buyable';
-						$img = (($img = $reward['unlockable']->getThumbnailImage()) ? "<div class='reward-img'>{$img}</div>" : '');
+						$img = (($img = $reward['unlockable']->getThumbnailImage($this->getVerifiedSize($atts['imagesize']))) ? "<div class='reward-img'>{$img}</div>" : '');
 
 						$level .= <<<EOT
 	<div class='{$class}'>{$img}
@@ -312,5 +338,10 @@ EOT;
 			$lastType = $item['type'];
 		}
 		return implode('', $content);
+	}
+
+	private function getVerifiedSize($size)
+	{
+		return \LWS\Adminpanel\Tools\MediaHelper::getVerifiedMediaSize($size, 'lws_wr_thumbnail');
 	}
 }

@@ -148,6 +148,7 @@ class Updater
 
 		$options = array(
 			'lws_woorewards_permanents_through_levels' => $freshInstall ? '' : 'on',
+			'lws_woorewards_achievement_popup_enabled' => 'on',
 		);
 		foreach ($options as $name => $value) {
 			if (false === \get_option($name, false))

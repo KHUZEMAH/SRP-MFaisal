@@ -1,4 +1,4 @@
-<?php get_header();
+<?php get_header(); 
 
 // if ( !is_user_logged_in() ) {
 //     wp_redirect( get_permalink( 1854 ) );

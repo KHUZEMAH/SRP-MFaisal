@@ -38,8 +38,8 @@ class OrderAmount extends \LWS\WOOREWARDS\Abstracts\Event
 		$label = _x("Money spent", "Order Amount Event money diviser", 'woorewards-lite');
 		$value = \esc_attr($this->getDenominator());
 		$str = <<<EOT
-	<div class='lws-$context-opt-title label'>$label</div>
-	<div class='lws-$context-opt-input value'>
+	<div class='lws-$context-opt-title label pts-earning'>$label</div>
+	<div class='lws-$context-opt-input value pts-earning'>
 		<input type='text' id='{$prefix}denominator' name='{$prefix}denominator' value='$value' placeholder='1' pattern='\\d*' size='5' />
 	</div>
 EOT;
@@ -281,6 +281,8 @@ EOT;
 			$points = $amount / floatval($this->getDenominator());
 			if( $this->getThresholdEffect() )
 				$points = floor($points);
+			else
+				$points = \round($points, 0, \apply_filters('lws_woorewards_orderamount_points_round_mode', PHP_ROUND_HALF_UP, $this));
 		}
 		return $points;
 	}

@@ -1,9 +1,9 @@
 @font-face {
   font-family: "lws-icons";
-  src: url("../fonts/lws-icons.eot?v20230413");
-    src: url("../fonts/lws-icons.eot?v20230413") format("embedded-opentype"),
-      url("../fonts/lws-icons.woff2?v20230413") format("woff2"), url("../fonts/lws-icons.woff?v20230413") format("woff"),
-      url("../fonts/lws-icons.ttf?v20230413") format("truetype"), url("../fonts/lws-icons.svg?v20230413") format("svg");
+  src: url("../fonts/lws-icons.eot?v20230623");
+    src: url("../fonts/lws-icons.eot?v20230623") format("embedded-opentype"),
+      url("../fonts/lws-icons.woff2?v20230623") format("woff2"), url("../fonts/lws-icons.woff?v20230623") format("woff"),
+      url("../fonts/lws-icons.ttf?v20230623") format("truetype"), url("../fonts/lws-icons.svg?v20230623") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -1860,4 +1860,32 @@
 
 .lws-icon-sales_campaigns::before {
   content: "\f23f";
+}
+
+.lws-icon-temple::before {
+  content: "\f241";
+}
+
+.lws-icon-credit-locked::before {
+  content: "\f242";
+}
+
+.lws-icon-money-transfer::before {
+  content: "\f244";
+}
+
+.lws-icon-sync-devices::before {
+  content: "\f245";
+}
+
+.lws-icon-file-pdf::before {
+  content: "\f248";
+}
+
+.lws-icon-handout::before {
+  content: "\f249";
+}
+
+.lws-icon-transaction::before {
+  content: "\f24a";
 }

@@ -1,5 +1,5 @@
 <?php /* Template Name: Paypal Response */
-
+ 
 if(!isset($_SESSION)) 
 { 
     session_start(); 

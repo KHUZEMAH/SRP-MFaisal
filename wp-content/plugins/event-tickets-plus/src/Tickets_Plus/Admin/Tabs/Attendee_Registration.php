@@ -35,6 +35,14 @@ Class Attendee_Registration {
 			return;
 		}
 
+		// If we fail here we dont have attendee registration so we bail.
+		try {
+			/** @var \Tribe__Tickets__Attendee_Registration__Main $attendee_registration */
+			$attendee_registration = tribe( 'tickets.attendee_registration' );
+		} catch ( \Exception $e ) {
+			return;
+		}
+
 		$tab_settings = [
 			'priority'  => 30,
 			'fields'    => $this->get_fields(),
@@ -77,8 +85,12 @@ Class Attendee_Registration {
 	public function get_fields(): array {
 		$ar_page_description = __( 'Optional: select an existing page to act as your attendee registration page. <strong>Requires</strong> use of the `[tribe_attendee_registration]` shortcode and overrides the above template and URL slug.', 'event-tickets-plus' );
 
-		/** @var \Tribe__Tickets__Attendee_Registration__Main $attendee_registration */
-		$attendee_registration = tribe( 'tickets.attendee_registration' );
+		try {
+			/** @var \Tribe__Tickets__Attendee_Registration__Main $attendee_registration */
+			$attendee_registration = tribe( 'tickets.attendee_registration' );
+		} catch ( \Exception $e ) {
+			return [];
+		}
 
 		$ar_page = $attendee_registration->get_attendee_registration_page();
 

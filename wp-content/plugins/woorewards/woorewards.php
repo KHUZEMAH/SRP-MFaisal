@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.0.8
+ * Version: 5.0.11
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
  * WC requires at least: 3.7.0
- * WC tested up to: 7.6
+ * WC tested up to: 7.8
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -113,7 +113,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '5.0.8');
+		define('LWS_WOOREWARDS_VERSION', '5.0.11');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -151,12 +151,12 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '5.0.8';
+		return '5.0.11';
 	}
 
 	public function addDocUrl($url)
 	{
-		return __("https://plugins.longwatchstudio.com/docs/woorewards-4/", 'woorewards-lite');
+		return \LWS\WOOREWARDS\DocLinks::get('home');
 	}
 
 	function register()
@@ -271,7 +271,7 @@ final class LWS_WooRewards
 		require_once LWS_WOOREWARDS_INCLUDES . '/core/pool.php';
 
 		require_once LWS_WOOREWARDS_INCLUDES . '/core/sponsorship.php';
-		\LWS\WOOREWARDS\PRO\Core\Sponsorship::register();
+		\LWS\WOOREWARDS\Core\Sponsorship::register();
 		require_once LWS_WOOREWARDS_INCLUDES . '/ui/shortcodes/referrallink.php';
 		\LWS\WOOREWARDS\Ui\ShortCodes\ReferralLink::install();
 
@@ -370,6 +370,12 @@ final class LWS_WooRewards
 				return $protected;
 			}, 10, 3);
 		}
+
+		// import/export
+		require_once LWS_WOOREWARDS_INCLUDES . '/pointsflow/action.php';
+		\LWS\WOOREWARDS\PointsFlow\Action::register();
+
+		\do_action('lws_woorewards_init');
 	}
 
 	function enqueueFrontendStyles()
@@ -438,8 +444,14 @@ final class LWS_WooRewards
 
 	static function installPool()
 	{
-		$pools = \LWS\WOOREWARDS\Collections\Pools::instanciate()->load(array(
-			'post_status' => array('publish', 'private'),
+		$pools = self::getPrefabPools()->install();
+		self::getInstalledPool($pools->first());
+		\do_action('lws_woorewards_pools_loaded', $pools);
+	}
+
+	static function getPrefabPools($enabledOnly=true)
+	{
+		$args = array(
 			'meta_query'  => array(
 				array(
 					'key'     => 'wre_pool_prefab',
@@ -452,8 +464,18 @@ final class LWS_WooRewards
 					'compare' => 'LIKE'
 				)
 			)
-		))->install();
-		\do_action('lws_woorewards_pools_loaded', $pools);
+		);
+		if ($enabledOnly)
+			$args['post_status'] = array('publish', 'private');
+		return \LWS\WOOREWARDS\Collections\Pools::instanciate()->load($args);
+	}
+
+	static function getInstalledPool($_pool=false)
+	{
+		static $save = false;
+		if ($_pool)
+			$save = $_pool;
+		return $save;
 	}
 
 	/** Should be called inside an admin_notice hook.

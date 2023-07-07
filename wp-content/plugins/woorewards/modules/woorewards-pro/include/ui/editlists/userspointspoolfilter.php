@@ -26,12 +26,12 @@ class UsersPointsPoolFilter
 	{
 		$str = '';
 		$visibles = $this->visiblePools();
-		foreach( $this->poolsInfo as $name => $details )
+		foreach( $this->poolsInfo as $details )
 		{
 			$label = \apply_filters('the_title', $details->post_title, $details->ID);
-			$checked = (isset($visibles[$name]) && $visibles[$name]) ? ' checked' : '';
-			$id = 'lws-wr-pool-column-visibility-' . $name;
-			$checkbox = \LWS\Adminpanel\Pages\Field\Checkbox::compose('lws_wre_pool_visibility_' . $name, array(
+			$checked = (isset($visibles[$details->ID]) && $visibles[$details->ID]) ? ' checked' : '';
+			$id = 'lws-wr-pool-column-visibility-' . $details->ID;
+			$checkbox = \LWS\Adminpanel\Pages\Field\Checkbox::compose('lws_wre_pool_visibility_' . $details->ID, array(
 				'id'        => $id,
 				'layout'    => 'box',
 				'noconfirm' => true,
@@ -39,7 +39,7 @@ class UsersPointsPoolFilter
 				'size'      => 'small',
 				'checked'   => $checked,
 				'attributes'    => array(
-					'name' => 'lws_wre_pool_' . $name
+					'name' => 'lws_wre_pool_' . $details->ID
 				)
 			));
 			$str .= "<div class='lws-wr-pool-column-checkbox'>$checkbox<div class='lws-wr-pool-column-label'>$label</div></div>";
@@ -57,9 +57,9 @@ class UsersPointsPoolFilter
 	{
 		$this->load();
 		$visible = array();
-		foreach( $this->poolsInfo as $name => $details )
+		foreach( $this->poolsInfo as $details )
 		{
-			$visible[$name] = true;
+			$visible[$details->ID] = true;
 		}
 		return $visible;
 	}
@@ -76,10 +76,10 @@ class UsersPointsPoolFilter
 		}
 
 		$poolsLabels = array();
-		foreach( $this->poolsInfo as $name => $post )
+		foreach( $this->poolsInfo as $post )
 		{
 			// \LWS_WooRewards::getPointSymbol(2, $name)
-			$poolsLabels[\LWS\WOOREWARDS\Ui\Editlists\UsersPoints::L_PREFIX.$name] = array(
+			$poolsLabels[\LWS\WOOREWARDS\Ui\Editlists\UsersPoints::L_PREFIX . $post->ID] = array(
 				\apply_filters('the_title', $post->post_title, $post->ID),
 				'max-content',
 			);
@@ -102,12 +102,10 @@ class UsersPointsPoolFilter
 		{
 			global $wpdb;
 			$type = \LWS\WOOREWARDS\Core\Pool::POST_TYPE;
-			$sql = "SELECT post_name, ID, post_title FROM {$wpdb->posts}";
+			$sql = "SELECT ID, post_name, post_title FROM {$wpdb->posts}";
 			$sql .= " WHERE post_type='$type' AND post_status NOT IN ('trash') ORDER BY menu_order ASC, ID ASC";
 
 			$this->poolsInfo = $wpdb->get_results($sql, OBJECT_K);
 		}
 	}
-
 }
-?>

@@ -9,8 +9,6 @@
 
 namespace TEC\Tickets_Plus;
 
-use \tad_DI52_ServiceProvider;
-
 /**
  * Class Assets.
  *
@@ -18,7 +16,7 @@ use \tad_DI52_ServiceProvider;
  *
  * @package TEC\Tickets_Plus
  */
-class Assets extends tad_DI52_ServiceProvider {
+class Assets extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

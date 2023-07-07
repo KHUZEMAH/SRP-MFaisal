@@ -333,7 +333,7 @@ EOT;
 			return false;
 
 		$valid = false;
-		$orderCount = $this->getOrderCount($user, $order ? $order->get_id() : false);
+		$orderCount = \LWS\WOOREWARDS\Conveniences::getOrderCount($user, $order ? $order->get_id() : false, 'event');
 		$orderNumber = ($orderCount + 1);
 		foreach (explode(',', $valuesToTest) as $valueToTest)
 		{
@@ -387,64 +387,9 @@ EOT;
 		}
 	}
 
-	/**	@param $user (int|WP_User) */
+	/**	@deprecated user \LWS\WOOREWARDS\Conveniences::getOrderCount() instead */
 	protected function getOrderCount($user, $exceptOrderId = false)
 	{
-		if (!$user)
-			return 0;
-
-		$exceptOrderId = \intval($exceptOrderId);
-		$userId = 0;
-		$email = '';
-
-		if (\is_object($user)) {
-			$userId = (int)$user->ID;
-			$email = $user->user_email;
-		} elseif (\is_numeric($user)) {
-			$userId = \intval($user);
-			$user = \get_user_by('ID', $userId);
-			if ($user && $user->exists())
-				$email = $user->user_email;
-		} else { // assume a string email
-			$email = $user;
-		}
-
-		$key = implode('/', array($userId, $exceptOrderId, $email));
-		static $cache = array();
-		if (isset($cache[$key])) {
-			return $cache[$key];
-		}
-
-		global $wpdb;
-		$queries = array();
-		if ($userId) {
-			$queries[0] = <<<EOT
-SELECT c.post_id FROM `{$wpdb->postmeta}` as c
-INNER JOIN `{$wpdb->posts}` as `pc` ON pc.ID=c.post_id AND pc.post_type='shop_order' AND pc.ID!={$exceptOrderId}
-WHERE c.meta_key='_customer_user' AND c.meta_value = %s
-EOT;
-			$queries[0] = $wpdb->prepare($queries[0], $userId);
-		}
-		if ($email) {
-			$queries[1] = <<<EOT
-SELECT m.post_id FROM `{$wpdb->postmeta}` as m
-INNER JOIN `{$wpdb->posts}` as `pm` ON pm.ID=m.post_id AND pm.post_type='shop_order' AND pm.ID!={$exceptOrderId}
-WHERE m.meta_key='_billing_email' AND m.meta_value = %s
-EOT;
-			$queries[1] = $wpdb->prepare($queries[1], $email);
-		}
-
-		$count = 0;
-		if (!$queries) {
-			$count = $wpdb->get_var("SELECT COUNT(ID) FROM `{$wpdb->posts}` WHERE post_type='shop_order' AND ID!={$exceptOrderId}");
-		} elseif (count($queries) == 1) {
-			$query = reset($queries);
-			$count = $wpdb->get_var(\preg_replace('/^SELECT [cm]\.post_id/i', 'SELECT COUNT(post_id)', $query));
-		} else {
-			$query = \implode("\nUNION\n", $queries);
-			$count = $wpdb->get_var("SELECT COUNT(*) FROM ({$query}) as u");
-		}
-		$cache[$key] = $count;
-		return $count;
+		return \LWS\WOOREWARDS\Conveniences::getOrderCount($user, $exceptOrderId, 'event');
 	}
 }

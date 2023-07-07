@@ -183,10 +183,13 @@ EOT;
 
 		if( $this->isFirstOrderOnly() )
 		{
-			$orderId = $order->order->get_id();
-			if( $this->sponsorship->sponsored_id && \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountById($this->sponsorship->sponsored_id, $orderId) > 0 )
-				return $order;
-			if( \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountByEMail($this->sponsorship->sponsored_email, $orderId) > 0 )
+			$c = \LWS\WOOREWARDS\Conveniences::getOrderCount(
+				$this->sponsorship->sponsored_id,
+				$order->order->get_id(),
+				'sponsorship',
+				$this->sponsorship->sponsored_email
+			);
+			if ($c)
 				return $order;
 		}
 

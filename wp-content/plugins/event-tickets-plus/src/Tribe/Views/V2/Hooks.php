@@ -26,7 +26,7 @@ use Tribe__Customizer__Section as Customizer_Section;
  *
  * @package Tribe\Tickets\Plus\Views\V2
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Binds and sets up the classes that should be hooked to filter and actions.
 	 *

@@ -12,7 +12,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '5.6.10';
+		const VERSION = '5.7.2';
 
 		/**
 		 * Used to store the version history.
@@ -118,7 +118,6 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			$this->plugin_path = trailingslashit( EVENT_TICKETS_PLUS_DIR );
 			$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 			$this->plugin_url  = plugins_url() . '/' . $this->plugin_dir;
-			$this->pue         = new Tribe__Tickets_Plus__PUE;
 
 			/** @see \Tribe__Events__Pro__Main::init_apm_filters() Is on priority 10. */
 			add_action( 'plugins_loaded', [ $this, 'apm_filters' ], 5 );
@@ -245,6 +244,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		public function bind_implementations() {
 			// Privacy.
 			tribe_singleton( 'tickets-plus.privacy', 'Tribe__Tickets_Plus__Privacy', [ 'hook' ] );
+			tribe_singleton( Tribe__Tickets_Plus__PUE::class, Tribe__Tickets_Plus__PUE::class );
 
 			// Blocks editor.
 			tribe_register_provider( 'Tribe__Tickets_Plus__Editor__Provider' );

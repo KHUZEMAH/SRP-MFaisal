@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: MyRewards Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-05 12:19+0100\n"
-"PO-Revision-Date: 2023-04-14 12:55+0200\n"
+"PO-Revision-Date: 2023-06-06 15:51+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: Suomi\n"
 "Language: fi\n"
@@ -4212,128 +4212,6 @@ msgid ""
 msgstr ""
 "Jos valitset useita järjestelmiä, ne näytetään erikseen yksi toisensa "
 "jälkeen."
-
-#: include/ui/adminscreens/pointsmanagement.php:23
-msgid "Export Points from MyRewards"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:24
-msgid ""
-"Select a points and rewards system to export the users points from that "
-"system."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:29
-#, fuzzy
-#| msgid "Standard"
-msgid "points and rewards system"
-msgstr "Vakio"
-
-#: include/ui/adminscreens/pointsmanagement.php:40
-#: include/ui/adminscreens/pointsmanagement.php:89
-msgid "Export"
-msgstr "Vie"
-
-#: include/ui/adminscreens/pointsmanagement.php:51
-msgid "Export from other plugins"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:54
-msgid ""
-"If you're migrating from another loyalty plugin, you can export the users "
-"points from the other plugin and import them into MyRewards."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:55
-msgid ""
-"The other plugin needs to be installed and active for this procedure to work."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:61
-msgid "Loyalty Plugin or Meta Key"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:69
-msgid "Do not change that value if you are not sure about what you are doing."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:75
-msgid "Some Plugin need extra arguments"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:83
-msgid ""
-"Main purpose is for plugins that support several point pools. If the plugin "
-"is not listed here, it does not need an extra argument."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:99
-#, fuzzy
-#| msgid "Points Pool"
-msgid "Import Points"
-msgstr "Pistepotti"
-
-#: include/ui/adminscreens/pointsmanagement.php:102
-msgid "Select the exported file, then click on «Import»."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:103
-msgid "The Import process does <b>not</b> generate any reward."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:109
-msgid "Round imported points"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:114
-#, fuzzy
-#| msgid "MyRewards Reward list"
-msgid "MyRewards only support integer points"
-msgstr "MyRewards palkintolista"
-
-#: include/ui/adminscreens/pointsmanagement.php:116
-msgid "Round fractions down"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:117
-msgid "Round fractions up"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:118
-msgid "Round to nearest integer, half way round up"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:119
-msgid "Round to nearest integer, half way round down"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:126
-msgid "Multiply imported points by"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:135
-#, fuzzy
-#| msgid "Points Pool"
-msgid "Import Mode"
-msgstr "Pistepotti"
-
-#: include/ui/adminscreens/pointsmanagement.php:141
-#, fuzzy
-#| msgid "Let your customers sponsor new customers."
-msgid "Replace customers points"
-msgstr "Anna asiakkaasi sponsoroida uusia asiakkata."
-
-#: include/ui/adminscreens/pointsmanagement.php:142
-msgid "Add points to customers totals"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:149
-msgid "Add points to that points and rewards system"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:173
-msgid "Import"
-msgstr "Tuo"
 
 #: include/ui/adminscreens/popups.php:14
 msgid "Popups"

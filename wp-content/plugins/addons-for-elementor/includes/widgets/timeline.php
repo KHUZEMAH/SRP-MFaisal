@@ -219,7 +219,10 @@ class LAE_Timeline_Widget extends LAE_Widget_Base {
                 'type' => Controls_Manager::TEXT,
                 'description' => __('Specify an unique identifier used as a custom CSS class name and lightbox group name/slug for the timeline element.', 'livemesh-el-addons'),
                 'label' => __('Timeline Class/Identifier', 'livemesh-el-addons'),
-                'default' => ''
+                'default' => '',
+                'ai' => [
+                    'active' => false,
+                ],
             ]
         );
 

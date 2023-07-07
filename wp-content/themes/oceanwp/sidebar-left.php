@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * The left sidebar containing the widget area.
  *

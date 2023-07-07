@@ -96,15 +96,20 @@ class PointDiscount
 		if (!$discount)
 			return $coupon;
 
-		$data = \apply_filters('lws_woorewards_pointdiscount_as_coupon_data', array(
+		$data = array(
 			'code'                 => $discount['code'],
 			'description'          => $this->getTitle($discount),
 			'discount_type'        => 'fixed_cart',
 			'amount'               => $discount['value'],
-		), $discount, $discount['code']);
+		);
+		if (isset($discount['cats']) && $discount['cats'])
+			$data['_lws_coupon_virtual_taxonomy'] = $discount['cats'];
+		$data = \apply_filters('lws_woorewards_pointdiscount_as_coupon_data', $data, $discount, $discount['code']);
 
 		if ($data)
 		{
+			if (isset($data['_lws_coupon_virtual_taxonomy']) && $data['_lws_coupon_virtual_taxonomy'])
+				$instance->update_meta_data('_lws_coupon_virtual_taxonomy', $data['_lws_coupon_virtual_taxonomy']);
 			$instance->wr_discount_data = $discount;
 			return $data;
 		}
@@ -181,6 +186,7 @@ class PointDiscount
 			'rate'      => $rate,
 			'value'     => (float)$points * $rate,
 			'paid'      => false,
+			'cats'      => $pool->getOption('direct_reward_discount_cats'),
 		);
 
 		// clamp to cart total equivalent
@@ -198,7 +204,7 @@ class PointDiscount
 					$total -= $value;
 				}
 			}
-			$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, true, false);
+			$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, false, false);
 			if (0 != $currencyRate)
 				$total =  $total / $currencyRate;
 			$max = \ceil((float)$total / $rate);

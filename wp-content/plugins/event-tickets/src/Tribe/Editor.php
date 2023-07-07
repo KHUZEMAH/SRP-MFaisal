@@ -164,10 +164,8 @@ class Tribe__Tickets__Editor extends Tribe__Editor {
 		$replace = $this->get_tickets_as_blocks( $post->ID );
 		// Do the actual replace for tickets blocks
 		$content = str_replace( $search, implode( "\n\r", $replace ), $content );
-
     $content = preg_replace("/<!--(.|\s)*?-->/", '', $content);
 		$content = trim($content);
-
 		return $content;
 	}
 
@@ -372,10 +370,8 @@ class Tribe__Tickets__Editor extends Tribe__Editor {
 
 		$content      = get_post_field( 'post_content', $post_id );
 		$post_content = $this->update_tickets_block_with_childs( $content, $post, array() );
-
     $post_content = preg_replace("/<!--(.|\s)*?-->/", '', $post_content);
 		$post_content = trim($post_content);
-
 		return wp_update_post( array(
 			'ID'           => $post->ID,
 			'post_content' => $post_content,

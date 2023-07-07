@@ -679,7 +679,16 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		if (isset($this->pool)) {
 			return $this->pool;
 		} else if (isset($this->poolId) && $this->poolId) {
-			$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
+			if (\class_exists('\LWS\WOOREWARDS\PRO\Core\Pool')) {
+				$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
+			} else {
+				$pool = \apply_filters('lws_woorewards_get_pools_by_args', false, array(
+					'system' => $stack,
+					'force'  => true,
+				));
+				if ($pool)
+					$this->pool = $pool->last();
+			}
 			return $this->pool;
 		} else {
 			return false;

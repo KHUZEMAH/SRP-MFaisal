@@ -2,8 +2,8 @@
 Contributors: smalltowndev, lushkant
 Requires at least: 5.9
 Requires PHP: 7.4
-Tested up to: 6.2
-Stable tag: 0.6.0
+Tested up to: 6.2.2
+Stable tag: 0.7.1
 Tags: featured, video, featured video, woocommerce, product-video, video embed, youtube, dailymotion, vimeo
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Really Simple Featured Video enables featured video support for WordPress posts,
 
 Really Simple Featured Video plugin provides a really straightforward way of adding featured video support to your custom post types. Adding your own videos to the site is a breeze and you get an easy to use settings panel with the options you really need.
 
-https://www.youtube.com/watch?v=vbLgiRQ0Moo
+https://www.youtube.com/watch?v=xHrj2lcNS5Q
 
 With Really Simple Featured Video you get a metabox at posts, pages & products edit screen at the very bottom and a very similar interface as you're used to with featured image.
 
@@ -73,6 +73,18 @@ Yes, as long as the theme you use follows standard WordPress/WooCommerce way of 
 You can get help by reaching out to me at https://github.com/smalltowndev/really-simple-featured-video or support forums here.
 
 == Changelog ==
+
+= 0.7.1 - June 20, 2023 =
+- Fix: Default self hosted video controls
+- Fix: WooCommerce placeholder images appearing below featured video
+- Improvements: Other minor code improvements
+
+= 0.7.0 - May 22, 2023 =
+- New: Custom post types support (Available via settings)
+- Fix: Default video playback controls
+- Fix: Default Theme Compatibility engine throwing error at frontend
+- Improvement: Update Freemius SDK to v2.5.8
+- Improvements: Code improvements
 
 = 0.6.0 - April 23, 2023 =
 - New: Theme Compatibility Engine and controls at settings

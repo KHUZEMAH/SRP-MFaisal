@@ -101,6 +101,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 	function registerScripts()
 	{
 		\wp_register_style('woorewards-social-share', LWS_WOOREWARDS_PRO_CSS.'/templates/social-share.css?stygen=lws_woorewards_social_share_template', array(), LWS_WOOREWARDS_PRO_VERSION);
+		\wp_register_style('woorewards-social-share-override', LWS_WOOREWARDS_PRO_CSS . '/social-share-override.css', array(), LWS_WOOREWARDS_PRO_VERSION);
 		\wp_register_script('woorewards-social-share',LWS_WOOREWARDS_PRO_JS.'/social-share.js',array('jquery', 'lws-tools'),LWS_WOOREWARDS_PRO_VERSION, true);
 	}
 
@@ -115,6 +116,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 			\wp_enqueue_script('woorewards-social-share');
 			// cause stygen already include it
 			\wp_enqueue_style('woorewards-social-share');
+			\wp_enqueue_style('woorewards-social-share-override');
 		}
 
 		\do_action('lws_woorewards_socials_scripts', $demo);

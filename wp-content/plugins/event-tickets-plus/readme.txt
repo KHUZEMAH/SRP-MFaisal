@@ -1,10 +1,10 @@
 === Event Tickets Plus ===
 
-Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra, moraleida.me
+Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.5
-Tested up to: 6.2.0
-Stable tag: 5.6.10
+Tested up to: 6.2.2
+Stable tag: 5.7.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,26 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.7.2] 2023-06-29 =
+
+* Fix - Addressed an issue where the system would provide duplicate plugin names when encountering an invalid license key. [ET-1738]
+* Language - 0 new strings added, 24 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.7.1] 2023-06-22 =
+
+* Version - Event Tickets Plus 5.7.1 is only compatible with Event Tickets 5.6.1 and higher.
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [5.7.0.1] 2023-06-20 =
+
+* Fix - Resolved issues with Attendee Registration not being bound correctly on loading. [ET-1771]
+
+= [5.7.0] 2023-06-15 =
+
+* Feature - Introduction of Tickets Emails, the new and improved solution for managing Event Tickets related emails.
+* Tweak - Changed views: `v2/emails/template-parts/body/ticket/ar-fields`, `v2/emails/template-parts/body/ticket/ar-fields/data`, `v2/emails/template-parts/body/ticket/ar-fields/key`, `v2/emails/template-parts/body/ticket/ar-fields/value`, `v2/emails/template-parts/body/ticket/qr-image`, `v2/emails/template-parts/header/head/ar-styles`
+* Language - 9 new strings added, 18 updated, 3 fuzzied, and 2 obsoleted
 
 = [5.6.10] 2023-05-04 =
 

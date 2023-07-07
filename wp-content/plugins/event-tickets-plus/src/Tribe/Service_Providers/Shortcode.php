@@ -14,7 +14,7 @@ use Tribe\Tickets\Plus\Shortcode\Tribe_Tickets_Rsvp_Protected_Content;
  * @package Tribe\Tickets\Plus\Service_Providers
  * @since   4.12.1
  */
-class Shortcode extends \tad_DI52_ServiceProvider {
+class Shortcode extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

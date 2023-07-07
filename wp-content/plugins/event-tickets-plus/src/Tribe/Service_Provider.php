@@ -16,7 +16,7 @@ use Tribe\Tickets\Plus\Repositories\Attendee\RSVP as Attendee_RSVP;
  *
  * @since 4.6
  */
-class Tribe__Tickets_Plus__Service_Provider extends tad_DI52_ServiceProvider {
+class Tribe__Tickets_Plus__Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *

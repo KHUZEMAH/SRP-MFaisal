@@ -2,9 +2,7 @@
 
 namespace Tribe\Tickets\Plus\Commerce\WooCommerce\Enhanced_Templates;
 
-use tad_DI52_ServiceProvider;
-
-class Service_Provider extends tad_DI52_ServiceProvider{
+class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Register the provider singletons.

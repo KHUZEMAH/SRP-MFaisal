@@ -12,10 +12,18 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 
 	function labels()
 	{
-		$default = \get_option('lws_wr_default_pool_name', 'default');
-		$labels = array('user' => array(__("Users", 'woorewards-lite'), '1fr'));
-		$labels[self::L_PREFIX.$default] = array(\LWS_WooRewards::getPointSymbol(2, $default), 'max-content'); // usermeta 'lws_wre_points_default'
-		$labels['rewards'] = array(__("Rewards", 'woorewards-lite'), 'auto'); // filled by filter
+		$default = \LWS_WooRewards::getInstalledPool();
+		if (!$default) {
+			$prefabs = \LWS_WooRewards::getPrefabPools(false);
+			if ($prefabs)
+				$default = $prefabs->first();
+		}
+		$column = self::L_PREFIX . ($default ? $default->getId() : 'default');
+		$labels = array(
+			'user'    => array(__("Users", 'woorewards-lite'), '1fr'),
+			$column   => array(\LWS_WooRewards::getPointSymbol(2, $default), 'max-content'), // usermeta 'lws_wre_points_default'
+			'rewards' => array(__("Rewards", 'woorewards-lite'), 'auto'), // filled by filter
+		);
 		return \apply_filters('lws_woorewards_ui_userspoints_labels', $labels);
 	}
 
@@ -46,16 +54,16 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 			self::S_PREFIX . '%'
 		), OBJECT_K);
 		// format them
-		foreach ($this->getStackIds() as $poolName => $info) {
-			$column = (self::L_PREFIX . $poolName);
+		foreach ($this->getStackIds() as $info) {
+			$column = (self::L_PREFIX . $info->post_id);
 			$key = (self::S_PREFIX . $info->stack_id);
 			$amount = (isset($points[$key]) ? $points[$key]->meta_value : 0);
-			$user[$key] = \LWS_WooRewards::formatPoints($amount, $poolName);
+			$user[$key] = \LWS_WooRewards::formatPoints($amount, $info->post_id);
 			$user[$column] = sprintf(
 				"<a class='lws_wre_point_history maxwidth right lws-icon-time-machine' data-stack='%s' data-user='%d'>%s</a>",
 				\esc_attr($info->stack_id),
 				(int)$user['user_id'],
-				\apply_filters('lws_wre_editlist_point_amount_display', $user[$key], $user, $poolName, $info)
+				\apply_filters('lws_wre_editlist_point_amount_display', $user[$key], $user, $info->post_id, $info)
 			);
 		}
 		// user name
@@ -81,7 +89,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 		if( !isset($this->stackIds) )
 		{
 			global $wpdb;
-			$this->stackIds = $wpdb->get_results("SELECT post_name, meta_value as stack_id, post_id FROM {$wpdb->postmeta} INNER JOIN {$wpdb->posts} ON ID=post_id WHERE meta_key='wre_pool_point_stack'", OBJECT_K);
+			$this->stackIds = $wpdb->get_results("SELECT post_id, post_name, meta_value as stack_id FROM {$wpdb->postmeta} INNER JOIN {$wpdb->posts} ON ID=post_id WHERE meta_key='wre_pool_point_stack'", OBJECT_K);
 		}
 		return $this->stackIds;
 	}

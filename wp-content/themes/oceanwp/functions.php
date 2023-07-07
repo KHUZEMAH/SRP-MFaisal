@@ -3,7 +3,7 @@ function theme_start_session()
 {
     if (!session_id())
         session_start();
-}
+} 
 add_action("init", "theme_start_session", 1);
 add_filter( 'auto_update_plugin', '__return_false' );
 add_filter( 'auto_update_theme', '__return_false' );

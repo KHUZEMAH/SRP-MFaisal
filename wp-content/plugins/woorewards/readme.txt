@@ -4,7 +4,7 @@ Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social med
 Requires at least: 5.3
 Tested up to: 6.2
 Requires PHP: 7.0.0
-Stable tag: 5.0.8
+Stable tag: 5.0.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,7 @@ YOU CAN TEST THE PREMIUM VERSION FOR FREE FOR 30 DAYS !
 
 More details about the [Premium version of MyRewards](https://plugins.longwatchstudio.com/product/woorewards/)
 
-For more information about the features, visit our website [Long Watch Plugins - Documentation](https://plugins.longwatchstudio.com/docs/woorewards-4/)
+For more information about the features, visit our website [Long Watch Plugins - Documentation](https://plugins.longwatchstudio.com/kbtopic/wr/)
 
 == Installation ==
 
@@ -104,6 +104,35 @@ This section describes how to install the plugin and get it working.
 5. Styling options
 
 == Changelog ==
+
+= 5.0.11 =
+* Fix - No round up of points when threshold effect off
+* Tweak - Dokan support, generate coupon with `Enable for all vendors` 'On' by default.
+
+= 5.0.10 =
+* Tag - WooCommerce 7.8
+* MyRewards :
+	* Features - Set reason for points import
+* MyRewards Pro :
+	* Features - Select different image sizes for reward thumbnails
+	* Features - Button label option in shortcode 'wr_available_rewards'
+
+= 5.0.9.2 =
+* Fix - Social share button styling
+* Fix - Import Loyalty system choice loading
+
+= 5.0.9 =
+* MyRewards :
+	* Features - Import/Export points moved to free version
+	* Features - Support for 'Coupon Individual-use Solver for WooCommerce' plugin
+	* Upgrades - New documentation links
+	* Fix - Loyalty mode not switched in wizard
+	* Fix - price format for Points on cart display
+	* Fix - Default user points column mix-up
+* MyRewards Pro :
+	* Features - Order count filtered by order status in events
+	* Fix - Cooldown settings hidden in achievement
+	* Upgrades - New documentation links
 
 = 5.0.8 =
 * MyRewards :

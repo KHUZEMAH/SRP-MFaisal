@@ -1,5 +1,5 @@
 
-<?php 
+<?php  
 function func_images_slider() {
      return '<div class="events-slider owl-carousel">
     <div class="images-slider-wrap">

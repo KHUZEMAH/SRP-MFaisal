@@ -523,27 +523,33 @@ class Admin
 								),
 							)
 						),
-						'delete' => array(
-							'id'    => 'delete',
-							'title' => __("Delete all data", 'woorewards-lite'),
-							'icon'  => 'lws-icon-delete-forever',
-							'text'  => __("Remove all loyalty systems, user points and all MyRewards related data.", 'woorewards-lite')
-								. '<br/>' . __("Use this feature with care since this action is <b>irreversible</b>.", 'woorewards-lite'),
-							'fields' => array(
-								'trigger_delete' => array(
-									'id' => 'trigger_delete_all_woorewards',
-									'title' => __("Delete All Data", 'woorewards-lite'),
-									'type' => 'button',
-									'extra' => array(
-										'callback' => array($this, 'deleteAllData')
-									),
-								),
-							)
-						),
 					)
 				),
 			)
 		);
+
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/adminscreens/pointsmanagement.php';
+		\LWS\WOOREWARDS\Ui\AdminScreens\PointsManagement::mergeGroups($systemPage['tabs']['data_management']['groups']);
+
+		$systemPage['tabs']['data_management']['groups']['delete'] = array(
+			'id'    => 'delete',
+			'title' => __("Delete all data", 'woorewards-lite'),
+			'icon'  => 'lws-icon-delete-forever',
+			'class' => 'half',
+			'text'  => __("Remove all loyalty systems, user points and all MyRewards related data.", 'woorewards-lite')
+				. '<br/>' . __("Use this feature with care since this action is <b>irreversible</b>.", 'woorewards-lite'),
+			'fields' => array(
+				'trigger_delete' => array(
+					'id' => 'trigger_delete_all_woorewards',
+					'title' => __("Delete All Data", 'woorewards-lite'),
+					'type' => 'button',
+					'extra' => array(
+						'callback' => array($this, 'deleteAllData')
+					),
+				),
+			)
+		);
+
 		return $systemPage;
 	}
 
@@ -1015,12 +1021,13 @@ EOT;
 					'fields' => array(
 						'mode' => array(
 							'id'    => $prefix . 'direct_reward_mode',
-							'type'  => 'box',
+							'type'  => (\defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED) ? 'box' : 'hidden',
 							'title' => __("Reward Type", 'woorewards-lite'),
 							'extra' => array(
 								'id'      => 'direct_reward_mode',
 								'layout'  => 'switch',
-								'value'   => $pool->getOption('direct_reward_mode'),
+								'checked' => $pool->getOption('direct_reward_mode'),
+								'value'   => $pool->getOption('direct_reward_mode') ? 'on' : '',
 								'data'    => array(
 									'left'       => __("WooCommerce Coupon", 'woorewards-lite'),
 									'right'      => __("Points on Cart", 'woorewards-lite'),
@@ -1056,6 +1063,21 @@ EOT;
 					)
 				)
 			));
+
+			if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+				$groups['spending']['fields']['discount_cats'] = array(
+					'id'    => $prefix . 'direct_reward_discount_cats',
+					'title' => __("Exclusive categories", 'woorewards-lite'),
+					'type'  => 'lacchecklist',
+					'extra' => array(
+						'comprehensive' => true,
+						'ajax'          => 'lws_coupon_individual_use_solver_categories',
+						'value'         => $pool->getOption('direct_reward_discount_cats'),
+						'help'          => __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-lite'),
+					),
+					'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
+				);
+			}
 		}
 
 		return $groups;
@@ -1226,7 +1248,7 @@ EOT;
 			'lws_woorewards_sponsored_origin',
 			'lws_woorewards_at_registration_sponsorship',
 		));
-		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN '{$ukeys}'");
+		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ('{$ukeys}')");
 		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'lws_wr_redeemed_%'");
 		$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'lws_wre_points_%'"); /// @see \LWS\WOOREWARDS\Core\PointStack::MetaPrefix
 

@@ -25,8 +25,10 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$prefix = $this->getDataKeyPrefix();
 		$data = parent::getData();
 		$data[$prefix . 'timeout'] = $this->getTimeout()->toString();
-		$data[$prefix . 'value'] = $this->getValue();
+		$data[$prefix . 'value']   = $this->getValue();
 		$data[$prefix . 'percent'] = $this->getInPercent() ? 'per' : 'fix';
+		if ($this->grantExclCat())
+			$data[$prefix . 'coupon_cat'] = \base64_encode(\json_encode($this->getCouponCategoryIds()));
 		return $data;
 	}
 
@@ -62,6 +64,20 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$form .= \LWS\Adminpanel\Pages\Field\Duration::compose($prefix . 'timeout', array('value' => $value));
 		$form .= "</div>";
 
+		if ($this->grantExclCat() && \apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+			$label   = _x("Exclusive categories", "Coupon category", 'woorewards-lite');
+			$tooltip = __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-lite');
+			$input = \LWS\Adminpanel\Pages\Field\LacChecklist::compose($prefix . 'coupon_cat', array(
+				'comprehensive' => true,
+				'ajax'          => 'lws_coupon_individual_use_solver_categories',
+			));
+			$form .= <<<EOT
+<div class='field-help'>{$tooltip}</div>
+<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-{$context}-opt-input value'>{$input}</div>
+EOT;
+		}
+
 		$form .= $this->getFieldsetPlaceholder(false, 1);
 		$form = str_replace($this->getFieldsetPlaceholder(false, 1), $form, parent::getForm($context));
 		return $form;
@@ -70,7 +86,7 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	function submit($form = array(), $source = 'editlist')
 	{
 		$prefix = $this->getDataKeyPrefix();
-		$values = \apply_filters('lws_adminpanel_arg_parse', array(
+		$args = array(
 			'post'     => ($source == 'post'),
 			'values'   => $form,
 			'format'   => array(
@@ -81,14 +97,20 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			'defaults' => array(
 				$prefix . 'timeout' => '',
 				$prefix . 'value'   => '0',
-				$prefix . 'percent' => 'fix'
+				$prefix . 'percent' => 'fix',
 			),
 			'labels'   => array(
 				$prefix . 'timeout' => __("Validity period", 'woorewards-lite'),
 				$prefix . 'value'   => __("Coupon amount", 'woorewards-lite'),
-				$prefix . 'percent' => __("Discount in percent or fixed price", 'woorewards-lite')
+				$prefix . 'percent' => __("Discount in percent or fixed price", 'woorewards-lite'),
 			)
-		));
+		);
+		if ($this->grantExclCat()) {
+			$args['format'][$prefix . 'coupon_cat']   = array('D');
+			$args['defaults'][$prefix . 'coupon_cat'] = array();
+			$args['labels'][$prefix . 'coupon_cat']   = __("Exclusive categories", 'woorewards-lite');
+		}
+		$values = \apply_filters('lws_adminpanel_arg_parse', $args);
 		if (!(isset($values['valid']) && $values['valid']))
 			return isset($values['error']) ? $values['error'] : false;
 
@@ -99,6 +121,8 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 				$values['values'][$prefix . 'value'] = min(100.0, $values['values'][$prefix . 'value']);
 			$this->setValue($values['values'][$prefix . 'value']);
 			$this->setTimeout($values['values'][$prefix . 'timeout']);
+			if ($this->grantExclCat())
+				$this->setCouponCategoryIds($values['values'][$prefix . 'coupon_cat']);
 		}
 		return $valid;
 	}
@@ -233,6 +257,8 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$this->setTimeout(\LWS\Adminpanel\Duration::postMeta($post->ID, 'wre_unlockable_timeout'));
 		$this->setValue(\get_post_meta($post->ID, 'wre_unlockable_value', true));
 		$this->setInPercent(boolval(\get_post_meta($post->ID, 'wre_unlockable_percent', true)));
+		if ($this->grantExclCat())
+			$this->setCouponCategoryIds(\get_post_meta($post->ID, 'coupon_cat', true));
 		return $this;
 	}
 
@@ -241,6 +267,23 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		\update_post_meta($id, 'wre_unlockable_value', $this->getValue());
 		\update_post_meta($id, 'wre_unlockable_percent', $this->getInPercent() ? 'on' : '');
 		$this->getTimeout()->updatePostMeta($id, 'wre_unlockable_timeout');
+		if ($this->grantExclCat())
+			\update_post_meta($id, 'coupon_cat', $this->getCouponCategoryIds());
+		return $this;
+	}
+
+	function getCouponCategoryIds()
+	{
+		return isset($this->couponCategoryIds) ? (array)$this->couponCategoryIds : array();
+	}
+
+	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
+	function setCouponCategoryIds($cats=array())
+	{
+		if (!\is_array($cats))
+			$cats = @json_decode(@base64_decode($cats));
+		if (\is_array($cats))
+			$this->couponCategoryIds = $cats;
 		return $this;
 	}
 
@@ -328,6 +371,12 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			));
 			\update_post_meta($coupon->get_id(), 'reward_origin', $this->getType());
 			\update_post_meta($coupon->get_id(), 'reward_origin_id', $this->getId());
+
+			// dokan support, force default behavior for a working coupon
+			\update_post_meta($coupon->get_id(), 'admin_coupons_enabled_for_vendor', 'yes');
+
+			if ($this->grantExclCat())
+				\do_action('lws_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
 
 			\do_action('wpml_restore_language_from_email');
 			\do_action('woocommerce_coupon_options_save', $coupon->get_id(), $coupon);
@@ -462,5 +511,10 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			'shop_coupon' => __("Coupon", 'woorewards-lite'),
 			'sponsorship' => _x("Referred", "unlockable category", 'woorewards-lite')
 		));
+	}
+
+	protected function grantExclCat()
+	{
+		return true;
 	}
 }

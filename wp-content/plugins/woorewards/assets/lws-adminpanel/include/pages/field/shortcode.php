@@ -68,7 +68,7 @@ EOT;
 				if (isset($option['options']) && $option['options']) {
 					$subopts = $option['options'];
 					$optContent .= "<div class='desc-grid'>";
-					$optContent .= "<div class='desc strong'>{$option['desc']}</div>";
+					$optContent .= "<div class='desc'>{$option['desc']}</div>";
 					foreach ($subopts as $subopt) {
 						if (\is_array($subopt)) {
 							$optContent .= "<div class='sub-name'>{$subopt['option']}</div>";

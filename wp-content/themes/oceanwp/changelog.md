@@ -1,5 +1,18 @@
 # OceanWP Changelog
+### 2023.07.05 - 3.4.6
 
+-Updated: Breadcrumbs: Functionality enhancement.
+### 2023.06.14 - 3.4.5
+
+Updated: WooCommerce: Templates (mini-cart.php, loop-start.php, content-single-product.php) version number for compatibility to dismiss WooCommerce potential outdated templates notification.
+### 2023.05.23 - 3.4.4
+
+NEW: Typography: Google fonts: updated list (1500+ fonts available).
+Added: Mobile Header: Search icon and form styling options in the Customizer:
+Added: Compatibility: SiteOrigin: Custom templates support.
+Added: Compatibility: Ocean eComm Treasure Box 1.1.0: Conditional assets loading for next plugin update and release.
+Fixed: WooCommerce: Shop Manager user role accessing the Customizer triggers a fatal error due to WordPress Privacy Policy page settings.
+Fixed: Gutenberg: Align Full block layout display with the Full Width page layout.
 ### _2023.04.05_ - 3.4.3
 - **Added**: Compatibility: Elementor Pro: WooCommerce: Checkout styling.
 - **Added**: Compatibility: Ocean Popup Login: Google reCaptcha support for upcoming plugin release.

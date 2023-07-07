@@ -289,6 +289,7 @@ function monsterinsights_admin_scripts()
 				'wpmailsmtp_admin_url'            => admin_url('admin.php?page=wp-mail-smtp'),
 				'load_headline_analyzer_settings' => monsterinsights_load_gutenberg_app() ? 'true' : 'false',
 				'exit_url'                        => add_query_arg('page', 'monsterinsights_settings', admin_url('admin.php')),
+				'timezone'                        => date('e'),
 			)
 		);
 
@@ -328,7 +329,6 @@ function monsterinsights_admin_scripts()
 				'addons_url'          => is_multisite() ? network_admin_url('admin.php?page=monsterinsights_network#/addons') : admin_url('admin.php?page=monsterinsights_settings#/addons'),
 				'timezone'            => date('e'), // phpcs:ignore
 				'authed'              => $site_auth || $ms_auth,
-				'auth_connected_type' => $auth->get_connected_type(),
 				'settings_url'        => add_query_arg('page', 'monsterinsights_settings', admin_url('admin.php')),
 				// Used to add notices for future deprecations.
 				'versions'            => monsterinsights_get_php_wp_version_warning_data(),

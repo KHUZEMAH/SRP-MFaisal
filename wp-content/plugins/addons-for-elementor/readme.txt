@@ -5,9 +5,9 @@ Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor
 Requires at least: 5.4
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable Tag: 7.5
+Stable Tag: 7.9
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -259,6 +259,23 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.9 =
+* Freemius SDK update to 2.5.10
+
+= 7.8 =
+* Fixed - The Livemesh Item and Livemesh Grid do not show up in the list of template types in theme builder
+* Fixed - The current query option in posts widgets - posts grid, posts carousel, posts block broken
+
+= 7.7.1 =
+* Fixed - Issue with query construction
+
+= 7.7 =
+* Updated - Disabled/Enabled Elementor AI for relevant controls on several widgets
+
+= 7.6 =
+* Updated - Freemius SDK 2.5.8 update
+* Updated - Compatibility with Elementor 3.13
 
 = 7.5 =
 * Added - New elegant Timeline widget. Presently only supports horizontal timeline with touch swipe functions for navigation.

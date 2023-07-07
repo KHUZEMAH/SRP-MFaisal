@@ -17,8 +17,6 @@
 
 namespace TEC\Tickets_Plus\Emails;
 
-use Exception;
-use \tad_DI52_ServiceProvider;
 use Tribe__Tickets_Plus__QR;
 
 /**
@@ -28,7 +26,7 @@ use Tribe__Tickets_Plus__QR;
  *
  * @package TEC\Tickets_Plus
  */
-class Hooks extends tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.
@@ -46,12 +44,10 @@ class Hooks extends tad_DI52_ServiceProvider {
 	 * @since 5.6.6
 	 */
 	protected function add_actions() {
-		add_action( 'tribe_template_before_include:tickets/v2/emails/template-parts/body/ticket/holder-name', [ $this, 'maybe_add_ticket_qr_code' ], 10, 3 );
+		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/ticket/ticket-name', [ $this, 'maybe_add_ticket_qr_code' ], 10, 3 );
 
 		// Include Attendee Registration Fields in Ticket & RSVP emails.
-		add_action( 'tribe_template_after_include:tickets/v2/emails/template-parts/body/ticket/security-code', [ $this, 'maybe_include_attendee_registration_fields_ticket_rsvp_emails' ], 10, 3 );
-
-		add_action( 'tribe_template_after_include:tickets/v2/emails/template-parts/header/head/styles', [ $this, 'maybe_include_attendee_registration_fields_styles' ], 10, 3 );
+		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/ticket/number-from-total', [ $this, 'maybe_include_attendee_registration_fields_ticket_rsvp_emails' ], 10, 3 );
 	}
 
 	/**
@@ -95,23 +91,17 @@ class Hooks extends tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function maybe_add_ticket_qr_code( $file, $name, $et_template ) {
-		/** @var \Tribe__Tickets_Plus__Template $template */
-		$template = tribe( 'tickets-plus.template' );
 
-		$include_qr = tribe_get_option( Email\Ticket::$option_ticket_include_qr_codes, true );
-
-		if ( empty( $include_qr ) ) {
+		if ( ! $et_template instanceof \Tribe__Template ) {
 			return;
 		}
 
-		$args               = $et_template->get_local_values();
-		$args['include_qr'] = $include_qr;
+		if ( ! tribe( \Tribe__Tickets_Plus__QR__Settings::class )->is_enabled() ) {
+			return;
+		}
 
-		$args['qr'] = $args['preview'] ?
-			esc_url( plugins_url( '/event-tickets-plus/src/resources/images/example-qr.png' ) ):
-			tribe( Tribe__Tickets_Plus__QR::class )->get_qr_url( $args['ticket'] );
-
-		$template->template( 'v2/emails/template-parts/body/ticket/qr-image', $args, true );
+		$this->container->make( Email\RSVP::class )->maybe_include_qr_code_template( $et_template );
+		$this->container->make( Email\Ticket::class )->maybe_include_qr_code_template( $et_template );
 	}
 
 	/**
@@ -151,25 +141,6 @@ class Hooks extends tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Maybe include Attendee Registration Fields Styles.
-	 *
-	 * @since 5.6.10
-	 *
-	 * @param string           $file        Template file.
-	 * @param string           $name        Template name.
-	 * @param \Tribe__Template $et_template Event Tickets template object.
-	 * @return void
-	 */
-	public function maybe_include_attendee_registration_fields_styles( $file, $name, $et_template ) {
-		if ( ! $et_template instanceof \Tribe__Template ) {
-			return;
-		}
-
-		$this->container->make( Email\RSVP::class )->maybe_include_ar_fields_styles( $et_template );
-		$this->container->make( Email\Ticket::class )->maybe_include_ar_fields_styles( $et_template );
-	}
-
-	/**
 	 * Filter email QR template.
 	 *
 	 * @since 5.6.10
@@ -195,6 +166,6 @@ class Hooks extends tad_DI52_ServiceProvider {
 
 		$data['include_qr'] = true;
 
-		return tribe( 'tickets-plus.template' )->template( 'v2/emails/template-parts/body/ticket/qr-image', $data, false );
+		return tribe( 'tickets-plus.template' )->template( 'emails/template-parts/body/ticket/qr-image', $data, false );
 	}
 }

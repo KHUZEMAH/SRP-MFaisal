@@ -107,6 +107,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic' => [
             'active' => true,
         ],
+            'ai'      => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'member_position', [
             'label'   => __( 'Position', 'livemesh-el-addons' ),
@@ -114,6 +117,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic' => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'      => [
+            'active' => false,
         ],
         ] );
         $repeater->add_control( 'member_image', [
@@ -164,6 +170,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'facebook_url', [
             'type'        => Controls_Manager::TEXT,
@@ -172,6 +181,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'          => [
+            'active' => false,
         ],
         ] );
         $repeater->add_control( 'twitter_url', [
@@ -182,6 +194,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'linkedin_url', [
             'type'        => Controls_Manager::TEXT,
@@ -190,6 +205,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'          => [
+            'active' => false,
         ],
         ] );
         $repeater->add_control( 'pinterest_url', [
@@ -200,6 +218,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'dribbble_url', [
             'type'        => Controls_Manager::TEXT,
@@ -208,6 +229,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'          => [
+            'active' => false,
         ],
         ] );
         $repeater->add_control( 'google_plus_url', [
@@ -218,6 +242,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'instagram_url', [
             'type'        => Controls_Manager::TEXT,
@@ -226,6 +253,9 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'          => [
+            'active' => false,
         ],
         ] );
         $repeater->add_control( "widget_animation", [

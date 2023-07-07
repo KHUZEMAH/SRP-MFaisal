@@ -260,10 +260,11 @@ EOT;
 			'image'   => $this->getThumbnailUrl(),
 			'origin'  => array(self::POST_TYPE, $this->getId()),
 			'badge_id'=> $this->getId(),
+			'visible' => \get_option('lws_woorewards_achievement_popup_enabled', true),
 		);
 		if( $userId )
 			$options['user'] = $userId;
-		return $options;
+		return \apply_filters('lws_woorewards_achievement_log', $options, $this);
 	}
 
 	/** register to Achievement popup */

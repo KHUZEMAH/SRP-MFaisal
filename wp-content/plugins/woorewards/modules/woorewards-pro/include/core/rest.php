@@ -35,7 +35,7 @@ class Rest
 		}
 	}
 
-	static function getNamespace()
+	public static function getNamespace()
 	{
 		return static::PREFIX . static::VERSION;
 	}
@@ -286,7 +286,7 @@ class Rest
 		return $byCap;
 	}
 
-	protected function currentUserCan($capability, $fallback=true)
+	public function currentUserCan($capability, $fallback=true)
 	{
 		if ($this->isPermissionByCapability()) {
 			if (!\is_array($capability)) {
@@ -301,7 +301,7 @@ class Rest
 		}
 	}
 
-	function permissionGeneral()
+	public function permissionGeneral()
 	{
 		if ($this->isPermissionByCapability()) {
 			return \current_user_can('lws_wr_read_settings');
@@ -313,7 +313,7 @@ class Rest
 		}
 	}
 
-	function permissionRead()
+	public function permissionRead()
 	{
 		if ($this->isPermissionByCapability()) {
 			return \current_user_can('lws_wr_read_points') || \current_user_can('lws_wr_read_other_points	');
@@ -325,7 +325,7 @@ class Rest
 		}
 	}
 
-	function permissionWrite()
+	public function permissionWrite()
 	{
 		if ($this->isPermissionByCapability()) {
 			return \current_user_can('lws_wr_edit_points') || \current_user_can('lws_wr_edit_other_points');
@@ -403,7 +403,7 @@ class Rest
 	}
 
 	/** pools endpoint @return all pools */
-	function getPools($data)
+	public function getPools($data)
 	{
 		$pools = array();
 		foreach( \LWS\WOOREWARDS\Collections\Pools::instanciate()->load(array('deep'=>false))->asArray() as $pool )
@@ -412,7 +412,7 @@ class Rest
 	}
 
 	/** pool endpoint */
-	function getPool($data)
+	public function getPool($data)
 	{
 		$pool = $this->getThePool($data);
 		if( !$pool )
@@ -421,7 +421,7 @@ class Rest
 	}
 
 	/** get the pool */
-	function getThePool($data, $key='id', $deep=false)
+	public function getThePool($data, $key='id', $deep=false)
 	{
 		return \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($data[$key], $deep);
 	}

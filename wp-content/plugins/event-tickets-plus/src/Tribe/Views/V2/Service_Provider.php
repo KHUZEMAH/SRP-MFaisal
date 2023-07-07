@@ -16,7 +16,7 @@ namespace Tribe\Tickets\Plus\Views\V2;
  *
  * @package Tribe\Tickets\Plus\Views\V2
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Registers the bindings,

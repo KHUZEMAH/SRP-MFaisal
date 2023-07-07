@@ -44,11 +44,11 @@ class Checkbox extends \LWS\Adminpanel\Pages\Field
 		if ($size) $size =  ' ' . $size;
 
 		/* Retrocompatibility */
-		if (str_contains($class, 'lws_switch')) {
+		if (strpos($class, 'lws_switch') !== false) {
 			$class = str_replace('lws_switch', '', $class);
 			$layout = 'switch';
 		}
-		if (str_contains($class, 'lws_checkbox')) {
+		if (strpos($class, 'lws_checkbox') !== false) {
 			$class = str_replace('lws_checkbox', '', $class);
 			$layout = '';
 		}

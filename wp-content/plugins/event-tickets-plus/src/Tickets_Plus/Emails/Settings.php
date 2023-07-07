@@ -32,9 +32,9 @@ class Settings {
 	public function add_footer_credit_setting( $fields ): array {
 
 		$fields[ self::$option_footer_credit ] = [
-			'type'            => 'toggle',
+			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Footer Credit', 'event-tickets-plus' ),
-			'tooltip'         => esc_html__( 'Include "Ticket powered by Event Tickets" in the footer', 'event-tickets-plus' ),
+			'tooltip'         => esc_html__( 'Include "Powered by Event Tickets" in the footer', 'event-tickets-plus' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
 		];

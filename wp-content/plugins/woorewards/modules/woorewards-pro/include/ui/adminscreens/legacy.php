@@ -120,7 +120,6 @@ class Legacy
 			'title'  => __('Owned Coupons', 'woorewards-pro'),
 			'icon'   => 'lws-icon-coupon',
 			'text'   => __("In this Widget, customers can see the WooCommerce coupons they own.", 'woorewards-pro'),
-			'extra'  => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('legacy-oc')),
 			'fields' => array(
 				'clunconnected' => array(
 					'id'    => 'lws_wooreward_wc_coupons_nouser',

@@ -8,7 +8,7 @@ namespace TEC\Tickets_Plus\Commerce\Attendee_Registration;
  *
  * @package \TEC\Tickets_Plus\Commerce\Attendee_Registration
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Register the provider singletons.
 	 *

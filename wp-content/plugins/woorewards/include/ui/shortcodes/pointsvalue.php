@@ -64,7 +64,12 @@ class PointsValue
 	/** Handle RetroCompatibility */
 	protected function parseArgs($atts)
 	{
-		$atts = \wp_parse_args($atts, array('text' => '', 'raw' => true));
+		$atts = \wp_parse_args($atts, array(
+			'text'      => '',
+			'raw'       => true,
+			'floating'  => false,
+			'decorated' => true,
+		));
 		return $atts;
 	}
 
@@ -89,7 +94,11 @@ class PointsValue
 			if ($points < 0) return '';
 			$rate = $pool->getOption('direct_reward_point_rate');
 			$value = $points * $rate;
-			$formatted_value = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($value, true);
+			$formatted_value = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(
+				$value,
+				\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['floating']),
+				\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['decorated']),
+			);
 			if ($atts['raw']) {
 				if ($atts['text'] != '') {
 					$content .= $atts['text'] . ' ';

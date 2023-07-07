@@ -66,13 +66,13 @@ class Text extends \LWS\Adminpanel\Pages\Field
 
 		if( empty($prop) )
 		{
-			echo "<input class='{$this->style}$class' type='$type' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
+			echo "<input {$class} type='{$type}' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
 		}
 		else
 		{
 			echo "<div class='lwss-css-inputs'>";
-			echo "<input class='{$this->style}$class' type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
-			echo "<input class='{$this->style} lwss-merge-css' type='hidden' name='{$this->m_Id}' value='$prop:$value' />";
+			echo "<input {$class} type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
+			echo "<input class='lwss-merge-css' type='hidden' name='{$this->m_Id}' value='$prop:$value' />";
 			echo "</div>";
 		}
 	}

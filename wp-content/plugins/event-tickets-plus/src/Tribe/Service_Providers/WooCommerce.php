@@ -1,5 +1,5 @@
 <?php
-class Tribe__Tickets_Plus__Service_Providers__WooCommerce extends tad_DI52_ServiceProvider {
+class Tribe__Tickets_Plus__Service_Providers__WooCommerce extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

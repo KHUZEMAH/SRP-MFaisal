@@ -24,7 +24,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	function getPointsForCart(\WC_Cart $cart)
 	{
 		$user = \LWS\Adminpanel\Tools\Conveniences::getCustomer(\wp_get_current_user(), $cart);
-		if( $this->getOrderCount($user) > 0 )
+		if (\LWS\WOOREWARDS\Conveniences::getOrderCount($user, false, 'event') > 0)
 			return 0;
 		return $this->getFinalGain(1, array(
 			'user'  => $user,
@@ -35,7 +35,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	function getPointsForOrder(\WC_Order $order)
 	{
 		$customer = \LWS\Adminpanel\Tools\Conveniences::getCustomer(false, $order);
-		if( $this->getOrderCount($customer) > 1 )
+		if (\LWS\WOOREWARDS\Conveniences::getOrderCount($customer, $order->get_id(), 'event') > 1)
 			return 0;
 		return $this->getFinalGain(1, array(
 			'user'  => $customer,

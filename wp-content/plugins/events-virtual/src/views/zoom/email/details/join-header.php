@@ -15,6 +15,6 @@
 ?>
 <td width="220">
 	<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; line-height: 16px;font-weight:700 !important;">
-		<?php echo esc_html_e( 'Zoom Registration Link', 'events-virtual' ); ?>
+		<?php echo esc_html_e( 'Join Zoom Video', 'events-virtual' ); ?>
 	</h6>
 </td>

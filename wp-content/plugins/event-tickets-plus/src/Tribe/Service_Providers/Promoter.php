@@ -5,7 +5,7 @@
  *
  * @since 4.12.0
  */
-class Tribe__Tickets_Plus__Service_Providers__Promoter extends tad_DI52_ServiceProvider {
+class Tribe__Tickets_Plus__Service_Providers__Promoter extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *

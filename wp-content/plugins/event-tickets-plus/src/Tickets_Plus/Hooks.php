@@ -17,7 +17,6 @@
 
 namespace TEC\Tickets_Plus;
 
-use \tad_DI52_ServiceProvider;
 use Tribe__Template;
 
 /**
@@ -27,7 +26,7 @@ use Tribe__Template;
  *
  * @package TEC\Tickets_Plus
  */
-class Hooks extends tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

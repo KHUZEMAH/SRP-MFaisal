@@ -351,27 +351,20 @@ class MonsterInsights_Report {
 		return array();
 	}
 
-	protected function get_ga_report_url( $ua_name, $v4_name, $data, $ua_extra_params = '', $v4_extra_params = '', $v4_endpoint = 'explorer', $is_real_time = false ) {
+	protected function get_ga_report_url( $v4_name, $data, $v4_extra_params = '', $v4_endpoint = 'explorer', $is_real_time = false ) {
 		$auth = MonsterInsights()->auth;
 
 		$params = $this->get_ga_report_range( $data );
 
-		if ( $auth->get_connected_type() === 'v4' ) {
-			$format = 'https://analytics.google.com/analytics/web/#/%1$s/' . ( $is_real_time ? 'realtime' : 'reports' ) . '/%5$s?params=%3$s%4$s&r=%2$s';
+        $format = 'https://analytics.google.com/analytics/web/#/%1$s/' . ( $is_real_time ? 'realtime' : 'reports' ) . '/%5$s?params=%3$s%4$s&r=%2$s';
 
-			if ( empty( $v4_name ) ) {
-				$report_name = '';
-			} else {
-				$report_name = $v4_name;
-			}
-			$extra_params = '&' . $v4_extra_params;
-			$endpoint     = $v4_endpoint;
-		} else {
-			$format       = 'https://analytics.google.com/analytics/web/#' . ( $is_real_time ? '/realtime' : 'report' ) . '/%2$s/%1$s%3$s%4$s/';
-			$report_name  = $ua_name;
-			$extra_params = '?' . $ua_extra_params;
-			$endpoint     = '';
-		}
+        if ( empty( $v4_name ) ) {
+            $report_name = '';
+        } else {
+            $report_name = $v4_name;
+        }
+        $extra_params = '&' . $v4_extra_params;
+        $endpoint     = $v4_endpoint;
 
 		return sprintf(
 			$format,

@@ -10,6 +10,7 @@
 namespace TEC\Tickets_Plus\Emails\Email;
 
 use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Ticket.
@@ -18,7 +19,7 @@ use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
  *
  * @package TEC\Tickets_Plus\Emails
  */
-class Ticket {
+class Ticket extends Components {
 	/**
 	 * The option key for the QR codes.
 	 *
@@ -50,12 +51,12 @@ class Ticket {
 
 		$ticket_label_plural_lower                       = esc_html( tribe_get_ticket_label_plural_lowercase( 'check_in_app' ) );
 		$fields[ self::$option_ticket_include_qr_codes ] = [
-			'type'            => 'toggle',
-			'label'           => esc_html__( 'Include QR Codes', 'event-tickets-plus' ),
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'QR Codes', 'event-tickets-plus' ),
 			'tooltip'         => esc_html(
 				sprintf(
 					// Translators: %1$s: 'tickets' label (plural, lowercase).
-					__( 'Include QR codes in %1$s emails (required for Event Tickets Plus App)', 'event-tickets-plus' ),
+					__( 'Include QR codes in %1$s emails (required for Event Tickets Plus App).', 'event-tickets-plus' ),
 					$ticket_label_plural_lower
 				)
 			),
@@ -64,12 +65,12 @@ class Ticket {
 		];
 
 		$fields[ self::$option_ticket_include_ar_fields ] = [
-			'type'            => 'toggle',
-			'label'           => esc_html__( 'Include Attendee Registration Fields', 'event-tickets-plus' ),
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Attendee Registration Fields', 'event-tickets-plus' ),
 			'tooltip'         => esc_html(
 				sprintf(
 					// Translators: %1$s: 'tickets' label (plural, lowercase).
-					__( 'Include Attendee Registration fields in your %1$s emails', 'event-tickets-plus' ),
+					__( 'Include Attendee Registration fields in your %1$s emails.', 'event-tickets-plus' ),
 					$ticket_label_plural_lower
 				)
 			),
@@ -95,43 +96,9 @@ class Ticket {
 			return;
 		}
 
-		$args = $et_template->get_local_values();
+		$args       = $et_template->get_local_values();
 
-		/** @var \Tribe__Tickets_Plus__Template $template */
-		$template = tribe( 'tickets-plus.template' );
-
-		/** @var \Tribe__Tickets_Plus__Meta $meta */
-		$meta          = tribe( 'tickets-plus.meta' );
-		$attendee_id   = $args['ticket']['attendee_id'];
-		$ticket_id     = $args['ticket']['product_id'];
-		$attendee_meta = $meta->get_attendee_meta_values( $ticket_id, $attendee_id );
-
-		$args['ticket']['attendee_meta'] = ! empty( $attendee_meta ) ? $attendee_meta : [];
-
-		$template->template( 'v2/emails/template-parts/body/ticket/ar-fields', $args, true );
-	}
-
-	/**
-	 * Maybe include Attendee Registration Fields Styles.
-	 *
-	 * @since 5.6.10
-	 *
-	 * @param \Tribe__Template $et_template Event Tickets template object.
-	 *
-	 * @return void
-	 */
-	public function maybe_include_ar_fields_styles( $et_template ) {
-
-		if ( ! $this->is_ar_fields_active( $et_template ) ) {
-			return;
-		}
-
-		$args = $et_template->get_local_values();
-
-		/** @var \Tribe__Tickets_Plus__Template $template */
-		$template = tribe( 'tickets-plus.template' );
-
-		$template->template( 'v2/emails/template-parts/header/head/ar-styles', $args, true );
+		$this->render_ar_fields_template( $args );
 	}
 
 	/**
@@ -141,32 +108,68 @@ class Ticket {
 	 *
 	 * @param \Tribe__Template $et_template Event Tickets template object.
 	 *
-	 * return boolean
+	 * @return boolean
 	 */
-	public function is_ar_fields_active( $et_template ) {
-		$email_class = tribe( Ticket_Email::class );
+	public function is_ar_fields_active( $et_template ): bool {
+		$args  = $et_template->get_local_values();
 
-		// Bail early if the email class is not enabled.
-		if ( ! $email_class->is_enabled() ) {
+		if ( ! $args['email'] instanceof Ticket_Email ) {
 			return false;
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_ticket_include_ar_fields, true ) ) ) {
+		// handle live preview.
+		$is_preview  = tribe_is_truthy( Arr::get( $args, 'preview', false ) );
+		$preview_arf = tribe_is_truthy( Arr::get( $args, 'add_ar_fields', false ) );
+		if ( $is_preview ) {
+			return $preview_arf;
+		}
+
+		return tribe_is_truthy( tribe_get_option( self::$option_ticket_include_ar_fields, true ) );
+	}
+
+	/**
+	 * Maybe include QR Code template for Ticket Email.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 */
+	public function maybe_include_qr_code_template( $et_template ): void {
+		$args  = $et_template->get_local_values();
+		$email = $args['email'];
+
+		// bail out if the email is not a RSVP email or if the ticket email settings are being used.
+		if ( ! $email instanceof Ticket_Email ) {
+			return;
+		}
+
+		$args['include_qr'] = $this->should_show_qr_code( $et_template );
+		$this->render_qr_code_template( $args );
+	}
+
+	/**
+	 * Determines if QR code for Emails is Active.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 *
+	 * @return boolean
+	 */
+	public function should_show_qr_code( $et_template ): bool {
+		$args  = $et_template->get_local_values();
+
+		if ( ! $args['email'] instanceof Ticket_Email ) {
 			return false;
 		}
 
-		$args = $et_template->get_local_values();
-		if ( ! empty( $args['is_preview'] ) && tribe_is_truthy( $args['is_preview'] ) ) {
-			return false;
+		// handle live preview.
+		$is_preview = tribe_is_truthy( Arr::get( $args, 'preview', false ) );
+		$preview_qr = tribe_is_truthy( Arr::get( $args, 'add_qr_codes', false ) );
+		if ( $is_preview ) {
+			return $preview_qr;
 		}
 
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
-			return false;
-		}
-
-		return true;
+		return tribe_is_truthy( tribe_get_option( self::$option_ticket_include_qr_codes, true ) );
 	}
 }

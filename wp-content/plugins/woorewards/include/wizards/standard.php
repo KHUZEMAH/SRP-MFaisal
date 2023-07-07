@@ -449,6 +449,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$reward = $this->getValue($data['data'], 'reward', 'rew/*');
 		if ('coupon' === $reward)
 		{
+			$pool->setOption('direct_reward_mode', false);
 			$coupon = new \LWS\WOOREWARDS\Unlockables\Coupon();
 			$coupon->setInPercent(false);
 			$coupon->setValue($this->getValue($data['data'], 'coupon_amount', 'rew/*', 0));
@@ -456,6 +457,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		}
 		else if ('discount' === $reward)
 		{
+			$pool->setOption('direct_reward_mode', false);
 			$coupon = new \LWS\WOOREWARDS\Unlockables\Coupon();
 			$coupon->setInPercent(true);
 			$coupon->setValue($this->getValue($data['data'], 'discount_amount', 'rew/*', 0));
@@ -464,7 +466,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		else if ('pointsoncart' === $reward)
 		{
 			$pool->setOptions(array(
-				'direct_reward_mode' => 'on',
+				'direct_reward_mode' => true,
 				'direct_reward_point_rate' => $this->getValue($data['data'], 'point_value', 'rew/*', 0)
 			));
 		}

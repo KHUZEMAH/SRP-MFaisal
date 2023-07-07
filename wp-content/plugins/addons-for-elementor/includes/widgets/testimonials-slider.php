@@ -104,6 +104,9 @@ class LAE_Testimonials_Slider_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active' => true,
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'credentials', [
             'label'       => __( 'Client Details', 'livemesh-el-addons' ),

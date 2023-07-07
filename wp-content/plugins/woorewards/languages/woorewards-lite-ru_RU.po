@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
 "POT-Creation-Date: 2023-02-05 12:16+0100\n"
-"PO-Revision-Date: 2023-02-05 12:18+0100\n"
+"PO-Revision-Date: 2023-06-06 15:54+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Geany / PoHelper 1.36\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: woorewards.php\n"
@@ -3755,3 +3755,132 @@ msgstr "https://longwatchstudio.com"
 
 #~ msgid "https://plugins.longwatchstudio.com"
 #~ msgstr "https://plugins.longwatchstudio.com"
+
+#: include/ui/adminscreens/pointsmanagement.php:23
+msgid "Export Points from MyRewards"
+msgstr "Экспортировать Очки из MyRewards"
+
+#: include/ui/adminscreens/pointsmanagement.php:24
+msgid ""
+"Select a points and rewards system to export the users points from that "
+"system."
+msgstr ""
+"Выберите систему очков и наград для экспорта очков пользователей из этой "
+"системы."
+
+#: include/ui/adminscreens/pointsmanagement.php:29
+msgid "points and rewards system"
+msgstr "система очков и наград"
+
+#: include/ui/adminscreens/pointsmanagement.php:40
+#: include/ui/adminscreens/pointsmanagement.php:89
+msgid "Export"
+msgstr "Экспорт"
+
+#: include/ui/adminscreens/pointsmanagement.php:51
+msgid "Export from other plugins"
+msgstr "Экспорт из других плагинов"
+
+#: include/ui/adminscreens/pointsmanagement.php:54
+msgid ""
+"If you're migrating from another loyalty plugin, you can export the users "
+"points from the other plugin and import them into MyRewards."
+msgstr ""
+"Если вы мигрируете из другого плагина лояльности, вы можете экспортировать "
+"очки пользователей из другого плагина и импортировать их в MyRewards."
+
+#: include/ui/adminscreens/pointsmanagement.php:55
+#, fuzzy
+#| msgid ""
+#| "The other plugin needs to be installed and activte for this procedure to "
+#| "work."
+msgid ""
+"The other plugin needs to be installed and active for this procedure to work."
+msgstr ""
+"Другой плагин должен быть установлен и активировать для работы этой "
+"процедуры."
+
+#: include/ui/adminscreens/pointsmanagement.php:61
+msgid "Loyalty Plugin or Meta Key"
+msgstr "Плагин Лояльности или Мета ключ"
+
+#: include/ui/adminscreens/pointsmanagement.php:69
+msgid "Do not change that value if you are not sure about what you are doing."
+msgstr "Не меняйте это значение, если вы не уверены в том, что делаете."
+
+#: include/ui/adminscreens/pointsmanagement.php:75
+msgid "Some Plugin need extra arguments"
+msgstr "Другой Плагин требует дополнительные аргументы"
+
+#: include/ui/adminscreens/pointsmanagement.php:83
+msgid ""
+"Main purpose is for plugins that support several point pools. If the plugin "
+"is not listed here, it does not need an extra argument."
+msgstr ""
+"Основное предназначение - для плагинов, которые поддерживают несколько пулов "
+"очков. Если плагин не указан здесь, он не нуждается в дополнительном "
+"аргументе."
+
+#: include/ui/adminscreens/pointsmanagement.php:99
+msgid "Import Points"
+msgstr "Импорт Очков"
+
+#: include/ui/adminscreens/pointsmanagement.php:102
+msgid "Select the exported file, then click on «Import»."
+msgstr "Выберите экспортируемый файл, а затем нажмите на кнопку \"Импорт\"."
+
+#: include/ui/adminscreens/pointsmanagement.php:103
+msgid "The Import process does <b>not</b> generate any reward."
+msgstr "Процесс Импорта <b>не</b> генерирует награды."
+
+#: include/ui/adminscreens/pointsmanagement.php:109
+msgid "Round imported points"
+msgstr "Округлить импортные очки"
+
+#: include/ui/adminscreens/pointsmanagement.php:114
+msgid "MyRewards only support integer points"
+msgstr "MyRewards поддерживает только целые очки"
+
+#: include/ui/adminscreens/pointsmanagement.php:116
+msgid "Round fractions down"
+msgstr "Округлять дроби вниз"
+
+#: include/ui/adminscreens/pointsmanagement.php:117
+msgid "Round fractions up"
+msgstr "Округлять дроби вверх"
+
+#: include/ui/adminscreens/pointsmanagement.php:118
+msgid "Round to nearest integer, half way round up"
+msgstr "Округлять до ближайшего целого, половину округлять вверх"
+
+#: include/ui/adminscreens/pointsmanagement.php:119
+msgid "Round to nearest integer, half way round down"
+msgstr "Округлять до ближайшего целого, половину округлять вниз"
+
+#: include/ui/adminscreens/pointsmanagement.php:126
+msgid "Multiply imported points by"
+msgstr "Умножить импортированные очки на"
+
+#: include/ui/adminscreens/pointsmanagement.php:135
+#, fuzzy
+#| msgid "Import"
+msgid "Import Mode"
+msgstr "Импорт"
+
+#: include/ui/adminscreens/pointsmanagement.php:141
+#, fuzzy
+#| msgid "See customers points and history"
+msgid "Replace customers points"
+msgstr "Посмотреть историю и очки клиентов"
+
+#: include/ui/adminscreens/pointsmanagement.php:142
+msgid "Add points to customers totals"
+msgstr ""
+
+#: include/ui/adminscreens/pointsmanagement.php:149
+msgid "Add points to that points and rewards system"
+msgstr "Добавить очки к этой системе очков и наград"
+
+#: include/ui/adminscreens/pointsmanagement.php:173
+msgid "Import"
+msgstr "Импорт"

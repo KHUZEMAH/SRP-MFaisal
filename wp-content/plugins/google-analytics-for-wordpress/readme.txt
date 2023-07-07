@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 4.8.0
 Tested up to: 6.2
-Stable tag: 8.14.1
+Stable tag: 8.17
 Requires PHP: 5.6
 License: GPL v3
 
@@ -211,7 +211,9 @@ We understand Google Analytics better than any other analytics plugin for WordPr
 * User Journeys - See exactly which pages a customer visited before before purchasing from your WooCommerce, Easy Digital Downloads, MemberPress, LifterLMS, Restrict Content Pro, or GiveWP website.
 * Easy Digital Downloads Google Analytics - Add Enhanced Ecommerce Tracking to your EDD store.
 * Affiliate Link Tracking - Track your affiliate links and get stats that matter.
-* Google Ads Conversion Tracking - Automatically track Google Ads conversions for WooCommerce, Easy Digital Downloads, and MemberPress.
+* Google Ads Conversion Tracking - Automatically track Google Ads conversions for WooCommerce, Easy Digital Downloads, MemberPress, LifterLMS, Restrict Content Pro, or GiveWP websites.
+* Meta Pixel (Facebook, Instagram Ads) PPC Conversion Tracking - Automatically track pageviews and Purchases for WooCommerce, Easy Digital Downloads, MemberPress, LifterLMS, Restrict Content Pro, or GiveWP websites.
+* Microsoft Ads (Bing Ads) PPC Conversion Tracking - Automatically track Microsoft Ads purchases for WooCommerce, Easy Digital Downloads, MemberPress, LifterLMS, Restrict Content Pro, or GiveWP websites.
 * File Download Tracking - Enable file download stats with just a click.
 * Custom Link Tracking - Track your outbound link clicks with Google Analytics.
 * Events Tracking - Track custom button and banner clicks with Google Analytics.
@@ -298,6 +300,23 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 8.17: June 29, 2023 =
+- Updated: Removed dual tracking panel and limit reporting to GA4 only properties.
+- Fixed: We fixed a bug in the WPForms integration.
+- Fixed: We fixed a bug in the AffiliateWP integration.
+
+= 8.16: June 19, 2023 =
+- New: User Journey report now available! See all of your website's purchases in one screen. 
+- Update: We updated the Popular Posts to support themes that allow widgets. 
+- Fixed: We fixed some layout issues in exported PDF reports.
+- Fixed: We fixed the deprecated YOAST function WPSEO_Utils::translate_score().
+- Fixed: We fixed a bug occurring while downloading files having the file download tracking enabled.
+
+= 8.15: May 03, 2023 =
+- New: Site Notes allows you to record important website events right inside your WordPress dashboard.
+- Update: Fix EDD integration.
+- Update: Mobile screen optimizations.
+
 = 8.14.1: Apr 11, 2023 =
 - Fixed: We fixed a PHP warning error and added additional security hardening.
 

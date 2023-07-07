@@ -18,7 +18,7 @@ use Elementor\Elements_Manager;
  *
  * @package Tribe\Tickets\Plus\Integrations\Elementor
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Registers the bindings and hooks the filters required for the Elementor integration to work.

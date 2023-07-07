@@ -136,6 +136,10 @@ class Group
 	}
 
 	/** @param $require (array) An array with a css selector to an input and the required value ['selector' => '.example', 'value'=> 'yes'].
+	 * * selector: css selector (required)
+	 * * cmp: operator in '==', '!=', 'match' (default ==)
+	 * * value: the value to compare to (default is '')
+	 * * event: the event to react fo (default is 'change')
 	 * (Managed in Group) If condition is not fullfilled, all the line is hidden. */
 	public function setRequirement(array $require)
 	{
@@ -164,7 +168,10 @@ class Group
 			$s = \esc_attr($this->requirement['selector']);
 			$v = \esc_attr($this->requirement['value']);
 			$c = \esc_attr($this->requirement['cmp']);
-			return "{$prefix}data-selector='{$s}' data-value='{$v}' data-operator='{$c}'";
+			$args = "{$prefix}data-selector='{$s}' data-value='{$v}' data-operator='{$c}'";
+			if (isset($this->requirement['event']) && $this->requirement['event'])
+				$args .= sprintf(" data-event='%s'", \esc_attr($this->requirement['event']));
+			return $args;
 		}
 		else
 			return '';

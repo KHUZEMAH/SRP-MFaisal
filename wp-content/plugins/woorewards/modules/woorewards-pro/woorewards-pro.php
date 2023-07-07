@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.0.8
+ * Version: 5.0.11
  * Text Domain: woorewards-pro
  * WC requires at least: 3.7.0
- * WC tested up to: 7.6
+ * WC tested up to: 7.8
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -100,7 +100,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '5.0.8');
+		define('LWS_WOOREWARDS_PRO_VERSION', '5.0.11');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -259,6 +259,9 @@ final class LWS_WooRewards_Pro
 		add_action('plugins_loaded', function () {
 			require_once LWS_WOOREWARDS_PRO_INCLUDES . '/registration.php';
 		});
+		\add_filter('lws_woorewards_ignored_order_status_for_count', function($status) {
+			return (array)\get_option('lws_woorewards_refund_on_status', array());
+		}, 10, 1);
 
 		// override the default pool
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/pool.php';
@@ -394,8 +397,6 @@ final class LWS_WooRewards_Pro
 		\LWS\WOOREWARDS\PRO\Ui\OrderPointInformation::register();
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/woocommerce/productcontent.php';
 		\LWS\WOOREWARDS\PRO\Ui\Woocommerce\ProductContent::install();
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/pointsflow/action.php';
-		\LWS\WOOREWARDS\PRO\PointsFlow\Action::register();
 
 		/** Popups */
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/popups/freeproductpopup.php';
@@ -435,6 +436,8 @@ final class LWS_WooRewards_Pro
 
 		\add_action('wp_enqueue_scripts', array($this, 'enqueueSymbolStyle'));
 		\add_action('admin_enqueue_scripts', array($this, 'enqueueSymbolStyle'));
+
+		\do_action('lws_woorewards_pro_init');
 	}
 
 	function addEndpoints()

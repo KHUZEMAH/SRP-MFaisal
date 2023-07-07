@@ -19,8 +19,12 @@
  * @var array  $tickets     The list of tickets.
  */
 
-/** @var \Tribe__Tickets__Attendee_Registration__Main $attendee_registration */
-$attendee_registration = tribe( 'tickets.attendee_registration' );
+try {
+	/** @var \Tribe__Tickets__Attendee_Registration__Main $attendee_registration */
+	$attendee_registration = tribe( 'tickets.attendee_registration' );
+} catch ( \Exception $e ) {
+	return;
+}
 
 if ( ! $attendee_registration->is_modal_enabled() ) {
 	return;

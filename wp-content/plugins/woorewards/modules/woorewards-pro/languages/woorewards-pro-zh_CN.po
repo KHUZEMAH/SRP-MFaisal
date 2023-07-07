@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooRewards Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-05 12:22+0100\n"
-"PO-Revision-Date: 2023-04-14 13:01+0200\n"
+"PO-Revision-Date: 2023-06-06 15:55+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: 简体中文\n"
 "Language: zh_CN\n"
@@ -4031,128 +4031,6 @@ msgid ""
 "If you select several systems, they will be displayed separately, one after "
 "another."
 msgstr "如果您选择使用多个积分系统，他们将会一个接一个的分别显示."
-
-#: include/ui/adminscreens/pointsmanagement.php:23
-msgid "Export Points from MyRewards"
-msgstr "导出 MyRewards 的积分"
-
-#: include/ui/adminscreens/pointsmanagement.php:24
-msgid ""
-"Select a points and rewards system to export the users points from that "
-"system."
-msgstr "选择一个积分和奖励系统，来导出用户在该系统下的积分"
-
-#: include/ui/adminscreens/pointsmanagement.php:29
-msgid "points and rewards system"
-msgstr "积分与奖励系统"
-
-#: include/ui/adminscreens/pointsmanagement.php:40
-#: include/ui/adminscreens/pointsmanagement.php:89
-msgid "Export"
-msgstr "导出"
-
-#: include/ui/adminscreens/pointsmanagement.php:51
-msgid "Export from other plugins"
-msgstr "从其他插件导出"
-
-#: include/ui/adminscreens/pointsmanagement.php:54
-msgid ""
-"If you're migrating from another loyalty plugin, you can export the users "
-"points from the other plugin and import them into MyRewards."
-msgstr ""
-"如果您是从其他积分系统中迁移过来，您可以从那些系统中导出用户积分，然后导入到 "
-"MyRewards 中."
-
-#: include/ui/adminscreens/pointsmanagement.php:55
-#, fuzzy
-#| msgid ""
-#| "The other plugin needs to be installed and activte for this procedure to "
-#| "work."
-msgid ""
-"The other plugin needs to be installed and active for this procedure to work."
-msgstr "其他所需插件需要被安装来使操作继续"
-
-#: include/ui/adminscreens/pointsmanagement.php:61
-msgid "Loyalty Plugin or Meta Key"
-msgstr "积分插件或 Meta Key"
-
-#: include/ui/adminscreens/pointsmanagement.php:69
-msgid "Do not change that value if you are not sure about what you are doing."
-msgstr "如果您不清楚在做什么，请勿做任何设置和调整"
-
-#: include/ui/adminscreens/pointsmanagement.php:75
-msgid "Some Plugin need extra arguments"
-msgstr "一些插件需要额外的协定"
-
-#: include/ui/adminscreens/pointsmanagement.php:83
-msgid ""
-"Main purpose is for plugins that support several point pools. If the plugin "
-"is not listed here, it does not need an extra argument."
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:99
-msgid "Import Points"
-msgstr "导入积分"
-
-#: include/ui/adminscreens/pointsmanagement.php:102
-msgid "Select the exported file, then click on «Import»."
-msgstr "选择已导出的文件，然后点击 «导入»."
-
-#: include/ui/adminscreens/pointsmanagement.php:103
-msgid "The Import process does <b>not</b> generate any reward."
-msgstr "导入操作<b>不会</b>生成任何奖励"
-
-#: include/ui/adminscreens/pointsmanagement.php:109
-msgid "Round imported points"
-msgstr "为导入积分取整"
-
-#: include/ui/adminscreens/pointsmanagement.php:114
-msgid "MyRewards only support integer points"
-msgstr "MyRewards 仅支持整数积分"
-
-#: include/ui/adminscreens/pointsmanagement.php:116
-msgid "Round fractions down"
-msgstr "取整，分数舍弃"
-
-#: include/ui/adminscreens/pointsmanagement.php:117
-msgid "Round fractions up"
-msgstr "取整，分数进一"
-
-#: include/ui/adminscreens/pointsmanagement.php:118
-msgid "Round to nearest integer, half way round up"
-msgstr "取整，半数进一"
-
-#: include/ui/adminscreens/pointsmanagement.php:119
-msgid "Round to nearest integer, half way round down"
-msgstr "取整，半数舍弃"
-
-#: include/ui/adminscreens/pointsmanagement.php:126
-msgid "Multiply imported points by"
-msgstr "倍增导入的积分，乘以"
-
-#: include/ui/adminscreens/pointsmanagement.php:135
-#, fuzzy
-#| msgid "Import"
-msgid "Import Mode"
-msgstr "导入"
-
-#: include/ui/adminscreens/pointsmanagement.php:141
-#, fuzzy
-#| msgid "See customers points and history"
-msgid "Replace customers points"
-msgstr "查看客户积分和记录"
-
-#: include/ui/adminscreens/pointsmanagement.php:142
-msgid "Add points to customers totals"
-msgstr ""
-
-#: include/ui/adminscreens/pointsmanagement.php:149
-msgid "Add points to that points and rewards system"
-msgstr "向指定积分与奖励系统增加积分"
-
-#: include/ui/adminscreens/pointsmanagement.php:173
-msgid "Import"
-msgstr "导入"
 
 #: include/ui/adminscreens/popups.php:14
 msgid "Popups"

@@ -420,4 +420,9 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		}
 		return $coupon;
 	}
+
+	protected function grantExclCat()
+	{
+		return false;
+	}
 }

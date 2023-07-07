@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit50e3e4090c69709295e41ecd67475a8d
+class ComposerStaticInit1ca0d9323744409b16f2054d39b7ece0
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -36,6 +36,7 @@ class ComposerStaticInit50e3e4090c69709295e41ecd67475a8d
         'TEC\\Tickets_Plus\\Commerce\\Hooks' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Hooks.php',
         'TEC\\Tickets_Plus\\Commerce\\Order' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Order.php',
         'TEC\\Tickets_Plus\\Commerce\\Provider' => __DIR__ . '/../..' . '/src/Tickets_Plus/Commerce/Provider.php',
+        'TEC\\Tickets_Plus\\Emails\\Email\\Components' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Email/Components.php',
         'TEC\\Tickets_Plus\\Emails\\Email\\RSVP' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Email/RSVP.php',
         'TEC\\Tickets_Plus\\Emails\\Email\\Ticket' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Email/Ticket.php',
         'TEC\\Tickets_Plus\\Emails\\Hooks' => __DIR__ . '/../..' . '/src/Tickets_Plus/Emails/Hooks.php',
@@ -48,9 +49,9 @@ class ComposerStaticInit50e3e4090c69709295e41ecd67475a8d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit50e3e4090c69709295e41ecd67475a8d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1ca0d9323744409b16f2054d39b7ece0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1ca0d9323744409b16f2054d39b7ece0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1ca0d9323744409b16f2054d39b7ece0::$classMap;
 
         }, null, ClassLoader::class);
     }

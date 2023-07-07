@@ -168,8 +168,7 @@ class SettingsListener {
 	 * Listens if the merchant ID should be updated.
 	 */
 	public function listen_for_merchant_id() {
-
-		if ( ! $this->is_valid_site_request() ) {
+		if ( ! $this->is_valid_site_request() || $this->state->current_state() === State::STATE_ONBOARDED ) {
 			return;
 		}
 
@@ -226,11 +225,13 @@ class SettingsListener {
 			$token = $this->bearer->bearer();
 			if ( ! $token->vaulting_available() ) {
 				$this->settings->set( 'vault_enabled', false );
+				$this->settings->set( 'vault_enabled_dcc', false );
 				$this->settings->persist();
 				return;
 			}
 		} catch ( RuntimeException $exception ) {
 			$this->settings->set( 'vault_enabled', false );
+			$this->settings->set( 'vault_enabled_dcc', false );
 			$this->settings->persist();
 
 			throw $exception;
@@ -335,6 +336,11 @@ class SettingsListener {
 
 		if ( $this->dcc_status_cache->has( DCCProductStatus::DCC_STATUS_CACHE_KEY ) ) {
 			$this->dcc_status_cache->delete( DCCProductStatus::DCC_STATUS_CACHE_KEY );
+		}
+
+		$ppcp_reference_transaction_enabled = get_transient( 'ppcp_reference_transaction_enabled' ) ?? '';
+		if ( $ppcp_reference_transaction_enabled ) {
+			delete_transient( 'ppcp_reference_transaction_enabled' );
 		}
 
 		$redirect_url = false;

@@ -117,4 +117,123 @@ EOT;
 	{
 		return \LWS\WOOREWARDS\Core\OrderNote::add($order, $note, $source);
 	}
+
+	/** @param $user (int|WP_User|string) user Id or instance, a string is assumed as user email.
+	 *	@param $exceptOrderId (false|int|[int]) ignore given order id.
+	 *	@param $source (string) a caller reference (for information purpose only).
+	 *	@param $extendedEmail (bool|string) look not only in billing email but associated user current email too. Can be a email string to test.
+	 *	@return (int) */
+	public static function getOrderCount($user, $exceptOrderId=false, $source=false, $extendedEmail=false)
+	{
+		if (!$user) {
+			if ($extendedEmail && \is_string($extendedEmail))
+				$user = $extendedEmail;
+			else
+				return 0;
+		}
+
+		$userId = 0;
+		$email  = '';
+		if (\is_object($user)) {
+			$userId = (int)$user->ID;
+			$email = $user->user_email;
+		} elseif (\is_numeric($user)) {
+			$userId = \intval($user);
+			$user = \get_user_by('ID', $userId);
+			if ($user && $user->exists())
+				$email = $user->user_email;
+		} else { // assume a string email
+			$email = $user;
+		}
+		$transient = $userId . $email;
+
+		if ($extendedEmail) {
+			if (\is_string($extendedEmail) && \strtolower($email) != \strtolower($extendedEmail)) {
+				$transient .= ('-' . $extendedEmail);
+			} else {
+				$transient .= '-=';
+				$extendedEmail = $email;
+			}
+		}
+
+		$isListOfExceptOrderId = false;
+		if ($exceptOrderId) {
+			if (\is_array($exceptOrderId)) {
+				$isListOfExceptOrderId = true;
+				$exceptOrderId = \array_map('\intval', $exceptOrderId);
+				\sort($exceptOrderId, SORT_NUMERIC);
+				$exceptOrderId = \implode(',', $exceptOrderId);
+				$transient .= ('_' . $exceptOrderId);
+			} else {
+				$exceptOrderId = \intval($exceptOrderId);
+				$transient .= ('_' . $exceptOrderId);
+			}
+		}
+
+		static $cache = array();
+		if (isset($cache[$transient])) {
+			return $cache[$transient];
+		}
+
+		global $wpdb;
+		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
+		$query->where("p.post_type='shop_order'");
+		$query->select('COUNT(p.ID)');
+
+		$where = array();
+		if ($userId || $extendedEmail) {
+			$query->leftJoin($wpdb->postmeta, 'c', "p.ID=c.post_id  AND c.meta_key='_customer_user'");
+			if ($userId) {
+				$where[] = 'c.meta_value = %d';
+				$query->arg($userId);
+			}
+			if ($extendedEmail) {
+				$query->leftJoin($wpdb->users, 'u', "c.meta_value=u.ID");
+				$where[] = 'u.user_email = %s';
+				$query->arg($extendedEmail);
+				if (\is_string($extendedEmail) && $email != $extendedEmail) {
+					$where[] = 'u.user_email = %s';
+					$query->arg($email);
+				}
+			}
+		}
+		if ($email) {
+			$query->leftJoin($wpdb->postmeta, 'm', "p.ID=m.post_id  AND m.meta_key='_billing_email'");
+			$where[] = 'm.meta_value = %s';
+			$query->arg($email);
+			if ($extendedEmail && \is_string($extendedEmail) && $email != $extendedEmail) {
+				$where[] = 'm.meta_value = %s';
+				$query->arg($extendedEmail);
+			}
+		}
+		if (count($where) > 1) {
+			$where['condition'] = 'OR';
+			$query->where($where);
+		} elseif ($where) {
+			$query->where($where[0]);
+		}
+
+		$status = \apply_filters('lws_woorewards_ignored_order_status_for_count', array(), $source);
+		if ($status) {
+			if (count($status) > 1) {
+				$status = \implode("','", \array_map(function($s) {
+					return \esc_sql('wc-' . $s);
+				}, $status));
+				$query->where(sprintf("p.post_status NOT IN ('%s')", $status));
+			} else {
+				$status = \reset($status);
+				$query->where('p.post_status <> %s')->arg('wc-' . $status);
+			}
+		}
+
+		if ($exceptOrderId) {
+			if ($isListOfExceptOrderId) {
+				$query->where(sprintf('p.ID NOT IN (%s)'), $exceptOrderId);
+			} else {
+				$query->where('p.ID <> %d')->arg($exceptOrderId);
+			}
+		}
+
+		return $cache[$transient] = (int)$query->getVar();
+	}
 }

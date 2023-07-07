@@ -157,6 +157,9 @@ class LAE_Odometers_Widget extends LAE_Widget_Base
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
         ],
+            'ai'          => [
+            'active' => false,
+        ],
         ] );
         $repeater->add_control( 'suffix', [
             'label'       => __( 'Suffix', 'livemesh-el-addons' ),
@@ -165,6 +168,9 @@ class LAE_Odometers_Widget extends LAE_Widget_Base
             'dynamic'     => [
             'active'     => true,
             'categories' => [ TagsModule::POST_META_CATEGORY ],
+        ],
+            'ai'          => [
+            'active' => false,
         ],
         ] );
         $this->add_control( 'odometers', [

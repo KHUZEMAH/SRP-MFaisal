@@ -253,7 +253,7 @@ abstract class Event implements ICategorisable, IRegistrable
 		return self::$delayAllowed;
 	}
 
-	/** returns a Duration instance */
+	/**	@return a Duration instance or false if no delay */
 	public function getDelay()
 	{
 		if (!$this->isDelayAllowed())
@@ -263,7 +263,7 @@ abstract class Event implements ICategorisable, IRegistrable
 		return $this->delay->isNull() ? false : $this->delay;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|string|Duration) string use a DateInterval format */
 	public function setDelay($days=false)
 	{
 		if( empty($days) )
@@ -416,17 +416,17 @@ abstract class Event implements ICategorisable, IRegistrable
 		$str .= "<div class='value lws-$context-opt-input value'><input type='text' size='30' id='{$prefix}title' name='{$prefix}title' placeholder='$placeholder' /></div>";
 
 		$str .= $this->getFieldsetEnd(0);
-		$str .= $this->getFieldsetBegin(1, __("Points settings", 'woorewards-lite'));
+		$str .= $this->getFieldsetBegin(1, __("Points settings", 'woorewards-lite'), array('title' => 'pts-earning'));
 
 		// multiplier
 		$label = _x("Earned points", "Event point multiplier", 'woorewards-lite');
 		$tooltip = sprintf(__("Expects an integer or an expression starting by %s", 'woorewards-lite'), '<b>=</b>');
 		$str .= <<<EOT
-<div class='field-help'>$tooltip</div>
-<div for='{$prefix}multiplier' class='lws-$context-opt-title label bold'>
+<div class='field-help pts-earning'>$tooltip</div>
+<div for='{$prefix}multiplier' class='lws-$context-opt-title label bold pts-earning'>
 	$label<div class='bt-field-help'>?</div>
 </div>
-<div class='lws-$context-opt-input value'>
+<div class='lws-$context-opt-input value pts-earning'>
 	<input type='text' size='5' class='expression_trigger' id='{$prefix}multiplier' name='{$prefix}multiplier' placeholder='1' />
 </div><!-- [field-after:multiplier] -->
 EOT;
@@ -435,7 +435,7 @@ EOT;
 		$tooltip = __("What Earned points value is shown to your customer instead of the formula above when the expression cannot be resolved on the fly", 'woorewards-lite');
 		$placeholder = \esc_attr($this->getGainAlt(true));
 		$str .= <<<EOT
-<div style='display: none;' class='hide_if_not_expression'>
+<div style='display: none;' class='hide_if_not_expression pts-earning'>
 	<div class='field-help'>$tooltip</div>
 	<div for='{$prefix}mul_alt' class='lws-$context-opt-title label'>
 		$label<div class='bt-field-help'>?</div>
@@ -490,9 +490,9 @@ EOT;
 			$label = _x("Max Triggers", "Event max triggers", 'woorewards-lite');
 			$tooltip = __("Defines how many times this action can be triggered by each user. Leave empty for unlimited times or set an integer value", 'woorewards-lite');
 			$str .= <<<EOT
-<div class='field-help'>$tooltip</div>
-<div class='lws-{$context}-opt-title label'>{$label}<div class='bt-field-help'>?</div></div>
-<div class='lws-$context-opt-input value'>
+<div class='field-help pts-earning'>$tooltip</div>
+<div class='lws-{$context}-opt-title label pts-earning'>{$label}<div class='bt-field-help'>?</div></div>
+<div class='lws-$context-opt-input value pts-earning'>
 	<input type='text' size='5' id='{$prefix}max_triggers' name='{$prefix}max_triggers' placeholder='' />
 </div><!-- [field-after:max_triggers] -->
 EOT;
@@ -642,14 +642,26 @@ EOT;
 
 	protected function getFieldsetBegin($index, $title='', $css='', $withPlaceholder=true)
 	{
-		if( !empty($css) )
-			$css .= ' ';
-		$css .= "fieldset fieldset-$index";
-		$str = "<div class='$css'>";
-		if( !empty($title) )
-			$str .= "<div class='title'>$title</div>";
-		$str .= "<div class='fieldset-grid'>";
-		if( $withPlaceholder )
+		$c = array(
+			'fields' => 'fieldset fieldset-' . $index,
+			'title'  => 'title',
+			'grid'   => 'fieldset-grid',
+		);
+		if ($css) {
+			if (\is_string($css)) {
+				$c['fields'] .= (' ' . $css);
+			} elseif (\is_array($css)) {
+				foreach ($c as $k => $v) {
+					if (isset($css[$k]) && $css[$k])
+						$c[$k] .= (' ' . (\is_array($css[$k]) ? \implode(' ', $css[$k]) : $css[$k]));
+				}
+			}
+		}
+		$str = "<div class='{$c['fields']}'>";
+		if ($title)
+			$str .= "<div class='{$c['title']}'>{$title}</div>";
+		$str .= "<div class='{$c['grid']}'>";
+		if ($withPlaceholder)
 			$str .= $this->getFieldsetPlaceholder(true, $index);
 		return $str;
 	}
@@ -965,7 +977,16 @@ EOT;
 		if (isset($this->pool)) {
 			return $this->pool;
 		} else if (isset($this->poolId) && $this->poolId) {
-			$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
+			if (\class_exists('\LWS\WOOREWARDS\PRO\Core\Pool')) {
+				$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
+			} else {
+				$pool = \apply_filters('lws_woorewards_get_pools_by_args', false, array(
+					'system' => $stack,
+					'force'  => true,
+				));
+				if ($pool)
+					$this->pool = $pool->last();
+			}
 			return $this->pool;
 		} else {
 			return false;

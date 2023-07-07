@@ -5,7 +5,7 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package OceanWP WordPress theme
- */
+ */ 
 
 get_header(); ?>
 

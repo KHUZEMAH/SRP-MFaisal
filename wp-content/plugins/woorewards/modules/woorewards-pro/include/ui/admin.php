@@ -1252,7 +1252,7 @@ EOT;
 		return $filters;
 	}
 
-	function shapePoints($points, $user, $poolName, $info)
+	function shapePoints($points, $user, $poolId, $info)
 	{
 		static $mode = null;
 		if (null === $mode)
@@ -1302,9 +1302,6 @@ EOT;
 			return $this->standardPages['wr_system'];
 
 		$system = $this->standardPages['wr_system'];
-
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/pointsmanagement.php';
-		\LWS\WOOREWARDS\PRO\Ui\AdminScreens\PointsManagement::mergeGroups($system['tabs']['data_management']['groups']);
 
 		$system['tabs']['data_management']['groups']['historydel'] = array(
 			'id'    => 'historydel',

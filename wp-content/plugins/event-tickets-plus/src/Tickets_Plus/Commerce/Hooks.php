@@ -17,7 +17,6 @@
 
 namespace TEC\Tickets_Plus\Commerce;
 
-use \tad_DI52_ServiceProvider;
 
 /**
  * Class Hooks.
@@ -26,7 +25,7 @@ use \tad_DI52_ServiceProvider;
  *
  * @package TEC\Tickets_Plus\Commerce
  */
-class Hooks extends tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

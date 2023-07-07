@@ -11,7 +11,7 @@ namespace LWS\Adminpanel\Tools;
  * * required array of $key => bool (all not listed key here are assumed to be optional)
  * * defaults array of $key => $value (all empty value in values (after format filtering) are supplied).
  * * labels array of $key => string use this string instead of key to report an error.
- * * shallow bool, true means given format is not complete, value could have undescribe content. Default is false.
+ * * shallow bool, true means given format is not complete, value could have undescribe content. Default is true.
  * * post bool means values come from $_POST, then a stripslashes() is applied on each values. Default is false.
  *
  * If formats required it, all values are filtered by trim, sanitize_text_field, sanitize_key, intval...

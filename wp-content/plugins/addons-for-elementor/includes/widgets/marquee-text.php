@@ -97,6 +97,9 @@ class LAE_Marquee_Text_Widget extends LAE_Widget_Base {
                 'type' => Controls_Manager::TEXT,
                 'label' => __('Container Class', 'livemesh-el-addons'),
                 'description' => __('The CSS class for the marquee text container DIV element.', 'livemesh-el-addons'),
+                'ai' => [
+                    'active' => false,
+                ],
             ]
         );
 

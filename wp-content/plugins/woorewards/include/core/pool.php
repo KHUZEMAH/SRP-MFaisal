@@ -28,6 +28,7 @@ class Pool
 	protected $options             = null;             /// a basic class to store custom options
 	protected $directRewardMode    = false;            /// Points are diectly converted to discount on cart
 	protected $drmPointRate        = 1.0;              /// directRewardMode: value of a point in current WC currency
+	protected $drmCats             = array();          /// directRewardMode restriction: assign category to virtual coupon
 
 	/** A pool is active if set as activated */
 	public function isActive()
@@ -218,6 +219,7 @@ class Pool
 	 * * blacklist-    : same as 'blacklist' but remove from existant.
 	 * * direct_reward_mode               : (bool) directRewardMode: value of a point in current WC currency
 	 * * direct_reward_point_rate         : (float) directRewardMode: value of a point in current WC currency
+	 * * direct_reward_discount_cats      : (int[]) categories applied on the virtual coupon
 	 **/
 	public function setOption($option, $value)
 	{
@@ -282,13 +284,19 @@ class Pool
 			case 'blacklist-':
 				$this->categoriesBlacklist = array_diff($this->categoriesBlacklist, is_array($value) ? $value : array(\trim($value)));
 				break;
-		 case 'direct_reward_mode':
+			case 'direct_reward_mode':
 				$this->directRewardMode = \boolval($value);
 				break;
-		 case 'direct_reward_point_rate':
+			case 'direct_reward_point_rate':
 				$value = \str_replace(',', '.', \trim($value));
 				if (\is_numeric($value))
 					$this->drmPointRate = \abs(\floatval($value));
+				break;
+			case 'direct_reward_discount_cats':
+				if ($value)
+					$this->drmCats = (\is_array($value) ? $value : array($value));
+				else
+					$this->drmCats = array();
 				break;
 			default:
 				if( !$this->_setCustomOption($option, $value) )
@@ -319,6 +327,7 @@ class Pool
 	 * * blacklist     : (array of string) Event and Unlockable category that could not be used with this pool.
 	 * * direct_reward_mode               : (bool) directRewardMode: value of a point in current WC currency
 	 * * direct_reward_point_rate         : (float) directRewardMode: value of a point in current WC currency
+	 * * direct_reward_discount_cats      : (int[]) categories applied on the virtual coupon
 	 **/
 	public function getOption($option, $default=null)
 	{
@@ -363,11 +372,17 @@ class Pool
 			case 'blacklist':
 				$value = empty($this->categoriesBlacklist) ? array() : $this->categoriesBlacklist;
 				break;
-		 case 'direct_reward_mode':
+			case 'direct_reward_mode':
 				$value = $this->directRewardMode;
 				break;
-		 case 'direct_reward_point_rate':
+			case 'direct_reward_point_rate':
 				$value = $this->drmPointRate;
+				break;
+			case 'direct_reward_discount_cats':
+				if ($this->drmCats && \is_array($this->drmCats))
+					$value = $this->drmCats;
+				else
+					$value = array();
 				break;
 			default:
 				$value = $this->_getCustomOption($option, $default);
@@ -586,8 +601,10 @@ class Pool
 				$pool->options = $options;
 
 			$pool->directRewardMode = \boolval($pool->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_mode', false));
-			if( $pool->directRewardMode )
+			if ($pool->directRewardMode) {
 				$pool->drmPointRate = \floatval($pool->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_point_rate', 1.0));
+				$pool->drmCats      = $pool->getSinglePostMetaIfExists($post->ID, 'wre_pool_direct_reward_discount_cats', array());
+			}
 
 			if( $load )
 				$pool->subLoad();
@@ -658,8 +675,9 @@ class Pool
 
 		if( !$this->directRewardMode )
 			$this->drmPointRate = 1.0; // reset
-		$data['meta_input']['wre_pool_direct_reward_mode']       = ($this->directRewardMode ? 'on' : '');
-		$data['meta_input']['wre_pool_direct_reward_point_rate'] = $this->drmPointRate;
+		$data['meta_input']['wre_pool_direct_reward_mode']          = ($this->directRewardMode ? 'on' : '');
+		$data['meta_input']['wre_pool_direct_reward_point_rate']    = $this->drmPointRate;
+		$data['meta_input']['wre_pool_direct_reward_discount_cats'] = $this->drmCats;
 
 		$postId = $data['ID'] ? \wp_update_post($data, true) : \wp_insert_post($data, true);
 		if( \is_wp_error($postId) )

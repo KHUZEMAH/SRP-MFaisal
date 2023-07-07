@@ -2,7 +2,6 @@
 
 namespace Tribe\Tickets\Plus\Attendee_Registration;
 
-use tad_DI52_ServiceProvider;
 use Tribe\Tickets\Plus\Attendee_Registration\IAC\Hooks;
 use Tribe\Tickets\Plus\Attendee_Registration\IAC\Ticket_Settings;
 
@@ -13,7 +12,7 @@ use Tribe\Tickets\Plus\Attendee_Registration\IAC\Ticket_Settings;
  *
  * @since   5.1.0
  */
-class Service_Provider extends tad_DI52_ServiceProvider {
+class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Register the provider singletons.
 	 *

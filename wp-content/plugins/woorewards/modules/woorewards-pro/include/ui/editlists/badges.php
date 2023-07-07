@@ -170,11 +170,10 @@ EOT;
 
 	function addSubmenuPages()
 	{
-		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/editlists/rarity.php';
-		$menuKey = 'edit.php?post_type='.\LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE;
+		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/achievements.php';
 		$pages = array(
 			array(
-				'id' => $menuKey,
+				'id' => 'edit.php?post_type=' . \LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE,
 				'prebuild' => '1'
 			),
 			array(
@@ -182,46 +181,7 @@ EOT;
 				'title' => __("Badges", 'woorewards-pro'),
 				'subtitle' => __("Settings", 'woorewards-pro'),
 				'rights' => 'manage_options',
-				'groups' => array(
-					'badge' => array(
-						'id' => 'badge',
-						'icon'	=> 'lws-icon-window-add',
-						'title' => __("Badge Popup", 'woorewards-pro'),
-						'text' => __("Style the popup that will be displayed to customers when they earn a new badge.", 'woorewards-pro'),
-						'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
-						'fields' => array(
-							'stygen' => array(
-								'id' => 'lws_wr_badge_style',
-								'title' => '',
-								'type' => 'stygen',
-								'extra' => array(
-									'purpose' => 'action',
-									'template' => 'lws_wr_badge_style',
-									'html'=> false,
-									'css'=>LWS_WOOREWARDS_PRO_CSS.'/templates/badge.css',
-								)
-							)
-						)
-								),
-					'rarity' => array(
-						'id' => 'lws_woorewards_rarity_levels',
-						'icon'	=> 'lws-icon-g-chart',
-						'title' => __("Badges Rarity Levels", 'woorewards-pro'),
-						'text' => __("Define the rarity levels of Badges.", 'woorewards-pro') . "<br/>" .
-						__("The percentage value is the max percentage of users owning the badge to get the corresponding rarity.", 'woorewards-pro'),
-						'extra'    => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('badges')),
-						'editlist' => \lws_editlist(
-							'Rarity',
-							\LWS\WOOREWARDS\PRO\Ui\Editlists\BadgeRarity::ROW_ID,
-							new \LWS\WOOREWARDS\PRO\Ui\Editlists\BadgeRarity(),
-							\LWS\Adminpanel\EditList::MDA
-						)->setPageDisplay(false)->setCssClass('lws-rarity-editlist')->setRepeatHead(false),
-						'function' => function(){
-							\wp_enqueue_style('lws-wre-pro-srarity', LWS_WOOREWARDS_PRO_CSS . '/rarity.css', array('lws-admin-controls'), LWS_WOOREWARDS_PRO_VERSION);
-						}
-
-					)
-				)
+				'groups' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Achievements::getAppearances(),
 			)
 		);
 
@@ -232,7 +192,7 @@ EOT;
 	function filterSubmenuOrder($menu_order)
 	{
 		global $submenu;
-		$menuKey = 'edit.php?post_type='.\LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE;
+		$menuKey = 'edit.php?post_type=' . \LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE;
 		if( isset($submenu[$menuKey]) )
 		{
 			usort($submenu[$menuKey], function($a, $b){

@@ -305,7 +305,8 @@ class PointsOnCart
 			'title'    => __("Demo. System", 'woorewards-lite'),
 			'type'     => \LWS\WOOREWARDS\Core\Pool::T_STANDARD,
 			'disabled' => false,
-			'direct_reward_point_rate' => 0.1
+			'direct_reward_point_rate'    => 0.1,
+			'direct_reward_discount_cats' => array(),
 		));
 		$info = \apply_filters('lws_woorewards_pointsoncart_template_info', array(
 			'amount' => 150,
@@ -435,7 +436,7 @@ class PointsOnCart
 			}
 		}
 
-		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, true, false);
+		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1, false, false);
 		if (0 != $currencyRate)
 			$total =  $total / $currencyRate;
 
@@ -651,7 +652,7 @@ EOT;
 				sprintf(
 					__('Every %s you use is worth %s', 'woorewards-lite'),
 					$poolInfo['symbol'],
-					\LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($poolInfo['direct_reward_point_rate'], true)
+					\LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($poolInfo['direct_reward_point_rate'], \apply_filters('lws_woorewards_point_rate_displays_real_decimals', false), true)
 				)
 			);
 		}

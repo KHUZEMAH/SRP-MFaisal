@@ -113,8 +113,8 @@ class MonsterInsights_Connect {
 		);
 
 		// verify params present (oth & download link).
-		$post_oth = ! empty( $_REQUEST['oth'] ) ? sanitize_text_field( $_REQUEST['oth'] ) : '';
-		$post_url = ! empty( $_REQUEST['file'] ) ? sanitize_text_field($_REQUEST['file']) : '';
+		$post_oth = ! empty( $_REQUEST['oth'] ) ? sanitize_text_field($_REQUEST['oth']) : '';
+		$post_url = ! empty( $_REQUEST['file'] ) ? sanitize_url($_REQUEST['file']) : '';
 		$license  = get_option( 'monsterinsights_connect', false );
 		$network  = ! empty( $license['network'] ) ? (bool) $license['network'] : false;
 		if ( empty( $post_oth ) || empty( $post_url ) ) {

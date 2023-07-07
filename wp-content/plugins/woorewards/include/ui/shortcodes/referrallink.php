@@ -232,7 +232,7 @@ EOT;
 	{
 		if( !$sponsor->id && \get_option('lws_woorewards_referral_back_give_sponsorship', 'on') )
 		{
-			$sponsorship = new \LWS\WOOREWARDS\PRO\Core\Sponsorship();
+			$sponsorship = new \LWS\WOOREWARDS\Core\Sponsorship();
 			$ref = $sponsorship->getCurrentReferral();
 			if( $ref->user_id && $ref->hash && $ref->origin == 'referral' )
 			{
@@ -253,13 +253,13 @@ EOT;
 	}
 
 	/** Keep referral in session to let visitor continues without losing referral info.
-	 * @see \LWS\WOOREWARDS\PRO\Core\Sponsorship::setCurrentReferral() */
+	 * @see \LWS\WOOREWARDS\Core\Sponsorship::setCurrentReferral() */
 	public function grabReferral(&$query)
 	{
 		$referral = isset($query->query['referral']) ? trim($query->query['referral']) : '';
 		if( $referral )
 		{
-			$sponsorship = new \LWS\WOOREWARDS\PRO\Core\Sponsorship();
+			$sponsorship = new \LWS\WOOREWARDS\Core\Sponsorship();
 			$ref = $sponsorship->getCurrentReferral();
 			if( $ref->hash != $referral || !$ref->user_id || $ref->origin != 'referral' )
 			{

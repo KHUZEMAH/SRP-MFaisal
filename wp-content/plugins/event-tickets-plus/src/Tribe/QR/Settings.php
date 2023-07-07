@@ -10,6 +10,15 @@ use \Tribe\Tickets\Admin\Settings as ET_Settings;
 class Tribe__Tickets_Plus__QR__Settings {
 
 	/**
+	 * The option key to store use QR code option value.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @var string
+	 */
+	public static string $qr_code_enabled_option = 'tickets-enable-qr-codes';
+
+	/**
 	 * Hook into Event Tickets/Event Tickets Plus.
 	 *
 	 * @since 4.7.5
@@ -60,7 +69,7 @@ class Tribe__Tickets_Plus__QR__Settings {
 				'type' => 'html',
 				'html' => $this->get_app_banner(),
 			],
-			'tickets-enable-qr-codes'                  => [
+			static::$qr_code_enabled_option            => [
 				'type'            => 'toggle',
 				'label'           => esc_html__( 'Use QR Codes', 'event-tickets-plus' ),
 				'tooltip'         => esc_html(
@@ -401,5 +410,16 @@ store. Learn more about the app in our %3$s.', 'event-tickets-plus'
 		$src = base64_encode( ob_get_clean() );
 
 		return "data:image/png;base64," . $src;
+	}
+
+	/**
+	 * Check if the QR code feature is enabled.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @return bool
+	 */
+	public function is_enabled(): bool {
+		return tribe_get_option( self::$qr_code_enabled_option, true );
 	}
 }

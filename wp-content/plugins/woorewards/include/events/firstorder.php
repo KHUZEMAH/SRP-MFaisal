@@ -113,7 +113,7 @@ EOT;
 		if (!$userId)
 			return $order;
 
-		if( $this->getOrderCount($userId, $order->order_id) > 0 )
+		if (\LWS\WOOREWARDS\Conveniences::getOrderCount($userId, $order->order_id, 'event') > 0)
 			return $order;
 
 		if( $points = \apply_filters('trigger_'.$this->getType(), 1, $this, $order->order) )
@@ -130,51 +130,10 @@ EOT;
 		return $order;
 	}
 
-	/**	@param $user (int|WP_User) */
+	/**	@deprecated user \LWS\WOOREWARDS\Conveniences::getOrderCount() instead */
 	protected function getOrderCount($user, $exceptOrderId = false)
 	{
-		if (!$user)
-			return 0;
-
-		$userId = 0;
-		$email = false;
-		if (\is_object($user)) {
-			$userId = (int)$user->ID;
-			$email = $user->user_email;
-		} elseif (\is_numeric($user)) {
-			$userId = \intval($user);
-			$user = \get_user_by('ID', $userId);
-			if ($user && $user->exists())
-				$email = $user->user_email;
-		} else { // assume a string email
-			$email = $user;
-		}
-
-		global $wpdb;
-		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
-		$query->where('p.post_type="shop_order"');
-		$query->select('COUNT(p.ID)');
-
-		$where = array();
-		if ($userId) {
-			$query->leftJoin($wpdb->postmeta, 'c', 'p.ID=c.post_id  AND c.meta_key="_customer_user"');
-			$where[] = 'c.meta_value = %d';
-			$query->arg($userId);
-		}
-		if ($email) {
-			$query->leftJoin($wpdb->postmeta, 'm', 'p.ID=m.post_id  AND m.meta_key="_billing_email"');
-			$where[] = 'm.meta_value = %s';
-			$query->arg($email);
-		}
-		if ($where) {
-			$where['condition'] = 'OR';
-			$query->where($where);
-		}
-
-		if ($exceptOrderId)
-			$query->where('p.ID <> %d')->arg(\intval($exceptOrderId));
-
-		return \intval($query->getVar());
+		return \LWS\WOOREWARDS\Conveniences::getOrderCount($user, $exceptOrderId, 'event');
 	}
 
 	/**	Event categories, used to filter out events from pool options.

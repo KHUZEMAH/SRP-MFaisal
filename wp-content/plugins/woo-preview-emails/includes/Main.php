@@ -3,17 +3,16 @@
 namespace Codemanas\WooPreviewEmails;
 
 class Main {
-	/**
-	 * @var null
-	 */
-	public static $instance = null;
-	private $plugin_url, $choose_email, $orderID, $recipient;
+	public static ?Main $instance = null;
+	private $orderID, $recipient;
+	private string $plugin_url;
 	public $emails = null, $notice_message = null, $notice_class = null;
+	private string $choose_email;
 
 	/**
 	 * @return Main|null
 	 */
-	public static function get_instance() {
+	public static function get_instance(): ?Main {
 		return is_null( self::$instance ) ? self::$instance = new self() : self::$instance;
 	}
 
@@ -25,7 +24,10 @@ class Main {
 		add_action( 'admin_init', [ $this, 'email_preview_output' ], 20 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_scripts' ], 10, 1 );
 		add_action( 'wp_ajax_woo_preview_orders_search', [ $this, 'get_orders' ] );
-		add_filter( 'plugin_action_links_woo-preview-emails/woocommerce-preview-emails.php', [$this, 'settings_link'] );
+		add_filter( 'plugin_action_links_woo-preview-emails/woocommerce-preview-emails.php', [
+			$this,
+			'settings_link'
+		], 20 );
 	}
 
 	public function settings_link( $links ) {
@@ -38,12 +40,10 @@ class Main {
 		// Create the link.
 		$settings_link = "<a href='$url'>" . __( 'Settings' ) . '</a>';
 		// Adds the link to the end of the array.
-		array_push(
-			$links,
-			$settings_link
-		);
+		array_unshift( $links, $settings_link );
+
 		return $links;
-    }
+	}
 
 	/**
 	 * @return void
@@ -126,27 +126,21 @@ class Main {
 
 	/*Ajax Callback to Search Orders*/
 	public function get_orders() {
-
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return false;
 		}
 
 		$q        = sanitize_text_field( filter_input( INPUT_GET, 'q' ) );
-		$args     = [
-			'post_type'      => 'shop_order',
-			'posts_per_page' => 10,
-			'post_status'    => array_keys( wc_get_order_statuses() ),
-			'post__in'       => [ $q ],
-		];
-		$response = array();
-		$orders   = new \WP_Query( $args );
-		while ( $orders->have_posts() ):
-			$orders->the_post();
-			$id         = get_the_id();
-			$response[] = array( 'id' => $id, 'text' => '#order :' . $id );
-		endwhile;
+		$response = [];
+		$order    = wc_get_order( $q );
+		if ( $order ) {
+			$id         = $order->get_id();
+			$response[] = [ 'id' => $id, 'text' => '#order :' . $id ];
+
+		}
 		wp_reset_postdata();
 		wp_send_json( $response );
+		die;
 	}
 
 	/**
@@ -197,11 +191,17 @@ class Main {
                 <div id="message" class="notice notice-warning">
                     <h3>Need more features ?</h3>
                     <p>
-                        <a href="https://www.codemanas.com/downloads/preview-e-mails-for-woocommerce-pro">Check out the pro version here</a> which lets you view WooCommerce Booking and WooCommerce Subscription templates.</p>
+                        <a href="https://www.codemanas.com/downloads/preview-e-mails-for-woocommerce-pro">Check out the
+                            pro version here</a> which lets you view WooCommerce Booking and WooCommerce Subscription
+                        templates.</p>
                 </div>
                 <div id="message" class="notice notice-warning">
-                    <p>If you have found this plugin useful, please leave a <a href="https://wordpress.org/support/plugin/woo-preview-emails/reviews/#new-post" target="_blank">review</a>
-                    <p><strong><?php _e( "Note: E-mails require orders to exist before you can preview them", 'woo-preview-emails' ); ?></strong></p>
+                    <p>If you have found this plugin useful, please leave a <a
+                                href="https://wordpress.org/support/plugin/woo-preview-emails/reviews/#new-post"
+                                target="_blank">review</a>
+                    <p>
+                        <strong><?php _e( "Note: E-mails require orders to exist before you can preview them", 'woo-preview-emails' ); ?></strong>
+                    </p>
                 </div>
 			<?php } ?>
 			<?php $this->generate_form(); ?>
@@ -218,7 +218,7 @@ class Main {
 			require_once WOO_PREVIEW_EMAILS_DIR . '/views/form.php';
 		} else {
 			do_action( 'woo_preview_emails_before_form' );
-			//Custom tab implmentation
+			//Custom tab implementation
 			$tabs = apply_filters( 'woo_preview_emails_tabs', false );
 			if ( ! $tabs ) {
 				require_once WOO_PREVIEW_EMAILS_DIR . '/views/form.php';
@@ -310,6 +310,7 @@ class Main {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <title><?php _e( 'Previewing Emails', 'woo-preview-emails' ); ?></title>
 					<?php
 					/*Load the styles and scripts*/
 					require_once WOO_PREVIEW_EMAILS_DIR . '/views/result/style.php';
@@ -330,7 +331,8 @@ class Main {
                             </p>
 							<?php $this->generate_form(); ?>
                             <!-- admin url was broken -->
-                            <a class="button" href="<?php echo admin_url( 'admin.php?page=codemanas-woocommerce-preview-emails' ); ?>"><?php _e( 'Back to Admin Area', 'woo-preview-emails' ); ?></a>
+                            <a class="button"
+                               href="<?php echo admin_url( 'admin.php?page=codemanas-woocommerce-preview-emails' ); ?>"><?php _e( 'Back to Admin Area', 'woo-preview-emails' ); ?></a>
                         </div>
                     </div>
                     <div class="cm-WooPreviewEmail-emailContent">
@@ -338,7 +340,8 @@ class Main {
                     </div>
                     <div class="tool-bar-toggler">
                         <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                             </svg>
                             <span class="hide-controls">Hide Controls</span>

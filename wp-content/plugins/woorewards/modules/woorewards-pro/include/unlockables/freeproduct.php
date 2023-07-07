@@ -478,6 +478,9 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 				$this->setPermanentcoupon($coupon, $user, $this->getType(), $this->getPoolId());
 			}
 			$this->applyOnCoupon($coupon, $user, $this->getPoolId(), $demo);
+			// dokan support, force default behavior for a working coupon
+			\update_post_meta($coupon->get_id(), 'admin_coupons_enabled_for_vendor', 'yes');
+
 			\do_action('wpml_restore_language_from_email');
 			\do_action('woocommerce_coupon_options_save', $coupon->get_id(), $coupon);
 		}

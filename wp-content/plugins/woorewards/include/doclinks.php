@@ -11,14 +11,14 @@ class DocLinks
 	const FALLBACK = 'home';
 
 	public static $doclinks = array(
-		'adv-features'   => "https://plugins.longwatchstudio.com/docs/woorewards-4/features/advanced-features/",
-		'customers'      => "https://plugins.longwatchstudio.com/docs/woorewards-4/customers-management/",
-		'disp-points'    => "https://plugins.longwatchstudio.com/docs/woorewards-4/legacy/widgets/display-points/",
-		'home'           => "https://plugins.longwatchstudio.com/docs/woorewards-4/",
-		'points'         => "https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/points/",
-		'pools'          => "https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/",
-		'referral'       => "https://plugins.longwatchstudio.com/docs/woorewards-4/features/referral-sponsorship/",
-		'rewards'        => "https://plugins.longwatchstudio.com/docs/woorewards-4/points-and-rewards-systems/rewards/",
+		'adv-features'   => "https://plugins.longwatchstudio.com/kb/combining-systems/",
+		'customers'      => "https://plugins.longwatchstudio.com/kb/customers-management/",
+		'disp-points'    => "https://plugins.longwatchstudio.com/kb/wr-sc-points-information/",
+		'home'           => "https://plugins.longwatchstudio.com/kbtopic/wr/",
+		'points'         => "https://plugins.longwatchstudio.com/kb/spend-money/",
+		'pools'          => "https://plugins.longwatchstudio.com/kb/how-it-works/",
+		'referral'       => "https://plugins.longwatchstudio.com/kb/referral-sponsorship/",
+		'rewards'        => "https://plugins.longwatchstudio.com/kb/points-on-cart/",
 	);
 
 	static function get($index=false, $escape = true)

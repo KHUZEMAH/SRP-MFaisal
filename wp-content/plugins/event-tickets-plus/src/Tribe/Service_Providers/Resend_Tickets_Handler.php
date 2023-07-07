@@ -12,7 +12,7 @@ use Tribe__Tickets_Plus__Main as Plugin;
  * @since 5.2.5
  */
 
-class Resend_Tickets_Handler extends \tad_DI52_ServiceProvider {
+class Resend_Tickets_Handler extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Slug for JS and CSS handlers.

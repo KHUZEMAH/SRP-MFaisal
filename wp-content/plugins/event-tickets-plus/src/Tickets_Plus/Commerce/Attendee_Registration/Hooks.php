@@ -17,7 +17,6 @@
 
 namespace TEC\Tickets_Plus\Commerce\Attendee_Registration;
 
-use \tad_DI52_ServiceProvider;
 use TEC\Tickets\Commerce;
 use TEC\Tickets\Commerce\Cart;
 use TEC\Tickets\Commerce\Checkout;
@@ -39,7 +38,7 @@ use Tribe__Utils__Array as Arr;
  *
  * @package TEC\Tickets_Plus\Commerce\Attendee_Registration
  */
-class Hooks extends tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.
@@ -207,7 +206,13 @@ class Hooks extends tad_DI52_ServiceProvider {
 	 * @return string
 	 */
 	public function filter_cart_to_checkout_redirect_url( $redirect_url ) {
-		if ( tribe( 'tickets.attendee_registration' )->is_modal_enabled() ) {
+		try {
+			$attendee_registration = tribe( 'tickets.attendee_registration' );
+		} catch ( \Exception $e ) {
+			return $redirect_url;
+		}
+
+		if ( $attendee_registration->is_modal_enabled() ) {
 			return $redirect_url;
 		}
 
@@ -260,7 +265,7 @@ class Hooks extends tad_DI52_ServiceProvider {
 			return $redirect_url;
 		}
 
-		$redirect_url = home_url( '/' . tribe( 'tickets.attendee_registration' )->get_slug() );
+		$redirect_url = home_url( '/' . $attendee_registration->get_slug() );
 		$redirect_url = add_query_arg( tribe_tickets_get_provider_query_slug(), \TEC\Tickets\Commerce::PROVIDER, $redirect_url );
 
 		return $redirect_url;

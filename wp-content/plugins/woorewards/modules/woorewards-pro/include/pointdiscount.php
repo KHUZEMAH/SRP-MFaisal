@@ -16,7 +16,6 @@ class PointDiscount
 		\add_filter('lws_woorewards_pointdiscount_max_points', array($me, 'getMaxPoints'), 10, 5);
 		\add_filter('lws_woorewards_pointsoncart_pools', array($me, 'getPools'), 10, 1);
 		\add_filter('lws_woorewards_pointsoncart_template_info', array($me, 'templateInfo'), 10, 1);
-		\add_filter('woocommerce_get_shop_coupon_data', array($me, 'asData'), PHP_INT_MAX - 5, 3);
 
 		// multi currency virtual coupon, check conflict with wallet feature
 		if (\get_option('lws_woorewards_convert_virtual_coupon_currency')) {
@@ -90,7 +89,7 @@ class PointDiscount
 				return 0;
 		}
 
-		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1.0, true, false);
+		$currencyRate = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice(1.0, false, false);
 		if (0.0 != $currencyRate)
 			$subtotal = ($subtotal / $currencyRate);
 
@@ -140,7 +139,6 @@ class PointDiscount
 			'direct_reward_max_points_on_cart'  => 200,
 			'direct_reward_total_floor'         => 5.0,
 			'direct_reward_min_subtotal'        => 10.0,
-			'direct_reward_discount_cats'       => array(),
 		));
 		return $info;
 	}
@@ -151,25 +149,9 @@ class PointDiscount
 			if ($coupon->get_virtual()
 			&& false !== strpos($coupon->get_discount_type(), 'fixed')
 			&& 0 === strpos($coupon->get_code(), 'wr_points_on_cart-')) {
-				$amount = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($amount, true, false);
+				$amount = \LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($amount, false, false);
 			}
 		}
 		return $amount;
-	}
-
-	function asData($coupon, $data, $instance)
-	{
-		if ($instance && isset($instance->wr_discount_data) && $instance->wr_discount_data && \is_array($instance->wr_discount_data)) {
-			$pool = false;
-			if (isset($instance->wr_discount_data['pool']) && $instance->wr_discount_data['pool']) {
-				$pool = $instance->wr_discount_data['pool'];
-			} elseif (isset($instance->wr_discount_data['pool_name']) && $instance->wr_discount_data['pool_name']) {
-				$pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($instance->wr_discount_data['pool_name'], false);
-			}
-			if ($pool) {
-				$instance->update_meta_data('_lws_coupon_virtual_taxonomy', $pool->getOption('direct_reward_discount_cats'));
-			}
-		}
-		return $coupon;
 	}
 }

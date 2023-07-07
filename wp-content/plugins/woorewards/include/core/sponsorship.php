@@ -210,7 +210,6 @@ namespace LWS\WOOREWARDS\Core{
 			$users = \apply_filters('lws_woorewards_customer_sponsored_by', $users, false, true, $ref);
 			if( !$users->sponsor_id )
 			{
-				$users->origin = 'sponsor';
 				if( $users->sponsored_id )
 				{
 					$users->sponsor_id = $this->getSponsorIdFor($users->sponsored_id);
@@ -218,6 +217,16 @@ namespace LWS\WOOREWARDS\Core{
 					{
 						// backward compatibility
 						$users->sponsor_id = $this->getSponsorIdFor($user->user_email);
+					}
+				}
+
+				// read origin
+				if ($users->sponsor_id) {
+					if ($users->sponsored_id) {
+						$users->origin = \sanitize_key(\get_user_meta($users->sponsored_id, 'lws_woorewards_sponsored_origin', true));
+					}
+					if (!$users->origin) {
+						$users->origin = 'sponsor';
 					}
 				}
 			}
@@ -265,7 +274,6 @@ namespace LWS\WOOREWARDS\Core{
 			$users = \apply_filters('lws_woorewards_customer_sponsored_by', $users, $order, $guestAllowed, $ref);
 			if( !$users->sponsor_id )
 			{
-				$users->origin = 'sponsor';
 				if( $users->sponsored_id )
 				{
 					$users->sponsor_id = $this->getSponsorIdFor($users->sponsored_id);
@@ -284,6 +292,20 @@ namespace LWS\WOOREWARDS\Core{
 						if( !$sponsor || $sponsor->user_email == $users->sponsored_email ) {
 							$users->sponsor_id = false;
 						}
+					}
+					$sponsee = \get_user_by('email', $users->sponsored_email);
+					if ($sponsee && $sponsee->ID) {
+						$users->sponsored_id = $sponsee->ID;
+					}
+				}
+
+				// read origin
+				if ($users->sponsor_id) {
+					if ($users->sponsored_id) {
+						$users->origin = \sanitize_key(\get_user_meta($users->sponsored_id, 'lws_woorewards_sponsored_origin', true));
+					}
+					if (!$users->origin) {
+						$users->origin = 'sponsor';
 					}
 				}
 			}
@@ -416,61 +438,22 @@ namespace LWS\WOOREWARDS\Core{
 			if (!$override && $wpdb->get_var($wpdb->prepare("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key='lws_wooreward_used_sponsorship' AND meta_value=%s LIMIT 0, 1", $email)) > 0)
 				return new \WP_Error('already-sponsored', sprintf(__("%s is already referred.", 'woorewards-lite'), $email));
 
-			if( !$lazy && self::getOrderCountByEMail($email) > 0 )
+			if( !$lazy && \LWS\WOOREWARDS\Conveniences::getOrderCount($email, false, 'sponsorship', true) > 0 )
 				return new \WP_Error('already-customer', sprintf(__("%s is already an active customer.", 'woorewards-lite'), $email));
 
 			return $email;
 		}
 
+		/**	@deprecated user \LWS\WOOREWARDS\Conveniences::getOrderCount() instead */
 		static function getOrderCountByEMail($email, $excludedOrderId=false)
 		{
-			global $wpdb;
-
-			$args = array($email);
-			$billing = "SELECT COUNT(p.ID) FROM {$wpdb->posts} as p
-	INNER JOIN {$wpdb->postmeta} AS e ON e.post_id=p.ID AND e.meta_key='_billing_email' AND e.meta_value=%s
-	WHERE p.post_type='shop_order'";
-			if( !empty($excludedOrderId) )
-			{
-				$billing .= " AND p.ID<>%d";
-				$args[] = $excludedOrderId;
-			}
-
-			$args[] = $email;
-			$customer = "SELECT COUNT(p.ID) FROM {$wpdb->posts} as p
-	INNER JOIN {$wpdb->postmeta} AS c ON c.post_id=p.ID AND c.meta_key='_customer_user'
-	INNER JOIN {$wpdb->users} as u ON c.meta_value=u.ID AND u.user_email=%s
-	WHERE p.post_type='shop_order'";
-			if( !empty($excludedOrderId) )
-			{
-				$customer .= " AND p.ID<>%d";
-				$args[] = $excludedOrderId;
-			}
-
-			$sql = "SELECT ($billing) as billing, ($customer) as customer";
-			$counts = $wpdb->get_row($wpdb->prepare($sql, $args), ARRAY_N);
-			if( empty($counts) )
-				return 0;
-			else
-				return (intval($counts[0]) + intval($counts[1]));
+			return \LWS\WOOREWARDS\Conveniences::getOrderCount($email, $excludedOrderId, 'sponsorship', true);
 		}
 
+		/**	@deprecated user \LWS\WOOREWARDS\Conveniences::getOrderCount() instead */
 		static function getOrderCountById($userId, $exceptOrderId=false)
 		{
-			$args = array($userId);
-			global $wpdb;
-
-			$sql = "SELECT COUNT(ID) FROM {$wpdb->posts}
-	INNER JOIN {$wpdb->postmeta} ON ID=post_id AND meta_key='_customer_user' AND meta_value=%d
-	WHERE post_type='shop_order'";
-
-			if( !empty($exceptOrderId) )
-			{
-				$args[] = $exceptOrderId;
-				$sql .= " AND ID<>%d";
-			}
-
-			return \intval($wpdb->get_var($wpdb->prepare($sql, $args)));
+			return \LWS\WOOREWARDS\Conveniences::getOrderCount($userId, $excludedOrderId, 'sponsorship', false);
 		}
 
 	}

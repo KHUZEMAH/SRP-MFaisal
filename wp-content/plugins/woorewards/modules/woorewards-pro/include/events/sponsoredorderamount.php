@@ -193,14 +193,13 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 
 	protected function isTheFirst(&$order)
 	{
-		$orderId = $order->order->get_id();
-		if( $this->sponsorship->sponsored_id && \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountById($this->sponsorship->sponsored_id, $orderId) > 0 )
-			return false;
-
-		if( \LWS\WOOREWARDS\Core\Sponsorship::getOrderCountByEMail($this->sponsorship->sponsored_email, $orderId) > 0 )
-			return false;
-
-		return true;
+		$c = \LWS\WOOREWARDS\Conveniences::getOrderCount(
+			$this->sponsorship->sponsored_id,
+			$order->order->get_id(),
+			'sponsorship',
+			$this->sponsorship->sponsored_email
+		);
+		return 0 == $c;
 	}
 
 	/** @param $order (WC_Order)

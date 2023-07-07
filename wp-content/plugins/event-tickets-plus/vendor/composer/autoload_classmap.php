@@ -21,6 +21,7 @@ return array(
     'TEC\\Tickets_Plus\\Commerce\\Hooks' => $baseDir . '/src/Tickets_Plus/Commerce/Hooks.php',
     'TEC\\Tickets_Plus\\Commerce\\Order' => $baseDir . '/src/Tickets_Plus/Commerce/Order.php',
     'TEC\\Tickets_Plus\\Commerce\\Provider' => $baseDir . '/src/Tickets_Plus/Commerce/Provider.php',
+    'TEC\\Tickets_Plus\\Emails\\Email\\Components' => $baseDir . '/src/Tickets_Plus/Emails/Email/Components.php',
     'TEC\\Tickets_Plus\\Emails\\Email\\RSVP' => $baseDir . '/src/Tickets_Plus/Emails/Email/RSVP.php',
     'TEC\\Tickets_Plus\\Emails\\Email\\Ticket' => $baseDir . '/src/Tickets_Plus/Emails/Email/Ticket.php',
     'TEC\\Tickets_Plus\\Emails\\Hooks' => $baseDir . '/src/Tickets_Plus/Emails/Hooks.php',

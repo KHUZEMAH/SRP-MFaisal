@@ -134,6 +134,34 @@ class AvailableRewards
 						'desc' => __("(Optional, default is 'false') If set, customers will also see rewards they don't have enough points to unlock, without the possibility to unlock them", 'woorewards-pro'),
 						'example' => '[wr_available_rewards unavailable="true"]'
 					),
+					'buttonlabel' => array(
+						'option' => 'buttonlabel',
+						'desc' => __("(Optional) Set this to change the unlock button's label.", 'woorewards-pro'),
+						'example' => '[wr_available_rewards buttonlabel="Redeem"]'
+					),
+					'imagesize' => array(
+						'option' => 'imagesize',
+						'desc' => __("(Optional) Select the size of the reward image shown. 4 possible values :", 'woorewards-pro'),
+						'options' => array(
+							array(
+								'option' => 'lws_wr_thumbnail',
+								'desc'   => __("Default Value. Displays an image up to 96x96 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'thumbnail',
+								'desc'   => __("Displays an image up to 150x150 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'medium',
+								'desc'   => __("Displays an image up to 300x300 pixels", 'woorewards-pro'),
+							),
+							array(
+								'option' => 'large',
+								'desc'   => __("Displays an image up to 1024 pixels wide", 'woorewards-pro'),
+							),
+						),
+						'example' => '[wr_available_rewards imagesize="thumbnail"]'
+					),
 				),
 			)
 		);
@@ -162,10 +190,14 @@ class AvailableRewards
 	 * 					  	  If set, only rewards that can be applied on the cart are displayed
 	 * @param redirection	→ Default: ''
 	 * 					  	  If set, customers are redirected to the set url
-	 * @param available	→ Default: 'true'
+	 * @param available	    → Default: 'true'
 	 * 					  	  If set, customers also see available rewards
 	 * @param unavailable	→ Default: 'false'
 	 * 					  	  If set, customers also see unavailable rewards
+	 * @param buttonlabel	→ Default: ''
+	 * 					  	  Set the button label
+	 * @param imagesize		→ Default: 'lws_wr_thumbnail'
+	 * 					  	  Set the reward image's size
 	 */
 	public function shortcode($atts = array(), $content = null)
 	{
@@ -182,6 +214,8 @@ class AvailableRewards
 				'redirection' => false,
 				'available'   => true,
 				'unavailable' => false,
+				'buttonlabel' => '',
+				'imagesize'   => 'lws_wr_thumbnail',
 			));
 			// Basic verifications
 			if (!$atts['system']) {
@@ -254,7 +288,10 @@ class AvailableRewards
 						$btText = __("Unlock", 'woorewards-pro');
 					}
 				}
-				$img = (($img = $unlockable->getThumbnailImage()) ? "<div class='reward-img'>{$img}</div>" : '');
+				if ($atts['buttonlabel'] != '') {
+					$btText = $atts['buttonlabel'];
+				}
+				$img = (($img = $unlockable->getThumbnailImage($this->getVerifiedSize($atts['imagesize']))) ? "<div class='reward-img'>{$img}</div>" : '');
 				$parent = '';
 				if ($atts['showname']) {
 					$parent = sprintf(
@@ -305,4 +342,10 @@ EOT;
 				return $elements;
 		}
 	}
+
+	private function getVerifiedSize($size)
+	{
+		return \LWS\Adminpanel\Tools\MediaHelper::getVerifiedMediaSize($size, 'lws_wr_thumbnail');
+	}
+
 }

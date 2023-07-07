@@ -6,7 +6,7 @@
  */
 
 // Tribe__Tickets_Plus__APM
-class Tribe__Tickets_Plus__Editor__Provider extends tad_DI52_ServiceProvider {
+class Tribe__Tickets_Plus__Editor__Provider extends \TEC\Common\Contracts\Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *

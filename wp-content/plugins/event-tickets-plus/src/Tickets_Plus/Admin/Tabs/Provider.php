@@ -2,8 +2,6 @@
 
 namespace TEC\Tickets_Plus\Admin\Tabs;
 
-use tad_DI52_ServiceProvider;
-
 /**
  * Class Service_Provider
  *
@@ -11,7 +9,7 @@ use tad_DI52_ServiceProvider;
  *
  * @since 5.5.1
  */
-class Provider extends tad_DI52_ServiceProvider {
+class Provider extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Register the provider.

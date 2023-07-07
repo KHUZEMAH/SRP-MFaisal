@@ -51,7 +51,7 @@ if (!class_exists('LAE_Theme_Builder_Init')):
         public function enhancement_hooks() {
 
             // If plugin Elementor Pro is not active, then return.
-            if (!class_exists('ElementorPro\Plugin')) {
+            if (!is_plugin_active('elementor-pro/elementor-pro.php')) {
                 return;
             }
 

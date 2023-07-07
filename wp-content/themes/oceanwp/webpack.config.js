@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const CopyPlugin = require("copy-webpack-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const TerserPlugin = require('terser-webpack-plugin');
-
+ 
 module.exports = {
 	mode: 'production',
 	// optimization: {
