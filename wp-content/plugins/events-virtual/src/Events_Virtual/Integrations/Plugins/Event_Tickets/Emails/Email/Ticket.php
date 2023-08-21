@@ -45,6 +45,7 @@ class Ticket {
 	 * Renders the calendar links for the email body.
 	 *
 	 * @since 1.15.0
+	 * @since 1.15.2    Always show the email links in previews.
 	 *
 	 * @param array<string,mixed> $args The email arguments.
 	 *
@@ -58,7 +59,7 @@ class Ticket {
 		}
 
 		// Check if user wants link in email.
-		if ( empty( $args['event']->virtual_ticket_email_link ) ) {
+		if ( empty( $args['preview'] ) && empty( $args['event']->virtual_ticket_email_link ) ) {
 			return;
 		}
 

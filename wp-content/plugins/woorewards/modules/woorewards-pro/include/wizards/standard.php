@@ -96,7 +96,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'spent_earn',
-									'title' => sprintf(__("Points for each %s spent", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for each %s spent", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -273,7 +273,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 											'type'  => 'text',
 											'extra' => array(
 												//'pattern' => "\\d*",
-												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 											),
 										),
 									)
@@ -395,7 +395,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 	{
 		$data = $this->getData();
 		$exists = false;
-		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?';
+		$currency = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?';
 		$summary = '';
 		$usedData =$this->getDataValue($data,'met',false,$exists);
 		$methods = reset($usedData);
@@ -527,7 +527,7 @@ EOT;
 		{
 			// $submit['category'] == 'orders'
 			if( !$this->isIntGE0($submit, 'spent_earn') )
-				$err[] = sprintf(__("Points for each %s spent expects numeric value greater than zero or leave blank.", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+				$err[] = sprintf(__("Points for each %s spent expects numeric value greater than zero or leave blank.", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?');
 
 			if( !$this->isIntGE0($submit, 'order_earn') )
 				$err[] = __("Points on order placed expects numeric value greater than zero or leave blank.", 'woorewards-pro');

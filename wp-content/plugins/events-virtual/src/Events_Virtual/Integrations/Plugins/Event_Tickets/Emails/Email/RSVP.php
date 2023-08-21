@@ -26,6 +26,7 @@ class RSVP {
 	 * Maybe include virtual event link.
 	 *
 	 * @since 1.15.0
+	 * @since 1.15.2    Always show the email links in previews.
 	 *
 	 * @param \Tribe__Template $parent_template Event Tickets template object.
 	 *
@@ -49,7 +50,7 @@ class RSVP {
 		}
 
 		// Check if user wants link in email.
-		if ( empty( $args['event']->virtual_rsvp_email_link ) ) {
+		if ( empty( $args['preview'] ) && empty( $args['event']->virtual_rsvp_email_link ) ) {
 			return;
 		}
 

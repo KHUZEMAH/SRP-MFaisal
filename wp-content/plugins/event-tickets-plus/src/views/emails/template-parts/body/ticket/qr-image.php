@@ -23,10 +23,10 @@ if ( ! $include_qr || empty( $qr ) ) {
 }
 
 ?>
-<td rowspan="2">
+<td class="tec-tickets__email-table-content-qr-container" rowspan="2">
 	<img
 		src="<?php echo esc_attr( $qr ); ?>"
-		style="display: inline-block; max-height: 130px; max-width: 130px"
+		class="tec-tickets__email-table-content-qr-image"
 	/>
 </td>
 

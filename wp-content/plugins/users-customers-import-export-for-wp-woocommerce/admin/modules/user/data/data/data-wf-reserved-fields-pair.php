@@ -62,7 +62,7 @@ if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
     $columns['shipping_city'] = array('title'=>'Shipping city','description'=>'');
     $columns['shipping_state'] = array('title'=>'Shipping state','description'=>'');
     $columns['shipping_country'] = array('title'=>'Shipping country','description'=>'');
-    
+    $columns['wc_last_active'] =array('title'=>'Wc last active','description'=>'');
 endif;
 
 

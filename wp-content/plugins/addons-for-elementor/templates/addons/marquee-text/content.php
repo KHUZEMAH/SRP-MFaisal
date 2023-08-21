@@ -21,11 +21,17 @@ $item_class = 'elementor-repeater-item-' . $marquee_text_item['_id'];
         <?php $target = $marquee_text_item['marquee_text_link']['is_external'] ? 'target="_blank"' : ''; ?>
 
         <a class="lae-marquee-text" href="<?php echo esc_url($marquee_text_item['marquee_text_link']['url']); ?>"
-           title="<?php echo esc_html($marquee_text_item['marquee_text']); ?>" <?php echo $target; ?>><?php echo esc_html($marquee_text_item['marquee_text']); ?></a>
+           title="<?php echo esc_html($marquee_text_item['marquee_text']); ?>" <?php echo $target; ?>><?php echo htmlspecialchars_decode(wp_kses_post($marquee_text_item['marquee_text'])); ?></a>
 
     <?php else: ?>
 
-        <span class="lae-marquee-text"><?php echo esc_html($marquee_text_item['marquee_text']); ?></span>
+        <div class="lae-marquee-text"><?php echo htmlspecialchars_decode(wp_kses_post($marquee_text_item['marquee_text'])); ?></div>
+
+    <?php endif; ?>
+
+    <?php if (!empty($marquee_text_item['marquee_subtext'])): ?>
+
+        <div class="lae-marquee-subtext"><?php echo esc_html($marquee_text_item['marquee_subtext']); ?></div>
 
     <?php endif; ?>
 

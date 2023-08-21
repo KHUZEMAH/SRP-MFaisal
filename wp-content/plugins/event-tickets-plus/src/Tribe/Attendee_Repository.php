@@ -278,16 +278,21 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 		if ( $has_edd ) {
 			// EDD support.
 
-			// todo @rafsuntaskin updated this query to fix the search not working for EDD attendees.
+			// Get the Order ID from the Tickets' meta; EDD Order are stored in a custom table.
+			$this->filter_query->join( "
+				LEFT JOIN {$wpdb->prefix}edd_orders purchaser_edd_order
+				ON purchaser_edd_order.id = purchaser_meta.meta_value
+			", 'purchaser-edd-order' );
+
+			// Get the Customer ID from the Order.
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customers purchaser_edd_customer
-				ON purchaser_edd_customer.id = purchaser_order_meta.meta_value
+				ON purchaser_edd_customer.id = purchaser_edd_order.customer_id
 			", 'purchaser-edd-customer' );
 
 			$where_clauses[] = "
 				(
 					purchaser_meta.meta_key = '_tribe_eddticket_order'
-					AND purchaser_order_meta.meta_key = '_edd_payment_customer_id'
 					AND purchaser_edd_customer.`name` {$value_operator} {$value_clause}
 				)
 			";
@@ -393,27 +398,31 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 		if ( $has_edd ) {
 			// EDD support.
 
-			// todo @rafsuntaskin updated this query to fix the search not working for EDD attendees.
+			// Get the Order ID from the Tickets' meta; EDD Order are stored in a custom table.
+			$this->filter_query->join( "
+				LEFT JOIN {$wpdb->prefix}edd_orders purchaser_edd_order
+				ON purchaser_edd_order.id = purchaser_meta.meta_value
+			", 'purchaser-edd-order' );
+
+			// Get the Customer ID from the Order.
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customers purchaser_edd_customer
-				ON purchaser_edd_customer.id = purchaser_order_meta.meta_value
+				ON purchaser_edd_customer.id = purchaser_edd_order.customer_id
 			", 'purchaser-edd-customer' );
 
+			// Get the Customer meta from the Customer ID.
 			$this->filter_query->join( "
 				LEFT JOIN {$wpdb->prefix}edd_customermeta purchaser_edd_customer_meta
-				ON purchaser_edd_customer_meta.edd_customer_id = purchaser_edd_customer.id
+				ON purchaser_edd_customer_meta.edd_customer_id = purchaser_edd_order.customer_id
 			", 'purchaser-edd-customer-meta' );
 
+			// Search the customer `email` field or the Customer meta `additional_email` field.
 			$where_clauses[] = "
 				(
-					purchaser_meta.meta_key = '_tribe_eddticket_order'
-					AND purchaser_order_meta.meta_key = '_edd_payment_customer_id'
-					AND (
-						purchaser_edd_customer.email {$value_operator} {$value_clause}
-						OR (
-							purchaser_edd_customer_meta.meta_key = 'additional_email'
-							AND purchaser_edd_customer_meta.meta_value {$value_operator} {$value_clause}
-						)
+					purchaser_edd_customer.email {$value_operator} {$value_clause}
+					OR (
+						purchaser_edd_customer_meta.meta_key = 'additional_email'
+						AND purchaser_edd_customer_meta.meta_value {$value_operator} {$value_clause}
 					)
 				)
 			";
@@ -455,9 +464,10 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 	/**
 	 * Handle joining of the tables needed for purchaser filters.
 	 *
+	 * @since 4.10.5
+	 *
 	 * @param int $number_of_order_meta_joins The number of order meta JOINs to add.
 	 *
-	 * @since 4.10.5
 	 */
 	protected function join_purchaser_tables( $number_of_order_meta_joins = 1 ) {
 		/** @var wpdb $wpdb */
@@ -468,7 +478,7 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 			ON purchaser_meta.post_id = {$wpdb->posts}.ID
 		", 'purchaser-meta' );
 
-		for ( $x = 1; $x <= $number_of_order_meta_joins; $x++ ) {
+		for ( $x = 1; $x <= $number_of_order_meta_joins; $x ++ ) {
 			$affix = '';
 
 			if ( 1 < $x ) {
@@ -501,4 +511,62 @@ class Tribe__Tickets_Plus__Attendee_Repository extends Tribe__Tickets__Attendee_
 		);
 	}
 
+	/**
+	 * Overrides the base method to handle the fetching of Order information from WooCommerce and Easy Digital
+	 * Downloads orders.
+	 *
+	 * @since 5.7.4
+	 *
+	 * @param string $where_clause   The WHERE clause to use.
+	 * @param string $value_operator The operator to use for the value.
+	 * @param string $value_clause   The value to use.
+	 */
+	protected function filter_by_order_status_where( string $where_clause, string $value_operator, string $value_clause ): void {
+		$has_wc  = class_exists( 'WooCommerce' );
+		$has_edd = defined( 'EDD_VERSION' ) && class_exists( 'Easy_Digital_Downloads' );
+
+		if ( ! ( $has_wc || $has_edd ) ) {
+			parent::filter_by_order_status_where( $where_clause, $value_operator, $value_clause );
+		}
+
+		global $wpdb;
+
+		$premium_clauses = [ $where_clause ];
+
+		if ( $has_wc ) {
+			// JOIN on the posts table to include WooCommerce Orders.
+			$this->filter_query->join(
+				"LEFT JOIN {$wpdb->posts} wc_order_status_post ON wc_order_status_post.ID = order_status_meta.meta_value",
+				'wc-order-status-post'
+			);
+
+			// Build a WHERE clause on the post status of the WooCommerce Order.
+			$premium_clauses[] = "(
+				order_status_meta.meta_key = '_tribe_wooticket_order'
+				AND wc_order_status_post.post_status {$value_operator} {$value_clause}
+			)";
+		}
+
+		if ( $has_edd ) {
+			// JOIN on the posts meta table to get the EDD Order ID from the Attendee.
+			$this->filter_query->join(
+				"LEFT JOIN {$wpdb->postmeta} edd_order_id ON edd_order_id.post_id = {$wpdb->posts}.ID
+				AND edd_order_id.meta_key = '_tribe_eddticket_order'",
+				'edd-order-id'
+			);
+
+			// JOIN on the EDD Orders table to include the Orders using the ID read from the Attendee meta.
+			$this->filter_query->join(
+				"LEFT JOIN {$wpdb->prefix}edd_orders edd_order_status ON edd_order_status.id = edd_order_id.meta_value",
+				'edd-order-status'
+			);
+
+			// Build a WHERE clause on the status of the Easy Digital Downloads Order in the orders custom table.
+			$premium_clauses[] = "edd_order_status.status {$value_operator} {$value_clause}";
+		}
+
+		// We're guaranteed to have at least one clause, so we can build the WHERE clause.
+		$premium_where_clause = "(\n" . implode( "\nOR\n", $premium_clauses ) . "\n)";
+		$this->filter_query->where( $premium_where_clause );
+	}
 }

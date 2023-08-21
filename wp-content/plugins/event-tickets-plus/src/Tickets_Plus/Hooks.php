@@ -55,6 +55,11 @@ class Hooks extends \TEC\Common\Contracts\Service_Provider {
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
 		add_filter( 'tec_tickets_commerce_settings_top_level', [ $this, 'filter_tc_settings' ] );
+
+		$this->container->register_on_action(
+			'tec_tickets_cache_controller_registered',
+			Ticket_Cache_Controller::class
+		);
 	}
 
 	/**

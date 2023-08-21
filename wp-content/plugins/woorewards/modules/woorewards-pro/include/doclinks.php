@@ -22,7 +22,7 @@ class DocLinks
 		'points-ex'      => "https://plugins.longwatchstudio.com/kb/points-expiration/",
 		'pools'          => "https://plugins.longwatchstudio.com/kb/how-it-works/",
 		'pools-as'       => "https://plugins.longwatchstudio.com/kb/combining-systems/",
-		'pools-cur'      => "https://plugins.longwatchstudio.com/kb/how-it-works/",
+		'pools-cur'      => "https://plugins.longwatchstudio.com/kb/how-it-works/#h-points-currency",
 		'referral'       => "https://plugins.longwatchstudio.com/kb/referral-sponsorship/",
 		'rewards'        => "https://plugins.longwatchstudio.com/kb/points-on-cart/",
 		'shortcodes'     => "https://plugins.longwatchstudio.com/kb/wr-sc-points-information/",

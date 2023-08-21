@@ -150,6 +150,7 @@ class Tribe__Tickets__Attendees {
 	/**
 	 * Returns the full URL to the attendees report page.
 	 *
+	 * @since 5.6.4 - tec_tickets_filter_event_id filter to normalize the $post_id.
 	 * @since 4.6.2
 	 *
 	 * @param WP_Post $post
@@ -157,10 +158,19 @@ class Tribe__Tickets__Attendees {
 	 * @return string
 	 */
 	public function get_report_link( $post ) {
+		/**
+		 * This filter allows retrieval of an event ID to be filtered before being accessed elsewhere.
+		 *
+		 * @since 5.6.4
+		 *
+		 * @param int|null The event ID to be filtered.
+		 */
+		$post_id = apply_filters( 'tec_tickets_filter_event_id', $post->ID );
+
 		$args = [
 			'post_type' => $post->post_type,
 			'page'      => $this->slug(),
-			'event_id'  => $post->ID,
+			'event_id'  => $post_id,
 		];
 
 		$url = add_query_arg( $args, admin_url( 'edit.php' ) );
@@ -608,6 +618,15 @@ class Tribe__Tickets__Attendees {
 		}
 
 		$event_id = absint( $_GET['event_id'] );
+
+		/**
+		 * This filter allows retrieval of an event ID to be filtered before being accessed elsewhere.
+		 *
+		 * @since 5.6.3
+		 *
+		 * @param int|null The event ID to be filtered.
+		 */
+		$event_id = apply_filters( 'tec_tickets_filter_event_id', $event_id );
 
 		// Verify event ID is a valid integer and the nonce is accepted.
 		if ( empty( $event_id ) || ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) ) {

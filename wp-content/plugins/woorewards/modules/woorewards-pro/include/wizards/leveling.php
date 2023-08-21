@@ -95,7 +95,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'spent_earn',
-									'title' => sprintf(__("Points for each %s spent", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for each %s spent", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -104,7 +104,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'order_earn',
-									'title' => sprintf(__("Points on order placed", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points on order placed", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -113,7 +113,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'first_order_earn',
-									'title' => sprintf(__("Extra points on first order", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Extra points on first order", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -127,7 +127,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'product_spec_earn',
-									'title' => sprintf(__("Points for specific product", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for specific product", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -137,7 +137,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'product_spec',
-									'title' => sprintf(__("Product to buy", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Product to buy", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'lacselect',
 									'extra' => array(
 										'ajax' => 'lws_woorewards_wc_product_list',
@@ -145,7 +145,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'product_cat_earn',
-									'title' => sprintf(__("Points on category buy", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points on category buy", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -155,7 +155,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'product_categories',
-									'title' => sprintf(__("Product Categories", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Product Categories", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'lacchecklist',
 									'extra' => array(
 										'predefined' => 'taxonomy',
@@ -170,7 +170,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'rate_earn',
-									'title' => sprintf(__("Points for product review", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for product review", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -179,7 +179,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'comment_earn',
-									'title' => sprintf(__("Points for comments", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for comments", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -193,7 +193,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'share_earn',
-									'title' => sprintf(__("Points for sharing", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for sharing", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -203,7 +203,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'click_earn',
-									'title' => sprintf(__("Points on clicked link", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points on clicked link", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
@@ -434,7 +434,7 @@ class Leveling extends \LWS\WOOREWARDS\Wizards\Subwizard
 	{
 		$data = $this->getData();
 		$exists = false;
-		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?';
+		$currency = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?';
 		$summary = '';
 		$usedData =$this->getDataValue($data,'met',false,$exists);
 		$methods = reset($usedData);

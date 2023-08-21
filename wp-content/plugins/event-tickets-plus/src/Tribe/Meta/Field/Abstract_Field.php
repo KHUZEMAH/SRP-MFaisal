@@ -316,6 +316,8 @@ abstract class Tribe__Tickets_Plus__Meta__Field__Abstract_Field implements Field
 	 *
 	 * @since 4.10.7
 	 *
+	 * @since 5.7.4 Removed doing `wp_kses` on options values as sanitization should be done from the rendering methods.
+	 *
 	 * @return array Key is the hash. Value is the text displayed to user. Key and value get saved (serialized) to
 	 *               post_meta so need to stay in this format for backwards compatibility (since 4.10.2 on Checkboxes
 	 *               and Radios).
@@ -331,7 +333,7 @@ abstract class Tribe__Tickets_Plus__Meta__Field__Abstract_Field implements Field
 					. md5( sanitize_title( $option ) )
 				);
 
-				$map[ $hash ] = wp_kses_post( $option );
+				$map[ $hash ] = $option;
 			}
 		}
 

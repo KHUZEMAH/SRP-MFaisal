@@ -10,6 +10,16 @@ class EditlistControler
 	private $hasActions = false;
 	private $columns = array();
 
+	public $slug = '';
+	public $m_Id = '';
+	public $m_UId = '';
+	public $columnTitles = array();
+	public $m_Source = null;
+	public $m_Mode = 0;
+	public $m_PageDisplay = null;
+	public $m_Actions = array();
+	public $m_Filters = array();
+
 	/**
 	 * @param $editionId (string) is a unique id which refer to this EditList.
 	 * @param $recordUIdKey (string) is the key which will be used to ensure record unicity.
@@ -375,15 +385,21 @@ EOT;
 			$decode = array();
 			foreach( $entity as $k => $v )
 			{
-				if( !(\is_object($v) || \is_array($v)) )
+				if (false === $v || null === $v)
+					$decode[$k] = false;
+				elseif (true === $v)
+					$decode[$k] = true;
+				elseif( !(\is_object($v) || \is_array($v)) )
 					$decode[$k] = html_entity_decode($v);
 				else
 					$decode[$k] = \base64_encode(\json_encode($v));
 			}
 			return $decode;
-		}
-		else
-		{
+		} elseif (false === $entity || null === $entity) {
+			return false;
+		} elseif (true === $entity) {
+			return true;
+		} else {
 			return \html_entity_decode($entity);
 		}
 	}

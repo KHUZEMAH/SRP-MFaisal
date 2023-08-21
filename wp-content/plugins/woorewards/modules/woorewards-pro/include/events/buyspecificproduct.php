@@ -163,7 +163,7 @@ EOT;
 	/** @return (false|WC_Product) */
 	public function getProduct($id)
 	{
-		if (\LWS_WooRewards::isWC() && $id)
+		if (\LWS\Adminpanel\Tools\Conveniences::isWC() && $id)
 			return \wc_get_product($id);
 		return false;
 	}

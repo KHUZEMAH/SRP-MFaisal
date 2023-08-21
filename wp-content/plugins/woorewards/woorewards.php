@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.0.11
+ * Version: 5.2.1
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
- * WC requires at least: 3.7.0
- * WC tested up to: 7.8
+ * WC requires at least: 7.1.0
+ * WC tested up to: 7.9
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -34,7 +34,13 @@ final class LWS_WooRewards
 			$instance->defineConstants();
 			\add_action('plugins_loaded', array($instance, 'load_plugin_textdomain'));
 
-			add_action('lws_adminpanel_register', array($instance, 'register'));
+			\add_action('before_woocommerce_init', function() { // HPOS support
+				if (\class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+				}
+			});
+
+			\add_action('lws_adminpanel_register', array($instance, 'register'));
 
 			if (\is_admin()) {
 				add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($instance, 'extensionListActions'), 10, 2);
@@ -113,7 +119,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '5.0.11');
+		define('LWS_WOOREWARDS_VERSION', '5.2.1');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -151,7 +157,7 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '5.0.11';
+		return '5.2.1';
 	}
 
 	public function addDocUrl($url)
@@ -216,10 +222,7 @@ final class LWS_WooRewards
 		}
 	}
 
-	/**	Is WooCommerce installed and activated.
-	 *	Could be sure only after hook 'plugins_loaded'.
-	 *	@return is WooCommerce installed and activated.
-	 *	@param $false provided to be used with filters. */
+	/**	@deprecated use \LWS\Adminpanel\Tools\Conveniences::isWC() instead. */
 	static public function isWC($false = false)
 	{
 		return function_exists('wc');
@@ -257,8 +260,7 @@ final class LWS_WooRewards
 	private function install()
 	{
 		spl_autoload_register(array($this, 'autoload'));
-		add_filter('lws_woorewards_is_woocommerce_active', array(get_class(), 'isWC'));
-		add_filter('lws_woorewards_point_symbol', array(get_class(), 'symbolFilter'), 10, 3);
+		\add_filter('lws_woorewards_point_symbol', array(get_class(), 'symbolFilter'), 10, 3);
 		// include obviously required classes
 		require_once LWS_WOOREWARDS_INCLUDES . '/doclinks.php';
 		require_once LWS_WOOREWARDS_INCLUDES . '/conveniencies.php';
@@ -350,14 +352,15 @@ final class LWS_WooRewards
 			}
 		});
 
-		// frontend styling
-		\add_action('wp_enqueue_scripts', array($this, 'enqueueFrontendStyles'));
-		\add_action('admin_enqueue_scripts', array($this, 'enqueueFrontendStyles'));
+		// styling
+		\add_action('wp_enqueue_scripts', array($this, 'enqueueGlobalStyles'));
+		\add_action('admin_enqueue_scripts', array($this, 'enqueueGlobalStyles'));
 		\add_action('wp_head', function() {
 			require_once LWS_WOOREWARDS_INCLUDES . '/ui/adminscreens/styling.php';
 			if ($style = \LWS\WOOREWARDS\Ui\AdminScreens\Styling::getInline())
 				echo $style;
 		});
+
 		// hide some meta from admin
 		if (\get_option('lws_woorewards_hide_internal_meta', 'on')) {
 			\add_action('is_protected_meta', function($protected, $key, $type) {
@@ -378,9 +381,9 @@ final class LWS_WooRewards
 		\do_action('lws_woorewards_init');
 	}
 
-	function enqueueFrontendStyles()
+	function enqueueGlobalStyles()
 	{
-		\wp_enqueue_style('wr-frontend-elements', LWS_WOOREWARDS_CSS . '/wr-frontend-elements.min.css', array(), LWS_WOOREWARDS_VERSION);
+		\wp_enqueue_style('wr-frontend-elements', LWS_WOOREWARDS_CSS . '/wr-elements.min.css', array(), LWS_WOOREWARDS_VERSION);
 	}
 
 	function getOrderValidationStates($status)

@@ -103,11 +103,11 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields' => array(
 								array(
 									'id'    => 'reward_amount',
-									'title' => sprintf(__("Reward Amount (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Reward Amount (%s)", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'pattern' => "\\d*",
-										'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+										'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									),
 								),
 							)
@@ -191,7 +191,7 @@ class Anniversary extends \LWS\WOOREWARDS\Wizards\Subwizard
 			$summary .= "<div class='lws-wizard-summary-label'>" . __("Before event delay", 'woorewards-pro') . "</div>";
 			$summary .= "<div class='lws-wizard-summary-value'>{$settings['days_before']}</div>";
 		}
-		$value = sprintf(__("%s%s discount, valid for %s days", 'woorewards-pro'),$settings['reward_amount'],\LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?',$validity);
+		$value = sprintf(__("%s%s discount, valid for %s days", 'woorewards-pro'),$settings['reward_amount'],\LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?',$validity);
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Reward", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 

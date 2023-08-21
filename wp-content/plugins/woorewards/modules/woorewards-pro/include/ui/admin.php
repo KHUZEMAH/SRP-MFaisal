@@ -584,7 +584,7 @@ class Admin
 				'image'   => LWS_WOOREWARDS_IMG . '/ls-earning.png',
 				'color'   => '#38bebe',
 				'text'    => $earningText,
-				'extra'   => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('emails')),
+				'extra' => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('points')),
 				'editlist' => \lws_editlist(
 					'EventList-' . $pool->getId(),
 					\LWS\WOOREWARDS\Ui\Editlists\EventList::ROW_ID,
@@ -955,7 +955,7 @@ class Admin
 			$group['fields']['rate'] = array(
 				'id'    => self::POOL_OPTION_PREFIX . 'direct_reward_point_rate',
 				'type'  => 'text',
-				'title' => sprintf(__("Point Value in %s", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+				'title' => sprintf(__("Point Value in %s", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 				'extra' => array(
 					'value'   => $pool->getOption('direct_reward_point_rate'),
 					'help' => __("Each point spent on the cart will decrease the order total of that value", 'woorewards-pro')
@@ -1005,7 +1005,7 @@ class Admin
 				'type'  => 'text',
 				'extra' => array(
 					'value'       => $pool->getOption('direct_reward_total_floor'),
-					'placeholder' => \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '',
+					'placeholder' => \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '',
 					'help'        => __("If set, customers can't use their points to discount the cart below that limit. Leave empty for no limit.", 'woorewards-pro'),
 				),
 				'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
@@ -1017,7 +1017,7 @@ class Admin
 				'type'  => 'text',
 				'extra' => array(
 					'value'       => $pool->getOption('direct_reward_min_subtotal'),
-					'placeholder' => \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '',
+					'placeholder' => \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '',
 					'help'        => __("Set a minimum cart amount under which customers can't use their points on the cart. Once the cart total is above that value, customers will be able to use their points. Leave empty for no minimum.", 'woorewards-pro'),
 				),
 				'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),

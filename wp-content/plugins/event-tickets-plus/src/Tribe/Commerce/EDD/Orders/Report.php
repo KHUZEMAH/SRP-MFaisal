@@ -32,6 +32,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report {
 	/**
 	 * Returns the link to the "Orders" report for this post.
 	 *
+	 * @since 5.7.4 - tec_tickets_filter_event_id filter to normalize the $post_id.
 	 * @since 4.10
 	 *
 	 * @param WP_Post $post
@@ -39,10 +40,20 @@ class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report {
 	 * @return string The absolute URL.
 	 */
 	public static function get_tickets_report_link( $post ) {
+
+		/**
+		 * This filter allows retrieval of an event ID to be filtered before being accessed elsewhere.
+		 *
+		 * @since 5.7.4
+		 *
+		 * @param int|null The event ID to be filtered.
+		 */
+		$post_id = apply_filters( 'tec_tickets_filter_event_id', $post->ID);
+
 		$url = add_query_arg( [
 			'post_type' => $post->post_type,
 			'page'      => self::$orders_slug,
-			'post_id'   => $post->ID,
+			'post_id'   => $post_id,
 		], admin_url( 'edit.php' ) );
 
 		return $url;

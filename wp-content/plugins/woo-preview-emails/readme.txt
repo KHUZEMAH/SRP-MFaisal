@@ -1,10 +1,10 @@
 === Preview E-mails for WooCommerce ===
 Contributors: digamberpradhan, codemanas
 Tags: WooCommerce, Emails, Preview
-Requires at least: 3.8
-Tested up to: 6.2.2
+Requires at least: 6.0
+Tested up to: 6.3.0
 Requires PHP: 7.4
-Stable tag: 2.1.3
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,7 +31,7 @@ You can now send test mails, to test on actual devices
 *note: If the mail isn't seen in you inbox, please first check your spam folder
 
 == Pro Version ==
-Looking for integratioin with WooCommerce Bookings and Subscriptions - check out the Pro Add On [Preview E-mails for WooCommerce](https://www.codemanas.com/downloads/preview-e-mails-for-woocommerce-pro/)
+Looking for integration with WooCommerce Bookings and Subscriptions - check out the Pro Add On [Preview E-mails for WooCommerce](https://www.codemanas.com/downloads/preview-e-mails-for-woocommerce-pro/)
 
 == Screenshots ==
 
@@ -42,6 +42,12 @@ Looking for integratioin with WooCommerce Bookings and Subscriptions - check out
 5. Send emails to yourself to check on other devices
 
 == Changelog ==
+= 2.1.5 =
+- Enhancement: Show 3rd party template locations correctly
+
+= 2.1.4 =
+- Fix: Use get_id instead of directly accessing order id.
+
 = 2.1.3 =
 - Feature: Update for upcoming High-Performance Order Storage(HPOS) compatibility
 

@@ -52,7 +52,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 	{
 		if( !isset($this->choices) )
 		{
-			$blacklist = \LWS_WooRewards::isWC() ? false : array('woocommerce'=>'woocommerce');
+			$blacklist = \LWS\Adminpanel\Tools\Conveniences::isWC() ? false : array('woocommerce'=>'woocommerce');
 			$this->choices = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create()->byCategory(
 				$blacklist, array('sponsorship'), $this->getCollection()->getTypes()
 			)->usort(function($a, $b){return strcmp($a->getDisplayType(), $b->getDisplayType());});

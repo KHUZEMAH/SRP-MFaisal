@@ -102,6 +102,7 @@ final class MonsterInsights_Auth {
 			$newdata = array();
 			if ( isset( $this->profile['v4'] ) ) {
 				$newdata['manual_v4'] = $this->profile['v4'];
+                $newdata['measurement_protocol_secret'] = $this->profile['measurement_protocol_secret'];
 			}
 			$this->profile = $newdata;
 			$this->set_analytics_profile( $newdata );
@@ -116,6 +117,7 @@ final class MonsterInsights_Auth {
 			$newdata = array();
 			if ( isset( $this->network['v4'] ) ) {
 				$newdata['manual_v4'] = $this->network['v4'];
+                $newdata['measurement_protocol_secret'] = $this->profile['measurement_protocol_secret'];
 			}
 			$this->network = $newdata;
 			$this->set_network_analytics_profile( $newdata );

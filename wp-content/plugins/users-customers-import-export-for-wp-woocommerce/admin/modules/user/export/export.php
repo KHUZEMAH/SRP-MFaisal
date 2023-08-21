@@ -176,10 +176,10 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
     public function get_customers_csv_row($id) {
         global $wpdb;
         $csv_columns = $this->parent_module->get_selected_column_names();
-        
+
         $user = get_user_by('id', $id);
-        
         $customer_data = array();
+
         foreach ($csv_columns as $key => $value) {
 
             $key = trim(str_replace('meta:', '', $key));
@@ -214,6 +214,17 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
                 $customer_data[$key] = (!empty($user->{$key})) ? $user->{$key} : 0;
                 continue;
             }
+            if( $key == 'last_update'){
+                $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
+                $customer_data[$key] = date('Y-m-d H:i:s', $date_in_timestamp);
+                continue;
+            }
+            if($key == 'wc_last_active'){
+                $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
+                $customer_data[$key] = date('Y-m-d', $date_in_timestamp);
+                continue;
+            }
+
 
             $customer_data[$key] = isset($user->{$key}) ? maybe_serialize($user->{$key}) : '';
         }

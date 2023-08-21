@@ -11,6 +11,11 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
 
     public $parent_module = null;
     public $parsed_data = array();
+    public $user_all_fields = array();
+    public $user_base_fields = array();
+    public $use_same_password = array();
+    public $user_meta_fields = array();
+    public $current_user = array();
          
     
     var $merge;
@@ -32,6 +37,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
 
     public function __construct($parent_object) {
 
+        $this->current_user = get_current_user_id();
         $this->parent_module = $parent_object;
         $this->user_all_fields = include plugin_dir_path( __FILE__).'../data/data-user-columns.php';
         $this->user_base_fields  = array_slice($this->user_all_fields, 0, 13);
@@ -126,7 +132,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
      * @return array
      */     
     public function parse_users( $data ) {
-        
+       
         try{
             $data = apply_filters('wt_user_importer_pre_parse_data', $data); 
             $item = $data['mapping_fields'];
@@ -221,15 +227,18 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
             }
 
             foreach ($this->user_meta_fields as $key => $value){
+                if($key == 'wc_last_active' || $key == 'last_update'){
+                    $date = isset( $item[$key] ) ? trim($item[$key]) : "" ;
+                    $item[$key] = strtotime($date);
+                }
                 $user_meta[] = array( 'key' => $key, 'value' => isset( $item[$key] ) ? trim($item[$key]) : "" );
             }
-
+         
             // the $user_details array will now contain the necessary name-value pairs for the wp_users table, and also any meta data in the 'usermeta' array
             $parsed_details = array();
 
             $parsed_details['user_details'] = $user_details;
             $parsed_details['user_meta'] = $user_meta;
-
             return $parsed_details;
         } catch (Exception $e) {
             return new WP_Error('woocommerce_product_importer_error', $e->getMessage(), array('status' => $e->getCode()));
@@ -252,13 +261,23 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
             $new_added = false;
 
             if ($user_id && $this->merge) {
-                $current_user = get_current_user_id();
+                $current_user = $this->current_user;
                 if ($current_user == $user_id) {
-                    $usr_msg = 'This user is currently logged in hence we cannot update.';
-                    $this->hf_log_data_change('user-csv-import', sprintf(__('> &#8220;%s&#8221;' . $usr_msg), $user_id), true);
+                    $this->hf_log_data_change('user-csv-import', sprintf(__('> &#8220;%s&#8221; This user is currently logged in hence we cannot update.'), $user_id), true);
                     unset($post);
-                return new WP_Error( 'parse-error',sprintf(__('> &#8220;%s&#8221;' . $usr_msg), $user_id));
+                return new WP_Error( 'parse-error',sprintf(__('> &#8220;%s&#8221; This user is currently logged in hence we cannot update.'), $user_id));
                 }
+                $user = get_userdata($user_id);
+                $roles = $user->roles;
+                $only_update_admin_with_admin = apply_filters('wt_ier_update_admin_only_by_admin_user', true);
+                if(in_array('administrator', $roles) && $only_update_admin_with_admin ){
+                    $current_user = get_userdata($current_user);
+                    $current_roles = $current_user->roles;
+                    if(!in_array('administrator', $current_roles)){
+                        return new WP_Error( 'parse-error',sprintf(__('> &#8220;%s&#8221; Only a user with an Administrator role has the capability to update a user with an Administrator role.'), $user_id)); 
+                    }
+                }
+
                 $user_id = $this->hf_update_customer($user_id, $post);
             } else {
 

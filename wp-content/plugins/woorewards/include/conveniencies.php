@@ -176,64 +176,151 @@ EOT;
 		}
 
 		global $wpdb;
-		$query = \LWS\Adminpanel\Tools\Request::from($wpdb->posts, 'p');
-		$query->where("p.post_type='shop_order'");
-		$query->select('COUNT(p.ID)');
+		if (\LWS\Adminpanel\Tools\Conveniences::isHPOS()) {
+			// order has his owr table
+			$query = \LWS\Adminpanel\Tools\Request::from($wpdb->prefix . 'wc_orders', 'p');
+			$query->where("p.type='shop_order'");
+			$query->select('COUNT(p.id)');
 
-		$where = array();
-		if ($userId || $extendedEmail) {
-			$query->leftJoin($wpdb->postmeta, 'c', "p.ID=c.post_id  AND c.meta_key='_customer_user'");
-			if ($userId) {
-				$where[] = 'c.meta_value = %d';
-				$query->arg($userId);
-			}
-			if ($extendedEmail) {
-				$query->leftJoin($wpdb->users, 'u', "c.meta_value=u.ID");
-				$where[] = 'u.user_email = %s';
-				$query->arg($extendedEmail);
-				if (\is_string($extendedEmail) && $email != $extendedEmail) {
+			$where = array();
+			if ($userId || $extendedEmail) {
+				if ($userId) {
+					$where[] = 'p.customer_id = %d';
+					$query->arg($userId);
+				}
+				if ($extendedEmail) {
+					$query->leftJoin($wpdb->users, 'u', "p.customer_id=u.ID");
 					$where[] = 'u.user_email = %s';
-					$query->arg($email);
+					$query->arg($extendedEmail);
+					if (\is_string($extendedEmail) && $email != $extendedEmail) {
+						$where[] = 'u.user_email = %s';
+						$query->arg($email);
+					}
 				}
 			}
-		}
-		if ($email) {
-			$query->leftJoin($wpdb->postmeta, 'm', "p.ID=m.post_id  AND m.meta_key='_billing_email'");
-			$where[] = 'm.meta_value = %s';
-			$query->arg($email);
-			if ($extendedEmail && \is_string($extendedEmail) && $email != $extendedEmail) {
-				$where[] = 'm.meta_value = %s';
-				$query->arg($extendedEmail);
+			if ($email) {
+				$where[] = 'p.billing_email = %s';
+				$query->arg($email);
+				if ($extendedEmail && \is_string($extendedEmail) && $email != $extendedEmail) {
+					$where[] = 'p.billing_email = %s';
+					$query->arg($extendedEmail);
+				}
 			}
-		}
-		if (count($where) > 1) {
-			$where['condition'] = 'OR';
-			$query->where($where);
-		} elseif ($where) {
-			$query->where($where[0]);
-		}
+			if (count($where) > 1) {
+				$where['condition'] = 'OR';
+				$query->where($where);
+			} elseif ($where) {
+				$query->where($where[0]);
+			}
 
-		$status = \apply_filters('lws_woorewards_ignored_order_status_for_count', array(), $source);
-		if ($status) {
-			if (count($status) > 1) {
-				$status = \implode("','", \array_map(function($s) {
-					return \esc_sql('wc-' . $s);
-				}, $status));
-				$query->where(sprintf("p.post_status NOT IN ('%s')", $status));
+			$status = \apply_filters('lws_woorewards_ignored_order_status_for_count', array(), $source);
+			if ($status) {
+				if (count($status) > 1) {
+					$status = \implode("','", \array_map(function($s) {
+						return \esc_sql('wc-' . $s);
+					}, $status));
+					$query->where(sprintf("p.status NOT IN ('%s')", $status));
+				} else {
+					$status = \reset($status);
+					$query->where('p.status <> %s')->arg('wc-' . $status);
+				}
+			}
+
+			if ($exceptOrderId) {
+				if ($isListOfExceptOrderId) {
+					$query->where(sprintf('p.id NOT IN (%s)'), $exceptOrderId);
+				} else {
+					$query->where('p.id <> %d')->arg($exceptOrderId);
+				}
+			}
+
+			return $cache[$transient] = (int)$query->getVar();
+		} else {
+			// order in WP_Post
+			$union = array();
+
+			if ($userId || $extendedEmail) {
+				$query = \LWS\Adminpanel\Tools\Request::from($wpdb->postmeta, 'c');
+				$query->select('c.post_id as order_id');
+				$query->where("c.meta_key='_customer_user'");
+
+				$where = array();
+				if ($userId) {
+					$where[] = 'c.meta_value = %d';
+					$query->arg($userId);
+				}
+				if ($extendedEmail) {
+					$query->leftJoin($wpdb->users, 'u', "c.meta_value=u.ID");
+					$where[] = 'u.user_email = %s';
+					$query->arg($extendedEmail);
+					if (\is_string($extendedEmail) && $email != $extendedEmail) {
+						$where[] = 'u.user_email = %s';
+						$query->arg($email);
+					}
+				}
+				if (count($where) > 1) {
+					$where['condition'] = 'OR';
+					$query->where($where);
+				} elseif ($where) {
+					$query->where($where[0]);
+				}
+				$union[] = $query->toString();
+			}
+			if ($email) {
+				$query = \LWS\Adminpanel\Tools\Request::from($wpdb->postmeta, 'm');
+				$query->select('m.post_id as order_id');
+				$query->where("m.meta_key='_billing_email'");
+				if ($extendedEmail && \is_string($extendedEmail) && $email != $extendedEmail) {
+					$query->where('(m.meta_value = %s OR m.meta_value = %s)');
+					$query->arg($email)->arg($extendedEmail);
+				} else {
+					$query->where('m.meta_value = %s')->arg($email);
+				}
+				$union[] = $query->toString();
+			}
+
+			$wOrder = array(
+				"p.post_type='shop_order'",
+			);
+			$status = \apply_filters('lws_woorewards_ignored_order_status_for_count', array(), $source);
+			if ($status) {
+				if (count($status) > 1) {
+					$status = \implode("','", \array_map(function($s) {
+						return \esc_sql('wc-' . $s);
+					}, $status));
+					$wOrder[] = sprintf("p.post_status NOT IN ('%s')", $status);
+				} else {
+					$status = \reset($status);
+					$wOrder[] = sprintf("p.post_status <> '%s'", \esc_sql('wc-' . $status));
+				}
+			}
+
+			if ($exceptOrderId) {
+				if ($isListOfExceptOrderId) {
+					$wOrder[] = sprintf('p.ID NOT IN (%s)', $exceptOrderId);
+				} else {
+					$wOrder[] = sprintf('p.ID <> %d', (int)$exceptOrderId);
+				}
+			}
+
+			$wOrder = \implode(' AND ', $wOrder);
+			if ($union) {
+				$union  = \implode("\nUNION\n", $union);
+				$query = <<<EOT
+SELECT COUNT(p.ID) FROM (
+{$union}
+) as a
+INNER JOIN {$wpdb->posts} as p ON p.ID=a.order_id AND {$wOrder}
+EOT;
 			} else {
-				$status = \reset($status);
-				$query->where('p.post_status <> %s')->arg('wc-' . $status);
+				$query = <<<EOT
+SELECT COUNT(p.ID) FROM {$wpdb->posts} as p
+WHERE {$wOrder}
+EOT;
 			}
+			return $cache[$transient] = (int)$wpdb->get_var($query);
 		}
 
-		if ($exceptOrderId) {
-			if ($isListOfExceptOrderId) {
-				$query->where(sprintf('p.ID NOT IN (%s)'), $exceptOrderId);
-			} else {
-				$query->where('p.ID <> %d')->arg($exceptOrderId);
-			}
-		}
-
-		return $cache[$transient] = (int)$query->getVar();
+		return $cache[$transient] = 0;
 	}
 }

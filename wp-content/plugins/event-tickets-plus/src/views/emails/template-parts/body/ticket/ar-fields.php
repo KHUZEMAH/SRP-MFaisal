@@ -19,8 +19,8 @@ if ( empty( $ticket['attendee_meta'] ) ) {
 }
 
 ?>
-<div style="clear: both; color: <?php echo esc_attr( $ticket_text_color ); ?>; display: block; padding: 15px 0 0 0;">
-	<table style="border-top: 1px solid <?php echo esc_attr( $ticket_text_color ); ?>33;">
+<div class="tec-tickets__email-table-content-ar-fields-container">
+	<table class="tec-tickets__email-table-content-ar-fields-table">
 		<tr>
 			<?php
 

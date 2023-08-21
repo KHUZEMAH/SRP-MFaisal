@@ -72,7 +72,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields'  => array(
 								array(
 									'id'    => 'spent_earn',
-									'title' => sprintf(__("Points for each %s spent", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for each %s spent", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -81,7 +81,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'order_earn',
-									'title' => sprintf(__("Points on order placed", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points on order placed", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -90,7 +90,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'first_order_earn',
-									'title' => sprintf(__("Extra points on first order", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Extra points on first order", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -107,7 +107,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'sponsored_spent',
-									'title' => sprintf(__("Points for each %s spent by Referee", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points for each %s spent by Referee", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -116,7 +116,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'sponsored_order',
-									'title' => sprintf(__("Points on Referee orders", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Points on Referee orders", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -143,7 +143,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 										'columns' => 'repeat(auto-fit, minmax(120px, 1fr))',
 										'source' => array(
 											array('value' => 'pointsoncart', 'icon' => 'lws-icon lws-icon-cart-2', 'label' => __("Points on Cart", 'woorewards-lite')),
-											array('value' => 'coupon', 'icon' => 'lws-icon lws-icon-coins', 'label' => sprintf(_x("Coupon (%s)", "Coupon Unlockable", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?')),
+											array('value' => 'coupon', 'icon' => 'lws-icon lws-icon-coins', 'label' => sprintf(_x("Coupon (%s)", "Coupon Unlockable", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?')),
 											array('value' => 'discount', 'icon' => 'lws-icon lws-icon-discount', 'label' => __("Discount (%)", 'woorewards-lite')),
 											array('value' => 'product', 'class' => 'inactive', 'icon' => 'lws-icon lws-icon-gift', 'label' => __("Free Product", 'woorewards-lite')),
 											array('value' => 'shipping', 'class' => 'inactive', 'icon' => 'lws-icon lws-icon-supply', 'label' => __("Free Shipping", 'woorewards-lite')),
@@ -162,7 +162,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields' => array(
 								array(
 									'id'    => 'point_value',
-									'title' => sprintf(_x("Point value in %s", "Points on Cart Reward", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(_x("Point value in %s", "Points on Cart Reward", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'placeholder' => '1',
@@ -186,7 +186,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 							'fields' => array(
 								array(
 									'id'    => 'coupon_amount',
-									'title' => sprintf(_x("Coupon Amount (%s)", "Coupon Unlockable", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(_x("Coupon Amount (%s)", "Coupon Unlockable", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										'placeholder' => '1',
@@ -283,7 +283,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 	{
 		$data = $this->getData();
 		$exists = false;
-		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?';
+		$currency = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?';
 		$summary = "<div class='lws-wizard-summary-container'>";
 		/* Loyalty system name */
 		$usedData = $this->getDataValue($data, 'ini', false, $exists);
@@ -366,7 +366,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 		if ($step == 'met')
 		{
 			if (!$this->isIntGE0($submit, 'spent_earn'))
-				$err[] = sprintf(__("Points for each %s spent expects numeric value greater than zero or leave blank.", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+				$err[] = sprintf(__("Points for each %s spent expects numeric value greater than zero or leave blank.", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?');
 
 			if (!$this->isIntGE0($submit, 'order_earn'))
 				$err[] = __("Points on order placed expects numeric value greater than zero or leave blank.", 'woorewards-lite');
@@ -377,7 +377,7 @@ class Standard extends \LWS\WOOREWARDS\Wizards\Subwizard
 				$err[] = __("Points for product review expects numeric value greater than zero or leave blank.", 'woorewards-lite');
 
 			if (!$this->isIntGE0($submit, 'sponsored_spent'))
-				$err[] = sprintf(__("Points for each %s spent by Referee expects numeric value greater than zero or leave blank.", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+				$err[] = sprintf(__("Points for each %s spent by Referee expects numeric value greater than zero or leave blank.", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?');
 			if (!$this->isIntGE0($submit, 'sponsored_order'))
 				$err[] = __("Points on order placed by Referee expects numeric value greater than zero or leave blank.", 'woorewards-lite');
 		}

@@ -24,16 +24,10 @@ class RewardsWidget extends \LWS\WOOREWARDS\Ui\Widget
 
 	function registerScripts()
 	{
-		\wp_register_style('woorewards-show-points', LWS_WOOREWARDS_CSS . '/templates/displaypoints.css?stygen=lws_woorewards_displaypoints_template', array(), LWS_WOOREWARDS_VERSION);
 		\wp_register_style('woorewards-standard-table-rewards', LWS_WOOREWARDS_PRO_CSS . '/templates/rewards.css?stygen=lws_woorewards_rewards_template', array(), LWS_WOOREWARDS_PRO_VERSION);
 		\wp_register_style('woorewards-standard-grid-rewards', LWS_WOOREWARDS_PRO_CSS . '/templates/gridrewards.css?stygen=lws_woorewards_rewards_template', array(), LWS_WOOREWARDS_PRO_VERSION);
 		\wp_register_style('woorewards-leveling-rewards', LWS_WOOREWARDS_PRO_CSS . '/templates/loyalties.css?stygen=lws_woorewards_loyalties_template', array(), LWS_WOOREWARDS_PRO_VERSION);
 		\wp_register_script('woorewards-rewardswidget', LWS_WOOREWARDS_PRO_JS . '/rewardswidget.js', array('jquery'), LWS_WOOREWARDS_PRO_VERSION);
-	}
-
-	protected function enqueueScripts()
-	{
-		\wp_enqueue_style('lws-wr-point-symbol');
 	}
 
 	/** Will be instanciated by WordPress at need */
@@ -106,7 +100,6 @@ class RewardsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		if (!($data && $data['rewards'])) {
 			echo __("No reward available", 'woorewards-pro');
 		} else {
-			$this->enqueueScripts();
 			echo $this->getContent($atts, $data, $user);
 		}
 
@@ -198,7 +191,6 @@ class RewardsWidget extends \LWS\WOOREWARDS\Ui\Widget
 			return $content;
 		if ($data['all_direct'])
 			return '';
-		$this->enqueueScripts();
 		return $this->getContent($atts, $data, $user);
 	}
 

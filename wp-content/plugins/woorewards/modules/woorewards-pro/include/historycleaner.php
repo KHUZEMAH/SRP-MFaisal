@@ -78,24 +78,39 @@ class HistoryCleaner
 	function cleanOrders()
 	{
 		global $wpdb;
-		$order = \LWS\Adminpanel\Tools\Request::from($wpdb->postmeta, 'pool');
-		$order->innerJoin($wpdb->posts, 'o', 'o.ID=pool.post_id AND o.post_type="shop_order"');
+		if (\LWS\Adminpanel\Tools\Conveniences::isHPOS()) {
+			$order = \LWS\Adminpanel\Tools\Request::from($wpdb->prefix . 'wc_orders_meta', 'pool');
+			$order->innerJoin($wpdb->prefix . 'wc_orders', 'o', 'o.id=pool.order_id AND o.type="shop_order"');
 
-		if ($this->userId) {
-			// registered customer id or guest _billing_email
-			$order->leftJoin($wpdb->postmeta, 'u', 'u.post_id=pool.post_id AND u.meta_key = "_customer_user"');
-			$clause = sprintf('u.meta_value = %d', $this->userId);
-
-			$user = \get_user_by('ID', $this->userId);
-			if ($user && $user->ID) {
-				$clause = sprintf(
-					'(%s OR (u.meta_value IS NULL OR u.meta_value="") AND m.meta_value = "%s")',
-					$clause, \esc_sql($user->user_email)
-				);
-				$order->leftJoin($wpdb->postmeta, 'm', 'm.post_id=pool.post_id AND m.meta_key = "_billing_email"');
+			if ($this->userId) {
+				// registered customer id or guest _billing_email
+				$clause = sprintf('o.customer_id = %d', $this->userId);
+				$user = \get_user_by('ID', $this->userId);
+				if ($user && $user->ID) {
+					$clause = sprintf('(%s OR o.billing_email = "%s")',$clause, \esc_sql($user->user_email));
+				}
+				$order->where($clause);
 			}
+		} else {
+			$order = \LWS\Adminpanel\Tools\Request::from($wpdb->postmeta, 'pool');
+			$order->innerJoin($wpdb->posts, 'o', 'o.ID=pool.post_id AND o.post_type="shop_order"');
 
-			$order->where($clause);
+			if ($this->userId) {
+				// registered customer id or guest _billing_email
+				$order->leftJoin($wpdb->postmeta, 'u', 'u.post_id=pool.post_id AND u.meta_key = "_customer_user"');
+				$clause = sprintf('u.meta_value = %d', $this->userId);
+
+				$user = \get_user_by('ID', $this->userId);
+				if ($user && $user->ID) {
+					$clause = sprintf(
+						'(%s OR ((u.meta_value IS NULL OR u.meta_value="") AND m.meta_value = "%s"))',
+						$clause, \esc_sql($user->user_email)
+					);
+					$order->leftJoin($wpdb->postmeta, 'm', 'm.post_id=pool.post_id AND m.meta_key = "_billing_email"');
+				}
+
+				$order->where($clause);
+			}
 		}
 
 		// reset pool processed flag

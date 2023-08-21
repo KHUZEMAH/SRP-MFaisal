@@ -49,6 +49,7 @@ class MonsterInsights_SiteNotes_Controller
 		}
 
 		add_filter('monsterinsights_report_overview_data', array($this, 'prepare_data_overview_chart'));
+		add_filter('monsterinsights_report_traffic_sessions_chart_data', array($this, 'prepare_traffic_sessions_chart_data'), 10, 3);
 		add_action('save_post', array($this, 'save_custom_fields'));
 		add_filter('monsterinsights_gutenberg_tool_vars', array($this, 'add_categories_to_editor'));
 		add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
@@ -713,6 +714,54 @@ class MonsterInsights_SiteNotes_Controller
 			delete_post_meta($post_id, '_monsterinsights_sitenote_id');
 			delete_post_meta($post_id, '_monsterinsights_sitenote_category');
 		}
+	}
+
+	/**
+	 * Add site-note to traffic sessions chart.
+	 *
+	 * @param array $data
+	 * @param string $start_date
+	 * @param string $end_date
+	 *
+	 * @return array
+	 */
+	public function prepare_traffic_sessions_chart_data( $data, $start_date, $end_date ) {
+
+		if ( ! isset( $data['data']['sessions_chart'] ) ) {
+			return $data;
+		}
+
+		$params = array(
+			'per_page' => - 1,
+			'filter'   => array(
+				'date_range' => array(
+					'start' => $start_date,
+					'end'   => $end_date,
+				),
+			),
+		);
+
+		$notes = $this->prepare_notes( $params );
+
+		$prepared_notes = array();
+
+		foreach ( $notes['items'] as $note ) {
+			$date_index = wp_date( 'j M', strtotime( $note['note_date'], current_time( 'U' ) ) );
+
+			if ( ! isset( $prepared_notes[ $date_index ] ) ) {
+				$prepared_notes[ $date_index ] = array();
+			}
+
+			$prepared_notes[ $date_index ][] = array(
+				'title'     => $note['note_title'],
+				'color'     => ( isset( $note['category'] ) && isset( $note['category']['background_color'] ) ) ? str_replace( '#', '', $note['category']['background_color'] ) : null,
+				'important' => $note['important'],
+			);
+		}
+
+		$data['data']['sessions_chart']['notes'] = $prepared_notes;
+
+		return $data;
 	}
 }
 

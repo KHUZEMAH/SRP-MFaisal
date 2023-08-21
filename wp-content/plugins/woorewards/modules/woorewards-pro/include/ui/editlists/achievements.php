@@ -389,7 +389,7 @@ EOT;
 	{
 		if (!isset($this->choices)) {
 			$blacklist = array();
-			if (!\LWS_WooRewards::isWC()) {
+			if (!\LWS\Adminpanel\Tools\Conveniences::isWC()) {
 				$blacklist = array_merge(array('woocommerce'=>'woocommerce'), $blacklist);
 			}
 

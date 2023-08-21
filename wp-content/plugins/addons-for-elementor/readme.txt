@@ -7,7 +7,7 @@ Tags: elementor, elementor addons, elementor extensions, elementor widgets, page
 Requires at least: 5.4
 Tested up to: 6.2
 Requires PHP: 5.6
-Stable Tag: 7.9
+Stable Tag: 7.9.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -259,6 +259,11 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.9.1 =
+* Added - Subtext option to the Marquee widget
+* Added - Ability to output HTML for the text of the Marquee widget
+* Updated - Compatibility with Elementor 3.14
 
 = 7.9 =
 * Freemius SDK update to 2.5.10

@@ -132,7 +132,7 @@ class PointsDisplayer extends \LWS\WOOREWARDS\Ui\Widget
 				__("A <i>More details</i> page URL", 'woorewards-lite'),
 				$this->get_field_name('more_details_url'),
 				\esc_attr($instance['more_details_url']),
-				\esc_attr(\LWS_WooRewards::isWC() ? \wc_get_endpoint_url('lws_woorewards', '', \wc_get_page_permalink('myaccount')) : '')
+				\esc_attr(\LWS\Adminpanel\Tools\Conveniences::isWC() ? \wc_get_endpoint_url('lws_woorewards', '', \wc_get_page_permalink('myaccount')) : '')
 			);
 		}
 		// display currency

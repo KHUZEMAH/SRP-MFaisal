@@ -315,7 +315,7 @@ EOT;
 	{
 		$amount = $this->getDenominator();
 		$currency = $this->getCurrency();
-		if(\LWS_WooRewards::isWC()){
+		if(\LWS\Adminpanel\Tools\Conveniences::isWC()){
 			if($currency){
 				$amount = \wc_price($amount, array('currency' => $currency));
 			}else{
@@ -415,6 +415,7 @@ EOT;
 			}
 		}
 
+		$amount = \apply_filters('lws_woorewards_event_order_get_amount', $amount, $order, $this);
 		if ($amount < $this->getMinAmount())
 			$amount = 0;
 		return $round ? $this->roundPrice($amount) : $amount;

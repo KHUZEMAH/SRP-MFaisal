@@ -1227,6 +1227,17 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 			 */
 			do_action( 'event_tickets_woocommerce_tickets_generated', $order_id );
 		}
+
+		/**
+		 * Fires after all required Attendees for a WooCommerce order have been created.
+		 *
+		 * Differently from the other actions, this one is fired even if no Attendees were created.
+		 *
+		 * @since 5.7.4
+		 *
+		 * @param int $order_id ID of the WooCommerce order
+		 */
+		do_action( 'tec_tickets_plus_woo_generated_tickets', $order_id );
 	}
 
 	/**
@@ -1398,8 +1409,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 				$sku = $raw_data['ticket_sku'];
 			} else {
 				$post_author = get_post_field( 'post_author', $ticket->ID );
-				$str         = $raw_data['ticket_name'];
-				$str         = tribe_strtoupper( $str );
+				$ticket_name = $raw_data['ticket_name'] ?? $ticket->name;
+				$str         = tribe_strtoupper( $ticket_name );
 				$sku         = "{$ticket->ID}-{$post_author}-" . str_replace( ' ', '-', $str );
 			}
 
@@ -1655,34 +1666,34 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	}
 
 	/**
-	 * Deletes a ticket
+	 * Deletes a ticket.
 	 *
-	 * @param $post_id
-	 * @param $ticket_id
+	 * @since 5.7.4 Fixed an error that was occurring when $tickets was null.
+	 *
+	 * @param int $post_id
+	 * @param int $ticket_id
 	 *
 	 * @return bool
 	 */
 	public function delete_ticket( $post_id, $ticket_id ) {
 
 		// Ensure we know the event and product IDs (the event ID may not have been passed in)
-		if ( empty( $post_id ) ) {
-			$post_id = (int) get_post_meta( $ticket_id, self::ATTENDEE_EVENT_KEY, true );
-		}
-
+		$post_id = (int) ( $post_id ?: get_post_meta( $ticket_id, self::ATTENDEE_EVENT_KEY, true ) );
 		$product_id = (int) get_post_meta( $ticket_id, $this->attendee_product_key, true );
 
 		/**
 		 * Use this Filter to choose if you want to trash tickets instead
-		 * of deleting them directly
+		 * of deleting them directly.
 		 *
-		 * @param bool   false
-		 * @param int $ticket_id
+		 * @param bool   $trash_ticket
+		 * @param int    $ticket_id
 		 */
-		if ( apply_filters( 'tribe_tickets_plus_trash_ticket', true, $ticket_id ) ) {
-			// Move it to the trash
+		$trash_ticket = apply_filters( 'tribe_tickets_plus_trash_ticket', true, $ticket_id );
+
+		// Trash or delete the post depending on $trash_ticket.
+		if ( $trash_ticket ) {
 			$delete = wp_trash_post( $ticket_id );
 		} else {
-			// Try to kill the actual ticket/attendee post
 			$delete = wp_delete_post( $ticket_id, true );
 		}
 
@@ -1690,23 +1701,21 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 			return false;
 		}
 
-		/** @var Tribe__Tickets__Tickets_Handler $tickets_handler */
-		$tickets_handler = tribe( 'tickets.handler' );
-
+		// Increment deleted attendees count.
 		Tribe__Tickets__Attendance::instance( $post_id )->increment_deleted_attendees_count();
 
+		// Get the ticket and update product inventory.
 		$ticket = $this->get_ticket( $post_id, $product_id );
-
-		if ( $ticket->capacity() > $ticket->stock() ) {
-			// Re-stock the product inventory (on the basis that a "seat" has just been freed) only if the stock is lower than capacity.
+		if ( $ticket && $ticket->capacity() > $ticket->stock() ) {
 			$this->increment_product_inventory( $product_id );
 		}
 
 		// Run anything we might need on parent method.
 		parent::delete_ticket( $post_id, $ticket_id );
 
+		// Delete event capacity if there are no shared tickets.
+		$tickets_handler = tribe( 'tickets.handler' );
 		$has_shared_tickets = 0 !== count( $tickets_handler->get_event_shared_tickets( $post_id ) );
-
 		if ( ! $has_shared_tickets ) {
 			tribe_tickets_delete_capacity( $post_id );
 		}
@@ -1908,6 +1917,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	/**
 	 * Gets an individual ticket
 	 *
+	 * @since 5.7.4 Fixed the `price` and `regular_price` properties to return the correct values.
+	 *
 	 * @param $post_id
 	 * @param $ticket_id
 	 *
@@ -1927,6 +1938,11 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 			return null;
 		}
 
+		$cached = wp_cache_get( (int) $ticket_id, 'tec_tickets' );
+		if ( $cached && is_array( $cached ) ) {
+			return new Tribe__Tickets__Ticket_Object( $cached );
+		}
+
 		$return       = new Tribe__Tickets__Ticket_Object();
 		$product_post = get_post( $this->get_product_id( $product ) );
 		$qty_sold     = get_post_meta( $ticket_id, 'total_sales', true );
@@ -1939,9 +1955,6 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		$return->price         = $this->get_formatted_price( $this->get_price_value_for( $product ) );
 		$return->regular_price = $this->get_formatted_price( $product->get_regular_price( 'edit' ) );
 		$return->on_sale       = (bool) $product->is_on_sale( 'edit' );
-		if ( $return->on_sale ) {
-			$return->price = $this->get_formatted_price( $product->get_sale_price( 'edit' ) );
-		}
 		$return->capacity         = tribe_tickets_get_capacity( $ticket_id );
 		$return->provider_class   = get_class( $this );
 		$return->admin_link       = admin_url( sprintf( get_post_type_object( $product_post->post_type )->_edit_link . '&action=edit', $ticket_id ) );
@@ -2013,6 +2026,13 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		 * @param int    $ticket_id
 		 */
 		$ticket = apply_filters( 'tribe_tickets_plus_woo_get_ticket', $return, $post_id, $ticket_id );
+
+		if ( $ticket instanceof Tribe__Tickets__Ticket_Object ) {
+			// Before caching the ticket, resolve the `qty_pending` callback to a value.
+			$ticket->qty_pending( $ticket->qty_pending() );
+			wp_cache_set( (int) $ticket->ID, $ticket->to_array(), 'tec_tickets' );
+		}
+
 		return $ticket;
 	}
 
@@ -3257,12 +3277,14 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	/**
 	 * Returns the ticket price taking the context of the request into account.
 	 *
+	 * @since 5.7.4 Make use of `wc_get_price_to_display` to fetch correct price.
+	 *
 	 * @param WC_Product $product
 	 *
 	 * @return string
 	 */
 	protected function get_price_value_for( $product ) {
-		return $this->should_show_regular_price() ? $product->get_regular_price() : $product->get_price();
+		return $this->should_show_regular_price() ? $product->get_regular_price() : wc_get_price_to_display( $product );
 	}
 
 	/**

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3
+class ComposerStaticInit051d25d01d90b85f4f19ea43cd3872ac
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -202,6 +202,10 @@ class ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3
         'TEC\\Tickets\\Emails\\Web_View' => __DIR__ . '/../..' . '/src/Tickets/Emails/Web_View.php',
         'TEC\\Tickets\\Event' => __DIR__ . '/../..' . '/src/Tickets/Event.php',
         'TEC\\Tickets\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Hooks.php',
+        'TEC\\Tickets\\Integrations\\Integration_Abstract' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Integration_Abstract.php',
+        'TEC\\Tickets\\Integrations\\Plugins\\Yoast_Duplicate_Post\\Duplicate_Post' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Plugins/Yoast_Duplicate_Post/Duplicate_Post.php',
+        'TEC\\Tickets\\Integrations\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Provider.php',
+        'TEC\\Tickets\\Integrations\\Themes\\Divi\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Themes/Divi/Provider.php',
         'TEC\\Tickets\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Provider.php',
         'TEC\\Tickets\\Recurrence\\Compatibility' => __DIR__ . '/../..' . '/src/Tickets/Recurrence/Compatibility.php',
         'TEC\\Tickets\\Recurrence\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Recurrence/Hooks.php',
@@ -211,6 +215,7 @@ class ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3
         'TEC\\Tickets\\Site_Health\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Site_Health/Provider.php',
         'TEC\\Tickets\\Telemetry\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Telemetry/Provider.php',
         'TEC\\Tickets\\Telemetry\\Telemetry' => __DIR__ . '/../..' . '/src/Tickets/Telemetry/Telemetry.php',
+        'TEC\\Tickets\\Ticket_Cache_Controller' => __DIR__ . '/../..' . '/src/Tickets/Ticket_Cache_Controller.php',
         'Tribe\\Tickets\\Admin\\Home\\Service_Provider' => __DIR__ . '/../..' . '/src/Tribe/Admin/Home/Service_Provider.php',
         'Tribe\\Tickets\\Admin\\Manager\\Service_Provider' => __DIR__ . '/../..' . '/src/Tribe/Admin/Manager/Service_Provider.php',
         'Tribe\\Tickets\\Admin\\Provider' => __DIR__ . '/../..' . '/src/Tribe/Admin/Provider.php',
@@ -248,9 +253,9 @@ class ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit60fb8c2582a8232cb39935ed07e527d3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit051d25d01d90b85f4f19ea43cd3872ac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit051d25d01d90b85f4f19ea43cd3872ac::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit051d25d01d90b85f4f19ea43cd3872ac::$classMap;
 
         }, null, ClassLoader::class);
     }

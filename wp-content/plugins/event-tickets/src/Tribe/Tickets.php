@@ -434,7 +434,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 					return false;
 				}
 
-				if ( class_exists( '\TEC\Events\Custom_Tables\V1\Models\Occurrence' ) ) {
+				if ( class_exists( '\TEC\Events\Custom_Tables\V1\Models\Occurrence', false ) ) {
 					$post_id = \TEC\Events\Custom_Tables\V1\Models\Occurrence::normalize_id( $post->ID );
 				}
 			}
@@ -745,6 +745,11 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 				$key = $class . '::' . $method . '-' . $post_id;
 
 				unset( $cache[ $key ] );
+			}
+
+			$ticket_ids = $this->get_tickets_ids( $post_id );
+			foreach ( (array) $ticket_ids as $ticket_id ) {
+				clean_post_cache( $ticket_id );
 			}
 		}
 
@@ -2047,8 +2052,9 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 				$types['tickets']['stock'] += $stock_level;
 
-				if ( 0 !== $types['tickets']['stock'] ) {
-					$types['tickets']['available'] ++;
+				// If current availability is unlimited (available = -1) and the ticket has stock, set it to 0.
+				if ( $types['tickets']['available'] < 0 && 0 !== $types['tickets']['stock'] ) {
+					$types['tickets']['available'] = 0;
 				}
 			}
 
@@ -3304,14 +3310,14 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 					}
 
 					$date_format = tribe_get_date_format( true );
-					$start_sale_date = Tribe__Date_Utils::reformat( $start_sale_date, $date_format );
+					$start_sale_date = Tribe__Date_Utils::build_date_object( $start_sale_date )->format_i18n( $date_format );
 
 					$message = esc_html( sprintf( __( '%s will be available on ', 'event-tickets' ), tribe_get_ticket_label_plural( 'unavailable_future_display_date' ) ) );
 					$message .= $start_sale_date;
 
 					if ( $display_time ) {
 						$time_format = tribe_get_time_format();
-						$start_sale_time = Tribe__Date_Utils::reformat( $start_sale_time, $time_format );
+						$start_sale_time = Tribe__Date_Utils::build_date_object( $start_sale_time )->format_i18n( $time_format );
 						$message .= __( ' at ', 'event_tickets' ) . $start_sale_time;
 					}
 				} else {
@@ -3825,6 +3831,52 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			return $duplicate_ticket_id;
 		}
+
+		/**
+		 * Clones a ticket to a new post.
+		 *
+		 * @since 5.6.3
+		 *
+		 * @param int $original_post_id ID of the original "event" post.
+		 * @param int $new_post_id      ID of the new "event" post.
+		 * @param int $ticket_id        ID of ticket to duplicate.
+		 *
+		 * @return int|boolean $duplicate_ticket_id New ticket ID or false, if unable to create duplicate.
+		 */
+		public function clone_ticket_to_new_post( $original_post_id, $new_post_id, $ticket_id ) {
+			// Get ticket data.
+			$ticket = $this->get_ticket( $original_post_id, $ticket_id );
+
+			if ( ! $ticket instanceof Tribe__Tickets__Ticket_Object ) {
+				return false;
+			}
+
+			// Create data for duplicate ticket.
+			$data = [
+				'ticket_name'             => $ticket->name,
+				'ticket_description'      => $ticket->description,
+				'ticket_price'            => $ticket->price,
+				'ticket_show_description' => $ticket->show_description,
+				'ticket_start_date'       => $ticket->start_date,
+				'ticket_start_time'       => $ticket->start_time,
+				'ticket_end_date'         => $ticket->end_date,
+				'ticket_end_time'         => $ticket->end_time,
+				'tribe-ticket'            => [
+					'capacity' => $ticket->capacity(),
+					'mode'     => $ticket->global_stock_mode(),
+				]
+			];
+
+			// Add the ticket.
+			$duplicate_ticket_id = $this->ticket_add( $new_post_id, $data );
+
+			if ( ! $duplicate_ticket_id ) {
+				return false;
+			}
+
+			return $duplicate_ticket_id;
+		}
+
 
 		/**
 		 * Creates a ticket object and calls the child save_ticket function

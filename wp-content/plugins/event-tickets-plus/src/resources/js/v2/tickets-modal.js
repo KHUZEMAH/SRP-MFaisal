@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets = tribe.tickets || {};
 tribe.dialogs = tribe.dialogs || {};
@@ -12,7 +12,7 @@ tribe.dialogs.events = tribe.dialogs.events || {};
  * Configures ET Modal Object in the Global Tribe variable
  *
  * @since 5.1.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets.modal = {};
 
@@ -20,8 +20,8 @@ tribe.tickets.modal = {};
  * Initializes in a Strict env the code that manages the plugin modal.
  *
  * @since 5.1.0
- * @param {object} $ jQuery
- * @param {object} obj obj
+ * @param {Object} $ jQuery
+ * @param {Object} obj obj
  * @return {void}
  */
 ( function( $, obj ) {
@@ -708,7 +708,7 @@ tribe.tickets.modal = {};
 	 * @param {number}    id The id of the ticket/product.
 	 * @param {jQuery} $modalCartItem The cart item to update.
 	 * @param {jQuery} $blockCartItem The optional ticket block cart item.
-	 * @returns {object} Returns the updated item for chaining.
+	 * @returns {Object} Returns the updated item for chaining.
 	 */
 	obj.updateItem = function( id, $modalCartItem, $blockCartItem ) {
 		const item = {};
@@ -752,7 +752,7 @@ tribe.tickets.modal = {};
 	 * @since 5.1.0
 	 * @param {number} qty The quantity.
 	 * @param {number} price The price.
-	 * @param {object} $cartItem The cart item to update.
+	 * @param {Object} $cartItem The cart item to update.
 	 * @returns {string} - Formatted currency string.
 	 */
 	obj.updateItemTotal = function( qty, price, $cartItem ) {
@@ -815,7 +815,7 @@ tribe.tickets.modal = {};
 	 * @since 5.1.0
 	 * @param {event} event The event.
 	 * @param {jQuery} $form The form we're manipulating.
-	 * @param {object} params The object with the parameters.
+	 * @param {Object} params The object with the parameters.
 	 */
 	obj.bindBeforeTicketsSubmit = function( event, $form, params ) {
 		// @todo: See if we can make it relative to the form instead of using IDs

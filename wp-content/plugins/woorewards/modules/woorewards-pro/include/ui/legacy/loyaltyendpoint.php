@@ -20,6 +20,26 @@ class LoyaltyEndpoint extends \LWS\WOOREWARDS\PRO\Ui\Legacy\Endpoint
 		\add_action('wp_enqueue_scripts', array($this, 'registerScripts'));
 		\add_action('admin_enqueue_scripts', array($this, 'registerScripts'));
 		\add_shortcode('wr_user_loyalties', array($this, 'shortcode'));
+
+		\add_filter('pre_update_option_lws_woorewards_wc_my_account_lar_options', array($this, 'transposeLoyaltyEndpointOptions'), 10, 3);
+	}
+
+	/** Edit and reading is not the same */
+	function transposeLoyaltyEndpointOptions($value, $old_value, $option)
+	{
+			$transpose = array();
+			if( is_array($value) && $value )
+			{
+					$firstK = array_keys($value)[0];
+					for( $i=0 ; $i<count($value[$firstK]) ; ++$i )
+					{
+							$item = array();
+							foreach( $value as $key => $list )
+									$item[$key] = isset($list[$i]) ? $list[$i] : '';
+							$transpose[] = $item;
+					}
+			}
+			return $transpose;
 	}
 
 	/** [wr_user_loyalties] */
@@ -37,7 +57,6 @@ class LoyaltyEndpoint extends \LWS\WOOREWARDS\PRO\Ui\Legacy\Endpoint
 
 	protected function enqueueScripts()
 	{
-		\wp_enqueue_style('lws-wr-point-symbol');
 		if (\lws_get_option('lws_woorewards_wc_myaccount_expanded') == 'on') {
 			\wp_enqueue_style('woorewards-lar-expanded');
 		}

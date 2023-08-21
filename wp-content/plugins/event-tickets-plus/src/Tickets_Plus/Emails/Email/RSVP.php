@@ -183,4 +183,23 @@ class RSVP extends Components {
 
 		return tribe_is_truthy( tribe_get_option( $option_key, true ) );
 	}
+
+	/**
+	 * Maybe include the styles for the RSVP email.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param \Tribe__Template $et_template
+	 */
+	public function maybe_include_styles( $et_template ) {
+		$args  = $et_template->get_local_values();
+		$email = $args['email'];
+
+		// Bail out if the email is not a RSVP email or if the ticket email settings are being used.
+		if ( ! $email instanceof RSVP_Email ) {
+			return;
+		}
+
+		$this->render_styles( $args );
+	}
 }

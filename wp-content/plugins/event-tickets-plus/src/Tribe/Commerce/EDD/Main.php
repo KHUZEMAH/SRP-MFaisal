@@ -552,7 +552,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		do_action( 'tribe_tickets_plus_edd_before_generate_tickets', $order_id );
 
 		// Bail if we already generated the info for this order
-		$done = get_post_meta( $order_id, $this->order_has_tickets, true );
+		$done = edd_get_payment_meta( $order_id, $this->order_has_tickets );
 
 		if ( ! empty( $done ) ) {
 			return;
@@ -1342,6 +1342,11 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 			return null;
 		}
 
+		$cached = wp_cache_get( (int) $ticket_id, 'tec_tickets' );
+		if ( $cached && is_array( $cached ) ) {
+			return new Tribe__Tickets__Ticket_Object( $cached );
+		}
+
 		$return = new Tribe__Tickets__Ticket_Object();
 
 		$purchased_statuses = tribe( 'tickets.status' )->get_statuses_by_action( 'count_completed', 'edd' );
@@ -1400,6 +1405,10 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		 * @param int    $ticket_id
 		 */
 		$ticket = apply_filters( 'tribe_tickets_plus_edd_get_ticket', $return, $post_id, $ticket_id );
+
+		if ( $ticket instanceof Tribe__Tickets__Ticket_Object ) {
+			wp_cache_set( (int) $ticket->ID, $ticket->to_array(), 'tec_tickets' );
+		}
 
 		return $ticket;
 	}

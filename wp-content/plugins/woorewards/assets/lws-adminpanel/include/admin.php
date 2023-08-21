@@ -21,6 +21,16 @@ class Admin
 			\add_filter('lws_format_copypast', function($text){
 				return "<span class='lws-group-descr-copy lws_ui_value_copy'><span class='lws-group-descr-copy-text content' tabindex='0'>{$text}</span><span class='lws-group-descr-copy-icon lws-icon lws-icon-copy copy'></span></span>";
 			});
+
+			/// when user cannot dismiss a notice (other plugin crash JS), let show the button as a form submit.
+			/// So add URL argument &lws_adminpanel_notice_dismiss_force_reload=yes
+			if (isset($_GET, $_GET['lws_adminpanel_notice_dismiss_force_reload']) && \current_user_can('manage_options')) {
+				$noticeMode = \sanitize_key($_GET['lws_adminpanel_notice_dismiss_force_reload']);
+				if ('yes' == $noticeMode)
+					\update_option('lws_adminpanel_notice_dismiss_force_reload', 'on');
+				elseif ('no' == $noticeMode)
+					\update_option('lws_adminpanel_notice_dismiss_force_reload', '');
+			}
 		}
 
 		\add_action('init', array($this, 'load_plugin_textdomain'));
@@ -223,7 +233,7 @@ class Admin
 		\wp_register_style('lws-admin-controls',  LWS_ADMIN_PANEL_CSS .'/admin-controls.min.css',  array(), LWS_ADMIN_PANEL_VERSION);
 		\wp_register_style('lws-adminpanel-css',  LWS_ADMIN_PANEL_CSS .'/admin-general.css',       array(), LWS_ADMIN_PANEL_VERSION);
 		\wp_register_style('lws-editlist',        LWS_ADMIN_PANEL_CSS . '/editlist.min.css',       array(), LWS_ADMIN_PANEL_VERSION);
-		\wp_register_style('lws-popup',           LWS_ADMIN_PANEL_CSS . '/controls/popup.min.css', array(), LWS_ADMIN_PANEL_VERSION);
+		\wp_register_style('lws-popup',           LWS_ADMIN_PANEL_CSS . '/controls/lwsdial.min.css', array(), LWS_ADMIN_PANEL_VERSION);
 
 		/* Scripts */
 		\wp_register_script('lws-base64',            LWS_ADMIN_PANEL_JS . '/tools/objcvt.js', array(), LWS_ADMIN_PANEL_VERSION);
@@ -234,7 +244,7 @@ class Admin
 		\wp_register_script('lws-icon-picker',       LWS_ADMIN_PANEL_JS . '/controls/iconpicker.js',       array('jquery'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-field-validation',  LWS_ADMIN_PANEL_JS . '/controls/fieldvalidation.js',  array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_register_script('lws-checkgrid',         LWS_ADMIN_PANEL_JS . '/controls/checkgrid.js',        array('jquery', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-draggable', 'jquery-ui-droppable'), LWS_ADMIN_PANEL_VERSION, true);
-		\wp_register_script('lws-popup',             LWS_ADMIN_PANEL_JS . '/controls/popup.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);
+		\wp_register_script('lws-popup',             LWS_ADMIN_PANEL_JS . '/controls/lwsdial.js',            array('jquery', 'jquery-ui-widget'), LWS_ADMIN_PANEL_VERSION);
 		\wp_register_script('lws-admin-interface',   LWS_ADMIN_PANEL_JS . '/interface/admin-interface.js', array('jquery', 'lws-tools', 'lws-md5'), LWS_ADMIN_PANEL_VERSION, true);
 		\wp_localize_script('lws-admin-interface', 'button_texts', array(
 			'expand' => __("Expand All", 'lws-adminpanel'),

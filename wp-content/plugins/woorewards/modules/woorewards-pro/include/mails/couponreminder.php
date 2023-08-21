@@ -55,7 +55,7 @@ class CouponReminder
 	{
 		if( !empty($html) )
 			return $html;
-		if( !\LWS_WooRewards::isWC() )
+		if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )
 			return __("That feature requires WooCommerce.", 'woorewards-pro');
 
 		if( $demo = \is_wp_error($data) )

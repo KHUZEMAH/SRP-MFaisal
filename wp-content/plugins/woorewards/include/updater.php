@@ -60,6 +60,7 @@ class Updater
 
 			// Convert each shop_order postmeta 'lws_woorewards_validate_order' to new event <once> mark
 			foreach( array('lws_woorewards_events_firstorder', 'lws_woorewards_events_orderamount', 'lws_woorewards_events_ordercompleted') as $meta ) {
+				// let as it is for hpos support, in a new install with WC 7.8+, we can expect a WR 5.0+ fresh install too.
 				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) SELECT s.post_id, %s, s.meta_value FROM {$wpdb->postmeta} AS s WHERE s.meta_key='lws_woorewards_validate_order'", $meta));
 			}
@@ -360,7 +361,7 @@ EOT;
 			$pool->addUnlockable($coupon, intval(\get_option('lws_woorewards_stage', 0)));
 
 			if( $fromV2 = (false !== \get_option('lws_woorewards_value', false)) )
-				$pool->setOption('public', \LWS_WooRewards::isWC());
+				$pool->setOption('public', \LWS\Adminpanel\Tools\Conveniences::isWC());
 
 			$pool->save();
 			if( !empty($pool->getId()) ) // not deletable

@@ -362,7 +362,7 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 											'id' => 'value_1',
 											'type' => 'text',
 											'extra' => array(
-												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 											)
 										),
 										array(
@@ -390,7 +390,7 @@ class Event extends \LWS\WOOREWARDS\Wizards\Subwizard
 											'id' => 'value_5',
 											'type' => 'text',
 											'extra' => array(
-												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+												'placeholder' => sprintf(__("Number in %s", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 											)
 										),
 										array(
@@ -597,7 +597,7 @@ EOT;
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Action to perform", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
-		$value = sprintf(__("%s%s Discount", 'woorewards-pro'), $this->getValue($data['data'], 'value_1', 'ch_set/*'),\LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+		$value = sprintf(__("%s%s Discount", 'woorewards-pro'), $this->getValue($data['data'], 'value_1', 'ch_set/*'),\LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?');
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Reward after 4 days : ", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
@@ -613,7 +613,7 @@ EOT;
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Reward after 16 days : ", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
-		$value = sprintf(__("%s%s Discount", 'woorewards-pro'), $this->getValue($data['data'], 'value_5', 'ch_set/*'),\LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?');
+		$value = sprintf(__("%s%s Discount", 'woorewards-pro'), $this->getValue($data['data'], 'value_5', 'ch_set/*'),\LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?');
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Reward after 20 days : ", 'woorewards-pro') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 

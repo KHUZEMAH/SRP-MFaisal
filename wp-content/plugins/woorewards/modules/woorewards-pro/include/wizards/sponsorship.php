@@ -118,7 +118,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'sponsor_amount',
-									'title' => sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -129,7 +129,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 								),
 								array(
 									'id'    => 'sponsored_amount',
-									'title' => sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+									'title' => sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 									'type'  => 'text',
 									'extra' => array(
 										//'pattern' => "\\d*",
@@ -223,7 +223,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 		$summary .= "<div class='summary-title'>" . __("Referral Settings", 'woorewards-pro') . "</div>";
 
 		$value = $this->getValue($data['data'], 'sponsor_amount', 'set/*');
-		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
+		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referrer Reward (%s)", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
 		$summary .= "<div class='lws-wizard-summary-label'>" . __("Referee Action to perform", 'woorewards-pro') . "</div>";
@@ -246,7 +246,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Wizards\Subwizard
 
 		$summary .= "<div class='summary-title'>" . __("Referee Settings", 'woorewards-pro') . "</div>";
 		$value = $this->getValue($data['data'], 'sponsored_amount', 'set/*');
-		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
+		$summary .= "<div class='lws-wizard-summary-label'>" . sprintf(__("Referee Reward (%s)", 'woorewards-pro'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?') . "</div>";
 		$summary .= "<div class='lws-wizard-summary-value'>{$value}</div>";
 
 		$summary .= "</div>";

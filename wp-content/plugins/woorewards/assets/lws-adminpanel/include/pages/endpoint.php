@@ -30,15 +30,18 @@ class Endpoint
 		$me = new static($options);
 		$slug = $me->getSlug();
 
-		if ($me->isEnabled() && $me->currentUserCan()) {
-			// register endpoint in WC my-account
-			\add_filter('woocommerce_account_menu_items', array($me, 'getWCMyAccountTabs'));
-			\add_filter('woocommerce_get_query_vars', array($me, 'getQueryVars'));
+		if ($me->isEnabled()) {
 			\add_action('init', array($me, 'addRewriteRules'), 11);
 
-			// behavior in WC my-account
-			\add_action('woocommerce_account_' . $slug . '_endpoint', array($me, 'printPage'));
-			\add_filter('woocommerce_endpoint_' . $slug . '_title', array($me, 'getTitle'));
+			if ($me->currentUserCan()) {
+				// register endpoint in WC my-account
+				\add_filter('woocommerce_account_menu_items', array($me, 'getWCMyAccountTabs'));
+				\add_filter('woocommerce_get_query_vars', array($me, 'getQueryVars'));
+
+				// behavior in WC my-account
+				\add_action('woocommerce_account_' . $slug . '_endpoint', array($me, 'printPage'));
+				\add_filter('woocommerce_endpoint_' . $slug . '_title', array($me, 'getTitle'));
+			}
 		}
 
 		// option update should force a rewrite rules

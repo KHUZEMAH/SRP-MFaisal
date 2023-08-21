@@ -35,7 +35,8 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	function getForm($context = 'editlist')
 	{
 		$prefix = $this->getDataKeyPrefix();
-		$form = '';
+		$form = parent::getForm($context);
+		$form .= $this->getFieldsetBegin(2, __("Coupon options", 'woorewards-lite'));
 
 		// percent or fixed
 		$label = _x("Discount type", "Coupon Unlockable", 'woorewards-lite');
@@ -51,7 +52,7 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 		// value
 		$label = _x("Coupon amount", "Coupon Unlockable", 'woorewards-lite');
-		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '$';
+		$currency = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '$';
 		$value = empty($this->getValue()) ? '' : \esc_attr($this->getValue());
 		$form .= "<div class='lws-$context-opt-title label bold'>$label (<span class='{$prefix}currency_hide currency_fix'>$currency</span><span class='{$prefix}currency_hide currency_per'>%</span>)</div>";
 		$form .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}value' name='{$prefix}value' value='$value' placeholder='5' pattern='\\d*(\\.|,)?\\d*' /></div>";
@@ -78,8 +79,7 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 EOT;
 		}
 
-		$form .= $this->getFieldsetPlaceholder(false, 1);
-		$form = str_replace($this->getFieldsetPlaceholder(false, 1), $form, parent::getForm($context));
+		$form .= $this->getFieldsetPlaceholder(false, 2);
 		return $form;
 	}
 
@@ -199,7 +199,7 @@ EOT;
 		if ($this->getInPercent())
 			$value = trim(trim(\number_format_i18n($this->getValue(), 2), '0'), '.,') . '%';
 		else {
-			$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($this->getValue()) : \number_format_i18n($this->getValue(), 2);
+			$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($this->getValue()) : \number_format_i18n($this->getValue(), 2);
 			$value = self::getPriceTaxStatus($value);
 		}
 
@@ -310,7 +310,7 @@ EOT;
 
 	public function createReward(\WP_User $user, $demo = false)
 	{
-		if (!\LWS_WooRewards::isWC())
+		if (!\LWS\Adminpanel\Tools\Conveniences::isWC())
 			return false;
 
 		if (!\is_email($user->user_email)) {

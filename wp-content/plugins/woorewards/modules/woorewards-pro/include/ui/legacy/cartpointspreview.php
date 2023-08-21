@@ -68,7 +68,6 @@ class CartPointsPreview
 	{
 		\wp_enqueue_script('lws_wre_cart_points_preview');
 		\wp_enqueue_style('lws_wre_cart_points_preview');
-		\wp_enqueue_style('lws-wr-point-symbol');
 	}
 
 	function __construct($poolIds, $position)

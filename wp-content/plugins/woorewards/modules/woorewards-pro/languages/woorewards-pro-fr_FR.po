@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards Pro\n"
 "POT-Creation-Date: 2023-01-30 14:50+0100\n"
-"PO-Revision-Date: 2023-06-06 15:54+0200\n"
+"PO-Revision-Date: 2023-07-10 17:31+0200\n"
 "Last-Translator: LongWatchStudio <contact@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -7541,16 +7541,16 @@ msgstr "Attribuer le badge '%s'"
 
 #: include/unlockables/coupon.php:148 include/unlockables/freeshipping.php:48
 msgctxt "Coupon Unlockable"
-msgid "Permanent"
-msgstr "Permanent"
+msgid "Exclusive reward"
+msgstr "Récompense exclusive"
 
 #: include/unlockables/coupon.php:149
 msgid ""
-"Applied on all future orders. That reward will replace any previous "
-"permanent coupon reward of the same type owned by the customer."
+"That reward will replace any previous Exclusive reward coupon reward "
+"of the same type owned by the customer."
 msgstr ""
-"Appliqué sur toutes les futures commandes . Cette récompense remplacera "
-"toute récompense permanente antérieure du même type détenue par le client."
+"Cette récompense remplacera "
+"toute récompense exclusive antérieure du même type détenue par le client."
 
 #: include/unlockables/coupon.php:159
 msgctxt "Coupon Unlockable"
@@ -9688,7 +9688,7 @@ msgstr "Points nécessaires"
 
 #: include/wizards/standard.php:246
 msgid "Reward Amount"
-msgstr "Points de fidélité"
+msgstr "Montant de la récompense"
 
 #: include/wizards/standard.php:252
 msgid "First reward"

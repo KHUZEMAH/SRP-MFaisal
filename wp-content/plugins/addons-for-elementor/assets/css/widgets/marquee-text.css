@@ -29,6 +29,9 @@
       padding: 0;
       -webkit-transition: color 0.3s ease-out;
       transition: color 0.3s ease-out; }
+    .lae-marquee-text-content .lae-marquee-text-items .lae-marquee-subtext {
+      font-size: 24px;
+      line-height: 1.4; }
     .lae-marquee-text-content .lae-marquee-text-items .lae-separator-icon {
       -ms-flex-item-align: center;
           align-self: center; }

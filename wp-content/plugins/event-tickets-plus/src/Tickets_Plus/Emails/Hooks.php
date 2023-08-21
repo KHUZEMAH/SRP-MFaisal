@@ -48,6 +48,8 @@ class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 		// Include Attendee Registration Fields in Ticket & RSVP emails.
 		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/ticket/number-from-total', [ $this, 'maybe_include_attendee_registration_fields_ticket_rsvp_emails' ], 10, 3 );
+
+		add_action( 'tribe_template_after_include:tickets/emails/template-parts/header/head/styles', [ $this, 'maybe_include_ticket_rsvp_styles' ], 10, 3 );
 	}
 
 	/**
@@ -167,5 +169,25 @@ class Hooks extends \TEC\Common\Contracts\Service_Provider {
 		$data['include_qr'] = true;
 
 		return tribe( 'tickets-plus.template' )->template( 'emails/template-parts/body/ticket/qr-image', $data, false );
+	}
+
+	/**
+	 * Filter to include Ticket & RSVP styles.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param string           $file        Template file.
+	 * @param string           $name        Template name.
+	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 *
+	 * @return void
+	 */
+	public function maybe_include_ticket_rsvp_styles( $file, $name, $et_template ) {
+		if ( ! $et_template instanceof \Tribe__Template ) {
+			return;
+		}
+
+		$this->container->make( Email\RSVP::class )->maybe_include_styles( $et_template );
+		$this->container->make( Email\Ticket::class )->maybe_include_styles( $et_template );
 	}
 }

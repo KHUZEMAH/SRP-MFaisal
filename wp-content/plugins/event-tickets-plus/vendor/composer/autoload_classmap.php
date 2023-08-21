@@ -29,4 +29,5 @@ return array(
     'TEC\\Tickets_Plus\\Emails\\Settings' => $baseDir . '/src/Tickets_Plus/Emails/Settings.php',
     'TEC\\Tickets_Plus\\Hooks' => $baseDir . '/src/Tickets_Plus/Hooks.php',
     'TEC\\Tickets_Plus\\Provider' => $baseDir . '/src/Tickets_Plus/Provider.php',
+    'TEC\\Tickets_Plus\\Ticket_Cache_Controller' => $baseDir . '/src/Tickets_Plus/Ticket_Cache_Controller.php',
 );

@@ -142,10 +142,18 @@ class AvailableCoupons
 	protected function getContent($atts, $data)
 	{
 		// to hide already applied
-		$done = (\LWS_WooRewards::isWC() && \WC()->cart) ? array_map('strtolower', \WC()->cart->get_applied_coupons()) : array();
+		$done = (\LWS\Adminpanel\Tools\Conveniences::isWC() && \WC()->cart) ? array_map('strtolower', \WC()->cart->get_applied_coupons()) : array();
 		$btemplate = '';
 		$reloadNonce = false;
-		if (\LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['buttons']) && (\is_cart() || \is_checkout())) {
+		$addButtons = \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['buttons']);
+		if ($addButtons && !(\is_cart() || \is_checkout())) {
+			if (defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED) {
+				$atts['reload'] = true;
+			} else {
+				$addButtons = false;
+			}
+		}
+		if ($addButtons) {
 			// reloading behavior is coded in pro
 			if (defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED
 			&& \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['reload'])) {

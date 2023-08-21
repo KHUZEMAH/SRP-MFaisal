@@ -4,7 +4,7 @@ Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social med
 Requires at least: 5.3
 Tested up to: 6.2
 Requires PHP: 7.0.0
-Stable tag: 5.0.11
+Stable tag: 5.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,10 @@ This section describes how to install the plugin and get it working.
 
 == Frequently Asked Questions ==
 
+= Does this plugin support WooCommerce HPOS feature? =
+
+Yes, High-Performance Order Storage is supported.
+
 == Screenshots ==
 
 1. Points and Rewards System
@@ -105,9 +109,30 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 5.2.1 =
+* MyRewards :
+	* Optimization - User's order count request
+	* Feature - log time as tooltip over user history date cell in admin part.
+* MyRewards Pro :
+	* Feature - Custom reward new options
+	* Fix - Remove WooCommerce logs about feature enabled for unknown plugin
+	* Fix - Missing table wp_lws_wr_tinyurls
+
+= 5.2.0 =
+* Upgrades - WooCommerce HPOS supported.
+
+= 5.1.0 =
+* MyRewards Pro :
+	* Feature - Generated coupon usage limit field
+	* Tweak - rename permanent setting to exclusive reward
+
+= 5.0.12 =
+* Features - Allow apply coupon button from outside the cart
+* Fix - Prevent losing my-account page if rules are re-written from a user without role
+
 = 5.0.11 =
 * Fix - No round up of points when threshold effect off
-* Tweak - Dokan support, generate coupon with `Enable for all vendors` 'On' by default.
+* Tweak - Dokan support, generate coupon with `Enable for all vendors` 'On' by default
 
 = 5.0.10 =
 * Tag - WooCommerce 7.8

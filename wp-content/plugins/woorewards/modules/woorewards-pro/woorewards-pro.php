@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.0.11
+ * Version: 5.2.1
  * Text Domain: woorewards-pro
- * WC requires at least: 3.7.0
- * WC tested up to: 7.8
+ * WC requires at least: 7.1.0
+ * WC tested up to: 7.9
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -34,6 +34,15 @@ final class LWS_WooRewards_Pro
 			$instance = new self();
 			$instance->defineConstants();
 			\add_action('plugins_loaded', array($instance, 'load_plugin_textdomain'));
+
+			\add_action('before_woocommerce_init', function() { // HPOS support
+				if (\class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+					$dir = \substr(__FILE__, \strlen(WP_PLUGIN_DIR));
+					if (false === \strpos($dir, 'modules')) { // standalone execution
+						\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+					}
+				}
+			});
 
 			add_action('lws_adminpanel_plugins', array($instance, 'plugin'));
 			add_filter('plugin_row_meta', array($instance, 'addLicenceLink'), 10, 4);
@@ -100,7 +109,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '5.0.11');
+		define('LWS_WOOREWARDS_PRO_VERSION', '5.2.1');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -430,12 +439,6 @@ final class LWS_WooRewards_Pro
 		\add_filter('lws_woorewards_point_symbol_translation', array($this, 'poolSymbol'), 10, 3);
 		\add_filter('lws_woorewards_point_with_symbol_format', array($this, 'formatPointWithSymbol'), 10, 4);
 		\add_filter('lws_woorewards_point_format', array($this, 'formatPoint'), 10, 3);
-		\add_action('init', function () {
-			\wp_register_style('lws-wr-point-symbol', LWS_WOOREWARDS_PRO_CSS . '/pointsymbol.css', array(), LWS_WOOREWARDS_PRO_VERSION);
-		});
-
-		\add_action('wp_enqueue_scripts', array($this, 'enqueueSymbolStyle'));
-		\add_action('admin_enqueue_scripts', array($this, 'enqueueSymbolStyle'));
 
 		\do_action('lws_woorewards_pro_init');
 	}
@@ -592,7 +595,7 @@ final class LWS_WooRewards_Pro
 	/** Add (redirection to my-account/woorewards) button in displayPoints widget. */
 	function displayPointsDetailUrl($url, $poolname, $pointstotal, $lws_stygen)
 	{
-		if (\LWS_WooRewards::isWC())
+		if (\LWS\Adminpanel\Tools\Conveniences::isWC())
 			return \LWS_WooRewards_Pro::getEndpointUrl('lws_woorewards');
 		else
 			return $url;

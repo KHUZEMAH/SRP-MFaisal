@@ -67,6 +67,7 @@ if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
     $columns['shipping_city'] = 'shipping_city';
     $columns['shipping_state'] = 'shipping_state';
     $columns['shipping_country'] = 'shipping_country';
+    $columns['wc_last_active'] = 'wc_last_active';
     
 endif;
 

@@ -139,7 +139,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Meta {
 			return $hash;
 		}
 
-		$hash = $wc_session->get( Tribe__Tickets_Plus__Meta__Storage::HASH_COOKIE_KEY );
+		$hash = $wc_session->get( Tribe__Tickets_Plus__Meta__Storage::get_hash_cookie_key() );
 
 		return $hash;
 	}
@@ -164,7 +164,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Meta {
 			return;
 		}
 
-		$wc_session->set( Tribe__Tickets_Plus__Meta__Storage::HASH_COOKIE_KEY, $transient_id );
+		$wc_session->set( Tribe__Tickets_Plus__Meta__Storage::get_hash_cookie_key(), $transient_id );
 	}
 
 	/**
@@ -185,7 +185,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Meta {
 			return;
 		}
 
-		$wc_session->__unset( Tribe__Tickets_Plus__Meta__Storage::HASH_COOKIE_KEY );
+		$wc_session->__unset( Tribe__Tickets_Plus__Meta__Storage::get_hash_cookie_key() );
 	}
 
 	/**

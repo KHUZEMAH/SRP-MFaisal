@@ -19,6 +19,6 @@ if ( empty( $key ) ) {
 }
 
 ?>
-<div style="font-size: 16px; font-weight: 400;">
+<div class="tec-tickets__email-table-content-ar-fields-data-key-container">
 	<?php esc_html_e( $key ); ?>
 </div>

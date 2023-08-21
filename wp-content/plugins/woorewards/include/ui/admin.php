@@ -920,7 +920,7 @@ EOT;
 	{
 		$groups = array();
 
-		if (!\LWS_WooRewards::isWC() && (!defined('LWS_WOOREWARDS_ACTIVATED') || !LWS_WOOREWARDS_ACTIVATED)) {
+		if (!\LWS\Adminpanel\Tools\Conveniences::isWC() && (!defined('LWS_WOOREWARDS_ACTIVATED') || !LWS_WOOREWARDS_ACTIVATED)) {
 			$groups['information'] = array(
 				'id'    => 'information',
 				'title' => __("Information", 'woorewards-lite'),
@@ -1039,7 +1039,7 @@ EOT;
 						array(
 							'id'    => $prefix . 'direct_reward_point_rate',
 							'type'  => 'text',
-							'title' => sprintf(__("Point Value in %s", 'woorewards-lite'), \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '?'),
+							'title' => sprintf(__("Point Value in %s", 'woorewards-lite'), \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '?'),
 							'extra' => array(
 								'value'   => $pool->getOption('direct_reward_point_rate'),
 								'help' => __("Each point spent on the cart will decrease the order total of that value", 'woorewards-lite')
@@ -1166,31 +1166,21 @@ EOT;
 		$status = array_map(function ($s) {
 			return 'wc-' . $s;
 		}, $status);
-		$status = implode("','", array_map('\esc_sql', $status));
 
 		$shopKind = \apply_filters('lws_woorewards_order_backward_apply_shop_kind', array('shop_order'));
 		$shopKind = implode("','", array_map('\esc_sql', $shopKind));
 
-		global $wpdb;
-		$sql = <<<EOT
-			SELECT p.ID
-			FROM {$wpdb->posts} as p
-			WHERE p.post_type IN ('{$shopKind}')
-			AND p.post_status IN ('{$status}')
-			AND DATE(p.post_date) BETWEEN DATE('{$d1}') AND DATE('{$d2}')
-			GROUP BY p.ID
-EOT;
-		$orderIds = $wpdb->get_col($sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery
-		if (false === $orderIds) return false;
+		$args = \apply_filters('lws_woorewards_process_past_orders_query', array(
+			'limit'        => -1,
+			'type'         => $shopKind,
+			'status'       => $status,
+			'date_created' => $d1 . '...' . $d2,
+		));
 
 		$count = 0;
-		foreach ($orderIds as $orderId) {
-			if ($order = \wc_get_order($orderId)) {
-				$hook = 'lws_woorewards_pool_on_order_done';
-				//				$hook = 'woocommerce_order_status_' . $order->get_status('edit'); // we test process unicity, but not sure any third party do it correctly
-				\do_action($hook, $orderId, $order);
-				++$count;
-			}
+		foreach ((array)\wc_get_orders($args) as $order) {
+			\do_action('lws_woorewards_pool_on_order_done', $order->get_id(), $order);
+			++$count;
 		}
 
 		return sprintf(__("<b>%s</b> order(s) processed.", 'woorewards-lite'), $count);
@@ -1238,6 +1228,7 @@ EOT;
 
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}lws_wr_historic");
 		$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}lws_wr_achieved_log");
+		// do not drop {$wpdb->base_prefix}lws_wr_tinyurls since such url can be widely shared
 
 		// user meta
 		$ukeys = \implode("','", array(
@@ -1255,6 +1246,10 @@ EOT;
 		// post meta
 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE 'lws_woorewards_%'");
 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('reward_origin','reward_origin_id','wre_pool_point_stack')");
+		// hpos order meta
+		if ($wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}wc_orders_meta'")) {
+			$wpdb->query("DELETE FROM {$wpdb->prefix}wc_orders_meta WHERE meta_key LIKE 'lws_woorewards_%'");
+		}
 
 		// mails
 		$prefix = 'lws_mail_' . 'woorewards' . '_attribute_';

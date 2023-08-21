@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -10,7 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET data Object in the Global Tribe variable
  *
  * @since 5.1.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets.data = {};
 
@@ -18,8 +18,8 @@ tribe.tickets.data = {};
  * Initializes in a Strict env the code that manages the plugin data library.
  *
  * @since 5.1.0
- * @param  {object} $   jQuery
- * @param  {object} obj tribe.tickets.data
+ * @param  {Object} $   jQuery
+ * @param  {Object} obj tribe.tickets.data
  * @return {void}
  */
 ( function( $, obj ) {
@@ -55,7 +55,7 @@ tribe.tickets.data = {};
 	 *
 	 * @since 5.1.0
 	 * @param {jQuery} $items The jQuery object of the items.
-	 * @returns {object} Meta data object.
+	 * @returns {Object} Meta data object.
 	 */
 	obj.getMetaForSave = function( $items ) {
 		const meta = [];
@@ -170,7 +170,7 @@ tribe.tickets.data = {};
 	 * @since 5.1.0
 	 * @param {boolean|string} pageLoad If we are experiencing a page load.
 	 * @param {number} eventId The post ID we want to retrieve data for.
-	 * @returns {object} Deferred data object.
+	 * @returns {Object} Deferred data object.
 	 */
 	obj.getData = function( pageLoad, eventId ) {
 		let ret = {};

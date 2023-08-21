@@ -33,16 +33,33 @@ class Tribe__Tickets_Plus__Attendees_List extends Attendees_List {
 		$myself = self::instance();
 
 		// This will include before the RSVP
-		add_action( 'tribe_tickets_before_front_end_ticket_form', array( $myself, 'render' ), 4 );
+		add_action( 'tribe_tickets_before_front_end_ticket_form', [ $myself, 'render' ], 4 );
 
 		// Unhook Event Ticket's "View your RSVP's" rendering logic so that we can re-render with ET+'s "Who's attending?" list.
-		add_action( 'init', array( $myself, 'unhook_event_tickets_order_link_logic' ) );
+		add_action( 'init', [ $myself, 'unhook_event_tickets_order_link_logic' ] );
 
 		// Add the Admin Option for removing the Attendees List
-		add_action( 'tribe_events_tickets_metabox_pre', array( $myself, 'render_admin_options' ) );
+		add_action( 'tribe_events_tickets_metabox_pre', [ $myself, 'render_admin_options' ] );
 
 		// Create the ShortCode
-		add_shortcode( 'tribe_attendees_list', array( $myself, 'shortcode' ) );
+		add_shortcode( 'tribe_attendees_list', [ $myself, 'shortcode' ] );
+
+		// Hook into Event Ticket's to hide the attendee list optout.
+		add_filter( 'tec_tickets_hide_attendee_list_optout', [ $myself, 'modify_hide_attendee_list_optout' ], 10, 2 );
+	}
+
+	/**
+	 * Modifies the value of tec_tickets_hide_attendee_list_optout filter found within Event Tickets.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param bool $hide_attendee_list_optout The original value of hide_attendee_list_optout.
+	 * @param int  $post_id                   The post ID.
+	 *
+	 * @return bool                           The modified value of hide_attendee_list_optout.
+	 */
+	public function modify_hide_attendee_list_optout( $hide_attendee_list_optout, $post_id ) {
+		return self::is_hidden_on( $post_id );
 	}
 
 	/**

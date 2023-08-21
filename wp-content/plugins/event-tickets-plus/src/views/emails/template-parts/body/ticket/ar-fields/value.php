@@ -19,6 +19,6 @@ if ( empty( $value ) ) {
 }
 
 ?>
-<div style="font-size: 16px; font-weight: 700;">
+<div class="tec-tickets__email-table-content-ar-fields-data-value-container">
 	<?php esc_html_e( $value ); ?>
 </div>

@@ -82,7 +82,7 @@ class EventList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		if( !isset($this->choices) )
 		{
 			$blacklist = $this->pool->getOption('blacklist');
-			if( !\LWS_WooRewards::isWC() )
+			if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )
 				$blacklist = array_merge(array('woocommerce'=>'woocommerce'), is_array($blacklist)?$blacklist:array());
 
 			$this->choices = \LWS\WOOREWARDS\Collections\Events::instanciate()->create()->byCategory(

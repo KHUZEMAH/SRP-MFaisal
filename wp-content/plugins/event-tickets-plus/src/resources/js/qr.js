@@ -10,7 +10,7 @@ var tribe_ticket_plus_qr = tribe_ticket_plus_qr || {}; // eslint-disable-line
 	 * Selectors used for configuration and setup
 	 *
 	 * @since 5.6.2
-	 * @type {object}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		apiKey: '.tec-tickets__admin-etp-app-settings-generate-api-key',

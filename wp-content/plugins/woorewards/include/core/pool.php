@@ -809,10 +809,12 @@ class Pool
 	public function triggerOrderDone($order_id, $order)
 	{
 		$onceKey = \LWS\WOOREWARDS\Abstracts\Event::formatType(\get_class()) . '-' . $this->getId();
-		if( empty(\get_post_meta($order_id, $onceKey, true)) )
-		{
-			update_post_meta($order_id, $onceKey, \date(DATE_W3C));
-			$action = self::parseOrder($order_id, $order);
+		if (!\apply_filters('lws_woorewards_wc_order_get_processed_flag', $order->get_meta($onceKey, true), $order, $this)) {
+			$order->update_meta_data($onceKey, \date(DATE_W3C));
+			$order->save_meta_data();
+
+			$action = \apply_filters('lws_woorewards_wc_order_parse_points', self::parseOrder($order_id, $order), $order, $this);
+			\do_action('lws_woorewards_wc_order_trigger_order_done', $action, $order, $this);
 			\apply_filters('lws_woorewards_wc_order_done_'.$this->getName(), $action);
 
 			// add a note about this
@@ -837,6 +839,8 @@ class Pool
 					$this->getSymbol(), $this->getOption('title')
 				), $this);
 			}
+
+			\do_action('lws_woorewards_wc_order_after_trigger_order_done', $action, $order, $this);
 		}
 	}
 

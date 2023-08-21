@@ -139,12 +139,17 @@ trait T_DiscountOptions
 		if (strlen($maxAmount) && $this->isRelativeOrderMaximumAmount() && $coupon->get_discount_type() != 'percent')
 			$maxAmount = \floatval($maxAmount) + \floatval($coupon->get_amount());
 
-		$coupon->set_props(array(
+		$props = array(
 			'minimum_amount'     => $minAmount,
 			'maximum_amount'     => $maxAmount,
 			'exclude_sale_items' => $this->isExcludeSaleItems(),
 			'individual_use'     => $this->isIndividualUse()
-		));
+		);
+
+		if ($this->isUsageLimitEnabled())
+			$props['usage_limit'] = $this->getUsageLimit();
+
+		$coupon->set_props($props);
 		return $coupon;
 	}
 
@@ -163,6 +168,10 @@ trait T_DiscountOptions
 		$data[$prefix . 'individual_use']     = $this->isIndividualUse() ? 'on' : '';
 		$data[$prefix . 'coupon_excerpt']     = $this->getCouponExcerpt();
 		$data[$prefix . 'coupon_cat']         = \base64_encode(\json_encode($this->getCouponCategoryIds()));
+
+		if ($this->isUsageLimitEnabled()) {
+			$data[$prefix . 'usage_limit']      = $this->getUsageLimit(true);
+		}
 		return $data;
 	}
 
@@ -171,32 +180,53 @@ trait T_DiscountOptions
 		// coupon description
 		$label = _x("Coupon description", "Unlockable coupon buildup", 'woorewards-pro');
 		$tooltip = __("Text used for generated coupon.<br/>Here, the balise <b>[expiry]</b> will be replaced by the computed coupon expiry date.<br/>If omitted, reward description will be used.", 'woorewards-pro');
-		$value = isset($this->couponExcerpt) ? \htmlspecialchars($this->couponExcerpt, ENT_QUOTES) : '';
 		$descr = "<div class='field-help'>$tooltip</div>";
 		$descr .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
 		$descr .= "<div class='value lws-$context-opt-input value'>";
-		$descr .= "<textarea id='{$prefix}coupon_excerpt' name='{$prefix}coupon_excerpt' >$value</textarea>";
+		$descr .= "<textarea id='{$prefix}coupon_excerpt' name='{$prefix}coupon_excerpt' ></textarea>";
 		$descr .= "</div>";
 		$descr .= $this->getFieldsetPlaceholder(false, 0);
 		$content = str_replace($this->getFieldsetPlaceholder(false, 0), $descr, $content);
 
 		$str = '';
 
+		if ($this->isUsageLimitEnabled()) {
+			// limit to X usages
+			$labels = array(
+				_x("Usage Limit", "Coupon Unlockable", 'woorewards-pro'),
+				_x("Permanent", "Coupon Unlockable", 'woorewards-pro'),
+				_x("Single usage", "Coupon Unlockable", 'woorewards-pro'),
+				_x("Limited", "Coupon Unlockable", 'woorewards-pro'),
+			);
+			$tooltip = __("How many times the generated coupon can be used before it is void. The default is 1 and means one shot discount. Set zero or leave blank for permanent coupon.", 'woorewards-pro');
+			$str .= <<<EOT
+			<div class='field-help'>{$tooltip}</div>
+			<div class='lws-{$context}-opt-title label'>
+				{$labels[0]}<div class='bt-field-help'>?</div>
+			</div>
+			<div class='lws-$context-opt-input value lws-coupon-usage-limit'>
+				<input type='text' id='{$prefix}usage_limit' name='{$prefix}usage_limit' placeholder='1' pattern='\\d*' />
+				<span class='lws-tag permanent lws_adm_field_require' data-event='change keyup' data-selector='#{$prefix}usage_limit' data-value='^\\s*0+\\s*$' data-operator='match'>{$labels[1]}</span>
+				<span class='lws-tag permanent lws_adm_field_require' data-event='change keyup' data-selector='#{$prefix}usage_limit' data-value='' data-operator='=='>{$labels[1]}</span>
+				<span class='lws-tag single lws_adm_field_require' data-event='change keyup' data-selector='#{$prefix}usage_limit' data-value='1' data-operator='=='>{$labels[2]}</span>
+				<span class='lws-tag limited lws_adm_field_require' data-event='change keyup' data-selector='#{$prefix}usage_limit' data-value='\\d+[1-9]|[1-9]\\d+|[2-9]' data-operator='match'>{$labels[3]}</span>
+			</div>
+EOT;
+		}
+
 		// minimum amount
 		$label = _x("Minimum spend", "Coupon Unlockable", 'woorewards-pro');
 		$tooltip = __("Add the + sign before the value to set a minimal amount equal to the generated coupon amount + this value.", 'woorewards-pro');
-		$value = \esc_attr($this->getOrderMinimumAmount());
 		$str .= "<div class='field-help'>$tooltip</div>";
 		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}minimum_amount' name='{$prefix}minimum_amount' value='$value' placeholder='' pattern='\\+?\\d*(\\.|,)?\\d*' /></div>";
+		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}minimum_amount' name='{$prefix}minimum_amount' placeholder='' pattern='\\+?\\d*(\\.|,)?\\d*' /></div>";
 
 		// maximum amount
 		$label = _x("Maximum spend", "Coupon Unlockable", 'woorewards-pro');
 		$tooltip = __("Add the + sign before the value to set a maximal amount equal to the generated coupon amount + this value.", 'woorewards-pro');
-		$value = \esc_attr($this->getOrderMaximumAmount());
 		$str .= "<div class='field-help'>$tooltip</div>";
 		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}maximum_amount' name='{$prefix}maximum_amount' value='$value' placeholder='' pattern='\\+?\\d*(\\.|,)?\\d*' /></div>";
+		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}maximum_amount' name='{$prefix}maximum_amount' placeholder='' pattern='\\+?\\d*(\\.|,)?\\d*' /></div>";
 
 		// individual use on/off
 		$label = _x("Individual use only", "Coupon Unlockable", 'woorewards-pro');
@@ -249,6 +279,7 @@ EOT;
 				$prefix . 'coupon_cat'         => array('D'),
 				$prefix . 'exclude_sale_items' => 's',
 				$prefix . 'coupon_excerpt'     => 't',
+				$prefix . 'usage_limit'        => '0',
 			),
 			'defaults' => array(
 				$prefix . 'minimum_amount'     => '',
@@ -257,6 +288,7 @@ EOT;
 				$prefix . 'coupon_cat'         => array(),
 				$prefix . 'exclude_sale_items' => '',
 				$prefix . 'coupon_excerpt'     => '',
+				$prefix . 'usage_limit'        => '0',
 			),
 			'labels'   => array(
 				$prefix . 'minimum_amount'     => __("Minimum spend", 'woorewards-pro'),
@@ -265,6 +297,7 @@ EOT;
 				$prefix . 'coupon_cat'         => __("Exclusive categories", 'woorewards-pro'),
 				$prefix . 'exclude_sale_items' => __("Exclude sale items", 'woorewards-pro'),
 				$prefix . 'coupon_excerpt'     => __("Coupon description", 'woorewards-pro'),
+				$prefix . 'usage_limit'        => __("Generated Coupon usage limit", 'woorewards-pro'),
 			)
 		));
 		if (!(isset($values['valid']) && $values['valid']))
@@ -279,6 +312,7 @@ EOT;
 		$this->setCouponCategoryIds($values['values'][$prefix . 'coupon_cat']);
 		$this->setExcludeSaleItems($values['values'][$prefix . 'exclude_sale_items']);
 		$this->setCouponExcerpt($values['values'][$prefix . 'coupon_excerpt']);
+		$this->setUsageLimit($values['values'][$prefix . 'usage_limit']);
 		return true;
 	}
 
@@ -292,6 +326,16 @@ EOT;
 		$this->setCouponCategoryIds(\get_post_meta($post->ID, 'coupon_cat', true));
 		$this->setExcludeSaleItems(\get_post_meta($post->ID, 'exclude_sale_items', true));
 		$this->setCouponExcerpt(\get_post_meta($post->ID, 'coupon_excerpt', true));
+		if ($this->isUsageLimitEnabled()) {
+			$limit = \get_post_meta($post->ID, 'usage_limit', false);
+			if (\is_array($limit) && count($limit)) {
+				$this->setUsageLimit(\reset($limit));
+			} else {
+				// backward compatibility
+				$permanent = \boolval(\get_post_meta($post->ID, 'woorewards_permanent', true));
+				$this->setUsageLimit($permanent ? 0 : 1);
+			}
+		}
 		return $this;
 	}
 
@@ -305,7 +349,42 @@ EOT;
 		\update_post_meta($id, 'coupon_cat',         $this->getCouponCategoryIds());
 		\update_post_meta($id, 'exclude_sale_items', $this->isExcludeSaleItems() ? 'on' : '');
 		\update_post_meta($id, 'coupon_excerpt',     $this->getCouponExcerpt());
+		if ($this->isUsageLimitEnabled()) {
+			\update_post_meta($id, 'usage_limit',     $this->getUsageLimit());
+		}
 		return $this;
+	}
+
+	/** default: coupon is one-shot */
+	public function getUsageLimit($zeroIsEmptyString=false)
+	{
+		if (!$this->isUsageLimitEnabled()) {
+			return 1;
+		} elseif (isset($this->usageLimit)) {
+			if ($zeroIsEmptyString && !$this->usageLimit) {
+				return '';
+			} else {
+				return (int)$this->usageLimit;
+			}
+		} else {
+			return 1;
+		}
+	}
+
+	/**	0 => permanent
+	 *	1 => one-shot
+	 *	X => limited to X usages. */
+	public function setUsageLimit($limit=1)
+	{
+		if ($this->isUsageLimitEnabled()) {
+			$this->usageLimit = \intval($limit);
+		}
+	}
+
+	/** to be overriden by classes that does not support it. */
+	protected function isUsageLimitEnabled()
+	{
+		return true;
 	}
 
 	protected function getCustomExcerpt($user)
@@ -329,8 +408,14 @@ EOT;
 		}
 	}
 
-	/** if permanent, invalidates the old ones.
-	 * A permanent has auto_apply on, and no usage limit. */
+	/** Permanent is historic name.
+	 *	Prefers `Exclusive Reward`, means only one exclusive is active for
+	 *	a user at a time.
+	 *
+	 *	Unlock a new exclusive reward/coupon will exhaust any existant one.
+	 *
+	 *	* auto_apply and usage_limit are not grouped anymore
+	 *	See dedicated options. */
 	function setPermanentcoupon($coupon, $user, $unlockType, $poolId=false)
 	{
 		\update_post_meta($coupon->get_id(), 'woorewards_permanent', 'on');
@@ -388,9 +473,9 @@ EOT;
 			if (isset($this->lastAmount)) {
 				if ($this->isRelativeOrderMinimumAmount() && (!\method_exists($this, 'getInPercent') || !$this->getInPercent()))
 					$min += \floatval($this->lastAmount);
-				$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($min) : \number_format_i18n($min, 2);
+				$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($min) : \number_format_i18n($min, 2);
 			} else {
-				$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($min) : \number_format_i18n($min, 2);
+				$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($min) : \number_format_i18n($min, 2);
 				if ($this->isRelativeOrderMinimumAmount() && (!\method_exists($this, 'getInPercent') || !$this->getInPercent()))
 					$value = sprintf(__("the coupon amount + %s of", 'woorewards-pro'), $value);
 			}
@@ -400,9 +485,9 @@ EOT;
 			if (isset($this->lastAmount)) {
 				if ($this->isRelativeOrderMaximumAmount() && (!\method_exists($this, 'getInPercent') || !$this->getInPercent()))
 					$max += \floatval($this->lastAmount);
-				$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($max) : \number_format_i18n($max, 2);
+				$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($max) : \number_format_i18n($max, 2);
 			} else {
-				$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($max) : \number_format_i18n($max, 2);
+				$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($max) : \number_format_i18n($max, 2);
 				if ($this->isRelativeOrderMaximumAmount() && (!\method_exists($this, 'getInPercent') || !$this->getInPercent()))
 					$value = sprintf(__("the coupon amount + %s of", 'woorewards-pro'), $value);
 			}

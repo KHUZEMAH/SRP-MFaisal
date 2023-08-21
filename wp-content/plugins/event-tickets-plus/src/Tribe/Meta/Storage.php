@@ -24,8 +24,22 @@ class Tribe__Tickets_Plus__Meta__Storage {
 
 	/**
 	 * The name of the cookie storing the hash of the transient storing the ticket meta.
+	 *
+	 * @since 5.7.4 Changed from const to public function to allow filtering in case a hosting sites require certain cookie naming patterns
 	 */
 	const HASH_COOKIE_KEY = 'tribe-event-tickets-plus-meta-hash';
+	public static function get_hash_cookie_key(): string {
+		/**
+		 * Filters hash cookie key in case a hosting sites require certain cookie naming patterns
+		 *
+		 * @since 5.7.4
+		 *
+		 * @param string $hash_cookie_key The filterable cookie key.
+		 */
+		$hash_cookie_key = apply_filters( 'tec_tickets_plus_meta_get_hash_cookie_key', static::HASH_COOKIE_KEY );
+
+		return $hash_cookie_key;
+	}
 
 	/**
 	 * @var array
@@ -238,10 +252,10 @@ class Tribe__Tickets_Plus__Meta__Storage {
 	 */
 	protected function set_hash_cookie( $hash_key, $ticket_meta = [], $provider = null ) {
 		if ( ! headers_sent() ) {
-			setcookie( self::HASH_COOKIE_KEY, $hash_key, 0, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
+			setcookie( self::get_hash_cookie_key(), $hash_key, 0, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
 		}
 
-		$_COOKIE[ self::HASH_COOKIE_KEY ] = $hash_key;
+		$_COOKIE[ self::get_hash_cookie_key() ] = $hash_key;
 
 		/**
 		 * Allow hooking into after we set the hash cookie.
@@ -268,8 +282,8 @@ class Tribe__Tickets_Plus__Meta__Storage {
 	public function get_hash_cookie( $id = null ) {
 		$hash = null;
 
-		if ( isset( $_COOKIE[ self::HASH_COOKIE_KEY ] ) ) {
-			$hash = sanitize_text_field( $_COOKIE[ self::HASH_COOKIE_KEY ] );
+		if ( isset( $_COOKIE[ self::get_hash_cookie_key() ] ) ) {
+			$hash = sanitize_text_field( $_COOKIE[ self::get_hash_cookie_key() ] );
 		}
 
 		/**
@@ -540,11 +554,11 @@ class Tribe__Tickets_Plus__Meta__Storage {
 	 */
 	public function delete_cookie( $id ) {
 		if ( ! headers_sent() ) {
-			setcookie( self::HASH_COOKIE_KEY, '', time() - 3600, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
+			setcookie( self::get_hash_cookie_key(), '', time() - 3600, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
 		}
 
-		if ( isset( $_COOKIE[ self::HASH_COOKIE_KEY ] ) ) {
-			unset( $_COOKIE[ self::HASH_COOKIE_KEY ] );
+		if ( isset( $_COOKIE[ self::get_hash_cookie_key() ] ) ) {
+			unset( $_COOKIE[ self::get_hash_cookie_key() ] );
 		}
 
 		/**

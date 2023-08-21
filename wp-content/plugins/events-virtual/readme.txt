@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, aguseo, borkweb, bordoni, brianjessee, Camwyn, juanfra, leahkoerper, lirianojoel, lucatume, neillmcshea, rafsuntaskin, zbtirrell
 Tags: virtual events, events, calendar, event, venue, organizer, dates, date, schema, conference, online events, concert, meeting, seminar, summit, class, the events calendar, tec, zoom, livestream
 Donate link: https://evnt.is/29
-Requires at least: 5.8.6
-Tested up to: 6.2.2
-Stable tag: 1.15.1
+Requires at least: 6.1.0
+Tested up to: 6.3
+Stable tag: 1.15.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,15 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.15.2] 2023-08-10 =
+
+* Version - The minimum supported version of WordPress is now 6.1.0
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Fix for error `Publishing failed. The _tribe_events_virtual_show_embed_to property has an invalid stored value, and cannot be updated to null` when editing an event in the block editor. This was caused by an invalid REST arg type definition. [VE-574]
+* Fix - Ensure that the Virtual Event button link within the Tickets Emails template is the correct color. [ET-1785]
+* Tweak - Changed views: `blocks/virtual-event`, `integrations/event-tickets/emails/template-parts/header/head/ve-styles`
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
 
 = [1.15.1] 2023-06-22 =
 

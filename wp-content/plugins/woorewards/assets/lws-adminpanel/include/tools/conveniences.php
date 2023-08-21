@@ -41,6 +41,7 @@ class Conveniences
 	{
 		static $currenciesList = false;
 		if (false === $currenciesList){
+			$currenciesList = array();
 			if (\function_exists('\get_woocommerce_currencies')){
 				foreach (\get_woocommerce_currencies() as $value => $label)
 				{
@@ -342,5 +343,117 @@ class Conveniences
 		static $single = array("\t", ' ', "\n\n", "\n");
 		$body = \html_entity_decode(\preg_replace($redondant, $single, $body));
 		return $body ? $body : '';
+	}
+
+	/**	Is WooCommerce installed and activated.
+	 *	Could be sure only after hook 'plugins_loaded'.
+	 *	@return is WooCommerce installed and activated. */
+	public static function isWC()
+	{
+		return \function_exists('wc');
+	}
+
+	/**	Is WooCommerce HPOS enabled. */
+	public static function isHPOS()
+	{
+		if (\class_exists('\Automattic\WooCommerce\Utilities\OrderUtil')) {
+			return \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		} else {
+			return false;
+		}
+	}
+
+	/** WC HPOS. Only for conveniency and optimization.
+	 *	Sometime, you do not need to load a whole WC_Order
+	 *	only to read/write a single meta.
+	 *	Be carefull about HPOS, since we bypass the cache here,
+	 *	data can be not sync.
+	 *	@param $orderId (int|WC_Order) only for consistency with update, get the id if an object is provided. */
+	static public function getOrderMeta($orderId, string $key='', bool $single=false)
+	{
+		if (\is_object($orderId)) {
+			$orderId = $orderId->get_id();
+		}
+		if (self::isHPOS()) {
+			global $wpdb;
+			if ($single) {
+				return \maybe_unserialize($wpdb->get_var($wpdb->prepare(
+					"SELECT `meta_value` FROM `{$wpdb->prefix}wc_orders_meta` WHERE `order_id`=%d AND meta_key=%s",
+					$orderId, $key
+				)));
+			} else {
+				if ($key) {
+					$col = $wpdb->get_col($wpdb->prepare(
+						"SELECT `meta_value` FROM `{$wpdb->prefix}wc_orders_meta` WHERE `order_id`=%d AND meta_key=%s",
+						$orderId, $key
+					));
+				} else {
+					$col = $wpdb->get_col($wpdb->prepare(
+						"SELECT `meta_value` FROM `{$wpdb->prefix}wc_orders_meta` WHERE `order_id`=%d",
+						$orderId
+					));
+				}
+				if ($col)
+					$col = \array_map('\maybe_unserialize', $col);
+				return $col;
+			}
+		} else {
+			return \get_post_meta($orderId, $key, $single);
+		}
+	}
+
+	/** WC HPOS. Only for conveniency and optimization.
+	 *	Sometime, you do not need to load a whole WC_Order
+	 *	only to read/write a single meta.
+	 *	Be carefull about HPOS, since we bypass the cache here,
+	 *	data can be not sync.
+	 *	@param $orderId (int|WC_Order) if an order instance, local meta will be updated too, but order is never saved here. */
+	static public function updateOrderMeta($orderId, string $metaKey, $metaValue, $prevValue='')
+	{
+		if (\is_object($orderId)) {
+			if ($prevValue)
+				$orderId->delete_meta_data_value($metaKey, $prevValue);
+			$orderId->update_meta_data($metaKey, $metaValue);
+			$orderId = $orderId->get_id();
+		}
+
+		if (self::isHPOS()) {
+			global $wpdb;
+			$where = array(
+				array('order_id', $orderId, '%d'),
+				array('meta_key', $metaKey, '%s'),
+			);
+			if ($prevValue) {
+				$where[] = array('meta_value', \maybe_serialize($prevValue), '%s');
+			}
+
+			$clause = \implode(' AND ', \array_map(function($c) {
+				return "`{$c[0]}`={$c[2]}";
+			}, $where));
+			// phpcs:ignore WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$exists = (int)$wpdb->get_var($wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->prefix}wc_orders_meta WHERE {$clause}",
+				\array_column($where, 1)
+			));
+			if ($exists) {
+				return $wpdb->update(
+					$wpdb->prefix . 'wc_orders_meta', array(
+						'meta_value' => \maybe_serialize($metaValue),
+					), \array_column($where, 1, 0), '%s', \array_column($where, 2, 0)
+				);
+			} else {
+				return $wpdb->insert(
+					$wpdb->prefix . 'wc_orders_meta', array(
+						'order_id'   => $orderId,
+						'meta_key'   => $metaKey,
+						'meta_value' => \maybe_serialize($metaValue),
+					), array(
+						'%d', '%s', '%s',
+					)
+				);
+			}
+		} else {
+			return update_post_meta($orderId, $meta_key, $meta_value, $prev_value);
+		}
 	}
 }

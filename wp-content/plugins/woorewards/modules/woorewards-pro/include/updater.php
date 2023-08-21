@@ -62,7 +62,6 @@ class Updater
 			// stygen option css class names become more explicit
 			$this->cssRenamed('lws_woorewards_product_display_stygen_ppp', '-ppp-', 'lws_wre_product_points_preview', '-wre-productpointspreview-');
 			$this->cssRenamed('lws_woorewards_cart_display_stygen_cpp', '-cpp-', 'lws_wre_cart_points_preview', '-wre-cartpointspreview-');
-			$this->cssRenamed('lws_woorewards_widget_stygen_rpw', '-rpw-', 'lws_woorewards_displaypoints_template', '-displaypoints-');
 
 			$reload = true;
 		}
@@ -123,9 +122,7 @@ class Updater
 			$this->to4_2_5();
 		}
 
-		if (\version_compare($fromVersion, '4.2.10', '<')) {
-			$this->to4_2_10();
-		}
+		$this->database();
 
 		if (\version_compare($fromVersion, '4.6.1.1', '<')) {
 			$this->switchOffFacebook();
@@ -990,7 +987,7 @@ EOT
 		);
 	}
 
-	protected function to4_2_10()
+	protected function database()
 	{
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();

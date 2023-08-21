@@ -54,11 +54,11 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
 $cost    = tribe_get_formatted_cost();
-$website = tribe_get_event_website_link();
+$website = tribe_get_event_website_link( );
 // $website_title = tribe_events_get_event_website_title();
 ?>
 
-<div class="tribe-events-meta-group tribe-events-meta-group-details" style="width: auto !important;">
+<div  style="width: auto !important;" class="tribe-events-meta-group tribe-events-meta-group-details">
 	<h2 class="tribe-events-single-section-title"> <?php esc_html_e( 'Details', 'the-events-calendar' ); ?> </h2>
 	<dl style="margin: 0 !important;">
 

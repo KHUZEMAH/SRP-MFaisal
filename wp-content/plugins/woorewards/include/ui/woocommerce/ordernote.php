@@ -9,16 +9,31 @@ class OrderNote
 {
 	public static function install()
 	{
-		\add_action('add_meta_boxes', function(){
-			$me = new \LWS\WOOREWARDS\Ui\Woocommerce\OrderNote();
-			\add_meta_box(
-				'woorewards-order-notes',
-				__('Loyalty system notes', 'woorewards-lite'),
-				array($me, 'eContent'),
-				'shop_order',
-				'side', 'default'
-			);
-		}, 1000); // let wc at above
+		// $postType = \LWS\Adminpanel\Tools\Conveniences::isHPOS() ? 'shop_order' : \wc_get_page_screen_id('shop-order'); // 'woocommerce_page_wc-orders';
+		\add_action('add_meta_boxes', function($screen='shop_order', $post=false){
+			if (\LWS\WOOREWARDS\Ui\Woocommerce\OrderNote::isOrderRelative($post)) {
+				$me = new \LWS\WOOREWARDS\Ui\Woocommerce\OrderNote();
+				\add_meta_box(
+					'woorewards-order-notes',
+					__('Loyalty system notes', 'woorewards-lite'),
+					array($me, 'eContent'),
+					$screen,
+					'side', 'default'
+				);
+			}
+		}, 1000, 2); // let wc at above
+	}
+
+	protected static function isOrderRelative($post)
+	{
+		if (!$post)
+			return false;
+		elseif (\is_a($post, '\WC_Order'))
+			return true;
+		elseif (\is_a($post, '\WP_Post') && 'shop_order' == $post->post_type)
+			return true;
+		else
+			return false;
 	}
 
 	/**	echo box content

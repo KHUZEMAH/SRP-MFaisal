@@ -19,7 +19,7 @@ if ( empty( $key ) && empty( $value ) ) {
 }
 
 ?>
-<td style="padding-top: 15px; width: 50%;">
+<td class="tec-tickets__email-table-content-ar-fields-data-container">
 	<?php $this->template( 'emails/template-parts/body/ticket/ar-fields/key' ); ?>
 	<?php $this->template( 'emails/template-parts/body/ticket/ar-fields/value' ); ?>
 </td>

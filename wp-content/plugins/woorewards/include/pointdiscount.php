@@ -402,7 +402,8 @@ class PointDiscount
 		}
 
 		// keep total cost with order
-		\add_post_meta($orderId, 'lws_woorewards_pointdiscount_costs', \array_column($stacks, 'needs', 'stack'));
+		$order->add_meta_data('lws_woorewards_pointdiscount_costs', \array_column($stacks, 'needs', 'stack'));
+		$order->save_meta_data();
 
 		$userId = $order->get_customer_id('edit');
 		foreach ($stacks as $stackId => &$need)

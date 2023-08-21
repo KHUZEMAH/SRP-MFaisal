@@ -25,15 +25,16 @@ class Order
 	/** in case order processed again, let be refundable again */
 	function unrefund($orderId, $order)
 	{
-		\update_post_meta($orderId, 'lws_woorewards_points_refunded', false);
+		if ($order && $order->get_meta('lws_woorewards_points_refunded', true)) {
+			$order->update_meta_data('lws_woorewards_points_refunded', false);
+			$order->save_meta_data();
+		}
 	}
 
 	function refund($orderId, $order)
 	{
-		if( !\get_post_meta($orderId, 'lws_woorewards_points_refunded', true) )
-		{
-			if( $order )
-			{
+		if ($order) {
+			if (!$order->get_meta('lws_woorewards_points_refunded', true)) {
 				$logs = \LWS\WOOREWARDS\Core\PointStack::queryTrace(array(
 					'order_id' => $orderId,
 					'blog_id'  => \get_current_blog_id(),
@@ -42,10 +43,14 @@ class Order
 				global $wpdb;
 				// remove order processed flag
 				if (\apply_filters('lws_woorewards_unflag_refunded_order', true, $order, $logs)) {
-					$wpdb->query($wpdb->prepare(
-						"UPDATE {$wpdb->postmeta} SET `meta_value`='' WHERE `post_id`=%d AND `meta_key` LIKE 'lws_woorewards_core_pool-%'",
-						$order->get_id()
-					));
+					$del = \array_filter(\wp_list_pluck($order->get_meta_data(), 'key'), function($k) {
+						$flag = 'lws_woorewards_core_pool-';
+						return $flag == \substr($k, 0, \strlen($flag));
+					});
+					foreach ($del as $metaKey) {
+						$order->delete_meta_data($metaKey);
+					}
+					// order meta saved below
 				}
 
 				$sort = array();
@@ -74,7 +79,8 @@ class Order
 					}
 				}
 				// save
-				\update_post_meta($orderId, 'lws_woorewards_points_refunded', array('timestamp' => \time(), 'logs' => \array_values($sort)));
+				$order->update_meta_data('lws_woorewards_points_refunded', array('timestamp' => \time(), 'logs' => \array_values($sort)));
+				$order->save_meta_data();
 
 				if ($sort) {
 					// refund

@@ -339,7 +339,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Cart extends Tribe__Tickets_Plus__Comm
 
 		/** @var \Tribe__Tickets_Plus__Commerce__EDD__Main $ticket_provider */
 		$ticket_provider = tribe( 'tickets-plus.commerce.edd' );
-		$cart_url = add_query_arg( tribe_tickets_get_provider_query_slug(), $ticket_provider::ATTENDEE_OBJECT, $cart_url );
+		$cart_url = add_query_arg( tribe_tickets_get_provider_query_slug(), $ticket_provider->attendee_object, $cart_url );
 
 		/**
 		 * Allow filtering of the EDD Cart URL.
@@ -363,7 +363,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Cart extends Tribe__Tickets_Plus__Comm
 
 		/** @var \Tribe__Tickets_Plus__Commerce__EDD__Main $ticket_provider */
 		$ticket_provider = tribe( 'tickets-plus.commerce.edd' );
-		$checkout_url = add_query_arg( tribe_tickets_get_provider_query_slug(), $ticket_provider::ATTENDEE_OBJECT, $checkout_url );
+		$checkout_url = add_query_arg( tribe_tickets_get_provider_query_slug(), $ticket_provider->attendee_object, $checkout_url );
 
 		/**
 		 * Allow filtering of the EDD Checkout URL.

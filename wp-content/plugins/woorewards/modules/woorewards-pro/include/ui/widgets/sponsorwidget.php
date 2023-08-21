@@ -121,6 +121,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 					'lws_woorewards_sponsor_widget_title' => "WooRewards - Sponsor Widget - Title",
 					'lws_woorewards_sponsor_widget_submit' => "WooRewards - Sponsor Widget - Button",
 					'lws_woorewards_sponsor_widget_placeholder' => "WooRewards - Sponsor Widget - Placeholder",
+					'lws_wooreward_sponsorship_success' => "WooRewards - Sponsor Widget - Success",
 				)
 			)
 		);
@@ -158,7 +159,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 	public function template($snippet='')
 	{
 		$this->stygen = true;
-		$snippet = $this->shortcode(array(), __("Hidden block at start. Feedback to customer will appear here.", 'woorewards-pro'));
+		$snippet = $this->shortcode();
 		unset($this->stygen);
 		return $snippet;
 	}
@@ -296,8 +297,16 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 			$form .= "</div>";
 		}
 		$form .= "</div>";
-		$hidden = !isset($this->stygen) ? " style='display:none;'" : '';
-		$form .= "<p class='lwss_selectable lws_woorewards_sponsorship_feedback' data-type='Feedback'$hidden>{$content}</p>";
+		$hidden = " style='display:none;'";
+		if (isset($this->stygen) && $this->stygen) {
+			$hidden =  '';
+			if (!$content) {
+				$content = \lws_get_option('lws_wooreward_sponsorship_success', __("A mail has been sent to your friend about us.", 'woorewards-pro'));
+			}
+		}
+		$form .= "<p class='lwss_selectable lwss_modify lws_woorewards_sponsorship_feedback' data-type='Feedback' data-id='lws_wooreward_sponsorship_success'$hidden>";
+		$form .= "<span class='lwss_modify_content'>{$content}</span>";
+		$form .= "</p>";
 		$form .= "</div>";
 		return $form;
 	}

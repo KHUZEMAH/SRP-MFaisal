@@ -182,7 +182,8 @@ namespace LWS\WOOREWARDS\Core{
 		function saveOrderSponsor($orderId, $postedData, $order)
 		{
 			$sponsorship = $this->getUsersFromOrder($order, true);
-			\update_post_meta($orderId, 'lws_woorewards_sponsor_at_checkout', $sponsorship);
+			$order->update_meta_data('lws_woorewards_sponsor_at_checkout', $sponsorship);
+			$order->save_meta_data();
 		}
 
 		/*	Same as getUsersFromOrder() but without an order
@@ -257,7 +258,7 @@ namespace LWS\WOOREWARDS\Core{
 			if (!$users['sponsored_id'])
 				$users['sponsored_id'] = \LWS\Adminpanel\Tools\Conveniences::getCustomerId(false, $order);
 
-			$meta = \get_post_meta($order->get_id(), 'lws_woorewards_sponsor_at_checkout', true);
+			$meta = $order->get_meta('lws_woorewards_sponsor_at_checkout', true);
 			if( $meta && is_object($meta) )
 			{
 				$users = array_merge($users, get_object_vars($meta));

@@ -169,6 +169,7 @@ abstract class Widget_Abstract extends Widget_Base {
 	 * Gets settings while removing the prefix from keys.
 	 *
 	 * @since 5.4.4
+	 * @since 5.7.4   Only add `post_id` if `$settings` is an array.
 	 *
 	 * @param null $setting_key
 	 *
@@ -176,6 +177,10 @@ abstract class Widget_Abstract extends Widget_Base {
 	 */
 	public function get_settings_for_display( $setting_key = null ) {
 		$settings = parent::get_settings_for_display( $setting_key );
+
+		if ( ! is_array( $settings ) ) {
+			return $settings;
+		}
 
 		$settings['post_id'] = isset( $settings['post_id'] ) ? absint( $settings['post_id'] ) : get_post()->ID;
 

@@ -143,33 +143,7 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 	{
 		$prefix = $this->getDataKeyPrefix();
 		$form = parent::getForm($context);
-
-		// permanent on/off
-		$label = _x("Permanent", "Coupon Unlockable", 'woorewards-pro');
-		$tooltip = __("Applied on all future orders. That reward will replace any previous permanent coupon reward of the same type owned by the customer.", 'woorewards-pro');
-		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'permanent', array(
-			'id'      => $prefix . 'permanent',
-			'layout'  => 'toggle',
-		));
-		$str = "<div class='field-help'>$tooltip</div>";
-		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
-
-		// limit to X products
-		$label = _x("Limit to X items", "Coupon Unlockable", 'woorewards-pro');
-		$tooltip = __("If set, the coupon can only be applied on X items in the cart.", 'woorewards-pro');
-		$str .= "<div class='field-help'>$tooltip</div>";
-		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
-		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}limit_usage_to_x_items' name='{$prefix}limit_usage_to_x_items' placeholder='' pattern='\\d*(\\.|,)?\\d*' /></div>";
-
-		// autoapply on/off
-		$label = _x("Auto-apply on next cart", "Coupon Unlockable", 'woorewards-pro');
-		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
-			'id'      => $prefix . 'autoapply',
-			'layout'  => 'toggle',
-		));
-		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
-		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
+		$str  = '';
 
 		// free shipping
 		$label = _x("Also gives free shipping", "Coupon Unlockable", 'woorewards-pro');
@@ -180,12 +154,39 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
 		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
-		$str .= $this->getFieldsetPlaceholder(false, 1);
-		$form = str_replace($this->getFieldsetPlaceholder(false, 1), $str, $form);
+		// autoapply on/off
+		$label = _x("Auto-apply on next cart", "Coupon Unlockable", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'autoapply', array(
+			'id'      => $prefix . 'autoapply',
+			'layout'  => 'toggle',
+		));
+		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
-		$form = $this->filterForm($form, $prefix, $context, 1);
+		// permanent on/off
+		$label = _x("Exclusive reward", "Coupon Unlockable", 'woorewards-pro');
+		$tooltip = __("That reward will replace any previous Exclusive reward coupon reward of the same type owned by the customer.", 'woorewards-pro');
+		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'permanent', array(
+			'id'      => $prefix . 'permanent',
+			'layout'  => 'toggle',
+		));
+		$str .= "<div class='field-help'>$tooltip</div>";
+		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
-		$form .= $this->getFieldsetBegin(2, __("Allow / Deny Product Categories", 'woorewards-pro'));
+		// limit to X products
+		$label = _x("Limit to X items", "Coupon Unlockable", 'woorewards-pro');
+		$tooltip = __("If set, the coupon can only be applied on X items in the cart.", 'woorewards-pro');
+		$str .= "<div class='field-help'>$tooltip</div>";
+		$str .= "<div class='lws-$context-opt-title label'>$label<div class='bt-field-help'>?</div></div>";
+		$str .= "<div class='lws-$context-opt-input value'><input type='text' id='{$prefix}limit_usage_to_x_items' name='{$prefix}limit_usage_to_x_items' placeholder='' pattern='\\d*(\\.|,)?\\d*' /></div>";
+
+		$str .= $this->getFieldsetEnd(2);
+		$form = str_replace($this->getFieldsetPlaceholder(false, 2), $str, $form);
+
+		$form = $this->filterForm($form, $prefix, $context, 2);
+
+		$form .= $this->getFieldsetBegin(3, __("Allow / Deny Product Categories", 'woorewards-pro'));
 
 		// restriction by product category
 		$label   = _x("Product categories", "Coupon Unlockable", 'woorewards-pro');
@@ -214,9 +215,9 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 			'value'         => $this->getExcludedCategories()
 		));
 		$form .= "</div>";
-		$form .= $this->getFieldsetEnd(2);
+		$form .= $this->getFieldsetEnd(3);
 
-		$form .= $this->getFieldsetBegin(3, __("Allow / Deny Products", 'woorewards-pro'));
+		$form .= $this->getFieldsetBegin(4, __("Allow / Deny Products", 'woorewards-pro'));
 
 		// restriction by products
 		$label   = _x("Product(s)", "Coupon Unlockable", 'woorewards-pro');
@@ -243,7 +244,7 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		));
 		$form .= "</div>";
 
-		$form .= $this->getFieldsetEnd(3);
+		$form .= $this->getFieldsetEnd(4);
 		return $form;
 	}
 
@@ -382,8 +383,7 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 	{
 		$coupon = parent::buildCouponPostData($code, $user);
 		$props = array();
-		if ($this->isPermanent())
-			$props['usage_limit'] = 0;
+		$props['usage_limit'] = $this->getUsageLimit();
 
 		if ($this->getItemsUsageLimit() > 0)
 			$props['limit_usage_to_x_items'] = $this->getItemsUsageLimit();

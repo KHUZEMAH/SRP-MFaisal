@@ -128,7 +128,7 @@ EOT;
 	protected function placeholders()
 	{
 		$unlockable = false;
-		if( !\LWS_WooRewards::isWC() )
+		if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )
 			$unlockable = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create('lws_woorewards_pro_unlockables_usertitle')->last();
 		else
 			$unlockable = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create('lws_woorewards_unlockables_coupon')->last();

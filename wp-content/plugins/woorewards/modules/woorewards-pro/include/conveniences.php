@@ -227,7 +227,7 @@ EOT
 			{
 				if (!empty($page = get_option('lws_woorewards_reward_claim_page', ''))) {
 					$this->urlTarget = \get_permalink($page);
-				} else if (\LWS_WooRewards::isWC() && \get_option('lws_woorewards_wc_my_account_endpont_loyalty', 'on')) {
+				} else if (\LWS\Adminpanel\Tools\Conveniences::isWC() && \get_option('lws_woorewards_wc_my_account_endpont_loyalty', 'on')) {
 					$this->urlTarget = \LWS_WooRewards_Pro::getEndpointUrl('lws_woorewards');
 				} else {
 					global $wp;

@@ -28,7 +28,7 @@
  */
 
 // Bail if we're not on edit or there's no ticket or not rsvp.
-if ( 'edit' !== $step || empty( $ticket_id ) || ! $is_rsvp || empty( $rsvp_options ) ) {
+if ( empty( $ticket_id ) || ! $is_rsvp || empty( $rsvp_options ) ) {
 	return;
 }
 ?>

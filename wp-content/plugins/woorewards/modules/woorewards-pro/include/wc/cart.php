@@ -336,7 +336,7 @@ class Cart
 
 					if (true === $allowed && true === $this->isCouponAllowed($wcCoupon, \WC()->cart)) {
 						$limit = \intval($wcCoupon->get_usage_limit('edit'));
-						if ($limit && (1 + $limit) >= $wcCoupon->get_usage_count('edit')) {
+						if ($limit && ($wcCoupon->get_usage_count('edit') + 1) >= $limit) {
 							$this->stopAutoApply($wcCoupon);
 						}
 

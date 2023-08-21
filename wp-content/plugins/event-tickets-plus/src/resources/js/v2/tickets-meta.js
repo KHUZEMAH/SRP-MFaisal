@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.0.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -10,7 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET meta fields in the Global Tribe variable
  *
  * @since 5.0.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets.meta = {};
 
@@ -18,8 +18,8 @@ tribe.tickets.meta = {};
  * Initializes in a Strict env the code that manages the RSVP block.
  *
  * @since 5.0.0
- * @param  {object} $   jQuery
- * @param  {object} obj tribe.tickets.meta
+ * @param  {Object} $   jQuery
+ * @param  {Object} obj tribe.tickets.meta
  * @return {void}
  */
 ( function( $, obj ) {
@@ -29,7 +29,7 @@ tribe.tickets.meta = {};
 	 * Selectors used for configuration and setup
 	 *
 	 * @since 5.0.0
-	 * @type {object}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		formAttendeeTicketsWrapper: '.tribe-tickets__attendee-tickets',

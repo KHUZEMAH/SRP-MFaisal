@@ -208,13 +208,23 @@ class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 	protected function isProductOrdered($comment)
 	{
 		global $wpdb;
-		$sql = <<<EOT
+		if (\LWS\Adminpanel\Tools\Conveniences::isHPOS()) {
+			$sql = <<<EOT
+SELECT count(*) FROM {$wpdb->prefix}wc_orders as p
+INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta as m ON m.meta_key='_product_id' AND m.meta_value=%d
+INNER JOIN {$wpdb->prefix}woocommerce_order_items as i ON m.order_item_id=i.order_item_id AND p.id=i.order_id
+WHERE p.type='shop_order' AND p.status IN ('wc-completed', 'wc-processing', 'wc-refunded')
+AND customer_id=%d
+EOT;
+		} else {
+			$sql = <<<EOT
 SELECT count(*) FROM {$wpdb->posts} as p
 INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta as m ON m.meta_key='_product_id' AND m.meta_value=%d
 INNER JOIN {$wpdb->prefix}woocommerce_order_items as i ON m.order_item_id=i.order_item_id AND p.ID=i.order_id
 INNER JOIN {$wpdb->postmeta} as c ON c.post_id=p.ID AND c.meta_key='_customer_user' AND c.meta_value=%d
 WHERE p.post_type='shop_order' AND p.post_status IN ('wc-completed', 'wc-processing', 'wc-refunded')
 EOT;
+		}
 		return !empty(intval($wpdb->get_var($wpdb->prepare($sql, $comment->comment_post_ID, $comment->user_id))));
 	}
 

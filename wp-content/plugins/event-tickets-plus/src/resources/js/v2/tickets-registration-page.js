@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -10,7 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET+ registration page Object in the Global Tribe variable
  *
  * @since 5.1.0
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets.registration = {};
 
@@ -18,8 +18,8 @@ tribe.tickets.registration = {};
  * Initializes in a Strict env the code that manages the plugin registration page.
  *
  * @since 5.1.0
- * @param  {object} $ jQuery
- * @param  {object} obj obj
+ * @param  {Object} $ jQuery
+ * @param  {Object} obj obj
  * @return {void}
  */
 ( function( $, obj ) {
@@ -66,7 +66,7 @@ tribe.tickets.registration = {};
 	 * Get ticket data to send to cart.
 	 *
 	 * @since 5.1.0
-	 * @return {object} Tickets data object.
+	 * @return {Object} Tickets data object.
 	 */
 	obj.getTicketsForSave = function() {
 		const tickets = [];
@@ -138,7 +138,7 @@ tribe.tickets.registration = {};
 	 *
 	 * @since 5.1.0
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
-	 * @param {object} data The ticket meta we are using to add "blocks".
+	 * @param {Object} data The ticket meta we are using to add "blocks".
 	 * @return {void}
 	 */
 	obj.appendARFields = function( $container, data ) {
@@ -198,7 +198,7 @@ tribe.tickets.registration = {};
 	 *
 	 * @since 5.1.0
 	 * @param {jQuery} $container jQuery object of object of the registration page container.
-	 * @param {object} data Data to fill the form in with.
+	 * @param {Object} data Data to fill the form in with.
 	 * @param {number} len Starting pointer for partial fill-ins.
 	 * @return {void}
 	 */
@@ -272,7 +272,7 @@ tribe.tickets.registration = {};
 	 * Update all the footer info.
 	 *
 	 * @since 5.1.0
-	 * @param {object} $form The mini-cart form.
+	 * @param {Object} $form The mini-cart form.
 	 * @return {void}
 	 */
 	obj.updateFooter = function( $form ) {
@@ -284,7 +284,7 @@ tribe.tickets.registration = {};
 	 * Adjust the footer count for +/-.
 	 *
 	 * @since 5.1.0
-	 * @param {object} $form The mini-cart form.
+	 * @param {Object} $form The mini-cart form.
 	 * @return {void}
 	 */
 	obj.updateFooterCount = function( $form ) {
@@ -309,7 +309,7 @@ tribe.tickets.registration = {};
 	 * Adjust the footer total/amount for +/-.
 	 *
 	 * @since 5.1.0
-	 * @param {object} $form The mini-cart form.
+	 * @param {Object} $form The mini-cart form.
 	 * @return {void}
 	 */
 	obj.updateFooterAmount = function( $form ) {
@@ -339,8 +339,8 @@ tribe.tickets.registration = {};
 	 * Pre-fill the Mini-Cart.
 	 *
 	 * @since 5.1.0
-	 * @param {object} $form The mini-cart form.
-	 * @param {object} tickets THe ticket data.
+	 * @param {Object} $form The mini-cart form.
+	 * @param {Object} tickets THe ticket data.
 	 * @return {void}
 	 */
 	obj.preFillCartForm = function( $form, tickets ) {

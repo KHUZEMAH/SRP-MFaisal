@@ -89,4 +89,17 @@ abstract class Components {
 		$template = tribe( 'tickets-plus.template' );
 		$template->template( 'emails/template-parts/body/ticket/qr-image', $args, true );
 	}
+
+	/**
+	 * Render the styles for Tickets Emails features.
+	 *
+	 * @since 5.7.3
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function render_styles( array $args ): void {
+		/** @var \Tribe__Tickets_Plus__Template $template */
+		$template = tribe( 'tickets-plus.template' );
+		$template->template( 'emails/template-parts/header/head/etp-styles', $args, true );
+	}
 }

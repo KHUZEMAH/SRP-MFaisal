@@ -5,7 +5,7 @@ Tags: user import, user export, csv, woocommerce, customers, export import users
 Requires at least: 3.0.1
 Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,7 +25,7 @@ You can import or export user/customer data using CSV files. This helps in migra
 &#128312; Export guest users - Include data of WooCommerce guest customers (users who bought products from the site without creating an account).
 &#128312; Export specific users based on username/email - Suggests email addresses and names in export data filter fields while you type in.
 &#128312; Tested OK with WordPress 6.2
-&#128312; Tested OK with WooCommerce 7.8
+&#128312; Tested OK with WooCommerce 7.8.2
 &#128312; Tested OK with PHP 8.2
 
 = How does it work? =
@@ -205,6 +205,10 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
+= 2.4.2 2023-07-14 =
+* [Fix] - Admin user details are updated when importing as shop manager.
+* [Add] - Export and Import the last activity data of users.
+* [Compatibility] - Tested OK with WooCommerce 7.8.2
 = 2.4.1 2023-06-19 =
 * [Fix] – Importing custom CSV with a colon in the column heading.
 * [Fix] – Auto delete history option does not delete import logs
@@ -451,7 +455,7 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Upgrade Notice ==
 
-= 2.4.1 =
-* [Fix] – Importing custom CSV with a colon in the column heading.
-* [Fix] – Auto delete history option does not delete import logs
-* [Update] – Tested OK with WooCommerce 7.8
+= 2.4.2 =
+* [Fix] - Admin user details are updated when importing as shop manager.
+* [Add] - Export and Import the last activity data of users.
+* [Compatibility] - Tested OK with WooCommerce 7.8.2

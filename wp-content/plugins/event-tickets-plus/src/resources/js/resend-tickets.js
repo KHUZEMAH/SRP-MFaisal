@@ -2,7 +2,7 @@
  * Configures Resend Ticket JS Object in the Global Tribe variable
  *
  * @since 5.2.5
- * @type {object}
+ * @type {Object}
  */
 tribe.tickets.resendTickets = {};
 
@@ -10,8 +10,8 @@ tribe.tickets.resendTickets = {};
  * Initializes in a Strict env the code that manages resend ticket functionality.
  *
  * @since 5.2.5
- * @param {object} $ jQuery
- * @param {object} obj tribe.tickets.resendTickets
+ * @param {Object} $ jQuery
+ * @param {Object} obj tribe.tickets.resendTickets
  * @return {void}
  */
 ( function( $, obj ) {
@@ -28,7 +28,7 @@ tribe.tickets.resendTickets = {};
 	 * Localized data for Resend Ticket.
 	 *
 	 * @since 5.2.5
-	 * @type {object}
+	 * @type {Object}
 	 */
 	obj.data = Attendees.resend_ticket || {};
 
@@ -72,7 +72,7 @@ tribe.tickets.resendTickets = {};
 	 * Handler Ajax response.
 	 *
 	 * @since 5.2.5
-	 * @param {object} response the response
+	 * @param {Object} response the response
 	 */
 	obj.responseHandler = function( response ) {
 		if ( ! ( obj.clickedButton instanceof jQuery ) ) {

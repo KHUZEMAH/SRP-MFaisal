@@ -78,7 +78,7 @@ class CartCouponsView
 		if (!$coupons)
 			return false;
 
-		if (\LWS_WooRewards::isWC()) {
+		if (\LWS\Adminpanel\Tools\Conveniences::isWC()) {
 			$wc = \WC();
 			if (isset($wc->cart) && $wc->cart) {
 				$done = array_keys($wc->cart->get_coupons());
@@ -162,7 +162,7 @@ class CartCouponsView
 			$nonce = \esc_attr(urlencode(\wp_create_nonce('wr_apply_coupon')));
 			$reloadNonce = " data-reload='wrac_n={$nonce}&wrac_c=%s'";
 		}
-		$done = (\LWS_WooRewards::isWC() && !empty($tableId)) ? array_keys(\WC()->cart->get_coupons()) : array();
+		$done = (\LWS\Adminpanel\Tools\Conveniences::isWC() && !empty($tableId)) ? array_keys(\WC()->cart->get_coupons()) : array();
 
 		$content = '';
 		foreach ($coupons as $coupon) {

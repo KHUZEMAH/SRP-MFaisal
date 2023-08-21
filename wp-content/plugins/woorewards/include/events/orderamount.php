@@ -311,7 +311,7 @@ EOT;
 	protected function shapeGain($value)
 	{
 		$amount = $this->getDenominator();
-		$amount = \LWS_WooRewards::isWC() ? \wc_price($amount) : \number_format_i18n($amount, 2);
+		$amount = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \wc_price($amount) : \number_format_i18n($amount, 2);
 		if ('=' == substr($value, 0, 1)) {
 			$value = sprintf(_x('[%1$s] / %2$s', "Point per money spent", 'woorewards-lite'), $value, $amount);
 		} elseif (\is_numeric($value) && $value > 0) {

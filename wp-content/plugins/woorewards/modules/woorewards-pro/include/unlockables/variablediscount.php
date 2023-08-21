@@ -11,6 +11,11 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	use \LWS\WOOREWARDS\PRO\Unlockables\T_DiscountOptions;
 
+	protected function isUsageLimitEnabled()
+	{
+		return false;
+	}
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -45,7 +50,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 		// value
 		$label = _x("Amount per Point", "Coupon Unlockable", 'woorewards-pro');
-		$currency = \LWS_WooRewards::isWC() ? \get_woocommerce_currency_symbol() : '$';
+		$currency = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \get_woocommerce_currency_symbol() : '$';
 		$points = \LWS_WooRewards::getPointSymbol(1, $this->getPoolName());
 		$value = empty($this->getValue()) ? '' : \esc_attr($this->getValue());
 		$form .= "<div class='lws-$context-opt-title label'>$label ($currency/$points)</div>";
@@ -120,8 +125,9 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function setTestValues()
 	{
-		$this->setValue(rand(1, 200)/100.0);
+		$this->setValue(rand(200, 500)/100.0);
 		$this->setTimeout(rand(5, 78).'D');
+		$this->setOrderMinimumAmount(rand(50, 100)/100.0);
 		return $this;
 	}
 
@@ -175,7 +181,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	function getCouponDescription($context='backend', $date=false)
 	{
 		$amount = isset($this->lastAmount) ? $this->lastAmount : $this->getCouponAmount(\get_current_user_id());
-		$value = (\LWS_WooRewards::isWC() && $context != 'edit') ? \wc_price($amount) : \number_format_i18n($amount, 2);
+		$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($amount) : \number_format_i18n($amount, 2);
 		$value = \LWS\WOOREWARDS\Unlockables\Coupon::getPriceTaxStatus($value);
 
 		$txt = $this->isAutoApply() ? __("%s discount on your next order", 'woorewards-pro') : __("%s discount on an order", 'woorewards-pro');
@@ -254,7 +260,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function createReward(\WP_User $user, $demo=false)
 	{
-		if( !\LWS_WooRewards::isWC() )
+		if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )
 			return false;
 
 		if( !\is_email($user->user_email) )
@@ -355,13 +361,15 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$expiry = !$this->getTimeout()->isNull() ? $this->getTimeout()->getEndingDate() : false;
 		$txt = $this->expiryInText($txt, $expiry);
 		$amount = $this->getCouponAmount($user->ID);
-		$value = \LWS_WooRewards::isWC() ? \wc_price($amount) : \number_format_i18n($amount, 2);
+		$value = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \wc_price($amount) : \number_format_i18n(\floatval($amount), 2);
 		$txt = \str_replace('[amount]', $value, $txt);
 
 		$minAmount = $this->getOrderMinimumAmount();
 		if( strlen($minAmount) && $this->isRelativeOrderMinimumAmount() )
 			$minAmount = \floatval($minAmount) + \floatval($amount);
-		$minAmount = \LWS_WooRewards::isWC() ? \wc_price($minAmount) : \number_format_i18n($minAmount, 2);
+		else
+			$minAmount = \floatval($minAmount);
+		$minAmount = \LWS\Adminpanel\Tools\Conveniences::isWC() ? \wc_price($minAmount) : \number_format_i18n($minAmount, 2);
 		$txt = \str_replace('[min_amount]', $minAmount, $txt);
 		return $txt;
 	}

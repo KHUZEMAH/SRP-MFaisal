@@ -45,8 +45,8 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$form .= "</div>";
 
 		// permanent on/off
-		$label = _x("Permanent", "Coupon Unlockable", 'woorewards-pro');
-		$tooltip = __("Applied on all future orders.", 'woorewards-pro');
+		$label = _x("Exclusive reward", "Coupon Unlockable", 'woorewards-pro');
+		$tooltip = __("That reward will replace any previous Exclusive reward coupon reward of the same type owned by the customer.", 'woorewards-pro');
 		$toggle = \LWS\Adminpanel\Pages\Field\Checkbox::compose($prefix . 'permanent', array(
 			'id'      => $prefix . 'permanent',
 			'layout'  => 'toggle',
@@ -105,7 +105,6 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function setTestValues()
 	{
-		global $wpdb;
 		$this->setTimeout(rand(5, 78) . 'D');
 		return $this;
 	}
@@ -223,7 +222,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function createReward(\WP_User $user, $demo = false)
 	{
-		if (!\LWS_WooRewards::isWC())
+		if (!\LWS\Adminpanel\Tools\Conveniences::isWC())
 			return false;
 
 		if (!\is_email($user->user_email))
@@ -312,7 +311,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 			'discount_type'          => 'fixed_cart',
 			'amount'                 => 0,
 			'date_expires'           => !$this->getTimeout()->isNull() ? $this->getTimeout()->getEndingDate()->format('Y-m-d') : '',
-			'usage_limit'            => $this->isPermanent() ? 0 : 1,
+			'usage_limit'            => $this->getUsageLimit(),
 			'email_restrictions'     => array($user->user_email),
 			'free_shipping'          => true,
 		));

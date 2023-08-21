@@ -123,7 +123,7 @@ EOT;
 
 	protected function placeholders()
 	{
-		if( !\LWS_WooRewards::isWC() )
+		if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )
 			return array('user' => \wp_get_current_user(), 'type' => '', 'unlockable' => null, 'reward' => false);
 
 		$unlockable = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create('lws_woorewards_unlockables_coupon')->last();
@@ -139,4 +139,3 @@ EOT;
 	}
 
 }
-?>

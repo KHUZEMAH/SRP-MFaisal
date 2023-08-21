@@ -42,9 +42,6 @@ final class MonsterInsights_API_Auth {
 		add_filter( 'monsterinsights_maybe_authenticate_siteurl', array( $this, 'before_redirect' ) );
 
 		add_action( 'wp_ajax_nopriv_monsterinsights_push_mp_token', array( $this, 'handle_relay_mp_token_push' ) );
-        //  GA property swap action cron
-        //  TODO Remove this action for x.18 release
-        add_action( 'monsterinsights_v4_property_swap', array( $this, 'property_swap_cron_action' ) );
 	}
 
 	public function get_tt() {
@@ -123,7 +120,7 @@ final class MonsterInsights_API_Auth {
 			// Translators: Support link tag starts with url, Support link tag ends.
 			$message = sprintf(
 				__( 'Oops! There has been an error authenticating. Please try again in a few minutes. If the problem persists, please %1$scontact our support%2$s team.', 'google-analytics-for-wordpress' ),
-				'<a target="_blank href="' . monsterinsights_get_url( 'notice', 'error-authenticating', 'https://www.monsterinsights.com/my-account/support/' ) . '">',
+				'<a target="_blank" href="' . monsterinsights_get_url( 'notice', 'error-authenticating', 'https://www.monsterinsights.com/my-account/support/' ) . '">',
 				'</a>'
 			);
 			wp_send_json_error( array( 'message' => $message ) );
@@ -642,10 +639,9 @@ final class MonsterInsights_API_Auth {
 			return false;
 		} else {
 			if ( $this->is_network_admin() ) {
-				MonsterInsights()->auth->delete_network_analytics_profile( false );
+				MonsterInsights()->auth->delete_network_analytics_profile( true );
 			} else {
-				MonsterInsights()->auth->delete_analytics_profile( false );
-
+				MonsterInsights()->auth->delete_analytics_profile( true );
 			}
 
 			return true;
@@ -782,29 +778,4 @@ final class MonsterInsights_API_Auth {
 		}
 		wp_send_json_success();
 	}
-
-    /**
-     * @return void
-     * @deprecated
-     * TODO: Remove for x.18 release
-     */
-    public function property_swap_cron_action() {
-        $auth = MonsterInsights()->auth;
-        $profile = is_network_admin() ? $auth->get_network_analytics_profile() : $auth->get_analytics_profile();
-
-        if ( empty($profile['connectedtype']) || $profile['connectedtype'] === 'v4' ) {
-            //  Bail if main property is v4 already.
-            return;
-        }
-
-        if ( $auth->get_network_v4_id() !== '' || $auth->get_v4_id() !== '' ) {
-            if ( $this->is_network_admin() ) {
-                $profile['network_viewname'] = $auth->get_network_v4_id();
-            } else {
-                $profile['viewname'] = $auth->get_v4_id();
-            }
-        }
-
-        $this->is_network_admin() ? $auth->set_network_analytics_profile( $profile ) : $auth->set_analytics_profile( $profile );
-    }
 }

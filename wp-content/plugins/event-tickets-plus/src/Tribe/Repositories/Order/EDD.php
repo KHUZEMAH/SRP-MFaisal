@@ -41,8 +41,10 @@ class EDD extends Order {
 	 * {@inheritDoc}
 	 *
 	 * @since 5.2.0
+	 * @since 5.7.4 set default order status to `complete`.
+	 * @since 5.7.4 remove `edd_insert_payment` action to prevent duplicate ticket generation.
 	 *
-	 * @return WP_Post|false The new post object or false if unsuccessful.
+	 * @return \EDD_Payment|false The EDD payment object, `false` on failure.
 	 */
 	public function create() {
 		$order_data = $this->updates;
@@ -74,7 +76,7 @@ class EDD extends Order {
 		$create_user       = (bool) Arr::get( $order_data, 'create_user', false );
 		$use_existing_user = (bool) Arr::get( $order_data, 'use_existing_user', true );
 		$send_emails       = (bool) Arr::get( $order_data, 'send_emails', false );
-		$order_status      = Arr::get( $order_data, 'order_status', 'publish' );
+		$order_status      = Arr::get( $order_data, 'order_status', 'complete' );
 
 		$order_status = strtolower( trim( $order_status ) );
 
@@ -190,8 +192,12 @@ class EDD extends Order {
 			}
 		}
 
+		$edd_provider = tribe( 'tickets-plus.commerce.edd' );
+		remove_action( 'edd_insert_payment', [ $edd_provider, 'generate_tickets' ], 12  );
 		// Record the pending payment.
 		$order_id = edd_insert_payment( $purchase_data );
+
+		add_action( 'edd_insert_payment', [ $edd_provider, 'generate_tickets' ], 12 );
 
 		// Add actions that need to be reset.
 		if ( ! empty( $reset_actions ) ) {
@@ -204,6 +210,6 @@ class EDD extends Order {
 			return false;
 		}
 
-		return get_post( $order_id );
+		return edd_get_payment( $order_id );
 	}
 }

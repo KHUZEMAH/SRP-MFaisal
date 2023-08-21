@@ -65,7 +65,9 @@ class Ajax
 		$points = $stack->getHistory(false, true, $page, $count);
 
 		$date_format = \get_option('date_format');
+		$tz = \wp_timezone();
 		foreach($points as &$point) {
+			$point['op_datetime'] = \date_create($point['op_date'])->setTimezone($tz)->format('Y-m-d H:i:s (P)');
 			$point['op_date'] = \LWS\WOOREWARDS\Core\PointStack::dateI18n($point['op_date']);
 		}
 		\wp_send_json($points);

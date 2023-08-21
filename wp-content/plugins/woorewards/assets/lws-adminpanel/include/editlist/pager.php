@@ -36,7 +36,7 @@ class Pager
 		return $limit;
 	}
 
-	/** @param the editlist unique ID */
+	/** @param $guid (string) the editlist unique ID */
 	public function __construct($guid)
 	{
 		$this->guid = $guid;

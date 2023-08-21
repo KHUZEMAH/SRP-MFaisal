@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'the-events-calendar/tribe-common',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'f1c1c973bb742a2f30c04f69c53ca475a255ad16',
+        'pretty_version' => '5.1.6',
+        'version' => '5.1.6.0',
+        'reference' => 'dbccca0483aeaa3cf5e58f6a1b7097bcd47f4d00',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -80,9 +80,9 @@
             'dev_requirement' => false,
         ),
         'stellarwp/installer' => array(
-            'pretty_version' => '1.1.0',
-            'version' => '1.1.0.0',
-            'reference' => '13e800c750dbdab561ad6d67b768938fa4fee8a4',
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => '9c2774a1fcc9724839c7f009784420ed71831fde',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stellarwp/installer',
             'aliases' => array(),
@@ -98,9 +98,9 @@
             'dev_requirement' => false,
         ),
         'the-events-calendar/tribe-common' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'f1c1c973bb742a2f30c04f69c53ca475a255ad16',
+            'pretty_version' => '5.1.6',
+            'version' => '5.1.6.0',
+            'reference' => 'dbccca0483aeaa3cf5e58f6a1b7097bcd47f4d00',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

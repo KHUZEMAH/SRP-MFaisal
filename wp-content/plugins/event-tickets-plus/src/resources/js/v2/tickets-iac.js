@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.1.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets = tribe.tickets || {};
 
@@ -10,7 +10,7 @@ tribe.tickets = tribe.tickets || {};
  * Configures ET IAC Object in the Global Tribe variable
  *
  * @since 5.1.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets.iac = {};
 
@@ -18,8 +18,8 @@ tribe.tickets.iac = {};
  * Initializes in a Strict env the code that manages the plugin IAC library.
  *
  * @since 5.1.0
- * @param  {object} $   jQuery
- * @param  {object} obj tribe.tickets.data
+ * @param  {Object} $   jQuery
+ * @param  {Object} obj tribe.tickets.data
  * @return {void}
  */
 ( function( $, obj ) {
@@ -162,7 +162,7 @@ tribe.tickets.iac = {};
 	 *
 	 * @since 5.1.0
 	 * @param {number} index The index.
-	 * @param {object} input The input.
+	 * @param {Object} input The input.
 	 * @return {string} The input value.
 	 */
 	obj.getInputValuesFromMap = function( index, input ) {
@@ -242,7 +242,7 @@ tribe.tickets.iac = {};
 	 *
 	 * @since 5.1.0
 	 * @param {number} index The index.
-	 * @param {object} attendeeTicketsForm The tickets form we are getting the values from.
+	 * @param {Object} attendeeTicketsForm The tickets form we are getting the values from.
 	 */
 	obj.loadUniqueMetaValuesPerTicket = function( index, attendeeTicketsForm ) {
 		const $attendeeTicketsForm = $( attendeeTicketsForm );

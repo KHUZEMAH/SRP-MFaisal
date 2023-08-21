@@ -2,7 +2,7 @@
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since 5.2.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets = tribe.tickets || {};
 tribe.dialogs = tribe.dialogs || {};
@@ -12,7 +12,7 @@ tribe.dialogs.events = tribe.dialogs.events || {};
  * Configures ET Manual Attendees Object in the Global Tribe variable
  *
  * @since 5.2.0
- * @type   {object}
+ * @type   {Object}
  */
 tribe.tickets.manualAttendees = {};
 
@@ -20,8 +20,8 @@ tribe.tickets.manualAttendees = {};
  * Initializes in a Strict env the code that manages the plugin Manual Attendees library.
  *
  * @since 5.2.0
- * @param  {object} $   jQuery
- * @param  {object} obj tribe.tickets.manualAttendees
+ * @param  {Object} $   jQuery
+ * @param  {Object} obj tribe.tickets.manualAttendees
  * @return {void}
  */
 ( function( $, obj ) {
@@ -57,8 +57,8 @@ tribe.tickets.manualAttendees = {};
 	 * Handler for when the modal is being "closed".
 	 *
 	 * @since 5.2.0
-	 * @param {object} event The close event.
-	 * @param {object} dialogEl The dialog element.
+	 * @param {Object} event The close event.
+	 * @param {Object} dialogEl The dialog element.
 	 * @return {void}
 	 */
 	obj.modalClose = function( event, dialogEl ) {
@@ -100,7 +100,7 @@ tribe.tickets.manualAttendees = {};
 	 *
 	 * @since 5.2.0
 	 * @param {jQuery} $container jQuery object of the container.
-	 * @param  {object} requestData Object with request data.
+	 * @param  {Object} requestData Object with request data.
 	 * @return {void}
 	 */
 	obj.bindAddAttendeeTicketSelectChange = function( $container, requestData ) {
@@ -126,7 +126,7 @@ tribe.tickets.manualAttendees = {};
 	 * @since 5.2.0
 	 * @param  {Event}       event    event object for 'afterAjaxSuccess.tribeTicketsAdmin' event.
 	 * @param  {jqXHR}       jqXHR    Request object.
-	 * @param  {object} settings Settings that this request was made with.
+	 * @param  {Object} settings Settings that this request was made with.
 	 */
 	obj.bindModalEvents = function( event, jqXHR, settings ) { /* eslint-disable-line no-unused-vars,max-len */
 		const $container = event.data.container;
@@ -143,7 +143,7 @@ tribe.tickets.manualAttendees = {};
 	 * @since 5.2.0
 	 * @param  {Event}       event    event object for 'afterAjaxSuccess.tribeTicketsAdmin' event.
 	 * @param  {jqXHR}       jqXHR    Request object.
-	 * @param  {object} settings Settings that this request was made with.
+	 * @param  {Object} settings Settings that this request was made with.
 	 */
 	obj.handleFormSuccess = function( event, jqXHR, settings ) { /* eslint-disable-line no-unused-vars,max-len */
 		const data = event.data.requestData;
@@ -307,9 +307,9 @@ tribe.tickets.manualAttendees = {};
 	 * Handler for when the modal is opened.
 	 *
 	 * @since 5.2.0
-	 * @param {object} event The show event.
-	 * @param {object} dialogEl The dialog element.
-	 * @param {object} trigger The event.
+	 * @param {Object} event The show event.
+	 * @param {Object} dialogEl The dialog element.
+	 * @param {Object} trigger The event.
 	 * @return {void}
 	 */
 	obj.modalOpen = function( event, dialogEl, trigger ) {

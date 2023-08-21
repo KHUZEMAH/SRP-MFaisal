@@ -153,7 +153,7 @@ class RewardClaim
 	// compute url, redirect to and die.
 	protected function redirect($args, $keepPage=true) {
 		$url = false;
-		if (!$keepPage && \LWS_WooRewards::isWC() && \get_current_user_id()) {
+		if (!$keepPage && \LWS\Adminpanel\Tools\Conveniences::isWC() && \get_current_user_id()) {
 			if (\get_option('lws_woorewards_wc_my_account_endpont_loyalty', 'on'))
 				$url = \LWS_WooRewards_Pro::getEndpointUrl('lws_woorewards');
 		}
