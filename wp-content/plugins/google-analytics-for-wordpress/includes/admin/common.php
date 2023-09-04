@@ -223,15 +223,6 @@ function monsterinsights_admin_scripts()
 				$install_woocommerce_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=woocommerce'), 'install-plugin_woocommerce');
 			}
 		}
-		$install_fbia_url = false;
-		if (monsterinsights_can_install_plugins()) {
-			$fbia_key = 'fb-instant-articles/facebook-instant-articles.php';
-			if (array_key_exists($fbia_key, $plugins)) {
-				$install_fbia_url = wp_nonce_url(self_admin_url('plugins.php?action=activate&plugin=' . $fbia_key), 'activate-plugin_' . $fbia_key);
-			} else {
-				$install_fbia_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=fb-instant-articles'), 'install-plugin_fb-instant-articles');
-			}
-		}
 
 		$prepared_dimensions = array();
 		if (class_exists('MonsterInsights_Admin_Custom_Dimensions')) {
@@ -264,7 +255,6 @@ function monsterinsights_admin_scripts()
 				'wp_plugins_page_url'             => is_multisite() ? network_admin_url('plugins.php') : admin_url('plugins.php'),
 				'email_summary_url'               => admin_url('admin.php?monsterinsights_email_preview&monsterinsights_email_template=summary'),
 				'install_amp_url'                 => $install_amp_url,
-				'install_fbia_url'                => $install_fbia_url,
 				'install_woo_url'                 => $install_woocommerce_url,
 				'dimensions'                      => $prepared_dimensions,
 				'wizard_url'                      => is_network_admin() ? network_admin_url('index.php?page=monsterinsights-onboarding') : admin_url('index.php?page=monsterinsights-onboarding'),

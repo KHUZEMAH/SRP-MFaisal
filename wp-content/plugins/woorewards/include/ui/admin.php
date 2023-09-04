@@ -485,48 +485,95 @@ class Admin
 					'icon'   => 'lws-icon-components',
 					'groups' => array(
 						'wc_old_orders' => array(
-							'id' => 'wc_old_orders',
-							'icon'	 => 'lws-icon-repeat',
-							'title' => __("Give Points for Past orders", 'woorewards-lite'),
-							'text' => __("If you want to give points for orders that pre-existed your loyalty system, you can do it here", 'woorewards-lite')
-								. '<br/>' . __("This operation can take several minutes. Depending on you server configuration and date range, you should run this operation several times on short dates ranges.", 'woorewards-lite'),
-							'fields' => array(
-								'date_min' => array(
-									'id'    => 'date_min',
-									'title' => __("Start date", 'woorewards-lite'),
-									'type'  => 'input',
-									'extra' => array(
-										'type'     => 'date',
-										'gizmo'    => true,
-										'class'    => 'lws-ignore-confirm',
-										'default'  => \date_create()->sub(new \DateInterval('P1M'))->format('Y-m-d'),
-									),
-								),
-								'date_max' => array(
-									'id' => 'date_max',
-									'title' => __("End date", 'woorewards-lite'),
-									'type'  => 'input',
-									'extra' => array(
-										'type'     => 'date',
-										'gizmo'    => true,
-										'class'    => 'lws-ignore-confirm',
-										'default'  => \date('Y-m-d'),
-									),
-								),
-								'trigger_orders' => array(
-									'id' => 'trigger_orders',
-									'title' => __("Launch the procedure", 'woorewards-lite'),
-									'type' => 'button',
-									'extra' => array(
-										'callback' => array($this, 'forceOldOrdersTrigger')
-									),
-								),
-							)
+							'id'     => 'wc_old_orders',
+							'icon'   => 'lws-icon-repeat',
+							'title'  => __("Give Points for Past orders", 'woorewards-lite'),
+							'text'   => __("If you want to give points for orders that pre-existed your loyalty system, you can do it here", 'woorewards-lite') . '<br/>',
+							'fields' => array(),
 						),
 					)
 				),
 			)
 		);
+
+		$systemPage['tabs']['data_management']['groups']['wc_old_orders']['text'] .= __("This operation can take several minutes. Depending on your server configuration, you should run this operation several times on small subsets of orders.", 'woorewards-lite');
+		if (\LWS\Adminpanel\Tools\Conveniences::isHPOS())
+			$url = \add_query_arg('page', 'wc-orders', \admin_url('admin.php'));
+		else
+			$url = \add_query_arg('post_type', 'shop_order', \admin_url('edit.php'));
+
+		$systemPage['tabs']['data_management']['groups']['wc_old_orders']['fields']['link'] = array(
+			'id'    => 'redirect_to_order_bulk',
+			'title' => '',
+			'type'  => 'custom',
+			'extra' => array(
+				'gizmo'   => true,
+				'content' => \lws_array_to_html(array(array(
+					'tag' => 'ul',
+					sprintf('<b style="color: #dd1a1a;">%s</b>', __("If your loyalty program is live, this could lead to lots of rewards being generated and lots of emails being sent", 'woorewards-lite')),
+					sprintf('<b style="color: #dd1a1a;">%s</b>', __("Please make sure you reviewed all the settings before launching this procedure.", 'woorewards-lite')),
+					sprintf('<b style="color: #dd1a1a;">%s</b>', __("Please ensure you agree to send emails to your customers about there activities in loyalty systems or deactivate relevant emails first.", 'woorewards-lite')),
+				), array(
+					sprintf(__("Go to the <a href='%s'>WooCommerce Orders list</a>.", 'woorewards-lite'), \esc_attr($url)),
+					__("Check the box at left of the orders to process.", 'woorewards-lite'),
+					sprintf(__("In the <b>Bulk Actions</b> drop-list, pick <b>%s</b>.", 'woorewards-lite'), \LWS\WOOREWARDS\Ui\Woocommerce\OrdersBulk::getLabel()),
+					__("Then, press the <b>Apply</b> button.", 'woorewards-lite'),
+				))),
+			)
+		);
+
+		//if ((isset($_GET['legacy']) && 'yes' === $_GET['legacy']) || (isset($_POST['button']) && 'trigger_orders' === $_POST['button'])) {
+			//$systemPage['tabs']['data_management']['groups']['wc_old_orders']['text'] .= __("This operation can take several minutes. Depending on your server configuration and date range, you should run this operation several times on short dates ranges.", 'woorewards-lite');
+
+		$systemPage['tabs']['data_management']['groups']['wc_old_orders']['fields']['separator'] = array(
+			'id'    => 'past_order_per_date_separator',
+			'title' => '',
+			'type'  => 'custom',
+			'extra' => array(
+				'gizmo'   => true,
+				'separator' => true,
+				'content' => \lws_array_to_html(array(
+					__("Or use our date range selector", 'woorewards-lite'),
+					array('tag' => 'small',
+						__("(Don't be too greedy. Depending on your sales volume, cut the period into smaller ones or the procedure may stop in timeout. In any case, the same order will not be processed twice.)", 'woorewards-lite'),
+					),
+				)),
+			)
+		);
+
+		$systemPage['tabs']['data_management']['groups']['wc_old_orders']['fields']['per_dates'] = array(
+			'id'    => 'past_order_per_date_range',
+			'title' => __("Date range", 'woorewards-lite'),
+			'type'  => 'custom',
+			'extra' => array(
+				'gizmo'   => true,
+				'content' => function(){
+					return sprintf(
+						"From %s to %s",
+						\LWS\Adminpanel\Pages\Field\Input::compose('date_min', array(
+							'type'     => 'date',
+							'gizmo'    => true,
+							'class'    => 'lws-ignore-confirm',
+							'default'  => \date_create()->sub(new \DateInterval('P1M'))->format('Y-m-d'),
+						)), \LWS\Adminpanel\Pages\Field\Input::compose('date_max', array(
+							'type'     => 'date',
+							'gizmo'    => true,
+							'class'    => 'lws-ignore-confirm',
+							'default'  => \date('Y-m-d'),
+						))
+					);
+				},
+			)
+		);
+		$systemPage['tabs']['data_management']['groups']['wc_old_orders']['fields']['trigger_orders'] = array(
+			'id' => 'trigger_orders',
+			'title' => __("Launch the procedure", 'woorewards-lite'),
+			'type' => 'button',
+			'extra' => array(
+				'callback' => array($this, 'forceOldOrdersTrigger')
+			),
+		);
+		//}
 
 		require_once LWS_WOOREWARDS_INCLUDES . '/ui/adminscreens/pointsmanagement.php';
 		\LWS\WOOREWARDS\Ui\AdminScreens\PointsManagement::mergeGroups($systemPage['tabs']['data_management']['groups']);

@@ -39,7 +39,18 @@ class Button extends \LWS\Adminpanel\Pages\Field
 			return ""; /// title will be used as button text
 	}
 
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$text = $this->getExtraValue('html');
 		if (!$text)
@@ -72,6 +83,7 @@ class Button extends \LWS\Adminpanel\Pages\Field
 		if( $triggable || $submit )
 			$class .= ' lws-adm-btn-trigger';
 
+		$out = '';
 		$tag = 'span';
 		if( isset($this->extra['container']) )
 		{
@@ -85,15 +97,16 @@ class Button extends \LWS\Adminpanel\Pages\Field
 			}
 			else
 				$cc = $this->extra['container'];
-			echo "<$tag class='$cc'>";
+			$out .= "<$tag class='$cc'>";
 		}
 
 		$attrs = $this->getDomAttributes($attrs);
-		echo "<div class='lws-adm-btn$class' id='{$this->m_Id}' type='button'{$attrs}>$text</div>";
+		$out .= "<div class='lws-adm-btn$class' id='{$this->m_Id}' type='button'{$attrs}>$text</div>";
 		if( $triggable || $submit ) // answer zone
-			echo "<div class='lws-adm-btn-trigger-response'></div>";
+			$out .= "<div class='lws-adm-btn-trigger-response'></div>";
 
 		if( isset($this->extra['container']) )
-			echo "</$tag>";
+			$out .= "</$tag>";
+		return $out;
 	}
 }

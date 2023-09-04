@@ -1240,7 +1240,7 @@ msgstr ""
 
 #: include/ui/admin.php:492
 msgid ""
-"This operation can take several minutes. Depending on you server "
+"This operation can take several minutes. Depending on your server "
 "configuration and date range, you should run this operation several times on "
 "short dates ranges."
 msgstr ""

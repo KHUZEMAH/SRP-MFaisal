@@ -42,13 +42,22 @@ function monsterinsights_admin_menu()
 		// if dashboards enabled, first dashboard
 		add_menu_page(__('General:', 'google-analytics-for-wordpress'), __('Insights', 'google-analytics-for-wordpress') . MonsterInsights()->notifications->get_menu_count(), 'monsterinsights_view_dashboard', 'monsterinsights_reports', 'monsterinsights_reports_page', $menu_icon_inline, '100.00013467543');
 
-		add_submenu_page($hook, __('General Reports:', 'google-analytics-for-wordpress'), __('Reports', 'google-analytics-for-wordpress'), 'monsterinsights_view_dashboard', 'monsterinsights_reports', 'monsterinsights_reports_page');
+        if ( ! MonsterInsights()->setup_checklist->is_dismissed() ) {
+	        add_submenu_page( $hook, __( 'Setup Checklist', 'google-analytics-for-wordpress' ), __( 'Setup Checklist', 'google-analytics-for-wordpress' ) . MonsterInsights()->setup_checklist->get_menu_count(), 'monsterinsights_save_settings', 'monsterinsights_settings#/setup-checklist', 'monsterinsights_settings_page' );
+        }
+
+		add_submenu_page( $hook, __( 'General Reports:', 'google-analytics-for-wordpress' ), __( 'Reports', 'google-analytics-for-wordpress' ), 'monsterinsights_view_dashboard', 'monsterinsights_reports', 'monsterinsights_reports_page' );
 
 		// then settings page
 		add_submenu_page($hook, __('MonsterInsights', 'google-analytics-for-wordpress'), __('Settings', 'google-analytics-for-wordpress'), 'monsterinsights_save_settings', 'monsterinsights_settings', 'monsterinsights_settings_page');
 
 		// Add dashboard submenu.
-		add_submenu_page('index.php', __('General Reports:', 'google-analytics-for-wordpress'), __('Insights', 'google-analytics-for-wordpress'), 'monsterinsights_view_dashboard', 'admin.php?page=monsterinsights_reports');
+		add_submenu_page( 'index.php', __( 'General Reports:', 'google-analytics-for-wordpress' ), __( 'Insights', 'google-analytics-for-wordpress' ), 'monsterinsights_view_dashboard', 'admin.php?page=monsterinsights_reports' );
+
+		if ( ! MonsterInsights()->setup_checklist->is_dismissed() ) {
+			// Remove own submenu of `Insights` main menu.
+			remove_submenu_page( 'monsterinsights_reports', 'monsterinsights_reports' );
+		}
 	}
 
 	$submenu_base = add_query_arg('page', 'monsterinsights_settings', admin_url('admin.php'));

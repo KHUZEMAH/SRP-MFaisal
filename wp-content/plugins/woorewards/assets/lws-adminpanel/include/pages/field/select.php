@@ -9,7 +9,18 @@ class Select extends \LWS\Adminpanel\Pages\Field
 {
 	protected function dft(){ return array('options'=>array(), 'notnull'=>false); }
 
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$name = $this->m_Id;
 		$value = get_option($name, false);
@@ -28,19 +39,18 @@ class Select extends \LWS\Adminpanel\Pages\Field
 		$maxwidth = $this->getExtraValue('maxwidth', false) ? ' data-maxwidth="' . $this->getExtraValue('maxwidth') . '"' : '';
 		$placeholder = $this->getExtraValue('placeholder', false) ? ' data-placeholder="' . $this->getExtraValue('placeholder') . '"' : '';
 
-		echo "<select name='$name' class='{$this->style} lac_select'$id$disabled$readonly$maxwidth$placeholder>";
+		$out = "<select name='$name' class='{$this->style} lac_select'$id$disabled$readonly$maxwidth$placeholder>";
 		if( !$this->extra['notnull'] )
-			echo "<option value=''></option>";
+			$out .= "<option value=''></option>";
 		if( !empty($this->extra['options']) && is_array($this->extra['options']) )
 		{
 			foreach( $this->extra['options'] as $key => $label )
 			{
 				$selected = ($value == $key) ? "selected='selected'" : "";
-				echo "<option value='$key' $selected>$label</option>";
+				$out .= "<option value='$key' $selected>$label</option>";
 			}
 		}
-		echo "</select>";
+		$out .= "</select>";
+		return $out;
 	}
 }
-
-?>

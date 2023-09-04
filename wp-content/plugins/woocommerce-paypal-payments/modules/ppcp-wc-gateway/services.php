@@ -149,7 +149,8 @@ return array(
 		$session_handler = $container->get( 'session.handler' );
 		$settings       = $container->get( 'wcgateway.settings' );
 		$settings_status = $container->get( 'wcgateway.settings.status' );
-		return new DisableGateways( $session_handler, $settings, $settings_status );
+		$subscription_helper = $container->get( 'subscription.helper' );
+		return new DisableGateways( $session_handler, $settings, $settings_status, $subscription_helper );
 	},
 
 	'wcgateway.is-wc-payments-page'                        => static function ( ContainerInterface $container ): bool {
@@ -292,6 +293,7 @@ return array(
 		$signup_link_ids = $container->get( 'onboarding.signup-link-ids' );
 		$pui_status_cache = $container->get( 'pui.status-cache' );
 		$dcc_status_cache = $container->get( 'dcc.status-cache' );
+		$logger = $container->get( 'woocommerce.logger.woocommerce' );
 		return new SettingsListener(
 			$settings,
 			$fields,
@@ -304,7 +306,8 @@ return array(
 			$signup_link_ids,
 			$pui_status_cache,
 			$dcc_status_cache,
-			$container->get( 'http.redirector' )
+			$container->get( 'http.redirector' ),
+			$logger
 		);
 	},
 	'wcgateway.order-processor'                            => static function ( ContainerInterface $container ): OrderProcessor {
@@ -383,6 +386,28 @@ return array(
 		$current_page_id = $container->get( 'wcgateway.current-ppcp-settings-page-id' );
 
 		return array_key_exists( $current_page_id, $sections );
+	},
+
+	'wcgateway.settings.fields.subscriptions_mode'         => static function ( ContainerInterface $container ): array {
+		return array(
+			'title'        => __( 'Subscriptions Mode', 'woocommerce-paypal-payments' ),
+			'type'         => 'select',
+			'class'        => array(),
+			'input_class'  => array( 'wc-enhanced-select' ),
+			'desc_tip'     => true,
+			'description'  => __( 'Utilize PayPal Vaulting for flexible subscription processing with saved payment methods, create “PayPal Subscriptions” to bill customers at regular intervals, or disable PayPal for subscription-type products.', 'woocommerce-paypal-payments' ),
+			'default'      => 'vaulting_api',
+			'options'      => array(
+				'vaulting_api'                 => __( 'PayPal Vaulting', 'woocommerce-paypal-payments' ),
+				'subscriptions_api'            => __( 'PayPal Subscriptions', 'woocommerce-paypal-payments' ),
+				'disable_paypal_subscriptions' => __( 'Disable PayPal for subscriptions', 'woocommerce-paypal-payments' ),
+			),
+			'screens'      => array(
+				State::STATE_ONBOARDED,
+			),
+			'requirements' => array(),
+			'gateway'      => 'paypal',
+		);
 	},
 
 	'wcgateway.settings.fields'                            => static function ( ContainerInterface $container ): array {
@@ -788,7 +813,14 @@ return array(
 			),
 			'paypal_saved_payments'                  => array(
 				'heading'      => __( 'Saved payments', 'woocommerce-paypal-payments' ),
-				'description'  => __( 'PayPal can save your customers’ payment methods.', 'woocommerce-paypal-payments' ),
+				'description'  => sprintf(
+				// translators: %1$s, %2$s, %3$s and %4$s are a link tags.
+					__( 'PayPal can securely store your customers\' payment methods for %1$sfuture payments%2$s and %3$ssubscriptions%4$s, simplifying the checkout process and enabling recurring transactions on your website.', 'woocommerce-paypal-payments' ),
+					'<a href="https://woocommerce.com/document/woocommerce-paypal-payments/#vaulting-saving-a-payment-method" target="_blank">',
+					'</a>',
+					'<a href="https://woocommerce.com/document/woocommerce-paypal-payments/#subscriptions-faq" target="_blank">',
+					'</a>'
+				),
 				'type'         => 'ppcp-heading',
 				'screens'      => array(
 					State::STATE_START,
@@ -797,25 +829,7 @@ return array(
 				'requirements' => array(),
 				'gateway'      => 'paypal',
 			),
-			'subscriptions_mode'                     => array(
-				'title'        => __( 'Subscriptions Mode', 'woocommerce-paypal-payments' ),
-				'type'         => 'select',
-				'class'        => array(),
-				'input_class'  => array( 'wc-enhanced-select' ),
-				'desc_tip'     => true,
-				'description'  => __( 'Utilize PayPal Vaulting for flexible subscription processing with saved payment methods, create “PayPal Subscriptions” to bill customers at regular intervals, or disable PayPal for subscription-type products.', 'woocommerce-paypal-payments' ),
-				'default'      => 'vaulting_api',
-				'options'      => array(
-					'vaulting_api'                 => __( 'PayPal Vaulting', 'woocommerce-paypal-payments' ),
-					'subscriptions_api'            => __( 'PayPal Subscriptions', 'woocommerce-paypal-payments' ),
-					'disable_paypal_subscriptions' => __( 'Disable PayPal for subscriptions', 'woocommerce-paypal-payments' ),
-				),
-				'screens'      => array(
-					State::STATE_ONBOARDED,
-				),
-				'requirements' => array(),
-				'gateway'      => 'paypal',
-			),
+			'subscriptions_mode'                     => $container->get( 'wcgateway.settings.fields.subscriptions_mode' ),
 			'vault_enabled'                          => array(
 				'title'        => __( 'Vaulting', 'woocommerce-paypal-payments' ),
 				'type'         => 'checkbox',
@@ -864,7 +878,6 @@ return array(
 		$billing_agreements_endpoint = $container->get( 'api.endpoint.billing-agreements' );
 		if ( ! $billing_agreements_endpoint->reference_transaction_enabled() ) {
 			unset( $fields['vault_enabled'] );
-			unset( $fields['vault_enabled_dcc'] );
 		}
 
 		/**
@@ -966,6 +979,15 @@ return array(
 
 	'wcgateway.transaction-url-live'                       => static function ( ContainerInterface $container ): string {
 		return 'https://www.paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=%s';
+	},
+
+	'wcgateway.soft-descriptor'                            => static function ( ContainerInterface $container ): string {
+		$settings = $container->get( 'wcgateway.settings' );
+		assert( $settings instanceof Settings );
+		if ( $settings->has( 'soft_descriptor' ) ) {
+			return $settings->get( 'soft_descriptor' );
+		}
+		return '';
 	},
 
 	'wcgateway.transaction-url-provider'                   => static function ( ContainerInterface $container ): TransactionUrlProvider {

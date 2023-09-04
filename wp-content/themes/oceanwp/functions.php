@@ -1954,23 +1954,23 @@ function update_gift_card_email_template(){
 }
 
 // sending email(s) to test gift card templates
-add_action( 'wp_ajax_send_test_gift_card_email', 'send_test_gift_card_email');
-add_action( 'wp_ajax_nopriv_send_test_gift_card_email',  'send_test_gift_card_email');
-function send_test_gift_card_email(){
+// add_action( 'wp_ajax_send_test_gift_card_email', 'send_test_gift_card_email');
+// add_action( 'wp_ajax_nopriv_send_test_gift_card_email',  'send_test_gift_card_email');
+// function send_test_gift_card_email(){
 
-  $to = $_POST['to'];
-  $subject = $_POST['subject'];
-  $body = $_POST['body'];
+//   $to = $_POST['to'];
+//   $subject = $_POST['subject'];
+//   $body = $_POST['body'];
 
-  $headers = "MIME-Version: 1.0" . "\r\n";
-  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-  $headers .= 'From: <classes@slowrisepizza.com>' . "\r\n";
+//   $headers = "MIME-Version: 1.0" . "\r\n";
+//   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+//   $headers .= 'From: <classes@slowrisepizza.com>' . "\r\n";
 
-  $res = mail($to,$subject,$body,$headers);
-  return $res;
+//   // $res = mail($to,$subject,$body,$headers);
+//   // return $res;
 
-  die();
-}
+//   die();
+// }
 
 /* **************** gift card email template sub page end *********** */
 

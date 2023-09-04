@@ -5,7 +5,18 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class Input extends \LWS\Adminpanel\Pages\Field
 {
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$name = $this->m_Id;
 		$value = $this->readOption();
@@ -32,6 +43,6 @@ class Input extends \LWS\Adminpanel\Pages\Field
 		}
 		$others = $this->getDomAttributes();
 
-		echo "<input name='$name' value='$value'$attrs{$others}$id$size>";
+		return "<input name='$name' value='$value'$attrs{$others}$id$size>";
 	}
 }

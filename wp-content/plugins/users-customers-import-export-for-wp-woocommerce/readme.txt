@@ -3,9 +3,9 @@ Contributors: webtoffee
 Donate link: https://www.webtoffee.com/plugins/
 Tags: user import, user export, csv, woocommerce, customers, export import users, export customers, import customers, import, export, export users to csv, import users from csv 
 Requires at least: 3.0.1
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 2.4.2
+Stable tag: 2.4.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,11 +24,13 @@ You can import or export user/customer data using CSV files. This helps in migra
 &#128312; Change values (bulk modify) while importing user data using Evaluation Fields
 &#128312; Export guest users - Include data of WooCommerce guest customers (users who bought products from the site without creating an account).
 &#128312; Export specific users based on username/email - Suggests email addresses and names in export data filter fields while you type in.
-&#128312; Tested OK with WordPress 6.2
-&#128312; Tested OK with WooCommerce 7.8.2
+&#128312; Tested OK with WordPress 6.3
+&#128312; Tested OK with WooCommerce 8.0.2
 &#128312; Tested OK with PHP 8.2
 
 = How does it work? =
+
+**See how the plugin works:<a rel="nofollow" href="https://demo.tastewp.com/user-import-export"> Try out demo </a>** 
 
 This WordPress user import export plugin uses CSV (Comma-Separated Values) files as input. You must create a CSV file and enter the user details in a structured format. (refer to this <a rel="nofollow" href="https://www.webtoffee.com/wp-content/uploads/2021/03/Users_SampleCSV.csv"> sample CSV)</a> This is to match each field of the user import CSV file to the appropriate user fields in WordPress.
 
@@ -45,6 +47,7 @@ You can create the CSV from the scratch or you can export the user CSV using the
 After entering all details about users in a spreadsheet, you can bulk import users to WordPress. With this plugin, you can also export and download user details as a CSV file.
 
 For more information about the setup of the plugin, refer to this article: <a rel="nofollow" href="https://www.webtoffee.com/user-import-export-plugin-wordpress-user-guide/">WordPress Users & WooCommerce Customers Import Export Plugin - User Guide.</a>
+
 
 Watch the video on getting started with the plugin.
 
@@ -113,12 +116,15 @@ You can map your import columns to the appropriate WordPress data to import or m
 
 For importing WordPress users’ and WooCommerce customers’ data to your website, you must create a CSV (Comma-Separated Values) file which contains information about mapping fields in a tabular form. You can create a CSV file by using a spreadsheet program, such as  Excel, or Google Spreadsheets. Save this file with the extension '.csv'.  After entering all details about WordPress users in the spreadsheet, you can import users or customers to your website.
 
-= Import/Export/Migration Plugins for WooCommerce from WebToffee =
+###RELATED PLUGINS FROM WEBTOFFEE###
 
+Other useful plugins from WebToffee for migrating WooCommerce/WordPress data:
 
 &#128312; <a href="https://wordpress.org/plugins/product-import-export-for-woo/">WooCommerce Product Import Export Plugin</a>: Easily import and export products to/from your WooCommerce store using a CSV file.
-&#128312; <a href="https://wordpress.org/plugins/order-import-export-for-woocommerce/">WooCommerce Order/Coupon/Subscription Import Export</a>: The plugin lets you export and import orders and coupons via CSV to and from your WooCommerce store. 
-&#128312; <a href="https://wordpress.org/plugins/wp-migration-duplicator/">WordPress Backup & Migration</a>: Quickly migrate and backup entire WordPress site or selected files from one location to another. Backup to FTP, Google Drive, Amazon S3, or local storage and easily restore them.
+&#128312; <a href="https://wordpress.org/plugins/order-import-export-for-woocommerce/">Order/Coupon Import-Export for WooCommerce</a>: Import and export orders and/or coupons from your WooCommerce store using CSV with the plugin. 
+&#128312; <a href="https://wordpress.org/plugins/comments-import-export-woocommerce/">WordPress Comment Import Export</a>: Easily import and export comments from one WordPress site to another.
+&#128312; <a href="https://wordpress.org/plugins/wp-migration-duplicator/">WordPress Backup & Migration</a>: Quickly migrate and backup entire WordPress site or selected files from one location to another. Backup to FTP, Google drive, Amazon S3, or local storage and easily restore them back.
+&#128312; <a href="https://wordpress.org/plugins/webtoffee-product-feed/">WebToffee WooCommerce Product Feed & Sync Manager</a>: Generate WooCommerce product feed for Google and Facebook shops and sync WooCommerce products with Facebook catalog.
 
 == Installation ==
 
@@ -205,6 +211,10 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
+= 2.4.3 2023-08-23 =
+* [Fix] - Disabled the default export mapping for "aov" and "total_spent".
+* [Compatibility] - Tested OK with WooCommerce 8.0.2
+* [Compatibility] - Tested OK with WordPress 6.3
 = 2.4.2 2023-07-14 =
 * [Fix] - Admin user details are updated when importing as shop manager.
 * [Add] - Export and Import the last activity data of users.
@@ -455,7 +465,7 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Upgrade Notice ==
 
-= 2.4.2 =
-* [Fix] - Admin user details are updated when importing as shop manager.
-* [Add] - Export and Import the last activity data of users.
-* [Compatibility] - Tested OK with WooCommerce 7.8.2
+= 2.4.3 =
+* [Fix] - Disabled the default export mapping for "aov" and "total_spent".
+* [Compatibility] - Tested OK with WooCommerce 8.0.2
+* [Compatibility] - Tested OK with WordPress 6.3

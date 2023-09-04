@@ -39,8 +39,14 @@ if (!defined('ABSPATH')) {
 				if(count($mapping_fields)>0)
 				{
 					foreach($mapping_fields as $key=>$label)
-					{
-						$val=array($key, 1); //enable the field			
+					{	
+						$disable_mapping_fields = apply_filters( 'wt_ier_disable_mapping_fields', array( 'aov', 'total_spent'));
+						if( in_array( $key, $disable_mapping_fields )){
+							$val = array($key, 0); //disable the field
+						}else{
+							$val = array($key, 1); //enable the field		
+						}
+							
 						include "_export_mapping_tr_html.php";
 						$tr_count++;
 					}

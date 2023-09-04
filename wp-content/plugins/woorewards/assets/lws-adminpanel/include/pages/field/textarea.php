@@ -11,7 +11,18 @@ class TextArea extends \LWS\Adminpanel\Pages\Field
 {
 	protected function dft(){ return array('rows' => 15, 'cols' => 80); }
 
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$name = $this->m_Id;
 		$value = htmlspecialchars($this->readOption(false));
@@ -27,6 +38,6 @@ class TextArea extends \LWS\Adminpanel\Pages\Field
 			$class = ($class ? ' ' : '') . $this->extra['class'];
 		$attrs = $this->getDomAttributes();
 
-		echo "<textarea class='{$class}'{$ph} rows='{$this->extra['rows']}' cols='{$this->extra['cols']}' name='{$name}'{$required}{$disabled}{$readonly}{$id}{$attrs}>{$value}</textarea>";
+		return "<textarea class='{$class}'{$ph} rows='{$this->extra['rows']}' cols='{$this->extra['cols']}' name='{$name}'{$required}{$disabled}{$readonly}{$id}{$attrs}>{$value}</textarea>";
 	}
 }

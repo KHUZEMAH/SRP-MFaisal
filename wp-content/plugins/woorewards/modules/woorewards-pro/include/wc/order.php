@@ -7,6 +7,13 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Refund points at order refund. */
 class Order
 {
+  const ACTION_REMOVE_POINTS  = 'lws_wr_remove_points';
+	const ACTION_RESULT = 'lws_wr_bulk_counts';
+
+  private $points = 0;
+  private $processed = false;
+  private $checked = 0;
+
 	static function install()
 	{
 		$me = new self();
@@ -20,7 +27,87 @@ class Order
 			foreach (array_unique($status) as $s)
 				\add_action('woocommerce_order_status_' . $s, array($me, 'unrefund'), 100, 2);
 		}
+
+		// bulk action
+		$screens = array('woocommerce_page_wc-orders', 'shop_order');
+		foreach ($screens as $screen) {
+			\add_filter('bulk_actions-' . $screen, array($me, 'addActions'), 901, 1);
+			\add_filter('handle_bulk_actions-' . $screen, array($me, 'handleActions'), 10, 3);
+		}
+		\add_action('admin_notices', array($me, 'notice'));
+
+		\add_filter('lws_woorewards_orderbulk_action_process_points_label', function($label) {
+			return __("Process WooRewards Points", 'woorewards-pro');
+		}); // rename
 	}
+
+  public function addActions($actions)
+  {
+		$actions[self::ACTION_REMOVE_POINTS]  = __("Remove WooRewards Points", 'woorewards-pro');
+    return $actions;
+  }
+
+  public function handleActions($redirectTo, $action, $postIds)
+  {
+    $this->resetCounters();
+    if (self::ACTION_REMOVE_POINTS === $action) {
+      // as a refund past orders
+      foreach ($postIds as $postId) {
+        $order = \wc_get_order($postId);
+        if ($order) {
+          $this->refund($postId, $order);
+          $this->checked++;
+        }
+      }
+
+      $redirectTo = \add_query_arg(array(
+      	self::ACTION_RESULT => \implode('_', array(-$this->checked, count($this->processed), $this->points)),
+      ), $redirectTo);
+    }
+		$this->processed = false;
+    return $redirectTo;
+  }
+
+  public function addProcessed($orderId)
+  {
+		if (false !== $this->processed)
+    	$this->processed[$orderId] = true;
+  }
+
+  public function subPoints($value)
+  {
+		try{
+    	$this->points += $value;
+		} catch(\Exception $e){
+			$this->points = PHP_INT_MAX ; // overflow
+		}
+  }
+
+  protected function resetCounters()
+  {
+    $this->points    = 0;
+    $this->processed = array();
+    $this->checked   = 0;
+  }
+
+  public function notice()
+  {
+    $count_safe = isset($_REQUEST[self::ACTION_RESULT]) ? \sanitize_key($_REQUEST[self::ACTION_RESULT]) : false;
+    if (false !== $count_safe) {
+      $counts = \array_map('\intval', \explode('_', $count_safe));
+      while (count($counts) < 3)
+        $counts[] = 0;
+      list($checked, $processed, $points) = $counts;
+
+			if ($checked < 0) {
+				$content = sprintf(
+					__("<b>%d</b> orders verified, including <b>%d</b> reinitialized for <b>%d</b> points substracted.", 'woorewards-pro'),
+					\absint($checked), $processed, $points
+				);
+				echo "<div class='notice notice-success lws-wr-order-bulk-action'><p>{$content}</p></div>";
+			}
+    }
+  }
 
 	/** in case order processed again, let be refundable again */
 	function unrefund($orderId, $order)
@@ -39,6 +126,7 @@ class Order
 					'order_id' => $orderId,
 					'blog_id'  => \get_current_blog_id(),
 				));
+				$this->addProcessed($orderId);
 
 				global $wpdb;
 				// remove order processed flag
@@ -91,6 +179,7 @@ class Order
 						$points = $item['points'];
 
 						if ($points) {
+							$this->subPoints($points);
 							$stacks[$stack][$user] += $points;
 
 							$reason = \LWS\WOOREWARDS\Core\trace::byOrder($order)

@@ -68,6 +68,24 @@ class Sponsored
 				'placeholder' => \home_url(),
 			)
 		);
+		$settings['fields']['url'] = array(
+			'id'    => 'lws_woorewards_mail_sponsored_settings_link',
+			'title' => '',
+			'type'  => 'custom',
+			'extra' => array(
+				'gizmo' => true,
+				'content' => \lws_array_to_html(array('join' => '<br />',
+					sprintf('<b style="color: #dd6c1a;">%s</b>', __("The reward below is for demonstration purpose only.", 'woorewards-pro')),
+					sprintf(
+						__("Take a look <a href='%s' target='_blank'>here</a> for your current referee's reward settings.", 'woorewards-pro'),
+						\esc_attr(\add_query_arg(array(
+							'page' => LWS_WOOREWARDS_PAGE . '.loyalty',
+							'tab'  => 'general_settings',
+						), \admin_url('admin.php#lws_group_targetable_sponsorship')))
+					),
+				)),
+			)
+		);
 		return $settings;
 	}
 

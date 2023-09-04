@@ -44,8 +44,6 @@ if (!function_exists( 'is_plugin_active' ) )
 if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
     
     $columns['orders'] = 'orders';    
-    $columns['total_spent'] = 'total_spent';    
-    $columns['aov'] = 'aov';
     $columns['billing_first_name'] = 'billing_first_name';
     $columns['billing_last_name'] = 'billing_last_name';
     $columns['billing_company'] = 'billing_company';
@@ -68,6 +66,8 @@ if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
     $columns['shipping_state'] = 'shipping_state';
     $columns['shipping_country'] = 'shipping_country';
     $columns['wc_last_active'] = 'wc_last_active';
+    $columns['total_spent'] = 'total_spent';    
+    $columns['aov'] = 'aov';
     
 endif;
 

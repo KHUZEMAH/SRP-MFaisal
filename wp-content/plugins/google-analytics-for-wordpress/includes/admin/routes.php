@@ -374,10 +374,6 @@ class MonsterInsights_Rest_Routes {
 		$parsed_addons['cookie_yes'] = array(
 			'active' => defined( 'CLI_SETTINGS_FIELD' ),
 		);
-		// Fb Instant Articles.
-		$parsed_addons['instant_articles'] = array(
-			'active' => defined( 'IA_PLUGIN_VERSION' ) && version_compare( IA_PLUGIN_VERSION, '3.3.4', '>' ),
-		);
 		// Google AMP.
 		$parsed_addons['google_amp'] = array(
 			'active' => defined( 'AMP__FILE__' ),

@@ -17,7 +17,18 @@ class Shortcode extends \LWS\Adminpanel\Pages\Field
 		$this->gizmo = true;
 	}
 
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$id = $this->getExtraValue('id', $this->m_Id);
 		$content = "<div class='lws-shortcode-description-wrapper' id='{$id}'>";
@@ -60,7 +71,13 @@ EOT;
 			$code = \trim(explode(' ', $this->getExtraValue('shortcode', ''))[0], "[] \n\r\t\v\0");
 			$options = \apply_filters('lws_adminpanel_field_shortcode_options', $this->extra['options'], $code, $this->getExtraValue('flags', array()));
 			$optContent = '';
-			foreach ($options as $option) {
+			foreach ($options as $optname => $option) {
+				if (!\is_array($option)) {
+					$option = array(
+						'option' => $optname,
+						'desc'   => $option,
+					);
+				}
 				if (\is_array($option['desc'])) {
 					$option['desc'] = \lws_array_to_html($option['desc']);
 				}
@@ -110,6 +127,6 @@ EOT;
 
 		$content .= '</div>';
 
-		echo $content;
+		return $content;
 	}
 }

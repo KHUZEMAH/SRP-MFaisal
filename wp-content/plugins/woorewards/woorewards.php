@@ -6,12 +6,12 @@
  * Plugin URI: https://plugins.longwatchstudio.com/product/woorewards/
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.2.1
+ * Version: 5.2.2.1
  * License: Copyright LongWatchStudio 2022
  * Text Domain: woorewards-lite
  * Domain Path: /languages
  * WC requires at least: 7.1.0
- * WC tested up to: 7.9
+ * WC tested up to: 8.0
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -119,7 +119,7 @@ final class LWS_WooRewards
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_VERSION', '5.2.1');
+		define('LWS_WOOREWARDS_VERSION', '5.2.2.1');
 		define('LWS_WOOREWARDS_FILE', __FILE__);
 		define('LWS_WOOREWARDS_DOMAIN', 'woorewards-lite');
 		define('LWS_WOOREWARDS_PAGE', 'woorewards');
@@ -157,7 +157,7 @@ final class LWS_WooRewards
 
 	public function addPluginVersion($url)
 	{
-		return '5.2.1';
+		return '5.2.2.1';
 	}
 
 	public function addDocUrl($url)
@@ -339,6 +339,8 @@ final class LWS_WooRewards
 		\LWS\WOOREWARDS\Core\OrderNote::install();
 		require_once LWS_WOOREWARDS_INCLUDES . '/ui/woocommerce/ordernote.php';
 		\LWS\WOOREWARDS\Ui\Woocommerce\OrderNote::install();
+		require_once LWS_WOOREWARDS_INCLUDES . '/ui/woocommerce/ordersbulk.php';
+		\LWS\WOOREWARDS\Ui\Woocommerce\OrdersBulk::install();
 
 		// Email template
 		require_once LWS_WOOREWARDS_INCLUDES . '/mails/newreward.php';

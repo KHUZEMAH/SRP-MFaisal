@@ -237,7 +237,16 @@ class GeneralSettings
 					'type'  => 'editlist',
 					'title' => __("Email Referee Reward", 'woorewards-pro'),
 					'extra' => array(
-						'help' => __("When customers use the email referral feature, you can send an immediate coupon to the email recipient.", 'woorewards-pro'),
+						'help' => array('join' => '<br />',
+							__("When customers use the email referral feature, you can send an immediate coupon to the email recipient.", 'woorewards-pro'),
+							sprintf(
+								__("Take a look <a href='%s' target='_blank'>here</a> to customize the email.", 'woorewards-pro'),
+								\esc_attr(\add_query_arg(array(
+									'page' => LWS_WOOREWARDS_PAGE . '.appearance',
+									'tab'  => 'sty_mails',
+								), \admin_url('admin.php#lws_group_targetable_lws_mail_t_woorewards_wr_sponsored')))
+							),
+						),
 						'editlist' => \lws_editlist(
 							'Sponsored',
 							\LWS\WOOREWARDS\PRO\Ui\Editlists\SponsoredReward::ROW_ID,

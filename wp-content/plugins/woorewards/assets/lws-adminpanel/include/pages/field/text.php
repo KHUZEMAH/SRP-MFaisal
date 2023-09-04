@@ -4,7 +4,18 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class Text extends \LWS\Adminpanel\Pages\Field
 {
+	public static function compose($id, $extra=null)
+	{
+		$me = new self($id, '', $extra);
+		return $me->html();
+	}
+
 	public function input()
+	{
+		echo $this->html();
+	}
+
+	private function html()
 	{
 		$value = '';
 		$dft = '';
@@ -66,14 +77,16 @@ class Text extends \LWS\Adminpanel\Pages\Field
 
 		if( empty($prop) )
 		{
-			echo "<input {$class} type='{$type}' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
+			return "<input {$class} type='{$type}' name='{$this->m_Id}' value='$mix'$size$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
 		}
 		else
 		{
-			echo "<div class='lwss-css-inputs'>";
-			echo "<input {$class} type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />";
-			echo "<input class='lwss-merge-css' type='hidden' name='{$this->m_Id}' value='$prop:$value' />";
-			echo "</div>";
+			return <<<EOT
+<div class='lwss-css-inputs'>
+	<input {$class} type='$type' data-css='$prop' data-lwss='$dft'$source value='$mix'$maxlen$pattern$placeholder$required$disabled$readonly$id{$attrs} />
+	<input class='lwss-merge-css' type='hidden' name='{$this->m_Id}' value='$prop:$value' />
+</div>
+EOT;
 		}
 	}
 }

@@ -1489,7 +1489,6 @@ function monsterinsights_custom_track_pretty_links_redirect( $url ) {
 		}
 	}
 	// Check if this is an affiliate link and use the appropriate category.
-	$ec            = 'outbound-link';
 	$inbound_paths = monsterinsights_get_option( 'affiliate_links', array() );
 	$path          = empty( $_SERVER['REQUEST_URI'] ) ? '' : $_SERVER['REQUEST_URI']; // phpcs:ignore
 	if ( ! empty( $inbound_paths ) && is_array( $inbound_paths ) && ! empty( $path ) ) {
@@ -1500,7 +1499,6 @@ function monsterinsights_custom_track_pretty_links_redirect( $url ) {
 			}
 			if ( 0 === strpos( $path, trim( $inbound_path['path'] ) ) ) {
 				$label = ! empty( $inbound_path['label'] ) ? trim( $inbound_path['label'] ) : 'aff';
-				$ec   .= '-' . $label;
 				$found = true;
 				break;
 			}
@@ -1515,23 +1513,26 @@ function monsterinsights_custom_track_pretty_links_redirect( $url ) {
 
 	if ( monsterinsights_get_v4_id_to_output() ) {
 		$url_components = parse_url( $url );
-		$args           = array(
-			'events' => array(
-				array(
-					'link_text'   => 'external-redirect',
-					'link_url'    => $url,
-					'link_domain' => $url_components['host'],
-					'outbound'    => true,
-				),
-			),
+		$params_args    = array(
+			'link_text'   => 'external-redirect',
+			'link_url'    => $url,
+			'link_domain' => $url_components['host'],
+			'outbound'    => 'true',
 		);
 
 		if ( ! empty( $label ) ) {
-			$args['events'][0]['affiliate_label']   = $label;
-			$args['events'][0]['is_affiliate_link'] = true;
+			$params_args['affiliate_label']   = $label;
+			$params_args['is_affiliate_link'] = 'true';
 		}
 
-		monsterinsights_mp_collect_v4( $args );
+		monsterinsights_mp_collect_v4( array(
+			'events' => array(
+				array(
+					'name'   => 'click',
+					'params' => $params_args,
+				)
+			),
+		) );
 	}
 }
 
