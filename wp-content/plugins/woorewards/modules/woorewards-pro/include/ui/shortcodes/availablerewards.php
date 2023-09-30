@@ -170,33 +170,34 @@ class AvailableRewards
 
 	/** Shows redeemable rewards
 	 * [wr_available_rewards systems='poolname1, poolname2']
-	 * @param system 		→ Default: ''
+	 * @param $atts array :
+	 * * system 		→ Default: ''
 	 * 					  	  The points and rewards systems for which the rewards points are displayed. If empty, show all active systems
 	 * 					  	  One value or several ones, comma separated
-	 * @param layout 		→ Default: 'vertical'
+	 * * layout 		→ Default: 'vertical'
 	 * 					  	  Defines the presentation of the wrapper.
 	 * 					  	  4 possible values : grid, vertical, horizontal, none.
-	 * @param element 		→ Default: 'line'
+	 * * element 		→ Default: 'line'
 	 * 					  	  Defines the presentation of the elements.
 	 * 					  	  3 possible values : tile, line, none.
-	 * @param display		→ Default: 'formatted'
+	 * * display		→ Default: 'formatted'
 	 * 					  	  'simple'    → only the points numeric value is displayed.
 	 * 					  	  'formatted' → points are formatted with the points currency/name.
-	 * @param showname		→ Default: false
+	 * * showname		→ Default: false
 	 * 					  	  Shows the name of the points and rewards system if set
-	 * @param applyreward	→ Default: false
+	 * * applyreward	→ Default: false
 	 * 					  	  Allow the reward to be automatically applied on the cart
-	 * @param applyonly		→ Default: false
+	 * * applyonly		→ Default: false
 	 * 					  	  If set, only rewards that can be applied on the cart are displayed
-	 * @param redirection	→ Default: ''
+	 * * redirection	→ Default: ''
 	 * 					  	  If set, customers are redirected to the set url
-	 * @param available	    → Default: 'true'
+	 * * available	    → Default: 'true'
 	 * 					  	  If set, customers also see available rewards
-	 * @param unavailable	→ Default: 'false'
+	 * * unavailable	→ Default: 'false'
 	 * 					  	  If set, customers also see unavailable rewards
-	 * @param buttonlabel	→ Default: ''
+	 * * buttonlabel	→ Default: ''
 	 * 					  	  Set the button label
-	 * @param imagesize		→ Default: 'lws_wr_thumbnail'
+	 * * imagesize		→ Default: 'lws_wr_thumbnail'
 	 * 					  	  Set the reward image's size
 	 */
 	public function shortcode($atts = array(), $content = null)

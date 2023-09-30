@@ -15,6 +15,9 @@ class Pool
 	protected $events = null;
 	protected $unlockables = null;
 	protected $points = null;
+	protected $id = false;
+	protected $display_title = false;
+	protected $order = false; // menu_order, pool loading sorting
 
 	protected $name                = '';               /// to get it by code (should be unique).
 	protected $status              = 'draft';
@@ -47,7 +50,7 @@ class Pool
 	 *	@param $user (int) the user earning points.
 	 *	@param $value (int) final number of point earned.
 	 *	@param $reason (string) optional, the cause of the earning.
-	 *	@param $origin (Event) optional, the source Event. */
+	 *	@param $origin (\LWS\WOOREWARDS\Abstracts\Event) optional, the source Event. */
 	public function addPoints($userId, $value, $reason='', \LWS\WOOREWARDS\Abstracts\Event $origin=null, $origin2=false)
 	{
 		$value = \apply_filters('lws_woorewards_core_pool_point_add', $value, $userId, $reason, $this, $origin);
@@ -58,8 +61,8 @@ class Pool
 	/** Define the point amount of the pool point stack of a user.
 	 *	@param $user (int) the user earning points.
 	 *	@param $value (int) the point amount of a user to set.
-	 *	@param $reason (string) optional, the cause of the earning.
-	 *	@param $origin (Event|Unlockable) optional, the source Event. */
+	 *	@param $reason (string|\LWS\WOOREWARDS\Core\Trace) optional, the cause of the earning.
+	 *	@param $origin (\LWS\WOOREWARDS\Abstracts\Event|\LWS\WOOREWARDS\Abstracts\Unlockable) optional, the source Event. */
 	public function setPoints($userId, $value, $reason='', $origin=null, $origin2=false)
 	{
 		$value = \apply_filters('lws_woorewards_core_pool_point_set', $value, $userId, $reason, $this);
@@ -70,8 +73,8 @@ class Pool
 	/** Remove points from the pool point stack of a user.
 	 *	@param $userId (int) the user earning points.
 	 *	@param $value (int) the point amount of a user to substract.
-	 *	@param $reason (string) optional, the cause of the earning.
-	 *	@param $origin (Unlockable) optional, the source Event. */
+	 *	@param $reason (string|\LWS\WOOREWARDS\Core\Trace) optional, the cause of the earning.
+	 *	@param $origin (\LWS\WOOREWARDS\Abstracts\Unlockable) optional, the source Event. */
 	public function usePoints($userId, $value, $reason='', \LWS\WOOREWARDS\Abstracts\Unlockable $origin=null, $origin2=false)
 	{
 		$value = \apply_filters('lws_woorewards_core_pool_point_sub', $value, $userId, $reason, $this, $origin);
@@ -138,20 +141,20 @@ class Pool
 		return $unlockable->isPurchasable($points, $userId);
 	}
 
-	/** @return collection of unlockable sorted by cost ASC. */
+	/** @return \LWS\WOOREWARDS\Collections\Unlockables sorted by cost ASC. */
 	public function getGrantedUnlockablesForUser($userId)
 	{
 		$points = $this->getPoints($userId);
 		return $this->_getGrantedUnlockables($points, $userId);
 	}
 
-	/** @return collection of unlockable sorted by cost ASC. */
+	/** @return \LWS\WOOREWARDS\Collections\Unlockables sorted by cost ASC. */
 	public function getGrantedUnlockablesWithPoints($points)
 	{
 		return $this->_getGrantedUnlockables($points);
 	}
 
-	/** @return sorted by cost ASC unlockable available with given point amount. */
+	/** @return \LWS\WOOREWARDS\Collections\Unlockables sorted by cost ASC unlockable available with given point amount. */
 	public function _getGrantedUnlockables($points, $user=null)
 	{
 		$availables = $this->unlockables->filter(function($item)use($points, $user){
@@ -178,7 +181,7 @@ class Pool
 	}
 
 	/**	Consume any required points.
-	 *	@return if we can try to unlock more. */
+	 *	@return bool if we can try to unlock more. */
 	protected function _payAndContinue($userId, &$unlockable)
 	{
 		$cost = \method_exists($unlockable, 'getUserCost') ? $unlockable->getUserCost($userId) : $unlockable->getCost('pay');
@@ -306,7 +309,7 @@ class Pool
 		return $this;
 	}
 
-	/** @return the option is accepted. */
+	/** @return bool the option is accepted. */
 	protected function _setCustomOption($option, $value)
 	{
 		return false;
@@ -350,7 +353,7 @@ class Pool
 				$value = $this->title;
 				break;
 			case 'display_title':
-				if( isset($this->display_title) )
+				if (false !== $this->display_title)
 					$value = $this->display_title;
 				else
 				{
@@ -404,7 +407,7 @@ class Pool
 		return $this;
 	}
 
-	/** @return associative array of option values.
+	/** @return array associative of option values.
 	 * One entry for each item in $options, that item is used as key for returned array.
 	 * @param $options array of option name.
 	 * @param $default associative array [option_name => default_value] */
@@ -418,7 +421,7 @@ class Pool
 		return $values;
 	}
 
-	/** @return the added item or false on failure.
+	/** @return \LWS\WOOREWARDS\Collections\Events the added item or false on failure.
 	 * Take care name could be changed to avoid duplication. */
 	public function addEvent(\LWS\WOOREWARDS\Abstracts\Event $event, $multiplier=false)
 	{
@@ -428,7 +431,7 @@ class Pool
 		return $this->events->add($event);
 	}
 
-	/** @return the added item or false on failure.
+	/** @return \LWS\WOOREWARDS\Collections\Unlockables the added item or false on failure.
 	 * Take care name could be changed to avoid duplication. */
 	public function addUnlockable(\LWS\WOOREWARDS\Abstracts\Unlockable $unlockable, $cost=false)
 	{
@@ -456,47 +459,47 @@ class Pool
 		return $this;
 	}
 
-	/** @return the registered rewards collection. */
+	/** @return \LWS\WOOREWARDS\Collections\Unlockables the registered rewards collection. */
 	public function getUnlockables()
 	{
 		return $this->unlockables;
 	}
 
-	/** @return the registered event collection. */
+	/** @return\LWS\WOOREWARDS\Collections\Events the registered event collection. */
 	public function getEvents()
 	{
 		return $this->events;
 	}
 
-	/** @param $unlockable (Event|string) instance or name.
-	 * @return the instance or false if not found. */
+	/** @param $unlockable (\LWS\WOOREWARDS\Abstracts\Event|string) instance or name.
+	 * @return mixed Event the instance or false if not found. */
 	public function findEvent($event)
 	{
 		return $this->events->find($event);
 	}
 
-	/** @param $unlockable (Unlockable|string) instance or name.
-	 * @return the instance or false if not found. */
+	/** @param $unlockable (\LWS\WOOREWARDS\Abstracts\Unlockable|string) instance or name.
+	 * @return \LWS\WOOREWARDS\Abstracts\Unlockable the instance or false if not found. */
 	public function findUnlockable($unlockable)
 	{
 		return $this->unlockables->find($unlockable);
 	}
 
-	/** @param $unlockable (Event|string) instance or name.
-	 * @return the removed item or false if not found. */
+	/** @param $unlockable (\LWS\WOOREWARDS\Abstracts\Event|string) instance or name.
+	 * @return \LWS\WOOREWARDS\Abstracts\Event the removed item or false if not found. */
 	public function removeEvent($event)
 	{
 		return $this->events->remove($event);
 	}
 
-	/** @param $unlockable (Unlockable|string) instance or name.
-	 * @return the removed item or false if not found. */
+	/** @param $unlockable (\LWS\WOOREWARDS\Abstracts\Unlockable|string) instance or name.
+	 * @return \LWS\WOOREWARDS\Abstracts\Unlockable the removed item or false if not found. */
 	public function removeUnlockable($unlockable)
 	{
 		return $this->unlockables->remove($unlockable);
 	}
 
-	/** @return PointStack instance. */
+	/** @return \LWS\WOOREWARDS\Core\PointStack instance. */
 	public function getStack($userId)
 	{
 		return $this->points->create($this->getStackId(), $userId, $this);
@@ -654,16 +657,16 @@ class Pool
 	public function save($withEvents=true, $withUnlockables=true)
 	{
 		/// Creation with a name, no need to specify the stack. Mainly for auto-creation (updater, wizards, etc.)
-		if( !(isset($this->id) && $this->id) && $this->name && !$this->pointStackId )
+		if( !$this->id && $this->name && !$this->pointStackId )
 			$this->initUniqueStackId();
 
 		$data = array(
-			'ID'          => isset($this->id) ? intval($this->id) : 0,
+			'ID'          => intval($this->id),
 			'post_name'   => $this->name,
 			'post_title'  => $this->title,
 			'post_status' => $this->status,
 			'post_type'   => $this->getPostType(),
-			'menu_order'  => isset($this->order) ? $this->order : ($this->isDeletable() ? 1024 : 0),
+			'menu_order'  => (false !== $this->order) ? $this->order : ($this->isDeletable() ? 1024 : 0),
 			'meta_input'  => array(
 				'wre_pool_point_stack' => $this->getStackId(),
 				'wre_pool_type' => $this->type,
@@ -686,7 +689,7 @@ class Pool
 			\lws_admin_add_notice_once('lws-wre-pool-save', __("Error occured during reward system saving.", 'woorewards-lite'), array('level'=>'error'));
 			return $this;
 		}
-		if (!(isset($this->id) && $this->id)) {
+		if (!$this->id) {
 			\lws_admin_delete_notice('lws-wre-pool-nothing-loaded');
 		}
 		$this->id = intval($postId);
@@ -709,7 +712,7 @@ class Pool
 		return $this;
 	}
 
-	/** @param $user (false|int|WP_User)
+	/** @param $user (false|int|\WP_User)
 	 * @return true if the user can interact with pool. */
 	public function userCan($user=false)
 	{
@@ -728,7 +731,7 @@ class Pool
 		{
 			error_log("Try to delete a prefab pool: " . $this->getName());
 		}
-		else if( isset($this->id) && !empty($this->id) )
+		else if ($this->id)
 		{
 			$stack = $this->getStack(0);
 
@@ -792,12 +795,26 @@ class Pool
 		return $this;
 	}
 
-	public function formatPoints($points, $withSym=true)
+	/** try to remove points format if any.
+	 *	Provided to interpret for user input, if he include
+	 *	any formatting by hand or copy/past for example. */
+	public function reversePointsFormat($input)
+	{
+		return $input;
+	}
+
+	/** apply format as much as possible but keep value as numeric */
+	public function formatPointsNumber($points)
+	{
+		return $points;
+	}
+
+	public function formatPoints($points, $withSym=true, $plainText=false)
 	{
 		if ($withSym) {
-			return \LWS_WooRewards::formatPointsWithSymbol($points, $this->getName());
+			return sprintf("%s %s", $points, $this->getSymbol($points));
 		} else {
-			return \LWS_WooRewards::formatPoints($points, $this->getName());
+			return $points;
 		}
 	}
 
@@ -823,7 +840,7 @@ class Pool
 				foreach ($points as $userId => $data) {
 					$user = \get_user_by('ID', $userId);
 					if ($user) {
-						$name = $user->display_name ? $user->display_name : $user->login;
+						$name = $user->display_name ? $user->display_name : $user->user_login;
 					} else {
 						$name = sprintf('user[%d]', $userId);
 					}
@@ -886,7 +903,7 @@ GROUP BY `user_id`", (int)$order->get_id(), (int)\get_current_blog_id()), OBJECT
 
 	public function getId()
 	{
-		return isset($this->id) ? intval($this->id) : false;
+		return $this->id ? intval($this->id) : false;
 	}
 
 	public function getName()

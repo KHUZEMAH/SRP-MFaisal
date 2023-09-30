@@ -9,6 +9,8 @@ if (!defined('ABSPATH')) exit();
 /** Provide a widget to let display points depending on pool selection. */
 class PointsDisplayer extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+
 	public static function install()
 	{
 		self::register(get_class());
@@ -170,7 +172,7 @@ class PointsDisplayer extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		$this->stygen = true;
 		$snippet = $this->showPoints();
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -186,10 +188,10 @@ class PointsDisplayer extends \LWS\WOOREWARDS\Ui\Widget
 	public function showPoints($atts = array(), $content = '')
 	{
 		$userId = \apply_filters('lws_woorewards_shortcode_current_user_id', \get_current_user_id(), $atts, 'wr_show_points');
-		if ($userId || (isset($this->stygen) && $this->stygen)) {
+		if ($userId || $this->stygen) {
 			$atts = $this->parseArgs($atts);
 
-			if (isset($this->stygen) && $this->stygen) {
+			if ($this->stygen) {
 				$pointstotal = rand(42, 128) . __('Points', 'woorewards-lite');
 				$poolname = '';
 			} else {
@@ -209,10 +211,10 @@ class PointsDisplayer extends \LWS\WOOREWARDS\Ui\Widget
 			}
 
 			$displaytitle = !empty($atts['title']) ? $atts['title'] : \get_option('lws_woorewards_displaypoints_title', '');
-			if (!(isset($this->stygen) && $this->stygen)) {
+			if (!$this->stygen) {
 				$displaytitle = \apply_filters('wpml_translate_single_string', $displaytitle, 'Widgets', "WooRewards Show Points - title");
 			}
-			if ($displaytitle || (isset($this->stygen) && $this->stygen)) {
+			if ($displaytitle || $this->stygen) {
 				$displaytitle = <<<EOT
 				<div class='lwss_selectable lwss_modify lws-displaypoints-label' data-id='lws_woorewards_displaypoints_title' data-type='Header'>
 					<div class='lwss_modify_content'>{$displaytitle}</div>
@@ -227,9 +229,9 @@ EOT;
 					$atts['more_details_url'] = \apply_filters('lws_woorewards_displaypoints_detail_url', '', $poolname, $pointstotal, isset($this->stygen));
 				}
 				if ($atts['more_details_url']) {
-					$href = (isset($this->stygen) ? '#' : \esc_attr($atts['more_details_url']));
+					$href = ($this->stygen ? '#' : \esc_attr($atts['more_details_url']));
 					$label = \lws_get_option('lws_woorewards_button_more_details', __("More Details", 'woorewards-lite'));
-					if (!isset($this->stygen)) {
+					if (!$this->stygen) {
 						$label = \apply_filters('wpml_translate_single_string', $label, 'Widgets', "WooRewards Show Points - details");
 					}
 

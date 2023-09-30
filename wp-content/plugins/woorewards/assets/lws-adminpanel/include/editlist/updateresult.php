@@ -8,7 +8,7 @@ class UpdateResult
 	public $data; /// (array) the data array, as it should be updated in view
 	public $success; /// (bool) success of operation
 	public $message; /// (string) empty, error reason or success additionnal information to display.
-	/** @return a success UpdateResult instance. */
+	/** @return UpdateResult a success instance. */
 	public static function ok($data, $message='')
 	{
 		$me = new self();
@@ -17,7 +17,7 @@ class UpdateResult
 		$me->message = is_string($message) ? $message : '';
 		return $me;
 	}
-	/** @return an error UpdateResult instance. */
+	/** @return UpdateResult error instance. */
 	public static function err($reason='')
 	{
 		$me = new self();

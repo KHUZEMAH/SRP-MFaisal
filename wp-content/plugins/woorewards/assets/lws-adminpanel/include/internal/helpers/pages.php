@@ -13,7 +13,7 @@ function lws_register_pages($pages)
 /** explore the lwss pseudocss file to create customizable values edition fields.
  * @param $url the path to .lwss file.
  * @param $textDomain the text-domain to use for wordpress translation of field ID to human readable title.
- * @return an  array of field to use in pages descrption array. */
+ * @return array of field to use in pages descrption array. */
 function lwss_to_fields($url, $textDomain, $fieldsBefore=null, $fieldsAfter=null)
 {
 	$fields = \LWS\Adminpanel\Tools\PseudoCss::toFieldArray($url, $textDomain);
@@ -34,7 +34,7 @@ function lwss_to_fields($url, $textDomain, $fieldsBefore=null, $fieldsAfter=null
 	return $fields;
 }
 
-/**	@return an array representing a group to push in admin page registration in 'groups' array.
+/**	@return array representing a group to push in admin page registration in 'groups' array.
  *	@param $templates array of template name. */
 function lws_mail_settings($templates)
 {
@@ -52,7 +52,7 @@ function lws_editlist( $editionId, $recordUIdKey, $source, $mode = \LWS\Adminpan
 	return new \LWS\Adminpanel\Internal\EditlistControler($editionId, $recordUIdKey, $source, $mode, $filtersAndActions);
 }
 
-/** @return a group array used to define a Google API key for application as font-api et so on. */
+/** @return array used to define a Google API key for application as font-api et so on. */
 function lws_google_api_key_group()
 {
 	$txt = sprintf("<p>%s</p><p><a href='%s'>%s</a> %s</p><p>%s</p>",

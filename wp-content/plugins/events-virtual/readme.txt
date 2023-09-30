@@ -4,8 +4,8 @@ Contributors: theeventscalendar, aguseo, borkweb, bordoni, brianjessee, Camwyn, 
 Tags: virtual events, events, calendar, event, venue, organizer, dates, date, schema, conference, online events, concert, meeting, seminar, summit, class, the events calendar, tec, zoom, livestream
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Tested up to: 6.3
-Stable tag: 1.15.2
+Tested up to: 6.3.2
+Stable tag: 1.15.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,17 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.15.4] 2023-09-13 =
+
+* Fix - Prevent inconsistent behavior of virtual event links not appearing in ticket or RSVP emails. [ET-1864]
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 15 obsoleted
+
+= [1.15.3] 2023-09-05 =
+
+* Fix - Modify output of virtual event meetings details to support Microsoft Power Automate. [EVA-103]
+* Tweak - Disable upgrade coding for original versions of Zoom from 2021. [VE-583]
+* Tweak - Removed filters: `tribe_events_virtual_video_source_virtual_url`, `tribe_events_virtual_video_source_virtual_url_disabled`
 
 = [1.15.2] 2023-08-10 =
 

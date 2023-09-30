@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Use our local sharing widget/shortcode */
 class SocialBacklink extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $socials = false;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -76,9 +78,10 @@ class SocialBacklink extends \LWS\WOOREWARDS\Abstracts\Event
 		return $valid;
 	}
 
+	/** @return array */
 	public function getSocials()
 	{
-		return isset($this->socials) ? $this->socials : \LWS\WOOREWARDS\PRO\Core\Socials::instance()->getSupportedNetworks();
+		return (false !== $this->socials) ? $this->socials : \LWS\WOOREWARDS\PRO\Core\Socials::instance()->getSupportedNetworks();
 	}
 
 	public function setSocials($socials)
@@ -104,7 +107,7 @@ class SocialBacklink extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Visitor clicks a social share", "getDisplayType", 'woorewards-pro');

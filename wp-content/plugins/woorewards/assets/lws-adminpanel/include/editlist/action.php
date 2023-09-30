@@ -5,12 +5,14 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Grouped action to apply on a selection of element. */
 abstract class Action
 {
-	/** @param $uid an action identifier */
+	public $UID = '';
+
+	/** @param string $uid an action identifier */
 	function __construct($uid){ $this->UID = sanitize_key($uid); }
 
 	/** The edition inputs.
 	 * Allows the user to choose the grouped action to apply.
-	 *	@return a string with the form content without submit button. */
+	 *	@return string with the form content without submit button. */
 	abstract function input();
 
 	/**	Apply the action on the rows.

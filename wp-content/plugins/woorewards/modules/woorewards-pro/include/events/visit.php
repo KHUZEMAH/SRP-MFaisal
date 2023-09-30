@@ -7,6 +7,9 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points each time a customer comes back to the site. */
 class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $urls    = array();
+	protected $pageIds = array();
+	protected $postId  = null;
 
 	public function isMaxTriggersAllowed()
 	{
@@ -106,7 +109,7 @@ class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Recurrent visit", "getDisplayType", 'woorewards-pro');
@@ -119,9 +122,10 @@ class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 			\add_action('wp_head', array($this, 'trigger'));
 	}
 
+	/** @return array */
 	function getURLs()
 	{
-		return isset($this->urls) ? $this->urls : array();
+		return $this->urls;
 	}
 
 	/** @param $pages (array|string) as string, it should be a json base64 encoded array. */
@@ -134,9 +138,10 @@ class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return array */
 	function getPageIds()
 	{
-		return isset($this->pageIds) ? $this->pageIds : array();
+		return $this->pageIds;
 	}
 
 	/** @param $pages (array|string) as string, it should be a json base64 encoded array. */
@@ -149,13 +154,13 @@ class Visit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a post id, an URL or bool.
+	/** @return bool|int|string a post id, an URL or bool.
 	 *	If a restriction settings exists, return false if current page does not match.
 	 *	@param $defaultUnset (bool) The returned value if no settings exist;
 	 *	default true means ok for any pages. */
 	protected function isThePage($defaultUnset=true)
 	{
-		if (isset($this->postId))
+		if (null !== $this->postId)
 			return $this->postId;
 		$this->postId = $defaultUnset;
 

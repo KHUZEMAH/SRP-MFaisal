@@ -13,6 +13,7 @@ require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/usertitle.php';
 class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	const PREFIX = 'lws_wr_';
+	private $roleId = '';
 
 	function getInformation()
 	{
@@ -38,7 +39,7 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$form .= $this->getFieldsetBegin(2, __("Role", 'woorewards-pro'), 'col50');
 
 		if( $role = $this->getRoleId() )
-			$role = $this->createRole();
+			$role = $this->createRole($role);
 
 		// The role
 		$label   = _x("Role", "event form", 'woorewards-pro');
@@ -84,7 +85,8 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function getRoleName()
 	{
-		if( $role = $this->getRoleId() )
+		$role = $this->getRoleId();
+		if( $role )
 		{
 			$names = \wp_roles()->get_names();
 			if( isset($names[$role]) )
@@ -93,9 +95,10 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $role;
 	}
 
+	/** @return string */
 	public function getRoleId()
 	{
-		return isset($this->roleId) ? $this->roleId : '';
+		return $this->roleId;
 	}
 
 	public function setRoleId($role)
@@ -121,7 +124,9 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $this;
 	}
 
-	/** MyRewards roles are added, WordPress (or third party) roles are set. */
+	/** MyRewards roles are added, WordPress (or third party) roles are set.
+	 * @return string|bool
+	 */
 	public function createReward(\WP_User $user, $demo=false)
 	{
 		if( $role = $this->getRoleId() )
@@ -132,7 +137,7 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 					return false; // user already got that role
 
 				\LWS_WooRewards_Pro::isRoleChangeLocked();
-				$this->removeOurRoles($user, false);
+				$this->removeOurRoles($user);
 				$role = $this->createRole($role);
 
 				if ((0 === strpos($role, self::PREFIX)) || $this->isProtectedRole($user)) {
@@ -151,7 +156,7 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $role;
 	}
 
-	/** @return if user current role is proteced
+	/** @return bool if user current role is proteced
 	 *	as for administrator */
 	function isProtectedRole(\WP_User $user)
 	{
@@ -164,7 +169,8 @@ class Role extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	}
 
 	/** If the role does not exists, create it.
-	 * $name is prefixed for creation (but search is done without prefix) */
+	 * $name is prefixed for creation (but search is done without prefix)
+	 * @return string */
 	function createRole($name)
 	{
 		if( !\get_role($name) )

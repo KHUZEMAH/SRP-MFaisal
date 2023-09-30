@@ -13,6 +13,10 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	protected $afterDiscount = false;
+	protected $minAmount     = false;
+	protected $maxAmount     = false;
+
 	public function isMaxTriggersAllowed()
 	{
 		return true;
@@ -115,7 +119,7 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	 *  @return bool */
 	public function getAfterDiscount()
 	{
-		return isset($this->afterDiscount) && $this->afterDiscount;
+		return $this->afterDiscount;
 	}
 
 	public function setAfterDiscount($yes = true)
@@ -144,9 +148,10 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		return 'LWS\WOOREWARDS\Events\OrderCompleted';
 	}
 
+	/** @return float|string */
 	function getMinAmount($edit=false)
 	{
-		if (isset($this->minAmount)) {
+		if (false !== $this->minAmount) {
 			if ($edit)
 				return $this->minAmount ? $this->minAmount : '';
 			else
@@ -162,9 +167,10 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 		return $this;
 	}
 
+	/** @return float|string */
 	function getMaxAmount($edit=false)
 	{
-		if (isset($this->maxAmount)) {
+		if (false !== $this->maxAmount) {
 			if ($edit)
 				return $this->maxAmount ? $this->maxAmount : '';
 			else
@@ -253,11 +259,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 			if ($this->getAfterDiscount()) {
 				$amount = $cart->get_total('edit');
 				if (!$inc_tax)
-					$amount -= $cart->get_total_tax('edit'); // remove shipping tax too
+					$amount -= $cart->get_total_tax(); // remove shipping tax too
 			} else {
 				$amount = $cart->get_subtotal();
 				if ($inc_tax)
-					$amount += $cart->get_total_tax('edit');
+					$amount += $cart->get_total_tax();
 			}
 
 			$amount = $this->roundPrice($amount);

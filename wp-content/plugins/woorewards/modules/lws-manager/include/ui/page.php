@@ -8,8 +8,13 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Add a custom page to a plugin admin. */
 abstract class Page
 {
-	protected $file = '';
-	protected $adminPageId = '';
+	protected $file          = '';
+	protected $adminPageId   = '';
+	protected $slug          = false;
+	protected $plugin        = false;
+	protected $tabDst        = false;
+	protected $pageQueryArgs = false;
+	protected $myPages       = false;
 
 	/**	In case new page uses its own
 	 *	@param $page the admin page id.
@@ -50,7 +55,7 @@ abstract class Page
 
 	function getScreenUrl($url, $mainId, $pageId)
 	{
-		if( isset($this->pageQueryArgs) && $this->pageQueryArgs && isset($this->myPages) && $this->myPages )
+		if( $this->pageQueryArgs && $this->myPages )
 		{
 			if( isset($this->myPages[$pageId]) )
 				$url = \add_query_arg($this->pageQueryArgs, \admin_url('admin.php'));
@@ -60,7 +65,7 @@ abstract class Page
 
 	function getMainScreenUrl()
 	{
-		if( isset($this->myPages) && $this->myPages )
+		if( $this->myPages )
 		{
 			$id = reset($this->myPages);
 			$url = \add_query_arg('page', $id, \admin_url('admin.php'));
@@ -145,7 +150,7 @@ abstract class Page
 				}
 			}
 
-			if( $oneOfUs && !(isset($this->pageQueryArgs) && $this->pageQueryArgs) )
+			if( $oneOfUs && !$this->pageQueryArgs )
 			{
 				// fill pageQueryArgs anyway with the first valid page
 				foreach($pages as &$p)
@@ -191,7 +196,7 @@ abstract class Page
 
 	function getSlug()
 	{
-		if( !isset($this->slug) )
+		if( false === $this->slug )
 		{
 			$this->slug = \strtolower(\basename(\plugin_basename($this->file), '.php'));
 		}
@@ -200,7 +205,7 @@ abstract class Page
 
 	function getPluginInfo($field=false)
 	{
-		if( !isset($this->plugin) )
+		if( false === $this->plugin )
 		{
 			if( !\function_exists('\get_plugin_data') )
 				require_once(ABSPATH . 'wp-admin/includes/plugin.php');

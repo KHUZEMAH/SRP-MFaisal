@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Add a filter on user badge. */
 class UsersPointsBadgeFilter extends \LWS\Adminpanel\EditList\Filter
 {
+	private $args = false;
+	private $name = '';
 
 	function __construct($name)
 	{
@@ -81,7 +83,7 @@ EOT;
 
 	private function getArgs()
 	{
-		if( !isset($this->args) )
+		if( false === $this->args )
 		{
 			$this->args = (object)array(
 				'key'   => $this->name,

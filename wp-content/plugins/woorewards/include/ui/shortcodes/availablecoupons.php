@@ -106,15 +106,15 @@ class AvailableCoupons
 
 	/** Shows available coupons
 	 * [wr_available_coupons]
-	 * @param layout 	→ Default: 'vertical'
+	 * @param $layout 	→ Default: 'vertical'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, vertical, horizontal, none.
-	 * @param element 	→ Default: 'line'
+	 * @param $element 	→ Default: 'line'
 	 * 					  Defines the presentation of the elements.
 	 * 					  3 possible values : tile, line, none.
-	 * @param buttons 	→ Default: false
+	 * @param $buttons 	→ Default: false
 	 * 					  Defines if the tool displays an "Apply" button or not.
-	 * @param reload    → Default: false
+	 * @param $reload    → Default: false
 	 * 					  Only applies if buttons is set to true
 	 * 					  false leads to an ajax action, true leads to a page reload
 	 */

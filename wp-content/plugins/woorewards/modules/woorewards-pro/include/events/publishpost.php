@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points for a published post */
 class PublishPost extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $postTypes = array();
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -102,9 +104,10 @@ class PublishPost extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return array */
 	public function getPostTypes()
 	{
-		return isset($this->postTypes) && is_array($this->postTypes) ? \array_filter($this->postTypes) : array();
+		return \is_array($this->postTypes) ? \array_filter($this->postTypes) : array();
 	}
 
 	public function setPostTypes($types=array())
@@ -113,12 +116,13 @@ class PublishPost extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return bool */
 	public function isInPostTypes($type)
 	{
 		return in_array($type, $this->getPostTypes());
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Publish a Post", "getDisplayType", 'woorewards-pro');

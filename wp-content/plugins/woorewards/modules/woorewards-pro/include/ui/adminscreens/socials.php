@@ -320,7 +320,7 @@ class Socials
 
 	/**	Say about network settings,
 	 *	If social event collect is confirmed.
-	 *	@return array[html string, bool]. */
+	 *	@return false|array [html string, bool]. */
 	static function getVerifiedStatus($network)
 	{
 		if ('facebook' == $network) {

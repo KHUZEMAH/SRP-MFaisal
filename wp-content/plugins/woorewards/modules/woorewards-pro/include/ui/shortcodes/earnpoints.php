@@ -121,21 +121,22 @@ class EarnPoints
 
 	/** Shows methods to earn points
 	 * [wr_earn_points systems='poolname1, poolname2']
-	 * @param system 	→ Default: ''
+	 * @param $atts array :
+	 * * 'system' 	→ Default: ''
 	 * 					  The points and rewards systems for which the methods to earn points are displayed. If empty, show all active systems
 	 * 					  One value or several ones, comma separated
-	 * @param layout 	→ Default: 'none'
+	 * * 'layout' 	→ Default: 'none'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, horizontal, vertical, none.
-	 * @param element 	→ Default: 'none'
+	 * * 'element' 	→ Default: 'none'
 	 * 					  Defines the presentation of the elements.
 	 * 					  3 possible values : tile, line, none.
-	 * @param display	→ Default: 'formatted'
+	 * * 'display'	→ Default: 'formatted'
 	 * 					  'simple'    → only the points numeric value is displayed.
 	 * 					  'formatted' → points are formatted with the points currency/name.
-	 * @param showname	→ Default: false
+	 * * 'showname'	→ Default: false
 	 * 					  Shows the name of the points and rewards system if set
-	 * @param showunlogged	→ Default: false
+	 * * 'showunlogged'	→ Default: false
 	 * 					  Shows for unlogged users
 	 */
 	public function shortcode($atts = array(), $content = '')

@@ -221,7 +221,7 @@ class Ajax
 
 	/** @param $readAsIdsArray (bool) true if term is an array of ID or false if term is a string
 	 *	@param $_REQUEST['term'] (string) filter on post_title or if $readAsIdsArray (array of int) filter on ID.
-	 *	@return an array of int if $readAsIdsArray, else a string. */
+	 *	@return mixed array of int if $readAsIdsArray, else a string. */
 	private function getTerm($readAsIdsArray)
 	{
 		$term = '';

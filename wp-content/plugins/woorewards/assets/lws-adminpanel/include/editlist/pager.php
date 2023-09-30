@@ -12,7 +12,7 @@ class Pager
 	protected $keyPage;
 	protected $keyCount;
 
-	/** @return a RowLinit instance for EditListSource::read function */
+	/** @return RowLimit instance for EditListSource::read function */
 	public function readLimit($max=false)
 	{
 		$limit = new RowLimit();
@@ -44,7 +44,7 @@ class Pager
 		$this->keyCount = $guid . self::KEY_SUFFIX_COUNT;
 	}
 
-	/** @return a string with html for page navigation snippet */
+	/** @return string with html for page navigation snippet */
 	public function navDiv($rcount, $currentLimit = null, $sort = array())
 	{
 		if( is_null($currentLimit) )
@@ -68,7 +68,7 @@ class Pager
 		$str .= "<span class='lws-pagination-links'>";
 		$str .= $this->navBtn("lws-icon-first-page", 1, $last, $index);
 		$str .= $this->navBtn("lws-icon-previous-page", $index - 1, $last, $index);
-		$str .= $this->snippetCurrentPage($index, $last, $index);
+		$str .= $this->snippetCurrentPage($index, $last);
 		$str .= $this->navBtn("lws-icon-next-page", $index + 1, $last, $index);
 		$str .= $this->navBtn("lws-icon-last-page", $last, $last, $index);
 		$str .= "</span>"; // lws-pagination-links
@@ -157,7 +157,7 @@ class Pager
 		return $str;
 	}
 
-	/** @return the index of the page (start count at 1) or false if $offset is unknown.
+	/** @return mixed the index of the page (start count at 1) or false if $offset is unknown.
 	 * @param $offset of the record in full list.
 	 * @param $perpage number of record to display per page. */
 	protected function page($offset, $perpage)

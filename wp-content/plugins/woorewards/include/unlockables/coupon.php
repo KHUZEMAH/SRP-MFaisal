@@ -11,6 +11,12 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	const COUPON_CODE_MIN_LENGTH = 5;
 
+	protected $value             = 1;
+	protected $inPercent         = false;
+	protected $couponCategoryIds = array();
+	protected $timeout           = false;
+	protected $lastCode          = '';
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -129,7 +135,7 @@ EOT;
 
 	public function getValue()
 	{
-		return isset($this->value) ? $this->value : 1;
+		return $this->value;
 	}
 
 	public function setValue($value = 0.0)
@@ -148,7 +154,7 @@ EOT;
 	/** @return (bool) if percent instead fix value */
 	public function getInPercent()
 	{
-		return isset($this->inPercent) && $this->inPercent;
+		return $this->inPercent;
 	}
 
 	public function setInPercent($yes = true)
@@ -160,12 +166,12 @@ EOT;
 	/** return a Duration instance */
 	public function getTimeout()
 	{
-		if (!isset($this->timeout))
+		if (!$this->timeout)
 			$this->timeout = \LWS\Adminpanel\Duration::void();
 		return $this->timeout;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|int|\LWS\Adminpanel\Duration) */
 	public function setTimeout($days = false)
 	{
 		if (empty($days))
@@ -274,7 +280,7 @@ EOT;
 
 	function getCouponCategoryIds()
 	{
-		return isset($this->couponCategoryIds) ? (array)$this->couponCategoryIds : array();
+		return (array)$this->couponCategoryIds;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -326,7 +332,7 @@ EOT;
 		}
 
 		if (false === ($coupon = $this->createShopCoupon($this->lastCode, $user, $demo))) {
-			unset($this->lastCode);
+			$this->lastCode = '';
 			return false;
 		}
 
@@ -337,7 +343,7 @@ EOT;
 	 *	Last generated coupon code is consumed by this function. */
 	public function getReason($context = 'backend')
 	{
-		if (isset($this->lastCode)) {
+		if ($this->lastCode) {
 			$reason = sprintf(__("Coupon code : %s", 'woorewards-lite'), $this->lastCode);
 			if ($context == 'frontend')
 				$reason .= '<br/>' . $this->getDescription($context);
@@ -347,7 +353,7 @@ EOT;
 		return $this->getDescription($context);
 	}
 
-	/** @return a saved WC_Coupon instance */
+	/** @return false|\WC_Coupon a saved WC_Coupon instance */
 	protected function createShopCoupon($code, \WP_User $user, $demo = false)
 	{
 		if (!$demo)
@@ -384,7 +390,7 @@ EOT;
 		return $coupon;
 	}
 
-	/** @return WC_Coupon instance
+	/** @return \WC_Coupon instance
 	 * @see WC_Meta_Box_Coupon_Data::save */
 	protected function buildCouponPostData($code, \WP_User $user)
 	{

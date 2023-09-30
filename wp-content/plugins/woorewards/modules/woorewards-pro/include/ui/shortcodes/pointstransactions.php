@@ -185,7 +185,7 @@ class PointsTransactions
 		return \LWS_WooRewards::formatPointsWithSymbol($log->points_moved, $name);
 	}
 
-	/** @return false|DateTime */
+	/** @return false|\DateTime */
 	protected function getExpirationDate($log, $periods)
 	{
 		$date = false;
@@ -326,7 +326,7 @@ EOT;
 		return $floors;
 	}
 
-	/** @param logs (array) order by date ASC. */
+	/** @param $logs (array) order by date ASC. */
 	protected function filterConsumed($logs, $floors, $userId)
 	{
 		// first, read used points since

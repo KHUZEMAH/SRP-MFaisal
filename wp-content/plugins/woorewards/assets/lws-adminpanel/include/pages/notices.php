@@ -13,7 +13,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Ensure you are at a display step of WoprdPress. */
 class Notices
 {
-	private $notices = array();
+	private $notices   = array();
+	private $reloading = null;
 
 	/** return array of object with key, level, dismissible, forgetable, message */
 	/** Can be notices or messages
@@ -124,7 +125,7 @@ class Notices
 	function getForceDismissInputs()
 	{
 		$inputs = '';
-		foreach( $notices as $n )
+		foreach( $this->notices as $n )
 		{
 			$inputs .= "<input type='hidden' name='lws_notice_dismiss[]' value='{$n->key}'>";
 		}
@@ -160,7 +161,7 @@ class Notices
 
 	function isReloadingForced()
 	{
-		if( !isset($this->reloading) )
+		if (null === $this->reloading)
 			$this->reloading = \boolval(\get_option('lws_adminpanel_notice_dismiss_force_reload', ''));
 		return $this->reloading;
 	}

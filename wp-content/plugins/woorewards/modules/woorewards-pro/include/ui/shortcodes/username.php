@@ -64,8 +64,8 @@ class UserName
 
 	/** Show user name and title
 	 * [wr_user_name title='yes' raw='no']
-	 * @param title (bool) default=yes, shows the title if user owns this reward
-	 * @param raw (bool) default=no, defines if the name and title are put in divs or not.
+	 * * title (bool) default=yes, shows the title if user owns this reward
+	 * * raw (bool) default=no, defines if the name and title are put in divs or not.
 	 */
 	public function shortcode($atts=array(), $content='')
 	{

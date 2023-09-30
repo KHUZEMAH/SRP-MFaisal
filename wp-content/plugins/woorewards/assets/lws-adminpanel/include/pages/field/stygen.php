@@ -4,15 +4,15 @@ namespace LWS\Adminpanel\Pages\Field;
 /** Provide a CSS graphic editor.
  * User is shepherded by a html demo with selectable and editable elements.
  * Use an extra (array) argument with:
- * @param extra['html'] a path (local file path) to a html or php local file used for demo;
+ * @param string extra['html'] a path (local file path) to a html or php local file used for demo;
  * 	we require a local path since it is include as any html/php page.
- * @param extra['css'] a url (@see plugins_dir()) to the css;
+ * @param string extra['css'] a url (@see plugins_dir()) to the css;
  *  we require an url as wp_enqueue_style requires it.
- * @param extra['subids'] register addionnal stored input values managed by the field.
+ * @param string extra['subids'] register addionnal stored input values managed by the field.
  *  we expect an array with key the input name and value a human readable title
  *  (do not use __() function on that title since it will be a key for WPML).
  *
- * @param extra['template'] name of the template, is set to $template before calling the demo.
+ * @param string extra['template'] name of the template, is set to $template before calling the demo.
  *  In your demo snippet, you can use filter 'lws_mail_snippet' to get a settings value.
  *
  * If no 'html' set, a 'purpose' can be defined, in this case, a 'template' value must be set too.

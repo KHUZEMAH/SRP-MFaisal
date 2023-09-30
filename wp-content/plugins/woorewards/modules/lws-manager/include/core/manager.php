@@ -10,11 +10,19 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Usually new code is downloaded. */
 class Manager
 {
-	const API_VERSION = '1.1'; //use latest available API
-	const CHECK_INTERVAL = 'P1DT6H';
+	const API_VERSION      = '1.1'; //use latest available API
+	const CHECK_INTERVAL   = 'P1DT6H';
 	private $trialWarnings = array(5, 3);
-	private $lastRequest = false;
-	private $lastCUrl = false;
+	private $lastRequest   = false;
+	private $lastCUrl      = false;
+	private $fk            = false;
+	private $lite          = null;
+	private $file          = '';
+	private $uuid          = '';
+	private $basename      = false;
+	private $slug          = false;
+	private $minifiedSlug  = false;
+	private $plugin        = false;
 
 	function __construct($file, $uuid)
 	{
@@ -34,12 +42,9 @@ class Manager
 
 	function getSiteUrl()
 	{
-		if (defined('LWS_SITEURL') && LWS_SITEURL)
-			$url = LWS_SITEURL;
-		elseif (defined('WP_SITEURL') && WP_SITEURL)
-			$url = WP_SITEURL;
-		else
-			$url = $this->getGlobalOption('siteurl');
+		if (defined('LWS_SITEURL') && LWS_SITEURL)   $url = LWS_SITEURL;
+		elseif (defined('WP_SITEURL') && WP_SITEURL) $url = WP_SITEURL;
+		else $url = $this->getGlobalOption('siteurl');
 		return \preg_replace('@^https?://@i', '', $url);
 	}
 
@@ -88,7 +93,7 @@ class Manager
 	private function getActionKey()
 	{
 		$k = 'woo_sl_action';
-		if (isset($this->fk) && $this->fk)
+		if ($this->fk)
 			$k = 'lwswcslf_action';
 		elseif( !$this->maybeActive() && $this->isTrial() )
 			$k = 'lwswcsl_action';
@@ -131,7 +136,7 @@ class Manager
 	 *	Don't care about activation or not. */
 	function isLite()
 	{
-		if( !isset($this->lite) )
+		if( null === $this->lite )
 		{
 			$this->lite = !\apply_filters('lws-ap-release-'.$this->getSlug(), '');
 		}
@@ -164,7 +169,7 @@ class Manager
 			return \in_array($support, array('active', 'pending-cancel'));
 	}
 
-	/** @return false|DateTime */
+	/** @return false|\DateTime */
 	function getSubscriptionEnd()
 	{
 		$support = $this->getGlobalOption($this->getId('lwssupport_'));
@@ -206,7 +211,7 @@ class Manager
 		return false;
 	}
 
-	/** @return false or DateTime instance */
+	/** @return false|\DateTime instance */
 	function getTrialEnding()
 	{
 		$ts = $this->getGlobalOption($this->getId('lwstrial_'), 0);
@@ -366,7 +371,7 @@ class Manager
 
 	function getBasename()
 	{
-		if( !isset($this->basename) )
+		if( false === $this->basename )
 		{
 			$this->basename = \plugin_basename($this->file);
 		}
@@ -375,7 +380,7 @@ class Manager
 
 	function getSlug()
 	{
-		if( !isset($this->slug) )
+		if( false === $this->slug )
 		{
 			$this->slug = \strtolower(\basename($this->getBasename(), '.php'));
 		}
@@ -384,7 +389,7 @@ class Manager
 
 	function getPluginInfo()
 	{
-		if( !isset($this->plugin) )
+		if( false === $this->plugin )
 		{
 			if( !\function_exists('\get_plugin_data') )
 				require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -403,7 +408,7 @@ class Manager
 
 	private function getMinifiedSlug($slug)
 	{
-		if( !isset($this->minifiedSlug) )
+		if( false === $this->minifiedSlug )
 		{
 			$this->minifiedSlug = '';
 			$l = strlen($slug);
@@ -426,7 +431,7 @@ class Manager
 	}
 
 	/**	@param $active bool|DateTime
-	 *	@return bool|DateTime */
+	 *	@return bool|\DateTime */
 	private function recurringCheck($active)
 	{
 		if( !\is_admin() || (defined('DOING_AJAX') && DOING_AJAX) )
@@ -502,6 +507,7 @@ class Manager
 					$this->updateGlobalOption($this->getId('lwssupport_'), 'deactivated');
 				$this->updateGlobalOption($this->getId(), '');
 				$this->updateGlobalOption($this->getId('lwschk_'), false);
+				\do_action('lws_manager_license_inactive', $this->getSlug());
 				return true;
 			}
 			else
@@ -529,7 +535,7 @@ class Manager
 		return false;
 	}
 
-	/** @return bool|DateTime */
+	/** @return bool|\DateTime */
 	function check($silentError=true)
 	{
 		$args = array(
@@ -572,6 +578,7 @@ class Manager
 
 				$this->updateGlobalOption($this->getId(), $d ? $d->getTimestamp() : 'inf');
 				$this->readSubscription($dataBody);
+				\do_action('lws_manager_license_active', $this->getSlug());
 				return true;
 			}
 			else
@@ -582,6 +589,7 @@ class Manager
 				$dataBody->slug = $this->getSlug();
 				$dataBody->license = $this->getkey();
 				error_log('Manager check: '.json_encode($dataBody,  JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_PARTIAL_OUTPUT_ON_ERROR));
+				\do_action('lws_manager_license_inactive', $this->getSlug());
 				return false;
 			}
 		}
@@ -669,6 +677,7 @@ class Manager
 					// page will be redirected after option saved, go to update if required
 					\add_filter('wp_redirect', array($this, 'redirectToUpdate'), 50, 2);
 				}
+				\do_action('lws_manager_license_active', $this->getSlug());
 				return true;
 			}
 			else
@@ -767,7 +776,7 @@ class Manager
 	/** Psycho mode, we really do not want to replace a pro version by the free one.
 	 * @param bool   $reply Holds the current filtered response.
 	 * @param string $package The path to the package file for the update.
-	 * @return false|WP_Error False to proceed with the update as normal,
+	 * @return false|\WP_Error False to proceed with the update as normal,
 	 * anything else to be returned instead of updating. */
 	public function preventDownloadFree($reply, $package, $upgrader, $hookExtra=array())
 	{
@@ -987,14 +996,14 @@ class Manager
 		$query = array(
 			$this->getActionKey()   => $action,
 			'product_unique_id'     => $this->uuid,
-			'licence_key'           => (isset($this->fk) && $this->fk) ? $this->fk : $this->getKey(),
+			'licence_key'           => $this->fk ? $this->fk : $this->getKey(),
 			'version'               => $this->getPluginVersion(),
 			'domain'                => $this->getSiteUrl(),
 			'wp-version'            => $wp_version,
 			'api_version'           => self::API_VERSION,
 		);
 
-		if( !$real && !(isset($this->fk) && $this->fk) && $this->isLite() && ($this->isActive() || $this->isTrial()) )
+		if( !$real && !$this->fk && $this->isLite() && ($this->isActive() || $this->isTrial()) )
 			$query['version'] = '0.0.0'; // we have to go to pro, so let it be newer
 
 		return $query;
@@ -1002,7 +1011,7 @@ class Manager
 
 	private function readSubscription(&$response, $force=false)
 	{
-		if (!$force && ((isset($this->fk) && $this->fk) || !$this->maybeActive())) {
+		if (!$force && ($this->fk || !$this->maybeActive())) {
 			return;
 		}
 

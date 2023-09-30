@@ -107,6 +107,11 @@ msgstr ""
 msgid "Used by"
 msgstr ""
 
+#: include/core/pool.php:1712
+msgctxt "decimal separator"
+msgid "."
+msgstr ""
+
 #: include/core/ajax.php:384 include/core/ajax.php:421
 msgctxt "pool name separator"
 msgid ", "
@@ -3557,7 +3562,7 @@ msgstr "Sponsoroinnin asetukset"
 
 #: include/ui/adminscreens/generalsettings.php:159
 msgid ""
-"Here, you'll find the different tools customers can user to refer their "
+"Here, you'll find the different tools customers can use to refer their "
 "friends and the reward given to referred users."
 msgstr ""
 
@@ -5096,7 +5101,7 @@ msgid "Below Add to Cart"
 msgstr ""
 
 #: include/ui/adminscreens/woocommerce.php:507
-msgid "Order Email Points Information"
+msgid "Order Points Information"
 msgstr ""
 
 #: include/ui/adminscreens/woocommerce.php:510

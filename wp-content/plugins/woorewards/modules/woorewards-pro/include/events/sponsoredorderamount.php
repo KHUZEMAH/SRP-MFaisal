@@ -11,6 +11,9 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 {
 	use \LWS\WOOREWARDS\PRO\Events\T_SponseeTrigger;
 
+	protected $roles = array();
+	protected $guestAllowed = false;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -120,14 +123,16 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		return $this;
 	}
 
+	/** @return bool */
 	function isGuestAllowed()
 	{
-		return isset($this->guestAllowed) ? $this->guestAllowed : false;
+		return $this->guestAllowed;
 	}
 
+	/** @return array */
 	public function getRoles()
 	{
-		return isset($this->roles) ? $this->roles : array();
+		return $this->roles;
 	}
 
 	public function setRoles($roles)
@@ -202,7 +207,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		return 0 == $c;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @return (int) user ID */
 	function getPointsRecipient($order)
 	{
@@ -219,7 +224,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\PRO\Events\OrderAmount
 		return $info;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @param $amount (float) computed amount
 	 * @return (\LWS\WOOREWARDS\Core\Trace) a reason for history */
 	function getPointsReason($order, $amount)

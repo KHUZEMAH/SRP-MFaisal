@@ -102,7 +102,7 @@ class CouponReminder
 EOT;
 	}
 
-	/** @return junk values for test purpose. */
+	/** @return array junk values for test purpose. */
 	protected function placeholders()
 	{
 		$unlockables = \LWS\WOOREWARDS\Collections\Unlockables::instanciate();
@@ -176,7 +176,7 @@ EOT;
 	 * @param $maxDelay (int) max day count until expiration from today
 	 * @param $minDelay (int) min day count until expiration from today (default is zero)
 	 * @param $index (int|string) optional, append into each row as 'remind_index'.
-	 * @return a list of coupon order by customer_email */
+	 * @return array a list of coupon order by customer_email */
 	public function getCoupons($maxDelay, $minDelay=0, $index=0)
 	{
 		global $wpdb;

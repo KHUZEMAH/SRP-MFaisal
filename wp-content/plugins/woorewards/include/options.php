@@ -9,9 +9,10 @@ if( !defined( 'ABSPATH' ) ) exit();
  * and save relevant fields as pool post. */
 class Options
 {
-	private $optPool = 'lws-wr-pool-option';
+	private $optPool   = 'lws-wr-pool-option';
 	private $poolOptionPrefix = 'lws-wr-pool-option-';
-	private $pagePool = LWS_WOOREWARDS_PAGE.'.loyalty';
+	private $pagePool  = LWS_WOOREWARDS_PAGE.'.loyalty';
+	private $whitelist = array();
 
 	function __construct()
 	{
@@ -66,7 +67,7 @@ class Options
 	 *	@return $oldValue cause WP dont go further with that option. */
 	function savePool($value, $oldValue, $option)
 	{
-		if( isset($this->whitelist) && !empty($this->whitelist) && ($poolId = intval($value)) >= 0 )
+		if( $this->whitelist && ($poolId = intval($value)) >= 0 )
 		{
 			$pool = \apply_filters('lws_wr_pool_admin_options_get_pool', null, $poolId, $this->whitelist, $this->poolOptionPrefix);
 			if( empty($pool) && $poolId > 0 )

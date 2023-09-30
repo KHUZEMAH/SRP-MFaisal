@@ -168,7 +168,7 @@ class GeneralSettings
 			'icon'	=> 'lws-icon-handshake',
 			'color' => '#669876',
 			'title'	=> __("Referral Features", 'woorewards-pro'),
-			'text' 	=> __("Here, you'll find the different tools customers can user to refer their friends and the reward given to referred users.", 'woorewards-pro') .
+			'text' 	=> __("Here, you'll find the different tools customers can use to refer their friends and the reward given to referred users.", 'woorewards-pro') .
 				__("To reward the sponsors, either use the dedicated wizard or select an appropriate earning method inside a points and rewards system.", 'woorewards-pro'),
 			'extra' => array('doclink' => \LWS\WOOREWARDS\PRO\DocLinks::get('referral')),
 			'fields' => array(

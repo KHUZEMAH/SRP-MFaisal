@@ -317,7 +317,7 @@ class MenuItems
 
 		$rem = array();
 		foreach ($objects as $id => $item) {
-			$instance = self::findInstance($item, 'slug');
+			$instance = self::findInstance($item);
 			if ($instance && !$instance->isVisible($item)) {
 				self::recursiveMenuFlag($rem, $id, $children);
 			}

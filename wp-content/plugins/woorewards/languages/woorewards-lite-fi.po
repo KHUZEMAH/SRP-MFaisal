@@ -2669,13 +2669,13 @@ msgstr "Jokainen käyttämäsi %s kannattaa %s"
 
 #: include/ui/woocommerce/pointsoncart.php:663
 #, php-format
-msgid "You can use a minimum of %1$s %2$s on a single cart."
-msgstr "Voit käyttää vähintään %1$s %2$s yhdessä ostoskorissa."
+msgid "You can use a minimum of %s on a single cart."
+msgstr "Voit käyttää vähintään %s yhdessä ostoskorissa."
 
 #: include/ui/woocommerce/pointsoncart.php:674
 #, php-format
-msgid "You can use a maximum of %1$s %2$s on a single cart."
-msgstr "Voit käyttää enintään %1$s %2$s yhdessä ostoskorissa."
+msgid "You can use a maximum of %s on a single cart."
+msgstr "Voit käyttää enintään %s yhdessä ostoskorissa."
 
 #: include/ui/woocommerce/pointsoncart.php:685
 #, php-format

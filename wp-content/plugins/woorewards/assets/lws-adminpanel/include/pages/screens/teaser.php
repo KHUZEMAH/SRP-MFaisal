@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Must declare an array index 'teaser' => true */
 class Teaser extends \LWS\Adminpanel\Pages\Page
 {
+	public $uuid = false;
+	
 	public function __construct($uniquePluginId)
 	{
 		$this->uuid = $uniquePluginId;
@@ -136,6 +138,7 @@ class Teaser extends \LWS\Adminpanel\Pages\Page
 		return false;
 	}
 
+	/** @return bool */
 	public function getGroups()
 	{
 		return false;

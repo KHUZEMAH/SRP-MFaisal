@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit();
 /** Show the methods to earn points */
 class EventsWidget extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+
 	public static function install()
 	{
 		self::register(get_class());
@@ -163,7 +165,7 @@ class EventsWidget extends \LWS\WOOREWARDS\Ui\Widget
 			array('desc' => 'Recurrent visit', 'earned' => '1'),
 		);
 		$content = $this->getContent($atts, $events);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $content;
 	}
 
@@ -182,7 +184,7 @@ class EventsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		if (empty($events))
 			return '';
 
-		if (isset($this->stygen) && $this->stygen)
+		if ($this->stygen)
 			$symbol = __("Points", 'woorewards-pro');
 		else
 			$symbol = $events[0]['poolName'] ? \LWS_WooRewards::getPointSymbol(100, $events[0]['poolName']) : __("Points", 'woorewards-pro');
@@ -197,7 +199,7 @@ class EventsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		if (empty($atts['text']))
 			$atts['text'] = \lws_get_option('lws_woorewards_events_widget_text', __("Perform the actions described below to earn loyalty points", 'woorewards-pro'));
 
-		if (!isset($this->stygen)) {
+		if (!$this->stygen) {
 			$atts['header'] = \apply_filters('wpml_translate_single_string', $atts['header'], 'Widgets', "WooRewards - Earning methods - Header");
 			$atts['text'] = \apply_filters('wpml_translate_single_string', $atts['text'], 'Widgets', "WooRewards - Earning methods - Description");
 		}

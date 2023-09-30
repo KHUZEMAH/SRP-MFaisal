@@ -54,7 +54,7 @@ class Request
 		if( $key === true )
 			$this->args = array();
 		else if( is_array($key) )
-			$this->args = array_diff_key($this->args, $value);
+			$this->args = array_diff_key($this->args, $key);
 		else if( isset($this->args[$key]) )
 			unset($this->args[$key]);
 		return $this;
@@ -221,7 +221,7 @@ class Request
 	}
 
 	/** @param $field (array|string) a field key (require a value) or an array with field => value
-	 *	@param $value (mixin) omitted if $field is an array. */
+	 *	@param $value (mixed) a string or omitted if $field is an array. */
 	function update($field, $value=false)
 	{
 		global $wpdb;

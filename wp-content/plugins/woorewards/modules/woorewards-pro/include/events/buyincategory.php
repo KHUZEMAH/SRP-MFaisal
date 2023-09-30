@@ -13,6 +13,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	protected $qtyMultiply       = false;
+	protected $minProductCount   = 1;
+	protected $productCategories = array();
+	protected $eventPriority     = 50;
+
 	public function isMaxTriggersAllowed()
 	{
 		return true;
@@ -188,9 +193,10 @@ EOT;
 		return $valid;
 	}
 
+	/** @return bool */
 	function isQtyMultiply()
 	{
-		return isset($this->qtyMultiply) && $this->qtyMultiply;
+		return $this->qtyMultiply;
 	}
 
 	public function setQtyMultiply($yes = false)
@@ -199,9 +205,10 @@ EOT;
 		return $this;
 	}
 
+	/** @return int */
 	function getMinProductCount()
 	{
-		return isset($this->minProductCount) ? $this->minProductCount : 1;
+		return $this->minProductCount;
 	}
 
 	function setMinProductCount($n)
@@ -210,9 +217,10 @@ EOT;
 		return $this;
 	}
 
+	/** @return array */
 	function getProductCategories()
 	{
-		return isset($this->productCategories) ? $this->productCategories : array();
+		return $this->productCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -247,7 +255,7 @@ EOT;
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Buy in category", "getDisplayType", 'woorewards-pro');
@@ -255,7 +263,7 @@ EOT;
 
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 50;
+		return $this->eventPriority;
 	}
 
 	public function setEventPriority($priority)
@@ -316,7 +324,7 @@ EOT;
 		return $info;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @return (int) user ID */
 	function getPointsRecipient($order)
 	{

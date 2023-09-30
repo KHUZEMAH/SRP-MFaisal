@@ -10,6 +10,8 @@ class HistoryCleaner
 	protected $singlePool = false;
 	protected $pools = array();
 	protected $userId = false;
+	private $unlockables = null;
+	private $events = null;
 
 	/** @param $userId (false|int)
 	 *	@param $sinlgePool (false|Pool instance) */
@@ -38,7 +40,7 @@ class HistoryCleaner
 	}
 
 	/** Clean history table.
-	 *	@param $limit (false|DateTime) clean up to this date (excluded) */
+	 *	@param $limit (false|\DateTime) clean up to this date (excluded) */
 	function deleteLogs($limitDate=false)
 	{
 		global $wpdb;
@@ -171,7 +173,7 @@ class HistoryCleaner
 
 	function getUnlockables($typeFilter=false)
 	{
-		if (!isset($this->unlockables)) {
+		if (null === $this->unlockables) {
 			$this->unlockables = array();
 			foreach ($this->pools as $p) {
 				foreach ($p->getUnlockables()->asArray() as $u) {
@@ -190,7 +192,7 @@ class HistoryCleaner
 
 	function getEvents($typeFilter=false)
 	{
-		if (!isset($this->events)) {
+		if (null === $this->events) {
 			$this->events = array();
 			foreach ($this->pools as $p) {
 				foreach ($p->getEvents()->asArray() as $u) {

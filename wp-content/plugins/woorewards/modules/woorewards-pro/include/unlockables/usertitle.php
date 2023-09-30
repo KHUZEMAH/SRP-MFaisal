@@ -10,6 +10,9 @@ require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/usertitle.php';
  * Create a WooCommerce Coupon. */
 class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
+	private $userTitle         = '';
+	private $userTitlePosition = 'right';
+	private $lastUserName      = '';
 
 	function getInformation()
 	{
@@ -90,10 +93,10 @@ class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $valid;
 	}
 
+	/** @return string */
 	public function getUserTitle()
 	{
-		$utitle = isset($this->userTitle) ? $this->userTitle : '';
-		return $utitle;
+		return $this->userTitle;
 	}
 
 	public function setUserTitle($userTitle='')
@@ -102,9 +105,10 @@ class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $this;
 	}
 
+	/** @return string */
 	public function getPosition()
 	{
-		return isset($this->userTitlePosition) ? $this->userTitlePosition : 'right';
+		return $this->userTitlePosition;
 	}
 
 	public function setPosition($position='right')
@@ -139,7 +143,7 @@ class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		\update_post_meta($id, 'woorewards_special_title', $this->getUserTitle());
 		\update_post_meta($id, 'woorewards_special_title_position', $this->getPosition());
 
-		if( isset($this->userTitle) )
+		if( $this->userTitle )
 			\do_action('wpml_register_single_string', 'WooRewards User Title', "WooRewards User Title", $this->userTitle);
 		return $this;
 	}
@@ -169,7 +173,7 @@ class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	 *	@return (string) what this does. */
 	function getDescription($context='backend')
 	{
-		if( isset($this->lastUserName) )
+		if( $this->lastUserName )
 			$name = $this->lastUserName;
 		else
 		{
@@ -187,7 +191,7 @@ class UserTitle extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	 *	Last generated coupon code is consumed by this function. */
 	public function getReason($context='backend')
 	{
-		if( isset($this->lastUserName) )
+		if( $this->lastUserName )
 			return sprintf(__("The user becomes %s", 'woorewards-pro'), $this->lastUserName);
 		else
 			return $this->getDescription($context);

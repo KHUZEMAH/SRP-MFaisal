@@ -13,6 +13,10 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	protected $eventPriority = 40;
+	protected $productsIds   = array();
+	protected $qtyMultiply   = false;
+
 	public function isMaxTriggersAllowed()
 	{
 		return true;
@@ -144,9 +148,10 @@ EOT;
 		return $valid;
 	}
 
+	/** @return bool */
 	function isQtyMultiply()
 	{
-		return isset($this->qtyMultiply) && $this->qtyMultiply;
+		return $this->qtyMultiply;
 	}
 
 	public function setQtyMultiply($yes = false)
@@ -155,12 +160,13 @@ EOT;
 		return $this;
 	}
 
+	/** @return array */
 	public function getProductsIds()
 	{
-		return isset($this->productsIds) ? $this->productsIds : array();
+		return $this->productsIds;
 	}
 
-	/** @return (false|WC_Product) */
+	/** @return (false|\WC_Product) */
 	public function getProduct($id)
 	{
 		if (\LWS\Adminpanel\Tools\Conveniences::isWC() && $id)
@@ -168,6 +174,7 @@ EOT;
 		return false;
 	}
 
+	/** @return false|string */
 	public function getProductName($id)
 	{
 		if ($product = $this->getProduct($id))
@@ -175,6 +182,7 @@ EOT;
 		return false;
 	}
 
+	/** @return false|string */
 	public function getProductUrl($id)
 	{
 		if ($product = $this->getProduct($id))
@@ -182,7 +190,7 @@ EOT;
 		return false;
 	}
 
-	/** @return html <a> */
+	/** @return string html <a> */
 	public function getProductLink($id)
 	{
 		if ($product = $this->getProduct($id))
@@ -196,7 +204,7 @@ EOT;
 		return false;
 	}
 
-	/** @return html <a> */
+	/** @return string html <a> */
 	public function getProductEditLink($id)
 	{
 		if ($product = $this->getProduct($id))
@@ -249,15 +257,16 @@ EOT;
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Buy specific products", "getDisplayType", 'woorewards-pro');
 	}
 
+	/** @return int */
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 40;
+		return $this->eventPriority;
 	}
 
 	public function setEventPriority($priority)
@@ -325,7 +334,7 @@ EOT;
 		return $info;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @return (int) user ID */
 	function getPointsRecipient($order)
 	{

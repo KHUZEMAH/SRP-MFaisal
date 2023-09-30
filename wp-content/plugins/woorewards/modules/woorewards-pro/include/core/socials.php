@@ -92,7 +92,7 @@ class Socials
 		return array_keys($this->socials);
 	}
 
-	/** @return the label for the given key as a string.
+	/** @return string the label for the given key.
 	 * If key is an array, return an array of label.
 	 * If glue is a string, a string is always returned, several label joint with glue. */
 	function getLabel($slug, $glue=false)
@@ -115,7 +115,7 @@ class Socials
 		return $labels;
 	}
 
-	/** @return the icon css class for the given key as a string.
+	/** @return string the icon css class for the given key.
 	 * If key is an array, return an array of icon css class.
 	 * To enqueue a custom css file (and return a new class here),
 	 * use the action hook 'lws_woorewards_socials_scripts' */
@@ -293,7 +293,7 @@ class Socials
 
 	/**	Try to represent visitor with a unique sequence.
 	 *	Return all possible representation.
-	 *	@return array of string */
+	 *	@return false|array of strings */
 	function getVisitorFingerprints()
 	{
 		$visitors = array();

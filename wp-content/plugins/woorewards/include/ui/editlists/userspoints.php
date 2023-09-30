@@ -10,6 +10,9 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 	const L_PREFIX = 'lws_wre_pool_';
 	const S_PREFIX = 'lws_wre_points_';
 
+	protected $sortSource = false;
+	protected $stackIds   = false;
+
 	function labels()
 	{
 		$default = \LWS_WooRewards::getInstalledPool();
@@ -86,7 +89,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 	/** @return array as [string:pool_name] => object{post_name, stack_id} */
 	protected function getStackIds()
 	{
-		if( !isset($this->stackIds) )
+		if (false === $this->stackIds)
 		{
 			global $wpdb;
 			$this->stackIds = $wpdb->get_results("SELECT post_id, post_name, meta_value as stack_id FROM {$wpdb->postmeta} INNER JOIN {$wpdb->posts} ON ID=post_id WHERE meta_key='wre_pool_point_stack'", OBJECT_K);
@@ -104,7 +107,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 		return (\is_null($c) ? -1 : $c);
 	}
 
-	/** @return the given $sql array with WHERE clause if required. */
+	/** @return object the given $sql array with WHERE clause if required. */
 	protected function search($request)
 	{
 		$needle = isset($_REQUEST['usersearch']) ? \trim($_REQUEST['usersearch']) : '';
@@ -156,7 +159,7 @@ class UsersPoints extends \LWS\Adminpanel\EditList\Source
 
 	public function getSortColumns()
 	{
-		if (!isset($this->sortSource)) {
+		if (false === $this->sortSource) {
 			global $wpdb;
 			$sql = <<<EOT
 SELECT pool.ID, stack.meta_value as stack_id, pool.post_title

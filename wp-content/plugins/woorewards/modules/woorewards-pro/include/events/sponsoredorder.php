@@ -11,6 +11,10 @@ class SponsoredOrder extends \LWS\WOOREWARDS\Events\SponsoredOrder
 	use \LWS\WOOREWARDS\PRO\Events\T_SponseeTrigger;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	protected $roles = array();
+	protected $guestAllowed = false;
+	protected $minAmount = 0;
+
 	function getClassname()
 	{
 		return 'LWS\WOOREWARDS\Events\SponsoredOrder';
@@ -123,14 +127,16 @@ class SponsoredOrder extends \LWS\WOOREWARDS\Events\SponsoredOrder
 		return $this;
 	}
 
+	/** @return bool */
 	function isGuestAllowed()
 	{
-		return isset($this->guestAllowed) ? $this->guestAllowed : false;
+		return $this->guestAllowed;
 	}
 
+	/** @return float */
 	function getMinAmount()
 	{
-		return isset($this->minAmount) ? $this->minAmount : 0;
+		return $this->minAmount;
 	}
 
 	public function setMinAmount($amount=0)
@@ -139,9 +145,10 @@ class SponsoredOrder extends \LWS\WOOREWARDS\Events\SponsoredOrder
 		return $this;
 	}
 
+	/** @return array */
 	public function getRoles()
 	{
-		return isset($this->roles) ? $this->roles : array();
+		return $this->roles;
 	}
 
 	public function setRoles($roles)

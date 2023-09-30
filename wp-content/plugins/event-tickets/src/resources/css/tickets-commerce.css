@@ -735,6 +735,7 @@
 	.event-tickets .tribe-tickets__commerce-checkout-cart-item-details-button--more,
 	.event-tickets .tribe-tickets__commerce-checkout-cart-item-details-button--less {
 		background-color: transparent;
+		background-image: none;
 		color: var(--tec-color-text-primary-light);
 		position: relative;
 		white-space: nowrap;
@@ -900,6 +901,7 @@
 	}
 
 .tribe-common .tribe-tickets__commerce-checkout-gateway-toggle-button, .event-tickets .tribe-tickets__commerce-checkout-gateway-toggle-button {
+		background-image: none;
 		color: var(--tec-color-text-primary-light);
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-3);

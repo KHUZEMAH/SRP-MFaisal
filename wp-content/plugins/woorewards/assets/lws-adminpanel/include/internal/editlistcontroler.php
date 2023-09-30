@@ -6,16 +6,20 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** As post, display a list of item with on-the-fly edition. */
 class EditlistControler
 {
-	private $KeyAction = 'action-uid';
+	private $KeyAction  = 'action-uid';
 	private $hasActions = false;
 	private $columns = array();
+	private $groupBy = false;
+	private $css = '';
+	private $actionResult = false;
+	private $repeatHead = true;
 
-	public $slug = '';
-	public $m_Id = '';
+	public $slug  = '';
+	public $m_Id  = '';
 	public $m_UId = '';
 	public $columnTitles = array();
 	public $m_Source = null;
-	public $m_Mode = 0;
+	public $m_Mode   = 0;
 	public $m_PageDisplay = null;
 	public $m_Actions = array();
 	public $m_Filters = array();
@@ -115,8 +119,8 @@ class EditlistControler
 			else
 				error_log("Require an grouped by editlist[{$this->slug}] without any grouping key.");
 		}
-		else if( isset($this->groupBy) )
-			unset($this->groupBy);
+		else
+			$this->groupBy = false;
 		return $this;
 	}
 
@@ -144,7 +148,7 @@ class EditlistControler
 	protected function getGroupByForm()
 	{
 		$str = '';
-		if( isset($this->groupBy) )
+		if ($this->groupBy)
 		{
 			$add = '';
 			if( !empty($this->groupBy['form']) && $this->groupBy['add'] && ($this->m_Mode & \LWS\Adminpanel\EditList::ADD) ) // no edit -> no add
@@ -205,13 +209,13 @@ EOT;
 	/**	Echo the list as a grid */
 	public function display()
 	{
-		$dataGrpBy = (isset($this->groupBy) && $this->groupBy['activated']) ? " data-groupby='on'" : '';
+		$dataGrpBy = ($this->groupBy && $this->groupBy['activated']) ? " data-groupby='on'" : '';
 		$class = 'lws_editlist lws-master-editlist';
-		if( isset($this->css) )
-			$class .= (' '.$this->css);
+		if ($this->css)
+			$class .= (' ' . $this->css);
 
 		echo "<div id='{$this->m_Id}' class='$class'$dataGrpBy>";
-		if( isset($this->groupBy) )
+		if ($this->groupBy)
 			echo $this->getGroupByForm();
 
 		$rcount = -1;  // in|out
@@ -221,7 +225,7 @@ EOT;
 		/// if the execution off an action has something to say
 		/// open a  dialog with it at page loaded @see editlistfilters.js
 		$actionReport = '';
-		if( isset($this->actionResult) && !empty($this->actionResult) )
+		if( isset($this->actionResult) && $this->actionResult )
 			$actionReport = " data-popup='" . base64_encode($this->actionResult) . "'";
 
 		$table = \apply_filters('lws_adminpanel_editlist_read_'.$this->slug, $this->m_Source->read($limit), $limit);
@@ -251,7 +255,7 @@ EOT;
 		echo "<div class='lws-editlist-bottom-line'>";
 		echo $this->getAddButton();
 		if( $this->m_Actions )
-			$this->displayActions($this->m_Actions);
+			$this->displayActions();
 		echo "</div>";
 
 		foreach( ($deps = array('jquery', 'jquery-ui-core', 'jquery-ui-dialog' , 'lws-base64', 'lws-tools')) as $dep )
@@ -355,7 +359,7 @@ EOT;
 				$lab[$k][] = $width;
 		}
 		if ($hasActions) {
-			$lab['lws_ap_editlist_item_actions'] = array(__('Action', 'lws-adminpanel'), 'min-content');
+			$lab[\LWS\Adminpanel\Editlist\Source::ACTION_CELL_KEY] = array(__('Action', 'lws-adminpanel'), 'min-content');
 		}
 		return $lab;
 	}
@@ -428,7 +432,7 @@ EOT;
 			$cells[] = array(
 				'atts'    => sprintf(' data-key="%s"', \esc_attr($key)),
 				'content' => $label[0],
-				'key'     => 'lws_ap_editlist_item_actions' != $key ? $key : false,
+				'key'     => \LWS\Adminpanel\Editlist\Source::ACTION_CELL_KEY != $key ? $key : false,
 			);
 		}
 
@@ -459,7 +463,7 @@ EOT;
 			$cells[] = array(
 				'atts'    => sprintf(' data-key="%s"', \esc_attr($k)),
 				'content' => isset($values[$k]) ? $values[$k] : '',
-				'key'     => 'lws_ap_editlist_item_actions' != $k ? $k : false,
+				'key'     => \LWS\Adminpanel\Editlist\Source::ACTION_CELL_KEY != $k ? $k : false,
 			);
 		}
 		$cells[0]['class'] = 'title column-primary';
@@ -604,37 +608,11 @@ EOT;
 		foreach( $table as &$data )
 		{
 			$id = (isset($data[$this->m_UId]) ? $data[$this->m_UId] : null);
-			$ph = apply_filters(
-				'lws_ap_editlist_item_action_names_' . $this->slug,
-				array(
-					\LWS\Adminpanel\EditList\Modes::MOD => __('Quick Edit', 'lws-adminpanel'),
-					\LWS\Adminpanel\EditList\Modes::DUP => __('Copy', 'lws-adminpanel'),
-					\LWS\Adminpanel\EditList\Modes::DEL => __('Delete', 'lws-adminpanel'),
-				),
-				$id,
-				$data
-			);
-
-			$btns = array();
-			if ($this->m_Mode & \LWS\Adminpanel\EditList\Modes::MOD) {
-				$btns['mod'] = "<div class='editlist-btn mod lws-icon-edit'><div class='btn-descr'>{$ph[\LWS\Adminpanel\EditList\Modes::MOD]}</div></div>";
-			}
-			if ($this->m_Mode & \LWS\Adminpanel\EditList\Modes::DUP) {
-				$btns['dup'] = "<div class='editlist-btn dup lws-icon-copy'><div class='btn-descr'>{$ph[\LWS\Adminpanel\EditList\Modes::DUP]}</div></div>";
-			}
-			if ($this->m_Mode & \LWS\Adminpanel\EditList\Modes::DEL) {
-				$btns['del'] = "<div class='editlist-btn del lws-icon-bin'><div class='btn-descr'>{$ph[\LWS\Adminpanel\EditList\Modes::DEL]}</div></div>";
-			}
-			$btns = apply_filters('lws_ap_editlist_item_actions_' . $this->slug, $btns, $id, $data);
-
-			if( $btns )
-			{
+			$btns = $this->m_Source->getActionButtonsContents($data, $id, $this->slug, $this->m_Mode);
+			if ($btns) {
 				$hasActions = true;
-				$btns = implode('', $btns);
-				$data['lws_ap_editlist_item_actions'] = "<div class='lws-editlist-action-button lws-icon-menu-5'><div class='editlist-actions-popup hidden'><div class='lws-el-buttons-wrapper'>{$btns}</div></div></div>";
 			}
-			else
-				$data['lws_ap_editlist_item_actions'] = '';
+			$data[\LWS\Adminpanel\Editlist\Source::ACTION_CELL_KEY] = $this->m_Source->flatActionButtons($btns);
 		}
 
 		$actionModes = ($this->m_Mode & \LWS\Adminpanel\Editlist::DDD);
@@ -642,7 +620,7 @@ EOT;
 		if( !$hasActions )
 		{
 			foreach( $table as &$data )
-				unset($data['lws_ap_editlist_item_actions']);
+				unset($data[\LWS\Adminpanel\Editlist\Source::ACTION_CELL_KEY]);
 		}
 		return $hasActions;
 	}

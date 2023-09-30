@@ -109,10 +109,15 @@ EOT;
 		$d = random_int(7, 31);
 		$p = $d + (($i = intval(\get_option('lws_woorewards_points_reminder_days',0))) > 0 ? $i : 3);
 		$user = \wp_get_current_user();
-		$user->last_date = \date_create()->sub(new \DateInterval('P'.$p.'D'));
-		$user->details = (object)array(
-			'timeout' => \LWS\Adminpanel\Duration::days($d),
-			'pools' => array(__("TEST System", 'woorewards-pro'))
+		$user = (object)array(
+			'ID' => $user->ID,
+			'user_login' => $user->user_login,
+			'user_email' => $user->user_email,
+			'last_date'  => \date_create()->sub(new \DateInterval('P'.$p.'D')),
+			'details'    => (object)array(
+				'timeout' => \LWS\Adminpanel\Duration::days($d),
+				'pools' => array(__("TEST System", 'woorewards-pro'))
+			),
 		);
 		return $user;
 	}
@@ -138,7 +143,7 @@ EOT;
 		}
 	}
 
-	/** @return a array with stacks that can expiry
+	/** @return array with stacks that can expiry
 	 * with details about delay and pools */
 	protected function getStacks($countdown=0)
 	{

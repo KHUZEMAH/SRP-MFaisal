@@ -43,16 +43,20 @@ trait T_ExcludedProducts
 	}
 
 	/** @param $excluded (in/out) result of getExclusionFromCart() or getExclusionFromOrder()
-	 * @param $product (WC_Product) expected product
+	 * @param $product (\WC_Product|int) expected product or product id
 	 * @param $quantity expected quantity
-	 * @return the not excluded quantity rest.
+	 * @return int the not excluded quantity rest.
 	 * If all excluded product quantity is used the product and all its ersatz are removed from the array.
 	 * else the quantity of the product and all its ersatz is decreased by $quantity. */
-	function useExclusion(&$excluded, \WC_Product $product, $quantity)
+	function useExclusion(&$excluded, $product, $quantity)
 	{
-		$productId = $product->get_id();
-		if( !isset($excluded[$productId]) && $product->is_type('variation') )
-			$productId = $product->get_parent_id();
+		if (\is_object($product)) {
+			$productId = $product->get_id();
+			if( !isset($excluded[$productId]) && $product->is_type('variation') )
+				$productId = $product->get_parent_id();
+		} else {
+			$productId = (int)$product;
+		}
 
 		$rest = $quantity;
 		if( isset($excluded[$productId]) )

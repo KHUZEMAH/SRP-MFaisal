@@ -8,7 +8,7 @@ class UltimateMember
 {
 	public static function install()
 	{
-		$me = new self(false);
+		$me = new self();
 		\add_filter('lws_adminpanel_field_shortcode_options', array($me, 'addDesc'), 10, 3);
 		\add_filter('lws_woorewards_shortcode_current_user_id', array($me, 'getCurrentUserId'), 10, 3);
 	}

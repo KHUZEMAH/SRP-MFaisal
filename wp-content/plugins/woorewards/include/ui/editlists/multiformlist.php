@@ -9,12 +9,14 @@ abstract class MultiFormList extends \LWS\Adminpanel\EditList\Source
 {
 	const ROW_ID = 'post_id';
 
+	protected $pool = null;
+
 	/** @return array of key => category. category is an array with [label, color, icon]
 	 *	for key @see Event::getCategories() */
 	abstract protected function getGroups();
 	/// @return an array of Event|Unlockable instances
 	abstract protected function loadChoices();
-	/** @return an array with step information
+	/** @return string|array with step information
 	 * icon : step icon
 	 * title : step title */
 	abstract protected function getStepInfo();
@@ -101,6 +103,7 @@ abstract class MultiFormList extends \LWS\Adminpanel\EditList\Source
 		foreach( $groups as $key => $group )
 		{
 			if( !$group['items'] ) continue;
+
 			$colorstring = " style='" . \lws_get_theme_colors('--radiogrid-group-color', $group['color']) . "'";
 			$maingrid .= "<div class='radiogrid-item main lws_radiobutton_radio'{$colorstring} data-key='{$key}'>";
 			$maingrid .= "<div class='inner-background'></div>";

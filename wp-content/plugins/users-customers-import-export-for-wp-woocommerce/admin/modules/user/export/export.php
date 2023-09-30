@@ -205,8 +205,16 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
                 continue;
             }
             if ( 'aov' === $key ) {
-                $total_spent = !empty($user->ID) ? wc_get_customer_total_spent($user->ID) : 0.00;
-                $order_count = !empty($user->ID) ? wc_get_customer_order_count($user->ID) : 0;
+                if(isset($customer_data['total_spent'])){
+                    $total_spent = $customer_data['total_spent'];
+                }else{
+                    $total_spent = !empty($user->ID) ? wc_get_customer_total_spent($user->ID) : 0.00;
+                }
+                if(isset($customer_data['aov'])){
+                    $total_spent = $customer_data['aov'];
+                }else{
+                    $order_count = !empty($user->ID) ? wc_get_customer_order_count($user->ID) : 0;
+                }
                 $customer_data[$key] = ( $order_count ) ? round( ( (float)$total_spent / (float)$order_count ), 2 ) : 0.00;
                 continue;
             }	            
@@ -216,12 +224,26 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
             }
             if( $key == 'last_update'){
                 $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
-                $customer_data[$key] = date('Y-m-d H:i:s', $date_in_timestamp);
+                if($date_in_timestamp == 0){
+                    $customer_data[$key] = '';
+                }
+                elseif(strtotime($date_in_timestamp) ==false){
+                    $customer_data[$key] = date('Y-m-d H:i:s', $date_in_timestamp);
+                }else{
+                    $customer_data[$key] = $date_in_timestamp;
+                }
                 continue;
             }
             if($key == 'wc_last_active'){
                 $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
-                $customer_data[$key] = date('Y-m-d', $date_in_timestamp);
+                if($date_in_timestamp == 0){
+                    $customer_data[$key] = '';
+                }
+                elseif(strtotime($date_in_timestamp) ==false){
+                    $customer_data[$key] = date('Y-m-d', $date_in_timestamp);
+                }else{
+                    $customer_data[$key] = $date_in_timestamp;
+                }
                 continue;
             }
 

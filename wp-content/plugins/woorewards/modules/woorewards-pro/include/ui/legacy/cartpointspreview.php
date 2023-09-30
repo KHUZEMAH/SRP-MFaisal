@@ -13,6 +13,10 @@ class CartPointsPreview
 	const POS_AFTER  = 'bottom_of_cart';
 	const POS_NONE   = 'not_displayed';
 
+	private $position = '';
+	private $poolIds  = false;
+	private $pools    = false;
+
 	static function register()
 	{
 		$position = \lws_get_option('lws_woorewards_cart_potential_position', self::POS_NONE);
@@ -82,7 +86,7 @@ class CartPointsPreview
 
 	protected function getPools()
 	{
-		if (!isset($this->pools)) {
+		if (false === $this->pools) {
 			$this->pools = array();
 			if ($this->poolIds && \is_array($this->poolIds)) {
 				foreach (\LWS_WooRewards_Pro::getActivePools()->asArray() as $pool) {
@@ -252,7 +256,7 @@ EOT;
 
 		if ($html) {
 			$wcClass = '';
-			if (isset($this->position) && $this->position == self::POS_ASIDE) {
+			if ($this->position && $this->position == self::POS_ASIDE) {
 				$wcClass = " cross-sells'";
 			}
 			$html = "<div class='lwss_selectable lws-wre-cartpointspreview-main woocommerce$wcClass' data-type='Main Div'>{$html}</div>";

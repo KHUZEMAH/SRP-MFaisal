@@ -9,6 +9,12 @@ class OrderAmount extends \LWS\WOOREWARDS\Abstracts\Event
 {
 	use \LWS\WOOREWARDS\Events\T_SponsorshipOrigin;
 
+	protected $eventPriority   = 99;
+	protected $afterDiscount   = false;
+	protected $includeShipping = false;
+	protected $thresholdEffect = true;
+	protected $denominator     = 1.00;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -121,7 +127,7 @@ EOT;
 	 *  @return bool */
 	public function getAfterDiscount()
 	{
-		return isset($this->afterDiscount) && $this->afterDiscount;
+		return $this->afterDiscount;
 	}
 
 	public function setAfterDiscount($yes = true)
@@ -133,7 +139,7 @@ EOT;
 	/** @return bool */
 	public function getShipping()
 	{
-		return isset($this->includeShipping) && $this->includeShipping;
+		return $this->includeShipping;
 	}
 
 	public function setShipping($yes=true)
@@ -145,10 +151,7 @@ EOT;
 	/** @return bool */
 	public function getThresholdEffect()
 	{
-		if( isset($this->thresholdEffect) )
-			return $this->thresholdEffect;
-		else
-			return true;
+		return $this->thresholdEffect;
 	}
 
 	/** Points computed proportionaly or for each complet amount of money.
@@ -162,7 +165,7 @@ EOT;
 	/** @return int */
 	public function getDenominator()
 	{
-		return isset($this->denominator) ? $this->denominator : 1.00;
+		return $this->denominator;
 	}
 
 	/** amount is divided by denominator before point earning. */
@@ -201,7 +204,7 @@ EOT;
 
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 99;
+		return \intval($this->eventPriority);
 	}
 
 	public function setEventPriority($priority)
@@ -238,7 +241,7 @@ EOT;
 		return $order;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @return (int) user ID */
 	function getPointsRecipient($order)
 	{
@@ -251,7 +254,7 @@ EOT;
 		return $info;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @param $amount (float) computed amount
 	 * @return (\LWS\WOOREWARDS\Core\Trace) a reason for history */
 	function getPointsReason($order, $amount)

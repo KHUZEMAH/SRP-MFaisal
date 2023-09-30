@@ -69,7 +69,7 @@ trait T_SponseeTrigger
 	}
 
 	/** override Event::canBeTriggered to include sponsee test.
-	 *	@param $options (array|WP_User|int) the user earning points,
+	 *	@param $options (array|\WP_User|int) the user earning points,
 	 *		an array have to include an entry 'user' and 'sponsee'. */
 	public function canBeTriggered($options, $doIncrement=false)
 	{

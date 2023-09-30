@@ -11,9 +11,12 @@ if( !defined( 'ABSPATH' ) ) exit();
  * or provide a CALLABLE to return your html code. */
 class Filter
 {
+	protected $_callback = null;
+	protected $_content  = null;
+	protected $_class    = '';
 
 	/** The filter inputs.
-	 *	@return a string with the form content.
+	 *	@return string with the form content.
 	 * @note use class lws-input-enter-submit on a <input>
 	 * to allow validation by pressing enter key without submit button. */
 	function input($above=true)
@@ -28,7 +31,7 @@ class Filter
 
 	/** The filter will be defined by a callback function
 	 *  @param $callable a php CALLABLE which will provide the html code.
-	 * @return a EditListFilter instance */
+	 * @return Filter instance */
 	static function callback($callable, $class='')
 	{
 		$inst = new Filter($class);
@@ -37,7 +40,7 @@ class Filter
 	}
 
 	/** The filter is provided as is. Good for simple static html code.
-	 * @return a EditListFilter instance */
+	 * @return Filter instance */
 	static function content($html, $class='')
 	{
 		$inst = new Filter($class);
@@ -46,7 +49,7 @@ class Filter
 	}
 
 	/** provided for convenience.
-	 * @return build a url to apply filter with given arguments.
+	 * @return string build a url to apply filter with given arguments.
 	 * @param $getArgs is an array of (variable_name => value),
 	 * this should be read as $_GET in your custom EditListSource::read implementation.
 	 * @note cannot be used with EditListFilter::content since we must be at display step to know data. */

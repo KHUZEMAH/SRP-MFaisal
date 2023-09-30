@@ -9,7 +9,7 @@ class Leaderboard
 {
 	public static function install()
 	{
-		$me = new self(false);
+		$me = new self();
 		\add_shortcode('wr_leaderboard', array($me, 'shortcode'));
 		\add_action('wp_enqueue_scripts', array($me, 'registerScripts'));
 		\add_action('admin_enqueue_scripts', array($me, 'registerScripts'));
@@ -27,8 +27,9 @@ class Leaderboard
 
 	/** Show a leaderboard for a loyalty system
 	 * [wr_leaderboard system="system_name" columns="column_list" columns_headers="titles_list" count="15"]
-	 * @param system the loyalty system for which to show the progress bar
-	 * @param columns the columns to display, possible values are :
+	 * @param $atts array :
+	 * * 'system' the loyalty system for which to show the progress bar
+	 * * 'columns' the columns to display, possible values are :
 	 * ** rank (if no columns specified, this one is displayed)
 	 * ** user_nickname (if no columns specified, this one is displayed)
 	 * ** points (if no columns specified, this one is displayed)
@@ -37,10 +38,10 @@ class Leaderboard
 	 * ** last_badge (same)
 	 * ** user_title
 	 * ** title_date
-	 * @param columns_headers columns headers
-	 * @param badge_ids (optional) a restricted list of badges (default is all)
-	 * @param achievement_ids (optional) a restricted list of achievements (default is all)
-	 * @param count the number of rows to show
+	 * * 'columns_headers' columns headers
+	 * * 'badge_ids' (optional) a restricted list of badges (default is all)
+	 * * 'achievement_ids' (optional) a restricted list of achievements (default is all)
+	 * * 'count' the number of rows to show
 	 */
 	public function shortcode($atts=array(), $content='')
 	{

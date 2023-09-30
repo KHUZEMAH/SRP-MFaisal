@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** satic class to manage activation and version updates. */
 class Wizard extends \LWS\Adminpanel\Wizard
 {
+	protected $subWizard = null; 
+
 	protected function getColor()
 	{
 		if (!isset($this->color)) {
@@ -25,10 +27,10 @@ class Wizard extends \LWS\Adminpanel\Wizard
 		return __("Loyalty System Setup", 'woorewards-lite');
 	}
 
-	/** @return a i_wizard implementation instance or false if user selected none. */
+	/** @return object a i_wizard implementation instance or false if user selected none. */
 	protected function getOrCreateWizard()
 	{
-		if( !isset($this->subWizard) )
+		if (null === $this->subWizard)
 		{
 			$this->subWizard = false;
 			$data = $this->getData();
@@ -73,7 +75,7 @@ class Wizard extends \LWS\Adminpanel\Wizard
 			//'choice',
 			'ini', /// that faky step is required to avoid 'choice' being the last, since last step display submit button instead of next button.
 		);
-		if( $wiz = $this->getOrCreateWizard('standard') )
+		if( $wiz = $this->getOrCreateWizard() )
 		{
 			// first step must be named 'ini' too
 			$hierarchy = $wiz->getHierarchy();

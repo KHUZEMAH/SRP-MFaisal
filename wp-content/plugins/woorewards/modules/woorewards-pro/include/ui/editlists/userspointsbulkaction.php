@@ -74,6 +74,8 @@ class UsersPointsBulkAction extends \LWS\Adminpanel\EditList\Action
 					$reason = __("Commercial operation", 'woorewards-pro');
 				$allUserCan = true;
 
+				$points = $pool->reversePointsFormat($points);
+
 				foreach( $user_ids as $user_id )
 				{
 					if( $set )
@@ -108,5 +110,4 @@ class UsersPointsBulkAction extends \LWS\Adminpanel\EditList\Action
 		}
 		return true;
 	}
-
 }

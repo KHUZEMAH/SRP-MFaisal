@@ -9,6 +9,11 @@ if (!defined('ABSPATH')) exit();
  * Show customer loyalty systems and rewards. */
 class LoyaltyEndpoint extends \LWS\WOOREWARDS\PRO\Ui\Legacy\Endpoint
 {
+	private $userId = 0;
+	private $labels = array();
+	private $pools  = array();
+	private $demo   = false;
+
 	function __construct()
 	{
 		if ($this->isActive('lws_woorewards_wc_my_account_endpont_loyalty', 'on')) {
@@ -244,7 +249,7 @@ EOT;
 				if (!($pointName = apply_filters('lws_woorewards_point_symbol_translation', false, 2, $pName)))
 					$pointName = __('Points', 'woorewards-pro');
 				$unlockLink = esc_attr(\LWS\WOOREWARDS\PRO\Core\RewardClaim::addUrlUnlockArgs(
-					\LWS\WOOREWARDS\PRO\Conveniences::instance()->getUrlTarget(isset($this->demo) && $this->demo),
+					\LWS\WOOREWARDS\PRO\Conveniences::instance()->getUrlTarget($this->demo),
 					$unlockable,
 					$user
 				));

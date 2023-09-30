@@ -7,6 +7,7 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points each year at register date. */
 class Anniversary extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	private $mkey = false;
 
 	function getInformation()
 	{
@@ -29,7 +30,7 @@ class Anniversary extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Registration's anniversary", "getDisplayType", 'woorewards-pro');
@@ -44,8 +45,8 @@ class Anniversary extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return string a usermeta.meta_key to store thi last rewarded anniversary */
 	protected function getMetaKey()
 	{
-		if( !isset($this->mkey) )
-			$this->mkey = $this->getType() .'-'. $this->getId();
+		if( !$this->mkey )
+			$this->mkey = $this->getType() . '-' . $this->getId();
 		return $this->mkey;
 	}
 
@@ -60,7 +61,7 @@ LEFT JOIN {$wpdb->usermeta} ON user_id=ID AND meta_key='{$mkey}'
 WHERE DATE_ADD(DATE(user_registered), INTERVAL 1 YEAR) <= CURDATE()
 AND (meta_value IS NULL OR DATE_ADD(DATE(meta_value), INTERVAL 1 YEAR) <= CURDATE())
 EOT;
-		if( isset($this->eventCreationDate) && $this->eventCreationDate )
+		if ($this->eventCreationDate)
 			$sql .= sprintf("\nAND TIMESTAMP(user_registered) >= TIMESTAMP('%s')", $this->eventCreationDate->format('Y-m-d H-i-s'));
 		$users = $wpdb->get_results($sql);
 		if( !is_array($users) )
@@ -113,5 +114,3 @@ EOT;
 		));
 	}
 }
-
-?>

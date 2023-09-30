@@ -12,6 +12,9 @@ class Admin
 {
 	const POOL_OPTION_PREFIX = 'lws-wr-pool-option-';
 
+	public $standardPages = array();
+	private $wcStyles = array();
+
 	public function __construct()
 	{
 		\LWS\WOOREWARDS\PRO\Ui\Editlists\UsersPointsPoolFilter::install();
@@ -91,9 +94,9 @@ class Admin
 			} else if (false !== strpos($hook, 'settings') && strpos($tab, 'woocommerce') !== false) {
 				if (\class_exists('\WC_Frontend_Scripts')) {
 					\WC_Frontend_Scripts::get_styles();
-					if (isset($this->wcStyles)) {
+					if ($this->wcStyles) {
 						foreach ($this->wcStyles as $style => $detail) {
-							\wp_enqueue_style($style, $detail['src'], $detail['deps'], $detail['version'], $detail['media'], $detail['has_rtl']);
+							\wp_enqueue_style($style, $detail['src'], $detail['deps'], $detail['version'], $detail['media']);
 						}
 					}
 				}
@@ -107,8 +110,7 @@ class Admin
 
 	function grabWCStyles($scripts)
 	{
-		if (!isset($this->wcStyles))
-			$this->wcStyles = $scripts;
+		$this->wcStyles = $scripts;
 		return $scripts;
 	}
 
@@ -523,7 +525,7 @@ class Admin
 		return $emailsTab;
 	}
 
-	/** @return pool name or false. */
+	/** @return object pool instance or false. */
 	protected function guessCurrentPool($tabId)
 	{
 		$ref = false;
@@ -878,6 +880,19 @@ class Admin
 					'extra' => array(
 						'value' => $pool->getOption('thousand_sep'),
 						'tooltips' => __("(Optional) The thousand separator when displaying big numbers.", 'woorewards-pro'),
+					)
+				),
+				'decimal_shift' => array(
+					'id'    => self::POOL_OPTION_PREFIX . 'decimal_shift',
+					'title' => __("Decimal Shift", 'woorewards-pro'),
+					'type'  => 'text',
+					'extra' => array(
+						'value' => $pool->getOption('decimal_shift'),
+						'help' => array(
+							__("(Optional) For display purpose only.", 'woorewards-pro'),
+							__("The number of digit we shift the point value to left (negative) or right (positive). It can lead to a float number representation.", 'woorewards-pro'),
+							__("Eg. a shift of 2 transform 1234 points to a 12.34 value.", 'woorewards-pro'),
+						),
 					)
 				),
 			),
@@ -1574,7 +1589,7 @@ EOT;
 			'cache_results'  => false
 		));
 		foreach ($badges as $badge) {
-			\wp_delete_post($badge->Id, true);
+			\wp_delete_post($badge->ID, true);
 		}
 
 		global $wpdb;

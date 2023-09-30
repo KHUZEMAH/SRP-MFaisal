@@ -7,14 +7,17 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Conveniences Class for shared functions*/
 class Conveniences
 {
+	private $urlTarget = null;
+
 	public static function install()
 	{
 		$me =& self::instance();
 		\add_filter('lws_woorewards_get_pools_by_args', array($me, 'getPoolsByArgs'), 10, 2); // Higher proprity than WooRewards Standard
+		\add_filter('lws_woorewards_get_pools_by_stack', array($me, 'getPoolsByStack'), 10, 2);
 		\add_filter('lws_adminpanel_expression_placeholder', array($me, 'expressionPlaceholders'), 10, 4);
 	}
 
-	/** @return singleton instance */
+	/** @return Conveniences singleton instance */
 	static function &instance()
 	{
 		static $_inst = false;
@@ -88,9 +91,16 @@ EOT;
 		return false;
 	}
 
+	public function getPoolsByStack($pools, $stackId)
+	{
+		return \LWS_WooRewards_Pro::getLoadedPools()->filter(function($p)use($stackId){
+			return $p->getStackId() == $stackId;
+		});
+	}
+
 	/** returns a collection of pools depending on the sent parameters
-	 *	@return Collections\Pools
-	 * 	@param $pools (false|Collections\Pools)
+	 *	@return \LWS\WOOREWARDS\Collections\Pools
+	 * 	@param $pools (false|\LWS\WOOREWARDS\Collections\Pools)
 	 *	@param $atts (array)
 	 *	* system = loyalty system (or several loyalty systems, comma separated)
 	 *	* shared = show shared pools
@@ -180,7 +190,7 @@ EOT
 	 * $auth = 'all'|null : Provide all unlockables
 	 * $auth = 'avail'|true : Provide only available unlockables
 	 * $auth = 'unavail'|false : Provide only unavailable unlockables
-	 * @param $pools (Collection) if not set, look from @see \LWS_WooRewards_Pro::getBuyablePools()
+	 * @param $pools (\LWS\WOOREWARDS\Abstracts\Collection) if not set, look from @see \LWS_WooRewards_Pro::getBuyablePools()
 	 * */
 	public function getUserUnlockables($userId, $auth = null, $pools = false)
 	{
@@ -223,7 +233,7 @@ EOT
 		}
 		else
 		{
-			if( !isset($this->urlTarget) )
+			if( null === $this->urlTarget )
 			{
 				if (!empty($page = get_option('lws_woorewards_reward_claim_page', ''))) {
 					$this->urlTarget = \get_permalink($page);
@@ -275,7 +285,7 @@ EOT
 		return $this->getHSL($this->indexToHue($index), $lightness, $saturation, $addSemicolon);
 	}
 
-	/** @return WC_Product or false */
+	/** @return \WC_Product|false */
 	function getProductFromOrderItem(&$order, &$item)
 	{
 		if( \method_exists($item, 'get_product') )
@@ -372,7 +382,7 @@ EOT
 
 			if (!$options['order'])
 				return 0;
-			$order = (\is_object($options['order']) ? $options['order'] : \wc_get_order('ID', $options['order']));
+			$order = (\is_object($options['order']) ? $options['order'] : \wc_get_order($options['order']));
 			if (!$order)
 				return 0;
 
@@ -449,14 +459,14 @@ EOT
 					}
 					return $sum;
 				default:
-					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $placeholder));
+					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $property));
 			}
 		} elseif (\is_a($order, '\WC_Cart')) {
 			switch (strtolower($property)) {
 				case 'vat':
-					return $order->get_total_tax('edit');
+					return $order->get_total_tax();
 				case 'total_vat_exc':
-					return ($order->get_total('edit') - $order->get_total_tax('edit'));
+					return ($order->get_total('edit') - $order->get_total_tax());
 				case 'total_vat_inc':
 				case 'total':
 					return $order->get_total('edit');
@@ -501,7 +511,7 @@ EOT
 					}
 					return $sum;
 				default:
-					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $placeholder));
+					throw new \Exception(sprintf(_x("Placeholder `%s`, unknown property", 'expression', 'woorewards-pro'), $property));
 			}
 		}
 	}

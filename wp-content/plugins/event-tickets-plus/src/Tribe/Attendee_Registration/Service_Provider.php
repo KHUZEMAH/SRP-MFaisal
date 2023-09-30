@@ -109,6 +109,7 @@ class Service_Provider extends \TEC\Common\Contracts\Service_Provider {
 
 		// Handle getting the IAC setting for tickets.
 		// add_filter( 'tribe_tickets_rsvp_get_ticket', $this->container->callback( 'tickets-plus.attendee-registration.iac.hooks', 'add_iac_to_ticket_object' ), 10, 2 );
+		add_filter( 'tec_tickets_commerce_get_ticket_legacy', $this->container->callback( 'tickets-plus.attendee-registration.iac.hooks', 'add_iac_to_ticket_object' ), 10, 2 );
 		add_filter( 'tribe_tickets_tpp_get_ticket', $this->container->callback( 'tickets-plus.attendee-registration.iac.hooks', 'add_iac_to_ticket_object' ), 10, 2 );
 		add_filter( 'tribe_tickets_plus_edd_get_ticket', $this->container->callback( 'tickets-plus.attendee-registration.iac.hooks', 'add_iac_to_ticket_object' ), 10, 2 );
 		add_filter( 'tribe_tickets_plus_woo_get_ticket', $this->container->callback( 'tickets-plus.attendee-registration.iac.hooks', 'add_iac_to_ticket_object' ), 10, 2 );

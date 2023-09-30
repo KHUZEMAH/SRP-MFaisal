@@ -8,6 +8,9 @@ if( !defined( 'ABSPATH' ) ) exit();
  * action is performed by a CALLABLE you must provide. */
 class ActionImplSelect extends Action
 {
+	protected $choices = array();
+	protected $callback = null;
+
 	/** Dispose a <select> filled with the given $choices.
 	 * At validation, call the given $callback.
 	 * @param $choices is array of(value => text)

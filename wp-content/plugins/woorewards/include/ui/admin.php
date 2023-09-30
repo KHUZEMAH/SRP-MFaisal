@@ -1135,7 +1135,7 @@ EOT;
 	 * *	be sure the page contains a <input> named 'pool' with relevant pool id.
 	 * *	since field cannot read value in wp get_option, be sure to set the relevant value in extra array.
 	 *
-	 *	@param fields an array as required by 'fields' entry in admin group.
+	 *	@param array $fields an array as required by 'fields' entry in admin group.
 	 * 	@param $pool a Pool instance. */
 	public function getPoolGeneralSettings($fields, \LWS\WOOREWARDS\Core\Pool $pool)
 	{

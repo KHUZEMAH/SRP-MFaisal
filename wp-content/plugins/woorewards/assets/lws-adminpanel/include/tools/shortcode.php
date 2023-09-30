@@ -25,8 +25,8 @@ class Shortcode
 	private $_content  = '';
 	private $_helper   = '';
 	private $_sep      = ',';
-	private $_changed = false;
-	private $_found    = false;
+	private $_changed  = false;
+	private $_found    = array();
 
 	public function __construct($tag='', $attrs=array(), $content='', $helper='')
 	{
@@ -104,7 +104,7 @@ class Shortcode
 	 *	@return (bool) true if found. */
 	public function find(string $source, $mergeAttrs=true)
 	{
-		$this->_found = false;
+		$this->_found = array();
 		if (\preg_match($this->getNeedle(), $source, $this->_found)) {
 			if (isset($this->_found['attrs'])) {
 				$this->_found['attrs'] = self::parseAtts($this->_found['attrs']);
@@ -132,7 +132,7 @@ class Shortcode
 
 	/**	Convenience: update the given post.
 	 *	@see replaceOrAdd
-	 *	@return The post ID on success. The value 0 or WP_Error on failure. */
+	 *	@return mixed The post ID on success. The value 0 or WP_Error on failure. */
 	public function replaceOrAddInPost($postId, $mergeAttrs=true, $surrounding='%s')
 	{
 		$post = \is_object($postId) ? $postId : \get_post($postId);
@@ -146,7 +146,7 @@ class Shortcode
 
 	/**	Convenience: update the given post.
 	 *	@see remove
-	 *	@return The post ID on success. The value 0 or WP_Error on failure. */
+	 *	@return mixed The post ID on success. The value 0 or WP_Error on failure. */
 	public function removeInPost($postId)
 	{
 		$post = \is_object($postId) ? $postId : \get_post($postId);
@@ -356,7 +356,7 @@ class Shortcode
 			);
 		}
 		if ($clear) {
-			$this->_found = false;
+			$this->_found = array();
 		}
 		return $found;
 	}

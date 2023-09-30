@@ -45,7 +45,7 @@ class WebHookFacebookComment extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Comment your Facebook posts", "getDisplayType", 'woorewards-pro');

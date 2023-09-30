@@ -57,7 +57,7 @@ if( !function_exists('lws_get_value') )
 
 if( !function_exists('lws_get_option') )
 {
-	/** @return \get_option($option) if not empty, else return $default. */
+	/** @return mixed \get_option($option) if not empty, else return $default. */
 	function lws_get_option($option, $default='')
 	{
 		return \lws_get_value(\get_option($option), $default);
@@ -66,7 +66,7 @@ if( !function_exists('lws_get_option') )
 
 if( !function_exists('lws_get_tooltips_html') )
 {
-	/** @return \get_option($option) if not empty, else return $default. */
+	/** @return mixed \get_option($option) if not empty, else return $default. */
 	function lws_get_tooltips_html($content, $cssClass='', $id='')
 	{
 		if( !empty($cssClass) )
@@ -87,10 +87,10 @@ if( !function_exists('lws_get_tooltips_html') )
 if (!function_exists('lws_color_luminance'))
 {
 	/** Lightens/darkens a given colour (hex format), returning the altered colour in hex format.7
-	 * @param str $hex Colour as hexadecimal (with or without hash);
-	 * @percent float $percent Decimal ( 0.2 = lighten by 20%(), -0.4 = darken by 40%() )
-	 * @alpha float [0,1]
-	 * @return str Lightened/Darkend colour as hexadecimal (with hash);
+	 * @param string $color Colour as hexadecimal (with or without hash), or as function rgb, rgba, hsl, hsla.
+	 * @param float percent float $percent Decimal ( 0.2 = lighten by 20%(), -0.4 = darken by 40%() )
+	 * @param float alpha float [0,1]
+	 * @return string Lightened/Darkend colour as hexadecimal (with hash);
 	 */
 	function lws_color_luminance($color, $percent=0, $alpha=false)
 	{

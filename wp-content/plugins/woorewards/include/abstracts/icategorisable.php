@@ -15,7 +15,7 @@ if( !function_exists('LWS\WOOREWARDS\Abstracts\filterCategories') )
 	/**	An empty category list is never filtered out.
 	 *	An empty whitelist is ignored.
 	 *	@param $excepted id in this array are never filtered out.
-	 *	@param categorisables array of ICategorisable instances.
+	 *	@param $categorisables array of ICategorisable instances.
 	 *	@param $blacklist array of category key.
 	 *	@param $whitelist array of category key. */
 	function filterCategories($categorisables, $blacklist=false, $whitelist=false, $excepted=array())

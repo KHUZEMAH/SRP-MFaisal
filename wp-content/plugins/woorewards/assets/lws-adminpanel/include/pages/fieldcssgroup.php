@@ -7,6 +7,9 @@ abstract class FieldCSSGroup extends \LWS\Adminpanel\Pages\Field
 {
 	protected abstract function cssPairs();
 
+	private $saved = array();
+	private $defaults = array();
+
 	public function readExtraValues()
 	{
 		$this->saved = isset($this->extra['values']) ? $this->extra['values'] : array();
@@ -28,7 +31,7 @@ abstract class FieldCSSGroup extends \LWS\Adminpanel\Pages\Field
 		echo "<div class='lwss-bloc-vertical-separator'$h></div>";
 	}
 
-	/** @return an html property with saved values for this field. */
+	/** @return string an html property with saved values for this field. */
 	public function mergedProps($other=array())
 	{
 		$props = array();

@@ -7,6 +7,9 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Real plugin implementation. */
 class Admin
 {
+	private $version = '1';
+	private $page = null;
+
 	static function instanciate($version, $mainFile)
 	{
 		$me = new self($version, $mainFile);
@@ -92,8 +95,7 @@ class Admin
 
 	private function isAdminPage()
 	{
-		if( !isset($this->page) )
-		{
+		if (!isset($this->page) || \is_null($this->page)) {
 			$this->page = false;
 			if( function_exists('\get_current_screen') && !empty($screen = \get_current_screen())
 			&& !empty($bars = \apply_filters('lws_adminpanel_topbars', array())) )

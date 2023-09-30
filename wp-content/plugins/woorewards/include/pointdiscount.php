@@ -247,7 +247,6 @@ class PointDiscount
 					$this->getTitle($coupon->wr_discount_data)
 				);
 				throw new \Exception($msg, self::COUPON_ERR_CODE); // message thrown not used by WC :'('
-				$valid = false;
 			}
 		}
 		return $valid;
@@ -255,8 +254,8 @@ class PointDiscount
 
 	/** Extract point discount from order.
 	 *	Get relevant pools and point stack info.
-	 *	@return false if no point payment required.
-	 *	Else retur an array with one entry per point stack:
+	 *	@return false|array if no point payment required.
+	 *	Else return an array with one entry per point stack:
 	 *	* pools
 	 *	* needs
 	 *	* max */
@@ -338,7 +337,7 @@ class PointDiscount
 		return $stacks;
 	}
 
-	/** @return if order status changed */
+	/** @return bool if order status changed */
 	protected function setOrderFailed(&$order, $text=false)
 	{
 		if ($text)
@@ -555,7 +554,8 @@ class PointDiscount
 		$stackId = $pool->getStackId();
 		$max = $pool->getPoints($userId);
 
-		$points = \intval(isset($_REQUEST['amount']) ? $_REQUEST['amount'] : 0);
+		$points = \sanitize_text_field(isset($_REQUEST['amount']) ? $_REQUEST['amount'] : 0);
+		$points = (int)$pool->reversePointsFormat($points);
 		$points = \max(0, \min($points, $max));
 		\update_user_meta($userId, 'lws_wr_points_on_cart_' . $stackId, $points);
 

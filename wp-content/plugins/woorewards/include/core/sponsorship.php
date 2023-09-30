@@ -66,7 +66,7 @@ namespace LWS\WOOREWARDS\Core{
 				return array('sponsor' => $sponsor, 'type' => $unlockable->getType(), 'unlockable' => $unlockable, 'reward' => $reward);
 		}
 
-		/** @param $user (int|WP_User) the sponsored guy */
+		/** @param $user (int|\WP_User) the sponsored guy */
 		function forceUserSponsor($user, $sponsorId, $origin='manual')
 		{
 			if( !\is_a($user, '\WP_User') )
@@ -239,8 +239,8 @@ namespace LWS\WOOREWARDS\Core{
 			return $users;
 		}
 
-		/** @param $order (WC_Order)
-		 *	@return (Object) {sponsored_id, sponsor_id, sponsored_email}
+		/** @param $order (\WC_Order)
+		 *	@return object {sponsored_id, sponsor_id, sponsored_email}
 		 *	sponsored_email is always feed
 		 *	sponsored_id is false for guest order
 		 *	sponsor_id is false if no sponsor found or guest order but $guestAllowed is false. */
@@ -318,7 +318,7 @@ namespace LWS\WOOREWARDS\Core{
 			return $users;
 		}
 
-		/** @param $sponsored (int|string) email or user id.
+		/** @param $sponsored (int|string|\WP_User) user objet or user id.
 		 *	@return (false|int) */
 		function getSponsorIdFor($sponsored)
 		{
@@ -340,7 +340,7 @@ namespace LWS\WOOREWARDS\Core{
 		}
 
 		/** @param $sponsored (int|string) email or user id.
-		 *	@return (false|WP_User) */
+		 *	@return (false|\WP_User) */
 		function getSponsorFor($sponsored)
 		{
 			if( !($sponsor_id = $this->getSponsorIdFor($sponsored)) )
@@ -354,11 +354,11 @@ namespace LWS\WOOREWARDS\Core{
 
 		/**	Bind sponsor and sponsored for later use.
 		 *	Create a reward waiting for sponsored and send him a mail about it.
-		 *	@param $sponsor (int|WP_User)
+		 *	@param $sponsor (int|\WP_User)
 		 *	@param $sponsored (string) email (or several emails, comma or semicolon separated)
 		 *	@param $lazy (bool) do not test if guest that already ordered.
 		 *	@param $override (bool) override previous sponsorship.
-		 * @return (bool|WP_Error) */
+		 * @return mixed (bool|\WP_Error) */
 		public function addRelationship($sponsor, $sponsored, $lazy=false, $override=false)
 		{
 			if( empty($sponsor) )
@@ -406,7 +406,7 @@ namespace LWS\WOOREWARDS\Core{
 		}
 
 		/** user can be sponsor and still have room for it.
-		 * @param $sponsor (int|WP_User)
+		 * @param $sponsor (int|\WP_User)
 		 * @return (bool|int) true if user can and no sponsorship limit.
 		 * else return number of email the user can sponsored. */
 		public function userCan($sponsor, $requestedCount=1)
@@ -428,7 +428,7 @@ namespace LWS\WOOREWARDS\Core{
 		 * @param $sponsored (string) email
 		 * @param $lazy (bool) do not test if guest that already ordered.
 		 * @param $override (bool) do not test previous sponsorship.
-		 * @return (WP_Error|string) the cleaned email if ok. */
+		 * @return mixed (\WP_Error|string) the cleaned email if ok. */
 		public function isEligible($sponsored, $lazy=false, $override=false)
 		{
 			$email = trim($sponsored);
@@ -454,7 +454,7 @@ namespace LWS\WOOREWARDS\Core{
 		/**	@deprecated user \LWS\WOOREWARDS\Conveniences::getOrderCount() instead */
 		static function getOrderCountById($userId, $exceptOrderId=false)
 		{
-			return \LWS\WOOREWARDS\Conveniences::getOrderCount($userId, $excludedOrderId, 'sponsorship', false);
+			return \LWS\WOOREWARDS\Conveniences::getOrderCount($userId, $exceptOrderId, 'sponsorship', false);
 		}
 
 	}

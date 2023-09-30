@@ -105,7 +105,7 @@ class Duration
 		return $this->number;
 	}
 
-	/** @return clone of given arg.
+	/** @return \DateTimeInterface clone of given arg.
 	 * @param $d if null, use now(). */
 	function addDate(\DateTimeInterface $d=null)
 	{
@@ -113,7 +113,7 @@ class Duration
 		return $d->add($this->toInterval());
 	}
 
-	/** @return clone of given arg.
+	/** @return \DateTimeInterface clone of given arg.
 	 * @param $d if null, use now(). */
 	function subDate(\DateTimeInterface $d=null)
 	{
@@ -122,8 +122,8 @@ class Duration
 	}
 
 	/** Compute the date at end of duration.
-	 * @param $from (false|DateTime) Starting date, default false means today.
-	 * @return DateTime = $form + interval  */
+	 * @param $from (false|\DateTime) Starting date, default false means today.
+	 * @return \DateTime = $form + interval  */
 	function getEndingDate($from=false)
 	{
 		if( false === $from )

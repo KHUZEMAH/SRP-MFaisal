@@ -75,9 +75,9 @@ class PointsValue
 
 	/** Displays the user's points value in currency for a specific pool
 	 * [wr_points_value system='poolname1' text='Your points are worth' raw='true']
-	 * @param system the loyalty system for which to show the value
-	 * @param text text displayed before the points value
-	 * @param raw if true, the output is a simple text, otherwise, it's wrapped into dom elements
+	 * @param $system the loyalty system for which to show the value
+	 * @param $text text displayed before the points value
+	 * @param $raw if true, the output is a simple text, otherwise, it's wrapped into dom elements
 	 */
 	public function shortcode($atts = array(), $content = '')
 	{

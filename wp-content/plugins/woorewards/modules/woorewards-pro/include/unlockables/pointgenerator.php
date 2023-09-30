@@ -8,6 +8,12 @@ if (!defined('ABSPATH')) exit();
 /** Give points to another Pool. */
 class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
+	private $otherId       = '';
+	private $other         = null;
+	private $gain          = 0;
+	private $tryUnlock     = false;
+	private $_resetLevels  = false;
+	private $_resetRewards = false;
 
 	function getInformation()
 	{
@@ -133,14 +139,16 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $valid;
 	}
 
+	/** @return string */
 	public function getOtherPoolId()
 	{
-		return isset($this->otherId) ? $this->otherId : '';
+		return $this->otherId;
 	}
 
+	/** @return \LWS\WOOREWARDS\PRO\Core\Pool */
 	public function getOtherPool()
 	{
-		if (!isset($this->other))
+		if (null === $this->other)
 		{
 			if ($id = $this->getOtherPoolId())
 				$this->other = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($id);
@@ -152,14 +160,15 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function setOtherPoolId($otherId = false)
 	{
-		if (isset($this->other)) unset($this->other);
+		$this->other   = null;
 		$this->otherId = $otherId;
 		return $this;
 	}
 
+	/** @return int|string */
 	public function getGain()
 	{
-		return isset($this->gain) ? $this->gain : 0;
+		return $this->gain;
 	}
 
 	public function setGain($gain = 0)
@@ -170,7 +179,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function getTryUnlock()
 	{
-		return isset($this->tryUnlock) ? $this->tryUnlock : false;
+		return $this->tryUnlock;
 	}
 
 	public function setTryUnlock($try = false)
@@ -181,7 +190,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function getResetLevels()
 	{
-		return isset($this->resetLevels) ? $this->resetLevels : false;
+		return $this->_resetLevels;
 	}
 
 	public function setResetLevels($reset = false)
@@ -192,7 +201,7 @@ class PointGenerator extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function getResetRewards()
 	{
-		return isset($this->resetRewards) ? $this->resetRewards : false;
+		return $this->_resetRewards;
 	}
 
 	public function setResetRewards($reset = false)

@@ -94,17 +94,17 @@ class ReferralLink
 
 	/** Referral Link button
 	 * [wr_referral_link]
-	 * @param mode	 	→ Default: 'link'
+	 * @param $mode	 	→ Default: 'link'
 	 * 					  link : Customers will get an url link
 	 * 					  qrcode : Customers will get a QR Code link
-	 * @param showlink 	→ Default: 'false'
+	 * @param $showlink 	→ Default: 'false'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, horizontal, vertical, none.
-	 * @param url	 	→ Default: ''
+	 * @param $url	 	→ Default: ''
 	 * 					 Sets the redirection url
-	 * @param button 	→ Default: ''
+	 * @param $button 	→ Default: ''
 	 * 					 Set the text customers will see on the copy button
-	 * @param copied	→ Default: ''
+	 * @param $copied	→ Default: ''
 	 * 					  Set the text customers will see when the code is copied to the clipboard
 	 */
 	public function shortcode($atts = array(), $content = '')

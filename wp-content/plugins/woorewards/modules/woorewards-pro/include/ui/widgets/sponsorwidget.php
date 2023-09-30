@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Can be used as a Widget, a Shortcode [lws_sponsorship] or a Guttenberg block. */
 class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+
 	public static function install()
 	{
 		self::register(get_class());
@@ -28,7 +30,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 	}
 
 	/** parse request then addRelationship, then send mail to sponsor.
-	 * @return request result as json. */
+	 * echo result as json and die. */
 	function request()
 	{
 		if( isset($_REQUEST['sponsored_email']) && isset($_REQUEST['sponsorship_nonce']) )
@@ -136,7 +138,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 
 	protected function enqueueScripts()
 	{
-		if (!isset($this->stygen)) {
+		if (!$this->stygen) {
 			\wp_enqueue_script('woorewards-sponsor');
 		}
 		\wp_enqueue_style('woorewards-sponsor');
@@ -160,7 +162,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		$this->stygen = true;
 		$snippet = $this->shortcode();
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -247,7 +249,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 		$ph = \esc_attr(\lws_get_option('lws_woorewards_sponsor_widget_placeholder', __("my.friend@example.com, my.other.friend@example.com", 'woorewards-pro')));
 		$phs = \esc_attr(\lws_get_option('lws_woorewards_sponsor_widget_sponsor', __("Your email address", 'woorewards-pro')));
 
-		if( !isset($this->stygen) ) // not demo
+		if( !$this->stygen ) // not demo
 		{
 			$atts['header'] = \apply_filters('wpml_translate_single_string', $atts['header'], 'Widgets', "WooRewards - Referral Widget - Title");
 			$atts['button'] = \apply_filters('wpml_translate_single_string', $atts['button'], 'Widgets', "WooRewards - Referral Widget - Button");
@@ -258,7 +260,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 		$this->enqueueScripts();
 
 		$errMsg = '';
-		if (!(isset($this->stygen) && $this->stygen)) {
+		if (!$this->stygen) {
 			$errMsg = sprintf(
 				' data-wait="%s" data-err0="%s" data-err1="%s"',
 				\esc_attr(__("Sending the referral request ...", 'woorewards-pro')),
@@ -298,7 +300,7 @@ class SponsorWidget extends \LWS\WOOREWARDS\Ui\Widget
 		}
 		$form .= "</div>";
 		$hidden = " style='display:none;'";
-		if (isset($this->stygen) && $this->stygen) {
+		if ($this->stygen) {
 			$hidden =  '';
 			if (!$content) {
 				$content = \lws_get_option('lws_wooreward_sponsorship_success', __("A mail has been sent to your friend about us.", 'woorewards-pro'));

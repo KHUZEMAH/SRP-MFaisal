@@ -16,6 +16,11 @@ if( !defined( 'ABSPATH' ) ) exit();
  */
 class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $urls           = array();
+	protected $pageIds        = array();
+	protected $hidePage       = false;
+	protected $postCategories = array();
+	private $postId           = null;
 
 	public function isMaxTriggersAllowed()
 	{
@@ -156,9 +161,10 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return array */
 	function getURLs()
 	{
-		return isset($this->urls) ? $this->urls : array();
+		return $this->urls;
 	}
 
 	/** @param $pages (array|string) as string, it should be a json base64 encoded array. */
@@ -171,9 +177,10 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return array */
 	function getPageIds()
 	{
-		return isset($this->pageIds) ? $this->pageIds : array();
+		return $this->pageIds;
 	}
 
 	/** @param $pages (array|string) as string, it should be a json base64 encoded array. */
@@ -186,9 +193,10 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return array */
 	function getPostCategories()
 	{
-		return isset($this->postCategories) ? $this->postCategories : array();
+		return $this->postCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -201,6 +209,7 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return bool */
 	private function isPostInCategory($postId, $whiteList)
 	{
 		$taxonomy = 'category';
@@ -222,12 +231,13 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
+	/** @return bool */
 	function isHiddenPage()
 	{
-		return isset($this->hidePage) ? $this->hidePage : false;
+		return $this->hidePage;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Visit a page, post or URL", "getDisplayType", 'woorewards-pro');
@@ -277,10 +287,10 @@ class RestrictedVisit extends \LWS\WOOREWARDS\Abstracts\Event
 		return $query;
 	}
 
-	/** @return a post id or false */
+	/** @return int|bool a post id or false */
 	protected function isThePage()
 	{
-		if( !isset($this->postId) )
+		if( null === $this->postId )
 		{
 			$this->postId = false;
 			if( is_single() || is_page() )

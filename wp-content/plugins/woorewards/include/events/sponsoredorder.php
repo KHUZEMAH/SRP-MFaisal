@@ -10,6 +10,9 @@ class SponsoredOrder extends \LWS\WOOREWARDS\Abstracts\Event
 {
 	use \LWS\WOOREWARDS\Events\T_SponsorshipOrigin;
 
+	protected $firstOrderOnly = true;
+	protected $eventPriority = 101;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -107,7 +110,7 @@ EOT;
 
 	function isFirstOrderOnly()
 	{
-		return isset($this->firstOrderOnly) ? $this->firstOrderOnly : true;
+		return $this->firstOrderOnly;
 	}
 
 	function isGuestAllowed()
@@ -144,7 +147,7 @@ EOT;
 		return $descr;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Referee orders", "getDisplayType", 'woorewards-lite');
@@ -152,7 +155,7 @@ EOT;
 
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 101;
+		return \intval($this->eventPriority);
 	}
 
 	public function setEventPriority($priority)

@@ -63,6 +63,10 @@ if( !defined( 'ABSPATH' ) ) exit();
  **/
 class Mailer
 {
+	private $Parsedown = null;
+	public $settings   = array();
+	public $trSettings = array();
+	public $altBody    = false;
 
 	/** $coupon_id (array|id) an array of coupon post id.
 	 * That function switch langage the time it formats and send the email
@@ -107,7 +111,7 @@ class Mailer
 		do_action('wpml_restore_language_from_email');
 	}
 
-	/**	@return an array to set in admin page registration as 'groups', each item representing a group array.
+	/**	@return array to set in admin page registration as 'groups', each item representing a group array.
 	 *	@param $templates array of template names. */
 	function settingsGroup($templates)
 	{
@@ -131,7 +135,7 @@ class Mailer
 		return $mails;
 	}
 
-	/** @return a mail settings property.
+	/** @return mixed mail settings property.
 	 * @param $value (string) default value.
 	 * @param $template (string) the mail template name we are looking for.
 	 * @param $key (string) the property name @see defaultSettings */
@@ -168,7 +172,7 @@ class Mailer
 
 	function parsedown($txt)
 	{
-		if (!isset($this->Parsedown)) {
+		if (!isset($this->Parsedown) || null === $this->Parsedown) {
 			require_once LWS_ADMIN_PANEL_ASSETS . '/Parsedown.php';
 			$this->Parsedown = new \LWS\Adminpanel\Parsedown();
 			$this->Parsedown->setBreaksEnabled(true);
@@ -190,14 +194,14 @@ class Mailer
 		$this->trSettings = array();
 
 		/** Send a mail
-		 * @param user mail,
-		 * @param mail_template (string),
-		 * @param data (whatever is needed by your template) pass to hook 'lws_woorewards_mail_body_' . $template */
+		 * @param string user mail,
+		 * @param string mail_template,
+		 * @param array data (whatever is needed by your template) pass to hook 'lws_woorewards_mail_body_' . $template */
 		add_action('lws_mail_send', array($this, 'sendMail'), 10, 3);
 		/** return the settings piece of data.
-		 * @param (not used)
-		 * @param template_name
-		 * @param settings key (as title, header...) @see defaultSettings */
+		 * @param false (not used)
+		 * @param string template_name
+		 * @param mixed settings key (as title, header...) @see defaultSettings */
 		add_filter('lws_mail_snippet', array($this, 'settingsData'), 10, 3);
 
 		add_filter('lws_markdown_parse', array($this, 'parsedown'));
@@ -489,6 +493,19 @@ EOT;
 				),
 			)
 		);
+
+		static $addBCC = null;
+		if (null === $addBCC) {
+			$addBCC = (bool)\get_option('lws_adminpanel_mailer_add_bcc_field', false);
+		}
+		if ($addBCC) {
+			$mail['fields']['bcc_admin'] = array(
+				'id' => 'lws_mail_bcc_admin_' . $template,
+				'type' => 'input',
+				'extra' => array('type' => 'email'),
+				'title' => __("Blind carbon copy to (bcc)", 'lws-adminpanel'),
+			);
+		}
 
 		if (isset($settings['doclink'])) {
 			$mail['extra'] = array('doclink' => $settings['doclink']);

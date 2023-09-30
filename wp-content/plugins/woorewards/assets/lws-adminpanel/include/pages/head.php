@@ -12,6 +12,12 @@ class Head
 	const CHAT    = 'https://discord.gg/TMeQ3KX4Bf';
 	const MAILTO  = 'support@longwatchstudio.com';
 
+	public $id = '';
+	public $data = array();
+	public $page = null;
+	public $resumePage = false;
+	public $others = false;
+
 	function __construct(\LWS\Adminpanel\Pages\Page &$current, $resume = false, $others=false)
 	{
 		$this->id = $current->getId();
@@ -92,7 +98,7 @@ class Head
 		return $breadcrumbs;
 	}
 
-	/** @param Keys (array of string) the tab indexes to merge,
+	/** @param array Keys (array of string) the tab indexes to merge,
 	 *	if false use a default set.
 	 *	@return array last tab with option flatten along the path. */
 	function getFlattenTab($keys=false)
@@ -378,11 +384,11 @@ EOT;
 		echo "<div class='top-menu-item-text'>{$labels['chat']}</div></a>";
 
 		/** Live Chat */
-		echo "<a href='{$settings['doc']}' target='_blank' class='top-menu-item'>";
+		echo "<a href='{$settings['doc']}' target='_blank' class='top-menu-item separator'>";
 		echo "<div class='top-menu-item-icon lws-icon-books'></div>";
 		echo "<div class='top-menu-item-text'>{$labels['doc']}</div></a>";
 
-		/** Patch Notes  */
+		/* // Patch Notes
 		echo "<div class='top-menu-item separator'>";
 		$classeNotes = '';
 		if (isset($patchNotes)) {
@@ -391,7 +397,7 @@ EOT;
 		} else {
 			echo "<div class='top-menu-item-icon lws-icon-notes'></div>";
 		}
-		echo "<div class='top-menu-item-text{$classeNotes}'>{$labels['patch']}</div></div>";
+		echo "<div class='top-menu-item-text{$classeNotes}'>{$labels['patch']}</div></div>";*/
 
 		/** Manager information */
 		if( $licUrl )

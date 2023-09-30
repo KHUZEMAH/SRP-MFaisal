@@ -10,7 +10,7 @@ require_once LWS_WOOREWARDS_INCLUDES . '/abstracts/unlockable.php';
 class Unlockables extends \LWS\WOOREWARDS\Abstracts\Collection
 {
 	/** read unlockable from database.
-	 * @param args @see WP_Query::parse_query() */
+	 * @param array args @see WP_Query::parse_query() */
 	public function load($args=array())
 	{
 		$cache = false;
@@ -43,7 +43,7 @@ class Unlockables extends \LWS\WOOREWARDS\Abstracts\Collection
 		{
 			foreach( $posts as $post )
 			{
-				if( !\wp_is_post_revision($post) && !empty($unlockable = \LWS\WOOREWARDS\Abstracts\Unlockable::fromPost($post, true)) )
+				if( !\wp_is_post_revision($post) && !empty($unlockable = \LWS\WOOREWARDS\Abstracts\Unlockable::fromPost($post)) )
 					$this->items[] = $unlockable;
 			}
 		}

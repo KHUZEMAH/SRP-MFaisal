@@ -9,6 +9,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * The customer must have ordered the product before. */
 class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $purchaseRequired = true;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -99,7 +101,7 @@ class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 
 	function isPurchaseRequired()
 	{
-		return isset($this->purchaseRequired) ? $this->purchaseRequired : true;
+		return $this->purchaseRequired;
 	}
 
 	/** Inhereted Event already instanciated from WP_Post, $this->id is availble. It is up to you to load any extra configuration. */
@@ -116,7 +118,7 @@ class ProductReview extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Product review", "getDisplayType", 'woorewards-lite');

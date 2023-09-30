@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) exit();
 class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 {
 	const SLUG = 'lws-wr-achievements';
+	private $choices  = false;
+	private $stepInfo = false;
 
 	public function total()
 	{
@@ -29,7 +31,7 @@ class Achievements extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	protected function getStepInfo()
 	{
-		if (empty($this->stepInfo)) {
+		if (false === $this->stepInfo) {
 			$this->stepInfo = __("Action to perform", 'woorewards-pro');
 		}
 
@@ -387,7 +389,7 @@ EOT;
 
 	protected function loadChoices()
 	{
-		if (!isset($this->choices)) {
+		if (false === $this->choices) {
 			$blacklist = array();
 			if (!\LWS\Adminpanel\Tools\Conveniences::isWC()) {
 				$blacklist = array_merge(array('woocommerce'=>'woocommerce'), $blacklist);

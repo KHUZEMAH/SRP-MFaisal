@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit();
 /** Popup that shows a free product to choose on a list of possibilities */
 class ChooseFreeProduct
 {
+	private $stygen = false;
+	
 	public static function register()
 	{
 		$me = new self();
@@ -101,7 +103,7 @@ class ChooseFreeProduct
 			),
 		);
 		$content = $this->getContent('TEST-COUPON', $products);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $content;
 	}
 
@@ -139,7 +141,7 @@ class ChooseFreeProduct
 		$displaytitle = \lws_get_option('lws_free_product_popup_title', __('Select your free product', 'woorewards-pro'));
 		$cancelbutton = \lws_get_option('lws_free_product_popup_cancel', __('Cancel', 'woorewards-pro'));
 		$validbutton = \lws_get_option('lws_free_product_popup_validate', __('Add this product', 'woorewards-pro'));
-		if (!(isset($this->stygen) && $this->stygen)) {
+		if (!$this->stygen) {
 			$shadow = '<div class="free-product-popup-shadow lws_action_cancel"></div>';
 			$classes = array(
 				'popup'  => ' fixed',

@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points each time a user got a badge. */
 class Badge extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $badgeIds = array();
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -93,7 +95,7 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Event
 
 	public function getBadgeIds()
 	{
-		return isset($this->badgeIds) ? $this->badgeIds : array();
+		return $this->badgeIds;
 	}
 
 	public function setBadgeIds($badgeIds = array())
@@ -119,7 +121,7 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("User unlocked badges", "getDisplayType", 'woorewards-pro');

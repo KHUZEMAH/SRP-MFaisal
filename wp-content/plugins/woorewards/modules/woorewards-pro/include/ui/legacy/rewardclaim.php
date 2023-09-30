@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit();
 /** Popup that shows a popup when  */
 class RewardClaim
 {
+	private $stygen = false;
+
 	public static function register()
 	{
 		// Stygen
@@ -55,7 +57,7 @@ class RewardClaim
 		$pool->addUnlockable($coupon, '40');
 		$unlockables[] = $coupon;
 		$content = $this->getPopup($notice, $unlockables);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $content;
 	}
 
@@ -66,13 +68,13 @@ class RewardClaim
 	public function getPopup($notice, $unlockables = false, $popupId = '')
 	{
 		$this->enqueueScripts();
-		$demo = (isset($this->stygen) && $this->stygen);
+		$demo = $this->stygen;
 		$title = \lws_get_option('lws_woorewards_wc_reward_claim_title', __("New reward unlocked !", 'woorewards-pro'));
 		$header = \lws_get_option('lws_woorewards_wc_reward_claim_header', __("You've just unlocked the following reward :", 'woorewards-pro'));
 		$stitle = \lws_get_option('lws_woorewards_wc_reward_claim_stitle', __("Other rewards are waiting for you", 'woorewards-pro'));
 		$notice = \wp_parse_args($notice, array('title' => '', 'message' => ''));
 
-		if (!isset($this->stygen)) {
+		if (!$this->stygen) {
 			$title = \apply_filters('wpml_translate_single_string', $title, 'Widgets', "WooRewards - Reward Claim Popup - Title");
 			$header = \apply_filters('wpml_translate_single_string', $header, 'Widgets', "WooRewards - Reward Claim Popup - Header");
 			$stitle = \apply_filters('wpml_translate_single_string', $stitle, 'Widgets', "WooRewards - Reward Claim Popup - Subtitle");

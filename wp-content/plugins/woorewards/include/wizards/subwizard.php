@@ -7,6 +7,9 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Sub wizard must implement this. */
 abstract class Subwizard
 {
+	protected $wizard = null;
+	protected $color  = false;
+
 	function __construct(\LWS\Adminpanel\Wizard &$wizard)
 	{
 		$this->wizard = &$wizard;
@@ -30,7 +33,7 @@ abstract class Subwizard
 
 	protected function getColor()
 	{
-		if (!isset($this->color)) {
+		if (false === $this->color) {
 			return $this->wizard->getColor();
 		}
 		return $this->color;

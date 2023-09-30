@@ -12,14 +12,24 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 {
 	use \LWS\WOOREWARDS\PRO\Unlockables\T_DiscountOptions;
 
+	private $products           = array();
+	private $autoapply          = false;
+	private $permanent          = false;
+	private $freeshipping       = false;
+	private $itemsUsageLimit    = '';
+	private $excludedCategories = array();
+	private $productCategories  = array();
+	private $excludedProducts   = array();
+
 	function getClassname()
 	{
 		return 'LWS\WOOREWARDS\Unlockables\Coupon';
 	}
 
+	/** @return bool */
 	public function isAutoApply()
 	{
-		return isset($this->autoapply) ? $this->autoapply : false;
+		return $this->autoapply;
 	}
 
 	public function setAutoApply($yes = false)
@@ -28,9 +38,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return bool */
 	public function isPermanent()
 	{
-		return isset($this->permanent) ? $this->permanent : false;
+		return $this->permanent;
 	}
 
 	public function setPermanent($yes = false)
@@ -39,9 +50,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return bool */
 	public function isFreeShipping()
 	{
-		return isset($this->freeshipping) ? $this->freeshipping : false;
+		return $this->freeshipping;
 	}
 
 	public function setFreeShipping($yes = false)
@@ -50,9 +62,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return int */
 	public function getItemsUsageLimit()
 	{
-		return isset($this->itemsUsageLimit) ? $this->itemsUsageLimit : '';
+		return $this->itemsUsageLimit;
 	}
 
 	public function setItemsUsageLimit($limit = 0)
@@ -63,9 +76,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return array */
 	function getExcludedCategories()
 	{
-		return isset($this->excludedCategories) ? $this->excludedCategories : array();
+		return $this->excludedCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -78,9 +92,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return array */
 	function getProductCategories()
 	{
-		return isset($this->productCategories) ? $this->productCategories : array();
+		return $this->productCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -93,9 +108,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return array */
 	function getExcludedProducts()
 	{
-		return isset($this->excludedProducts) ? $this->excludedProducts : array();
+		return $this->excludedProducts;
 	}
 
 	/** @param $products (array|string) as string, it should be a json base64 encoded array. */
@@ -108,9 +124,10 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		return $this;
 	}
 
+	/** @return array */
 	function getProducts()
 	{
-		return isset($this->products) ? $this->products : array();
+		return $this->products;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -391,16 +408,20 @@ class Coupon extends \LWS\WOOREWARDS\Unlockables\Coupon
 		if ($this->isFreeShipping())
 			$props['free_shipping'] = true;
 
-		if (!empty($categories = $this->getProductCategories()))
+		$categories = $this->getProductCategories();
+		if ($categories)
 			$props['product_categories'] = array_filter(array_map('intval', $categories));
 
-		if (!empty($categories = $this->getExcludedCategories()))
+		$categories = $this->getExcludedCategories();
+		if ($categories)
 			$props['excluded_product_categories'] = array_filter(array_map('intval', $categories));
 
-		if (!empty($products = $this->getProducts()))
+		$products = $this->getProducts();
+		if ($products)
 			$props['product_ids'] = array_filter(array_map('intval', $products));
 
-		if (!empty($products = $this->getExcludedProducts()))
+		$products = $this->getExcludedProducts();
+		if ($products)
 			$props['excluded_product_ids'] = array_filter(array_map('intval', $products));
 
 		if (!empty($props))

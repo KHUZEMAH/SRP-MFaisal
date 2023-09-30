@@ -117,7 +117,7 @@ abstract class LAC extends \LWS\Adminpanel\Pages\Field
 		return array('lws-lac-model');
 	}
 
-	/** @return data-source=...
+	/** @return string data-source=...
 	 * If a value exists, return at least the value description.
 	 * expect a extra['prebuild'] as an array with the keys:
 	 * * value: sql select field for value

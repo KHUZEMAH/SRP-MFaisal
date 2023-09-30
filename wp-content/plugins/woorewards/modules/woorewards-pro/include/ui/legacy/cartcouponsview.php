@@ -13,6 +13,9 @@ class CartCouponsView
 	const POS_AFTER  = 'on'; // bottom_of_cart
 	const POS_NONE   = 'not_displayed';
 
+	private $position = '';
+	private $stygen   = false;
+
 	static function register()
 	{
 		$me = new self(\lws_get_option('lws_woorewards_cart_collaterals_coupons', false));
@@ -67,7 +70,7 @@ class CartCouponsView
 		$snippet .= $this->getHead();
 		$snippet .= $this->getContent($coupons, false, true);
 		$snippet .= "</div>";
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -106,7 +109,7 @@ class CartCouponsView
 		$hidden = $this->isCouponAvailableForAdd($coupons) ? '' : " style='display:none'";
 
 		$wcClass = '';
-		if (isset($this->position) && $this->position == self::POS_ASIDE)
+		if ($this->position && $this->position == self::POS_ASIDE)
 			$wcClass = " cross-sells";
 
 		$html = "<div class='lwss_selectable lws-wre-cartcouponsview-main woocommerce $wcClass'$hidden data-type='Main Div'>";
@@ -126,7 +129,7 @@ class CartCouponsView
 		$id = empty($id) ? '' : " id='$id'";
 		$stygenId = 'lws_woorewards_title_cart_coupons_view';
 		$title = \lws_get_option($stygenId, _x("Available Coupons", "Table content", 'woorewards-pro'));
-		if (!isset($this->stygen))
+		if (!$this->stygen)
 			$title = \apply_filters('wpml_translate_single_string', $title, 'Widgets', "WooRewards - Coupons - Title");
 		$str = "<h2 class='lwss_selectable lwss_modify lws-wr-shop-coupon-title'$id data-id='{$stygenId}' data-type='Title'>";
 		$str .= "<span class='lwss_modify_content'>{$title}</span>";
@@ -134,8 +137,8 @@ class CartCouponsView
 		return $str;
 	}
 
-	/** @param $coupons (array) a coupon list.
-	 *	@param $tableId (slug) DOM element id */
+	/** @param $coupons array a coupon list.
+	 *	@param $tableId string DOM element id */
 	public function getContent($coupons = array(), $tableId = false, $demo = false)
 	{
 		if (!function_exists('\wc'))
@@ -150,11 +153,11 @@ class CartCouponsView
 			'description'	=> \esc_attr(__("Description", 'woorewards-pro')),
 			'apply' 		  => \esc_attr(__("Apply", 'woorewards-pro')),
 		);
-		if (!(isset($this->stygen) && $this->stygen))
+		if (!$this->stygen)
 			$this->enqueueScripts();
 
 		$btnText = \lws_get_option('lws_woorewards_cart_coupons_button', __("Use Coupon", 'woorewards-pro'));
-		if (!isset($this->stygen))
+		if (!$this->stygen)
 			$btnText = \apply_filters('wpml_translate_single_string', $btnText, 'Widgets', "WooRewards - Coupons - Button");
 
 		$reloadNonce = false;

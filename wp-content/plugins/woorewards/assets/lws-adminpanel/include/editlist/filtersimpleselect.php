@@ -7,6 +7,14 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Look for $_GET[$name] in your EditListSource::read implemention. */
 class FilterSimpleSelect extends Filter
 {
+	protected $name = '';
+	protected $source = array();
+	protected $extra = array();
+	protected $placeholder = '';
+	protected $filterLabel = '';
+	protected $buttonLabel = '';
+	protected $defaultValue = false;
+
 	/** @param $name you will get the filter value in $_GET[$name].
 	 *	@param $options is a LAC-select formated source array or an ajax action string. */
 	function __construct($name, $options, $filterLabel='', $placeholder='', $buttonLabel='', $default=false, $extra = array())

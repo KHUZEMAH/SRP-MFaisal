@@ -2,10 +2,10 @@
 namespace LWS\Adminpanel\Pages\Field;
 
 /** Provides a Theme selector for complex html templates
- * @param extra['css'] a url (@see plugins_dir()) to the css;
+ * @param string extra['css'] a url (@see plugins_dir()) to the css;
  *  we require an url as wp_enqueue_style requires it.
- * @param extra['template'] name of the template, is set to $template before calling the demo.
- * @param extra['prefix'] prefix string used in the CSS file to refer to variables
+ * @param string extra['template'] name of the template, is set to $template before calling the demo.
+ * @param string extra['prefix'] prefix string used in the CSS file to refer to variables
  *
  * The CSS file must provide 7 default variables and all color values must use one of those variables
  * The KeyWord 'prefix' is a reference to the prefix param sent as an extra

@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Provide a button to let user connect. */
 class SocialNetworkConnect extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+	
 	static function install()
 	{
 		self::register(get_class());
@@ -52,7 +54,7 @@ class SocialNetworkConnect extends \LWS\WOOREWARDS\Ui\Widget
 			$networks = \array_column(self::getSupportedNetworks(), 'value');
 
 		$snippet = $this->getButtons(is_array($networks) ? $networks : explode(',', $networks), $this->defaultArgs()['description']);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -118,9 +120,9 @@ EOT;
 			$network = \trim(\strtolower($network));
 
 			if ('facebook' == $network) {
-				$content .= $this->getButtonFacebook(isset($this->stygen) && $this->stygen);
+				$content .= $this->getButtonFacebook($this->stygen);
 			}else if ('instagram' == $network) {
-				$content .= $this->getButtonInstagram(isset($this->stygen) && $this->stygen);
+				$content .= $this->getButtonInstagram($this->stygen);
 			}
 		}
 		$content .= '</div>';

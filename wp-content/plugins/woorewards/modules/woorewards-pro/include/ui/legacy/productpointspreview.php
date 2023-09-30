@@ -14,6 +14,10 @@ class ProductPointsPreview
 	const POS_FORM   = 'after_form';
 	const POS_NONE   = 'not_displayed';
 
+	private $pools   = false;
+	private $poolIds = false;
+	private $stygen  = false;
+
 	static function register()
 	{
 		$position = \lws_get_option('lws_woorewards_product_potential_position', self::POS_NONE);
@@ -102,7 +106,7 @@ class ProductPointsPreview
 			false,
 			false
 		);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -147,7 +151,7 @@ class ProductPointsPreview
 
 	protected function getPools()
 	{
-		if (!isset($this->pools)) {
+		if (false === $this->pools) {
 			$this->pools = array();
 			if ($this->poolIds && \is_array($this->poolIds)) {
 				foreach (\LWS_WooRewards_Pro::getActivePools()->asArray() as $pool) {
@@ -163,7 +167,7 @@ class ProductPointsPreview
 
 	/**	$atts['system'] a string with coma separated system reference.
 	 *	if $atts['intern'], use id instead of name to get Loyalty System.
-	 *	@return array of Pool in same order as $atts['system'],
+	 *	@return false|array of Pool in same order as $atts['system'],
 	 *	or false if $atts['system'] is missing. */
 	protected function getRequiredPools($atts)
 	{
@@ -256,14 +260,14 @@ class ProductPointsPreview
 	protected function getContent($points, $userId = false, $force = true)
 	{
 		$label = \lws_get_option('lws_woorewards_label_ppp', __("With this product, you will earn ", 'woorewards-pro'));
-		if (!isset($this->stygen))
+		if (!$this->stygen)
 			$label = \apply_filters('wpml_translate_single_string', $label, 'Widgets', "WooRewards - Product Points Preview - Title");
 		$html = '';
 
 		if (!$userId) {
 			$unlogText = \lws_get_option('lws_woorewards_ppp_unlogged_text', '');
 			if ($unlogText) {
-				if (!isset($this->stygen))
+				if (!$this->stygen)
 					$unlogText = \apply_filters('wpml_translate_single_string', $unlogText, 'Widgets', "WooRewards - Product Points Preview - Unlogged Text");
 				if ($force)
 					$label = $unlogText;
@@ -272,7 +276,7 @@ class ProductPointsPreview
 			}
 		}
 
-		if ($userId || $force || isset($this->stygen)) {
+		if ($userId || $force || $this->stygen) {
 			$html .= <<<EOT
 <div class='lwss_selectable lwss_modify lws-wre-productpointspreview-label' data-type='Label' data-id='lws_woorewards_label_ppp'>
 	<span class='lwss_modify_content'>{$label}</span>

@@ -7,6 +7,11 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Look for $_GET[$name] in your EditListSource::read implemention. */
 class FilterSimpleField extends Filter
 {
+	protected $name = '';
+	protected $extra = array();
+	protected $placeholder = '';
+	protected $buttonLabel = '';
+
 	/** @param $name you will get the filter value in $_GET[$name]. */
 	function __construct($name, $placeholder, $buttonLabel='', $extra = array())
 	{

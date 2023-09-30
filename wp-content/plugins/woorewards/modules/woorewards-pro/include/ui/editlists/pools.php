@@ -14,9 +14,10 @@ class Pools extends \LWS\Adminpanel\EditList\Source
 
 	static protected $filter = false;
 
+	private $tab = 'wr_loyalty.';
+
 	function __construct()
 	{
-		$this->tab = 'wr_loyalty.';
 		static $once = true;
 		if( $once )
 		{
@@ -74,7 +75,7 @@ class Pools extends \LWS\Adminpanel\EditList\Source
 			$url = \add_query_arg(
 				array(
 					'page' => LWS_WOOREWARDS_PAGE.'.loyalty',
-					'tab' => $this->tab.$pool->getTabId(),
+					'tab' => $this->tab . $pool->getTabId(),
 				),
 				\admin_url('admin.php')
 			);
@@ -147,7 +148,7 @@ EOT;
 	{
 		if( $pool->isDeletable() ) // for prefabs, url never change whatever the name
 		{
-			$arg = array('tab' => $this->tab.$pool->getTabId());
+			$arg = array('tab' => $this->tab . $pool->getTabId());
 
 			\add_filter('wp_redirect', function($location, $status)use($arg){
 				return \add_query_arg($arg, $location);
@@ -352,7 +353,7 @@ EOT;
 		$data['display_title'] = $this->coatTitleToEditButton(
 			$data['display_title'],
 			\esc_attr(\add_query_arg(
-				array('page' => LWS_WOOREWARDS_PAGE.'.loyalty', 'tab' => $this->tab.$pool->getTabId()),
+				array('page' => LWS_WOOREWARDS_PAGE.'.loyalty', 'tab' => $this->tab . $pool->getTabId()),
 				\admin_url('admin.php')
 			)),
 			'editlist-row-title-edit'

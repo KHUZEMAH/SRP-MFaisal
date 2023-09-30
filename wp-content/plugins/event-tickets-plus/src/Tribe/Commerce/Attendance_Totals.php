@@ -64,6 +64,7 @@ class Tribe__Tickets_Plus__Commerce__Attendance_Totals extends Tribe__Tickets__A
 	 */
 	public function print_totals() {
 		$args = [
+			'total_type_label'        => tribe_get_ticket_label_plural( 'attendance_totals' ),
 			'total_sold_label'        => esc_html( sprintf( _x( 'Total %s:', 'attendee summary', 'event-tickets-plus' ), tribe_get_ticket_label_plural( 'attendance_totals' ) ) ),
 			'total_complete_label'    => _x( 'Complete:', 'attendee summary', 'event-tickets-plus' ),
 			'total_cancelled_label'   => _x( 'Cancelled:', 'attendee summary', 'event-tickets-plus' ),

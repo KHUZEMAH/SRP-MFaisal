@@ -114,7 +114,7 @@ abstract class Collection
 	 * If object is given, look at getId, then getName if method exists.
 	 * If int is given, elements of the collection must have a getId method.
 	 * If string is given, look first at element key inside of collection, then at getName method if exists on elements.
-	 * @return false if not found. */
+	 * @return mixed false if not found. */
 	public function find($ref)
 	{
 		return $this->findRef($ref);
@@ -122,7 +122,7 @@ abstract class Collection
 
 	/** @param $item (int|string|object) id, name or element instance.
 	 * If element is given, look at getId, then getName if method exists.
-	 * @return the removed item or false if not found. */
+	 * @return mixed the removed item or false if not found. */
 	public function remove($item)
 	{
 		$key = $this->findKey($item);
@@ -156,7 +156,7 @@ abstract class Collection
 		return self::getNewName($proposal, $names);
 	}
 
-	/** @return a name starting by $proposal that does not exist in $existant.
+	/** @return string a name starting by $proposal that does not exist in $existant.
 	 *	If similarity exists, a counter is incremented at end of the name. */
 	public static function getNewName($proposal='untitled', $existants=array())
 	{
@@ -208,7 +208,7 @@ abstract class Collection
 		return array_keys($this->items);
 	}
 
-	/** @return the last element of the collection. */
+	/** @return mixed the last element of the collection. */
 	public function last()
 	{
 		if( empty($this->items) )
@@ -217,7 +217,7 @@ abstract class Collection
 		return $this->items[array_keys($this->items)[$index]];
 	}
 
-	/** @return the first element of the collection. */
+	/** @return mixed the first element of the collection. */
 	public function first()
 	{
 		if( empty($this->items) )
@@ -258,7 +258,7 @@ abstract class Collection
 	 * If object is given, look at getId, then getName if method exists.
 	 * If int is given, elements of the collection must have a getId method.
 	 * If string is given, look first at element key inside of collection, then at getName method if exists on elements.
-	 * @return false if not found. */
+	 * @return mixed false if not found. */
 	protected function findKey($ref)
 	{
 		if( is_object($ref) && method_exists($ref, 'getId') )

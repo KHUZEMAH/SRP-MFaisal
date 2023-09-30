@@ -6,6 +6,7 @@
 /**
 * Tab section 
 */
+:root { --wp-admin-theme-color: #0073aa;}
 .wt_iew_page_hd{ font-size:20px; }
 .wt-iew-tab-head{ margin-right:0px; margin-top:20px; clear:both;}
 .wt-iew-tab-container{ padding:15px; padding-bottom:0px; background:#fff; box-shadow:0px 2px 2px #ccc; float:left; box-sizing:border-box; width:100%; height:auto;}

@@ -9,6 +9,8 @@ class OrderCompleted extends \LWS\WOOREWARDS\Abstracts\Event
 {
 	use \LWS\WOOREWARDS\Events\T_SponsorshipOrigin;
 
+	protected $eventPriority = 102;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -101,7 +103,7 @@ EOT;
 
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 102;
+		return \intval($this->eventPriority);
 	}
 
 	public function setEventPriority($priority)

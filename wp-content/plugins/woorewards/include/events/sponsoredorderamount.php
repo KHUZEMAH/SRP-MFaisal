@@ -39,7 +39,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\Events\OrderAmount
 		return parent::orderDone($order);
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @return (int) user ID */
 	function getPointsRecipient($order)
 	{
@@ -56,7 +56,7 @@ class SponsoredOrderAmount extends \LWS\WOOREWARDS\Events\OrderAmount
 		return $info;
 	}
 
-	/** @param $order (WC_Order)
+	/** @param $order (\WC_Order)
 	 * @param $amount (float) computed amount
 	 * @return (\LWS\WOOREWARDS\Core\Trace) a reason for history */
 	function getPointsReason($order, $amount)

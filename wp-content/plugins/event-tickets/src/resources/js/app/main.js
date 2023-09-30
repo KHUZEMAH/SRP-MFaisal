@@ -735,6 +735,7 @@ __webpack_require__.d(constants_namespaceObject, "EDD", function() { return EDD;
 __webpack_require__.d(constants_namespaceObject, "WOO", function() { return WOO; });
 __webpack_require__.d(constants_namespaceObject, "RSVP", function() { return constants_RSVP; });
 __webpack_require__.d(constants_namespaceObject, "RSVP_CLASS", function() { return RSVP_CLASS; });
+__webpack_require__.d(constants_namespaceObject, "TICKETS_COMMERCE_MODULE_CLASS", function() { return TICKETS_COMMERCE_MODULE_CLASS; });
 __webpack_require__.d(constants_namespaceObject, "TC_CLASS", function() { return TC_CLASS; });
 __webpack_require__.d(constants_namespaceObject, "EDD_CLASS", function() { return EDD_CLASS; });
 __webpack_require__.d(constants_namespaceObject, "WOO_CLASS", function() { return WOO_CLASS; });
@@ -2153,6 +2154,7 @@ const EDD = 'edd';
 const WOO = 'woo';
 const constants_RSVP = 'rsvp';
 const RSVP_CLASS = 'Tribe__Tickets__RSVP';
+const TICKETS_COMMERCE_MODULE_CLASS = 'TEC\\Tickets\\Commerce\\Module';
 const TC_CLASS = 'Tribe__Tickets__Commerce__PayPal__Main';
 const EDD_CLASS = 'Tribe__Tickets_Plus__Commerce__EDD__Main';
 const WOO_CLASS = 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main';
@@ -2378,7 +2380,9 @@ const getTicketTempCapacityTypeOption = Object(external_tribe_modules_reselect_[
 const isTempTitleValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempTitle], title => external_lodash_trim_default()(title) !== '');
 const isTempCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity));
 const isTempSharedCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketsTempSharedCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity));
-const isZeroPriceValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempPrice, getTicketsProvider], (price, provider) => 0 < parseInt(price, 10) || provider !== TC_CLASS);
+const isZeroPriceValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempPrice, getTicketsProvider], (price, provider) => {
+  return 0 < parseInt(price, 10) || ![TC_CLASS, TICKETS_COMMERCE_MODULE_CLASS].includes(provider);
+});
 const isTicketValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacityType, isTempTitleValid, isTempCapacityValid, isTempSharedCapacityValid, isZeroPriceValid], (capacityType, titleValid, capacityValid, sharedCapacityValid, zeroPriceValid) => {
   if (capacityType === selectors_TICKET_TYPES[selectors_UNLIMITED]) {
     return titleValid && zeroPriceValid;
@@ -10644,7 +10648,8 @@ const TicketContainerHeaderPriceInput = _ref => {
     currencyPosition,
     currencySymbol,
     onTempPriceChange,
-    tempPrice
+    tempPrice,
+    minDefaultPrice
   } = _ref;
   return wp.element.createElement(external_React_["Fragment"], null, currencyPosition === PREFIX && wp.element.createElement("span", {
     className: "tribe-editor__ticket__container-header-price-currency"
@@ -10655,7 +10660,7 @@ const TicketContainerHeaderPriceInput = _ref => {
     onChange: onTempPriceChange,
     disabled: isDisabled,
     type: "number",
-    min: "0"
+    min: minDefaultPrice
   }), currencyPosition === SUFFIX && wp.element.createElement("span", {
     className: "tribe-editor__ticket__container-header-price-currency"
   }, currencySymbol));
@@ -10665,7 +10670,8 @@ TicketContainerHeaderPriceInput.propTypes = {
   currencyPosition: external_tribe_modules_propTypes_default.a.oneOf(PRICE_POSITIONS),
   currencySymbol: external_tribe_modules_propTypes_default.a.string,
   onTempPriceChange: external_tribe_modules_propTypes_default.a.func,
-  tempPrice: external_tribe_modules_propTypes_default.a.string
+  tempPrice: external_tribe_modules_propTypes_default.a.string,
+  minDefaultPrice: external_tribe_modules_propTypes_default.a.string
 };
 const TicketContainerHeaderPriceLabel = _ref2 => {
   let {
@@ -10694,7 +10700,8 @@ const TicketContainerHeaderPrice = _ref3 => {
     currencySymbol,
     onTempPriceChange,
     tempPrice,
-    price
+    price,
+    minDefaultPrice
   } = _ref3;
   return wp.element.createElement("div", {
     className: "tribe-editor__ticket__container-header-price"
@@ -10703,7 +10710,8 @@ const TicketContainerHeaderPrice = _ref3 => {
     currencySymbol: currencySymbol,
     onTempPriceChange: onTempPriceChange,
     tempPrice: tempPrice,
-    isDisabled: isDisabled
+    isDisabled: isDisabled,
+    minDefaultPrice: minDefaultPrice
   }) : wp.element.createElement(TicketContainerHeaderPriceLabel, {
     currencyPosition: currencyPosition,
     currencySymbol: currencySymbol,
@@ -10717,7 +10725,8 @@ TicketContainerHeaderPrice.propTypes = {
   currencySymbol: external_tribe_modules_propTypes_default.a.string,
   onTempPriceChange: external_tribe_modules_propTypes_default.a.func,
   tempPrice: external_tribe_modules_propTypes_default.a.string,
-  price: external_tribe_modules_propTypes_default.a.string
+  price: external_tribe_modules_propTypes_default.a.string,
+  minDefaultPrice: external_tribe_modules_propTypes_default.a.string
 };
 /* harmony default export */ var price_template = (TicketContainerHeaderPrice);
 // CONCATENATED MODULE: ./src/modules/blocks/ticket/container-header/price/container.js
@@ -10738,7 +10747,8 @@ const price_container_mapStateToProps = (state, ownProps) => ({
   currencyPosition: ticket_selectors_namespaceObject.getTicketCurrencyPosition(state, ownProps),
   currencySymbol: ticket_selectors_namespaceObject.getTicketCurrencySymbol(state, ownProps),
   tempPrice: ticket_selectors_namespaceObject.getTicketTempPrice(state, ownProps),
-  price: ticket_selectors_namespaceObject.getTicketPrice(state, ownProps) || '0'
+  price: ticket_selectors_namespaceObject.getTicketPrice(state, ownProps) || '0',
+  minDefaultPrice: ticket_selectors_namespaceObject.isZeroPriceValid(state, ownProps) ? 0 : 1
 });
 const price_container_mapDispatchToProps = (dispatch, ownProps) => ({
   onTempPriceChange: e => {

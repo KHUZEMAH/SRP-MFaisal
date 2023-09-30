@@ -107,6 +107,11 @@ msgstr ""
 msgid "Used by"
 msgstr "Používáno"
 
+#: include/core/pool.php:1712
+msgctxt "decimal separator"
+msgid "."
+msgstr ""
+
 #: include/core/ajax.php:384 include/core/ajax.php:421
 msgctxt "pool name separator"
 msgid ", "
@@ -3563,10 +3568,10 @@ msgstr "Sponzorské funkce"
 #: include/ui/adminscreens/generalsettings.php:159
 #, fuzzy
 #| msgid ""
-#| "Here, you'll find the different tools customers can user to sponsor their "
+#| "Here, you'll find the different tools customers can use to sponsor their "
 #| "friends and the reward given to sponsored users."
 msgid ""
-"Here, you'll find the different tools customers can user to refer their "
+"Here, you'll find the different tools customers can use to refer their "
 "friends and the reward given to referred users."
 msgstr ""
 "Zde najdete různé nástroje, které mohou zákazníci použít k sponzorování "
@@ -5276,7 +5281,7 @@ msgid "Below Add to Cart"
 msgstr ""
 
 #: include/ui/adminscreens/woocommerce.php:507
-msgid "Order Email Points Information"
+msgid "Order Points Information"
 msgstr ""
 
 #: include/ui/adminscreens/woocommerce.php:510

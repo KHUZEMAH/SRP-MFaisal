@@ -4,10 +4,10 @@ Plugin URI: https://livemeshelementor.com
 Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor
-Requires at least: 5.4
-Tested up to: 6.2
+Requires at least: 5.8
+Tested up to: 6.3
 Requires PHP: 5.6
-Stable Tag: 7.9.1
+Stable Tag: 7.9.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -259,6 +259,10 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 7.9.2 =
+* Freemius SDK update to 2.5.12
+* Updated - Compatibility with Elementor 3.16
 
 = 7.9.1 =
 * Added - Subtext option to the Marquee widget

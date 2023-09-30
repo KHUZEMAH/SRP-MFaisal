@@ -52,12 +52,15 @@ if( !defined( 'ABSPATH' ) ) exit();
  * @endcode */
 class Pages
 {
+	public $doingAjax = false;
+	public $pageInstances = array();
+	public $pages = array();
 
 	/** Take an array to build a set of pages. */
 	public static function makePages( $pagesArray )
 	{
 		if( !is_array($pagesArray) )
-			return Pages::error(\get_class() . ":" . __FUNCTION__ . "(Argument must be an array.)");
+			return error_log(\get_class() . ":" . __FUNCTION__ . "(Argument must be an array.)");
 		return new Pages($pagesArray);
 	}
 
@@ -281,7 +284,7 @@ class Pages
 		return true;
 	}
 
-	/** @return a well formated format subarray for test()
+	/** @return array well formated format subarray for test()
 	 * @see test */
 	public static function format($key, $optional, $type, $description, $children=null)
 	{
@@ -324,7 +327,7 @@ class Pages
 		return $lws_adminpanel_page;
 	}
 
-	/** @return if the given pageId belong to this Pages. */
+	/** @return bool if the given pageId belong to this Pages. */
 	protected function isOurPage($pageId)
 	{
 		if( !in_array($pageId, $this->wordPressPages()) && isset($this->pages[$pageId]) )
@@ -530,5 +533,4 @@ class Pages
 		}
 		return null;
 	}
-
 }

@@ -28,7 +28,7 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 		return 'singular';
 	}
 
-	/** @return a well formated format array for Pages::test()
+	/** @return bool a well formated format array for Pages::test()
 		* @see Pages::test() */
 	public function isValid()
 	{
@@ -156,22 +156,16 @@ class Singular extends \LWS\Adminpanel\Pages\Page
 		return $html;
 	}
 
-	/** @return (bool) singular should still be displayed. */
+	/** singular should still be displayed. */
 	protected function doAction()
 	{
-		if( isset($this->data['rights']) && !empty($this->data['rights']) )
-		{
-			if( !\current_user_can($this->data['rights']) )
-			{
-				\lws_admin_add_notice_once('singular_edit', __("Action rejected for current user. Insufficient capacities.", 'lws-adminpanel'), array('level'=>'error'));
-				return;
-			}
-		}
-
-		if( isset($_GET['action']) && $_GET['action'] == 'delete' )
+		if (isset($this->data['rights']) && $this->data['rights'] && !\current_user_can($this->data['rights'])) {
+			\lws_admin_add_notice_once('singular_edit', __("Action rejected for current user. Insufficient capacities.", 'lws-adminpanel'), array('level'=>'error'));
+		} elseif( isset($_GET['action']) && $_GET['action'] == 'delete' ) {
 			$this->delete();
-		elseif( isset($_POST['hiddenaction']) && in_array($_POST['hiddenaction'], array('create', 'update')) )
+		} elseif( isset($_POST['hiddenaction']) && in_array($_POST['hiddenaction'], array('create', 'update')) ) {
 			$this->update();
+		}
 	}
 
 	/** Call save callable then redirect to avoid input reposting. */

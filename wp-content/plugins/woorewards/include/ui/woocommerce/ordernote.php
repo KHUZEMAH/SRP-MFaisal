@@ -22,6 +22,9 @@ class OrderNote
 				);
 			}
 		}, 1000, 2); // let wc at above
+		add_action('admin_enqueue_scripts', function(){
+			\wp_register_style('lws-wr-ordernote', LWS_WOOREWARDS_CSS . '/ordernote.min.css', array(), LWS_WOOREWARDS_VERSION);
+		});
 	}
 
 	protected static function isOrderRelative($post)
@@ -37,18 +40,19 @@ class OrderNote
 	}
 
 	/**	echo box content
-	 * @param $post (WP_Post|WC_Order) $post Post or order object. */
+	 * @param $post (\WP_Post|\WC_Order) $post Post or order object. */
 	public function eContent($post)
 	{
 		$orderId = (\is_a($post, '\WC_Order') ? $post->get_id() : $post->ID);
 		$notes = \LWS\WOOREWARDS\Core\OrderNote::get($orderId);
+		\wp_enqueue_style('lws-wr-ordernote');
 		if ($notes) {
 			$content = '';
 			foreach ($notes as $note) {
-				$css = \implode(' ', \apply_filters('lws_woorewards_metabox_order_note_class', array('note'), $note));
+				$css = \implode(' ', \apply_filters('lws_woorewards_metabox_order_note_class', array('lws-wr-note'), $note));
 				$row = <<<EOT
 <li rel="%1\$s" class="{$css}">
-	<div class="note_content">%4\$s</div>
+	<div class="lws-wr-note-content">%4\$s</div>
 	<p class="meta">
 		<abbr class="exact-date" title="%2\$s">%3\$s</abbr>
 	</p>
@@ -67,10 +71,10 @@ EOT;
 					\wpautop(\wptexturize(\wp_kses_post($note->comment_content)))
 				), $note);
 			}
-			echo "<ul class='woorewards-notes order_notes'>{$content}</ul>";
+			echo "<ul class='woorewards-notes'>{$content}</ul>";
 		} else {
 			echo sprintf(
-				'<ul class="woorewards-notes order_notes"><li class="no-items">%s</li></ul>',
+				'<ul class="woorewards-notes"><li class="no-items">%s</li></ul>',
 				__( 'There are no notes yet.', 'woorewards-lite')
 			);
 		}

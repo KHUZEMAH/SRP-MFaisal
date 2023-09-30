@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Must declare an array index 'resume' => true */
 class Resume extends \LWS\Adminpanel\Pages\Page
 {
+	public $pages = array();
+
 	/** Echo page content
 	 *	Declaration of all pages can be found in $this->pages array
 	 *	Page header in getHead() */
@@ -110,6 +112,7 @@ EOT;
 		return false;
 	}
 
+	/** @return bool */
 	public function getGroups()
 	{
 		return false;

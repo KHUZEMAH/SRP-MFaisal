@@ -101,7 +101,7 @@ class Admin extends \LWS\Adminpanel\Pages\Page
 		echo "</div></form>";
 	}
 
-	/** @return an array of Field instances. */
+	/** @return array, an array of Field instances. */
 	public function getFields()
 	{
 		$f = array();
@@ -125,6 +125,7 @@ class Admin extends \LWS\Adminpanel\Pages\Page
 		return !empty($this->groups);
 	}
 
+	/** @return mixed false or group array */
 	public function getGroups(){
 		if($this->hasGroup())
 		{
@@ -179,7 +180,7 @@ class Admin extends \LWS\Adminpanel\Pages\Page
 	/** Look for fields of given $type.
 	 *	Add a summary group at top of the given tab.
 	 *	@param $groups (in/out array)
-	 *	@return the modified $groups. */
+	 *	@return array the modified $groups. */
 	protected function addSummaryGroup(&$groups, $type='shortcode', $summaryTitle='', $summaryText='')
 	{
 		$content = '';

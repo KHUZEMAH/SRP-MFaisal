@@ -14,7 +14,7 @@ class OrderNote
 	{
 		if ($orderId) {
 			// let wp return our comments
-			\remove_filter('comments_clauses', array(__CLASS__, 'exclude'), 10, 1);
+			\remove_filter('comments_clauses', array(__CLASS__, 'exclude'), 10);
 			// really get the comments
 			$comments = \get_comments(array(
 				'type'    => self::TYPE,
@@ -32,10 +32,10 @@ class OrderNote
 
 	/**	Avoid overstock WC_Order::add_order_note and pack them in our own metabox.
 	 *	As WC, comment the order.
-	 *	@param $order (WC_Order|int)
+	 *	@param $order (\WC_Order|int)
 	 *	@param $note (string) the message
 	 *	@param $source (Pool|string|false) the pool, the stack id or any relevant origin
-	 *	@return the new comment id or false on error. */
+	 *	@return integer the new comment id or false on error. */
 	public static function add($order, $note, $source=false)
 	{
 		$commentId = false;

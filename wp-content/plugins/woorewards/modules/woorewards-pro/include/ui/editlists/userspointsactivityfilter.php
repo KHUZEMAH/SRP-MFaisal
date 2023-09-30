@@ -7,6 +7,9 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Filter users looking for history entries in days. */
 class UsersPointsActivityFilter extends \LWS\Adminpanel\EditList\Filter
 {
+	private $name = '';
+	private $args = false;
+
 	function __construct($name)
 	{
 		parent::__construct('lws-editlist-filter-' . strtolower($name));
@@ -58,7 +61,7 @@ EOT;
 
 	private function getArgs()
 	{
-		if( !isset($this->args) )
+		if( false === $this->args )
 		{
 			$this->args = (object)array(
 				'opeKey'   => $this->name . '_o',

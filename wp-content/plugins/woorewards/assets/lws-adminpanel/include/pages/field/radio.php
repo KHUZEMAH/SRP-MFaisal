@@ -20,5 +20,3 @@ class Radio extends \LWS\Adminpanel\Pages\Field
 		echo "</div>";
 	}
 }
-
-?>

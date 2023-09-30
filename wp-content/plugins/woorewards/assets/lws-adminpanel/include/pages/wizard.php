@@ -38,6 +38,18 @@ if( !defined( 'ABSPATH' ) ) exit();
  */
 abstract class Wizard
 {
+	public $slug = '';
+	public $data = null;
+
+	protected $color        = '#3fa9f5';
+	protected $repeat       = false;
+	protected $lastStep     = '';
+	protected $timestamp    = '';
+	protected $requested    = false;
+	protected $rollbackData = null;
+	protected $lastError    = false;
+	protected $action       = null;
+
 	/** When user ends the wizard, that function is called with all user input as argument.
 	 * @param $data (array) the result of getData()
 	 * @return (string) the url the user must be redirected,
@@ -134,13 +146,10 @@ abstract class Wizard
 		return $pages;
 	}
 
-	/** to be override.
-	 * The main color */
+	/** to be override. The main color
+	 * @return string */
 	protected function getColor()
 	{
-		if (!isset($this->color)) {
-			$this->color = '#3fa9f5';
-		}
 		return $this->color;
 	}
 
@@ -228,7 +237,7 @@ abstract class Wizard
 	/** Should be override for optimization.
 	 * Actual implementation get the full page description
 	 * to only extract the title if any.
-	 * @return the step title */
+	 * @return string the step title */
 	protected function getStepTitle($slug)
 	{
 		if( $page = $this->getPage($slug, 'title') )
@@ -250,10 +259,10 @@ abstract class Wizard
 	}
 
 	/** Callable anytime to check wizard state and user settings.
-	 * @return the wizard state, user inputs and so on */
+	 * @return array the wizard state, user inputs and so on */
 	public function getData()
 	{
-		if( !isset($this->data) )
+		if( !isset($this->data) || null === $this->data )
 		{
 			$this->repeat = false;
 			$this->lastStep = '';
@@ -412,7 +421,7 @@ abstract class Wizard
 	protected function getRollbackData($default=array())
 	{
 		$this->getData();
-		return isset($this->rollbackData) ? $this->rollbackData : $default;
+		return (isset($this->rollbackData) && null !== $this->rollbackData) ? $this->rollbackData : $default;
 	}
 
 	protected function getSubmittedData()
@@ -431,7 +440,7 @@ abstract class Wizard
 
 	protected function getAction()
 	{
-		if( !isset($this->action) )
+		if( !isset($this->action) || null === $this->action )
 			$this->action = isset($_POST['submit']) ? \sanitize_key($_POST['submit']) : false;
 		return $this->action;
 	}
@@ -576,10 +585,10 @@ abstract class Wizard
 	}
 
 	/**	@see getValue()
-	 *	@param $field (sring)
+	 *	@param $field (string)
 	 *  @param $path (array|false)
 	 *  @param $exists (ref bool) out
-	 *  @return the value in $this->data or null if not found. */
+	 *  @return mixed the value in $this->data or null if not found. */
 	public function getDataValue(&$data, $field, $path, &$exists)
 	{
 		$exists = false;
@@ -717,7 +726,6 @@ abstract class Wizard
 			}
 			return $ok;
 		}
-		return false;
 	}
 
 	/** wizard form attributes as array */

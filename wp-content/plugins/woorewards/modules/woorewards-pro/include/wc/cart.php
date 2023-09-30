@@ -348,8 +348,8 @@ class Cart
 	}
 
 	/** Test coupon is applicable before adding attached product.
-	 *	@param $coupon (WC_Coupon)
-	 *	@param $cart (WC_Cart|WC_Discount)
+	 *	@param $coupon (\WC_Coupon)
+	 *	@param $cart (\WC_Cart|\WC_Discounts)
 	 *	@return true or WP_Error */
 	function isFreeProductCouponAllowed($coupon, $cart)
 	{

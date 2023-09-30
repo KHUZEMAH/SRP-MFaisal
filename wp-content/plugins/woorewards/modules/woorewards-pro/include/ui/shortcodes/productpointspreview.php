@@ -96,10 +96,11 @@ class ProductPointsPreview
 
 	/** Shows points earned for purchasing a product
 	 * [wr_product_points system='poolname1']
-	 * @param system        → Default: '' | Pools
-	 * @param id            → Default: '' | Product Id
-	 * @param value         → Default: 'regular'
-	 * @param showcurrency	→ Default: 'true'
+	 * @param $atts array :
+	 * * 'system'       → Default: '' | Pools
+	 * * 'id'           → Default: '' | Product Id
+	 * * 'value'        → Default: 'regular'
+	 * * 'showcurrency' → Default: 'true'
 	 */
 	public function shortcode($atts = array(), $content = null)
 	{

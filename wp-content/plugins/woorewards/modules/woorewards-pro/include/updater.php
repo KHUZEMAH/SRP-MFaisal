@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) exit();
 /** satic class to manage activation and version updates. */
 class Updater
 {
+	private $stdPool = null;
+	private $lvlPool = null;
+
 	static function checkUpdate()
 	{
 		$reload = false;
@@ -154,6 +157,14 @@ class Updater
 
 		if (\version_compare($fromVersion, '5.0.6', '<')) {
 			$this->savePermanentCouponOriginPool();
+		}
+
+		if (\version_compare($fromVersion, '5.2.4', '<')) {
+			$thanks = \get_option('lws_woorewards_wc_new_order_content');
+			if ($thanks && false === \get_option('lws_woorewards_wc_new_order_content_plaintext', false)) {
+				$thanks = \wp_kses($thanks, array());
+				\update_option('lws_woorewards_wc_new_order_content_plaintext', $thanks);
+			}
 		}
 
 		update_option('lws_woorewards_pro_version', LWS_WOOREWARDS_PRO_VERSION);
@@ -486,7 +497,7 @@ EOT;
 		if (empty($whiteList) && $minAmount <= 0)
 			return; // lets default options
 
-		if (!isset($this->stdPool)) {
+		if (null === $this->stdPool) {
 			$this->stdPool = \LWS\WOOREWARDS\Collections\Pools::instanciate()->load(array(
 				'numberposts' => 1,
 				'meta_query'  => array(
@@ -520,7 +531,7 @@ EOT;
 	 * since that option (individually) does not exist anymore.
 	 * But permanent become not cumulable (forced).
 	 *
-	 * @return Unlockable instance. */
+	 * @return \LWS\WOOREWARDS\Abstracts\Unlockable instance. */
 	protected function createUnlockableFromV2Post($post)
 	{
 		$unlock = false;
@@ -694,7 +705,7 @@ EOT;
 	 * @return false if settings should not be overwritten by v2 traces. */
 	protected function copyStandardV2Rewards()
 	{
-		if (!isset($this->stdPool)) {
+		if (null === $this->stdPool) {
 			$this->stdPool = \LWS\WOOREWARDS\Collections\Pools::instanciate()->load(array(
 				'numberposts' => 1,
 				'meta_query'  => array(
@@ -759,7 +770,7 @@ EOT;
 	 * translate that reward settings to v3 */
 	protected function copyLevellingV2Rewards()
 	{
-		if (!isset($this->lvlPool))
+		if (null === $this->lvlPool)
 			return; // addLevelingPool() should be called first
 
 		$error = false;
@@ -796,7 +807,7 @@ EOT;
 	 * translate that settings to v3 */
 	protected function copyLevellingSettings()
 	{
-		if (!isset($this->lvlPool))
+		if (null === $this->lvlPool)
 			return; // addLevelingPool() should be called first
 		$enabled = false;
 

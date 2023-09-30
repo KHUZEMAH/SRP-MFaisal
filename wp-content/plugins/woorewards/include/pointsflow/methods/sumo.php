@@ -25,9 +25,8 @@ EOT;
 		$results = $wpdb->get_results($sql);
 		if ($wpdb->last_error) {
 			\wp_die("SUMO must be installed and active", 410);
-		}else{
-			return $results;
 		}
+		return $results;
 	}
 
 	/** @return (string) human readable name */

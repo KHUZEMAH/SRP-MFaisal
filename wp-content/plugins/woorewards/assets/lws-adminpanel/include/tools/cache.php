@@ -5,6 +5,11 @@ class Cache
 {
 	public static $cacheExpire = 604800; /// in second. 604800 is a week (7*60*60*24)
 
+	protected $protectDir = false;
+	protected $filename = '';
+	protected $cache = '';
+	protected $path = '';
+
 	/** @param $protectDir (bool) true: deny acces from any - then take care to place your file in a subdirectory.
 	 * @param $filename (string) relative path+filename to save/read in cache, take care to use a subdir if you plan to protect it. */
 	public function __construct($filename, $protectDir=false)
@@ -106,7 +111,7 @@ class Cache
 			return true;
 	}
 
-	/** @return the cached content, empty string if no cache, false if expire or error.
+	/** @return string the cached content, empty string if no cache, false if expire or error.
 	 * @param $expireDelay in second, if <= 0 use default @see $this->cacheExpire.
 	 */
 	public function pop($failIfExpire=true, $expireDelay=0, $failIfNoCache=false)

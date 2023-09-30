@@ -144,23 +144,24 @@ class Rewards
 
 	/** Shows rewards
 	 * [wr_rewards system='poolname1, poolname2']
-	 * @param system 	→ Default: ''
+	 * @param $atts array :
+	 * * system 	→ Default: ''
 	 * 					  The points and rewards systems for which the rewards are displayed. If empty, show all active systems
 	 * 					  One value or several ones, comma separated
-	 * @param layout 	→ Default: 'none'
+	 * * layout 	→ Default: 'none'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, horizontal, vertical, none.
-	 * @param element 	→ Default: 'none'
+	 * * element 	→ Default: 'none'
 	 * 					  Defines the presentation of the elements.
 	 * 					  3 possible values : tile, line, none.
-	 * @param display	→ Default: 'formatted'
+	 * * display	→ Default: 'formatted'
 	 * 					  'simple'    → only the points numeric value is displayed.
 	 * 					  'formatted' → points are formatted with the points currency/name.
-	 * @param showname	→ Default: false
+	 * * showname	→ Default: false
 	 * 					  Shows the name of the points and rewards system if set
-	 * @param force	→ Default: false
+	 * * force	→ Default: false
 	 * 					  Shows for unlogged users, acces to system users cannot
-	 * @param imagesize		→ Default: 'lws_wr_thumbnail'
+	 * * imagesize		→ Default: 'lws_wr_thumbnail'
 	 * 					  	  Set the reward image's size
 	 */
 	public function shortcode($atts = array(), $content = '')
@@ -332,7 +333,7 @@ EOT;
 				// merge all
 				if ($level)
 					$group .= sprintf($container, $level);
-				$content[] .= sprintf("<div class='wr-rewards rewards-leveling-grid'>%s</div>", $group);
+				$content[] = sprintf("<div class='wr-rewards rewards-leveling-grid'>%s</div>", $group);
 			}
 
 			$lastType = $item['type'];

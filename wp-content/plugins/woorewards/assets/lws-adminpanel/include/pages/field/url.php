@@ -12,5 +12,3 @@ class URL extends \LWS\Adminpanel\Pages\Field
 		echo "<input class='{$this->style}' type='url' name='$name' value='$value' placeholder='URL' />";
 	}
 }
-
-?>

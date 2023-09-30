@@ -8,6 +8,10 @@ if (!defined('ABSPATH')) exit();
 /** A filter that allows to show or hide columns of the editlist */
 class FilterColumnsVisibility extends Filter
 {
+	protected $name = '';
+	protected $title = '';
+	protected $extra = array();
+
 	/** @param $name you will get the filter value in $_GET[$name]. */
 	function __construct($name, $title, $extra = array())
 	{

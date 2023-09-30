@@ -2568,12 +2568,12 @@ msgstr "您使用的每 %s 价值 %s"
 
 #: include/ui/woocommerce/pointsoncart.php:663
 #, php-format
-msgid "You can use a minimum of %1$s %2$s on a single cart."
+msgid "You can use a minimum of %s on a single cart."
 msgstr ""
 
 #: include/ui/woocommerce/pointsoncart.php:674
 #, php-format
-msgid "You can use a maximum of %1$s %2$s on a single cart."
+msgid "You can use a maximum of %s on a single cart."
 msgstr ""
 
 #: include/ui/woocommerce/pointsoncart.php:685

@@ -50,6 +50,15 @@ abstract class Field
 
 	public static $Style = "lws-input";
 
+	public $m_Id    = '';
+	public $m_Title = '';
+	public $style   = '';
+	public $extra   = array();
+	public $gizmo   = false;
+
+	protected $requirement = array();
+	protected $internalType = '';
+
 	/** Write html input line. */
 	abstract public function input();
 

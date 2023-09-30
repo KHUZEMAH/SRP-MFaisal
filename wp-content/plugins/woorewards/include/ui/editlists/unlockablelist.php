@@ -8,6 +8,9 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Tips: prevent page nav with EditList::setPageDisplay(false) */
 class UnlockableList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 {
+	protected $stepInfo = false;
+	protected $choices  = false;
+
 	function labels()
 	{
 		$labels = array();
@@ -46,7 +49,7 @@ class UnlockableList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	protected function getStepInfo()
 	{
-		if (empty($this->stepInfo)) {
+		if (!$this->stepInfo) {
 			$this->stepInfo = __("Reward Settings", 'woorewards-lite');
 		}
 		return $this->stepInfo;
@@ -70,7 +73,7 @@ class UnlockableList extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	protected function loadChoices()
 	{
-		if( !isset($this->choices) )
+		if (false === $this->choices)
 		{
 			$blacklist = $this->pool->getOption('blacklist');
 			if( !\LWS\Adminpanel\Tools\Conveniences::isWC() )

@@ -14,6 +14,11 @@ implements \LWS\WOOREWARDS\PRO\Events\I_CartPreview
 	use \LWS\WOOREWARDS\PRO\Events\T_Order;
 	use \LWS\WOOREWARDS\PRO\Events\T_SponsorshipOrigin;
 
+	protected $minAmount                 = 0;
+	protected $onsales                   = '';
+	protected $productExcludedCategories = array();
+	protected $productCategories         = array();
+
 	public function isMaxTriggersAllowed()
 	{
 		return true;
@@ -231,11 +236,13 @@ EOT;
 		$this->onsales = $status;
 	}
 
+	/** @return string */
 	function getOnSaleStatus()
 	{
-		return (isset($this->onsales) ? $this->onsales : '');
+		return $this->onsales;
 	}
 
+	/** @return bool */
 	function isOnsaleStatusAllowed($product)
 	{
 		$status = $this->getOnSaleStatus();
@@ -245,9 +252,10 @@ EOT;
 			return true;
 	}
 
+	/** @return array */
 	function getProductCategories()
 	{
-		return isset($this->productCategories) ? $this->productCategories : array();
+		return $this->productCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -260,9 +268,10 @@ EOT;
 		return $this;
 	}
 
+	/** @return array */
 	function getProductExcludedCategories()
 	{
-		return isset($this->productExcludedCategories) ? $this->productExcludedCategories : array();
+		return $this->productExcludedCategories;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */
@@ -275,9 +284,10 @@ EOT;
 		return $this;
 	}
 
+	/** @return float */
 	function getMinAmount()
 	{
-		return isset($this->minAmount) ? $this->minAmount : 0;
+		return $this->minAmount;
 	}
 
 	public function setMinAmount($amount = 0)
@@ -353,7 +363,8 @@ EOT;
 	/** override to take care of order content: product categories
 	 * order amount is sum of accepted product prices.
 	 *
-	 * Shipping is still added whatever category or not */
+	 * Shipping is still added whatever category or not
+	 * @return float */
 	function getOrderAmount(&$order, $round = true)
 	{
 		$amount = 0;
@@ -371,6 +382,7 @@ EOT;
 		{
 			foreach ($order->items as $item)
 			{
+				$pId = $item->item->get_product_id();
 				$product = \LWS\WOOREWARDS\PRO\Conveniences::instance()->getProductFromOrderItem($order->order, $item->item);
 				if ($product)
 				{
@@ -384,26 +396,26 @@ EOT;
 					}
 					if (!\apply_filters('lws_woorewards_orderamount_total_detailed_includes_product', $incProd, $product, $item, $this))
 						continue;
+				}
 
-					$oriQty = $qty = $item->item->get_quantity();
-					$qty = $this->useExclusion($noEarning, $product, $qty);
-					if ($qty > 0)
-					{
-						$lineAmount = 0;
-						if ($this->getAfterDiscount()) {
-							$lineAmount   += $item->item->get_total();
-							if ($order->inc_tax)
-								$lineAmount += $item->item->get_total_tax();
-						} else {
-							$lineAmount   += $item->item->get_subtotal();
-							if ($order->inc_tax)
-								$lineAmount += $item->item->get_subtotal_tax();
-						}
-						if ($oriQty != $qty) {
-							$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
-						}
-						$amount += $lineAmount;
+				$oriQty = $qty = $item->item->get_quantity();
+				$qty = $this->useExclusion($noEarning, $product ? $product : $pId, $qty);
+				if ($qty > 0)
+				{
+					$lineAmount = 0;
+					if ($this->getAfterDiscount()) {
+						$lineAmount   += $item->item->get_total();
+						if ($order->inc_tax)
+							$lineAmount += $item->item->get_total_tax();
+					} else {
+						$lineAmount   += $item->item->get_subtotal();
+						if ($order->inc_tax)
+							$lineAmount += $item->item->get_subtotal_tax();
 					}
+					if ($oriQty != $qty) {
+						$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
+					}
+					$amount += $lineAmount;
 				}
 			}
 
@@ -545,9 +557,9 @@ EOT;
 				$amount += floatval($cart->get_subtotal_tax());
 
 			if ($this->getShipping()) {
-				$amount += floatval($cart->get_shipping_total('edit'));
+				$amount += floatval($cart->get_shipping_total());
 				if ($inc_tax)
-					$amount += floatval($cart->get_shipping_tax('edit'));
+					$amount += floatval($cart->get_shipping_tax());
 			}
 
 			if ($this->getAfterDiscount()) {
@@ -571,33 +583,33 @@ EOT;
 					}
 					if (!\apply_filters('lws_woorewards_orderamount_total_detailed_includes_product', $incProd, $product, $item, $this))
 						continue;
+				}
 
-					$oriQty = $qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
-					$qty = $this->useExclusion($noEarning, $product, $qty);
-					if ($qty > 0)
-					{
-						$lineAmount = 0;
-						if ($this->getAfterDiscount()) {
-							$lineAmount += $item['line_total'];
-							if ($inc_tax)
-								$lineAmount += $item['line_tax'];
-						} else {
-							$lineAmount += $item['line_subtotal'];
-							if ($inc_tax)
-								$lineAmount += $item['line_subtotal_tax'];
-						}
-						if ($oriQty != $qty) {
-							$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
-						}
-						$amount += $lineAmount;
+				$oriQty = $qty = isset($item['quantity']) ? intval($item['quantity']) : 1;
+				$qty = $this->useExclusion($noEarning, $product ? $product : $pId, $qty);
+				if ($qty > 0)
+				{
+					$lineAmount = 0;
+					if ($this->getAfterDiscount()) {
+						$lineAmount += $item['line_total'];
+						if ($inc_tax)
+							$lineAmount += $item['line_tax'];
+					} else {
+						$lineAmount += $item['line_subtotal'];
+						if ($inc_tax)
+							$lineAmount += $item['line_subtotal_tax'];
 					}
+					if ($oriQty != $qty) {
+						$lineAmount *= ($oriQty ? ($qty / $oriQty) : 0);
+					}
+					$amount += $lineAmount;
 				}
 			}
 
 			if ($this->getShipping()) {
-				$amount += floatval($cart->get_shipping_total('edit'));
+				$amount += floatval($cart->get_shipping_total());
 				if ($inc_tax)
-					$amount += floatval($cart->get_shipping_tax('edit'));
+					$amount += floatval($cart->get_shipping_tax());
 			}
 		}
 		if ($amount < $this->getMinAmount())

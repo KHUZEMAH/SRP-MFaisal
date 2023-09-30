@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit();
 /** Display default pool user point history */
 class UserHistory
 {
+	private $stygen = false;
+
 	public static function install()
 	{
 		$me = new self();
@@ -136,8 +138,8 @@ class UserHistory
 
 	/** Displays the user's points history in one or several loyalty systems
 	 * [wr_show_history system='poolname1,poolname2' count='15']
-	 * @param system the loyalty systems for which to show the history
-	 * @param count the max number of history lines displayed
+	 * @param $system the loyalty systems for which to show the history
+	 * @param $count the max number of history lines displayed
 	 */
 	public function shortcode($atts = array(), $content = '')
 	{
@@ -156,10 +158,16 @@ class UserHistory
 				if ($hist = $stack->getHistory(false, true, 0, $atts['count'])) {
 					$poolName = $pool->getOption('display_title');
 					foreach ($hist as $item) {
+						$sort = \date_create($item['op_date']);
 						$history[] = array(
-							'system'   => $poolName,
-							'date'   => \LWS\WOOREWARDS\Core\PointStack::dateI18n($item['op_date']),
-							'descr'   => $item['op_reason'],
+							'system' => $poolName,
+							'sort'   => $sort ? $sort->getTimestamp() : 0,
+							'date'   => sprintf(
+								'<span title="%s">%s</span>',
+								\esc_attr(\LWS\WOOREWARDS\Core\PointStack::dateTimeI18n($item['op_date'])),
+								\LWS\WOOREWARDS\Core\PointStack::dateI18n($item['op_date'])
+							),
+							'descr'  => $item['op_reason'],
 							'points' => $item['op_value'],
 							'total'  => $item['op_result'],
 						);
@@ -167,8 +175,8 @@ class UserHistory
 				}
 			}
 		}
-		usort($history, function ($a1, $a2) {
-			return strtotime($a2["date"]) - strtotime($a1["date"]);
+		\usort($history, function ($a, $b) {
+			return $b['sort'] - $a['sort'];
 		});
 
 		$history = array_slice($history, 0, \intval($atts['count']));
@@ -190,14 +198,14 @@ class UserHistory
 		);
 		$atts = $this->parseArgs(array());
 		$html = $this->getContent($atts, $history);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $html;
 	}
 
 	/**	@param $history (array of {op_date, op_value, op_result, op_reason}) */
 	protected function getContent($atts, $history)
 	{
-		if (!(isset($this->stygen) && $this->stygen)) {
+		if (!$this->stygen) {
 			$this->enqueueScripts();
 		}
 		$atts['columns'] = array_map('strtolower', array_map('trim', explode(',', $atts['columns'])));

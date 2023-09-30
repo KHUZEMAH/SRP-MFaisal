@@ -21,6 +21,23 @@ class Pool extends \LWS\WOOREWARDS\Core\Pool
 	protected $drmMinSubtotal      = 0.0;       /// directRewardMode restriction: cart subtotal minimum amount to use points
 	protected $adaptLevel          = false;     /// adapt user leveling rewards from going up or down, prodived for shared points.
 
+	private $_isActive     = null;
+	private $pointName     = false;
+	private $roles         = array();
+	private $deniedRoles   = array();
+	private $preventUnlock = false;
+	private $pointFormat   = '%1$s %2$s';
+	private $_pointFormat  = null;
+	private $thousandSep   = '';
+	private $_thousandSep  = null;
+	private $symbol        = 0;
+	private $_symbol       = null;
+	private $_unit         = null;
+	private $decShift      = 0;
+	private $_decShift     = null;
+	private $bestUnlock    = 'off';
+	private $confiscation  = false;
+
 	public function getData()
 	{
 		return array(
@@ -288,7 +305,7 @@ EOT;
 	/**	Depending on each unlockable associated pool and its 'best_unlock' state,
 	 *	it sort out unrelevant unlockables.
 	 *	@param $levels array [cost => array of unlockable] assumed sort by cost ASC.
-	 *	@return a flat array of unlockable. */
+	 *	@return array a flat array of unlockable. */
 	protected function flatLevelsToEarn($levels)
 	{
 		$flat = array();
@@ -373,7 +390,7 @@ EOT;
 	 * After that date, the pool stil lives but not points can be earned anymore. */
 	public function isActive()
 	{
-		if( !isset($this->_isActive) )
+		if( null === $this->_isActive )
 		{
 			if( !$this->isBuyable() )
 				return ($this->_isActive = false);
@@ -408,7 +425,7 @@ EOT;
 	}
 
 	/** @return (bool) is rewards unlockables.
-	 * @param $date (false|DateTime) if pool set to prevent before a date, compare with this argument where false means today. */
+	 * @param $date (false|\DateTime) if pool set to prevent before a date, compare with this argument where false means today. */
 	public function isUnlockPrevented($date=false)
 	{
 		$prevent = $this->getOption('prevent_unlock');
@@ -422,7 +439,7 @@ EOT;
 	}
 
 	/** override to check user role.
-	 * @param $user (WP_User|int|false) object, user_id or false for the current user. */
+	 * @param $user (\WP_User|int|false) object, user_id or false for the current user. */
 	public function userCan($user=false)
 	{
 		if (!$user)
@@ -474,6 +491,7 @@ EOT;
 		$this->pointName     = \get_post_meta($post->ID, 'wre_pool_point_name', true);
 		$this->pointFormat   = \get_post_meta($post->ID, 'wre_pool_point_format', true);
 		$this->thousandSep   = \get_post_meta($post->ID, 'wre_pool_thousand_sep', true);
+		$this->decShift      = (int)\get_post_meta($post->ID, 'wre_pool_decimal_shift', true);
 		$this->bestUnlock    = \get_post_meta($post->ID, 'wre_pool_best_unlock', true);
 		$this->preventUnlock = \get_post_meta($post->ID, 'wre_pool_prevent_unlock', true);
 		if( !$this->preventUnlock ) $this->preventUnlock = false;
@@ -530,12 +548,13 @@ EOT;
 		\update_post_meta($this->id, 'wre_pool_date_end',   empty($this->dateEnd)   ? '' : $this->dateEnd->format('Y-m-d'));
 		\update_post_meta($this->id, 'wre_pool_clamp_level', $this->clampLevel ? 'on' : '');
 		\update_post_meta($this->id, 'wre_pool_adapt_level', $this->adaptLevel ? 'on' : '');
-		\update_post_meta($this->id, 'wre_pool_rewards_confiscation', (isset($this->confiscation) && $this->confiscation) ? 'on' : '');
-		\update_post_meta($this->id, 'wre_pool_roles', isset($this->roles) ? $this->roles : array());
-		\update_post_meta($this->id, 'wre_pool_denied_roles', isset($this->deniedRoles) ? $this->deniedRoles : array());
-		\update_post_meta($this->id, 'wre_pool_symbol', isset($this->symbol) ? $this->symbol : '');
-		\update_post_meta($this->id, 'wre_pool_point_format', isset($this->pointFormat) ? $this->pointFormat : '');
-		\update_post_meta($this->id, 'wre_pool_thousand_sep', isset($this->thousandSep) ? $this->thousandSep : '');
+		\update_post_meta($this->id, 'wre_pool_rewards_confiscation', $this->confiscation ? 'on' : '');
+		\update_post_meta($this->id, 'wre_pool_roles', $this->roles);
+		\update_post_meta($this->id, 'wre_pool_denied_roles', $this->deniedRoles);
+		\update_post_meta($this->id, 'wre_pool_symbol', $this->symbol ? $this->symbol : '');
+		\update_post_meta($this->id, 'wre_pool_point_format', $this->pointFormat);
+		\update_post_meta($this->id, 'wre_pool_thousand_sep', $this->thousandSep);
+		\update_post_meta($this->id, 'wre_pool_decimal_shift', $this->decShift);
 
 		\update_post_meta($this->id, 'wre_pool_direct_reward_max_percent_of_cart', $this->drmMaxPercentOfCart);
 		\update_post_meta($this->id, 'wre_pool_direct_reward_min_points_on_cart',  $this->drmMinPointsOnCart);
@@ -543,7 +562,7 @@ EOT;
 		\update_post_meta($this->id, 'wre_pool_direct_reward_total_floor',         $this->drmTotalFloor);
 		\update_post_meta($this->id, 'wre_pool_direct_reward_min_subtotal',        $this->drmMinSubtotal);
 
-		$pn = (isset($this->pointName) && $this->pointName) ? $this->pointName : array('singular'=>'', 'plural'=>'');
+		$pn = $this->pointName ? $this->pointName : array('singular'=>'', 'plural'=>'');
 		\update_post_meta($this->id, 'wre_pool_point_name', $pn);
 
 		$wpml = $this->getPackageWPML(true);
@@ -557,15 +576,11 @@ EOT;
 
 		\update_post_meta($this->id, 'wre_point_transactional_expiry', self::transactionalExpiryToArray($this->transactionalExpiry));
 
-		\update_post_meta($this->id, 'wre_pool_best_unlock', isset($this->bestUnlock) ? $this->bestUnlock : 'off');
-		$prevent = '';
-		if( isset($this->preventUnlock) )
-		{
-			if( \is_a($this->preventUnlock, '\DateTime') )
-				$prevent = $this->preventUnlock->format('Y-m-d');
-			else
-				$prevent = $this->preventUnlock ? 'on' : '';
-		}
+		\update_post_meta($this->id, 'wre_pool_best_unlock', $this->bestUnlock);
+		if( \is_a($this->preventUnlock, '\DateTime') )
+			$prevent = $this->preventUnlock->format('Y-m-d');
+		else
+			$prevent = $this->preventUnlock ? 'on' : '';
 		\update_post_meta($this->id, 'wre_pool_prevent_unlock', $prevent);
 
 		return parent::_customSave($withEvents, $withUnlockables);
@@ -591,6 +606,7 @@ EOT;
 	 * * point_name_plural   : (string) point label
 	 * * point_format  : (string) sprintf template, expect %1$s for points and %2$s for symbol/label
 	 * * thousand_sep  : (string) thousand separator
+	 * * decimal_shift : (int) shift point number left or right (can lead to float representation)
 	 * * best_unlock   : (bool) if several rewards available, unlock the more expensive first
 	 * * prevent_unlock: (bool) rewards cannot be unlocked (except if tryUnlock is called with $force argument)
 	 * * prevent_unlock_before : (DateTime) same as prevent_unlock but allows unlock after given date
@@ -631,22 +647,22 @@ EOT;
 				$value = $this->adaptLevel;
 				break;
 			case 'confiscation':
-				$value = isset($this->confiscation) ? $this->confiscation : false;
+				$value = $this->confiscation;
 				break;
 			case 'best_unlock':
-				$value = (isset($this->bestUnlock) && $this->bestUnlock) ? $this->bestUnlock : 'off';
+				$value = $this->bestUnlock ? $this->bestUnlock : 'off';
 				break;
 			case 'roles':
-				$value = isset($this->roles) ? $this->roles : array();
+				$value = $this->roles;
 				break;
 			case 'denied_roles':
-				$value = isset($this->deniedRoles) ? $this->deniedRoles : array();
+				$value = $this->deniedRoles;
 				break;
 			case 'symbol':
-				$value = isset($this->symbol) ? intval($this->symbol) : false;
+				$value = (int)$this->symbol;
 				break;
 			case 'symbol_image':
-				$imgId = isset($this->symbol) ? intval($this->symbol) : false;
+				$imgId = (int)$this->symbol;
 				if( $imgId )
 				{
 					$img = \wp_get_attachment_image(\apply_filters('wpml_object_id', $imgId, 'attachment', true), 'small', false, array('class'=>'lws-woorewards-point-symbol'));
@@ -657,7 +673,7 @@ EOT;
 			case 'disp_point_name_singular':
 				$wpml = $this->getPackageWPML();
 			case 'point_name_singular':
-				if( isset($this->pointName) && $this->pointName )
+				if( $this->pointName )
 				{
 					if( is_array($this->pointName) )
 					{
@@ -674,7 +690,7 @@ EOT;
 			case 'disp_point_name_plural':
 				$wpml = $this->getPackageWPML();
 			case 'point_name_plural':
-				if( isset($this->pointName) && $this->pointName && is_array($this->pointName) )
+				if( $this->pointName && is_array($this->pointName) )
 				{
 					$name = (isset($this->pointName['plural']) ? $this->pointName['plural'] : '');
 					if( $name )
@@ -682,16 +698,19 @@ EOT;
 				}
 				break;
 			case 'point_format':
-				$value = (isset($this->pointFormat) && $this->pointFormat) ? $this->pointFormat : '%1$s %2$s';
+				$value = $this->pointFormat ? $this->pointFormat : '%1$s %2$s';
 				break;
 			case 'thousand_sep':
-				$value = (isset($this->thousandSep) && $this->thousandSep) ? $this->thousandSep : '';
+				$value = $this->thousandSep;
 				break;
+			case 'decimal_shift':
+					$value = (int)$this->decShift;
+					break;
 			case 'prevent_unlock_before':
-				$value = (isset($this->preventUnlock) && \is_a($this->preventUnlock, '\DateTime')) ? $this->preventUnlock : false;
+				$value = \is_a($this->preventUnlock, '\DateTime') ? $this->preventUnlock : false;
 				break;
 			case 'prevent_unlock':
-				$value = isset($this->preventUnlock) ? $this->preventUnlock : false;
+				$value =$this->preventUnlock;
 				break;
 			case 'direct_reward_min_points_on_cart':
 				if (\intval($this->drmMaxPointsOnCart) > 0 && \intval($this->drmMinPointsOnCart) > 0)
@@ -740,6 +759,7 @@ EOT;
 	 * * point_name_plural   : (string) point label
 	 * * point_format  : (string) sprintf template, expect %1$s for points and %2$s for symbol/label
 	 * * thousand_sep  : (string) thousand separator
+	 * * decimal_shift : (int) shift point number left or right (can lead to float representation)
 	 * * best_unlock   : (bool) if several rewards available, unlock the more expensive first
 	 * * prevent_unlock: (bool) rewards cannot be unlocked (except if tryUnlock is called with $force argument)
 	 * * prevent_unlock_before : (DateTime) same as prevent_unlock but allows unlock after given date
@@ -834,16 +854,16 @@ EOT;
 				$this->deniedRoles = (is_array($value) ? $value : (empty($value) ? array() : array($value)));
 				break;
 			case 'symbol':
-				$this->symbol = intval($value);
+				$this->symbol = (int)$value;
 				break;
 			case 'point_name_singular':
-				if( !isset($this->pointName) || !is_array($this->pointName) )
+				if( !$this->pointName || !is_array($this->pointName) )
 					$this->pointName = array('singular' => $value, 'plural' => '');
 				else
 					$this->pointName = array_merge($this->pointName, array('singular' => $value));
 				break;
 			case 'point_name_plural':
-				if( !isset($this->pointName) || !is_array($this->pointName) )
+				if( $this->pointName || !is_array($this->pointName) )
 					$this->pointName = array('singular' => '', 'plural' => $value);
 				else
 					$this->pointName = array_merge($this->pointName, array('plural' => $value));
@@ -853,6 +873,9 @@ EOT;
 				break;
 			case 'thousand_sep':
 				$this->thousandSep = str_replace(' ', ' ',$value); // replace normal space by a breaking space
+				break;
+			case 'decimal_shift':
+				$this->decShift = (int)$value;
 				break;
 			case 'prevent_unlock_before':
 			case 'prevent_unlock':
@@ -1032,7 +1055,7 @@ EOT;
 	}
 
 	/** to be used with usort() @see enqueueUnlock
-	 * @return negative if $a go before $b. */
+	 * @return int negative if $a go before $b. */
 	static function unlockStandardSort($a, $b)
 	{
 		$aMode = $a->getOption('best_unlock', 'off');
@@ -1240,7 +1263,7 @@ EOT;
 	/** @param $levels object from getLevels()
 	 *	@param $points (int)
 	 *	@param $grep (false|array) unlockable id to include (and exclude the others)
-	 *	@return arrays grouped by lowers, current, uppers.
+	 *	@return object arrays grouped by lowers, current, uppers.
 	 *	Note that unlockables in those arrays still are sorted by cost. */
 	public function sortLevels($levels, $points, $grep=false)
 	{
@@ -1312,7 +1335,7 @@ EOT;
 		return $levels;
 	}
 
-	/** @return unlockable collection with only the best.
+	/** @return \LWS\WOOREWARDS\Abstracts\Unlockable collection with only the best.
 	 * @param $single (bool) if false, on tie, return all of them. if true tie is break arbitrarily */
 	public function getBestUnlockable($availables, $single=true, $userId=0)
 	{
@@ -1377,7 +1400,7 @@ EOT;
 	}
 
 	/** Return all loaded pool sharing the same stack.
-	 *	@param $user (false|int|WP_User) if set, test if userCan() on each pool
+	 *	@param $user (false|int|\WP_User) if set, test if userCan() on each pool
 	 *	@return array of array, pools are sorted by type */
 	public function getSharingPools($user=false, $buyableOnly=false, $withMe=true, $withDirectDiscount=true)
 	{
@@ -1433,7 +1456,7 @@ EOT;
 		return $availables->sort();
 	}
 
-	/** @return a collection of pool that can share the same point stack. */
+	/** @return \LWS\WOOREWARDS\Collections\Pools a collection of pool that can share the same point stack. */
 	protected function getSharablePools()
 	{
 		return \LWS_WooRewards_Pro::getBuyablePools();
@@ -1576,8 +1599,8 @@ EOT;
 	 *	Add points to the pool point stack of a user.
 	 *	@param $user (int) the user earning points.
 	 *	@param $value (int) final number of point earned.
-	 *	@param $reason (string) optional, the cause of the earning.
-	 *	@param $origin (Event) optional, the source Event. */
+	 *	@param $reason (string|\LWS\WOOREWARDS\Core\Trace) optional, the cause of the earning.
+	 *	@param $origin \LWS\WOOREWARDS\Abstracts\Event) optional, the source Event. */
 	public function addPoints($userId, $value, $reason='', \LWS\WOOREWARDS\Abstracts\Event $origin=null, $origin2=false)
 	{
 		if( $this->getOption('clamp_level') )
@@ -1689,6 +1712,93 @@ EOT;
 		}
 
 		return false;
+	}
+
+	protected function getDecimalShiftData()
+	{
+		if (null === $this->_decShift) {
+			$this->_decShift = (object)array(
+				'sep' => _x('.', 'separator', 'woorewards-pro'),
+				'pow' => (int)$this->getOption('decimal_shift'),
+				'mul' => 1,
+			);
+			if ($this->_decShift->pow) {
+				$this->_decShift->mul = \pow(10, -$this->_decShift->pow);
+			}
+		}
+		return $this->_decShift;
+	}
+
+	/** try to remove points format if any.
+	 *	Provided to interpret for user input, if he include
+	 *	any formatting by hand or copy/past for example. */
+	public function reversePointsFormat($input)
+	{
+		$shift = $this->getDecimalShiftData();
+		if ($shift->pow) {
+			$input = \str_replace($shift->sep, '.', (string)$input);
+			$parts = \explode('.', $input);
+			if (count($parts) > 1) {
+				$dec = \preg_replace('/[^\d]/', '', array_pop($parts));
+				$input = (float)(\preg_replace('/[^\d-]/', '', \implode('', $parts)) . '.' . $dec);
+			} else {
+				$input = (int)\preg_replace('/[^\d-]/', '', $parts[0]);
+			}
+			$input = (int)\round($input / $shift->mul);
+		} else {
+			$input = (int)\preg_replace('/[^\d-]/', '', $input);
+		}
+		return $input;
+	}
+
+	/** apply format as much as possible but keep value as numeric */
+	public function formatPointsNumber($points)
+	{
+		$shift = $this->getDecimalShiftData();
+		return \number_format($points * $shift->mul, \max($shift->pow, 0), '.', '');
+	}
+
+	public function formatPoints($points, $withSym=true, $plainText=false)
+	{
+		if (null === $this->_thousandSep) {
+			$this->_thousandSep = $this->getOption('thousand_sep');
+		}
+		$shift = $this->getDecimalShiftData();
+		$text = \number_format($points * $shift->mul, \max($shift->pow, 0), $shift->sep, (string)$this->_thousandSep);
+
+		if ($withSym) {
+			if ($plainText) {
+				if (null === $this->_unit) {
+					$this->_unit = $this->getPointUnit($points);
+				}
+				$sym = $this->_unit;
+			} else {
+				if (null === $this->_symbol) {
+					$this->_symbol = $this->getPointSymbol($points);
+					if (!$this->_symbol) {
+						if (null === $this->_unit) {
+							$this->_unit = $this->getPointUnit($points);
+						}
+						$this->_symbol = $this->_unit;
+					}
+				}
+				$sym = $this->_symbol;
+			}
+			if (null === $this->_pointFormat) {
+				$this->_pointFormat = $this->getOption('point_format');
+				if (!$this->_pointFormat) {
+					$this->_pointFormat = '%s %s';
+				}
+			}
+			return sprintf($this->_pointFormat, $text, $sym);
+		} else {
+			return $text;
+		}
+	}
+
+	public function getSymbol($count = 1)
+	{
+		return $this->getPointSymbol($count);
 	}
 
 	/** @return (string) symbol or point name html */

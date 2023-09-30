@@ -18,16 +18,30 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 	const POST_TYPE = 'lws-wre-unlockable';
 	private static $s_unlockables = array();
 
+	protected $pool          = null;
+	protected $poolId        = false;
+	protected $dataKeyPrefix = false;
+	protected $groupedTitle  = '';
+	protected $emailEnabled  = true;
+	protected $dateStart     = null;
+	protected $dateEnd       = null;
+	public $id               = false;
+	public $name             = false;
+	public $title            = '';
+	public $description      = '';
+	public $cost             = 1;
+	public $thumbnail        = 0;
+
 	/** Inhereted Unlockable already instanciated from WP_Post, $this->id is availble. It is up to you to load any extra configuration. */
 	abstract protected function _fromPost(\WP_Post $post);
 	/** Unlockable already saved as WP_Post, $this->id is availble. It is up to you to save any extra configuration. */
 	abstract protected function _save($id);
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	abstract public function getDisplayType();
 	/** Produce a reward.
 	 * @param $user the customer the reward is for.
 	 * @param $demo (bool, default is false) the reward is not really generated, but the data are returned as if (especially used for stygen).
-	 * @return (false|array) the array represent the generated reward. or false on error. */
+	 * @return (mixed) the array represent the generated reward. or false on error. */
 	abstract public function createReward(\WP_User $user, $demo = false);
 
 	function apply(\WP_User $user, $mailTemplate = 'wr_new_reward')
@@ -245,17 +259,14 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getDataKeyPrefix()
 	{
-		if (!isset($this->dataKeyPrefix))
+		if (false === $this->dataKeyPrefix)
 			$this->dataKeyPrefix = \esc_attr($this->getType()) . '_';
 		return $this->dataKeyPrefix;
 	}
 
 	public function setDataKeyPrefix($prefix = false)
 	{
-		if (empty($prefix) && isset($this->dataKeyPrefix))
-			unset($this->dataKeyPrefix);
-		else
-			$this->dataKeyPrefix = $prefix;
+		$this->dataKeyPrefix = $prefix;
 		return $this;
 	}
 
@@ -325,7 +336,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			try {
 				require_once $registered[1];
 				$instance = new $registered[0];
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				error_log("Cannot instanciate an woorewards Unlockable: " . $e->getMessage());
 			}
 		}
@@ -369,7 +380,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			\do_action('wpml_register_string', $this->title, 'title', $this->getPackageWPML(true), __("Title", 'woorewards-lite'), 'LINE');
 		if (isset($this->description))
 			\do_action('wpml_register_string', $this->description, 'description', $this->getPackageWPML(true), __("Description", 'woorewards-lite'), 'AREA');
-		if (isset($this->groupedTitle))
+		if ($this->groupedTitle)
 			\do_action('wpml_register_string', $this->groupedTitle, 'level', $this->getPackageWPML(true), __("Level", 'woorewards-lite'), 'LINE');
 
 		$this->_save($this->id);
@@ -445,7 +456,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 	/** provided to be used with levelling pools */
 	public function getGroupedTitle($context = 'edit')
 	{
-		$title = isset($this->groupedTitle) ? $this->groupedTitle : '';
+		$title = $this->groupedTitle;
 		if ($context == 'view') {
 			$title = \apply_filters('wpml_translate_string', $title, 'level', $this->getPackageWPML());
 			$title = \apply_filters('the_title', $title, $this->getId());
@@ -516,7 +527,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 	/** @return int id */
 	public function getThumbnail()
 	{
-		$id = (isset($this->thumbnail) ? $this->thumbnail : 0);
+		$id = $this->thumbnail;
 		if ($id && !(is_admin() || (defined('DOING_AJAX') && DOING_AJAX)))
 			$id = \apply_filters('wpml_object_id', $id, 'attachment', true);
 		return $id;
@@ -531,7 +542,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			return \wp_get_attachment_url($this->getThumbnail());
 	}
 
-	/** @return html <img> */
+	/** @return string html <img> */
 	public function getThumbnailImage($size = 'lws_wr_thumbnail')
 	{
 		if (empty($this->getThumbnail()))
@@ -548,7 +559,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function isEmailEnabled()
 	{
-		return !isset($this->emailEnabled) || $this->emailEnabled; // default: true
+		return $this->emailEnabled; // default: true
 	}
 
 	public function setEmailEnabled($yes)
@@ -556,7 +567,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		$this->emailEnabled = boolval($yes);
 	}
 
-	/** @param $date (false|string|DateTime) if false, today is used.
+	/** @param $date (false|string|\DateTime) if false, today is used.
 	 * If given date format is not valid, return false.
 	 * If no date limit defined for this, return true. */
 	public function inDateRange($date = false)
@@ -578,14 +589,14 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		return true;
 	}
 
-	/** @return null or DateTime insance
+	/** @return mixed DateTime or null insance
 	 * If inside a levelling pool, then we cannot have a date. */
 	public function getDateStart()
 	{
 		if ($this->getPoolType() == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING)
 			return null;
 		else if (defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED)
-			return isset($this->dateStart) ? $this->dateStart : null;
+			return $this->dateStart;
 		else
 			return null;
 	}
@@ -599,7 +610,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			return $this->getDateStart()->format('Y-m-d');
 	}
 
-	/** @param $date (null|string|DateTime) */
+	/** @param $date (null|string|\DateTime) */
 	public function setDateStart($date = null)
 	{
 		if (empty($date))
@@ -617,14 +628,14 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		return $this;
 	}
 
-	/** @return null or DateTime insance
+	/** @return mixed null or DateTime insance
 	 * If inside a levelling pool, then we cannot have a date. */
 	public function getDateEnd()
 	{
 		if ($this->getPoolType() == \LWS\WOOREWARDS\Core\Pool::T_LEVELLING)
 			return null;
 		else if (defined('LWS_WOOREWARDS_ACTIVATED') && LWS_WOOREWARDS_ACTIVATED)
-			return isset($this->dateEnd) ? $this->dateEnd : null;
+			return $this->dateEnd;
 		else
 			return null;
 	}
@@ -638,7 +649,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 			return $this->getDateEnd()->format('Y-m-d');
 	}
 
-	/** @param $date (null|string|DateTime) */
+	/** @param $date (null|string|\DateTime) */
 	public function setDateEnd($date = null)
 	{
 		if (empty($date))
@@ -669,26 +680,29 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 		return $this;
 	}
 
+	/** @return mixed */
 	public function getPool()
 	{
-		return isset($this->pool) ? $this->pool : false;
+		return $this->pool ? $this->pool : false;
 	}
 
 	public function getOrLoadPool()
 	{
-		if (isset($this->pool)) {
+		if (null !== $this->pool) {
 			return $this->pool;
-		} else if (isset($this->poolId) && $this->poolId) {
+		} else if ($this->poolId) {
 			if (\class_exists('\LWS\WOOREWARDS\PRO\Core\Pool')) {
 				$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
 			} else {
 				$pool = \apply_filters('lws_woorewards_get_pools_by_args', false, array(
-					'system' => $stack,
+					'system' => $this->poolId,
 					'force'  => true,
 				));
 				if ($pool)
 					$this->pool = $pool->last();
 			}
+			if (!$this->pool)
+				$this->pool = false;
 			return $this->pool;
 		} else {
 			return false;
@@ -697,9 +711,9 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getPoolId()
 	{
-		if (isset($this->pool) && $this->pool)
+		if ($this->pool)
 			return $this->pool->getId();
-		else if (isset($this->poolId))
+		else if ($this->poolId)
 			return $this->poolId;
 		else
 			return false;
@@ -707,17 +721,17 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getPoolName()
 	{
-		return (isset($this->pool) && $this->pool) ? $this->pool->getName() : '';
+		return $this->pool ? $this->pool->getName() : '';
 	}
 
 	public function getPoolType()
 	{
-		return (isset($this->pool) && $this->pool) ? $this->pool->getOption('type') : '';
+		return $this->pool ? $this->pool->getOption('type') : '';
 	}
 
 	public function getPoolStatus()
 	{
-		if (isset($this->pool) && $this->pool) {
+		if ($this->pool) {
 			if ($this->pool->getOption('public'))
 				return 'publish';
 			else if ($this->pool->getOption('private'))
@@ -730,7 +744,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getStackName()
 	{
-		return isset($this->pool) && !empty($this->pool) ? $this->pool->getStackId() : '';
+		return $this->pool ? $this->pool->getStackId() : '';
 	}
 
 	public function setName($name)
@@ -740,11 +754,11 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getName($pool = null)
 	{
-		if (isset($this->name))
+		if (false !== $this->name)
 			return $this->name;
-		else if (!empty($this->getPool()))
+		else if ($this->getPool())
 			return $this->getPool()->getName() . '-' . $this->getType();
-		else if (!empty($pool))
+		else if ($pool)
 			return $pool->getName() . '-' . $this->getType();
 		else
 			return $this->getType();
@@ -752,13 +766,12 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 
 	public function getId()
 	{
-		return isset($this->id) ? intval($this->id) : false;
+		return $this->id ? intval($this->id) : false;
 	}
 
 	public function detach()
 	{
-		if (isset($this->id))
-			unset($this->id);
+		$this->id = false;
 	}
 
 	/** The user already purchased/unlocked it and cannot do it a second time.
@@ -776,6 +789,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 	}
 
 	static public $maxRedeemAllowed = false;
+	protected $maxRedeem = false;
 
 	/** if feature allowed and set to greater than zero,
 	 *	unlockable cannot be purchased more than that. */
@@ -825,7 +839,7 @@ abstract class Unlockable implements \LWS\WOOREWARDS\Abstracts\ICategorisable, \
 	/** Multiplier is registered by Pool, it is applied to the points generated by the event. */
 	public function getCost($context = 'edit')
 	{
-		$cost = isset($this->cost) ? $this->cost : 1;
+		$cost = $this->cost;
 		if ($context == 'view' || $context == 'front') {
 			if ($cost <= 0)
 				return _x("Not redeemable", "Cannot be redeemed", 'woorewards-lite');

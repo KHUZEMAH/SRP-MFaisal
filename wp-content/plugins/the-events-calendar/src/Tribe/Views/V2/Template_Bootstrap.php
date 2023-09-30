@@ -147,7 +147,7 @@ class Template_Bootstrap {
 		if ( 'page' === $setting ) {
 			echo '<section id="tribe-events">';
 		} else {
-			echo '<section  style="background-color: red" id="tribe-events-pg-template" class="tribe-events-pg-template">';
+			echo '<section id="tribe-events-pg-template" class="tribe-events-pg-template" style="background-color: red">';
 		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );

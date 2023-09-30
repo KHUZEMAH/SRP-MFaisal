@@ -13,6 +13,11 @@ abstract class Endpoint
 	/** The page content @return as string. */
 	abstract function getPage();
 
+	private $optFlush = false;
+	protected $wpml   = '';
+	protected $key    = '';
+	protected $tab    = array();
+
 	/** Check wp_options if the endpoint is active.
 	 * Manage if rewrite rules must be flushed.
 	 * get_option($option) value is assumed to be a checkbox kind of value: 'on' or empty string. */
@@ -28,7 +33,7 @@ abstract class Endpoint
 		return !empty($active);
 	}
 
-	/**	@param $key (slug) url endpoint
+	/**	@param $key string (slug) url endpoint
 	 *	@param $title page title or my-account tab title if WC activated. */
 	function __construct($key, $title, $wpmlRef = false)
 	{
@@ -54,7 +59,7 @@ abstract class Endpoint
 	{
 		\add_rewrite_endpoint($this->key, EP_ROOT | EP_PAGES);
 
-		if (isset($this->optFlush) && isset($this->flush) && empty($this->flush)) {
+		if ($this->optFlush && isset($this->flush) && empty($this->flush)) {
 			$option = $this->optFlush;
 			\add_action('shutdown', function () use ($option) {
 				\flush_rewrite_rules(true);
@@ -70,7 +75,7 @@ abstract class Endpoint
 		return $vars;
 	}
 
-	/** @return WC my-account tab */
+	/** @return string WC my-account tab */
 	function getTitle($title)
 	{
 		$title = $this->tab[$this->key];
@@ -79,7 +84,7 @@ abstract class Endpoint
 		return $title;
 	}
 
-	/** @return WC my-account tab list including our. */
+	/** @return array WC my-account tab list including our. */
 	function getWCMyAccountTabs($items = array())
 	{
 		if (empty($items))

@@ -17,7 +17,7 @@ class PeriodicTrigger extends \LWS\Adminpanel\Pages\Field
 		});
 	}
 
-	/** @return field html. */
+	/** @return string field html. */
 	public static function compose($id, $extra=null)
 	{
 		$me = new self($id, '', $extra);

@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Point export method extends this abstract and are placed in methods/ subdir. */
 class ExportMethods
 {
+	private $methods = false;
+
 	static function get($metaKey)
 	{
 		$me = new self();
@@ -69,7 +71,7 @@ class ExportMethods
 
 	private function getFiles()
 	{
-		if( !isset($this->methods) )
+		if (false === $this->methods)
 		{
 			$path = LWS_WOOREWARDS_INCLUDES . '/pointsflow';
 			require_once $path.'/exportmethod.php';

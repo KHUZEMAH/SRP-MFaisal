@@ -39,5 +39,3 @@ class UsersPointsBadgeAssignBulkAction extends \LWS\Adminpanel\EditList\Action
 	}
 
 }
-
-?>

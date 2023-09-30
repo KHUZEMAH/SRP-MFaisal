@@ -18,7 +18,7 @@ class Achievement
 	}
 
 	/**	Register an achievement for display on the page (backend or frontend).
-	 *	@param options (array) with:
+	 *	@param $options (array) with:
 	 *	* 'title' (string) At least a title is required for custom achievement.
 	 *	* 'message' (string) optional, display a custom achievement with that message.
 	 *	* 'image' (url) Achievement icon, if no url given, a default image is picked.

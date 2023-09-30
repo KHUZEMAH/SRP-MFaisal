@@ -9,6 +9,23 @@ class Group
 {
 	private $m_FieldArray = array();
 
+	public $page                  = null;
+	public $id                    = '';
+	public $title                 = '';
+	public $color                 = '';
+	public $image                 = '';
+	public $icon                  = '';
+	public $class                 = '';
+	public $collapsed             = false;
+	public $helpBanner            = '';
+	public $extra                 = array();
+	public $customBehavior        = null;
+	public $customDelayedBehavior = null;
+	public $editlist              = null;
+	public $editlistFirst         = false;
+	public $advanced              = false;
+	protected $requirement        = false;
+
 	/** @param $data fulfill the Group::format */
 	function __construct($data, $page)
 	{
@@ -40,7 +57,7 @@ class Group
 		}
 	}
 
-	/** @return a well formated format array for Pages::test()
+	/** @return array well formated format array for Pages::test()
 	 * @see Pages::test() */
 	public static function format()
 	{
@@ -65,7 +82,7 @@ class Group
 		);
 	}
 
-	/** @return a well formated format array for Pages::test()
+	/** @return array well formated format array for Pages::test()
 	 * @see Pages::test() */
 	public static function fieldFormat()
 	{
@@ -149,11 +166,11 @@ class Group
 			if (!\in_array($this->requirement['cmp'], array('==', '!=', 'match')))
 			{
 				$this->requirement['cmp'] = '==';
-				error_log("In field [{$this->m_Id}], 'require.cmp' expect a string in [==, !=, match]. Default is ==.");
+				error_log("In field [{$this->id}], 'require.cmp' expect a string in [==, !=, match]. Default is ==.");
 			}
+		} else {
+			error_log("In field [{$this->id}], 'require' expect an array with a css selector to an input and the required value ['selector' => '.example', 'value'=> 'yes']. If condition is not fullfilled, all the line is hidden.");
 		}
-		else
-			error_log("In field [{$this->m_Id}], 'require' expect an array with a css selector to an input and the required value ['selector' => '.example', 'value'=> 'yes']. If condition is not fullfilled, all the line is hidden.");
 	}
 
 	public function getRequirementClass($prefix = ' ')
@@ -201,7 +218,7 @@ class Group
 		if ($this->helpBanner)
 		{
 			if (\is_array($this->helpBanner))
-				$this->helpBanner = \lws_array_to_html($this->helpBanner);
+				$this->helpBanner = \lws_array_to_html((array)$this->helpBanner);
 			echo "<div class='group-help'>{$this->helpBanner}</div>";
 		}
 

@@ -420,7 +420,7 @@ We tried our best to conserve the same behavior as before but we advise you to c
 		return false;
 	}
 
-	/** @return dirty status (if something changed in pool) */
+	/** @return bool dirty status (if something changed in pool) */
 	public static function addV5PrefabEvents($pool=false, $saveIfDirty=true)
 	{
 		$dirty = false;
@@ -558,7 +558,7 @@ We tried our best to conserve the same behavior as before but we advise you to c
 		}
 	}
 
-	/** @return a pool collection */
+	/** @return \LWS\WOOREWARDS\Collections\Pools pool collection */
 	protected static function loadStandardPool($deep=false)
 	{
 		// if not already exists (prefabs are not deletable)

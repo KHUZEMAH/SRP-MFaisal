@@ -78,6 +78,7 @@ class Conveniences
 		} else {
 			$amount = $price;
 		}
+		$amount = \apply_filters('wcml_raw_price_amount', $amount); // use its own filter since it cannot do anything easy or like the easer
 
 		if ($formatted) {
 			if ($calcdecimals) {
@@ -258,7 +259,7 @@ class Conveniences
 
 	/**	Default return (int) $userId or id from cart/order if provided.
 	 *	@param $userId (int|false) default value
-	 *	@param $orderOrCart (WC_Order|WC_Cart|false) */
+	 *	@param $orderOrCart (\WC_Order|\WC_Cart|false) */
 	public static function getCustomerId($userId, $orderOrCart=false)
 	{
 		$original = $userId;
@@ -283,9 +284,9 @@ class Conveniences
 		return \apply_filters('lws_adminpanel_get_customer_id', $userId, $orderOrCart, $original);
 	}
 
-	/**	Default return (WP_User|false) $user or WP_User instance from cart/order if provided.
-	 *	@param $userId (WP_User|false) default value
-	 *	@param $orderOrCart (WC_Order|WC_Cart|false) */
+	/**	Default return (\WP_User|false) $user or WP_User instance from cart/order if provided.
+	 *	@param $userId (\WP_User|false) default value
+	 *	@param $orderOrCart (\WC_Order|\WC_Cart|false) */
 	public static function getCustomer($user=false, $orderOrCart=false)
 	{
 		$original = $user;
@@ -347,7 +348,7 @@ class Conveniences
 
 	/**	Is WooCommerce installed and activated.
 	 *	Could be sure only after hook 'plugins_loaded'.
-	 *	@return is WooCommerce installed and activated. */
+	 *	@return bool is WooCommerce installed and activated. */
 	public static function isWC()
 	{
 		return \function_exists('wc');
@@ -368,7 +369,7 @@ class Conveniences
 	 *	only to read/write a single meta.
 	 *	Be carefull about HPOS, since we bypass the cache here,
 	 *	data can be not sync.
-	 *	@param $orderId (int|WC_Order) only for consistency with update, get the id if an object is provided. */
+	 *	@param $orderId (int|\WC_Order) only for consistency with update, get the id if an object is provided. */
 	static public function getOrderMeta($orderId, string $key='', bool $single=false)
 	{
 		if (\is_object($orderId)) {
@@ -407,7 +408,7 @@ class Conveniences
 	 *	only to read/write a single meta.
 	 *	Be carefull about HPOS, since we bypass the cache here,
 	 *	data can be not sync.
-	 *	@param $orderId (int|WC_Order) if an order instance, local meta will be updated too, but order is never saved here. */
+	 *	@param $orderId (int|\WC_Order) if an order instance, local meta will be updated too, but order is never saved here. */
 	static public function updateOrderMeta($orderId, string $metaKey, $metaValue, $prevValue='')
 	{
 		if (\is_object($orderId)) {
@@ -453,7 +454,7 @@ class Conveniences
 				);
 			}
 		} else {
-			return update_post_meta($orderId, $meta_key, $meta_value, $prev_value);
+			return update_post_meta($orderId, $metaKey, $metaValue, $prevValue);
 		}
 	}
 }

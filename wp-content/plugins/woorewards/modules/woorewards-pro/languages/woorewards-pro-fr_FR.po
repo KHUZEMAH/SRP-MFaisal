@@ -102,6 +102,11 @@ msgstr "Espace réservé '%s', propriété inconnue"
 msgid "Used by"
 msgstr "Utilisé par"
 
+#: include/core/pool.php:1712
+msgctxt "decimal separator"
+msgid "."
+msgstr ","
+
 #: include/core/ajax.php:384 include/core/ajax.php:421
 msgctxt "pool name separator"
 msgid ", "
@@ -3531,7 +3536,7 @@ msgstr "Fonctionnalités de parrainage et de référence"
 
 #: include/ui/adminscreens/generalsettings.php:159
 msgid ""
-"Here, you'll find the different tools customers can user to refer their "
+"Here, you'll find the different tools customers can use to refer their "
 "friends and the reward given to referred users."
 msgstr ""
 "Vous trouverez ici les différents outils que les clients peuvent utiliser "
@@ -5091,7 +5096,7 @@ msgid "Below Add to Cart"
 msgstr "En-dessous de Ajouter au panier"
 
 #: include/ui/adminscreens/woocommerce.php:507
-msgid "Order Email Points Information"
+msgid "Order Points Information"
 msgstr "Informations sur les points de commande"
 
 #: include/ui/adminscreens/woocommerce.php:510

@@ -16,6 +16,13 @@ class FreeProduct extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	use \LWS\WOOREWARDS\PRO\Unlockables\T_DiscountOptions;
 
+	private $productsIds  = array();
+	private $autoapply    = false;
+	private $permanent    = false;
+	private $freeshipping = false;
+	private $timeout      = null;
+	private $lastCode     = '';
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -131,6 +138,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 		return $this->filterForm($form, $prefix, $context);
 	}
 
+	/** @return mixed */
 	function submit($form = array(), $source = 'editlist')
 	{
 		$prefix = $this->getDataKeyPrefix();
@@ -177,12 +185,13 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 		return $valid;
 	}
 
+	/** @return array */
 	public function getProductsIds()
 	{
-		return isset($this->productsIds) ? $this->productsIds : array();
+		return $this->productsIds;
 	}
 
-	/** @return (false|WC_Product) */
+	/** @return (false|\WC_Product) */
 	public function getProduct($id)
 	{
 		if (\LWS\Adminpanel\Tools\Conveniences::isWC() && !empty($id)) {
@@ -205,7 +214,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 		return false;
 	}
 
-	/** @return html <a> */
+	/** @return string html <a> */
 	public function getProductLink($id)
 	{
 		if ($product = $this->getProduct($id)) {
@@ -218,7 +227,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 		return false;
 	}
 
-	/** @return html <a> */
+	/** @return string html <a> */
 	public function getProductEditLink($id)
 	{
 		if ($product = $this->getProduct($id)) {
@@ -238,7 +247,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 
 	public function isAutoApply()
 	{
-		return isset($this->autoapply) ? $this->autoapply : false;
+		return $this->autoapply;
 	}
 
 	public function setAutoApply($yes = false)
@@ -249,7 +258,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 
 	public function isPermanent()
 	{
-		return isset($this->permanent) ? $this->permanent : false;
+		return $this->permanent;
 	}
 
 	public function setPermanent($yes = false)
@@ -260,7 +269,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 
 	public function isFreeShipping()
 	{
-		return isset($this->freeshipping) ? $this->freeshipping : false;
+		return $this->freeshipping;
 	}
 
 	public function setFreeShipping($yes = false)
@@ -297,12 +306,12 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 	/** return a Duration instance */
 	public function getTimeout()
 	{
-		if (!isset($this->timeout))
+		if (null === $this->timeout)
 			$this->timeout = \LWS\Adminpanel\Duration::void();
 		return $this->timeout;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|int|\LWS\Adminpanel\Duration) */
 	public function setTimeout($days = false)
 	{
 		if (empty($days))
@@ -442,7 +451,7 @@ WHERE post_type='lws-wre-unlockable'", $postid));
 	 *	Last generated coupon code is consumed by this function. */
 	public function getReason($context = 'backend')
 	{
-		if (isset($this->lastCode)) {
+		if ($this->lastCode) {
 			$reason = sprintf(__("Coupon code : %s", 'woorewards-pro'), $this->lastCode);
 			if ($context == 'frontend')
 				$reason .= '<br/>' . $this->getDescription($context);

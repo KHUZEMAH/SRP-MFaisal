@@ -100,7 +100,7 @@ class Achievement extends \LWS\WOOREWARDS\PRO\Core\Pool
 	}
 
 	/** @return float [0..1] or false if no user given nor log off
-	 * @param $user (false|int|WP_User) user ID, user instance or false (we look for current user) */
+	 * @param $user (false|int|\WP_User) user ID, user instance or false (we look for current user) */
 	public function getProgress($user=false)
 	{
 		$userId = false;

@@ -87,7 +87,7 @@ class Ajax
 
 	/** The events about spending (personal or sponsored)
 	 *  grouped by pool
-	 *  @return LAC complient json */
+	 *  echo LAC complient json and die */
 	function getUnlockables()
 	{
 		$fromValue = (isset($_REQUEST['fromValue']) && boolval($_REQUEST['fromValue']));
@@ -253,17 +253,25 @@ EOT;
 		$sql = $this->finalizeQuery(implode(' ', $sql), 'p.post_title');
 		if( $products = $wpdb->get_results($sql) )
 		{
-			foreach($products as &$product)
+			//foreach($products as &$product)
+			for ($i=0 ; $i<count($products) ; $i++)
 			{
+				$product = &$products[$i];
 				if( isset($product->variations) && $product->variations )
 				{
-					$product->group = $wpdb->get_results(<<<EOT
+					$grp = (object)array(
+						'value'      => $product->value . 'g',
+						'label'      => $product->label,
+						'variations' => false,
+					);
+					$grp->group = $wpdb->get_results(<<<EOT
 SELECT p.ID as value, CONCAT('#', p.ID, ' - ', p.post_title) as label FROM {$wpdb->posts} as p
 WHERE p.post_type='product_variation' AND (p.post_status='publish' OR p.post_status='private')
 AND ID IN ({$product->variations})
 ORDER BY p.post_title ASC
 EOT
 					);
+					\array_splice($products, $i+1, 0, array($grp));
 				}
 			}
 		}
@@ -442,7 +450,7 @@ EOT;
 	/** @param $readAsIdsArray (bool) true if term is an array of ID or false if term is a string
 	 *	@param $prefix (string) remove this prefix at start of term values.
 	 *	@param $_REQUEST['term'] (string) filter on post_title or if $readAsIdsArray (array of int) filter on ID.
-	 *	@return an array of int if $readAsIdsArray, else a string. */
+	 *	@return array|string an array of int if $readAsIdsArray, else a string. */
 	private function getTerm($readAsIdsArray, $prefix='', $keySanitize='\intval', $valueSanitize='\sanitize_text_field')
 	{
 		$len = strlen($prefix);

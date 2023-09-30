@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn point the first time a customer complete an order. */
 class FirstOrder extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $eventPriority = 100;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -93,7 +95,7 @@ EOT;
 
 	function getEventPriority()
 	{
-		return isset($this->eventPriority) ? \intval($this->eventPriority) : 100;
+		return \intval($this->eventPriority);
 	}
 
 	public function setEventPriority($priority)

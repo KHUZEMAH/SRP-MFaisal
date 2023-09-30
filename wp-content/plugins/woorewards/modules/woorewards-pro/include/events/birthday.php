@@ -7,6 +7,10 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Earn points each year at register date. */
 class Birthday extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $birthdayMetaKey = false;
+	protected $earlyTrigger = false;
+	private $mkey = false;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -142,7 +146,7 @@ EOT;
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Birthday", "getDisplayType", 'woorewards-pro');
@@ -167,12 +171,12 @@ EOT;
 	/** return a Duration instance */
 	public function getEarlyTrigger()
 	{
-		if( !isset($this->earlyTrigger) )
+		if (!$this->earlyTrigger)
 			$this->earlyTrigger = \LWS\Adminpanel\Duration::void();
 		return $this->earlyTrigger;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|int|\LWS\Adminpanel\Duration) */
 	public function setEarlyTrigger($days=false)
 	{
 		if( empty($days) )
@@ -187,7 +191,7 @@ EOT;
 	/** @return string a usermeta.meta_key to store thi last rewarded birthday */
 	protected function getMetaKey()
 	{
-		if( !isset($this->mkey) )
+		if (!$this->mkey)
 			$this->mkey = $this->getType() .'-'. $this->getId();
 		return $this->mkey;
 	}
@@ -214,7 +218,7 @@ EOT;
 	/** @return (array|string) a list of usermeta.meta_key where a birthday date could be found. */
 	protected function getBirthdayMetaKey()
 	{
-		return isset($this->birthdayMetaKey) && !empty($this->birthdayMetaKey) ? $this->birthdayMetaKey : $this->getDefaultBirthdayMetaKey();
+		return (false !== $this->birthdayMetaKey) ? $this->birthdayMetaKey : $this->getDefaultBirthdayMetaKey();
 	}
 
 	/** Look for all users once a day */
@@ -320,10 +324,10 @@ EOT;
 			return 0;
 	}
 
-	/** @return false or object:
-	 * * next (DateTimeImmutable) next trigger date (estimates).
-	 * * min (DateTimeImmutable) the date trigger cannot occur before (user registration, birthday or event creation)
-	 * * last (false|DateTimeImmutable) previous earning event if any (doesn't care if user can / points really given). */
+	/** @return false|object:
+	 * * next (\DateTimeImmutable) next trigger date (estimates).
+	 * * min (\DateTimeImmutable) the date trigger cannot occur before (user registration, birthday or event creation)
+	 * * last (false|\DateTimeImmutable) previous earning event if any (doesn't care if user can / points really given). */
 	function getDatesForUser(\WP_User $user)
 	{
 		$birthday = \get_user_meta($user->ID, $this->getBirthdayMetaKey(), true);

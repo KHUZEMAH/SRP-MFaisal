@@ -4,7 +4,7 @@ Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social med
 Requires at least: 5.3
 Tested up to: 6.3
 Requires PHP: 7.0.0
-Stable tag: 5.2.2.1
+Stable tag: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,19 @@ Yes, High-Performance Order Storage is supported.
 5. Styling options
 
 == Changelog ==
+
+= 5.2.4 =
+* MyRewards :
+	* Tag - WooCommerce 8.1
+* MyRewards Pro :
+	* Feature - Display points as a float value by shifting digits
+	* Fix - WooCommerce only accept plain text on thanks page
+
+= 5.2.3 =
+* Fix - User point history sort with some date format
+* Fix - Loyalty System Order notes metabox update
+* Fix - German translation
+* Feature - WCML Support
 
 = 5.2.2.1 =
 * Fix - scalar/array issue on order refund

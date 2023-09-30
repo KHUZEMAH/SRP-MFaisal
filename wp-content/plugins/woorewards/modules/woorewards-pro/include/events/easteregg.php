@@ -12,6 +12,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Provide a shortcode in exchange that can be hidden by a site's author. */
 class EasterEgg extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $image = 0;
+	protected $visitedImage = 0;
 
 	function getInformation()
 	{
@@ -148,7 +150,7 @@ class EasterEgg extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return int id */
 	public function getImage()
 	{
-		$id = isset($this->image) ? $this->image : 0;
+		$id = $this->image;
 		if( $id && !(is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) )
 			$id = \apply_filters('wpml_object_id', $id, 'attachment', true);
 		return $id;
@@ -157,7 +159,7 @@ class EasterEgg extends \LWS\WOOREWARDS\Abstracts\Event
 	/** @return int id */
 	public function getVisitedImage()
 	{
-		$id = isset($this->visitedImage) ? $this->visitedImage : 0;
+		$id = $this->visitedImage;
 		if( $id && !(is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) )
 			$id = \apply_filters('wpml_object_id', $id, 'attachment', true);
 		return $id;
@@ -184,7 +186,7 @@ class EasterEgg extends \LWS\WOOREWARDS\Abstracts\Event
 			return \wp_get_attachment_url($img);
 	}
 
-	/** @return html <img> */
+	/** @return string html <img> */
 	public function getImageHtml($visited=false, $size='lws_wr_thumbnail')
 	{
 		if( empty($img = ($visited ? $this->getVisitedImage() : $this->getImage())) )
@@ -193,7 +195,7 @@ class EasterEgg extends \LWS\WOOREWARDS\Abstracts\Event
 			return \wp_get_attachment_image($img, $size, false, array('class'=>'lws-wr-easteregg lws-wr-event-easteregg'));
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Click an Image", "getDisplayType", 'woorewards-pro');

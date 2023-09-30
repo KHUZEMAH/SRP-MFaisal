@@ -103,6 +103,8 @@ class CSSSection
 	public $Help;
 	public $Ref;
 	public $Values;
+	public $Title = '';
+	public $Important = false;
 
 	public function __construct($selector, $defaults=array(), $id='', $type='', $help='', $ref='', $important=array())
 	{
@@ -146,7 +148,7 @@ class CSSSection
 		$this->Values = array_merge($this->Values, $section->Values);
 	}
 
-	/** @return values as an array of css parameters, eg. array('color'=>'#fff')
+	/** @return array values as an array of css parameters, eg. array('color'=>'#fff')
 	 * @param $getDefaults if false, any read value is merge on defaults. */
 	public function details($getDefaults=true)
 	{
@@ -204,7 +206,7 @@ class PseudoCss
 	/** explore the lwss pseudocss file to create customizable values edition fields.
 	 * @param $url the path to .lwss file.
 	 * @param $textDomain the text-domain to use for wordpress translation of field ID to human readable title.
-	 * @return an  array of field to use in pages descrption array. */
+	 * @return array of field to use in pages descrption array. */
 	public static function toFieldArray($url, $textDomain)
 	{
 		$fields = array();
@@ -219,7 +221,7 @@ class PseudoCss
 				// actually 5 type implemented for css: border, font, *color, text, button.
 				if( $balise->Type == 'button' )
 					$balise->Type = 'cssbutton';
-				if( !array_key_exists($balise->Type, Pages\Field::types()) )
+				if( !array_key_exists($balise->Type, \LWS\Adminpanel\Pages\Field::types()) )
 					$balise->Type = "text"; // as for html input, if type is not managed, use a text field
 
 				$fields[] = array(
@@ -271,7 +273,7 @@ class PseudoCss
 	{
 		if( isset($_REQUEST[self::ARG]) )
 		{
-			$url = esc_url_raw(\sanitize_text_field($_REQUEST[self::ARG]));
+			$url = \esc_url_raw(\sanitize_text_field($_REQUEST[self::ARG]));
 			$this->toCss($url);
 		}
 	}
@@ -324,7 +326,7 @@ class PseudoCss
 		}
 	}
 
-	/** @return an array of Balise
+	/** @return array of Balise
 	 * @param $textDomain the text-domain of the current plugin for translation,
 	 * let it false to do not care about titles. */
 	public function extract($url, $textDomain=false, $loadValues=true)
@@ -365,7 +367,7 @@ class PseudoCss
 	{
 		$me = new PseudoCss();
 		if( $me->fileIsValid($url) )
-			return substr($me->MasterID, 0, count(strlen($me->MasterID)-1));
+			return substr($me->MasterID, 0, strlen($me->MasterID)-1);
 		else
 			return '';
 	}
@@ -411,7 +413,7 @@ class PseudoCss
 	}
 
 	/** load the traduction array or generate it if possible.
-	 * @param textDomain the text-domain of the current plugin for translation. */
+	 * @param string textDomain the text-domain of the current plugin for translation. */
 	public function prepareTitles($textDomain)
 	{
 		if( defined( 'ABSPATH' ) ) // translation require to be in wordpress
@@ -489,7 +491,7 @@ class PseudoCss
 	 * @param $style (in/out) append loaded style and return it
 	 * @param $src the css file path
 	 * @param $fieldId the ID of the adminpanel field stygen
-	 * @return a html <style> string */
+	 * @return string html <style> */
 	public function inlineCss($style, $src, $fieldId, $merge=false)
 	{
 		$cached = new Cache(sanitize_key($fieldId) . '-cached.css');
@@ -611,7 +613,7 @@ class PseudoCss
 		return $src;
 	}
 
-	/** @return the url part relevant for pseudocss (the one to pass to fileIsValid) */
+	/** @return string the url part relevant for pseudocss (the one to pass to fileIsValid) */
 	public function relevantUrlPart($url)
 	{
 		$base = plugins_url();
@@ -847,7 +849,7 @@ class PseudoCss
 		return $css;
 	}
 
-	/** @param url a valid path to the pseudo-css. */
+	/** @param string url a valid path to the pseudo-css. */
 	protected function toCss($url)
 	{
 		if( $this->fileIsValid($url) )

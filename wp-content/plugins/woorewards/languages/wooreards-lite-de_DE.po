@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyRewards\n"
 "POT-Creation-Date: 2023-01-30 15:24+0100\n"
-"PO-Revision-Date: 2023-06-07 08:52+0200\n"
+"PO-Revision-Date: 2023-09-21 12:56+0200\n"
 "Last-Translator: LongWatchStudio <support@longwatchstudio.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -2748,13 +2748,13 @@ msgstr "Jedes %s, das du benutzt, ist %s wert"
 
 #: include/ui/woocommerce/pointsoncart.php:663
 #, fuzzy, php-format
-msgid "You can use a minimum of %1$s %2$s on a single cart."
-msgstr "Sie können maximal %1$s %2$s auf einem einzelnen Warenkorb verwenden."
+msgid "You can use a minimum of %s on a single cart."
+msgstr "Sie können maximal %s auf einem einzelnen Warenkorb verwenden."
 
 #: include/ui/woocommerce/pointsoncart.php:674
 #, fuzzy, php-format
-msgid "You can use a maximum of %1$s %2$s on a single cart."
-msgstr "Sie können maximal %1$s %2$s auf einem einzelnen Warenkorb verwenden."
+msgid "You can use a maximum of %s on a single cart."
+msgstr "Sie können maximal %s auf einem einzelnen Warenkorb verwenden."
 
 #: include/ui/woocommerce/pointsoncart.php:685
 #, php-format
@@ -2909,7 +2909,7 @@ msgstr "Wählen Sie einen Assistenten"
 
 #: include/wizard.php:93
 msgid "Settings…"
-msgstr "Einstellungen..."
+msgstr "Einstellungen…"
 
 #: include/wizard.php:136
 msgid ""

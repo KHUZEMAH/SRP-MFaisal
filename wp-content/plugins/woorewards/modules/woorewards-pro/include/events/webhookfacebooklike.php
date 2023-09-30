@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Use our local sharing widget/shortcode */
 class WebHookFacebookLike extends \LWS\WOOREWARDS\Abstracts\Event
 {
+	protected $reactionTypes = array();
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -93,9 +95,10 @@ class WebHookFacebookLike extends \LWS\WOOREWARDS\Abstracts\Event
 		);
 	}
 
+	/** @return array */
 	public function getReactionTypes()
 	{
-		return isset($this->reactionTypes) ? $this->reactionTypes : array();
+		return $this->reactionTypes;
 	}
 
 	public function setReactionTypes($reactionTypes)
@@ -121,7 +124,7 @@ class WebHookFacebookLike extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("React to your Facebook posts", "getDisplayType", 'woorewards-pro');

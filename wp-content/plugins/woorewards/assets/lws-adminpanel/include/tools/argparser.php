@@ -35,7 +35,7 @@ class ArgParser
 	/** For convenience, $options contains the transposed of $args matrix.
 	 * Each entry is an array with 'format', 'required'...
 	 * Then $attrs contains only 'values' and global arguments (as 'post', 'shallow').
-	 * @return same array as parse() */
+	 * @return array same as parse() */
 	function parseTransposed($attrs, $options, $internal=false)
 	{
 		if( !is_array($options) )
@@ -61,7 +61,7 @@ class ArgParser
 	 * Each entry is an array with 'format', 'required'...
 	 * Then $attrs contains global arguments (as 'post', 'shallow').
 	 * Read $_POST, no need to set 'values' in $attrs.
-	 * @return same array as parsePost() */
+	 * @return array same as parsePost() */
 	function parsePostTransposed($attrs, $options)
 	{
 		$attrs['post'] = true;
@@ -295,7 +295,7 @@ class ArgParser
 				return $this->error($args, sprintf(_x('%1$s must be a valid number or an expression: %2$s', 'Input array validation', 'lws-adminpanel'), $this->label($args, $key), $format->err()));
 		}
 		else
-			error_log("[" . getClass() . "] unknown given format ($key): " . print_r($format, true));
+			error_log("[" . \get_class() . "] unknown given format ($key): " . print_r($format, true));
 		return true;
 	}
 
@@ -469,7 +469,7 @@ class ArgParser
 	 * @param $strictFormat (bool) all key in array must be in format.
 	 * @param $strictArray (bool) all key in format must be in array.
 	 * @param $translations (array) use same key as $format, if isset, replace the key in error string.
-	 * @return false if ok, or a string with error if not. */
+	 * @return array with item 'valid' true if ok. */
 	protected static function fromOldFormat($format, $strictFormat=true, $strictArray=true, $translations=array())
 	{
 		$formats = array();

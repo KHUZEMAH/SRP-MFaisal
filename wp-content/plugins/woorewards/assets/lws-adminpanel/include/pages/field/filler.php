@@ -20,5 +20,3 @@ class Filler extends \LWS\Adminpanel\Pages\Field
 		echo "<div class='' style='height:$height'></div>";
 	}
 }
-
-?>

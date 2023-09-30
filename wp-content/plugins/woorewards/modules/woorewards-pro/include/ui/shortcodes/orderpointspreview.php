@@ -147,15 +147,16 @@ class OrderPointsPreview
 
 	/** Shows points earned for placing an order
 	 * [wr_order_points_preview systems='poolname1, poolname2']
-	 * @param system 		→ Default: '' | Pools
-	 * @param layout 		→ Default: 'vertical' | 4 possible values : grid, vertical, horizontal, none.
-	 * @param element 		→ Default: 'line' | 3 possible values : tile, line, none.
-	 * @param display		→ Default: 'formatted' | Points display
-	 * @param showname		→ Default: false | Shows the name of the points and rewards system if set
-	 * @param showdetail	→ Default: false | Show events
-	 * @param force			→ Default: false | Force Display
-	 * @param showunlogged	→ Default: false | Show to unlogged customers
-	 * @param totallabel	→ Default: Total | Only displayed if detail is set to true
+	 * @param $atts array :
+	 * * 'system' 		→ Default: '' | Pools
+	 * * 'layout' 		→ Default: 'vertical' | 4 possible values : grid, vertical, horizontal, none.
+	 * * 'element' 		→ Default: 'line' | 3 possible values : tile, line, none.
+	 * * 'display'		→ Default: 'formatted' | Points display
+	 * * 'showname'		→ Default: false | Shows the name of the points and rewards system if set
+	 * * 'showdetail'	→ Default: false | Show events
+	 * * 'force'			→ Default: false | Force Display
+	 * * 'showunlogged'	→ Default: false | Show to unlogged customers
+	 * * 'totallabel'	→ Default: Total | Only displayed if detail is set to true
 	 */
 	public function shortcode($atts = array(), $content = null)
 	{

@@ -1288,6 +1288,52 @@ body.events-cal .tribe-common div.tribe-dialog, body.events-cal .event-tickets d
 	font-weight: var(--tec-font-weight-bold);
 }
 
+.tec-tickets__admin-after-pay-promo-container {
+	align-items: center;
+	background: #f6f7f7;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	display: flex;
+	margin-bottom: 32px;
+	padding: 20px;
+}
+
+.tec-tickets__admin-after-pay-promo-icon-container {
+	display: none;
+	padding: 10px;
+}
+
+.tec-tickets__admin-after-pay-promo-icon {
+	width: 48px;
+	height: 48px;
+}
+
+.tec-tickets__admin-after-pay-promo-content-container {
+	padding: 10px;
+}
+
+.tec-tickets__admin-after-pay-promo-content-title {
+	font-size: 20px;
+	font-weight: 400;
+	margin-bottom: 12px;
+}
+
+.tec-tickets__admin-after-pay-promo-description {
+	font-size: 14px;
+	margin-bottom: 6px;
+}
+
+.tec-tickets__admin-after-pay-promo-links-container {
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 14px;
+}
+
+.tec-tickets__admin-after-pay-promo-link {
+	display: inline-block;
+	margin-right: 12px;
+}
+
 /**
  * Event Tickets Emails Admin Settings
  *
@@ -1604,5 +1650,12 @@ body.tickets_page_tec-tickets-settings .event-tickets div.tribe-dialog, body.tic
 
 .tec-tickets__admin-tc-banner-content {
 		max-width: calc(100% - 450px)
+}
+	}
+
+@media (min-width: 600px) {
+
+.tec-tickets__admin-after-pay-promo-icon-container {
+		display: block
 }
 	}

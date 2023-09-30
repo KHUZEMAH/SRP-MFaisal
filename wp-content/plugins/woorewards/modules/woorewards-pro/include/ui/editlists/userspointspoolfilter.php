@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Add all loylaty system columns and allow filtering. */
 class UsersPointsPoolFilter
 {
+	private $poolsInfo = false;
+	
 	static function install()
 	{
 		$me = new self();
@@ -98,7 +100,7 @@ class UsersPointsPoolFilter
 
 	protected function load()
 	{
-		if( !isset($this->poolsInfo) )
+		if( false === $this->poolsInfo )
 		{
 			global $wpdb;
 			$type = \LWS\WOOREWARDS\Core\Pool::POST_TYPE;

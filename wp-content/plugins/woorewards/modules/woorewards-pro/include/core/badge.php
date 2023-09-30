@@ -10,12 +10,13 @@ class Badge
 	const POST_TYPE = 'lws_badge';
 	const TAXONOMY  = 'lws_badges';
 	const WPML_KIND = 'WooRewards Badge'; // first letter uppercase, else it will not work!
-	protected $id = '';
-	protected $title = '';
-	protected $excerpt = '';
-	protected $slug = '';
-	protected $valid = false;
-	protected $owners = array();
+	protected $id        = '';
+	protected $title     = '';
+	protected $excerpt   = '';
+	protected $slug      = '';
+	protected $valid     = false;
+	protected $owners    = array();
+	private $thumbnailId = null;
 
 	/** For dev's sake, use wp_post for start.
 	 * It has title, resume and image and that's all we need. */
@@ -322,7 +323,7 @@ EOT;
 		return false;
 	}
 
-	/** @return false|datetime if owned, the assignation date. */
+	/** @return false|\DateTime if owned, the assignation date. */
 	function ownedBy($userId)
 	{
 		if( !isset($this->owners[$userId]) )
@@ -345,7 +346,7 @@ EOT;
 	function ownerCount()
 	{
 		global $wpdb;
-		return $wpdb->get_var($wpdb->prepare(
+		return (int)$wpdb->get_var($wpdb->prepare(
 			"SELECT COUNT(user_id) FROM {$wpdb->lwsWooRewardsBadges} WHERE badge_id=%d",
 			$this->getId()
 		));
@@ -355,12 +356,13 @@ EOT;
 	static function countByUser($userId)
 	{
 		global $wpdb;
-		return $wpdb->get_var($wpdb->prepare(
+		return (int)$wpdb->get_var($wpdb->prepare(
 			"SELECT COUNT(badge_id) FROM {$wpdb->lwsWooRewardsBadges} WHERE user_id=%d",
 			$userId
 		));
 	}
 
+	/** @return false|int */
 	function getId()
 	{
 		return $this->id;
@@ -394,7 +396,7 @@ EOT;
 
 	function getThumbnailId()
 	{
-		if( !isset($this->thumbnailId) )
+		if( null === $this->thumbnailId )
 		{
 			if( !$this->getId() )
 				return false;
@@ -414,7 +416,7 @@ EOT;
 			return \wp_get_attachment_url($thumb);
 	}
 
-	/** @return html <img> */
+	/** @return string html <img> */
 	function getThumbnailImage($size=\LWS\WOOREWARDS\PRO\Core\Badge::POST_TYPE)
 	{
 		if( !($thumb = $this->getThumbnailId()) )
@@ -426,7 +428,8 @@ EOT;
 	function getEditLink($esc_attr=false)
 	{
 		$url = '';
-		if( $id = $this->getId() )
+		$id = $this->getId();
+		if( $id )
 		{
 			$url = \get_edit_post_link($id, 'raw');
 			if( $esc_attr )
@@ -447,7 +450,7 @@ EOT;
 		);
 	}
 
-	/** @return postId or false */
+	/** @return int|bool postId or false */
 	public function save($reload=false)
 	{
 		$result = false;
@@ -494,7 +497,7 @@ EOT;
 		$this->title = $title;
 		$this->excerpt = $excerpt;
 		$this->slug = $slug;
-		unset($this->thumbnailId);
+		$this->thumbnailId = null;
 		return $this;
 	}
 

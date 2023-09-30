@@ -14,7 +14,7 @@ class Conveniences
 		\add_filter('lws_woorewards_get_pools_by_args', array($me, 'getPrefabPool'), 20, 2); //Lowest priority than WooRewards Pro
 	}
 
-	/** @return singleton instance */
+	/** @return object singleton instance */
 	static function &instance()
 	{
 		static $_inst = false;
@@ -109,16 +109,16 @@ EOT;
 
 	/**	Avoid overstock WC_Order::add_order_note and pack them in our own metabox.
 	 *	As WC, comment the order.
-	 *	@param $order (WC_Order|int)
+	 *	@param $order (\WC_Order|int)
 	 *	@param $note (string) the message
-	 *	@param $source (Pool|string|false) the pool, the stack id or any relevant origin
-	 *	@return the new comment id or false on error. */
+	 *	@param $source mixed (\LWS\WOOREWARDS\Core\Pool|string|false) the pool, the stack id or any relevant origin
+	 *	@return integer the new comment id or false on error. */
 	public static function addOrderNote($order, $note, $source=false)
 	{
 		return \LWS\WOOREWARDS\Core\OrderNote::add($order, $note, $source);
 	}
 
-	/** @param $user (int|WP_User|string) user Id or instance, a string is assumed as user email.
+	/** @param $user (int|\WP_User|string) user Id or instance, a string is assumed as user email.
 	 *	@param $exceptOrderId (false|int|[int]) ignore given order id.
 	 *	@param $source (string) a caller reference (for information purpose only).
 	 *	@param $extendedEmail (bool|string) look not only in billing email but associated user current email too. Can be a email string to test.
@@ -320,7 +320,5 @@ EOT;
 			}
 			return $cache[$transient] = (int)$wpdb->get_var($query);
 		}
-
-		return $cache[$transient] = 0;
 	}
 }

@@ -8,6 +8,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	Could be a simple link or a QR code. */
 class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+	
 	public static function install()
 	{
 		self::register(get_class());
@@ -72,7 +74,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 	{
 		\wp_enqueue_style('lws-icons');
 		\wp_enqueue_script('lws-qrcode-js');
-		if( !isset($this->stygen) )
+		if( !$this->stygen )
 		{
 			\wp_enqueue_script('woorewards-referral');
 		}
@@ -97,7 +99,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 	function template($snippet=''){
 		$this->stygen = true;
 		$snippet = $this->shortcode();
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -201,7 +203,7 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 
 		if( !isset($atts['header']) || empty($atts['header']) )
 		$atts['header'] = \lws_get_option('lws_woorewards_referral_widget_message', __("Share that Referral link", 'woorewards-pro'));
-		if( !isset($this->stygen) )
+		if( !$this->stygen )
 			$atts['header'] = \apply_filters('wpml_translate_single_string', $atts['header'], 'Widgets', "WooRewards - Sponsorship Widget - Header");
 		if( !isset($atts['display']) || empty($atts['display']) )
 			$atts['display'] = \lws_get_option('lws_woorewards_sponsorship_link_display', 'link');
@@ -211,12 +213,12 @@ class ReferralWidget extends \LWS\WOOREWARDS\Ui\Widget
 			$url = \add_query_arg('referral', $this->getOrCreateToken($userId), $atts['url']);
 		else if( $defpage = \get_option('lws_woorewards_sponsorship_link_page') )
 			$url = \add_query_arg('referral', $this->getOrCreateToken($userId), \get_permalink($defpage));
-		else if( isset($this->stygen) && $this->stygen )
+		else if( $this->stygen )
 			$url = \add_query_arg('referral', $this->getOrCreateToken($userId), \home_url());
 		else // current page
 			$url = \add_query_arg('referral', $this->getOrCreateToken($userId), \LWS\Adminpanel\Tools\Conveniences::getCurrentPermalink());
 
-		if (!\is_admin() && !(isset($this->stygen) && $this->stygen) && \get_option('lws_woorewards_sponsorship_tinify_enabled', ''))
+		if (!\is_admin() && !$this->stygen && \get_option('lws_woorewards_sponsorship_tinify_enabled', ''))
 			$url = \LWS\WOOREWARDS\Ui\Shortcodes\ReferralLink::tinifyUrl($url);
 
 		$content = 	"<div class='lwss_selectable lws-woorewards-referral-widget' data-type='Main'>";

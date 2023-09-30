@@ -11,6 +11,10 @@ class PointStack
 	const MetaPrefix = 'lws_wre_points_';
 	public $lastLogId = 0;
 
+	public $name   = '';
+	public $userId = false;
+	public $amount = false;
+
 	function __construct($name, $userId)
 	{
 		$this->name = $name;
@@ -33,7 +37,7 @@ class PointStack
 	/** $force bypass any cache and directly call DB. */
 	function get($force = false)
 	{
-		if( !isset($this->amount) || $force )
+		if( false === $this->amount || $force )
 		{
 			if ($force) {
 				global $wpdb;
@@ -85,7 +89,7 @@ class PointStack
 	 *
 	 * Reset any point amount in this stack unchanged since $threshold.
 	 * If option 'lws_woorewards_pointstack_timeout_delete' is 'on', delete all record before that date.
-	 * @param $threshold (false|DateTime) reset points if last change is before that date.
+	 * @param $threshold (false|\DateTime) reset points if last change is before that date.
 	 * @param $getAffectedUserIds (bool) if true, return an array with affected user IDs. default is false.
 	 * @param $reason (string) the cleanup reason to set in user history.
 	 * @param $resetTo (int) reset points to this value, default is zero.
@@ -154,8 +158,7 @@ EOT;
 			$this->cleanup($threshold);
 		}
 
-		if( isset($this->amount) )
-			unset($this->amount);
+		$this->amount = false;
 
 		\do_action('lws_woorewards_point_stack_reseted', $this, $threshold, $resetTo, $reason, $getAffectedUserIds, $affected);
 		return $affected;
@@ -170,8 +173,7 @@ EOT;
 		$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->usermeta} WHERE meta_key=%s", $this->metaKey()));
 		$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->lwsWooRewardsHistoric} WHERE stack=%s", $this->name));
 
-		if( isset($this->amount) )
-			unset($this->amount);
+		$this->amount = false;
 	}
 
 	/** @return (bool) in usage by a pool */
@@ -232,14 +234,13 @@ EOT;
 			$this->name
 		));
 
-		if( isset($this->amount) )
-			unset($this->amount);
+		$this->amount = false;
 	}
 
 	/** That action is performed for all users.
 	 *
 	 * delete history in database.
-	 * @param $threshold (DateTime) remove all entry before that date. */
+	 * @param $threshold (\DateTime) remove all entry before that date. */
 	protected function cleanup(\DateTime $threshold)
 	{
 		global $wpdb;
@@ -307,7 +308,7 @@ EOT;
 	 *	@param $op_date (string) the date as read in DB
 	 *	@param $retDateTime (bool) choose to get a DateTime instance or the string representation.
 	 *	@param $withTime (bool) set false if your string does not have time.
-	 *	@return (string|DateTime) depending on $retDateTime */
+	 *	@return (string|\DateTime) depending on $retDateTime */
 	static function dateI18n($op_date, $retDateTime=false)
 	{
 		$date = \date_create($op_date);
@@ -321,7 +322,7 @@ EOT;
 	 *	@param $op_date (string) the date as read in DB
 	 *	@param $retDateTime (bool) choose to get a DateTime instance or the string representation.
 	 *	@param $withTime (bool) set false if your string does not have time.
-	 *	@return (string|DateTime) depending on $retDateTime */
+	 *	@return (string|\DateTime) depending on $retDateTime */
 	static function dateTimeI18n($op_date, $retDateTime=false)
 	{
 		$date = \date_create($op_date);
@@ -331,37 +332,47 @@ EOT;
 			return \date_i18n(\get_option('date_format') . ' ' . \get_option('time_format'), $date->getTimestamp() + self::getSiteTimezone()->getOffset($date));
 	}
 
-	/** @return array[op_date, op_value, op_result, op_reason] */
+	/** @return array [op_date, op_value, op_result, op_reason] */
 	function getHistory($force = false, $translate=true, $offset=false, $limit=false)
 	{
-		if( !isset($this->history) || $force )
-		{
-			global $wpdb;
-			$sql = <<<EOT
-SELECT mvt_date as op_date, points_moved as op_value, new_total as op_result, commentar as op_reason, `origin`
+		global $wpdb;
+		$sql = <<<EOT
+SELECT id, mvt_date as op_date, points_moved as op_value, new_total as op_result, commentar as op_reason, `origin`
 FROM $wpdb->lwsWooRewardsHistoric
 WHERE user_id=%d AND stack=%s
 ORDER BY mvt_date DESC, id DESC
 EOT;
-			$args = array(
-				$this->userId,
-				$this->name
-			);
-			if( $offset !== false && $limit )
-			{
-				$sql .= " LIMIT %d, %d";
-				$args[] = \absint($offset);
-				$args[] = max(\intval($limit), 1);
-			}
-
-			$this->history = $wpdb->get_results($wpdb->prepare($sql, $args), ARRAY_A);
+		$args = array(
+			$this->userId,
+			$this->name
+		);
+		if( $offset !== false && $limit )
+		{
+			$sql .= " LIMIT %d, %d";
+			$args[] = \absint($offset);
+			$args[] = max(\intval($limit), 1);
 		}
+
+		$history = $wpdb->get_results($wpdb->prepare($sql, $args), ARRAY_A);
+
 		if( $translate )
 		{
-			if( $this->history )
+			if( $history )
 			{
-				foreach($this->history as &$row)
+				$pool = \apply_filters('lws_woorewards_get_pools_by_stack', false, $this->name);
+				$pool = $pool ? $pool->sort()->first() : false;
+
+				foreach($history as &$row)
 				{
+					if ($pool) {
+						if (\is_numeric($row['op_value'])) {
+							$row['op_value']  = $pool->formatPoints($row['op_value'], false);
+						}
+						if (\is_numeric($row['op_value'])) {
+							$row['op_result'] = $pool->formatPoints($row['op_result'], false);
+						}
+					}
+					
 					if ($row['origin'] && \is_numeric($row['origin'])) {
 						$title = $this->getOriginTitle($row['origin']);
 						if ($title) {
@@ -378,7 +389,7 @@ EOT;
 				}
 			}
 		}
-		return $this->history;
+		return $history;
 	}
 
 	/** overwrite \LWS\WOOREWARDS\Core\Trace reason with origin and origin2
@@ -440,7 +451,7 @@ EOT;
 		return $this;
 	}
 
-	/** @return history rows as array of object
+	/** @return array history rows as array of object
 	 * {trace_id, user_id, stack, date, move, total, origin, provider_id, order_id, blog_id, comments}
 	 * @param $args (array) define values tested in where clause (equal).
 	 * All returned field testable against a value or array of value, except comments.
@@ -518,8 +529,8 @@ EOT;
 	 * * origin (false|int|string|array) : source of move, any text, a event id or an unlockable id.
 	 * * origin2 (null|int)
 	 * * comments (string)
-	 * @param $dateStart (false|DateTime) only after the date if not false
-	 * @param $dateEnd (false|DateTime) only before the date if not false
+	 * @param $dateStart (false|\DateTime) only after the date if not false
+	 * @param $dateEnd (false|\DateTime) only before the date if not false
 	 * @param $origin (false|string|array) any origin if false (strict compare, empty string is not false)
 	 * @param $origin2 (false|int|array) same but for origin2 with integers
 	 * @param $userId (false|int|array) the stack the use was init for (if any) if false or override with a user id or an array of (int) user id.

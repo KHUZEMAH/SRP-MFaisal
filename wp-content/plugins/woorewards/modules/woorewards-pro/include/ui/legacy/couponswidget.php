@@ -6,6 +6,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class CouponsWidget extends \LWS\WOOREWARDS\Ui\Widget
 {
+	private $stygen = false;
+
 	public static function install()
 	{
 		self::register(get_class());
@@ -121,7 +123,7 @@ class CouponsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		$begin = "<div class='lws-wr-shop-coupon-cont'>";
 		$end = "</div>";
 		$content = ($begin . $this->getHead($this->defaultArgs()) . $this->getContent($coupons, false, true) . $end);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $content;
 	}
 
@@ -139,8 +141,8 @@ class CouponsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		return $begin . $this->getHead($atts) . $this->getContent($coupons) . $end;
 	}
 
-	/** @param $coupons (array) a coupon list.
-	 *	@param $tableId (slug) DOM element id */
+	/** @param $coupons array a coupon list.
+	 *	@param $tableId string DOM element id */
 	public function getContent($coupons = array(), $tableId=false, $demo=false)
 	{
 		$content = '';
@@ -167,7 +169,7 @@ class CouponsWidget extends \LWS\WOOREWARDS\Ui\Widget
 		$id = empty($id) ? '' : " id='$id'";
 		if( empty($atts['header']) )
 			$atts['header'] = \lws_get_option('lws_woorewards_wc_coupons_template_head', __("Available Coupons", 'woorewards-pro'));
-		if( !isset($this->stygen) )
+		if( !$this->stygen )
 			$atts['header'] = \apply_filters('wpml_translate_single_string', $atts['header'], 'Widgets', "WooRewards - Coupons Widget - Header");
 		return "<div class='lwss_selectable lwss_modify lws-wr-shop-coupon-head'$id data-id='lws_woorewards_wc_coupons_template_head' data-type='Header'><span class='lwss_modify_content'>{$atts['header']}</span></div>";
 	}

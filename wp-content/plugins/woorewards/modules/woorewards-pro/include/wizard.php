@@ -27,7 +27,7 @@ class Wizard extends \LWS\WOOREWARDS\Wizard
 		return parent::instanciateWizard($choice);
 	}
 
-	/** @return a i_wizard implementation instance or false if user selected none. */
+	/** @return object a i_wizard implementation instance or false if user selected none. */
 	protected function getOrCreateWizard()
 	{
 		if( !isset($this->subWizard) )

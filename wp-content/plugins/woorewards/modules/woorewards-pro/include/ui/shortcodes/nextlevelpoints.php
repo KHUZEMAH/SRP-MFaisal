@@ -52,10 +52,11 @@ class NextLevelPoints
 
 	/** Display points needed to reach the next level of a loyalty system
 	 * [wr_show_history system='poolname1,poolname2' prefix='You need' suffix='to reach the next level' currency='true']
-	 * @param system the loyalty systems for which to show the history
-	 * @param prefix the text displayed before the points needed
-	 * @param suffix the text displayed after the points needed
-	 * @param currency show points with the pool currency
+	 * @param $atts array :
+	 * * 'system' the loyalty systems for which to show the history
+	 * * 'prefix' the text displayed before the points needed
+	 * * 'suffix' the text displayed after the points needed
+	 * * 'currency' show points with the pool currency
 	 */
 
 	public function shortcode($atts = array(), $content = '')

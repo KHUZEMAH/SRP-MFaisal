@@ -104,6 +104,11 @@ msgstr ""
 msgid "Used by"
 msgstr "被用于"
 
+#: include/core/pool.php:1712
+msgctxt "decimal separator"
+msgid "."
+msgstr ""
+
 #: include/core/ajax.php:384 include/core/ajax.php:421
 msgctxt "pool name separator"
 msgid ", "
@@ -3422,10 +3427,10 @@ msgstr "引荐功能"
 #: include/ui/adminscreens/generalsettings.php:159
 #, fuzzy
 #| msgid ""
-#| "Here, you'll find the different tools customers can user to sponsor their "
+#| "Here, you'll find the different tools customers can use to sponsor their "
 #| "friends and the reward given to sponsored users."
 msgid ""
-"Here, you'll find the different tools customers can user to refer their "
+"Here, you'll find the different tools customers can use to refer their "
 "friends and the reward given to referred users."
 msgstr ""
 "在这里，您可以找到多种工具来帮助您的客户引荐他们的朋友，以及给予被引荐人奖"
@@ -4890,7 +4895,7 @@ msgid "Below Add to Cart"
 msgstr "下面加入购物车"
 
 #: include/ui/adminscreens/woocommerce.php:507
-msgid "Order Email Points Information"
+msgid "Order Points Information"
 msgstr ""
 
 #: include/ui/adminscreens/woocommerce.php:510

@@ -111,7 +111,7 @@ EOT;
 	{
 		$request = $this->getSponsorships();
 		$request->select('COUNT(meta.umeta_id)');
-		return $request->getVar();
+		return (int)$request->getVar();
 	}
 
 	protected function getDisclamer()

@@ -876,7 +876,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		$data = wp_parse_args( $data, $defaults );
 
 		// Sanitize Mode
-		$data['mode'] = filter_var( $data['mode'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+		$data['mode'] = tec_sanitize_string( $data['mode'] );
 
 		// Fetch the Global stock Instance for this Event
 		/**
@@ -887,7 +887,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		// Only need to do this if we haven't already set one - they shouldn't be able to edit it from here otherwise
 		if ( ! $event_stock->is_enabled() ) {
 			if ( isset( $data['event_capacity'] ) ) {
-				$data['event_capacity'] = trim( filter_var( $data['event_capacity'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH ) );
+				$data['event_capacity'] = trim( tec_sanitize_string( $data['event_capacity'] ) );
 
 
 				// If empty we need to modify to -1

@@ -8,6 +8,9 @@ require_once LWS_MANAGER_INCLUDES . '/ui/page.php';
 /** Add a special page to manage the plugin installation. */
 class ManagerPage extends \LWS\Manager\Ui\Page
 {
+	protected $license = false;
+	protected $uuid    = '';
+
 	function suffixPage(string $page){return $page.'_lic';}
 	function getTabId(){return 'lic';}
 
@@ -39,7 +42,8 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 		if( $def )
 			define($def, $me->getManager()->isRunning());
 		$me->getManager()->installUpdater();
-		\LWS\Manager\API::register($me->getManager(), $uuid);
+		$manager =& $me->getManager();
+		\LWS\Manager\API::register($manager, $uuid);
 	}
 
 	static function installAddon($file, $masterSlug, $addonUuid, $def)
@@ -55,7 +59,8 @@ class ManagerPage extends \LWS\Manager\Ui\Page
 			define($def, $me->getManager()->isRunning());
 		}
 		$me->getManager()->installUpdater();
-		\LWS\Manager\API::register($me->getManager(), $addonUuid);
+		$manager =& $me->getManager();
+		\LWS\Manager\API::register($manager, $addonUuid);
 	}
 
 	static function registerAddon($file, $masterSlug, $addonUuid)
@@ -933,7 +938,7 @@ EOT;
 
 	private function &getManager()
 	{
-		if( !isset($this->license) ){
+		if( false === $this->license ){
 			require_once LWS_MANAGER_INCLUDES . '/core/manager.php';
 			$this->license = new \LWS\Manager\Core\Manager($this->file, $this->uuid);
 		}

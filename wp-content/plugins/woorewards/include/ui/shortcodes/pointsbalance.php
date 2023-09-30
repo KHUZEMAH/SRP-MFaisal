@@ -133,19 +133,19 @@ class PointsBalance
 
 	/** Shows one or several points balances
 	 * [wr_points_balance systems='poolname1, poolname2']
-	 * @param system 	→ Default: ''
+	 * @param $system 	→ Default: ''
 	 * 					  The points and rewards systems for which the balance is displayed. If empty, show all active systems
 	 * 					  One value or several ones, comma separated
-	 * @param layout 	→ Default: 'none'
+	 * @param $layout 	→ Default: 'none'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, vertical, horizontal, none.
-	 * @param element 	→ Default: 'none'
+	 * @param $element 	→ Default: 'none'
 	 * 					  Defines the presentation of the elements.
 	 * 					  3 possible values : tile, line, none.
-	 * @param display	→ Default: 'formatted'
+	 * @param $display	→ Default: 'formatted'
 	 * 					  'simple'    → only the points balance numeric value is displayed.
 	 * 					  'formatted' → points are formatted with the points currency/name.
-	 * @param showname	→ Default: false
+	 * @param $showname	→ Default: false
 	 * 					  Force the display of the system name even if there's only one system
 	 */
 	public function shortcode($atts = array(), $content = null)

@@ -23,11 +23,24 @@ abstract class Event implements ICategorisable, IRegistrable
 	const POST_TYPE = 'lws-wre-event';
 	private static $s_events = array();
 
+	protected $pool          = null;
+	protected $poolId        = false;
+	protected $dataKeyPrefix = false;
+	protected $cooldownInfo  = false;
+	protected $rolling       = true;
+	protected $resetDT       = false;
+	protected $multiplier    = '1';
+	protected $eventCreationDate = null;
+	public $title            = '';
+	public $id               = false;
+	public $name             = false;
+	public $gainAlt          = '';
+
 	/** Inhereted Event already instanciated from WP_Post, $this->id is availble. It is up to you to load any extra configuration. */
 	abstract protected function _fromPost(\WP_Post $post);
 	/** Event already saved as WP_Post, $this->id is availble. It is up to you to save any extra configuration. */
 	abstract protected function _save($id);
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	abstract public function getDisplayType();
 	/** Add hook to grab events and add points. */
 	abstract protected function _install();
@@ -38,7 +51,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	 *	too many time in a period. */
 	function isRuleSupportedCooldown() { return false; }
 
-	/**	@param userId (int)
+	/**	@param int userId
 	 * 	@param $defaultUnset (bool) the value returned if no cooldown defined;
 	 *	default is true, so no cooldown means that event is always available.
 	 *	@return (bool) true if cooldown is not already full
@@ -88,12 +101,12 @@ abstract class Event implements ICategorisable, IRegistrable
 		return '';
 	}
 
-	/** @return false or object with properties {count, period[, interval]} */
+	/** @return mixed false or object with properties {count, period[, interval]} */
 	function getCooldownInfo($withDateInterval=false)
 	{
 		if (!$this->isRuleSupportedCooldown())
 			return false;
-		if (!isset($this->cooldownInfo) || !$this->cooldownInfo)
+		if (!$this->cooldownInfo)
 			return false;
 		if (0 == $this->cooldownInfo->count || !\trim($this->cooldownInfo->period))
 			return false;
@@ -124,7 +137,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	/** Rolling period or periodic date range */
 	public function isCooldownRolling()
 	{
-		return isset($this->rolling) ? (bool)$this->rolling : true;
+		return (bool)$this->rolling;
 	}
 
 	public function setCooldownRolling($yes=true)
@@ -140,7 +153,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	{
 		if ($this->isCooldownRolling()) {
 			return false;
-		} elseif (isset($this->resetDT) && $this->resetDT) {
+		} elseif ($this->resetDT) {
 			$dt = ($timezone ? $this->resetDT->setTimezone($timezone) : $this->resetDT);
 			return ($format ? $dt->format($format) : $dt);
 		} else {
@@ -149,7 +162,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	}
 
 	/** store a datetimeimmutable
-	 *	@param $datetime: DateTime|DateTimeImmutable|string|int
+	 *	@param mixed $datetime DateTime|DateTimeImmutable|string|int
 	 *	An integer is assumed UTC timestamp,
 	 *	A string is assumed in website timestamp. */
 	public function setCooldownResetDateTime($datetime)
@@ -158,7 +171,7 @@ abstract class Event implements ICategorisable, IRegistrable
 			$this->resetDT = false;
 		} elseif (\is_object($datetime)) {
 			if (\is_a($datetime, 'DateTime'))
-				$this->resetDT = DateTimeImmutable::createFromMutable($datetime);
+				$this->resetDT = \DateTimeImmutable::createFromMutable($datetime);
 			elseif (\is_a($datetime, 'DateTimeImmutable'))
 				$this->resetDT = $datetime;
 		} elseif (\is_numeric($datetime)) {
@@ -196,7 +209,7 @@ abstract class Event implements ICategorisable, IRegistrable
 			// maybe save the meta
 			if ($changed && $save) {
 				$this->setCooldownResetDateTime($datetime);
-				\update_post_meta($id, 'wre_event_reset_date', $this->getCooldownResetDateTime('Y-m-dTH:i:s e'));
+				\update_post_meta($this->id, 'wre_event_reset_date', $this->getCooldownResetDateTime('Y-m-dTH:i:s e'));
 			}
 		}
 		return $datetime;
@@ -209,17 +222,18 @@ abstract class Event implements ICategorisable, IRegistrable
 	}
 
 	static public $recurrentAllowed = false;
+	protected $repeatInfo           = false;
 
 	function isRepeatAllowed() {
 		return self::$recurrentAllowed;
 	}
 
-	/** @return false or object with properties {count, period[, interval]} */
+	/** @return mixed false or object with properties {count, period[, interval]} */
 	function getRepeatInfo($withDateInterval=false)
 	{
 		if (!$this->isRepeatAllowed())
 			return false;
-		if (!isset($this->repeatInfo) || !$this->repeatInfo)
+		if (!$this->repeatInfo)
 			return false;
 		if (0 == $this->repeatInfo->count || !\trim($this->repeatInfo->period))
 			return false;
@@ -248,22 +262,24 @@ abstract class Event implements ICategorisable, IRegistrable
 	}
 
 	static public $delayAllowed = false;
+	protected $delay            = false;
+	protected $maxTriggers      = false;
 
 	function isDelayAllowed() {
 		return self::$delayAllowed;
 	}
 
-	/**	@return a Duration instance or false if no delay */
+	/**	@return mixed Duration instance or false if no delay */
 	public function getDelay()
 	{
 		if (!$this->isDelayAllowed())
 			return false;
-		if (!(isset($this->delay) && $this->delay))
+		if (!$this->delay)
 			return false;
 		return $this->delay->isNull() ? false : $this->delay;
 	}
 
-	/** @param $days (false|string|Duration) string use a DateInterval format */
+	/** @param mixed $days (false|string|Duration) string use a DateInterval format */
 	public function setDelay($days=false)
 	{
 		if( empty($days) )
@@ -285,7 +301,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	{
 		if (!$this->isMaxTriggersAllowed()) {
 			return false;
-		} elseif (isset($this->maxTriggers) && $this->maxTriggers) {
+		} elseif ($this->maxTriggers) {
 			return $this->maxTriggers;
 		} else {
 			return false;
@@ -319,7 +335,7 @@ abstract class Event implements ICategorisable, IRegistrable
 	/** if feature not enabled or used, always return true.
 	 *	else, a user is required to trigger the event
 	 *	so we can check the counter.
-	 *	@param $options (array|WP_User|int) the user earning points, an array have to include an entry 'user'.
+	 *	@param $options (array|\WP_User|int) the user earning points, an array have to include an entry 'user'.
 	 *	@param $doIncrement (bool) if true and can be triggered, then increment the counter.
 	 *	@return (bool) true if no restriction set or event trigger count is not reached. */
 	public function canBeTriggered($options, $doIncrement=false)
@@ -537,7 +553,7 @@ EOT;
 	/** Provided to be overriden.
 	 *	Back from the form, set and save data from @see getForm
 	 *	@param $source origin of form values. Expect 'editlist' or 'post'. If 'post' we will apply the stripSlashes().
-	 * 	@return true if ok, (false|string|WP_Error) false or an error description on failure. */
+	 * 	@return mixed true if ok, (false|string|WP_Error) false or an error description on failure. */
 	function submit($form=array(), $source='editlist')
 	{
 		$prefix = $this->getDataKeyPrefix();
@@ -681,7 +697,7 @@ EOT;
 
 	protected function getDataKeyPrefix()
 	{
-		if( !isset($this->dataKeyPrefix) )
+		if (false === $this->dataKeyPrefix)
 			$this->dataKeyPrefix = \esc_attr($this->getType()) . '_';
 		return $this->dataKeyPrefix;
 	}
@@ -696,8 +712,8 @@ EOT;
 
 	/** Purpose of an event: earn point for a pool.
 	 *	Call this function when an earning event occurs.
-	 *	@param $options (array|WP_User|int) the user earning points, an array have to include an entry 'user'.
-	 *	@param $reason (string) the cause of the earning.
+	 *	@param $options (array|\WP_User|int) the user earning points, an array have to include an entry 'user'.
+	 *	@param $reason (string|\LWS\WOOREWARDS\Core\Trace) the cause of the earning.
 	 *	@param $pointCount (int) number of point earned, usually 1 since it is up to the pool to multiply it. */
 	protected function addPoint($options, $reason='', $pointCount=1, $origin2=false)
 	{
@@ -811,7 +827,7 @@ EOT;
 			try{
 				require_once $registered[1];
 				$instance = new $registered[0];
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				error_log("Cannot instanciate an woorewards Event: " . $e->getMessage());
 			}
 		}
@@ -830,7 +846,7 @@ EOT;
 			'post_type'   => self::POST_TYPE,
 			'post_status' => $this->isValidGain() ? $this->getPoolStatus() : 'draft',
 			'post_name'   => $this->getName($pool),
-			'post_title'  => isset($this->title) ? $this->title : '',
+			'post_title'  => $this->title,
 			'meta_input'  => array(
 				'wre_event_multiplier'   => $this->getGainRaw(),
 				'wre_event_gain_alt'     => $this->getGainAlt(false),
@@ -864,9 +880,9 @@ EOT;
 			return $this;
 		}
 		$this->id = intval($postId);
-		if( isset($this->title) )
+		if ($this->title)
 			\do_action('wpml_register_string', $this->title, 'title', $this->getPackageWPML(true), __("Title", 'woorewards-lite'), 'LINE');
-		if (isset($this->gainAlt))
+		if ($this->gainAlt)
 			\do_action('wpml_register_string', $this->gainAlt, 'gain_alt', $this->getPackageWPML(true), __("Earned points alternative text", 'woorewards-lite'), 'LINE');
 
 		$this->_save($this->id);
@@ -884,7 +900,7 @@ EOT;
 		);
 		if( $full )
 		{
-			$title = (isset($this->title) && !empty($this->title)) ? $this->title : ($this->getDisplayType() . '/' . $this->getId());
+			$title = ($this->title ? $this->title : ($this->getDisplayType() . '/' . $this->getId()));
 			if( $pool = $this->getPool() )
 				$title = ($pool->getOption('title') . ' - ' . $title);
 			$pack['title'] = $title;
@@ -901,7 +917,7 @@ EOT;
 
 	public function getTitle($fallback=true, $forceTranslate=false)
 	{
-		$title = ((isset($this->title) && !empty($this->title)) ? $this->title : ($fallback ? $this->getDisplayType() : ''));
+		$title = ($this->title ? $this->title : ($fallback ? $this->getDisplayType() : ''));
 		if( $forceTranslate || !(is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) )
 			$title = \apply_filters('wpml_translate_string', $title, 'title', $this->getPackageWPML());
 		return \apply_filters('the_title', $title, $this->getId());
@@ -967,6 +983,7 @@ EOT;
 		return $this;
 	}
 
+	/** @return mixed */
 	public function getPool()
 	{
 		return isset($this->pool) ? $this->pool : false;
@@ -981,7 +998,7 @@ EOT;
 				$this->pool = \LWS\WOOREWARDS\PRO\Core\Pool::getOrLoad($this->poolId, false);
 			} else {
 				$pool = \apply_filters('lws_woorewards_get_pools_by_args', false, array(
-					'system' => $stack,
+					'system' => $this->poolId,
 					'force'  => true,
 				));
 				if ($pool)
@@ -1071,9 +1088,9 @@ EOT;
 	public function getGainAlt($default=null)
 	{
 		if (false === $default)
-			return (isset($this->gainAlt) ? \trim($this->gainAlt) : '');
+			return \trim($this->gainAlt);
 
-		$alt = ((null === $default && isset($this->gainAlt)) ? \trim($this->gainAlt) : '');
+		$alt = ((null === $default) ? \trim($this->gainAlt) : '');
 		if (!\strlen($alt))
 			$alt = _x("Variable", 'event points expression alternative', 'woorewards-lite');
 
@@ -1088,7 +1105,7 @@ EOT;
 	 *	If expression, is have to be valid, regardless the result. */
 	public function isValidGain($lazy=false)
 	{
-		$value = \ltrim(isset($this->multiplier) ? $this->multiplier : '1');
+		$value = \ltrim($this->multiplier);
 		if (\is_numeric($value)) {
 			return ($value > 0);
 		} elseif ('=' == \substr($value, 0, 1)) {
@@ -1124,7 +1141,7 @@ EOT;
 	 *	@param $shape (bool) add decoration for display purpose, e.g. cooldown info. */
 	public function getGainRaw($shape=false)
 	{
-		$value = isset($this->multiplier) ? $this->multiplier : 1;
+		$value = $this->multiplier;
 		if ($shape)
 			$value = $this->shapeGain($value);
 		return $value;
@@ -1141,13 +1158,13 @@ EOT;
 			return isset($options['default']) ? $options['default'] : 0;
 	}
 
-	/** @return number, resolve expression if any.
+	/** @return mixed number, resolve expression if any.
 	 *	Even for bad expression, zero is used as fallback.
 	 *	If no user given, use the current user.
 	 *	@param $quiet (bool) if true, no log if expression cannot be resolved. */
 	public function getGain($options=array(), $quiet=false)
 	{
-		$value = isset($this->multiplier) ? \ltrim($this->multiplier) : 1;
+		$value = \ltrim($this->multiplier);
 		if ('=' == substr($value, 0, 1)) {
 			if (!isset($options['user']))
 				$options['user'] = \wp_get_current_user();
@@ -1162,6 +1179,7 @@ EOT;
 	}
 
 	private $_gainTimestamp = null;
+	protected $_gainCache = 0;
 
 	/**	@see getGain
 	 *	@param $timestamp anything else than null.
@@ -1185,7 +1203,7 @@ EOT;
 	 *	or a default text at last. */
 	public function getGainForDisplay($options=array(), $altFallback=true)
 	{
-		$original = $value = (isset($this->multiplier) ? \ltrim($this->multiplier) : 1);
+		$original = $value = \ltrim($this->multiplier);
 		if ('=' == substr($value, 0, 1)) {
 			if (!isset($options['user']))
 				$options['user'] = \wp_get_current_user();
@@ -1209,7 +1227,7 @@ EOT;
 	public function getMultiplier($context='edit')
 	{
 		\_deprecated_function(__FUNCTION__, '4.9', 'getGainForDisplay');
-		$mul = isset($this->multiplier) ? $this->multiplier : 1;
+		$mul = $this->multiplier;
 		if ('view' == $context)
 			$mul = $this->shapeGain($mul);
 		return $mul;
@@ -1230,7 +1248,7 @@ EOT;
 
 	public function getName($pool=null)
 	{
-		if( isset($this->name) )
+		if ($this->name)
 			return $this->name;
 		else if( !empty($this->getPool()) )
 			return $this->getPool()->getName() . '-' . $this->getType();

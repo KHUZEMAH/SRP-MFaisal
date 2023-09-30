@@ -5,6 +5,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 
 class Help extends \LWS\Adminpanel\Pages\Field
 {
+	private $content = '';
+
 	public function __construct($id='', $title='', $extra=null)
 	{
 		parent::__construct($id, $title, $extra);

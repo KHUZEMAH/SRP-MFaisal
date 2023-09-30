@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, tribecari, vicskf, zbtirrell, juanfra
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.5
-Tested up to: 6.3.0
-Stable tag: 5.7.4
+Tested up to: 6.3.1
+Stable tag: 5.7.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,15 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.7.5] 2023-09-13 =
+
+* Fix - Ensure that the attendee collection setting displays correctly when retrieving individual ticket. [ETP-873]
+* Fix - Checkout links formatting incorrectly in some themes. [ETP-867]
+* Fix - Prevent some button background styles from being overridden by theme editors. [ET-1815]
+* Tweak - Removed some deprecated filter_vars to avoid PHP 8.1 warnings. [ET-1800]
+* Tweak - Add `total_type_label` to list of Attendance Totals for use on the Attendees page. [ET-1842]
+* Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.7.4] 2023-08-16 =
 

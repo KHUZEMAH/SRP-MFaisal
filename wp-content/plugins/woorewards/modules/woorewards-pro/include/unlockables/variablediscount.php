@@ -11,6 +11,12 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	use \LWS\WOOREWARDS\PRO\Unlockables\T_DiscountOptions;
 
+	private $value      = 0.01;
+	private $autoapply  = false;
+	private $timeout    = null;
+	private $lastAmount = false;
+	private $lastCode   = false;
+
 	protected function isUsageLimitEnabled()
 	{
 		return false;
@@ -114,7 +120,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function getValue()
 	{
-		return isset($this->value) ? $this->value : 0.01;
+		return $this->value;
 	}
 
 	public function setValue($value=0.0)
@@ -133,7 +139,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function isAutoApply()
 	{
-		return isset($this->autoapply) ? $this->autoapply : false;
+		return $this->autoapply;
 	}
 
 	public function setAutoApply($yes=false)
@@ -142,15 +148,15 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $this;
 	}
 
-	/** return a Duration instance */
+	/** @return \LWS\Adminpanel\Duration instance */
 	public function getTimeout()
 	{
-		if( !isset($this->timeout) )
+		if( null === $this->timeout )
 			$this->timeout = \LWS\Adminpanel\Duration::void();
 		return $this->timeout;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|int|\LWS\Adminpanel\Duration) */
 	public function setTimeout($days=false)
 	{
 		if( empty($days) )
@@ -180,7 +186,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	 *	@return (string) what this does. */
 	function getCouponDescription($context='backend', $date=false)
 	{
-		$amount = isset($this->lastAmount) ? $this->lastAmount : $this->getCouponAmount(\get_current_user_id());
+		$amount = (false !== $this->lastAmount) ? $this->lastAmount : $this->getCouponAmount(\get_current_user_id());
 		$value = (\LWS\Adminpanel\Tools\Conveniences::isWC() && $context != 'edit') ? \wc_price($amount) : \number_format_i18n($amount, 2);
 		$value = \LWS\WOOREWARDS\Unlockables\Coupon::getPriceTaxStatus($value);
 
@@ -278,8 +284,8 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$this->lastCode = $code;
 		if( false === ($coupon = $this->createShopCoupon($code, $user, $demo)) )
 		{
-			unset($this->lastAmount);
-			unset($this->lastCode);
+			$this->lastAmount = false;
+			$this->lastCode   = false;
 			return false;
 		}
 
@@ -290,7 +296,7 @@ class VariableDiscount extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	 *	Last generated coupon code is consumed by this function. */
 	public function getReason($context='backend')
 	{
-		if( isset($this->lastCode) ){
+		if( $this->lastCode ){
 			$reason = sprintf(__("Coupon code : %s", 'woorewards-pro'), $this->lastCode);
 			if( $context == 'frontend' )
 				$reason .= '<br/>' . $this->getDescription($context);

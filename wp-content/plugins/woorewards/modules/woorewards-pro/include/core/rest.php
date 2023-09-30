@@ -432,12 +432,11 @@ class Rest
 		$pool = $this->getThePool($data, 'id', true);
 		if( !$pool )
 			return new \WP_Error('no_pool', __('Unknown Loyalty System', 'woorewards-pro'), array('status' => 404));
-		if (\get_current_user_id() != $user->ID && !$this->currentUserCan('lws_wr_edit_other_points'))
-			return new \WP_Error('rest_forbidden', __('Cannot update others data', 'woorewards-pro'), array('status' => 403));
-
 		$user = \get_user_by('email', $data['email']);
 		if( !$user || !$user->ID )
 			return new \WP_Error('no_user', __('Unknown User', 'woorewards-pro'), array('status' => 404));
+		if (\get_current_user_id() != $user->ID && !$this->currentUserCan('lws_wr_edit_other_points'))
+			return new \WP_Error('rest_forbidden', __('Cannot update others data', 'woorewards-pro'), array('status' => 403));
 
 		foreach( $pool->getUnlockables()->asArray() as $item )
 		{

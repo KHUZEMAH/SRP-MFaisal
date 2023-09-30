@@ -30,7 +30,7 @@ class Sponsorship extends \LWS\WOOREWARDS\Abstracts\Event
 		return $this;
 	}
 
-	/** @return a human readable type for UI */
+	/** @return string a human readable type for UI */
 	public function getDisplayType()
 	{
 		return _x("Send a referral email", "getDisplayType", 'woorewards-pro');

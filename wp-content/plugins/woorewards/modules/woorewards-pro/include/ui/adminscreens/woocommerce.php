@@ -504,7 +504,7 @@ class WooCommerce
 			'id' => 'orderpoints',
 			'icon'	=> 'lws-icon-letter',
 			'color' => '#425981',
-			'title' => __("Order Email Points Information", 'woorewards-pro'),
+			'title' => __("Order Points Information", 'woorewards-pro'),
 			'text' => array(
 				array('join' => '<br/>',
 					__("Set a message for customers when they place a new order", 'woorewards-pro'),
@@ -534,16 +534,6 @@ class WooCommerce
 					)
 				),
 				array(
-					'id' => 'lws_woorewards_wc_thanks_order_enable',
-					'title' => __("Enable Thanks Page Message", 'woorewards-pro'),
-					'type' => 'box',
-					'extra' => array(
-						'default' => '',
-						'layout' => 'toggle',
-						'tooltips' => __("Check this option if you want to show a message in the Thank you page after Order validation", 'woorewards-pro'),
-					)
-				),
-				array(
 					'id' => 'lws_woorewards_wc_details_order_enable',
 					'title' => __("Enable Order Details Message", 'woorewards-pro'),
 					'type' => 'box',
@@ -565,11 +555,32 @@ class WooCommerce
 				array(
 					'id' => 'lws_woorewards_wc_new_order_content',
 					'type' => 'wpeditor',
-					'title' => __("Email text", 'woorewards-pro'),
+					'title' => __("Email HTML text", 'woorewards-pro'),
 					'extra' => array(
 						'editor_height' => 30,
 						'default' => __("With this order, you will earn [wr_wc_order_points]", 'woorewards-pro'),
 						'wpml'    => "WooRewards - New Order Email Message - Earning Points",
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_wc_thanks_order_enable',
+					'title' => __("Enable Thanks Page Message", 'woorewards-pro'),
+					'type' => 'box',
+					'extra' => array(
+						'default' => '',
+						'layout' => 'toggle',
+						'tooltips' => __("Check this option if you want to show a message in the Thank you page after Order validation", 'woorewards-pro'),
+					)
+				),
+				array(
+					'id' => 'lws_woorewards_wc_new_order_content_plaintext',
+					'type' => 'textarea',
+					'title' => __("Thanks plain text", 'woorewards-pro'),
+					'extra' => array(
+						'rows'    => 2,
+						'default' => __("With this order, you will earn [wr_wc_order_points]", 'woorewards-pro'),
+						'wpml'    => "WooRewards - New Order Thanks Message - Earning Points",
+						'help'    => __("WooCommerce does not suport HTML here", 'woorewards-pro'),
 					)
 				),
 			)

@@ -42,7 +42,7 @@ class UserLevel
 
 	/** Displays the current user level in a leveling loyalty system
 	 * [wr_user_level system='poolname' nolevel='No level message']
-	 * @param system the loyalty system for which to show the progress bar
+	 * * system the loyalty system for which to show the progress bar
 	 */
 	public function shortcode($atts=array(), $content='')
 	{

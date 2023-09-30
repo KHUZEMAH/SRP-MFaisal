@@ -12,5 +12,3 @@ class WPEditor extends \LWS\Adminpanel\Pages\Field
 		wp_editor($value, $name, $this->extra);
 	}
 }
-
-?>

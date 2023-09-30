@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) exit();
 /** Show Content in a specific location inside a product page or product archive page */
 class ProductContent
 {
+	private $variable = false;
+	private $regular  = false;
+
 	static function install()
 	{
 		$product = \get_option('lws_woorewards_product_preview_position', 'none');
@@ -55,7 +58,7 @@ class ProductContent
 			$text = false;
 			// variable could have a specific text
 			if ($product->is_type('variable')) {
-				if (!isset($this->variable)) {
+				if (false === $this->variable) {
 					$this->variable = \trim(\get_option($settings['variable']['option'], ''));
 					if ($this->variable) {
 						$this->variable = \apply_filters('wpml_translate_single_string', $this->variable, 'Widgets', $settings['variable']['wpml']);
@@ -65,7 +68,7 @@ class ProductContent
 			}
 			// simple product or fallback
 			if (!$text) {
-				if (!isset($this->regular)) {
+				if (false === $this->regular) {
 					$this->regular = \trim(\get_option($settings['regular']['option'], ''));
 					if ($this->regular) {
 						$this->regular = \apply_filters('wpml_translate_single_string', $this->regular, 'Widgets', $settings['regular']['wpml']);

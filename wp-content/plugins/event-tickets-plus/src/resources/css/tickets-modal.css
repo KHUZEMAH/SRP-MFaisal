@@ -515,6 +515,7 @@
 
 .event-tickets .tribe-dialog__wrapper.tribe-modal__wrapper--ar .tribe-tickets__attendee-tickets-item-remove, .entry .entry-content .event-tickets .tribe-dialog__wrapper.tribe-modal__wrapper--ar .tribe-tickets__attendee-tickets-item-remove {
 			align-items: center;
+			background-image: none;
 			color: var(--tec-color-icon-secondary);
 			display: flex;
 			flex: none;

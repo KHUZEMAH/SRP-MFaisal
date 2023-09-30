@@ -359,7 +359,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 			add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'set_attendee_optout_value' ], 10, 3 );
 		}
 
-		add_action( 'woocommerce_checkout_before_order_review', [ $this, 'add_checkout_links' ] );
+		add_action( 'woocommerce_checkout_order_review', [ $this, 'add_checkout_links' ], 5 );
 
 		// Enqueue styles
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 11 );
@@ -1459,7 +1459,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		$data = wp_parse_args( $data, $defaults );
 
 		// Sanitize Mode
-		$data['mode'] = filter_var( $data['mode'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+		$data['mode'] = tec_sanitize_string( $data['mode'] );
 
 		// Fetch the Global stock Instance for this Event
 		/**
@@ -1470,7 +1470,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		// Only need to do this if we haven't already set one - they shouldn't be able to edit it from here otherwise
 		if ( ! $event_stock->is_enabled() ) {
 			if ( isset( $data['event_capacity'] ) ) {
-				$data['event_capacity'] = trim( filter_var( $data['event_capacity'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH ) );
+				$data['event_capacity'] = trim( tec_sanitize_string( $data['event_capacity'] ) );
 
 				// If empty we need to modify to -1
 				if ( '' === $data['event_capacity'] ) {

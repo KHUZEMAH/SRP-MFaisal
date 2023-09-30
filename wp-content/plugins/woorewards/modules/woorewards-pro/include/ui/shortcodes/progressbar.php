@@ -66,7 +66,8 @@ class ProgressBar
 
 	/** Show a progress bar for a loyalty system
 	 * [wr_progress_bar system='poolname']
-	 * @param system the loyalty system for which to show the progress bar
+	 * @param $atts array :
+	 * * 'system' the loyalty system for which to show the progress bar
 	 */
 	public function shortcode($atts=array(), $content='')
 	{

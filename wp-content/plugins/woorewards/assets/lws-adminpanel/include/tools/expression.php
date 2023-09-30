@@ -459,7 +459,7 @@ class Expression
 		\add_filter('lws_adminpanel_validate_expression', array($me, 'isValid'), 10, 2);
 	}
 
-	/** @return mode status before the change. */
+	/** @return bool mode status before the change. */
 	function setTestMode($yes)
 	{
 		$old = $this->testMode;
@@ -472,7 +472,7 @@ class Expression
 		return $this->testMode;
 	}
 
-	/** @return silent status before the change. */
+	/** @return bool silent status before the change. */
 	function setSilent($yes)
 	{
 		$old = $this->silent;

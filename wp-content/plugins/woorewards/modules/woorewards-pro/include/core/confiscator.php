@@ -15,6 +15,7 @@ class Confiscator
 	public $users = array();
 	public $usersIn = false;
 	public $resetCache = false;
+	private $usersWithoutRole = false;
 
 	/** Confiscate only from those users.
 	 *	If not set, confiscate all users.
@@ -115,7 +116,7 @@ class Confiscator
 
 	protected function warnAboutRoles($reason=false)
 	{
-		if( isset($this->usersWithoutRole) && $this->usersWithoutRole )
+		if( $this->usersWithoutRole )
 		{
 			\wp_mail(
 				\get_option('admin_email'),

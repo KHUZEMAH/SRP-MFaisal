@@ -6,10 +6,10 @@
  * Plugin URI: https://plugins.longwatchstudio.com
  * Author: Long Watch Studio
  * Author URI: https://longwatchstudio.com
- * Version: 5.2.2.1
+ * Version: 5.2.4
  * Text Domain: woorewards-pro
  * WC requires at least: 7.1.0
- * WC tested up to: 8.0
+ * WC tested up to: 8.1
  *
  * Copyright (c) 2022 Long Watch Studio (email: contact@longwatchstudio.com). All rights reserved.
  *
@@ -109,7 +109,7 @@ final class LWS_WooRewards_Pro
 	 */
 	private function defineConstants()
 	{
-		define('LWS_WOOREWARDS_PRO_VERSION', '5.2.2.1');
+		define('LWS_WOOREWARDS_PRO_VERSION', '5.2.4');
 		define('LWS_WOOREWARDS_PRO_FILE', __FILE__);
 
 		define('LWS_WOOREWARDS_PRO_PATH', dirname(LWS_WOOREWARDS_PRO_FILE));
@@ -186,6 +186,12 @@ final class LWS_WooRewards_Pro
 		});
 
 		\add_filter('lws_woorewards_endpoint_slug', array($this, 'getEndpointSlug'), 20);
+
+		\add_action('lws_manager_license_active', function($slug){
+			if ('woorewards' === $slug) {
+				\lws_admin_delete_notice('lws-wre-pool-nothing-loaded');
+			}
+		}, 10, 1);
 	}
 
 	static function installPools()
@@ -470,10 +476,7 @@ final class LWS_WooRewards_Pro
 			}
 		}
 		if ($pool) {
-			$points = $this->formatPoint($points, $points, $poolName);
-			$format = $pool->getOption('point_format');
-			if ($format)
-				$text = sprintf($format, $points, $sym);
+			$text = $pool->formatPoints($points, true);
 		}
 		return $text;
 	}
@@ -490,11 +493,7 @@ final class LWS_WooRewards_Pro
 			}
 		}
 		if ($pool) {
-			$points = self::formatPoint($points, $points, $poolName);
-			$format = $pool->getOption('point_format');
-			$unit   = $pool->getPointUnit();
-			if ($unit && $format)
-				$text = sprintf($format, $points, $unit);
+			$text = $pool->formatPoints($points, true, true);
 		}
 		return \apply_filters('lws_woorewards_point_with_unit_format', $text, $points, $poolName, $pool);
 	}
@@ -510,9 +509,7 @@ final class LWS_WooRewards_Pro
 			}
 		}
 		if ($pool) {
-			$sep = $pool->getOption('thousand_sep');
-			if ($sep)
-				$text = number_format($points, 0, '', $sep);
+			$text = $pool->formatPoints($points, false);
 		}
 		return $text;
 	}
@@ -537,7 +534,7 @@ final class LWS_WooRewards_Pro
 		return $sym;
 	}
 
-	/** @return if locked and lock for the nexts. */
+	/** @return bool if locked and lock for the nexts. */
 	static function isRoleChangeLocked($releaseLock = false)
 	{
 		static $locked = false;

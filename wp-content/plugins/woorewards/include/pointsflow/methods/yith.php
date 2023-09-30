@@ -23,9 +23,8 @@ EOT;
 		$results = $wpdb->get_results($sql);
 		if ($wpdb->last_error) {
 			\wp_die("Yith Points and Rewards must be installed and active", 410);
-		}else{
-			return $results;
 		}
+		return $results;
 	}
 
 	/** @return (string) human readable name */

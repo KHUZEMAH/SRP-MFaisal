@@ -19,6 +19,11 @@ class PointsOnCart
 	const CHECKOUT_REVIEW   = 'before_review';
 	const CHECKOUT_NONE     = 'not_displayed';
 
+	private $positionInCart     = 'not_displayed';
+	private $positionInCheckout = 'not_displayed';
+	private $pool               = false;
+	private $stygen             = false;
+
 	static function install()
 	{
 		// global hooks, works on any instance of pool or defined at last minute
@@ -254,7 +259,7 @@ class PointsOnCart
 		{
 			if( isset($_POST['nonce']) && \wp_verify_nonce($_POST['nonce'], 'lws_woorewards_reserve_pointsoncart') && \is_numeric($_POST['lws_wr_pointsoncart_amount_value']) )
 			{
-				$points = \intval($_POST['lws_wr_pointsoncart_amount_value']);
+				$points = \sanitize_text_field($_POST['lws_wr_pointsoncart_amount_value']);
 				$userId = \get_current_user_id();
 				if( $userId && isset($_POST['system']) && ($pool = \sanitize_key($_POST['system'])) )
 				{
@@ -271,6 +276,7 @@ class PointsOnCart
 					}
 					$coupons = \WC()->cart->get_applied_coupons();
 
+					$points = (int)$pool->reversePointsFormat($points);
 					$stackId = $pool->getStackId();
 					$max = $pool->getPoints($userId);
 					$points = \max(0, \min($points, $max));
@@ -316,7 +322,7 @@ class PointsOnCart
 			'pool'   => $pool,
 		));
 		$content = $this->getContent('demo', $info);
-		unset($this->stygen);
+		$this->stygen = false;
 		return $content;
 	}
 
@@ -503,12 +509,12 @@ class PointsOnCart
 
 	function getPlaceholder($pool, $origin, $content='')
 	{
-		if( !(isset($this->stygen) && $this->stygen) )
+		if (!$this->stygen)
 			$this->enqueueScripts();
 
 		$class = '';
 		$url = '';
-		if( !(isset($this->stygen) && $this->stygen) )
+		if (!$this->stygen)
 		{
 			$class = 'lws_wr_pointsoncart_bloc';
 			$url = \esc_attr(\admin_url('/admin-ajax.php'));
@@ -533,7 +539,7 @@ class PointsOnCart
 	 *	@param $forceReload (null||bool) if null, read global option. */
 	function getContent($origin, $info, $forceReload = null, $layout = 'horizontal')
 	{
-		if( !(isset($this->stygen) && $this->stygen) )
+		if (!$this->stygen)
 		{
 			if( !\WC()->cart || \WC()->cart->is_empty() )
 				return '';
@@ -541,8 +547,7 @@ class PointsOnCart
 		}
 		$poolInfo = array_merge(array(
 			'name' 			=> $info['pool']->getName(),
-			'symbol'		=> \LWS_WooRewards::getPointSymbol('1', $info['pool']->getName()),
-			'symbols'		=> \LWS_WooRewards::getPointSymbol('2', $info['pool']->getName()),
+			'symbols'		=> $info['pool']->getSymbol('2'),
 		), $info['pool']->getOptions(array(
 			'direct_reward_point_rate',
 			'direct_reward_max_percent_of_cart',
@@ -558,9 +563,9 @@ class PointsOnCart
 		elseif ('ha' == $layout) $layout = ' half';
 		else $layout = '';
 
-		$balance = \LWS_WooRewards::formatPoints($info['amount'], $poolInfo['name']);
+		$balance = $info['pool']->formatPoints($info['amount']);
 		$labels = array(
-			'balance'     => sprintf(__("Your %s :", 'woorewards-lite'),  $poolInfo['symbols']),
+			'balance'     => sprintf(__("Your %s :", 'woorewards-lite'), $poolInfo['symbols']),
 			'use'         => _x("Used Amount :", "Part of Points to use as reward", 'woorewards-lite'),
 			'update'      => __("Apply", 'woorewards-lite'),
 			'max'         => __("Use Max Amount", 'woorewards-lite'),
@@ -574,9 +579,9 @@ class PointsOnCart
 		$labels['max']     = \apply_filters('wpml_translate_single_string', $labels['max']    , 'Widgets', "WooRewards - Points On Cart Action - Max");
 
 		$esc = array(
-			'amount' => \esc_attr($info['amount']),
-			'max'    => \esc_attr(\max(0, $info['max'])),
-			'used'   => \esc_attr(\max(0, $info['used'])),
+			'amount' => \esc_attr($info['pool']->formatPointsNumber($info['amount'])),
+			'max'    => \esc_attr($info['pool']->formatPointsNumber(\max(0, $info['max']))),
+			'used'   => \esc_attr($info['pool']->formatPointsNumber(\max(0, $info['used']))),
 			'update' => \esc_attr($labels['update']),
 			'pool'  => \esc_attr($info['pool']->getName()),
 			'url'    => \esc_attr(\admin_url('/admin-ajax.php')),
@@ -585,7 +590,7 @@ class PointsOnCart
 
 		$applydisabled = ' disabled';
 		$maxdisabled = ($info['used'] < $info['max']) ? '' : ' disabled';
-		if( isset($this->stygen) && $this->stygen )
+		if ($this->stygen)
 		{
 			$applydisabled = '';
 			$maxdisabled = '';
@@ -603,7 +608,7 @@ class PointsOnCart
 
 		$details = implode('', $this->getDetailsText($origin, $info, $poolInfo));
 		$url = '';
-		if( !(isset($this->stygen) && $this->stygen) )
+		if (!$this->stygen)
 		{
 			$class .= ' lws_wr_pointsoncart_bloc';
 			$url = \esc_attr(\admin_url('/admin-ajax.php'));
@@ -651,7 +656,7 @@ EOT;
 				"<div class='lwss_selectable wr-rateinfo' data-type='Point Rate'>%s</div>",
 				sprintf(
 					__('Every %s you use is worth %s', 'woorewards-lite'),
-					$poolInfo['symbol'],
+					$info['pool']->formatPoints(1, true),
 					\LWS\Adminpanel\Tools\Conveniences::getCurrencyPrice($poolInfo['direct_reward_point_rate'], \apply_filters('lws_woorewards_point_rate_displays_real_decimals', false), true)
 				)
 			);
@@ -661,9 +666,8 @@ EOT;
 			$details['min_points'] = sprintf(
 				"<div class='lwss_selectable wr-minpoints' data-type='Min Points'>%s</div>",
 				sprintf(
-					__('You can use a minimum of %1$s %2$s on a single cart.', 'woorewards-lite'),
-					$poolInfo['direct_reward_min_points_on_cart'],
-					$poolInfo['symbols']
+					__('You can use a minimum of %s on a single cart.', 'woorewards-lite'),
+					$info['pool']->formatPoints($poolInfo['direct_reward_min_points_on_cart'], true)
 				)
 			);
 		}
@@ -672,9 +676,8 @@ EOT;
 			$details['max_points'] = sprintf(
 				"<div class='lwss_selectable wr-maxpoints' data-type='Max Points'>%s</div>",
 				sprintf(
-					__('You can use a maximum of %1$s %2$s on a single cart.', 'woorewards-lite'),
-					$poolInfo['direct_reward_max_points_on_cart'],
-					$poolInfo['symbols']
+					__('You can use a maximum of %s on a single cart.', 'woorewards-lite'),
+					$info['pool']->formatPoints($poolInfo['direct_reward_max_points_on_cart'], true)
 				)
 			);
 		}

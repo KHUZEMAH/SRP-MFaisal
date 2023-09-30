@@ -10,6 +10,8 @@ require_once LWS_WOOREWARDS_PRO_INCLUDES . '/core/usertitle.php';
  * Assign a badge to a user. */
 class Badge extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
+	private $badgeId          = '';
+	private $removedBagdesIds = array();
 
 	function getInformation()
 	{
@@ -90,15 +92,17 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $valid;
 	}
 
+	/** @return false|\LWS\WOOREWARDS\PRO\Core\Badge */
 	public function getBadge()
 	{
 		$badge = new \LWS\WOOREWARDS\PRO\Core\Badge($this->getBadgeId());
 		return $badge->isValid() ? $badge : false;
 	}
 
+	/** @return int|string */
 	public function getBadgeId()
 	{
-		return isset($this->badgeId) ? $this->badgeId : '';
+		return $this->badgeId;
 	}
 
 	public function setBadgeId($badge)
@@ -107,9 +111,10 @@ class Badge extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $this;
 	}
 
+	/** @return array */
 	function getRemovedBadgesIds()
 	{
-		return isset($this->removedBagdesIds) ? $this->removedBagdesIds : array();
+		return $this->removedBagdesIds;
 	}
 
 	/** @param $categories (array|string) as string, it should be a json base64 encoded array. */

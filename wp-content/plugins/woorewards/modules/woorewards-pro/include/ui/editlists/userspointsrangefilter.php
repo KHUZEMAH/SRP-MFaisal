@@ -7,6 +7,10 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Filter users on loyalty point in range */
 class UsersPointsRangeFilter extends \LWS\Adminpanel\EditList\Filter
 {
+	private $args = false;
+	private $data = false;
+	private $name = '';
+
 	function __construct($name)
 	{
 		parent::__construct("lws-editlist-filter-search lws-editlist-filter-" . strtolower($name));
@@ -80,7 +84,7 @@ class UsersPointsRangeFilter extends \LWS\Adminpanel\EditList\Filter
 
 	private function getArgs()
 	{
-		if( !isset($this->args) )
+		if( false === $this->args )
 		{
 			$this->args = (object)array(
 				'sysKey'   => $this->name . '_o',
@@ -111,7 +115,7 @@ class UsersPointsRangeFilter extends \LWS\Adminpanel\EditList\Filter
 	/** @return array({ID, post_name, post_title, stack_id}) */
 	private function load()
 	{
-		if( !isset($this->data) )
+		if( false === $this->data )
 		{
 			$type = \LWS\WOOREWARDS\Core\Pool::POST_TYPE;
 			global $wpdb;

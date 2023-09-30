@@ -55,7 +55,7 @@ trait T_Order
 		return true;
 	}
 
-	/** @param $order (WC_Order) @return (bool) */
+	/** @param $order (\WC_Order) @return (bool) */
 	public function acceptWCSubscriptions(&$order)
 	{
 		$accepted = true;
@@ -83,7 +83,7 @@ trait T_Order
 	}
 
 	/**	A LAC source compatible list of gateway.
-	 *	@return if no WC available. Or a list (maybe empty) of gateway. */
+	 *	@return false|array if no WC available. Or a list (maybe empty) of gateway. */
 	public function getGatewaysList($withOptionAll=false)
 	{
 		$list = false;

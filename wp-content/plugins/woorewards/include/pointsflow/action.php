@@ -9,6 +9,8 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	and output json from ajax export requests.  */
 class Action
 {
+	private $importError = false;
+
 	static function register()
 	{
 		$me = new self();
@@ -22,10 +24,10 @@ class Action
 
 	function importResult($value)
 	{
-		if( isset($this->importError) )
+		if (false !== $this->importError)
 		{
 			\lws_admin_delete_notice('lws_ap_page');
-			\lws_admin_add_notice_once('woorewards-lite'.'-error', __("Import Error", 'woorewards-lite').'<br/>'.$this->importError, array('level'=>'error'));
+			\lws_admin_add_notice_once('woorewards-lite'.'-error', __("Import Error", 'woorewards-lite') . '<br/>' . $this->importError, array('level'=>'error'));
 		}
 		return $value;
 	}
@@ -93,7 +95,7 @@ class Action
 					$json = @json_decode(@file_get_contents($_FILES[$key]['tmp_name']), true);
 					$this->importJSON($json, $stack, $replace, $reason);
 				}
-				catch(Exception $e)
+				catch(\Exception $e)
 				{
 					$this->importError = __("The file cannot be read or format is invalid. Expects JSON content.", 'woorewards-lite');
 				}

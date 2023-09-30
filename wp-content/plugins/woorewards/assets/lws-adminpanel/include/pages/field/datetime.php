@@ -9,7 +9,7 @@ if( !defined( 'ABSPATH' ) ) exit();
  *	and it seems people does not care. */
 class DateTime extends \LWS\Adminpanel\Pages\Field
 {
-	/** @return field html. */
+	/** @return string field html. */
 	public static function compose($id, $extra=null)
 	{
 		$me = new self($id, '', $extra);

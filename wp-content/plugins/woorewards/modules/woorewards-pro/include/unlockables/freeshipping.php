@@ -11,6 +11,11 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 {
 	use \LWS\WOOREWARDS\PRO\Unlockables\T_DiscountOptions;
 
+	private $lastCode  = '';
+	private $timeout   = null;
+	private $permanent = false;
+	private $autoapply = false;
+
 	function getInformation()
 	{
 		return array_merge(parent::getInformation(), array(
@@ -111,7 +116,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function isPermanent()
 	{
-		return isset($this->permanent) ? $this->permanent : false;
+		return $this->permanent;
 	}
 
 	public function setPermanent($yes = false)
@@ -120,15 +125,15 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		return $this;
 	}
 
-	/** return a Duration instance */
+	/** @return \LWS\Adminpanel\Duration a Duration instance */
 	public function getTimeout()
 	{
-		if (!isset($this->timeout))
+		if (null === $this->timeout)
 			$this->timeout = \LWS\Adminpanel\Duration::void();
 		return $this->timeout;
 	}
 
-	/** @param $days (false|int|Duration) */
+	/** @param $days (false|int|\LWS\Adminpanel\Duration) */
 	public function setTimeout($days = false)
 	{
 		if (empty($days))
@@ -147,7 +152,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 
 	public function isAutoApply()
 	{
-		return isset($this->autoapply) ? $this->autoapply : false;
+		return $this->autoapply;
 	}
 
 	public function setAutoApply($yes = false)
@@ -247,7 +252,7 @@ class FreeShipping extends \LWS\WOOREWARDS\Abstracts\Unlockable
 	 *	Last generated coupon code is consumed by this function. */
 	public function getReason($context = 'backend')
 	{
-		if (isset($this->lastCode))
+		if ($this->lastCode)
 		{
 			$reason = sprintf(__("Coupon code : %s", 'woorewards-pro'), $this->lastCode);
 			if ($context == 'frontend')

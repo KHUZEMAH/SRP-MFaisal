@@ -64,8 +64,8 @@ class UserTitle
 		return ($position != 'left' ? "$name $title" : "$title $name");
 	}
 
-	/** @return the display name formated with title if any.
-	 * @param $user (WP_User|int) the user.
+	/** @return string the display name formated with title if any.
+	 * @param $user (\WP_User|int) the user.
 	 * @param $displayName if given, use it instead of the user display_name
 	 * @param $context (string, default:display) if 'display' the title is html decorated. */
 	static function getDisplayName($user, $displayName=false, $context='display')

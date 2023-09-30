@@ -11,6 +11,9 @@ if( !defined( 'ABSPATH' ) ) exit();
  *  */
 class Endpoint
 {
+	protected $options = array();
+	private $elementorFilters = array();
+
 	/** Override this method or set the same array to constructor */
 	protected function getDefaultOptions()
 	{
@@ -232,8 +235,9 @@ EOT;
 		\add_rewrite_endpoint($this->getSlug(), EP_ROOT|EP_PAGES);
 	}
 
-	/**	@param $key (slug) url endpoint
-	 *	@param $title page title or my-account tab title if WC activated. */
+	/**	@param $options (array) the endpoint definition
+	 *	* 'key' (string) url endpoint slug
+	 *	* 'title' page title or my-account tab title if WC activated. */
 	function __construct($options=false)
 	{
 		$this->options = $options ? $options : $this->getDefaultOptions();
@@ -286,7 +290,7 @@ EOT;
 		return true;
 	}
 
-	/** @return WC my-account tab */
+	/** @return string WC my-account tab */
 	function getTitle($title)
 	{
 		$title = \get_option($this->options['prefix'] . '_title', null);
@@ -307,7 +311,7 @@ EOT;
 		return isset($this->options['wpml']) ? \ucfirst($this->options['wpml']) : false;
 	}
 
-	/** @return WC my-account tab list including our. */
+	/** @return array WC my-account tab list including our. */
 	function getWCMyAccountTabs($items=array())
 	{
 		$tab = array($this->getSlug() => $this->getTitle(''));

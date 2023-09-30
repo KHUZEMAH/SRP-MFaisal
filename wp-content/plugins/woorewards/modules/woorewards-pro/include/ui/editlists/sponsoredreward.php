@@ -8,6 +8,10 @@ if( !defined( 'ABSPATH' ) ) exit();
  * Tips: prevent page nav with EditList::setPageDisplay(false) */
 class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 {
+	private $stepInfo   = false;
+	private $choices    = false;
+	private $collection = false;
+
 	function labels()
 	{
 		$labels = array(
@@ -29,7 +33,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	protected function getStepInfo()
 	{
-		if (empty($this->stepInfo)) {
+		if (false === $this->stepInfo) {
 			$this->stepInfo = __("Reward Settings", 'woorewards-pro');
 		}
 		return $this->stepInfo;
@@ -50,7 +54,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	protected function loadChoices()
 	{
-		if( !isset($this->choices) )
+		if( false === $this->choices )
 		{
 			$blacklist = \LWS\Adminpanel\Tools\Conveniences::isWC() ? false : array('woocommerce'=>'woocommerce');
 			$this->choices = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->create()->byCategory(
@@ -124,7 +128,7 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 
 	function getCollection()
 	{
-		if( !isset($this->collection) )
+		if( false === $this->collection )
 		{
 			$this->collection = \LWS\WOOREWARDS\Collections\Unlockables::instanciate()->load(array(
 				'numberposts' => 1,
@@ -140,5 +144,3 @@ class SponsoredReward extends \LWS\WOOREWARDS\Ui\Editlists\MultiFormList
 		return $this->collection;
 	}
 }
-
-?>

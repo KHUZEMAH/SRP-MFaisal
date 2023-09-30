@@ -15,6 +15,24 @@ abstract class Page
 
 	static protected $adminNotices = '';
 
+	private $baseURL = false;
+	public $head     = false;
+	public $forcedId = false;
+	public $path     = false;
+
+	protected $pageId      = false;
+	protected $built = false;
+	protected $id          = false;
+	protected $data        = array();
+	protected $master      = false;
+	protected $action      = 'options.php';
+	protected $vertnav     = false;
+	protected $summary     = false;
+	protected $description = '';
+	protected $color       = '';
+	protected $image       = '';
+	protected $custom      = array();
+
 	/** echo page content container */
 	public function page()
 	{
@@ -115,7 +133,7 @@ abstract class Page
 			$this->custom['bot'][] = $this->data['delayedFunction'];
 	}
 
-	/** @return a well formated format array for Pages::test()
+	/** @return array, a well formated format array for Pages::test()
 		* @see Pages::test() */
 	public static function format()
 	{
@@ -149,7 +167,7 @@ abstract class Page
 		);
 	}
 
-	/** @return a well formated format array for Pages::test()
+	/** @return array, a well formated format array for Pages::test()
 		* @see Pages::test() */
 	public static function tabFormat()
 	{
@@ -237,7 +255,7 @@ abstract class Page
 
 	function &getHead()
 	{
-		if( !isset($this->head) )
+		if( !(isset($this->head) && $this->head) )
 			$this->head = new \LWS\Adminpanel\Pages\Head($this);
 		return $this->head;
 	}
@@ -278,7 +296,7 @@ abstract class Page
 		return isset($this->data['tabs']) ? $this->data['tabs'] : array();
 	}
 
-	/** @param $user (int|WP_User)
+	/** @param $user (int|\WP_User)
 	 *	@return bool */
 	function userCan($user)
 	{
@@ -292,7 +310,7 @@ abstract class Page
 
 	function getLink($tab='')
 	{
-		if( !isset($this->baseURL) )
+		if( !(isset($this->baseURL) && $this->baseURL) )
 		{
 			// compute base URL
 			$arg = array();
@@ -402,7 +420,7 @@ abstract class Page
 	 *	Set arbitrary id where it is missing. */
 	protected function forceIds(array &$level, $recurse=false)
 	{
-		if( !isset($this->forcedId) )
+		if( !(isset($this->forcedId) && $this->forcedId) )
 			$this->forcedId = array('g'=>0, 't'=>0);
 
 		if( isset($level['groups']) && $level['groups'] )
@@ -447,12 +465,12 @@ abstract class Page
 		}
 	}
 
-	/** @return the path going through all tab levels as an array of tab id from top level to leaf.
+	/** @return array,  the path going through all tab levels as an array of tab id from top level to leaf.
 	 * If no tab path exists, return the first one.
 	 * Cumulate the toc, nosave and action settings */
 	function getPath()
 	{
-		if( !isset($this->path) )
+		if( !isset($this->path) || false === $this->path )
 		{
 			$this->path = array();
 
@@ -484,10 +502,15 @@ abstract class Page
 		return $this->path;
 	}
 
-	/** @return a formated path string to represent a tab path.
+	/** @return string, a formated path string to represent a tab path.
 	 * @param $path (array sorted form root tab to leaf) if false, use the current tab path. */
 	function getPathAsString($path=false)
 	{
 		return implode('.', false === $path ? $this->getPath() : $path);
+	}
+
+	public function hasGroupNav()
+	{
+		return false;
 	}
 }

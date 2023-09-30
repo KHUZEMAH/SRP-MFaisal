@@ -7,6 +7,8 @@ if( !defined( 'ABSPATH' ) ) exit();
 /** Manage common feature for Events about order. */
 trait T_SponsorshipOrigin
 {
+	protected $sponsorship = false;
+
 	public function getAvailableOrigins()
 	{
 		return array(
@@ -42,7 +44,7 @@ trait T_SponsorshipOrigin
 		return $this->isValidOrigin($this->sponsorship->origin);
 	}
 
-	/** @param $order (WP_Order) */
+	/** @param $order (\WC_Order) */
 	public function isValidOriginByOrder($order, $guestAllowed=false)
 	{
 		if (!$this->getOrigins())

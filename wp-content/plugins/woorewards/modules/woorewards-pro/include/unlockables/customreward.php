@@ -271,7 +271,7 @@ EOT;
 						}
 						$country = $countries[$country];
 					}
-				}catch (Exception $e){
+				}catch (\Exception $e){
 					error_log($e->getMessage());
 				}
 			}
