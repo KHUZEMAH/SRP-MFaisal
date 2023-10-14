@@ -31,7 +31,10 @@ tribe_event_tickets_plus.meta.event = tribe_event_tickets_plus.meta.event || {};
 	 */
 	my.init = function() {
 		$( '.tribe-list' ).on( 'click', '.attendee-meta.toggle', function() {
-			$( this )
+			$toggle = $( this );
+			var newText = $toggle.hasClass( 'on' ) ? $toggle.data( 'view-text' ) : $toggle.data( 'hide-text' );
+			$toggle
+				.text( newText )
 				.toggleClass( 'on' )
 				.siblings( '.attendee-meta-row' )
 				.slideToggle();

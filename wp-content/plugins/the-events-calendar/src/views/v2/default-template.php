@@ -15,7 +15,6 @@
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();
-
 ?>
 
 <h2 class="section-title" >Live ZOOM <br> Class Schedule</h2>

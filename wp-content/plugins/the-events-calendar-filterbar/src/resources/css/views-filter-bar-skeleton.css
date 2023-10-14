@@ -422,7 +422,7 @@
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle:focus {
-			outline: none;
+			outline: auto;
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-text {

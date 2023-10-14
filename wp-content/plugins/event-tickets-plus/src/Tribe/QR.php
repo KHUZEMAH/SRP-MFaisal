@@ -286,25 +286,21 @@ class Tribe__Tickets_Plus__QR {
 	 * @return string
 	 */
 	private function _get_image( $link ) {
-		if ( ! function_exists( 'ImageCreate' ) ) {
-			// The phpqrcode library requires GD but doesn't actually check if it is available
+		$qr_code = tribe( \TEC\Tickets\QR\QR::class );
+
+		if ( is_wp_error( $qr_code ) ) {
 			return null;
-		}
-		if ( ! class_exists( 'QRencode' ) ) {
-			include_once( EVENT_TICKETS_PLUS_DIR . '/vendor/phpqrcode/qrlib.php' );
 		}
 
 		// @ToDo @rafsuntaskin @juanfra change the default directory to `tec/tickets-plus/qr-codes` for storing images.
-		$uploads   = wp_upload_dir();
-		$file_name = 'qr_' . md5( $link ) . '.png';
-		$path      = trailingslashit( $uploads['path'] ) . $file_name;
-		$url       = trailingslashit( $uploads['url'] ) . $file_name;
+		$file_name = 'qr_' . md5( $link );
+		$upload    = $qr_code->get_png_as_file( $link, $file_name, '' );
 
-		if ( ! file_exists( $path ) ) {
-			QRcode::png( $link, $path, QR_ECLEVEL_L, 3 );
+		if ( ! empty( $upload['error'] ) ) {
+			return null;
 		}
 
-		return $url;
+		return $upload['url'];
 	}
 
 	/**

@@ -29,7 +29,7 @@ $classes = [
 ];
 
 ?>
-<div class="tribe_horizontal_datepicker__container">
+<div class="tribe-tickets__form-field tribe_horizontal_datepicker__container">
 	<div <?php tribe_classes( $classes ) ?>>
 		<label>
 			<?php echo wp_kses_post( $field['label'] ); ?>

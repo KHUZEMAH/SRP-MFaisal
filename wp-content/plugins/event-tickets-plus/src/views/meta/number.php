@@ -22,6 +22,7 @@ $classes = [
 	'tribe-tickets-meta'          => true,
 	'tribe-tickets-meta-number'   => true,
 	'tribe-tickets-meta-required' => $required,
+	'tribe-tickets__form-field'   => true,
 ];
 
 $min  = isset( $field['extra']['min'] ) && '' !== $field['extra']['min'] ? $field['extra']['min'] : '0';

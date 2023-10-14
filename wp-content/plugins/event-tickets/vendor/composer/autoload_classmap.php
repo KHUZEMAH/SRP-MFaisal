@@ -187,6 +187,8 @@ return array(
     'TEC\\Tickets\\Integrations\\Provider' => $baseDir . '/src/Tickets/Integrations/Provider.php',
     'TEC\\Tickets\\Integrations\\Themes\\Divi\\Provider' => $baseDir . '/src/Tickets/Integrations/Themes/Divi/Provider.php',
     'TEC\\Tickets\\Provider' => $baseDir . '/src/Tickets/Provider.php',
+    'TEC\\Tickets\\QR\\Controller' => $baseDir . '/src/Tickets/QR/Controller.php',
+    'TEC\\Tickets\\QR\\QR' => $baseDir . '/src/Tickets/QR/QR.php',
     'TEC\\Tickets\\Recurrence\\Compatibility' => $baseDir . '/src/Tickets/Recurrence/Compatibility.php',
     'TEC\\Tickets\\Recurrence\\Hooks' => $baseDir . '/src/Tickets/Recurrence/Hooks.php',
     'TEC\\Tickets\\Recurrence\\Provider' => $baseDir . '/src/Tickets/Recurrence/Provider.php',

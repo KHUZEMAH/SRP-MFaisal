@@ -29,7 +29,7 @@ if ( ! $options ) {
 }
 
 ?>
-<div class="tribe-tickets-meta tribe-tickets-meta-checkbox <?php echo $required ? 'tribe-tickets-meta-required' : ''; ?>">
+<div class="tribe-tickets__form-field tribe-tickets-meta tribe-tickets-meta-checkbox <?php echo $required ? 'tribe-tickets-meta-required' : ''; ?>">
 	<header class="tribe-tickets-meta-label">
 		<?php echo wp_kses_post( $field['label'] ); ?>
 	</header>

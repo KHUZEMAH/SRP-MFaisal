@@ -4,7 +4,7 @@ Contributors: theeventscalendar, brianjessee, camwynsp, aguseo, bordoni, borkweb
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, EDD, Easy Digital Downloads
 Requires at least: 5.8.5
 Tested up to: 6.3.1
-Stable tag: 5.7.5
+Stable tag: 5.7.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,13 @@ Our Premium Plugins:
 * <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.7.6] 2023-10-11 =
+
+* Version - Event Tickets Plus 5.7.6 is only compatible with Event Tickets 5.6.6 and higher.
+* Fix - Ticket property invalidation to ensure capacity, inventory and availability are correctly invalidated. [ET-1887]
+* Tweak - Make use of the QR Code library from Event Tickets to generate QR codes for tickets, instead of including one in Event Tickets Plus. [ETWP-29]
+* Language - 3 new strings added, 25 updated, 0 fuzzied, and 1 obsoleted
 
 = [5.7.5] 2023-09-13 =
 

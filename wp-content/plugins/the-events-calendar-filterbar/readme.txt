@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, the events calendar, widget, pro, filters, categories, sort, tags, taxonomy, find, search
 Donate link: http://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 5.5.2
+Stable tag: 5.5.3
 Tested up to: 6.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -195,6 +195,11 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [5.5.3] 2023-10-03 =
+
+* Fix - Filter Bar dropdowns were being autoselected on page load. Now they should load in a default unselected state. [FBAR-291]
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+
 = [5.5.2] 2023-08-10 =
 
 * Version - Filter Bar 5.5.0 is only compatible with The Events Calendar 6.1.4 and higher.
@@ -334,7 +339,7 @@ Our Premium Plugins:
 
 = [5.0.2] 2020-12-02 =
 
-* Tweak - Add a filter to allow views to "turn off" Filter Bar classes on their container. [TBD]
+* Tweak - Add a filter to allow views to "turn off" Filter Bar classes on their container. [TEC-3614]
 * Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.0.1] 2020-10-22 =

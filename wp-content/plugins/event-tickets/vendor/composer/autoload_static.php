@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec
+class ComposerStaticInit96fc994de9cf730d1350642ff0270d94
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -207,6 +207,8 @@ class ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec
         'TEC\\Tickets\\Integrations\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Provider.php',
         'TEC\\Tickets\\Integrations\\Themes\\Divi\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Integrations/Themes/Divi/Provider.php',
         'TEC\\Tickets\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Provider.php',
+        'TEC\\Tickets\\QR\\Controller' => __DIR__ . '/../..' . '/src/Tickets/QR/Controller.php',
+        'TEC\\Tickets\\QR\\QR' => __DIR__ . '/../..' . '/src/Tickets/QR/QR.php',
         'TEC\\Tickets\\Recurrence\\Compatibility' => __DIR__ . '/../..' . '/src/Tickets/Recurrence/Compatibility.php',
         'TEC\\Tickets\\Recurrence\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Recurrence/Hooks.php',
         'TEC\\Tickets\\Recurrence\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Recurrence/Provider.php',
@@ -253,9 +255,9 @@ class ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3fee4971ef04dd8dcfd2c4609ab55fec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit96fc994de9cf730d1350642ff0270d94::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit96fc994de9cf730d1350642ff0270d94::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit96fc994de9cf730d1350642ff0270d94::$classMap;
 
         }, null, ClassLoader::class);
     }

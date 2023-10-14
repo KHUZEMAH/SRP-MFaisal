@@ -50,6 +50,7 @@ if ( $hide_attendee_list_optout ) {
 			else :
 				?>
 				<input
+					class="tribe-common-form-control-checkbox__input"
 					type="checkbox"
 					name="tpp_optout[]"
 					id="tribe-tickets-attendees-list-optout-tpp"

@@ -28,7 +28,7 @@ if ( ! $options ) {
 $option_id = "tribe-tickets-meta_{$this->slug}" . ( $attendee_id ? '_' . $attendee_id : '' );
 
 ?>
-<div class="tribe-tickets-meta tribe-tickets-meta-select <?php echo $required ? 'tribe-tickets-meta-required' : ''; ?>">
+<div class="tribe-tickets__form-field tribe-tickets-meta tribe-tickets-meta-select <?php echo $required ? 'tribe-tickets-meta-required' : ''; ?>">
 	<label for="<?php echo esc_attr( $option_id ); ?>" class="tribe-tickets-meta-field-header"><?php echo wp_kses_post( $field['label'] ); ?></label>
 	<select	<?php disabled( $this->is_restricted( $attendee_id ) ); ?> id="<?php echo esc_attr( $option_id ); ?>" class="ticket-meta" name="tribe-tickets-meta[<?php echo $attendee_id ?>][<?php echo esc_attr( $this->slug ); ?>]" <?php echo $required ? 'required' : ''; ?>>
 		<option></option>

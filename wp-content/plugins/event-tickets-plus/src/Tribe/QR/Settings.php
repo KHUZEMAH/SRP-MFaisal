@@ -390,13 +390,10 @@ store. Learn more about the app in our %3$s.', 'event-tickets-plus'
 	 * @return string|WP_Error The data url to the QR code image or WP_Error.
 	 */
 	private function get_connection_qr_src( string $api_key ) {
+		$qr_code = tribe( \TEC\Tickets\QR\QR::class );
 
-		if ( ! $this->dependencies_available() ) {
-			return new WP_Error( 'tec-tickets-plus-qr-code-dependency-missing', __( 'Missing required dependencies for generating QR codes' ), [ $api_key ] );
-		}
-
-		if ( ! class_exists( 'QRencode' ) ) {
-			include_once( EVENT_TICKETS_PLUS_DIR . '/vendor/phpqrcode/qrlib.php' );
+		if ( is_wp_error( $qr_code ) ) {
+			return $qr_code;
 		}
 
 		$data = json_encode( [
@@ -405,11 +402,7 @@ store. Learn more about the app in our %3$s.', 'event-tickets-plus'
 			'tec'     => tec_tickets_tec_events_is_active(),
 		] );
 
-		ob_start();
-		QRcode::png( $data );
-		$src = base64_encode( ob_get_clean() );
-
-		return "data:image/png;base64," . $src;
+		return $qr_code->size( 6 )->get_png_as_base64( $data );
 	}
 
 	/**

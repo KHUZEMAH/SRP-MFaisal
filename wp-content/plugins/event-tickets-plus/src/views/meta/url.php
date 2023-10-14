@@ -23,6 +23,7 @@ $classes = [
 	'tribe-tickets-meta'          => true,
 	'tribe-tickets-meta-url'      => true,
 	'tribe-tickets-meta-required' => $required,
+	'tribe-tickets__form-field'   => true,
 ];
 ?>
 <div <?php tribe_classes( $classes ); ?>>

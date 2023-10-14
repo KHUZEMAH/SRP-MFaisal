@@ -22,6 +22,7 @@ $classes = [
 	'tribe-tickets-meta'          => true,
 	'tribe-tickets-meta-datetime' => true,
 	'tribe-tickets-meta-required' => $required,
+	'tribe-tickets__form-field'   => true,
 ];
 
 $min = ! empty( $field['extra']['min'] ) ? $field['extra']['min'] : '1900-01-01';

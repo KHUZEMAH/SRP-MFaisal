@@ -49,21 +49,27 @@
 	border-color: #c00;
 }
 
+.tec__tickets-my-tickets-rsvp-attendee-list-wrapper {
+	margin: 0 0 var(--tec-spacer-8);
+}
+
 .tribe-tpp-list {
 	list-style: none;
-	margin: 0;
+	margin: 0 0 var(--tec-spacer-2);
 	padding: 0;
 }
 
 .tribe-tpp-list > .tribe-item {
-		border: 1px solid #ededed;
+		background-color: var(--tec-color-background);
+		border: 1px solid var(--tec-color-border-default);
 		border-bottom: 0;
+		margin: 0;
 		min-height: 105px;
-		padding: 20px;
+		padding: var(--tec-spacer-5);
 	}
 
 .tribe-tpp-list > .tribe-item:last-child {
-			border-bottom: 1px solid #ededed;
+			border-bottom: 1px solid var(--tec-color-border-default);
 			margin-bottom: 20px;
 		}
 
@@ -78,8 +84,8 @@
 			}
 
 .tribe-tpp-list > .tribe-item .tribe-answer {
-			display: inline-block;
 			float: right;
+			display: inline-block;
 		}
 
 .tribe-tpp-list > .tribe-item table {
@@ -105,3 +111,37 @@
 .tribe-tickets-purchase-disabled {
 	opacity: 0.3;
 }
+
+.tribe-tickets__form .tribe-answer {
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-3);
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-0);
+}
+
+.tribe-tickets__form .tribe-answer .type-label {
+		margin-bottom: 0;
+		padding-right: 0.5em;
+	}
+
+.tribe-tickets__form .tribe-answer label {
+		display: block;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-0);
+	}
+
+.tribe-tickets__form .tribe-answer select.tribe-answer-select {
+		background-color: white;
+		border: 1px solid #ddd;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-regular);
+		height: 30px;
+		line-height: var(--tec-line-height-0);
+		margin-left: 5px;
+		padding-bottom: 0;
+		padding-top: 0;
+		width: auto;
+	}

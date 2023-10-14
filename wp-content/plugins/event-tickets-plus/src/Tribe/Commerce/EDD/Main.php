@@ -276,6 +276,9 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		add_filter( 'tribe_tickets_cart_urls', [ $this, 'add_cart_url' ] );
 		add_filter( 'tribe_tickets_checkout_urls', [ $this, 'add_checkout_url' ] );
 		add_action( 'tribe_tickets_ticket_moved', [ $this, 'create_order_for_moved_ticket' ], 10, 6 );
+
+		// Cache invalidation.
+		add_filter( 'tec_cache_listener_save_post_types', [ $this, 'filter_cache_listener_save_post_types' ] );
 	}
 
 	/**
@@ -832,6 +835,9 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 				'post_content' => $ticket->description,
 				'post_title'   => $ticket->name,
 				'menu_order'   => tribe_get_request_var( 'menu_order', -1 ),
+				'meta_input' => [
+						'_type' => $raw_data['ticket_type'] ?? 'default',
+				]
 			];
 
 			$ticket->ID = wp_insert_post( $args );
@@ -845,6 +851,9 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 				'post_content' => $ticket->description,
 				'post_title'   => $ticket->name,
 				'menu_order'   => $ticket->menu_order,
+				'meta_input' => [
+						'_type' => $raw_data['ticket_type'] ?? 'default',
+				]
 			];
 
 			$ticket->ID = wp_update_post( $args );
@@ -2684,5 +2693,23 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		 */
 		return (bool) apply_filters( 'tribe_tickets_manual_attendee_allow_email_resend', $allow_email_resend, $ticket, $attendee );
 
+	}
+
+	/**
+	 * Filters the list of post types that should trigger a cache invalidation on `save_post` to add
+	 * all the ones modeling Easy Digital Downloads' Tickets, Attendees and Orders.
+	 *
+	 * @since TBD
+	 *
+	 * @param string[] $post_types The list of post types that should trigger a cache invalidation on `save_post`.
+	 *
+	 * @return string[] The filtered list of post types that should trigger a cache invalidation on `save_post`.
+	 */
+	public function filter_cache_listener_save_post_types( array $post_types = [] ): array {
+		$post_types[] = $this->ticket_object;
+		$post_types[] = $this->attendee_object;
+		$post_types[] = $this->order_object;
+
+		return $post_types;
 	}
 }

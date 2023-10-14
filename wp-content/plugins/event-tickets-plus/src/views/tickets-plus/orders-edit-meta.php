@@ -55,8 +55,8 @@ if ( $meta->ticket_has_meta( $ticket->ID ) ) {
 		data-ticket-id="<?php echo esc_attr( $ticket->ID ); ?>"
 		data-attendee-id="<?php echo esc_attr( $attendee['attendee_id'] ); ?>"
 	>
-		<a class="attendee-meta toggle show">
-			<?php esc_html_e( 'Toggle attendee info', 'event-tickets-plus' ); ?>
+		<a class="attendee-meta toggle show" data-hide-text="<?php esc_attr_e( 'Hide attendee info', 'event-tickets-plus' ) ?>" data-view-text="<?php esc_attr_e( 'View attendee info', 'event-tickets-plus' ) ?>">
+			<?php esc_html_e( 'View attendee info', 'event-tickets-plus' ); ?>
 		</a>
 
 		<div class="attendee-meta-row">

@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Event Tickets Plus 5.7.5\n"
+"Project-Id-Version: Event Tickets Plus 5.7.6\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-11T19:31:21-07:00\n"
-"PO-Revision-Date: 2023-09-12 02:31\n"
+"POT-Creation-Date: 2023-10-07T21:56:50-07:00\n"
+"PO-Revision-Date: 2023-10-08 04:56\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: event-tickets-plus\n"
 
@@ -900,51 +900,51 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Parent order edit URL. %3$s: Parent order ID.
-#: src/Tribe/Commerce/EDD/Main.php:351
-#: src/Tribe/Commerce/WooCommerce/Main.php:519
+#: src/Tribe/Commerce/EDD/Main.php:354
+#: src/Tribe/Commerce/WooCommerce/Main.php:525
 msgid "<b> Attendee Moved : </b> <br> <i>%s</i> was moved into this order from <a href=\"%s\">Order %s</a>"
 msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Copied order edit URL. %3$s: Copied order ID.
-#: src/Tribe/Commerce/EDD/Main.php:362
-#: src/Tribe/Commerce/WooCommerce/Main.php:531
+#: src/Tribe/Commerce/EDD/Main.php:365
+#: src/Tribe/Commerce/WooCommerce/Main.php:537
 msgid "<b> Attendee Moved : </b> <br> <i>%s</i> is moved from this order to <a href=\"%s\">Order %s</a>"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:804
-#: src/Tribe/Commerce/WooCommerce/Main.php:1318
+#: src/Tribe/Commerce/EDD/Main.php:807
+#: src/Tribe/Commerce/WooCommerce/Main.php:1324
 msgid "You'll receive your %s in another email."
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:1988
-#: src/Tribe/Commerce/WooCommerce/Main.php:2900
+#: src/Tribe/Commerce/EDD/Main.php:1997
+#: src/Tribe/Commerce/WooCommerce/Main.php:2912
 msgid "Event sales report"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2039
+#: src/Tribe/Commerce/EDD/Main.php:2048
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:300
 msgid "Event"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2058
-#: src/Tribe/Commerce/WooCommerce/Main.php:2952
+#: src/Tribe/Commerce/EDD/Main.php:2067
+#: src/Tribe/Commerce/WooCommerce/Main.php:2964
 msgid "This is a %s for the event:"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2169
+#: src/Tribe/Commerce/EDD/Main.php:2178
 msgid "%s ticket is sold out"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2174
+#: src/Tribe/Commerce/EDD/Main.php:2183
 msgid "Sorry! Only %d tickets remaining for %s"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2243
+#: src/Tribe/Commerce/EDD/Main.php:2252
 msgid "Print Ticket"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2653
-#: src/Tribe/Commerce/WooCommerce/Main.php:3858
+#: src/Tribe/Commerce/EDD/Main.php:2662
+#: src/Tribe/Commerce/WooCommerce/Main.php:3870
 msgid "Edit attendee info"
 msgstr ""
 
@@ -1089,55 +1089,55 @@ msgstr ""
 msgid "was deactivated, as this feature is now available within Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:297
+#: src/Tribe/Commerce/WooCommerce/Main.php:300
 msgctxt "ticket provider"
 msgid "WooCommerce"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2610
+#: src/Tribe/Commerce/WooCommerce/Main.php:2622
 msgid "In trash (was %s)"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2616
+#: src/Tribe/Commerce/WooCommerce/Main.php:2628
 msgid "Deleted"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2664
+#: src/Tribe/Commerce/WooCommerce/Main.php:2676
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3080
+#: src/Tribe/Commerce/WooCommerce/Main.php:3092
 msgid "Resend tickets email"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3466
+#: src/Tribe/Commerce/WooCommerce/Main.php:3478
 msgid "The ticket: %1$s, in your cart is no longer available or valid. You need to remove it from your cart in order to continue."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3779
+#: src/Tribe/Commerce/WooCommerce/Main.php:3791
 msgctxt "Attendee Registration notice heading text when Woo cart quantity changed"
 msgid "Updated Ticket Quantities"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3785
+#: src/Tribe/Commerce/WooCommerce/Main.php:3797
 msgctxt "Attendee Registration notice paragraph text when Woo cart quantity changed"
 msgid "You've arrived here because you updated ticket quantities in the Cart. Please verify your attendee information, then click \"Save Attendee Info\" in order to proceed to Checkout."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3846
+#: src/Tribe/Commerce/WooCommerce/Main.php:3858
 msgid "Return to cart"
 msgstr ""
 
 #. Translators: %1$s: Attendee post object ID, %2$s: Generated Ticket Serial.
-#: src/Tribe/Commerce/WooCommerce/Main.php:3927
+#: src/Tribe/Commerce/WooCommerce/Main.php:3939
 msgid "Attendee (%1$s) with Ticket #%2$s was deleted by admin."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:4003
+#: src/Tribe/Commerce/WooCommerce/Main.php:4015
 msgid "Restock Tickets from this order"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:4034
+#: src/Tribe/Commerce/WooCommerce/Main.php:4046
 msgid "Tickets from this order are re-stocked"
 msgstr ""
 
@@ -1586,7 +1586,7 @@ msgid "The ticket with ID %s was checked in."
 msgstr ""
 
 #: src/Tribe/QR.php:213
-#: src/Tribe/QR.php:344
+#: src/Tribe/QR.php:340
 msgid "Could not render QR code because gzuncompress() is not available"
 msgstr ""
 
@@ -1769,6 +1769,17 @@ msgstr ""
 msgid "Email was sent successfully!"
 msgstr ""
 
+#: src/Tribe/Tickets_View.php:478
+#: src/views/tickets-plus/orders-tickets.php:33
+msgctxt "fallback post type singular name"
+msgid "Post"
+msgstr ""
+
+#. Translators: 1: post type singular name, 2: ticket label plural.
+#: src/Tribe/Tickets_View.php:482
+msgid "%1$s %2$s"
+msgstr ""
+
 #: src/views/attendees-list.php:18
 msgid "Who's Attending"
 msgstr ""
@@ -1822,8 +1833,8 @@ msgid "Year"
 msgstr ""
 
 #: src/views/tickets-plus/attendee-list-checkbox-rsvp.php:39
-#: src/views/tickets-plus/attendee-list-checkbox-tickets.php:45
-#: src/views/tpp/attendees-list-optout.php:59
+#: src/views/tickets-plus/attendee-list-checkbox-tickets.php:46
+#: src/views/tpp/attendees-list-optout.php:60
 msgid "Don't list me on the public attendee list"
 msgstr ""
 
@@ -1839,13 +1850,13 @@ msgstr ""
 msgid "%s deleted: attendee info cannot be updated."
 msgstr ""
 
-#: src/views/tickets-plus/orders-edit-meta.php:59
-msgid "Toggle attendee info"
+#: src/views/tickets-plus/orders-edit-meta.php:58
+msgid "Hide attendee info"
 msgstr ""
 
-#: src/views/tickets-plus/orders-tickets.php:33
-msgctxt "fallback post type singular name"
-msgid "Post"
+#: src/views/tickets-plus/orders-edit-meta.php:58
+#: src/views/tickets-plus/orders-edit-meta.php:59
+msgid "View attendee info"
 msgstr ""
 
 #. Translators: 1: plural Tickets label, 2: post type label.

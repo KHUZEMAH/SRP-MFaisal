@@ -468,13 +468,22 @@ a.tribe-attendees-list-showall {
 			display: block;
 		}
 
-.tribe-tickets-attendees-list-optout label {
-		margin-left: 5px;
-	}
+.tribe-tickets-attendees-list-optout {
+	align-items: center;
+	display: flex;
+	flex-flow: row wrap;
+}
 
 .tribe-tickets-attendees-list-optout input[type="radio"] + label,
 	.tribe-tickets-attendees-list-optout input[type="checkbox"] + label {
 		display: inline-block;
+		font-size: var(--tec-font-size-2);
+		margin: 0;
+	}
+
+.tribe-tickets-attendees-list-optout input[type='checkbox'] {
+		height: var(--tec-spacer-3);
+		width: var(--tec-spacer-3);
 	}
 
 .tribe-orders-list {
@@ -536,9 +545,13 @@ a.tribe-attendees-list-showall {
 /* Attendee Meta on orders-tickets.php */
 
 .attendee-meta.toggle {
+	color: var(--tec-color-accent-primary);
 	cursor: pointer;
 	display: block;
-	font-size: 90%;
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-3);
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-0);
 	margin-bottom: 10px;
 }
 
@@ -548,6 +561,10 @@ a.tribe-attendees-list-showall {
 
 .attendee-meta.toggle.on:before {
 		content: '- ';
+	}
+
+.attendee-meta.toggle:hover {
+		color: var(--tec-color-accent-primary-hover);
 	}
 
 .attendee-meta-row {
