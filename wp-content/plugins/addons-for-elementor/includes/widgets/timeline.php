@@ -50,7 +50,7 @@ class LAE_Timeline_Widget extends LAE_Widget_Base {
      * @return string
      */
     public function get_icon() {
-        return 'eicon-time-line';
+        return 'lae-icon-flow-children';
     }
 
     /**

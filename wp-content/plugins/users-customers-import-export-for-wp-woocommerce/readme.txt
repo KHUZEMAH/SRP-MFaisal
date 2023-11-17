@@ -5,7 +5,7 @@ Tags: user import, user export, csv, woocommerce, customers, export import users
 Requires at least: 3.0.1
 Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,7 +25,7 @@ You can import or export user/customer data using CSV files. This helps in migra
 &#128312; Export guest users - Include data of WooCommerce guest customers (users who bought products from the site without creating an account).
 &#128312; Export specific users based on username/email - Suggests email addresses and names in export data filter fields while you type in.
 &#128312; Tested OK with WordPress 6.3
-&#128312; Tested OK with WooCommerce 8.1.1
+&#128312; Tested OK with WooCommerce 8.2.0
 &#128312; Tested OK with PHP 8.2
 
 = How does it work? =
@@ -122,7 +122,6 @@ Other useful plugins from WebToffee for migrating WooCommerce/WordPress data:
 
 &#128312; <a href="https://wordpress.org/plugins/product-import-export-for-woo/">WooCommerce Product Import Export Plugin</a>: Easily import and export products to/from your WooCommerce store using a CSV file.
 &#128312; <a href="https://wordpress.org/plugins/order-import-export-for-woocommerce/">Order/Coupon Import-Export for WooCommerce</a>: Import and export orders and/or coupons from your WooCommerce store using CSV with the plugin. 
-&#128312; <a href="https://wordpress.org/plugins/comments-import-export-woocommerce/">WordPress Comment Import Export</a>: Easily import and export comments from one WordPress site to another.
 &#128312; <a href="https://wordpress.org/plugins/wp-migration-duplicator/">WordPress Backup & Migration</a>: Quickly migrate and backup entire WordPress site or selected files from one location to another. Backup to FTP, Google drive, Amazon S3, or local storage and easily restore them back.
 &#128312; <a href="https://wordpress.org/plugins/webtoffee-product-feed/">WebToffee WooCommerce Product Feed & Sync Manager</a>: Generate WooCommerce product feed for Google and Facebook shops and sync WooCommerce products with Facebook catalog.
 
@@ -211,6 +210,8 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
+= 2.4.5 2023-10-18 =
+* [Compatibility] - Tested OK with WooCommerce 8.2.0
 = 2.4.4 2023-09-20 =
 * [Compatibility] - Tested OK with WooCommerce 8.1.1
 = 2.4.3 2023-08-23 =
@@ -467,6 +468,6 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Upgrade Notice ==
 
-= 2.4.4 =
-* [Compatibility] - Tested OK with WooCommerce 8.1.1
+= 2.4.5 =
+* [Compatibility] - Tested OK with WooCommerce 8.2.0
 

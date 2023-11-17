@@ -10,13 +10,24 @@ declare(strict_types=1);
 namespace WooCommerce\PayPalCommerce\Applepay;
 
 use WooCommerce\PayPalCommerce\Applepay\Assets\PropertiesDictionary;
+use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\Onboarding\State;
 use WooCommerce\PayPalCommerce\Vendor\Psr\Container\ContainerInterface;
 use WooCommerce\PayPalCommerce\WcGateway\Helper\DisplayManager;
+use WooCommerce\PayPalCommerce\WcGateway\Settings\Settings;
 
 
 return array(
 	'wcgateway.settings.fields' => function ( ContainerInterface $container, array $fields ): array {
+
+		// Eligibility check.
+		if ( ! $container->has( 'applepay.eligible' ) || ! $container->get( 'applepay.eligible' ) ) {
+			return $fields;
+		}
+
+		$is_available = $container->get( 'applepay.available' );
+		$is_referral  = $container->get( 'applepay.is_referral' );
+
 		$insert_after = function ( array $array, string $key, array $new ): array {
 			$keys = array_keys( $array );
 			$index = array_search( $key, $keys, true );
@@ -27,9 +38,55 @@ return array(
 		$display_manager = $container->get( 'wcgateway.display-manager' );
 		assert( $display_manager instanceof DisplayManager );
 
-		if ( ! $container->has( 'applepay.eligible' ) || ! $container->get( 'applepay.eligible' ) ) {
+		// Domain registration.
+		$env = $container->get( 'onboarding.environment' );
+		assert( $env instanceof Environment );
+
+		$domain_registration_url = 'https://www.paypal.com/uccservicing/apm/applepay';
+		if ( $env->current_environment_is( Environment::SANDBOX ) ) {
+			$domain_registration_url = 'https://www.sandbox.paypal.com/uccservicing/apm/applepay';
+		}
+
+		// Domain validation.
+		$domain_validation_text = __( 'Status: Domain validation failed ❌', 'woocommerce-paypal-payments' );
+		if ( $container->get( 'applepay.is_validated' ) ) {
+			$domain_validation_text = __( 'Status: Domain successfully validated ✔️', 'woocommerce-paypal-payments' );
+		}
+
+		// Device eligibility.
+		$device_eligibility_text = __( 'Your current browser/device does not seem to support Apple Pay ❌.', 'woocommerce-paypal-payments' );
+		$device_eligibility_notes = sprintf(
+		// translators: %1$s and %2$s are the opening and closing of HTML <a> tag.
+			__( 'Though the button may display in previews, it won\'t appear in the shop. For details, refer to the %1$sApple Pay requirements%2$s.', 'woocommerce-paypal-payments' ),
+			'<a href="https://woo.com/document/woocommerce-paypal-payments/#apple-pay" target="_blank">',
+			'</a>'
+		);
+		if ( $container->get( 'applepay.is_browser_supported' ) ) {
+			$device_eligibility_text = __( 'Your browser/device supports Apple Pay ✔️.', 'woocommerce-paypal-payments' );
+			$device_eligibility_notes = __( 'The Apple Pay button will be visible both in previews and below the PayPal buttons in the shop.', 'woocommerce-paypal-payments' );
+		}
+
+		// Connection tab fields.
+		$fields = $insert_after(
+			$fields,
+			'ppcp_dcc_status',
+			array(
+				'applepay_status' => array(
+					'title'        => __( 'Apple Pay Payments', 'woocommerce-paypal-payments' ),
+					'type'         => 'ppcp-text',
+					'text'         => $container->get( 'applepay.settings.connection.status-text' ),
+					'screens'      => array(
+						State::STATE_ONBOARDED,
+					),
+					'requirements' => array(),
+					'gateway'      => Settings::CONNECTION_TAB_ID,
+				),
+			)
+		);
+
+		if ( ! $is_available && $is_referral ) {
 			$connection_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=ppcp-gateway&ppcp-tab=ppcp-connection#field-credentials_feature_onboarding_heading' );
-			$connection_link = '<a href="' . $connection_url . '" target="_blank">';
+			$connection_link = '<a href="' . $connection_url . '" style="pointer-events: auto">';
 			return $insert_after(
 				$fields,
 				'allow_card_button_gateway',
@@ -57,7 +114,7 @@ return array(
 								array(
 									$display_manager
 										->rule()
-										->condition_element( 'applepay_button_enabled', '1' )
+										->condition_is_true( false )
 										->action_enable( 'applepay_button_enabled' )
 										->to_array(),
 								)
@@ -72,7 +129,7 @@ return array(
 			$fields,
 			'allow_card_button_gateway',
 			array(
-				'applepay_button_enabled'  => array(
+				'applepay_button_enabled'             => array(
 					'title'             => __( 'Apple Pay Button', 'woocommerce-paypal-payments' ),
 					'type'              => 'checkbox',
 					'label'             => __( 'Enable Apple Pay button', 'woocommerce-paypal-payments' )
@@ -94,6 +151,9 @@ return array(
 								$display_manager
 									->rule()
 									->condition_element( 'applepay_button_enabled', '1' )
+									->action_visible( 'applepay_button_domain_registration' )
+									->action_visible( 'applepay_button_domain_validation' )
+									->action_visible( 'applepay_button_device_eligibility' )
 									->action_visible( 'applepay_button_color' )
 									->action_visible( 'applepay_button_type' )
 									->action_visible( 'applepay_button_language' )
@@ -102,7 +162,66 @@ return array(
 						),
 					),
 				),
-				'applepay_button_type'     => array(
+				'applepay_button_domain_registration' => array(
+					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Domain Registration', 'woocommerce-paypal-payments' ),
+					'type'         => 'ppcp-text',
+					'text'         =>
+						'<a href="' . $domain_registration_url . '" class="button" target="_blank">'
+						. __( 'Manage Domain Registration', 'woocommerce-paypal-payments' )
+						. '</a>'
+						. '<p class="description">'
+						. __( 'Any (sub)domain names showing an Apple Pay button must be registered on the PayPal website. If the domain displaying the Apple Pay button isn\'t registered, the payment method won\'t work.', 'woocommerce-paypal-payments' )
+						. '</p>',
+					'desc_tip'     => true,
+					'description'  => __(
+						'Registering the website domain on the PayPal site is mandated by Apple. Payments will fail if the Apple Pay button is used on an unregistered domain.',
+						'woocommerce-paypal-payments'
+					),
+					'class'        => array(),
+					'screens'      => array( State::STATE_ONBOARDED ),
+					'gateway'      => 'paypal',
+					'requirements' => array(),
+				),
+				'applepay_button_domain_validation'   => array(
+					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Domain Validation', 'woocommerce-paypal-payments' ),
+					'type'         => 'ppcp-text',
+					'text'         => $domain_validation_text
+						. '<p class="description">'
+						. sprintf(
+						// translators: %1$s and %2$s are the opening and closing of HTML <a> tag.
+							__( '<strong>Note:</strong> PayPal Payments automatically presents the %1$sdomain association file%2$s for Apple to validate your registered domain.', 'woocommerce-paypal-payments' ),
+							'<a href="/.well-known/apple-developer-merchantid-domain-association" target="_blank">',
+							'</a>'
+						)
+						. '</p>',
+					'desc_tip'     => true,
+					'description'  => __(
+						'Apple requires the website domain to be registered and validated. PayPal Payments automatically presents your domain association file for Apple to validate the manually registered domain.',
+						'woocommerce-paypal-payments'
+					),
+					'class'        => array(),
+					'screens'      => array( State::STATE_ONBOARDED ),
+					'gateway'      => 'paypal',
+					'requirements' => array(),
+				),
+				'applepay_button_device_eligibility'  => array(
+					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Device Eligibility', 'woocommerce-paypal-payments' ),
+					'type'         => 'ppcp-text',
+					'text'         => $device_eligibility_text
+						. '<p class="description">'
+						. $device_eligibility_notes
+						. '</p>',
+					'desc_tip'     => true,
+					'description'  => __(
+						'Apple Pay demands certain Apple devices for secure payment execution. This helps determine if your current device is compliant.',
+						'woocommerce-paypal-payments'
+					),
+					'class'        => array(),
+					'screens'      => array( State::STATE_ONBOARDED ),
+					'gateway'      => 'paypal',
+					'requirements' => array(),
+				),
+				'applepay_button_type'                => array(
 					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Button Label', 'woocommerce-paypal-payments' ),
 					'type'         => 'select',
 					'desc_tip'     => true,
@@ -118,7 +237,7 @@ return array(
 					'gateway'      => 'paypal',
 					'requirements' => array(),
 				),
-				'applepay_button_color'    => array(
+				'applepay_button_color'               => array(
 					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Button Color', 'woocommerce-paypal-payments' ),
 					'type'         => 'select',
 					'desc_tip'     => true,
@@ -135,7 +254,7 @@ return array(
 					'gateway'      => 'paypal',
 					'requirements' => array(),
 				),
-				'applepay_button_language' => array(
+				'applepay_button_language'            => array(
 					'title'        => str_repeat( '&nbsp;', 6 ) . __( 'Button Language', 'woocommerce-paypal-payments' ),
 					'type'         => 'select',
 					'desc_tip'     => true,

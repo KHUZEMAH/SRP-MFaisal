@@ -296,12 +296,40 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'tab'   => Controls_Manager::TAB_SETTINGS,
         ] );
         $this->add_control( 'style', [
-            'type'    => Controls_Manager::SELECT,
             'label'   => __( 'Choose Team Style', 'livemesh-el-addons' ),
+            'type'    => 'lae-style-select',
             'default' => 'style1',
             'options' => [
-            'style1' => __( 'Style 1', 'livemesh-el-addons' ),
-            'style2' => __( 'Style 2', 'livemesh-el-addons' ),
+            'style1' => [
+            'title'      => __( 'Style 1', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style1.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style1.jpg',
+            'width'      => '100%',
+        ],
+            'style2' => [
+            'title'      => __( 'Style 2', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style2.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style2.jpg',
+            'width'      => '100%',
+        ],
+            'style3' => [
+            'title'      => __( 'Style 3', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style3.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style3.jpg',
+            'width'      => '100%',
+        ],
+            'style4' => [
+            'title'      => __( 'Style 4', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style4.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style4.jpg',
+            'width'      => '100%',
+        ],
+            'style5' => [
+            'title'      => __( 'Style 5', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style5.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style5.jpg',
+            'width'      => '100%',
+        ],
         ],
         ] );
         $this->add_control( 'layout', [

@@ -12,6 +12,7 @@ namespace WooCommerce\PayPalCommerce\Subscription;
 use ActionScheduler_Store;
 use Exception;
 use WC_Product;
+use WC_Product_Subscription;
 use WC_Product_Subscription_Variation;
 use WC_Product_Variable;
 use WC_Product_Variable_Subscription;
@@ -28,6 +29,7 @@ use WC_Subscription;
 use WooCommerce\PayPalCommerce\ApiClient\Exception\RuntimeException;
 use WooCommerce\PayPalCommerce\Subscription\Helper\SubscriptionHelper;
 use WooCommerce\PayPalCommerce\Vaulting\PaymentTokenRepository;
+use WooCommerce\PayPalCommerce\WcGateway\Gateway\CardButtonGateway;
 use WooCommerce\PayPalCommerce\WcGateway\Gateway\PayPalGateway;
 use WooCommerce\PayPalCommerce\WcGateway\Gateway\CreditCardGateway;
 use WooCommerce\PayPalCommerce\Vendor\Interop\Container\ServiceProviderInterface;
@@ -79,6 +81,10 @@ class SubscriptionModule implements ModuleInterface {
 		add_action(
 			'woocommerce_subscription_payment_complete',
 			function ( $subscription ) use ( $c ) {
+				if ( ! in_array( $subscription->get_payment_method(), array( PayPalGateway::ID, CreditCardGateway::ID, CardButtonGateway::ID ), true ) ) {
+					return;
+				}
+
 				$paypal_subscription_id = $subscription->get_meta( 'ppcp_subscription' ) ?? '';
 				if ( $paypal_subscription_id ) {
 					return;
@@ -203,7 +209,11 @@ class SubscriptionModule implements ModuleInterface {
 
 				if (
 					! $subscriptions_helper->plugin_is_active()
-					|| ! is_a( $product, WC_Product_Subscription_Variation::class )
+					|| ! (
+						is_a( $product, WC_Product_Subscription::class )
+						|| is_a( $product, WC_Product_Variable_Subscription::class )
+						|| is_a( $product, WC_Product_Subscription_Variation::class )
+					)
 					|| ! WC_Subscriptions_Product::is_subscription( $product )
 				) {
 					return;
@@ -592,55 +602,60 @@ class SubscriptionModule implements ModuleInterface {
 			 *
 			 * @psalm-suppress MissingClosureParamType
 			 */
-			function( $id, $subscription ) use ( $c ) {
+			function( $id, $post ) use ( $c ) {
+				$subscription = wcs_get_subscription( $id );
+				if ( ! is_a( $subscription, WC_Subscription::class ) ) {
+					return;
+				}
 				$subscription_id = $subscription->get_meta( 'ppcp_subscription' ) ?? '';
-				if ( $subscription_id ) {
-					$subscriptions_endpoint = $c->get( 'api.endpoint.billing-subscriptions' );
-					assert( $subscriptions_endpoint instanceof BillingSubscriptions );
+				if ( ! $subscription_id ) {
+					return;
+				}
+				$subscriptions_endpoint = $c->get( 'api.endpoint.billing-subscriptions' );
+				assert( $subscriptions_endpoint instanceof BillingSubscriptions );
 
-					if ( $subscription->get_status() === 'cancelled' ) {
-						try {
-							$subscriptions_endpoint->cancel( $subscription_id );
-						} catch ( RuntimeException $exception ) {
-							$error = $exception->getMessage();
-							if ( is_a( $exception, PayPalApiException::class ) ) {
-								$error = $exception->get_details( $error );
-							}
-
-							$logger = $c->get( 'woocommerce.logger.woocommerce' );
-							$logger->error( 'Could not cancel subscription product on PayPal. ' . $error );
+				if ( $subscription->get_status() === 'cancelled' ) {
+					try {
+						$subscriptions_endpoint->cancel( $subscription_id );
+					} catch ( RuntimeException $exception ) {
+						$error = $exception->getMessage();
+						if ( is_a( $exception, PayPalApiException::class ) ) {
+							$error = $exception->get_details( $error );
 						}
+
+						$logger = $c->get( 'woocommerce.logger.woocommerce' );
+						$logger->error( 'Could not cancel subscription product on PayPal. ' . $error );
 					}
+				}
 
-					if ( $subscription->get_status() === 'pending-cancel' ) {
-						try {
-							$subscriptions_endpoint->suspend( $subscription_id );
-						} catch ( RuntimeException $exception ) {
-							$error = $exception->getMessage();
-							if ( is_a( $exception, PayPalApiException::class ) ) {
-								$error = $exception->get_details( $error );
-							}
-
-							$logger = $c->get( 'woocommerce.logger.woocommerce' );
-							$logger->error( 'Could not suspend subscription product on PayPal. ' . $error );
+				if ( $subscription->get_status() === 'pending-cancel' ) {
+					try {
+						$subscriptions_endpoint->suspend( $subscription_id );
+					} catch ( RuntimeException $exception ) {
+						$error = $exception->getMessage();
+						if ( is_a( $exception, PayPalApiException::class ) ) {
+							$error = $exception->get_details( $error );
 						}
+
+						$logger = $c->get( 'woocommerce.logger.woocommerce' );
+						$logger->error( 'Could not suspend subscription product on PayPal. ' . $error );
 					}
+				}
 
-					if ( $subscription->get_status() === 'active' ) {
-						try {
-							$current_subscription = $subscriptions_endpoint->subscription( $subscription_id );
-							if ( $current_subscription->status === 'SUSPENDED' ) {
-								$subscriptions_endpoint->activate( $subscription_id );
-							}
-						} catch ( RuntimeException $exception ) {
-							$error = $exception->getMessage();
-							if ( is_a( $exception, PayPalApiException::class ) ) {
-								$error = $exception->get_details( $error );
-							}
-
-							$logger = $c->get( 'woocommerce.logger.woocommerce' );
-							$logger->error( 'Could not reactivate subscription product on PayPal. ' . $error );
+				if ( $subscription->get_status() === 'active' ) {
+					try {
+						$current_subscription = $subscriptions_endpoint->subscription( $subscription_id );
+						if ( $current_subscription->status === 'SUSPENDED' ) {
+							$subscriptions_endpoint->activate( $subscription_id );
 						}
+					} catch ( RuntimeException $exception ) {
+						$error = $exception->getMessage();
+						if ( is_a( $exception, PayPalApiException::class ) ) {
+							$error = $exception->get_details( $error );
+						}
+
+						$logger = $c->get( 'woocommerce.logger.woocommerce' );
+						$logger->error( 'Could not reactivate subscription product on PayPal. ' . $error );
 					}
 				}
 			},
@@ -656,7 +671,7 @@ class SubscriptionModule implements ModuleInterface {
 			 * @psalm-suppress MissingClosureParamType
 			 */
 			function( $actions, $subscription ): array {
-				if ( ! is_a( $subscription, WC_Subscription::class ) ) {
+				if ( ! is_array( $actions ) || ! is_a( $subscription, WC_Subscription::class ) ) {
 					return $actions;
 				}
 

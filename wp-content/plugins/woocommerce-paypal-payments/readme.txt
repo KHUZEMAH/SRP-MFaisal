@@ -4,7 +4,7 @@ Tags: woocommerce, paypal, payments, ecommerce, checkout, cart, pay later, apple
 Requires at least: 5.3
 Tested up to: 6.3
 Requires PHP: 7.2
-Stable tag: 2.3.1
+Stable tag: 2.4.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,49 @@ If you encounter issues with the PayPal buttons not appearing after an update, p
 
 
 == Changelog ==
+
+= 2.4.1 - 2023-11-14 =
+* Fix - Error "PayPal order ID not found in meta" prevents automations from triggering when buying subscription via third-party payment gateway #1822
+* Fix - Card button subscription support declaration #1796
+* Fix - Pay Later messaging disappears when updating shipping option on cart page #1807
+* Fix - Apple Pay payment from single product may fail after changing shipping options in Apple Pay payment sheet #1810
+* Enhancement - Extend list of supported countries for Advanced Card Processing #1808
+* Enhancement - Extend Apple Pay/Google Pay country eligibility to Italy #1811
+* Enhancement - Override language used to display PayPal buttons #600
+* Enhancement - Apple Pay button preview #1824
+* Enhancement - Add Apple Pay & Google Pay logos on the onboarding page #1823
+* Enhancement - Improve Apple Pay compatibility with variable products on single product page #1803
+* Enhancement - Apple Pay domain registration & browser eligibility check #1821
+* Enhancement - Package Tracking compatibility with WooCommerce Shipping & ShipStation for WooCommerce #1813
+* Enhancement - Fill form when continuation in block #1794
+* Enhancement - Display Shop location Pay Later messaging on product category pages #1809
+* Enhancement - Present apple-developer-merchantid-domain-association file only when Apple Pay is enabled #1818
+* Enhancement - Improve Apple Pay compatibility on Pay for Order page #1815
+* Enhancement - Display Pay Later messages before the payment methods on the Pay for Order page #1814
+* Enhancement - Handle undefined array key warnings on PHP 8.1 #1804
+
+= 2.4.0 - 2023-10-31 =
+* Fix - Mini-Cart Bug cause of wrong DOM-Structure in v2.3.1 #1735
+* Fix - ACDC disappearing after plugin updates #1751
+* Fix - Subscription module hooks #1748
+* Fix - Ensure PayPal Subscriptions API products description is 1-127 characters #1738
+* Fix - Add validation on the Plan Name field to not accept a blank value #1754
+* Enhancement - Improve Pay Later messages and add Shop, Home locations #1770
+* Enhancement - Use api-m PayPal API URLs #1740
+* Enhancement - Google Pay Settings improvements #1719
+* Enhancement - Apple Pay transaction improvements #1767
+* Enhancement - Change default ACDC title #1750
+* Enhancement - Cart simulation improvements #1753
+* Enhancement - Billing schedule fields not greyed out when PayPal Subscriptions product is connected #1755
+* Enhancement - Check validation errors when submitting in block #1528
+* Enhancement - Improve handling of server error when submitting block #1785
+* Enhancement - Extend Apple Pay country eligibility #1781
+* Enhancement - Apple Pay validation notice improvements #1783
+* Enhancement - Apple Pay payment process issues #1789
+* Enhancement - Disable the tracking if payment is not captured #1780
+* Enhancement - Place order button remains - Could not retrieve order #1786
+* Enhancement - Google Pay for variable product greyed out but clickable #1788
+* Enhancement - Merchant credential validation & remove PAYEE object #1795
 
 = 2.3.1 - 2023-09-26 =
 * Fix - Fatal error when saving product while WooCommerce Subscriptions plugin is not active #1731

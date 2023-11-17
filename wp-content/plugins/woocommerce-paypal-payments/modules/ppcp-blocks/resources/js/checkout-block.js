@@ -1,6 +1,6 @@
 import {useEffect, useState} from '@wordpress/element';
 import {registerExpressPaymentMethod, registerPaymentMethod} from '@woocommerce/blocks-registry';
-import {paypalAddressToWc, paypalOrderToWcAddresses} from "./Helper/Address";
+import {mergeWcAddress, paypalAddressToWc, paypalOrderToWcAddresses} from "./Helper/Address";
 import {loadPaypalScript} from '../../../ppcp-button/resources/js/modules/Helper/ScriptLoading'
 import buttonModuleWatcher from "../../../ppcp-button/resources/js/modules/ButtonModuleWatcher";
 
@@ -19,10 +19,26 @@ const PayPalComponent = ({
                              shippingData,
                              isEditing,
 }) => {
-    const {onPaymentSetup, onCheckoutAfterProcessingWithError} = eventRegistration;
+    const {onPaymentSetup, onCheckoutFail, onCheckoutValidation} = eventRegistration;
     const {responseTypes} = emitResponse;
 
     const [paypalOrder, setPaypalOrder] = useState(null);
+
+    useEffect(() => {
+        // fill the form if in continuation (for product or mini-cart buttons)
+        if (!config.scriptData.continuation || !config.scriptData.continuation.order || window.ppcpContinuationFilled) {
+            return;
+        }
+        const paypalAddresses = paypalOrderToWcAddresses(config.scriptData.continuation.order);
+        const wcAddresses = wp.data.select('wc/store/cart').getCustomerData();
+        const addresses = mergeWcAddress(wcAddresses, paypalAddresses);
+        wp.data.dispatch('wc/store/cart').setBillingAddress(addresses.billingAddress);
+        if (shippingData.needsShipping) {
+            wp.data.dispatch('wc/store/cart').setShippingAddress(addresses.shippingAddress);
+        }
+        // this useEffect should run only once, but adding this in case of some kind of full re-rendering
+        window.ppcpContinuationFilled = true;
+    }, [])
 
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
@@ -79,8 +95,40 @@ const PayPalComponent = ({
         }
     };
 
+    const getCheckoutRedirectUrl = () => {
+        const checkoutUrl = new URL(config.scriptData.redirect);
+        // sometimes some browsers may load some kind of cached version of the page,
+        // so adding a parameter to avoid that
+        checkoutUrl.searchParams.append('ppcp-continuation-redirect', (new Date()).getTime().toString());
+        return checkoutUrl.toString();
+    }
+
     const handleApprove = async (data, actions) => {
         try {
+            const order = await actions.order.get();
+
+            if (order) {
+                const addresses = paypalOrderToWcAddresses(order);
+
+                let promises = [
+                    // save address on server
+                    wp.data.dispatch('wc/store/cart').updateCustomerData({
+                        billing_address: addresses.billingAddress,
+                        shipping_address: addresses.shippingAddress,
+                    }),
+                ];
+                if (!config.finalReviewEnabled) {
+                    // set address in UI
+                    promises.push(wp.data.dispatch('wc/store/cart').setBillingAddress(addresses.billingAddress));
+                    if (shippingData.needsShipping) {
+                        promises.push(wp.data.dispatch('wc/store/cart').setShippingAddress(addresses.shippingAddress))
+                    }
+                }
+                await Promise.all(promises);
+            }
+
+            setPaypalOrder(order);
+
             const res = await fetch(config.scriptData.ajax.approve_order.endpoint, {
                 method: 'POST',
                 credentials: 'same-origin',
@@ -104,25 +152,8 @@ const PayPalComponent = ({
                 throw new Error(config.scriptData.labels.error.generic)
             }
 
-            const order = await actions.order.get();
-
-            setPaypalOrder(order);
-
             if (config.finalReviewEnabled) {
-                if (order) {
-                    const addresses = paypalOrderToWcAddresses(order);
-
-                    await wp.data.dispatch('wc/store/cart').updateCustomerData({
-                        billing_address: addresses.billingAddress,
-                        shipping_address: addresses.shippingAddress,
-                    });
-                }
-                const checkoutUrl = new URL(config.scriptData.redirect);
-                // sometimes some browsers may load some kind of cached version of the page,
-                // so adding a parameter to avoid that
-                checkoutUrl.searchParams.append('ppcp-continuation-redirect', (new Date()).getTime().toString());
-
-                location.href = checkoutUrl.toString();
+                location.href = getCheckoutRedirectUrl();
             } else {
                 onSubmit();
             }
@@ -136,6 +167,21 @@ const PayPalComponent = ({
             throw err;
         }
     };
+
+    useEffect(() => {
+        const unsubscribe = onCheckoutValidation(() => {
+            if (config.scriptData.continuation) {
+                return true;
+            }
+            if (wp.data.select('wc/store/validation').hasValidationErrors()) {
+                location.href = getCheckoutRedirectUrl();
+                return { type: responseTypes.ERROR };
+            }
+
+            return true;
+        });
+        return unsubscribe;
+    }, [onCheckoutValidation] );
 
     const handleClick = (data, actions) => {
         if (isEditing) {
@@ -223,21 +269,24 @@ const PayPalComponent = ({
     }, [onPaymentSetup, paypalOrder, activePaymentMethod]);
 
     useEffect(() => {
-        const unsubscribe = onCheckoutAfterProcessingWithError(({ processingResponse }) => {
+        if (activePaymentMethod !== config.id) {
+            return;
+        }
+        const unsubscribe = onCheckoutFail(({ processingResponse }) => {
+            console.error(processingResponse)
             if (onClose) {
                 onClose();
             }
-            if (processingResponse?.paymentDetails?.errorMessage) {
-                return {
-                    type: emitResponse.responseTypes.ERROR,
-                    message: processingResponse.paymentDetails.errorMessage,
-                    messageContext: config.scriptData.continuation ? emitResponse.noticeContexts.PAYMENTS : emitResponse.noticeContexts.EXPRESS_PAYMENTS,
-                };
+            if (config.scriptData.continuation) {
+                return true;
+            }
+            if (!config.finalReviewEnabled) {
+                location.href = getCheckoutRedirectUrl();
             }
             return true;
         });
         return unsubscribe;
-    }, [onCheckoutAfterProcessingWithError, onClose]);
+    }, [onCheckoutFail, onClose, activePaymentMethod]);
 
     if (config.scriptData.continuation) {
         return (

@@ -87,6 +87,7 @@ document.addEventListener(
 
                 try {
                     renderer.render({});
+                    jQuery(document).trigger('ppcp_paypal_render_preview', settings);
                 } catch (err) {
                     console.error(err);
                 }
@@ -113,8 +114,8 @@ document.addEventListener(
                 'client-id': PayPalCommerceGatewaySettings.client_id,
                 'currency': PayPalCommerceGatewaySettings.currency,
                 'integration-date': PayPalCommerceGatewaySettings.integration_date,
-                'components': ['buttons', 'funding-eligibility', 'messages'],
-                'enable-funding': ['venmo', 'paylater'],
+                'components': PayPalCommerceGatewaySettings.components,
+                'enable-funding': ['venmo', 'paylater']
             };
 
             if (PayPalCommerceGatewaySettings.environment === 'sandbox') {
@@ -131,6 +132,11 @@ document.addEventListener(
 
             if (disabledSources?.length) {
                 settings['disable-funding'] = disabledSources;
+            }
+
+            const smartButtonLocale = document.getElementById('ppcp-smart_button_language');
+            if (smartButtonLocale?.length > 0 && smartButtonLocale?.value !== '') {
+                settings['locale'] = smartButtonLocale.value;
             }
 
             return settings;
@@ -172,11 +178,16 @@ document.addEventListener(
 
         function createMessagesPreview(settingsCallback) {
             const render = (settings) => {
-                const wrapper = document.querySelector(settings.wrapper);
+                let wrapper = document.querySelector(settings.wrapper);
                 if (!wrapper) {
                     return;
                 }
-                wrapper.innerHTML = '';
+                // looks like .innerHTML = '' is not enough, PayPal somehow renders with old style
+                const parent = wrapper.parentElement;
+                parent.removeChild(wrapper);
+                wrapper = document.createElement('div');
+                wrapper.setAttribute('id', settings.wrapper.replace('#', ''));
+                parent.appendChild(wrapper);
 
                 const messageRenderer = new MessageRenderer(settings);
 
@@ -269,7 +280,7 @@ document.addEventListener(
             }, 1000));
 
             loadPaypalScript(oldScriptSettings, () => {
-                const payLaterMessagingLocations = ['product', 'cart', 'checkout', 'general'];
+                const payLaterMessagingLocations = ['product', 'cart', 'checkout', 'shop', 'home', 'general'];
                 const paypalButtonLocations = ['product', 'cart', 'checkout', 'mini-cart', 'general'];
 
                 paypalButtonLocations.forEach((location) => {

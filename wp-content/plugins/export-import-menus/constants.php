@@ -26,7 +26,13 @@ if( ! defined( 'DSPMENUS_UPLOADMSG3' ) )
 	define( 'DSPMENUS_UPLOADMSG3' , 'You dont have permission to make folder.');
 
 if( ! defined( 'DSPMENUS_UPLOADMSG4' ) )
-	define( 'DSPMENUS_UPLOADMSG4' , 'Please Enter Menu Name.');	     
+	define( 'DSPMENUS_UPLOADMSG4' , 'Please Enter Menu Name.');
+	
+if( ! defined( 'DSPMENUS_UPLOADMSG5' ) )
+	define( 'DSPMENUS_UPLOADMSG5' , 'You do not have permission to upload file.');
+	
+if( ! defined( 'DSPMENUS_UPLOADMSG6' ) )
+	define( 'DSPMENUS_UPLOADMSG6' , 'Uploaded file is not a JSON file.');	
 	
 if( ! defined( 'DSPMENUS_IMPORTMSG1' ) )
 	define( 'DSPMENUS_IMPORTMSG1' , 'Menu name is already exist, Please enter a unique name.');
@@ -44,7 +50,7 @@ if( ! defined( 'DSPMENUS_IMPORTMSG5' ) )
 	define( 'DSPMENUS_IMPORTMSG5' , 'All menu items has been successfully imported.');
    
 if( ! defined( 'DSPMENUS_IMPORTMSG6' ) )
-	define( 'DSPMENUS_IMPORTMSG6' , 'Required Paramters are missing.');
+	define( 'DSPMENUS_IMPORTMSG6' , 'Required Parameters are missing.');
    
 if( ! defined( 'DSPMENUS_IMPORTMSG7' ) )
 	define( 'DSPMENUS_IMPORTMSG7' , 'Nonce verification failed !');

@@ -4,7 +4,7 @@ Plugin Name: Export Import Menus
 Plugin URI: https://in.linkedin.com/in/akshay-menariya-5218a664
 Description: Plugin to export and import WordPress Menus. This plugin also support UberMenu plugin.
 Author: Akshay Menariya
-Version: 1.8.0
+Version: 1.9.0
 Author URI: https://profiles.wordpress.org/akshay-menariya
 */
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

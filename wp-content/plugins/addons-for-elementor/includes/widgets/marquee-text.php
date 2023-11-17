@@ -46,7 +46,7 @@ class LAE_Marquee_Text_Widget extends LAE_Widget_Base {
      * @return string
      */
     public function get_icon() {
-        return 'eicon-form-vertical';
+        return 'lae-icon-text_rotation_none';
     }
 
     /**

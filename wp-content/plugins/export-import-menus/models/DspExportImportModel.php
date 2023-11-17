@@ -9,24 +9,24 @@ class DspExportImportModel
    public function __construct()
    {}
    
-/**
-* Shows all the menus which is being created 
-*
-* @param array $requested_vars accepts as the arguments
-* returns all the navigation menus  
-*/
+   /**
+   * Shows all the menus which is being created 
+   *
+   * @param array $requested_vars accepts as the arguments
+   * returns all the navigation menus  
+   */
    public function getListMenus($requested_vars = null)
    {      
       $nav_menus = wp_get_nav_menus();
       return $nav_menus;
    }
 
-/**
-* Used for creating the JSON for the selected Menu 
-*
-* @param array $requested_vars accepts as the arguments
-* returns the JSON File of the particular Menu 
-*/
+   /**
+   * Used for creating the JSON for the selected Menu 
+   *
+   * @param array $requested_vars accepts as the arguments
+   * returns the JSON File of the particular Menu 
+   */
    public function generateMenusJson($requested_vars = null)
    {
 		$response = '';
@@ -77,12 +77,12 @@ class DspExportImportModel
       return $this->exportmodel;
    }
      
-/**
-* Uplad the JSON Menu
-*
-* @param array $requested_vars accepts as the arguments
-* returns string $response and create the new Backup Menu
-*/
+   /**
+   * Upload the JSON Menu
+   *
+   * @param array $requested_vars accepts as the arguments
+   * returns string $response and create the new Backup Menu
+   */
    public function uploadMenusJson($requested_vars = null)
    {
       $nonce = check_ajax_referer( 'menus_nonce_verify','security', false );
@@ -92,7 +92,23 @@ class DspExportImportModel
 			$res["status"] = 0;
 			wp_send_json( $res );
 		}
-      $res = array('nextMenuPos'=>0,'isContinue'=>0,'menuId'=>0,'oldIds'=>array(),'newIds'=> array());
+      if (!current_user_can('upload_files') ) 
+      {
+         $res["response"] = DSPMENUS_UPLOADMSG5;
+         $res["status"] = 0;
+         wp_send_json( $res );
+      }
+      if(isset($requested_vars['menusfile']['name']))
+      {
+         $wp_filetype = wp_check_filetype( $requested_vars['menusfile']['name'],array('json' => 'application/json'));
+         if (! wp_match_mime_types( 'application/json', $wp_filetype['type'] ) && !isset($requested_vars['isFileTypeChecked'])) {
+            $res["response"] = DSPMENUS_UPLOADMSG6;
+            $res["status"] = 0;
+            wp_send_json( $res );
+         }
+      }
+      
+      $res = array('nextMenuPos'=>0,'isContinue'=>0,'menuId'=>0,'oldIds'=>array(),'newIds'=> array(),'isFileTypeChecked' => 1);
       if(empty($requested_vars))
       {
        $res["response"] = DSPMENUS_IMPORTMSG6;
@@ -133,12 +149,11 @@ class DspExportImportModel
        $upload_overrides = array( 'test_form' => true,'action' => 'dspImportMenus' );
        add_filter('upload_mimes',array($this,'customMimeTypes'), 1, 1);
        add_filter('upload_dir', array($this,'menusExportImportDir'));
-		 add_filter('map_meta_cap', 'menusUnfilteredUpload', 0, 2);
+       add_filter('map_meta_cap', array($this,'menusUnfilteredUpload'), 0, 2);
        $movefile = wp_handle_upload( $requested_vars['menusfile'], $upload_overrides );
        remove_filter('upload_mimes', array($this,'customMimeTypes'), 1, 1);
        remove_filter('upload_dir', array($this,'menusExportImportDir'));
-		 remove_filter('map_meta_cap', array($this,'menusUnfilteredUpload'));
-         
+       remove_filter('map_meta_cap', array($this,'menusUnfilteredUpload'));   
        if ( $movefile && ! isset( $movefile['error'] ) ) { 
          $res["response"] = DSPMENUS_UPLOADMSG1;
          $res["fileurl"] =  $movefile['url'];
@@ -162,8 +177,15 @@ class DspExportImportModel
             
       $curntMenuPos = ! empty( $requested_vars['curntmenupos'] ) ? sanitize_text_field($requested_vars['curntmenupos']) : 0;
       $menuId = ! empty( $requested_vars['menuId'] ) ? sanitize_text_field($requested_vars['menuId']) : 0 ;
-      $oldIds = ! empty( json_decode($requested_vars['oldIds'] )) ? json_decode(sanitize_text_field($requested_vars['oldIds'])) : array();
-      $newIds = ! empty( json_decode($requested_vars['newIds'] )) ? json_decode(sanitize_text_field($requested_vars['newIds'])) : array();
+      $oldIds = $newIds = array();
+      if(isset($requested_vars['oldIds']) && !empty(json_decode($requested_vars['oldIds'] )))
+      {
+         $oldIds = json_decode(sanitize_text_field($requested_vars['oldIds']));
+      }
+      if(isset($requested_vars['newIds']) && !empty(json_decode($requested_vars['newIds'] )))
+      {
+         $newIds = json_decode(sanitize_text_field($requested_vars['newIds']));
+      }
        
       if($menuId == 0)
       {
@@ -180,8 +202,7 @@ class DspExportImportModel
        if(is_array($content) && !empty($content) && isset($content[$curntMenuPos]->post))
         {
           $nav_count = count($content);
-          $parent_arr = $temp_arr1 = $temp_arr = array();
-          $custom_post_meta = array();
+          $temp_arr = $custom_post_meta = array();
           $post = $post_metas = '';
           if(isset($content[$curntMenuPos]->post))
           $post = $content[$curntMenuPos]->post;
@@ -221,20 +242,20 @@ class DspExportImportModel
               {				
                if(is_serialized($val[0]) && !empty(unserialize($val[0])))
                {
-						$temp = unserialize($val[0]);
-						if(is_array($temp) && !empty($temp))
-						{
-							$temp = implode(" ",$temp);
-						}else
-						{
-							$temp = $val[0];
-						}		
-						$custom_post_meta[$custom_key] = $temp;
+                  $temp = unserialize($val[0]);
+                  if(is_array($temp) && !empty($temp))
+                  {
+                     $temp = implode(" ",$temp);
+                  }else
+                  {
+                     $temp = $val[0];
+                  }		
+                  $custom_post_meta[$custom_key] = $temp;
                }
-					else
-					{
-						$custom_post_meta[$custom_key] = $val[0];
-					}
+               else
+               {
+                  $custom_post_meta[$custom_key] = $val[0];
+               }
               }
               elseif($custom_key == 'menu-item-menu-item-parent')
               {
@@ -245,10 +266,10 @@ class DspExportImportModel
                 if($val[0] != 0)
                 {
                  $new_var = array_search($val[0],$old_post_ids);
-                 $temp_arr1[$post_id] = $new_post_ids[$new_var];
-                 if(isset($temp_arr1[$post_id]))
+                 $temp_arr[$post_id] = $new_post_ids[$new_var];
+                 if(isset($temp_arr[$post_id]))
                  {
-                 $custom_post_meta['menu-item-parent-id'] = $temp_arr1[$post_id];
+                 $custom_post_meta['menu-item-parent-id'] = $temp_arr[$post_id];
                  }
                 }
                 
@@ -315,20 +336,20 @@ class DspExportImportModel
       wp_send_json( $res );
    }
 	
-/**
-*
-* returns the array of the json type 
-*/
+   /**
+   *
+   * returns the array of the json type 
+   */
 	public function customMimeTypes($mimeTypes){
 		$new_mime_type = array('json'=>'application/json');
 		return $new_mime_type;
 	}
 
-/**
-*
-* @param $param accepts as the arguments
-* returns the upload directory   
-*/
+   /**
+   *
+   * @param $param accepts as the arguments
+   * returns the upload directory   
+   */
 	public function menusExportImportDir( $param ){
 		$mydir = '/menus-exportimport';
 		$param['subdir'] = $mydir;
@@ -366,20 +387,19 @@ class DspExportImportModel
   }
   
    /*
-	 *Assign JSON uplaod capability to the loged in user 
+	 *Assign JSON upload capability to the logged in user 
    */
-   public function menusUnfilteredUpload( $caps )
+   public function menusUnfilteredUpload( $caps, $cap )
    {
       if ($cap == 'unfiltered_upload') {
          $caps = array();
          $caps[] = $cap;
       }
-       return $caps;
+      return $caps;
    }
-	
-	
-	/*
-	 * Delete the upoaded json file after menu creation 
+   
+   /*
+    * Delete the upoaded json file after menu creation 
    */
    public function deleteJsonFile ( $url )
    {
@@ -390,8 +410,6 @@ class DspExportImportModel
             wp_delete_file( $menu_url );
       }
    }
-
-
 
 }//end of class
 endif;

@@ -49,7 +49,7 @@ class LAE_Odometers_Widget extends LAE_Widget_Base
      */
     public function get_icon()
     {
-        return 'eicon-counter';
+        return 'lae-icon-sort-numerically';
     }
     
     /**

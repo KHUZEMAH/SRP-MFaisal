@@ -47,7 +47,7 @@ class LAE_Animated_Text_Widget extends LAE_Widget_Base
      */
     public function get_icon()
     {
-        return 'eicon-animated-headline';
+        return 'lae-icon-spell-check';
     }
     
     /**

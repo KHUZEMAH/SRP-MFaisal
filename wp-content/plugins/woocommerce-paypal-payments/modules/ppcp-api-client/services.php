@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\ApiClient;
 
+use WooCommerce\PayPalCommerce\ApiClient\Helper\FailureRegistry;
 use WooCommerce\PayPalCommerce\Common\Pattern\SingletonDecorator;
 use WooCommerce\PayPalCommerce\ApiClient\Endpoint\BillingSubscriptions;
 use WooCommerce\PayPalCommerce\ApiClient\Endpoint\CatalogProducts;
@@ -120,7 +121,8 @@ return array(
 			$container->get( 'woocommerce.logger.woocommerce' ),
 			$container->get( 'api.factory.sellerstatus' ),
 			$container->get( 'api.partner_merchant_id' ),
-			$container->get( 'api.merchant_id' )
+			$container->get( 'api.merchant_id' ),
+			$container->get( 'api.helper.failure-registry' )
 		);
 	},
 	'api.factory.sellerstatus'                  => static function ( ContainerInterface $container ) : SellerStatusFactory {
@@ -307,8 +309,6 @@ return array(
 	'api.factory.purchase-unit'                 => static function ( ContainerInterface $container ): PurchaseUnitFactory {
 
 		$amount_factory   = $container->get( 'api.factory.amount' );
-		$payee_repository = $container->get( 'api.repository.payee' );
-		$payee_factory    = $container->get( 'api.factory.payee' );
 		$item_factory     = $container->get( 'api.factory.item' );
 		$shipping_factory = $container->get( 'api.factory.shipping' );
 		$payments_factory = $container->get( 'api.factory.payments' );
@@ -318,8 +318,6 @@ return array(
 
 		return new PurchaseUnitFactory(
 			$amount_factory,
-			$payee_repository,
-			$payee_factory,
 			$item_factory,
 			$shipping_factory,
 			$payments_factory,
@@ -598,6 +596,37 @@ return array(
 					'SGD',
 					'USD',
 				),
+				'BE' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'PLN',
+					'SEK',
+					'CHF',
+				),
+				'BG' => array(
+					'EUR',
+					'USD',
+				),
+				'CY' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'AUD',
+					'CZK',
+					'DKK',
+					'NOK',
+					'PLN',
+					'SEK',
+					'CHF',
+				),
+				'CZ' => array(
+					'EUR',
+					'USD',
+					'CZK',
+				),
 				'DE' => array(
 					'AUD',
 					'CAD',
@@ -616,6 +645,16 @@ return array(
 					'SGD',
 					'USD',
 				),
+				'DK' => array(
+					'EUR',
+					'USD',
+					'DKK',
+					'NOK',
+				),
+				'EE' => array(
+					'EUR',
+					'USD',
+				),
 				'ES' => array(
 					'AUD',
 					'CAD',
@@ -632,6 +671,10 @@ return array(
 					'PLN',
 					'SEK',
 					'SGD',
+					'USD',
+				),
+				'FI' => array(
+					'EUR',
 					'USD',
 				),
 				'FR' => array(
@@ -670,6 +713,16 @@ return array(
 					'SGD',
 					'USD',
 				),
+				'GR' => array(
+					'EUR',
+					'USD',
+					'GBP',
+				),
+				'HU' => array(
+					'EUR',
+					'USD',
+					'HUF',
+				),
 				'IT' => array(
 					'AUD',
 					'CAD',
@@ -687,6 +740,32 @@ return array(
 					'SEK',
 					'SGD',
 					'USD',
+				),
+				'LT' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'JPY',
+					'AUD',
+					'CZK',
+					'DKK',
+					'HUF',
+					'PLN',
+					'SEK',
+					'CHF',
+					'NZD',
+					'NOK',
+				),
+				'LU' => array(
+					'EUR',
+					'USD',
+				),
+				'LV' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
 				),
 				'US' => array(
 					'AUD',
@@ -714,8 +793,80 @@ return array(
 					'SGD',
 					'USD',
 				),
+				'MT' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'JPY',
+					'AUD',
+					'CZK',
+					'DKK',
+					'HUF',
+					'NOK',
+					'PLN',
+					'SEK',
+					'CHF',
+				),
 				'MX' => array(
 					'MXN',
+				),
+				'NL' => array(
+					'EUR',
+					'GBP',
+					'AUD',
+					'CZK',
+					'HUF',
+					'CHF',
+					'CAD',
+					'USD',
+				),
+				'NO' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'NOK',
+				),
+				'PL' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'AUD',
+					'DKK',
+					'PLN',
+					'SEK',
+					'CZK',
+				),
+				'PT' => array(
+					'EUR',
+					'USD',
+					'CAD',
+					'GBP',
+					'CZK',
+				),
+				'RO' => array(
+					'EUR',
+					'USD',
+					'GBP',
+				),
+				'SE' => array(
+					'EUR',
+					'USD',
+					'NOK',
+					'SEK',
+				),
+				'SI' => array(
+					'EUR',
+					'USD',
+				),
+				'SK' => array(
+					'EUR',
+					'USD',
+					'GBP',
+					'CZK',
+					'HUF',
 				),
 				'JP' => array(
 					'AUD',
@@ -754,12 +905,47 @@ return array(
 					'visa'       => array(),
 					'amex'       => array( 'AUD' ),
 				),
+				'BE' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD', 'CAD' ),
+				),
+				'BG' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'CY' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'CZ' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'CZK' ),
+				),
 				'DE' => array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'EUR' ),
 				),
+				'DK' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'DKK' ),
+				),
+				'EE' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array(),
+				),
 				'ES' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'FI' => array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'EUR' ),
@@ -773,6 +959,16 @@ return array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'GBP', 'USD' ),
+				),
+				'GR' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'HU' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'HUF' ),
 				),
 				'IT' => array(
 					'mastercard' => array(),
@@ -791,10 +987,70 @@ return array(
 					'amex'       => array( 'CAD' ),
 					'jcb'        => array( 'CAD' ),
 				),
+				'LT' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'LU' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'LV' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD' ),
+				),
+				'MT' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
 				'MX' => array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array(),
+				),
+				'NL' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD' ),
+				),
+				'NO' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'NOK' ),
+				),
+				'PL' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD', 'GBP', 'PLN' ),
+				),
+				'PT' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD', 'CAD', 'GBP' ),
+				),
+				'RO' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'USD' ),
+				),
+				'SE' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'SEK' ),
+				),
+				'SI' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR' ),
+				),
+				'SK' => array(
+					'mastercard' => array(),
+					'visa'       => array(),
+					'amex'       => array( 'EUR', 'GBP' ),
 				),
 				'JP' => array(
 					'mastercard' => array(),
@@ -845,6 +1101,10 @@ return array(
 		$cache                   = new Cache( 'ppcp-paypal-bearer' );
 		$purchase_unit_sanitizer = $container->get( 'api.helper.purchase-unit-sanitizer' );
 		return new OrderTransient( $cache, $purchase_unit_sanitizer );
+	},
+	'api.helper.failure-registry'               => static function( ContainerInterface $container ): FailureRegistry {
+		$cache = new Cache( 'ppcp-paypal-api-status-cache' );
+		return new FailureRegistry( $cache );
 	},
 	'api.helper.purchase-unit-sanitizer'        => SingletonDecorator::make(
 		static function( ContainerInterface $container ): PurchaseUnitSanitizer {

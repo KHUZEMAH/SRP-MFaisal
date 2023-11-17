@@ -5,9 +5,9 @@ Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor
 Requires at least: 5.8
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable Tag: 7.9.2
+Stable Tag: 8.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -259,6 +259,18 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 8.1 =
+* Added - 3 new elegant styles to team members widget
+
+= 8.0 =
+* Added - Added intuitive image based style selector for posts gridbox slider, posts slider, posts multislider, testimonials, services, team members widgets.
+* Added - Image based style select control to help choose styles visually. Will replace text based select styles dropdown in many widgets in future versions of the plugin.
+* Updated - Compatibility with Elementor 3.17
+
+= 7.9.3 =
+* Added - New icons for few widgets
+* Updated - Minor code refactoring and improvements
 
 = 7.9.2 =
 * Freemius SDK update to 2.5.12

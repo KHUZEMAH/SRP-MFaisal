@@ -5,9 +5,9 @@ Plugin URI: https://in.linkedin.com/in/akshay-menariya-5218a664
 Tags: export menus, import menus, menus backup, wordpress menus, exporter, uber menu backup, importer, menus, backup, menu backup, uber export, uber import
 Author: Akshay Menariya
 Requires at least: 4.9.5
-Tested up to: 6.0
-Stable tag: 1.8.0
-Version: 1.8.0
+Tested up to: 6.3.2
+Stable tag: 1.9.0
+Version: 1.9.0
 Requires PHP: 5.6.31
 License: GPLv3 or later
 Licence URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -68,3 +68,9 @@ WordPress Export Import Menus lets you export and import your WordPress Menus. T
 = 1.8.0 =
 * Compatibility with WordPress 6.0
 * Other Bug fixes
+
+= 1.9.0 =
+* Compatibility with WordPress 6.3.2
+* Fixed file upload vulnerabilities issues
+* Added file type check to only allow .json files upload and restricting other file types  
+* Other bug fixes

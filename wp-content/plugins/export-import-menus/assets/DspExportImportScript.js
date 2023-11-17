@@ -16,7 +16,6 @@ function dsp_menu_tabs(evt, tabname) {
 //Import nav item AJAX
 function DspImportMenus(params)
 {
-
     params.append('security', dspexportmenus.nonce_verify);
     jQuery(".dsp-menuname").prop('disabled', true);
     jQuery(".dsp-import-loader").show();
@@ -57,6 +56,7 @@ function DspImportMenus(params)
                     fdata.append('newIds', JSON.stringify(data.newIds));
                     fdata.append('menuId', data.menuId);
                     fdata.append('curntmenupos', data.nextMenuPos);
+                    fdata.append('isFileTypeChecked', data.isFileTypeChecked);
                     DspImportMenus(fdata); 
                 }
                 else
@@ -78,18 +78,17 @@ function DspImportMenus(params)
 }
 
 jQuery(document).ready(function(){
-   jQuery('.dsp-menuname').on('keyup', function() {
-        var menuName = jQuery(".dsp-menuname").val().replace(/ /g,'');
-        if(menuName === '')
-        {        
-            jQuery("#dsp-import-menus").prop("disabled",true);
-        }
-        else
-        {
-            jQuery("#dsp-import-menus").prop("disabled",false);
-        }
-   });
-			
+    jQuery('.dsp-menuname').on('keyup', function() {
+            var menuName = jQuery(".dsp-menuname").val().replace(/ /g,'');
+            if(menuName === '')
+            {        
+                jQuery("#dsp-import-menus").prop("disabled",true);
+            }
+            else
+            {
+                jQuery("#dsp-import-menus").prop("disabled",false);
+            }
+    });
     jQuery("#uploadForm").on('submit',(function(e) {
         e.preventDefault();
         var fdata = new FormData(this);
