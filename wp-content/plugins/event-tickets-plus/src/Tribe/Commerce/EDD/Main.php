@@ -279,6 +279,9 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 
 		// Cache invalidation.
 		add_filter( 'tec_cache_listener_save_post_types', [ $this, 'filter_cache_listener_save_post_types' ] );
+
+		add_action( 'edd_order_receipt_order_details', [ $this, 'include_your_tickets' ] );
+
 	}
 
 	/**
@@ -2699,7 +2702,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 	 * Filters the list of post types that should trigger a cache invalidation on `save_post` to add
 	 * all the ones modeling Easy Digital Downloads' Tickets, Attendees and Orders.
 	 *
-	 * @since TBD
+	 * @since 5.8.0
 	 *
 	 * @param string[] $post_types The list of post types that should trigger a cache invalidation on `save_post`.
 	 *
@@ -2711,5 +2714,46 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 		$post_types[] = $this->order_object;
 
 		return $post_types;
+	}
+
+	/**
+	 * Includes the "Your Tickets" template for the confirmation page.
+	 *
+	 * This method initializes the Tribe__Template instance, fetches the attendees by the order ID,
+	 * and then calls the appropriate template to render the Your Tickets section.
+	 *
+	 * @since 5.8.0
+	 *
+	 * @param \EDD\Orders\Order $order Current order.
+	 */
+	public function include_your_tickets( $order ): void {
+		// Bail if $order is not an instance of \EDD\Orders\Order.
+		if ( ! $order instanceof \EDD\Orders\Order ) {
+			return;
+		}
+
+		// Bail if the order ID is not valid.
+		$order_id = $order->id;
+		if ( empty( $order_id ) ) {
+			return;
+		}
+
+		$attendees = $this->get_attendees_by_order_id( $order_id );
+
+		// Bail if there are no attendees.
+		if ( empty( $attendees ) ) {
+			return;
+		}
+
+		$template_args = [
+			'provider'      => $this,
+			'provider_id'   => $this->class_name,
+			'order'         => $order,
+			'order_id'      => $order_id,
+			'is_tec_active' => tec_tickets_tec_events_is_active(),
+			'attendees'     => $attendees,
+		];
+
+		tribe( 'tickets.editor.template' )->template( 'components/attendees-list/attendees', $template_args, true );
 	}
 }

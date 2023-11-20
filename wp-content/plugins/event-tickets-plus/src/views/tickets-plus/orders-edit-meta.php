@@ -31,7 +31,7 @@ $meta = tribe( 'tickets-plus.meta' );
 
 if ( ! $ticket instanceof WP_Post ) {
 	?>
-	<p>
+	<div class="tribe-event-tickets-plus-meta">
 		<?php
 		echo esc_html(
 			sprintf(
@@ -40,7 +40,7 @@ if ( ! $ticket instanceof WP_Post ) {
 			)
 		);
 		?>
-	</p>
+	</div>
 	<?php
 
 	return;

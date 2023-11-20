@@ -114,7 +114,14 @@ abstract class Page
 		}
 
 		$pages[] = $page;
-		$this->myPages = \array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id');
+		if ($this->myPages) {
+			$this->myPages = \array_merge(
+				$this->myPages,
+				\array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id')
+			);
+		} else {
+			$this->myPages = \array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id');
+		}
 		return $pages;
 	}
 
@@ -164,7 +171,14 @@ abstract class Page
 			}
 		}
 
-		$this->myPages = \array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id');
+		if ($this->myPages) {
+			$this->myPages = \array_merge(
+				$this->myPages,
+				\array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id')
+			);
+		} else {
+			$this->myPages = \array_column(\array_filter($pages, array($this, 'isNotPrebuild')), 'id', 'id');
+		}
 		return $pages;
 	}
 

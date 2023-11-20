@@ -29,7 +29,20 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string
 	 */
-	public const VERSION  = '1.15.4';
+	public const VERSION  = '1.15.5';
+
+	/**
+	 * The dependencies of the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array[] The dependencies of the plugin.
+	 */
+	protected $dependencies = [
+		'parent-dependencies' => [
+			'Tribe__Events__Main' => '6.2.6-dev',
+		],
+	];
 
 	/**
 	 * Configures the base_dir property which is the path to the plugin bootstrap file.
@@ -91,17 +104,4 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 * @var string The main class of the plugin.
 	 */
 	protected $main_class = '\Tribe\Events\Virtual\Plugin';
-
-	/**
-	 * The dependencies of the plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var array[] The dependencies of the plugin.
-	 */
-	protected $dependencies = [
-		'parent-dependencies' => [
-			'Tribe__Events__Main' => '6.1.2-dev',
-		],
-	];
 }

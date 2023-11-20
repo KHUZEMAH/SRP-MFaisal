@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Tribe__Tickets_Plus__REST__V1__Response
  *
@@ -30,14 +29,14 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 		$ticket_id            = $data['id'];
 		$ticket_meta_enabled  = tribe_is_truthy( get_post_meta( $ticket_id, Tribe__Tickets_Plus__Meta::ENABLE_META_KEY, true ) );
 		$ticket_meta          = (array) get_post_meta( $ticket_id, Tribe__Tickets_Plus__Meta::META_KEY, true );
-		$required_ticket_meta = wp_list_filter( $ticket_meta, array( 'required' => 'on' ) );
+		$required_ticket_meta = wp_list_filter( $ticket_meta, [ 'required' => 'on' ] );
 
 		$supports_attendee_information         = $ticket_meta_enabled && count( $ticket_meta ) > 0;
 		$data['supports_attendee_information'] = $supports_attendee_information;
 		$data['requires_attendee_information'] = $data['supports_attendee_information'] && count( $required_ticket_meta ) > 0;
 		$data['attendee_information_fields']   = $supports_attendee_information
-			? array_filter( array_map( array( $this, 'build_field_information' ), $ticket_meta ) )
-			: array();
+			? array_filter( array_map( [ $this, 'build_field_information' ], $ticket_meta ) )
+			: [];
 
 		return $data;
 	}
@@ -47,7 +46,7 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 4.8
 	 *
-	 * @param array|stdClass $field
+	 * @param array|stdClass $field The attendee field information.
 	 *
 	 * @return array|bool The attendee meta field information if valid, `false` otherwise.
 	 */
@@ -58,13 +57,13 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 			return false;
 		}
 
-		$field_data = array(
+		$field_data = [
 			'slug'     => $field['slug'],
 			'type'     => $field['type'],
 			'required' => tribe_is_truthy( Tribe__Utils__Array::get( $field, 'required', false ) ),
 			'label'    => $field['label'],
-			'extra'    => Tribe__Utils__Array::get( $field, 'extra', array() ),
-		);
+			'extra'    => Tribe__Utils__Array::get( $field, 'extra', [] ),
+		];
 
 		return $field_data;
 	}
@@ -133,7 +132,7 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 5.4.2
 	 *
-	 * @param array $updated_data Data that needs to be updated.
+	 * @param array           $data    Data that needs to be updated.
 	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return array | WP_Error
@@ -151,8 +150,8 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 	 *
 	 * @since 5.4.2
 	 *
-	 * @param    int $ticket_id Ticket ID.
-	 * @param array $data Ticket Data.
+	 * @param int   $ticket_id Ticket ID.
+	 * @param array $data      Ticket Data.
 	 *
 	 * @return mixed|WP_Error
 	 */
@@ -161,12 +160,19 @@ class Tribe__Tickets_Plus__REST__V1__Response {
 			return new WP_Error( 'invalid-meta-fields', __( 'This attendee has no meta fields associated with it.', 'event-tickets-plus' ), [ 'status' => 400 ] );
 		}
 
-		$meta_fields   = (array) get_post_meta( $ticket_id, Tribe__Tickets_Plus__Meta::META_KEY , true );
+		$meta_fields   = (array) get_post_meta( $ticket_id, Tribe__Tickets_Plus__Meta::META_KEY, true );
 		$attendee_meta = $data['attendee_meta'];
 
 		foreach ( $meta_fields as $field ) {
-			if ( 'on' === $field['required'] && ! isset( $attendee_meta[ $field[ 'slug' ] ] ) ) {
-				return new WP_Error( 'missing-required-meta-fields', __( 'Some required attendee data is missing.', 'event-tickets-plus' ), [ 'status' => 400, 'attendee_meta' => $meta_fields ] );
+			if ( 'on' === $field['required'] && ! isset( $attendee_meta[ $field['slug'] ] ) ) {
+				return new WP_Error(
+					'missing-required-meta-fields',
+					__( 'Some required attendee data is missing.', 'event-tickets-plus' ),
+					[
+						'status'        => 400,
+						'attendee_meta' => $meta_fields,
+					]
+				);
 			}
 		}
 

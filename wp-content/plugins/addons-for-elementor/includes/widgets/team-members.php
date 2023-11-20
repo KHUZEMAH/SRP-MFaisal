@@ -85,6 +85,7 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'lae-jquery-slick',
             'lae-frontend-scripts',
             'lae-carousel-helper-scripts',
+            'jquery-magnific-popup',
             'lae-team-members-scripts'
         ];
     }
@@ -330,6 +331,30 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style5.jpg',
             'width'      => '100%',
         ],
+            'style6' => [
+            'title'      => __( 'Style 6', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style6.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style6.jpg',
+            'width'      => '100%',
+        ],
+            'style7' => [
+            'title'      => __( 'Style 7', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style7.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style7.jpg',
+            'width'      => '100%',
+        ],
+            'style8' => [
+            'title'      => __( 'Style 8', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style8.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style8.jpg',
+            'width'      => '100%',
+        ],
+            'style9' => [
+            'title'      => __( 'Style 9', 'livemesh-el-addons' ),
+            'imagelarge' => LAE_STYLES_PREVIEW_URL . 'team-members/style9.jpg',
+            'imagesmall' => LAE_STYLES_PREVIEW_URL . 'team-members/style9.jpg',
+            'width'      => '100%',
+        ],
         ],
         ] );
         $this->add_control( 'layout', [
@@ -341,7 +366,13 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'carousel' => __( 'Carousel', 'livemesh-el-addons' ),
         ],
             'condition' => [
-            'style' => [ 'style1' ],
+            'style' => [
+            'style1',
+            'style6',
+            'style7',
+            'style8',
+            'style9'
+        ],
         ],
         ] );
         $this->add_group_control( Group_Control_Image_Size::get_type(), [
@@ -354,7 +385,13 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'label'     => __( 'Carousel Settings', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => [ 'style1' ],
+            'style'  => [
+            'style1',
+            'style6',
+            'style7',
+            'style8',
+            'style9'
+        ],
             'layout' => [ 'carousel' ],
         ],
         ] );
@@ -451,7 +488,13 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'label'     => __( 'Responsive Options', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => [ 'style1' ],
+            'style'  => [
+            'style1',
+            'style6',
+            'style7',
+            'style8',
+            'style9'
+        ],
             'layout' => [ 'carousel' ],
         ],
         ] );
@@ -535,7 +578,13 @@ class LAE_Team_Widget extends LAE_Widget_Base
             'label'     => __( 'Grid Settings', 'livemesh-el-addons' ),
             'tab'       => Controls_Manager::TAB_SETTINGS,
             'condition' => [
-            'style'  => 'style1',
+            'style'  => [
+            'style1',
+            'style6',
+            'style7',
+            'style8',
+            'style9'
+        ],
             'layout' => [ 'grid' ],
         ],
         ] );

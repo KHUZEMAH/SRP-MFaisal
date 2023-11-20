@@ -41,7 +41,7 @@ class Admin
 		$this->install();
 
 		if( \is_admin() || (defined('DOING_AJAX') && DOING_AJAX) )
-			\add_action('setup_theme', array($this, 'registerAdminPages'), 5);
+			\add_action('setup_theme', array($this, 'registerAdminPages'), 15);
 
 		if( \is_admin() && !(defined('DOING_AJAX') && DOING_AJAX) )
 		{

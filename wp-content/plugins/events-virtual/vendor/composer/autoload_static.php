@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit704b8ccf04c796087683dfb9846770ec
+class ComposerStaticInit4fef8dfaa2392085e65a475c7590b74a
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -60,6 +60,8 @@ class ComposerStaticInit704b8ccf04c796087683dfb9846770ec
         'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Emails\\Provider' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Emails/Provider.php',
         'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Emails\\Template' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Emails/Template.php',
         'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Provider' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Provider.php',
+        'TEC\\Events_Virtual\\Integrations\\Plugins\\Tickets_Wallet_Plus\\Controller' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Plugins/Tickets_Wallet_Plus/Controller.php',
+        'TEC\\Events_Virtual\\Integrations\\Plugins\\Tickets_Wallet_Plus\\Passes\\Pdf' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php',
         'TEC\\Events_Virtual\\Integrations\\Provider' => __DIR__ . '/../..' . '/src/Events_Virtual/Integrations/Provider.php',
         'Tribe\\Events\\Virtual\\Admin_Template' => __DIR__ . '/../..' . '/src/Tribe/Admin_Template.php',
         'Tribe\\Events\\Virtual\\Assets' => __DIR__ . '/../..' . '/src/Tribe/Assets.php',
@@ -218,9 +220,9 @@ class ComposerStaticInit704b8ccf04c796087683dfb9846770ec
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit704b8ccf04c796087683dfb9846770ec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit704b8ccf04c796087683dfb9846770ec::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit704b8ccf04c796087683dfb9846770ec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4fef8dfaa2392085e65a475c7590b74a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4fef8dfaa2392085e65a475c7590b74a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4fef8dfaa2392085e65a475c7590b74a::$classMap;
 
         }, null, ClassLoader::class);
     }

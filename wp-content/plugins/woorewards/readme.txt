@@ -2,9 +2,9 @@
 Contributors: lwsdevelopers
 Tags: free, woocommerce, loyalty, referrals, rewards, coupon, points, social medias, badges, achievements, fidélité, récompenses, bon d'achat, daily, temporary, success, badges, events, anniversary, achievements, succès, événements, referral, chinese, spanish, french, subscriptions, sponsorship,
 Requires at least: 5.3
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0.0
-Stable tag: 5.2.4
+Stable tag: 5.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,30 @@ Yes, High-Performance Order Storage is supported.
 5. Styling options
 
 == Changelog ==
+
+= 5.2.6 =
+* MyRewards :
+	* Tag - WordPress 6.4
+	* Tag - WooCommerce 8.3
+	* Feature - HPOS Order bulk action list - force points computing action
+	* Fix - Use WooRewards without WooCommerce
+	* Tweak - shortcode attribute example
+	* Improvement - Foldable shortcode attributes descriptions
+* MyRewards Pro :
+	* Feature - HPOS Order bulk action list - add points removing action
+	* Improvement - More detailed style in new reward email
+
+= 5.2.5 =
+* MyRewards :
+	* Feature - Restrict points on cart to product categories
+	* Feature - Support for `Individual Use Solver for WooCommerce Coupons` plugin
+	* Feature - New option `showcurrency` for `pointsbalance` shortcode
+	* Feature - New option `layout` for `wr_referral_link` shortcode
+	* Fix - let add points on cart buttons enabled if no discount applied
+* MyRewards Pro :
+	* Fix - Singular point display name saving
+	* Fix - Shortcode `wr_order_points_preview` bug when several free product coupons on cart
+	* Dev - refactor user birthday event
 
 = 5.2.4 =
 * MyRewards :

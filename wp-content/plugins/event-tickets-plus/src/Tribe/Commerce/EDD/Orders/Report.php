@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Tickets\Plus\Commerce\EDD\Orders\Data\Order_Summary;
+
 /**
  * Class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report
  *
@@ -227,8 +229,6 @@ class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report {
 	 * @since 4.10
 	 */
 	public function orders_page_inside() {
-		$this->orders_table->prepare_items();
-
 		$post_id = Tribe__Utils__Array::get( $_GET, 'event_id', Tribe__Utils__Array::get( $_GET, 'post_id', 0 ) );
 		$post    = get_post( absint( $post_id ) );
 
@@ -236,77 +236,6 @@ class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report {
 		$tabbed_view = new Tribe__Tickets__Commerce__Orders_Tabbed_View();
 		$tabbed_view->set_active( self::$tab_slug );
 		$tabbed_view->render();
-
-		$author     = get_user_by( 'id', $post->post_author );
-		$tickets    = Tribe__Tickets__Tickets::get_event_tickets( $post_id );
-
-		/**
-		 * Setup the ticket breakdown
-		 *
-		 * @var Tribe__Tickets__Status__Manager $status_manager
-		 */
-		$status_manager = tribe( 'tickets.status' );
-
-		$order_overview      = $status_manager->get_providers_status_classes( 'edd' );
-		$complete_statuses   = (array) $status_manager->get_statuses_by_action( 'count_completed', 'edd' );
-		$incomplete_statuses = (array) $status_manager->get_statuses_by_action( 'count_incomplete', 'edd' );
-
-		$tickets_sold = [];
-
-		/**
-		 * Update ticket item counts by order status
-		 *
-		 * @var Tribe__Tickets__Ticket_Object $ticket
-		 */
-		foreach ( $tickets as $ticket ) {
-			// Only Display if a EDD Ticket otherwise kick out
-			if ( 'Tribe__Tickets_Plus__Commerce__EDD__Main' != $ticket->provider_class ) {
-				continue;
-			}
-
-			if ( empty( $tickets_sold[ $ticket->name ] ) ) {
-				$tickets_sold[ $ticket->name ] = [
-					'ticket'     => $ticket,
-					'has_stock'  => ! $ticket->stock(),
-					'sku'        => get_post_meta( $ticket->ID, '_sku', true ),
-					'sold'       => 0,
-					'pending'    => 0,
-					'completed'  => 0,
-					'refunded'   => 0,
-					'incomplete' => 0,
-				];
-			}
-
-			$orders = $this->get_all_orders_by_download_id( $ticket->ID );
-			foreach ( $orders as $order ) {
-				foreach ( $order->cart_details as $line_item ) {
-
-					if ( ! $order->status_nicename || ! isset( $line_item ) ) {
-						continue;
-					}
-
-					// only count the item if it matches the current ticket id
-					if ( $ticket->ID !== $line_item['id'] ) {
-						continue;
-					}
-
-					if ( in_array( $order->status, $complete_statuses, true ) ) {
-						$tickets_sold[ $ticket->name ]['completed'] += $line_item['quantity'];
-					}
-
-					if ( in_array( $order->status, $incomplete_statuses, true ) ) {
-						$tickets_sold[ $ticket->name ]['incomplete'] += $line_item['quantity'];
-					}
-
-					/** @var Tribe__Tickets__Status__Abstract $status_class */
-					$status_class = $order_overview->statuses[ $order->status_nicename ];
-					$status_class->add_qty( $line_item['quantity'] );
-					$status_class->add_line_total( $line_item['subtotal'] );
-					$order_overview->add_qty( $line_item['quantity'] );
-					$order_overview->add_line_total( $line_item['subtotal'] );
-				}
-			}
-		}
 
 		$post_type_object = get_post_type_object( $post->post_type );
 		$post_singular_label = $post_type_object->labels->singular_name;
@@ -319,7 +248,26 @@ class Tribe__Tickets_Plus__Commerce__EDD__Orders__Report {
 		$this->orders_table->display();
 		$table = ob_get_clean();
 
-		include Tribe__Tickets_Plus__Main::instance()->plugin_path . 'src/admin-views/edd-orders.php';
+		/** @var Tribe__Tickets__Admin__Views $tickets_admin_views */
+		$tickets_admin_views = tribe( 'tickets.admin.views' );
+		$order_summary_data  = new Order_Summary( $post_id );
+
+		$order_summary_context =  [
+			'post_id'             => $post_id,
+			'post'                => $post,
+			'post_singular_label' => $post_singular_label,
+			'order_summary'       => $order_summary_data,
+		];
+		$order_summary_template = $tickets_admin_views->template( 'commerce/reports/orders/summary', $order_summary_context, false );
+
+		/** @var Tribe__Tickets_Plus__Admin__Views $view */
+		$view = tribe( 'tickets-plus.admin.views' );
+		$view->template( 'edd-orders', [
+			'post_id'       => $post_id,
+			'post'          => $post,
+			'order_summary' => $order_summary_template,
+			'table'         => $table
+		] );
 	}
 
 	/**

@@ -293,6 +293,27 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	}
 
 	/**
+	 * Sets the compatibility checks for WooCommerce.
+	 *
+	 * Used by the WooCommerce Commerce Module to configure the compatibility with certain features of WooCommerce.
+	 *
+	 * The hooks here are intentionally using anonymous methods as we do not want them to be removed.
+	 *
+	 * @since 5.8.0
+	 *
+	 * @return void
+	 */
+	public static function set_compatibility_checks(): void {
+		add_action( 'before_woocommerce_init', static function() {
+			if ( ! class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil', false ) ) {
+				return;
+			}
+
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', EVENT_TICKETS_PLUS_FILE, false );
+		} );
+	}
+
+	/**
 	 * Class constructor
 	 */
 	public function __construct() {
@@ -416,6 +437,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 
 		// Cache invalidation.
 		add_filter( 'tec_cache_listener_save_post_types', [ $this, 'filter_cache_listener_save_post_types' ] );
+
+		add_action( 'woocommerce_after_order_details', [ $this, 'include_your_tickets' ] );
 	}
 
 	/**
@@ -4082,7 +4105,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	 * Filters the list of post types that should trigger a cache invalidation on `save_post` to add
 	 * all the ones modeling WooCommerce Tickets, Attendees and Orders.
 	 *
-	 * @since TBD
+	 * @since 5.8.0
 	 *
 	 * @param string[] $post_types The list of post types that should trigger a cache invalidation on `save_post`.
 	 *
@@ -4094,5 +4117,46 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		$post_types[] = $this->order_object;
 
 		return $post_types;
+	}
+
+	/**
+	 * Includes the "Your Tickets" template for the checkout page.
+	 *
+	 * This method initializes the Tribe__Template instance, fetches the attendees by the order ID,
+	 * and then calls the appropriate template to render the Your Tickets section.
+	 *
+	 * @since 5.8.0
+	 *
+	 * @param \WC_Order $order The WooCommerce order object.
+	 */
+	public function include_your_tickets( $order ): void {
+		// Bail if the order is not a valid WC_Order.
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
+
+		// Bail if the order ID is not valid.
+		$order_id = $order->get_id();
+		if ( empty( $order_id ) ) {
+			return;
+		}
+
+		$attendees = $this->get_attendees_by_id( $order->get_id() );
+
+		// Bail if there are no attendees.
+		if ( empty( $attendees ) ) {
+			return;
+		}
+
+		$template_args = [
+			'provider'      => $this,
+			'provider_id'   => $this->class_name,
+			'order'         => $order,
+			'order_id'      => $order->get_id(),
+			'is_tec_active' => tec_tickets_tec_events_is_active(),
+			'attendees'     => $attendees,
+		];
+
+		tribe( 'tickets.editor.template' )->template( 'components/attendees-list/attendees', $template_args, true );
 	}
 }

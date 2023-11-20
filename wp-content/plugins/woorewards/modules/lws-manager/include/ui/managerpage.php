@@ -936,6 +936,7 @@ EOT;
 		$this->uuid = $uuid;
 	}
 
+	/** @return \LWS\Manager\Core\Manager */
 	private function &getManager()
 	{
 		if( false === $this->license ){

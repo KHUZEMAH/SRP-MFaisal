@@ -227,7 +227,6 @@ class Tribe__Tickets_Plus__Assets {
 			[ 'event-tickets-plus-meta-admin-js', 'meta-admin.js', [ 'tribe-common', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-sortable', 'event-tickets-admin-js' ] ],
 			[ 'event-tickets-plus-admin-css', 'admin.css', [ 'event-tickets-admin-css' ] ],
 			[ 'event-tickets-plus-admin-tables-js', 'tickets-tables.js', [ 'underscore', 'jquery', 'tribe-common' ] ],
-			[ 'event-tickets-plus-admin-qr', 'qr.js', [ 'jquery' ] ],
 		];
 
 		/**

@@ -16,7 +16,7 @@ class Tribe__Tickets_Plus__Tickets_View {
 	/**
 	 * Gets the Event Tickets template instance used to setup the rendering html.
 	 *
-	 * @since TBD
+	 * @since 5.8.0
 	 *
 	 * @return Tribe__Template The template object.
 	 */
@@ -485,7 +485,7 @@ class Tribe__Tickets_Plus__Tickets_View {
 		);
 
 		$template = $this->get_template();
-		$template->template( 'tickets/my-tickets', [ 
+		$template->template( 'tickets/my-tickets', [
 			'title'    => $title,
 			'post_id'  => $post_id,
 			'orders'   => $orders,

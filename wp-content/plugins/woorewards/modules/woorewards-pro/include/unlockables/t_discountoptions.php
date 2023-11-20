@@ -238,12 +238,12 @@ EOT;
 		$str .= "<div class='lws-$context-opt-title label'>$label</div>";
 		$str .= "<div class='lws-$context-opt-input value'>$toggle</div>";
 
-		if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+		if (\apply_filters('lwsdev_coupon_individual_use_solver_exists', false)) {
 			$label   = _x("Exclusive categories", "Coupon category", 'woorewards-pro');
 			$tooltip = __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-pro');
 			$input = \LWS\Adminpanel\Pages\Field\LacChecklist::compose($prefix . 'coupon_cat', array(
 				'comprehensive' => true,
-				'ajax'          => 'lws_coupon_individual_use_solver_categories',
+				'ajax'          => 'lwsdev_coupon_individual_use_solver_categories',
 			));
 			$str .= <<<EOT
 <div class='field-help'>{$tooltip}</div>
@@ -404,7 +404,7 @@ EOT;
 	function applyOnCoupon($coupon, $user, $poolId=false, $demo=false)
 	{
 		if ($coupon->get_id()) {
-			\do_action('lws_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
+			\do_action('lwsdev_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
 		}
 	}
 

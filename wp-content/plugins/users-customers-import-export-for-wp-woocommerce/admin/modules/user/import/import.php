@@ -13,7 +13,6 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
     public $parsed_data = array();
     public $user_all_fields = array();
     public $user_base_fields = array();
-    public $use_same_password = array();
     public $user_meta_fields = array();
     public $current_user = array();
          
@@ -53,10 +52,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
     public function prepare_data_to_import($import_data,$form_data, $batch_offset, $is_last_batch){
 
         $this->merge_with = !empty($form_data['advanced_form_data']['wt_iew_merge_with']) ? $form_data['advanced_form_data']['wt_iew_merge_with'] : 'email'; 
-        $this->found_action = !empty($form_data['advanced_form_data']['wt_iew_found_action']) ? $form_data['advanced_form_data']['wt_iew_found_action'] : 'skip'; 
-        $this->use_same_password = isset($form_data['advanced_form_data']['wt_iew_use_same_password']) ? $form_data['advanced_form_data']['wt_iew_use_same_password'] : 1; 
-        
-        
+        $this->found_action = !empty($form_data['advanced_form_data']['wt_iew_found_action']) ? $form_data['advanced_form_data']['wt_iew_found_action'] : 'skip';         
         wp_defer_term_counting(true);
         wp_defer_comment_counting(true);
         wp_suspend_cache_invalidation(true);
@@ -214,6 +210,8 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
             }
 
             $user_meta = $user_details = array();
+
+
             
             $user_details['ID'] = $user_id;
                                     
@@ -329,7 +327,11 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
 		}
                
         if (!empty($data['user_details']['user_pass'])) {
-            $password = ($this->use_same_password) ? $data['user_details']['user_pass'] : wp_hash_password($data['user_details']['user_pass']);
+            $is_wordpress_password = false;
+            if ( strlen($data['user_details']['user_pass']) === 34 && strpos( $data['user_details']['user_pass'], '$P$B') === 0){
+                $is_wordpress_password = true;
+            }
+            $password = ($is_wordpress_password) ? $data['user_details']['user_pass'] : wp_hash_password($data['user_details']['user_pass']);
             $password_generated = false;
         } else {
             $password = wp_generate_password(12, true);
@@ -356,7 +358,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
                 $insertion_id = (int) $insertion_id;
                 $username = sanitize_user($username);
                 $customer_email = sanitize_email($customer_email);
-                if($password_generated && !$this->use_same_password){
+                if($password_generated){
                     $password = wp_hash_password($password);
                 }
                 $result = $wpdb->insert($wpdb->users, array('ID' => $insertion_id, 'user_login' => $username, 'user_email' => $customer_email, 'user_pass' => $password));
@@ -551,9 +553,12 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
             add_filter('send_password_change_email', '__return_false'); // for preventing sending password change notification mail on by wp_update_user.
             if (sizeof($user_data) > 1) {                               
                 wp_update_user($user_data);
-            }    
-
-            if ($this->use_same_password && isset($data['user_details']['user_pass']) && !empty($data['user_details']['user_pass'])) {
+            }
+            $is_wordpress_password = false;
+            if ( strlen($data['user_details']['user_pass']) === 34 && strpos( $data['user_details']['user_pass'], '$P$B') === 0){
+                $is_wordpress_password = true;
+            }
+            if ($is_wordpress_password && isset($data['user_details']['user_pass']) && !empty($data['user_details']['user_pass'])) {
                 $password = $data['user_details']['user_pass'];
                 $user_data = array_merge($user_data, array('user_login' => $wp_user_object->user_login, 'user_email' => ( $email_updated ) ? $customer_email : $wp_user_object->user_email, 'user_url' =>$wp_user_object->user_url));                
                 $user_data['user_pass'] = $password; 

@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Tickets\Plus\Commerce\WooCommerce\Orders\Data\Order_Summary;
+
 class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Report {
 	/**
 	 * Slug of the admin page for orders
@@ -33,35 +35,40 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Report {
 	 * Constructor!
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'orders_page_register' ) );
-		add_filter( 'post_row_actions', array( $this, 'orders_row_action' ) );
-		add_filter( 'tribe_filter_attendee_order_link', array( $this, 'filter_editor_orders_link' ), 10, 2 );
+		add_action( 'admin_menu', [ $this, 'orders_page_register' ] );
+		add_filter( 'post_row_actions', [ $this, 'orders_row_action' ] );
+		add_filter( 'tribe_filter_attendee_order_link', [ $this, 'filter_editor_orders_link' ], 10, 2 );
 
-		// register the WooCommerce orders report tab
+		// Register the WooCommerce orders report tab.
 		$wc_tabbed_view = new Tribe__Tickets_Plus__Commerce__WooCommerce__Tabbed_View__Report_Tabbed_View();
-		$wc_tabbed_view->register( );
+		$wc_tabbed_view->register();
 	}
 
 	/**
 	 * Registers the Orders admin page
 	 */
 	public function orders_page_register() {
-		// the orders table only works with WooCommerce
+		// The orders table only works with WooCommerce.
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
 
 		$this->orders_page = add_submenu_page(
-			null, 'Order list', 'Order list', 'edit_posts', self::$orders_slug, array(
+			'',
+			'Order list',
+			'Order list',
+			'edit_posts',
+			self::$orders_slug,
+			[
 				$this,
 				'orders_page_inside',
-			)
+			]
 		);
 
-		add_filter( 'tribe_filter_attendee_page_slug', array( $this, 'add_attendee_resources_page_slug' ) );
+		add_filter( 'tribe_filter_attendee_page_slug', [ $this, 'add_attendee_resources_page_slug' ] );
 		add_action( 'admin_enqueue_scripts', tribe_callback( 'tickets.attendees', 'enqueue_assets' ) );
 		add_action( 'admin_enqueue_scripts', tribe_callback( 'tickets.attendees', 'load_pointers' ) );
-		add_action( "load-$this->orders_page", array( $this, 'orders_page_screen_setup' ) );
+		add_action( "load-$this->orders_page", [ $this, 'orders_page_screen_setup' ] );
 
 	}
 
@@ -170,8 +177,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Report {
 		$this->orders_table->prepare_items();
 
 		$event_id = isset( $_GET['event_id'] ) ? absint( $_GET['event_id'] ) : 0;
-		$event = get_post( $event_id );
-		$tickets = Tribe__Tickets__Tickets::get_event_tickets( $event_id );
+		$event    = get_post( $event_id );
 
 		/**
 		 * Filters whether or not fees are being passed to the end user (purchaser)
@@ -199,81 +205,31 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Report {
 		$this->orders_table->display();
 		$table = ob_get_clean();
 
-		$organizer   = get_user_by( 'id', $event->post_author );
-		$event_sales = Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table::event_sales( $event_id );
-		$discounts   = Tribe__Tickets_Plus__Commerce__WooCommerce__Orders__Table::event_discounts( $event_id );
-
-		$tickets_sold  = [];
-		$total_sold    = 0;
-		$total_pending = 0;
-
-		/**
-		 * Setup the ticket breakdown
-		 *
-		 * @var Tribe__Tickets__Status__Manager $status_manager
-		 */
-		$status_manager = tribe( 'tickets.status' );
-
-		$order_overview      = $status_manager->get_providers_status_classes( 'woo' );
-		$complete_statuses   = (array) $status_manager->get_statuses_by_action( 'count_completed', 'woo' );
-		$incomplete_statuses = (array) $status_manager->get_statuses_by_action( 'count_incomplete', 'woo' );
-
-		/**
-		 * Update ticket item counts by order status
-		 *
-		 * @var Tribe__Tickets__Ticket_Object $ticket
-		 */
-		foreach ( $tickets as $ticket ) {
-			// Only Display if a WooCommerce Ticket otherwise kick out
-			if ( 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' != $ticket->provider_class ) {
-				continue;
-			}
-
-			if ( empty( $tickets_sold[ $ticket->name ] ) ) {
-				$tickets_sold[ $ticket->name ] = [
-					'ticket'     => $ticket,
-					'has_stock'  => ! $ticket->stock(),
-					'sku'        => get_post_meta( $ticket->ID, '_sku', true ),
-					'sold'       => 0,
-					'pending'    => 0,
-					'completed'  => 0,
-					'refunded'   => 0,
-					'incomplete' => 0,
-				];
-			}
-
-			// update ticket item counts by order status
-			$tickets_sold[ $ticket->name ]['product_sales'] = self::get_total_sales_per_productby_status( $ticket->ID );
-			foreach ( $tickets_sold[ $ticket->name ]['product_sales'] as $status => $product ) {
-				if (
-					$status
-					&& isset( $product[0] )
-					&& is_object( $product[0] )
-				) {
-					if ( in_array( $status, $complete_statuses, true ) ) {
-						$tickets_sold[ $ticket->name ]['completed'] += $product[0]->_qty;
-					}
-
-					if ( in_array( $status, $incomplete_statuses, true ) ) {
-						$tickets_sold[ $ticket->name ]['incomplete'] += $product[0]->_qty;
-					}
-
-					/** @var Tribe__Tickets__Status__Abstract $status_class */
-					$status_class = $order_overview->statuses[ $status ];
-					$status_class->add_qty( $product[0]->_qty );
-					$status_class->add_line_total( $product[0]->_line_total );
-					$order_overview->add_qty( $product[0]->_qty );
-					$order_overview->add_line_total( $product[0]->_line_total );
-				}
-			}
-		}
-
 		// Build and render the tabbed view from Event Tickets and set this as the active tab
 		$tabbed_view = new Tribe__Tickets__Commerce__Orders_Tabbed_View();
 		$tabbed_view->set_active( self::$tab_slug );
 		$tabbed_view->render();
 
-		include Tribe__Tickets_Plus__Main::instance()->plugin_path . 'src/admin-views/woocommerce-orders.php';
+		$tickets_admin_views = tribe( 'tickets.admin.views' );
+		$order_summary_data  = new Order_Summary( $event_id );
+		$post_type_object    = get_post_type_object( $event->post_type );
+		$post_singular_label = $post_type_object->labels->singular_name;
+		$order_summary_context =  [
+			'post_id'             => $event_id,
+			'post'                => $event,
+			'post_singular_label' => $post_singular_label,
+			'order_summary'       => $order_summary_data,
+		];
+		$order_summary_template = $tickets_admin_views->template( 'commerce/reports/orders/summary', $order_summary_context, false );
+
+		/** @var \Tribe__Tickets_Plus__Admin__Views $view */
+		$view = tribe( 'tickets-plus.admin.views' );
+		$view->template( 'woocommerce-orders', [
+			'event_id'      => $event_id,
+			'event'         => $event,
+			'order_summary' => $order_summary_template,
+			'table'         => $table
+		] );
 	}
 
 	/**

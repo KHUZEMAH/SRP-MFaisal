@@ -572,7 +572,9 @@ class Manager
 						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> expired the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $this->getKey()), 'error', '-e', false);
 					}else{
 						$this->clearNotice('error', '-e');
-						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $this->getKey()), 'warning', '-e', false);
+						$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> should be renewed on <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $this->getKey())
+						. ' ' . __("Please ensure your payment method still is valid.", 'lwsmanager'),
+						'warning', '-e', false);
 					}
 				}
 
@@ -656,10 +658,14 @@ class Manager
 				{
 					$e = \date_i18n(\get_option('date_format'), $d->getTimestamp());
 					if ($notice) {
-						if( $d->getTimestamp() >= \date_create()->setTime(0,0,0)->getTimestamp() )
-							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> will expire the <b>%1$s</b> unless you opted for automatic renewal.', 'lwsmanager'), $e, $this->getName(), $key), 'warning', '-e', false);
-						else
-							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key), 'error', '-e');
+						if( $d->getTimestamp() >= \date_create()->setTime(0,0,0)->getTimestamp() ) {
+							$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> should be renewed on <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key)
+								. ' ' . __("Please ensure your payment method still is valid.", 'lwsmanager'),
+								'warning', '-e', false
+							);
+						} else {
+								$this->notice(sprintf(__('The license <b>%3$s</b> for <i>%2$s</i> already expired the <b>%1$s</b>.', 'lwsmanager'), $e, $this->getName(), $key), 'error', '-e');
+						}
 					}
 				} else {
 					if ($notice)

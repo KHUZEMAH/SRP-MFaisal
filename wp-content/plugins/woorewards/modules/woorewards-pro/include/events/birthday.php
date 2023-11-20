@@ -224,30 +224,34 @@ EOT;
 	/** Look for all users once a day */
 	function trigger()
 	{
-		$mkey = $this->getMetaKey();
-		$mbirthday = $this->getBirthdayMetaKey();
-		$mbirthday = implode("','", array_map('esc_sql', is_array($mbirthday) ? $mbirthday : array($mbirthday)));
-
+		global $wpdb;
+		// for debug purpose
 		\update_post_meta($this->getId(), 'lws_woorewards_birthday_cron_last_call', \date('Y-m-d H:i:s'));
 
-		global $wpdb;
+		// get meta_key where last trigger was done
+		$mkey = $this->getMetaKey();
+		// get meta_keys where user birth date is saved
+		$mbirthday = $this->getBirthdayMetaKey();
+		$mbirthday = implode("','", array_map('esc_sql', is_array($mbirthday) ? $mbirthday : array($mbirthday)));
+		// we can be interested by few days before the date
 		$birth = "DATE(birth.meta_value)";
-		$anni = "DATE(anni.meta_value)";
 		$early = $this->getEarlyTrigger();
-		if( !$early->isNull() )
-		{
+		if (!$early->isNull()) {
 			$interval = $early->getSqlInterval();
 			$birth = "DATE_SUB({$birth}, {$interval})";
-			$anni = "DATE_SUB({$anni}, {$interval})";
 		}
 
+		// read never checked users, last check was at least one year before
+		// and birth date (-early_days) is at least one year before (for new born cases...)
 		$sql = <<<EOT
-SELECT birth.user_id, MAX(DATE(birth.meta_value)) as ref, MAX(DATE(anni.meta_value)) as saved, MAX(DATE(u.user_registered)) as registered FROM {$wpdb->usermeta} as birth
+SELECT birth.user_id, MAX(DATE(birth.meta_value)) as ref
+, MAX(DATE(anni.meta_value)) as saved, MAX(DATE(u.user_registered)) as registered
+FROM {$wpdb->usermeta} as birth
 LEFT JOIN {$wpdb->usermeta} as anni ON anni.user_id=birth.user_id AND anni.meta_key='{$mkey}'
 INNER JOIN {$wpdb->users} as u ON u.ID=birth.user_id
 WHERE birth.meta_key IN ('{$mbirthday}') AND birth.meta_value <> ''
 AND {$birth} <= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
-AND (anni.meta_value IS NULL OR {$anni} <= DATE_SUB(CURDATE(), INTERVAL 1 YEAR))
+AND (anni.meta_value IS NULL OR DATE(anni.meta_value) <= DATE_SUB(CURDATE(), INTERVAL 1 YEAR))
 GROUP BY birth.user_id
 EOT;
 		$users = $wpdb->get_results($sql);
@@ -258,11 +262,11 @@ EOT;
 			$count = 0;
 			foreach( $users as $user )
 			{
-				$count += $this->addPointsPerYear(
+				$count += $this->maybeAddPointsForTheYear(
 					$user->user_id,
-					empty($user->ref) ? false : \date_create($user->ref),
-					empty($user->saved) ? false : \date_create($user->saved),
-					empty($user->registered) ? false : \date_create($user->registered),
+					$user->ref, // user birth date
+					$user->saved, // last time this Event gave points
+					$user->registered, // user registration date
 					$early->isNull() ? false : $early->toInterval()
 				);
 			}
@@ -271,113 +275,201 @@ EOT;
 		}
 	}
 
-	/** Starting one year after max(reference, last), add points for each year up to today.
-	 *	Assume any $last is the same day as reference, only year should change.
-	 *	@param $reference the original date.
-	 *	@param $last if set, replace the original date.
-	 *	@param $min if set, do not give points before that date. */
-	protected function addPointsPerYear($user_id, $reference, $last=false, $min=false, $interval=false)
+	/** @param $userId (int) the user ID
+	 *	@param $reference false|string the original date (user birth date).
+	 *	@param $last false|string if set, replace the original date (last relevant date this Event gave points for).
+	 *	@param $min false|string if set, do not give points before that date (usually, the user registration date).
+	 *	@param $interval false|\DateInterval the points have to be triggered before the birthday. */
+	protected function maybeAddPointsForTheYear($user_id, $reference, $last=false, $min=false, $interval=false)
 	{
-		static $today = false;
-		if( !$today )
-			$today = \date_create();
-
-		$year = new \DateInterval('P1Y');
-		if( !empty($last) )
-		{
-			$reference = $last;
-			$reference->add($year);
+		$done = 0;
+		// init vars
+		$today = \date_create_immutable();
+		if ($reference && \is_string($reference)) {
+			$reference = \date_create_immutable($reference);
 		}
-		if( empty($reference) )
-			return 0;
+		$min = $this->getUserMinDate($reference, $min);
 
-		if( isset($this->eventCreationDate) && $this->eventCreationDate )
-		{
-			if( !$min || $min < $this->eventCreationDate )
-				$min = $this->eventCreationDate;
-		}
-		if ($min) {
-			$min->setTime(0, 0);
-			$reference->setDate($min->format('Y'), $reference->format('n'), $reference->format('j'));
-		}
-		$originalReference = $reference->format('Y-m-d');
-		if( !empty($interval) )
-			$reference->sub($interval);
-		$reference->setTime(0, 0);
+		// re-compute the trigger date for this year from scratch and save it
+		$triggerDate = $this->getTriggerDate($reference, $interval);
 
-		$date = false;
-		while( $reference <= $today )
-		{
-			if( empty($min) || $reference >= $min )
-				$date = $reference->format('Y-m-d');
-			$reference->add($year);
+		// do not trust database, check last year is far enough
+		if ($triggerDate < $min) {
+			// save the re-computed value, be sure no shift occured and fix any wrong data
+			\update_user_meta($user_id, $this->getMetaKey(), $triggerDate->format('Y-m-d'));
+		} elseif ($triggerDate > $today) {
+			// wait for it, but fix the value in database
+			\update_user_meta($user_id, $this->getMetaKey(), $triggerDate->sub(new \DateInterval('P1Y'))->format('Y-m-d'));
+		} else {
+			$done = $this->addPointsForTheYear($user_id, $triggerDate, $reference->format(\get_option('date_format', 'Y-m-d')));
+			// save the re-computed value, be sure no shift occured and fix any wrong data
+			\update_user_meta($user_id, $this->getMetaKey(), $triggerDate->format('Y-m-d'));
 		}
 
-		if( !empty($date) && ($points = \apply_filters('trigger_'.$this->getType(), 1, $this, $user_id, $date)) )
-		{
-			\update_user_meta($user_id, $this->getMetaKey(), $date);
-			$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array("Birthday %s", $originalReference), 'woorewards-pro');
+		return $done;
+	}
+
+	/** @param $birth_date string|\DateTimeInterface */
+	private function addPointsForTheYear(int $user_id, \DateTimeInterface $date, $birth_date)
+	{
+		if ($date && ($points = \apply_filters('trigger_' . $this->getType(), 1, $this, $user_id, $date))) {
+			$reason = \LWS\WOOREWARDS\Core\Trace::byReason(array(
+				"Birthday %s",
+				\is_string($birth_date) ? $birth_date : $birth_date->format(\get_option('date_format', 'Y-m-d')),
+			), 'woorewards-pro');
 			$this->addPoint($user_id, $reason, $points);
 			return 1;
-		}
-		else
+		} else {
 			return 0;
+		}
+	}
+
+	public function getTriggerDate($birthdate, $interval=false)
+	{
+		$today = \date_create_immutable();
+		$triggerDate = \date_create_immutable();
+		$triggerDate = $triggerDate->setDate((int)$today->format('Y'), (int)$birthdate->format('n'), (int)$birthdate->format('j'));
+		$triggerDate = $triggerDate->setTime(0, 0);
+		if ($interval) {
+			$triggerDate = $triggerDate->sub($interval);
+		}
+		// in case user changed his birth date, or just get access to the pool (role restriction)
+		// we only make up for a certain period of time (in case of cron issues)
+		// or we skip it until next year
+		$catchUp = \apply_filters('lws_woorewards_event_birthday_catch_up_period', 'P1M', $this, $birthdate);
+		if ($catchUp && $triggerDate <= $today->sub(new \DateInterval($catchUp))) {
+			$triggerDate = $triggerDate->add(new \DateInterval('P1Y'));
+		}
+		return $triggerDate;
+	}
+
+	/** never gives points before that date */
+	public function getUserMinDate($birthdate, $registration)
+	{
+		if ($registration && \is_string($registration)) {
+			$registration = \date_create_immutable($registration);
+		}
+		$min = $registration ? $registration->setTime(0, 0) : false;
+
+		if (isset($this->eventCreationDate) && $this->eventCreationDate) {
+			if (!$min || $this->eventCreationDate > $min) {
+				if (\is_a($this->eventCreationDate, '\DateTime')) {
+					$min = \DateTimeImmutable::createFromMutable($this->eventCreationDate)->setTime(0, 0);;
+				} else {
+					$min = $this->eventCreationDate->setTime(0, 0);;
+				}
+			}
+		}
+
+		if (!$min) {
+			if ($birthdate && \is_string($birthdate)) {
+				$birthdate = \date_create_immutable($birthdate);
+			}
+			if ($birthdate) {
+				$min = $birthdate->sub(new \DateInterval('P1Y'))->setTime(0, 0);
+			}
+		}
+
+		return $min ? $min : \date_create_immutable()->setTime(0, 0);
 	}
 
 	/** @return false|object:
 	 * * next (\DateTimeImmutable) next trigger date (estimates).
-	 * * min (\DateTimeImmutable) the date trigger cannot occur before (user registration, birthday or event creation)
-	 * * last (false|\DateTimeImmutable) previous earning event if any (doesn't care if user can / points really given). */
+	 * * min (\DateTimeImmutable) the date trigger cannot occur before (user registration, birthday or event creation).
+	 * * last (false|\DateTimeImmutable) previous earning event if any (doesn't care if user can / points really given).
+	 * * event (fals|int) this current id */
 	function getDatesForUser(\WP_User $user)
 	{
-		$birthday = \get_user_meta($user->ID, $this->getBirthdayMetaKey(), true);
-		if (!($birthday && ($birthday = \date_create_immutable($birthday))))
+		$birthday = $this->getUserBirthDate($user->ID);
+		if (!$birthday) {
 			return false;
+		}
 
 		$last = \get_user_meta($user->ID, $this->getMetaKey(), true);
 		if ($last) {
 			$last = \date_create_immutable($last);
 		}
+		$registration = $user->registered ? \date_create_immutable($user->registered) : false;
+		$min = $this->getUserMinDate($birthday, $registration);
+		
+		$early = $this->getEarlyTrigger();
+		$triggerDate = $this->getTriggerDate($birthday, $early->isNull() ? false : $early->toInterval());
 		$year = new \DateInterval('P1Y');
-		$min = $birthday->add($year);
-
-		if ($user->registered) {
-			$reg = \date_create_immutable($user->registered);
-			if ($reg && ($min < $reg)) {
-				$min = $reg;
-			}
-		}
-		if( isset($this->eventCreationDate) && $this->eventCreationDate ) {
-			if ($min < $this->eventCreationDate) {
-				$min = $this->eventCreationDate;
-			}
-		}
-		$min = $min->setTime(0, 0);
 
 		if ($last) {
-			$next = clone ($last);
-			$next = $next->setTime(0, 0)->add($year);
+			$next = $last->setTime(0, 0)->add($year);
+			if ($next < $triggerDate) $next = $triggerDate;
 		} else {
-			$next = clone ($birthday);
-			$next = $next->setTime(0, 0)->add($year);
-			$early = $this->getEarlyTrigger();
-			if (!$early->isNull()) {
-				$next = $next->sub($early->toInterval());
-			}
+			$next = $triggerDate;
 		}
 
-		if ($next < $min) {
-			$next = $next->setDate($min->format('Y'), $next->format('n'), $next->format('j'));
-		}
 		while ($next < $min) {
 			$next = $next->add($year);
 		}
 
 		return (object)array(
-			'next' => $next,
-			'last' => $last,
-			'min'  => $min,
+			'next'  => $next,
+			'last'  => $last,
+			'min'   => $min,
+			'event' => $this->getId(),
+			'early' => $early,
 		);
+	}
+
+	public function getUserBirthDate($userId)
+	{
+		global $wpdb;
+		$birthkey  = $this->getBirthdayMetaKey();
+		$birthdate = $wpdb->get_var(sprintf(
+			"SELECT MAX(meta_value) FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key IN ('%s') AND meta_value IS NOT NULL AND meta_value != ''",
+			(int)$userId,
+			\implode("', '", \array_map('\esc_sql', \is_array($birthkey) ? $birthkey : array($birthkey)))
+		));
+		if (!$birthdate) return false;
+		$birthdate = \date_create_immutable($birthdate);
+		if (!$birthdate) return false;
+		else return $birthdate->setTime(0, 0);
+	}
+
+	/** @param $userId int
+	 *	@param $birthdate string|\DateTimeImmutable the user birthday date if already read, or null.
+	 *	Can be today.
+	 *	@return false|\DateTimeImmutable the last theoretical trigger date */
+	public function getComputedLastTriggerDate($userId, $birthdate=null)
+	{
+		if ($birthdate && \is_string($birthdate)) {
+			$birthdate = \date_create_immutable($birthdate);
+		}
+		if (!$birthdate) {
+			$birthdate = $this->getUserBirthDate($userId);
+		}
+		if (!$birthdate) {
+			return false;
+		}
+		$birthdate = $birthdate->setTime(0, 0);
+		$early = $this->getEarlyTrigger();
+
+		return $this->getTriggerDate($birthdate, $early->isNull() ? false : $early->toInterval());
+	}
+
+	/** Update the usermeta with the last relevant trigger date.
+	 *	Based on user birthday date. Does not take care of existent
+	 *	except to do not give the point several times the same year.
+	 *	@return false|\DateTimeImmutable the last theoretical trigger date */
+	public function resetDatesForUser($userId, $update=true)
+	{
+		$triggerDate = $this->getComputedLastTriggerDate($userId);
+		if ($triggerDate && $update) {
+			// check in points logs if last earning is far enough
+			if ($triggerDate > \date_create_immutable()) {
+				// wait for it, but fix the value in database
+				\update_user_meta($userId, $this->getMetaKey(), $triggerDate->sub(new \DateInterval('P1Y'))->format('Y-m-d'));
+			} else {
+				// save the re-computed value, be sure no shift occured and fix any wrong data
+				\update_user_meta($userId, $this->getMetaKey(), $triggerDate->format('Y-m-d'));
+			}
+		}
+		return $triggerDate;
 	}
 
 	/** Never call, only to have poedit/wpml able to extract the sentance. */

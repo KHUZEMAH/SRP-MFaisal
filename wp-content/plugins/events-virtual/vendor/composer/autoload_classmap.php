@@ -32,6 +32,8 @@ return array(
     'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Emails\\Provider' => $baseDir . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Emails/Provider.php',
     'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Emails\\Template' => $baseDir . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Emails/Template.php',
     'TEC\\Events_Virtual\\Integrations\\Plugins\\Event_Tickets\\Provider' => $baseDir . '/src/Events_Virtual/Integrations/Plugins/Event_Tickets/Provider.php',
+    'TEC\\Events_Virtual\\Integrations\\Plugins\\Tickets_Wallet_Plus\\Controller' => $baseDir . '/src/Events_Virtual/Integrations/Plugins/Tickets_Wallet_Plus/Controller.php',
+    'TEC\\Events_Virtual\\Integrations\\Plugins\\Tickets_Wallet_Plus\\Passes\\Pdf' => $baseDir . '/src/Events_Virtual/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php',
     'TEC\\Events_Virtual\\Integrations\\Provider' => $baseDir . '/src/Events_Virtual/Integrations/Provider.php',
     'Tribe\\Events\\Virtual\\Admin_Template' => $baseDir . '/src/Tribe/Admin_Template.php',
     'Tribe\\Events\\Virtual\\Assets' => $baseDir . '/src/Tribe/Assets.php',

@@ -29,7 +29,7 @@ class Order
 		}
 
 		// bulk action
-		$screens = array('woocommerce_page_wc-orders', 'shop_order');
+		$screens = array('woocommerce_page_wc-orders', 'edit-shop_order');
 		foreach ($screens as $screen) {
 			\add_filter('bulk_actions-' . $screen, array($me, 'addActions'), 901, 1);
 			\add_filter('handle_bulk_actions-' . $screen, array($me, 'handleActions'), 10, 3);

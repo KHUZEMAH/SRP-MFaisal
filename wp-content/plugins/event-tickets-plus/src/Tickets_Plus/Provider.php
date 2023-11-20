@@ -34,6 +34,9 @@ class Provider extends \TEC\Common\Contracts\Service_Provider {
 
 		// Loads Tickets Emails.
 		$this->container->register( Emails\Provider::class );
+
+		// Loads Integrations.
+		$this->container->register( Integrations\Controller::class );
 	}
 
 	/**

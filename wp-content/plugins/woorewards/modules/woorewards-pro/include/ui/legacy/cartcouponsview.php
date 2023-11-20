@@ -98,6 +98,8 @@ class CartCouponsView
 
 	function shortcode()
 	{
+		if (!\LWS\Adminpanel\Tools\Conveniences::isWC())
+			return '';
 		if (!\wc_coupons_enabled())
 			return '';
 		if (empty($userId = \get_current_user_id()))

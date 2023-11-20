@@ -57,7 +57,7 @@ EOT;
 		if(isset($this->extra['description']))
 		{
 			if( \is_array($this->extra['description']) )
-				$this->extra['description'] = \lws_array_to_html($this->extra['description']);
+				$this->extra['description'] = \lws_array_to_html((array)$this->extra['description']);
 			$content .= <<<EOT
 			<div class="description-wrapper">
 				<div class="title">{$texts['desc']}</div>
@@ -81,15 +81,23 @@ EOT;
 				if (\is_array($option['desc'])) {
 					$option['desc'] = \lws_array_to_html($option['desc']);
 				}
-				$optContent .= "<div class='name'>{$option['option']}</div>";
+				$optContent .= "<div class='options-row folding-master'>";
+
+				if ((isset($option['options']) && $option['options']) || (isset($option['example']) && $option['example'])) {
+					$optContent .= "<div class='name folding-toggle'>{$option['option']}<span class='ellipse'> …</span></div>";
+				} else {
+					$optContent .= "<div class='name'>{$option['option']}</div>";
+				}
+
 				if (isset($option['options']) && $option['options']) {
+					
 					$subopts = $option['options'];
 					$optContent .= "<div class='desc-grid'>";
 					$optContent .= "<div class='desc'>{$option['desc']}</div>";
 					foreach ($subopts as $subopt) {
 						if (\is_array($subopt)) {
-							$optContent .= "<div class='sub-name'>{$subopt['option']}</div>";
-							$optContent .= "<div class='sub-desc'>{$subopt['desc']}</div>";
+							$optContent .= "<div class='sub-name foldable'>{$subopt['option']}</div>";
+							$optContent .= "<div class='sub-desc foldable'>{$subopt['desc']}</div>";
 						} else {
 							$optContent .= "<div class='desc'>{$subopt['desc']}</div>";
 						}
@@ -103,14 +111,16 @@ EOT;
 					if (\is_object($example))
 						$example = $example->toText();
 
-					$optContent .= "<div class='opt-example label'>" . __("Example", 'lws-adminpanel') . "</div>";
-					$optContent .= "<div class='opt-example value'>{$example}</div>";
+					$optContent .= "<div class='opt-example label foldable'>" . __("Example", 'lws-adminpanel') . "</div>";
+					$optContent .= "<div class='opt-example value foldable'>{$example}</div>";
 				}
+
+				$optContent .= "</div>";
 			}
 			$content .= <<<EOT
-			<div class="options-wrapper">
-				<div class="title">{$texts['options']}</div>
-				<div class="content">$optContent</div>
+			<div class="options-wrapper folding-master">
+				<div class="title folding-toggle">{$texts['options']}<span class='ellipse'> …</span></div>
+				<div class="content foldable">$optContent</div>
 			</div>
 EOT;
 		}

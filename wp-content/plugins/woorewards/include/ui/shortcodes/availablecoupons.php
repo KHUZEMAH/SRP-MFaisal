@@ -120,7 +120,7 @@ class AvailableCoupons
 	 */
 	function shortcode($atts = array(), $content = null)
 	{
-		if (!\wc_coupons_enabled()) {
+		if (!(\LWS\Adminpanel\Tools\Conveniences::isWC() && \wc_coupons_enabled())) {
 			return '';
 		}
 		if (!$userId = \get_current_user_id()) {

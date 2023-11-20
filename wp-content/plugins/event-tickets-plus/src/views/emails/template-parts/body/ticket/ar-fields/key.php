@@ -10,8 +10,9 @@
  * @link https://evnt.is/tickets-emails-tpl Help article for Tickets Emails template files.
  *
  * @since 5.6.10
+ * @since 5.8.0 Fix text escaping.
  *
- * @version 5.6.10
+ * @version 5.8.0
  */
 
 if ( empty( $key ) ) {
@@ -20,5 +21,5 @@ if ( empty( $key ) ) {
 
 ?>
 <div class="tec-tickets__email-table-content-ar-fields-data-key-container">
-	<?php esc_html_e( $key ); ?>
+	<?php echo esc_html( $key ); ?>
 </div>

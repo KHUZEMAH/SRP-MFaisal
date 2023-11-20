@@ -92,7 +92,7 @@ class SupportPage extends \LWS\Manager\Ui\Page
 
 		if( !$sent )
 		{
-			\lws_admin_add_notice_once('lws_adm_support_request', sprintf(__("Sorry, the mail failed to be sent. You can try again or use the &lt;%s&gt; contact address.", 'lwsmanager'), 'contact@longwatchstudio.com'));
+			\lws_admin_add_notice_once('lws_adm_support_request', sprintf(__("Sorry, the mail failed to be sent. You can try again or use the &lt;%s&gt; contact address.", 'lwsmanager'), 'plugins@longwatchstudio.com'));
 			$this->saveLastValues();
 			return $value;
 		}

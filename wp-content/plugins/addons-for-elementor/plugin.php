@@ -45,7 +45,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __clone()
         {
             // Cloning instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '8.1' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '8.1.1' );
         }
         
         /**
@@ -55,7 +55,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __wakeup()
         {
             // Unserializing instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '8.1' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '8.1.1' );
         }
         
         private function setup_debug_constants()
@@ -249,6 +249,13 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
             wp_register_script(
                 'isotope.pkgd',
                 LAE_PLUGIN_URL . 'assets/js/isotope.pkgd' . $suffix . '.js',
+                array( 'jquery' ),
+                LAE_VERSION,
+                true
+            );
+            wp_register_script(
+                'jquery-magnific-popup',
+                LAE_PLUGIN_URL . 'assets/js/jquery.magnific-popup' . $suffix . '.js',
                 array( 'jquery' ),
                 LAE_VERSION,
                 true

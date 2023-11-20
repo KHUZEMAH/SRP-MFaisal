@@ -175,7 +175,11 @@ EOT;
 
 				echo "<table class='form-table'><tr><th><label><i>{$label}</i></label></th><td><div><small>$help</small></div><table>";
 				foreach ($dates as $d) {
-					echo "<tr><th>{$d->name}</th>";
+					echo sprintf("<tr><th title='%s (min: %s)'>%s</th>", $d->early->isNull() ? 'D' : \esc_attr(sprintf(
+						'D %d %s',
+						-$d->early->getCount(),
+						$d->early->getPeriodText()
+					)), $d->min->format('Y-m-d'), $d->name);
 					$n = $d->next->format('Y-m-d');
 					if (!$d->valid)
 						$n = sprintf('<del title="%s" style="cursor:not-allowed;">%s</del>', \esc_attr(__('User has no access to this Loyalty System.', 'woorewards-pro')), $n);
@@ -187,6 +191,15 @@ EOT;
 						_x('Last :', 'birthday point earning', 'woorewards-pro'),
 						$d->last ? $d->last->format('Y-m-d') : '—'
 					);
+
+					echo sprintf(
+						'<td title="%s"><label><input type="checkbox" name="lws_wr_birthday_reset_trigger_dates[_%s]" value="%s"> %s</label></td>',
+						\esc_attr_x('Check this to reset trigger dates, then save. If user changed birthday for example.', 'birthday point earning', 'woorewards-pro'),
+						$d->event,
+						\esc_attr(\wp_create_nonce('lws_wr_birthday_reset_trigger_dates_' . $user->ID)),
+						_x('Refresh', 'birthday point earning', 'woorewards-pro')
+					);
+
 					echo '</tr>';
 				}
 				echo "</table></td></tr></table>";
@@ -202,6 +215,38 @@ EOT;
 		$field = $this->getDefaultBirthdayMetaKey();
 		$date = \sanitize_text_field($_POST[$field]);
 		\update_user_meta( $userId, $field, $date);
-	}
 
+		// should we reset trigger dates
+		$triggers = isset($_POST['lws_wr_birthday_reset_trigger_dates']) ? (array)$_POST['lws_wr_birthday_reset_trigger_dates'] : false;
+		if ($triggers) {
+			$birthEvents = array();
+			foreach (\LWS_WooRewards_Pro::getLoadedPools()->asArray() as $pool) {
+				foreach ($pool->getEvents()->filterByType('lws_woorewards_pro_events_birthday')->asArray() as $e) {
+					$birthEvents[$e->getId()] = $e;
+				}
+			}
+			// read users to check
+			$users = array($userId);
+			// add this secret input <input type='hidden' name='lws_wr_birthday_reset_trigger_users' value='42,128' />
+			// to the page before save to perform a list of user ids instead
+			if (isset($_POST['lws_wr_birthday_reset_trigger_users']) && $_POST['lws_wr_birthday_reset_trigger_users']) {
+				if ('all' === $_POST['lws_wr_birthday_reset_trigger_users']) {
+					global $wpdb;
+					$users = \array_filter(\array_map('intval', $wpdb->get_col("SELECT ID FROM {$wpdb->users}")));
+				} else {
+					$users = \array_filter(\array_map('intval', \array_map('trim', (explode(',', $_POST['lws_wr_birthday_reset_trigger_users'])))));
+				}
+			}
+			// trigger
+			foreach ($triggers as $eventId => $nonce) {
+				$eventId = \trim($eventId, '_');
+				if (!isset($birthEvents[$eventId])) continue;
+				if ($nonce && \wp_verify_nonce($nonce, 'lws_wr_birthday_reset_trigger_dates_' . $userId)) {
+					foreach ($users as $uid) {
+						$birthEvents[$eventId]->resetDatesForUser($uid, true);
+					}
+				}
+			}
+		}
+	}
 }

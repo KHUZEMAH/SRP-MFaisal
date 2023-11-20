@@ -12,6 +12,7 @@ class PointDiscount
 	static function register()
 	{
 		$me = new self();
+		\add_filter('lws_woorewards_pointdiscount_as_coupon_data', array($me, 'asData'), 10, 3);
 		\add_filter('lws_woorewards_pointdiscount_from_code', array($me, 'fromCode'), 10, 2);
 		\add_filter('lws_woorewards_pointdiscount_max_points', array($me, 'getMaxPoints'), 10, 5);
 		\add_filter('lws_woorewards_pointsoncart_pools', array($me, 'getPools'), 10, 1);
@@ -58,6 +59,8 @@ class PointDiscount
 			$discount['points'] = $min;
 			$discount['value'] = (float)$min * $discount['rate'];
 		}
+
+		$discount['prod_cats'] = $pool->getOption('direct_reward_prod_cats');
 		return $discount;
 	}
 
@@ -71,8 +74,26 @@ class PointDiscount
 
 		$subtotal = $cart->get_subtotal();
 		$incTax = ('yes' === \get_option('woocommerce_prices_include_tax'));
-		if ($incTax)//if( $cart->display_prices_including_tax() )
+		if ($incTax) { //if( $cart->display_prices_including_tax() )
 			$subtotal += $cart->get_subtotal_tax();
+		}
+
+		// subtract products of other categories
+		$prodCats = $pool->getOption('direct_reward_prod_cats');
+		if ($prodCats) {
+			foreach ($cart->get_cart() as $item) {
+				$isVar = (isset($item['variation_id']) && $item['variation_id']);
+				$pId = $isVar ? $item['variation_id'] : (isset($item['product_id']) ? $item['product_id'] : false);
+				if (!$pId) continue;
+				$product = \wc_get_product($pId);
+				if (!$product) continue;
+				if ($this->isProductInCategory($product, $prodCats)) continue;
+				$subtotal -= $item['line_subtotal'];
+				if ($incTax) $subtotal -= $item['line_subtotal_tax'];
+			}
+		}
+
+		// subtract other discounts
 		foreach ($cart->get_applied_coupons() as $otherCode)
 		{
 			if (strpos($otherCode, 'wr_points_on_cart') === false) {
@@ -143,6 +164,14 @@ class PointDiscount
 		return $info;
 	}
 
+	public function asData($props, $discount, $code)
+	{
+		if (isset($discount['prod_cats']) && $discount['prod_cats']) {
+			$props['product_categories'] = array_filter(array_map('intval', $discount['prod_cats']));
+		}
+		return $props;
+	}
+
 	public function getVirtualCouponAmount($amount, $coupon)
 	{
 		if ($coupon && \is_a($coupon, '\WC_Coupon')) {
@@ -153,5 +182,15 @@ class PointDiscount
 			}
 		}
 		return $amount;
+	}
+
+	private function isProductInCategory($product, $whiteList)
+	{
+		$product_cats = \wc_get_product_cat_ids($product->get_id());
+		if (!empty($parentId = $product->get_parent_id()))
+			$product_cats = array_merge($product_cats, \wc_get_product_cat_ids($parentId));
+
+		// If we find an item with a cat in our allowed cat list, the product is valid.
+		return !empty(array_intersect($product_cats, $whiteList));
 	}
 }

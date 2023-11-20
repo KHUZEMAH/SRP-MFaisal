@@ -207,7 +207,8 @@ a.tribe-attendees-list-showall {
 	}
 }
 
-.tribe-orders-list {
+.tribe-rsvp,
+.tribe-tickets ul.tribe-orders-list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -216,6 +217,7 @@ a.tribe-attendees-list-showall {
 		margin-top: 20px;
 	}
 
+	.tribe-rsvp-list,
 	.tribe-tickets-list {
 		list-style: none;
 		margin: 0;
@@ -259,6 +261,12 @@ a.tribe-attendees-list-showall {
 			td {
 				border: 0;
 			}
+
+			div.tribe-event-tickets-plus-meta {
+				flex: 0 1 100%;
+				margin-top: var(--tec-spacer-1);
+				order: 4;
+			}
 		}
 	}
 }
@@ -273,7 +281,6 @@ a.tribe-attendees-list-showall {
 	font-size: var(--tec-font-size-3);
 	font-weight: var(--tec-font-weight-regular);
 	line-height: var(--tec-line-height-0);
-	margin-bottom: 10px;
 
 	&:before {
 		content: '+ ';
@@ -288,8 +295,9 @@ a.tribe-attendees-list-showall {
 	}
 }
 
-.attendee-meta-row {
+div.attendee-meta-row {
 	display: none;
+	margin-top: var(--tec-spacer-2);
 }
 
 /* Attendee meta fields */

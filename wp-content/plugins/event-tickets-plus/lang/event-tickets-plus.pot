@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Event Tickets Plus 5.7.6\n"
+"Project-Id-Version: Event Tickets Plus 5.8.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-07T21:56:50-07:00\n"
-"PO-Revision-Date: 2023-10-08 04:56\n"
+"POT-Creation-Date: 2023-11-14T09:06:28-08:00\n"
+"PO-Revision-Date: 2023-11-14 17:06\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: event-tickets-plus\n"
 
 #. Plugin Name of the plugin
-#: event-tickets-plus.php:59
-#: src/Tribe/Main.php:451
+#: event-tickets-plus.php:61
+#: src/Tribe/Main.php:453
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -36,13 +36,13 @@ msgstr ""
 msgid "https://evnt.is/28"
 msgstr ""
 
-#: event-tickets-plus.php:230
+#: event-tickets-plus.php:232
 #: src/Tribe/Integrations/Elementor/Service_Provider.php:64
 #: src/Tribe/Integrations/Elementor/Widgets/Widget_Tickets.php:38
 msgid "Event Tickets"
 msgstr ""
 
-#: event-tickets-plus.php:235
+#: event-tickets-plus.php:237
 msgid "To begin using Event Tickets Plus, please install and activate the latest version of %1$s%2$s%3$s and ensure its own requirements have been met."
 msgstr ""
 
@@ -253,34 +253,9 @@ msgctxt "EDD SKU"
 msgid "A unique identifying code for each %s type you're selling"
 msgstr ""
 
-#: src/admin-views/edd-orders.php:25
-#: src/admin-views/woocommerce-orders.php:25
+#: src/admin-views/edd-orders.php:30
+#: src/admin-views/woocommerce-orders.php:31
 msgid "Orders Report"
-msgstr ""
-
-#: src/admin-views/edd-orders.php:47
-#: src/admin-views/woocommerce-orders.php:47
-msgid "Event Details"
-msgstr ""
-
-#: src/admin-views/edd-orders.php:85
-#: src/admin-views/woocommerce-orders.php:81
-msgid "Sales by %s Type"
-msgstr ""
-
-#: src/admin-views/edd-orders.php:115
-#: src/admin-views/woocommerce-orders.php:111
-msgid "Total %s Sales"
-msgstr ""
-
-#: src/admin-views/edd-orders.php:128
-#: src/admin-views/woocommerce-orders.php:124
-msgid "Total %s Ordered"
-msgstr ""
-
-#: src/admin-views/edd-orders.php:146
-#: src/admin-views/woocommerce-orders.php:142
-msgid "Completed"
 msgstr ""
 
 #: src/admin-views/editor/fieldset/attendee-collection.php:19
@@ -474,27 +449,27 @@ msgctxt "Attendee information fields"
 msgid "Placeholder:"
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:14
+#: src/admin-views/settings/etp-app-banner.php:17
 msgid "Connect Your Event Tickets Plus App"
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:15
+#: src/admin-views/settings/etp-app-banner.php:18
 msgid "Scan the QR to connect with your tickets or manually enter the API key in your app settings."
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:22
+#: src/admin-views/settings/etp-app-banner.php:25
 msgid "Website URL"
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:24
+#: src/admin-views/settings/etp-app-banner.php:27
 msgid "API Key"
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:27
+#: src/admin-views/settings/etp-app-banner.php:43
 msgid "Refresh API Key"
 msgstr ""
 
-#: src/admin-views/settings/etp-app-banner.php:31
+#: src/admin-views/settings/etp-app-banner.php:52
 msgid "Refreshing the API key will disconnect existing users until they add the new key in their app settings."
 msgstr ""
 
@@ -505,10 +480,6 @@ msgstr ""
 #: src/admin-views/woocommerce-metabox-sku.php:27
 msgctxt "WooCommerce SKU"
 msgid "A unique identifying code for each %s type you're selling"
-msgstr ""
-
-#: src/admin-views/woocommerce-orders.php:169
-msgid "Discounts:"
 msgstr ""
 
 #: src/functions/php-min-version.php:51
@@ -697,35 +668,51 @@ msgstr ""
 msgid "WeChat Pay"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:25
+#: src/Tickets_Plus/Emails/Email/Components.php:27
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:107
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:116
 msgid "Age"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:25
+#: src/Tickets_Plus/Emails/Email/Components.php:27
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:108
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:116
 msgid "32"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:26
+#: src/Tickets_Plus/Emails/Email/Components.php:28
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:112
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:117
 msgid "T-Shirt Size"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:26
+#: src/Tickets_Plus/Emails/Email/Components.php:28
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:113
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:117
 msgid "Medium"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:27
+#: src/Tickets_Plus/Emails/Email/Components.php:29
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:117
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:118
 msgid "Parking Required"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:27
+#: src/Tickets_Plus/Emails/Email/Components.php:29
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:118
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:118
 msgid "Yes"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:28
+#: src/Tickets_Plus/Emails/Email/Components.php:30
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:122
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:119
 msgid "Phone"
 msgstr ""
 
-#: src/Tickets_Plus/Emails/Email/Components.php:28
+#: src/Tickets_Plus/Emails/Email/Components.php:30
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Data.php:123
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf.php:119
 msgid "555-555-5555"
 msgstr ""
 
@@ -763,6 +750,19 @@ msgstr ""
 #: src/Tickets_Plus/Hooks.php:140
 msgctxt "about Tickets Commerce"
 msgid "Tickets Commerce provides a simple and flexible eCommerce checkout for purchasing tickets. Just choose your payment gateway and configure checkout options and you're all set. %1$s."
+msgstr ""
+
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Setting.php:27
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf/Attendee_Registration_Fields_Setting.php:35
+msgid "Attendee registration fields"
+msgstr ""
+
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Apple_Wallet/Attendee_Registration_Fields_Setting.php:48
+msgid "Include attendee registration fields in wallet passes."
+msgstr ""
+
+#: src/Tickets_Plus/Integrations/Tickets_Wallet_Plus/Passes/Pdf/Attendee_Registration_Fields_Setting.php:68
+msgid "Include attendee registration fields in PDF tickets."
 msgstr ""
 
 #: src/Tribe/Admin/Notices.php:78
@@ -900,77 +900,77 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Parent order edit URL. %3$s: Parent order ID.
-#: src/Tribe/Commerce/EDD/Main.php:354
-#: src/Tribe/Commerce/WooCommerce/Main.php:525
+#: src/Tribe/Commerce/EDD/Main.php:357
+#: src/Tribe/Commerce/WooCommerce/Main.php:548
 msgid "<b> Attendee Moved : </b> <br> <i>%s</i> was moved into this order from <a href=\"%s\">Order %s</a>"
 msgstr ""
 
 #. Translators: %1$s: The Attendee Name. %2$s: Copied order edit URL. %3$s: Copied order ID.
-#: src/Tribe/Commerce/EDD/Main.php:365
-#: src/Tribe/Commerce/WooCommerce/Main.php:537
+#: src/Tribe/Commerce/EDD/Main.php:368
+#: src/Tribe/Commerce/WooCommerce/Main.php:560
 msgid "<b> Attendee Moved : </b> <br> <i>%s</i> is moved from this order to <a href=\"%s\">Order %s</a>"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:807
-#: src/Tribe/Commerce/WooCommerce/Main.php:1324
+#: src/Tribe/Commerce/EDD/Main.php:810
+#: src/Tribe/Commerce/WooCommerce/Main.php:1347
 msgid "You'll receive your %s in another email."
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:1997
-#: src/Tribe/Commerce/WooCommerce/Main.php:2912
+#: src/Tribe/Commerce/EDD/Main.php:2000
+#: src/Tribe/Commerce/WooCommerce/Main.php:2935
 msgid "Event sales report"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2048
+#: src/Tribe/Commerce/EDD/Main.php:2051
 #: src/Tribe/Commerce/WooCommerce/Enhanced_Templates/Hooks.php:300
 msgid "Event"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2067
-#: src/Tribe/Commerce/WooCommerce/Main.php:2964
+#: src/Tribe/Commerce/EDD/Main.php:2070
+#: src/Tribe/Commerce/WooCommerce/Main.php:2987
 msgid "This is a %s for the event:"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2178
+#: src/Tribe/Commerce/EDD/Main.php:2181
 msgid "%s ticket is sold out"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2183
+#: src/Tribe/Commerce/EDD/Main.php:2186
 msgid "Sorry! Only %d tickets remaining for %s"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2252
+#: src/Tribe/Commerce/EDD/Main.php:2255
 msgid "Print Ticket"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Main.php:2662
-#: src/Tribe/Commerce/WooCommerce/Main.php:3870
+#: src/Tribe/Commerce/EDD/Main.php:2665
+#: src/Tribe/Commerce/WooCommerce/Main.php:3893
 msgid "Edit attendee info"
-msgstr ""
-
-#: src/Tribe/Commerce/EDD/Orders/Report.php:111
-msgctxt "order row action"
-msgid "See EDD purchases for this %s"
 msgstr ""
 
 #: src/Tribe/Commerce/EDD/Orders/Report.php:113
 msgctxt "order row action"
+msgid "See EDD purchases for this %s"
+msgstr ""
+
+#: src/Tribe/Commerce/EDD/Orders/Report.php:115
+msgctxt "order row action"
 msgid "Orders"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Orders/Report.php:141
+#: src/Tribe/Commerce/EDD/Orders/Report.php:143
 #: src/Tribe/Commerce/EDD/Tabbed_View/Orders_Report_Tab.php:30
-#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:132
+#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:139
 #: src/Tribe/Commerce/WooCommerce/Tabbed_View/Orders_Report_Tab.php:16
 msgid "Orders"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Orders/Report.php:218
+#: src/Tribe/Commerce/EDD/Orders/Report.php:220
 msgctxt "Browser title"
 msgid "%s - EDD Orders"
 msgstr ""
 
-#: src/Tribe/Commerce/EDD/Orders/Report.php:318
+#: src/Tribe/Commerce/EDD/Orders/Report.php:247
 msgid "Search Orders"
 msgstr ""
 
@@ -1089,55 +1089,55 @@ msgstr ""
 msgid "was deactivated, as this feature is now available within Event Tickets Plus"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:300
+#: src/Tribe/Commerce/WooCommerce/Main.php:321
 msgctxt "ticket provider"
 msgid "WooCommerce"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2622
+#: src/Tribe/Commerce/WooCommerce/Main.php:2645
 msgid "In trash (was %s)"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2628
+#: src/Tribe/Commerce/WooCommerce/Main.php:2651
 msgid "Deleted"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:2676
+#: src/Tribe/Commerce/WooCommerce/Main.php:2699
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3092
+#: src/Tribe/Commerce/WooCommerce/Main.php:3115
 msgid "Resend tickets email"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3478
+#: src/Tribe/Commerce/WooCommerce/Main.php:3501
 msgid "The ticket: %1$s, in your cart is no longer available or valid. You need to remove it from your cart in order to continue."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3791
+#: src/Tribe/Commerce/WooCommerce/Main.php:3814
 msgctxt "Attendee Registration notice heading text when Woo cart quantity changed"
 msgid "Updated Ticket Quantities"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3797
+#: src/Tribe/Commerce/WooCommerce/Main.php:3820
 msgctxt "Attendee Registration notice paragraph text when Woo cart quantity changed"
 msgid "You've arrived here because you updated ticket quantities in the Cart. Please verify your attendee information, then click \"Save Attendee Info\" in order to proceed to Checkout."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:3858
+#: src/Tribe/Commerce/WooCommerce/Main.php:3881
 msgid "Return to cart"
 msgstr ""
 
 #. Translators: %1$s: Attendee post object ID, %2$s: Generated Ticket Serial.
-#: src/Tribe/Commerce/WooCommerce/Main.php:3939
+#: src/Tribe/Commerce/WooCommerce/Main.php:3962
 msgid "Attendee (%1$s) with Ticket #%2$s was deleted by admin."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:4015
+#: src/Tribe/Commerce/WooCommerce/Main.php:4038
 msgid "Restock Tickets from this order"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Main.php:4046
+#: src/Tribe/Commerce/WooCommerce/Main.php:4069
 msgid "Tickets from this order are re-stocked"
 msgstr ""
 
@@ -1149,11 +1149,11 @@ msgstr ""
 msgid "%1$s with ID %2$s does not exist."
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:130
+#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:137
 msgid "See purchases for this event"
 msgstr ""
 
-#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:160
+#: src/Tribe/Commerce/WooCommerce/Orders/Report.php:167
 msgctxt "Browser title"
 msgid "%s - Order list"
 msgstr ""
@@ -1175,7 +1175,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Tribe/Commerce/WooCommerce/Settings.php:44
-msgid "Event Tickets uses WooCommerce order statuses to control when attendee records should begenerated and when %s are sent to customers. The first enabled status reached by an order will trigger the action."
+msgid "Event Tickets uses WooCommerce order statuses to control when attendee records should be generated and when %s are sent to customers. The first enabled status reached by an order will trigger the action."
 msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Settings.php:54
@@ -1322,11 +1322,11 @@ msgstr ""
 msgid "Ticket IDs"
 msgstr ""
 
-#: src/Tribe/Main.php:457
+#: src/Tribe/Main.php:459
 msgid "Event Tickets Plus - Legacy"
 msgstr ""
 
-#: src/Tribe/Main.php:534
+#: src/Tribe/Main.php:536
 msgid "Require users to log in before they purchase tickets"
 msgstr ""
 
@@ -1569,95 +1569,50 @@ msgstr ""
 msgid "EDD Attendee Data"
 msgstr ""
 
-#: src/Tribe/QR.php:175
-msgid "The ticket with ID %s was deleted and cannot be checked-in."
-msgstr ""
-
-#: src/Tribe/QR.php:181
-msgid "The security code for ticket with ID %s does not match."
-msgstr ""
-
-#: src/Tribe/QR.php:188
-msgid "The ticket with ID %s has already been checked in."
-msgstr ""
-
-#: src/Tribe/QR.php:195
-msgid "The ticket with ID %s was checked in."
-msgstr ""
-
-#: src/Tribe/QR.php:213
-#: src/Tribe/QR.php:340
-msgid "Could not render QR code because gzuncompress() is not available"
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:62
+#: src/Tribe/QR/Settings.php:52
 msgid "Event Tickets Plus App"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:74
+#: src/Tribe/QR/Settings.php:64
 msgid "Use QR Codes"
 msgstr ""
 
 #. Translators: %s: 'tickets' label (plural, lowercase).
-#: src/Tribe/QR/Settings.php:78
+#: src/Tribe/QR/Settings.php:68
 msgid "Include QR codes in %s emails (required for Event Tickets Plus App)"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:93
+#: src/Tribe/QR/Settings.php:83
 msgid "Restrict Check-In"
 msgstr ""
 
 #. Translators: %1$s: 'tickets' label (plural, lowercase). %2$s: 'event' label (singular, lowercase).
-#: src/Tribe/QR/Settings.php:97
+#: src/Tribe/QR/Settings.php:87
 msgid "Only allow check-in of QR %1$s during the date and time of the %2$s, including the check-in window below."
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:108
+#: src/Tribe/QR/Settings.php:98
 msgid "Check-in Window"
 msgstr ""
 
 #. Translators: %1$s: 'event' label (singular, lowercase).
-#: src/Tribe/QR/Settings.php:112
+#: src/Tribe/QR/Settings.php:102
 msgid "minutes before the %1$s"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:142
-msgid "Permission Error"
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:148
-msgid "The QR API key was not generated, please try again."
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:154
-msgid "The QR API key was generated, but generating the connection QR Code image failed."
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:160
-msgid "QR API Key Generated"
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:258
-msgid "In order to have QR codes for your tickets you will need to have both the `php_gd2` and `gzuncompress` PHP extensions installed on your server. Please contact your hosting provider."
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:259
-msgid "Learn more."
-msgstr ""
-
-#: src/Tribe/QR/Settings.php:309
+#: src/Tribe/QR/Settings.php:131
 msgid "App Store"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:310
+#: src/Tribe/QR/Settings.php:132
 msgid "Google Play Store"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:311
+#: src/Tribe/QR/Settings.php:133
 msgid "Knowledgebase"
 msgstr ""
 
-#: src/Tribe/QR/Settings.php:314
+#: src/Tribe/QR/Settings.php:137
 msgid ""
 "Our Event Tickets Plus app makes on-site ticket validation and attendee management a breeze. Available for mobile devices through the iOS %1$s and %2$s\n"
 "store. Learn more about the app in our %3$s."
@@ -1667,84 +1622,11 @@ msgstr ""
 msgid "Order created manually"
 msgstr ""
 
-#: src/Tribe/REST/V1/Documentation/QR_Definition_Provider.php:26
-msgid "The ticket WordPress post ID"
-msgstr ""
-
-#: src/Tribe/REST/V1/Documentation/QR_Definition_Provider.php:30
-msgid "The API key to authorize check in"
-msgstr ""
-
-#: src/Tribe/REST/V1/Documentation/QR_Definition_Provider.php:34
-msgid "The security code of the ticket to verify for check in"
-msgstr ""
-
-#: src/Tribe/REST/V1/Documentation/QR_Definition_Provider.php:38
-msgid "The event WordPress post ID"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:92
-msgid "Returns successful check in"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:98
-msgid "A required parameter is missing or an input parameter is in the wrong format"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:101
-msgid "The %s is already checked in"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:120
-msgid "The %s id."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:144
-msgid "The API key to authorize check in."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:150
-msgid "The ID of the %s to check in."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:156
-msgid "The security code of the %s to verify for check in."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:215
-msgid "Security code is not valid!"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:230
-msgid "An attendee is not found with this ID."
-msgstr ""
-
-#. Translators: %s: 'ticket' label (singular, lowercase).
-#: src/Tribe/REST/V1/Endpoints/QR.php:254
-msgid "This attendee's %s is not authorized to be Checked in. Please check the order status."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:273
-msgid "Already checked in!"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:291
-msgid "Event has not started or it has finished."
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:306
-msgid "%s not checked in!"
-msgstr ""
-
-#: src/Tribe/REST/V1/Endpoints/QR.php:321
-msgid "Checked In!"
-msgstr ""
-
-#: src/Tribe/REST/V1/Response.php:161
+#: src/Tribe/REST/V1/Response.php:160
 msgid "This attendee has no meta fields associated with it."
 msgstr ""
 
-#: src/Tribe/REST/V1/Response.php:169
+#: src/Tribe/REST/V1/Response.php:170
 msgid "Some required attendee data is missing."
 msgstr ""
 

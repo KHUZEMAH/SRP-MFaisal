@@ -106,8 +106,14 @@ class NewReward
 			$expire = "<div class='lwss_selectable lws-reward-expiry' data-type='Reward Expiration'>$expire</div>";
 		}
 
-		if( \is_object($data['reward']) && \method_exists($data['reward'], 'get_code') && ($code = $data['reward']->get_code()) )
-			$values['title'] = __("Coupon code",'woorewards-pro') . ' : ' . $code . ' - ' . $values['title'];
+		if( \is_object($data['reward']) && \method_exists($data['reward'], 'get_code') && ($code = $data['reward']->get_code()) ) {
+			$values['title'] = sprintf('<span class="title-head">%s :</span>&nbsp;<span class="title-code">%s</span> <span class="title-sep">-</span> <span class="title-title">%s</span>',
+				__("Coupon code",'woorewards-pro'),
+				$code,
+				$values['title']
+			);
+		}
+		$values['title'] = \apply_filters('lws_woorewards_email_new_reward_title', $values['title'], $data);
 
 		return <<<EOT
 <tr><td class='lws-middle-cell'>

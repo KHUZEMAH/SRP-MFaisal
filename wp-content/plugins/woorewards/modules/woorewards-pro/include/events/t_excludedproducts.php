@@ -50,7 +50,7 @@ trait T_ExcludedProducts
 	 * else the quantity of the product and all its ersatz is decreased by $quantity. */
 	function useExclusion(&$excluded, $product, $quantity)
 	{
-		if (\is_object($product)) {
+		if ($product && \is_object($product)) {
 			$productId = $product->get_id();
 			if( !isset($excluded[$productId]) && $product->is_type('variation') )
 				$productId = $product->get_parent_id();
@@ -65,21 +65,20 @@ trait T_ExcludedProducts
 			{
 				$rest = 0;
 			}
+			elseif( $excluded[$productId]->quantity > $quantity )
+			{
+				$rest = 0;
+				$excluded[$productId]->quantity -= $quantity;
+				foreach ($excluded[$productId]->ersatz as $id => $ignored) {
+					if (isset($excluded[$id])) $excluded[$id]->quantity = $excluded[$productId]->quantity;
+				}
+			}
 			else
 			{
-				if( $excluded[$productId]->quantity > $quantity )
-				{
-					$rest = 0;
-					$excluded[$productId]->quantity -= $quantity;
-					foreach( $excluded[$productId]->ersatz as $id => $ignored )
-						$excluded[$id]->quantity = $excluded[$productId]->quantity;
-				}
-				else
-				{
-					$rest = $quantity - $excluded[$productId]->quantity;
-					$ersatz = $excluded[$productId]->ersatz;
-					foreach( $ersatz as $id => $ignored )
-						unset($excluded[$id]);
+				$rest = $quantity - $excluded[$productId]->quantity;
+				$ersatz = $excluded[$productId]->ersatz;
+				foreach ($ersatz as $id => $ignored) {
+					if (isset($excluded[$id])) unset($excluded[$id]);
 				}
 			}
 		}
@@ -91,19 +90,18 @@ trait T_ExcludedProducts
 		$products = array_combine($products, array_pad(array(), count($products), true));
 		foreach( $products as $productId => $ignored )
 		{
-			if( isset($excluded[$productId]) )
-			{
+			if (isset($excluded[$productId])) {
 				if( $count <= 0 || $excluded[$productId]->quantity <= 0 )
 					$excluded[$productId]->quantity	= -1;
 				else
 					$excluded[$productId]->quantity += $count;
-				$excluded[$productId]->ersatz = array_merge($excluded[$productId]->ersatz, $products);
-			}
-			else
+				$excluded[$productId]->ersatz += $products;
+			} else {
 				$excluded[$productId] = (object)array(
 					'quantity' => $count > 0 ? $count : -1,
 					'ersatz' => $products
  				);
+			}
 		}
 		return $excluded;
 	}

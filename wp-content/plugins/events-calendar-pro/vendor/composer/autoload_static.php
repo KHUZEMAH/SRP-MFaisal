@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e
+class ComposerStaticInit1e41a74fdee86bbcd31ce5322208a56d
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -95,6 +95,7 @@ class ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Integrations\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Integrations/Provider.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Integrations\\WPML\\WPML_Integration' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Integrations/WPML/WPML_Integration.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Legacy_Compat\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Legacy_Compat/Provider.php',
+        'TEC\\Events_Pro\\Custom_Tables\\V1\\Legacy_Compat\\RecurrenceMeta' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Legacy_Compat/RecurrenceMeta.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Links\\Event_Links' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Links/Event_Links.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Links\\Links' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Links/Links.php',
         'TEC\\Events_Pro\\Custom_Tables\\V1\\Links\\Provider' => __DIR__ . '/../..' . '/src/Events_Pro/Custom_Tables/V1/Links/Provider.php',
@@ -304,9 +305,9 @@ class ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit292c7eef0f7579f5b10c45ac3714d31e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e41a74fdee86bbcd31ce5322208a56d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e41a74fdee86bbcd31ce5322208a56d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1e41a74fdee86bbcd31ce5322208a56d::$classMap;
 
         }, null, ClassLoader::class);
     }

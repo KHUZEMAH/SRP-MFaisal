@@ -71,12 +71,12 @@ class Coupon extends \LWS\WOOREWARDS\Abstracts\Unlockable
 		$form .= \LWS\Adminpanel\Pages\Field\Duration::compose($prefix . 'timeout', array('value' => $value));
 		$form .= "</div>";
 
-		if ($this->grantExclCat() && \apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+		if ($this->grantExclCat() && \apply_filters('lwsdev_coupon_individual_use_solver_exists', false)) {
 			$label   = _x("Exclusive categories", "Coupon category", 'woorewards-lite');
 			$tooltip = __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-lite');
 			$input = \LWS\Adminpanel\Pages\Field\LacChecklist::compose($prefix . 'coupon_cat', array(
 				'comprehensive' => true,
-				'ajax'          => 'lws_coupon_individual_use_solver_categories',
+				'ajax'          => 'lwsdev_coupon_individual_use_solver_categories',
 			));
 			$form .= <<<EOT
 <div class='field-help'>{$tooltip}</div>
@@ -382,7 +382,7 @@ EOT;
 			\update_post_meta($coupon->get_id(), 'admin_coupons_enabled_for_vendor', 'yes');
 
 			if ($this->grantExclCat())
-				\do_action('lws_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
+				\do_action('lwsdev_coupon_individual_use_solver_apply', $coupon->get_id(), $this->getCouponCategoryIds());
 
 			\do_action('wpml_restore_language_from_email');
 			\do_action('woocommerce_coupon_options_save', $coupon->get_id(), $coupon);

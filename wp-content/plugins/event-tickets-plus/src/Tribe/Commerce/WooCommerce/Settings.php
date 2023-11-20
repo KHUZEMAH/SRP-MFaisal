@@ -42,7 +42,7 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Settings {
 		$section_label = esc_html(
 			sprintf(
 				__(
-					'Event Tickets uses WooCommerce order statuses to control when attendee records should begenerated and when %s are sent to customers. The first enabled status reached by an order will trigger the action.',
+					'Event Tickets uses WooCommerce order statuses to control when attendee records should be generated and when %s are sent to customers. The first enabled status reached by an order will trigger the action.',
 					'event-tickets-plus'
 				),
 				$ticket_label_plural

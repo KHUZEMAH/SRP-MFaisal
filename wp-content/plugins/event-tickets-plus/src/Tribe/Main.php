@@ -12,7 +12,7 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '5.7.6';
+		const VERSION = '5.8.0';
 
 		/**
 		 * Used to store the version history.
@@ -118,6 +118,8 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			$this->plugin_path = trailingslashit( EVENT_TICKETS_PLUS_DIR );
 			$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 			$this->plugin_url  = plugins_url() . '/' . $this->plugin_dir;
+
+			Tribe__Tickets_Plus__Commerce__WooCommerce__Main::set_compatibility_checks();
 
 			/** @see \Tribe__Events__Pro__Main::init_apm_filters() Is on priority 10. */
 			add_action( 'plugins_loaded', [ $this, 'apm_filters' ], 5 );

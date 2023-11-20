@@ -1,6 +1,8 @@
 <?php
 namespace TEC\Tickets_Plus\Emails\Email;
 
+use TEC\Tickets\QR\Connector;
+
 /**
  * Class Components.
  * Contains the common components for the emails.
@@ -83,7 +85,7 @@ abstract class Components {
 
 		$args['qr'] = $args['preview'] ?
 			esc_url( plugins_url( '/event-tickets-plus/src/resources/images/example-qr.png' ) ):
-			tribe( \Tribe__Tickets_Plus__QR::class )->get_qr_url( $args['ticket'] );
+			tribe( Connector::class )->get_image_url_from_ticket_data( $args['ticket'] );
 
 		/** @var \Tribe__Tickets_Plus__Template $template */
 		$template = tribe( 'tickets-plus.template' );

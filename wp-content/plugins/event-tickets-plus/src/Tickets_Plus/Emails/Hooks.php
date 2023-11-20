@@ -18,6 +18,7 @@
 namespace TEC\Tickets_Plus\Emails;
 
 use Tribe__Tickets_Plus__QR;
+use TEC\Tickets\QR\Settings as QR_Settings;
 
 /**
  * Class Hooks.
@@ -98,7 +99,7 @@ class Hooks extends \TEC\Common\Contracts\Service_Provider {
 			return;
 		}
 
-		if ( ! tribe( \Tribe__Tickets_Plus__QR__Settings::class )->is_enabled() ) {
+		if ( ! tribe( QR_Settings::class )->is_enabled() ) {
 			return;
 		}
 

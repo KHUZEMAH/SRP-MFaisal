@@ -1111,14 +1111,14 @@ EOT;
 				)
 			));
 
-			if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+			if (\apply_filters('lwsdev_coupon_individual_use_solver_exists', false)) {
 				$groups['spending']['fields']['discount_cats'] = array(
 					'id'    => $prefix . 'direct_reward_discount_cats',
 					'title' => __("Exclusive categories", 'woorewards-lite'),
 					'type'  => 'lacchecklist',
 					'extra' => array(
 						'comprehensive' => true,
-						'ajax'          => 'lws_coupon_individual_use_solver_categories',
+						'ajax'          => 'lwsdev_coupon_individual_use_solver_categories',
 						'value'         => $pool->getOption('direct_reward_discount_cats'),
 						'help'          => __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-lite'),
 					),

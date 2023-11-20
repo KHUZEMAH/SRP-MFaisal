@@ -12,6 +12,8 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 	const URL_ARG_P = 'wrshare2';
 	const META_KEY = 'lws_woorewards_social_share_token_';
 
+	private $stygen = false;
+
 	public static function install()
 	{
 		self::register(get_class());
@@ -140,7 +142,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 	function template($snippet){
 		$this->stygen = true;
 		$snippet = $this->shortcode();
-		unset($this->stygen);
+		$this->stygen = false;
 		return $snippet;
 	}
 
@@ -332,7 +334,7 @@ class SocialShareWidget extends \LWS\WOOREWARDS\Ui\Widget
 			}
 		}
 
-		$demo = isset($this->stygen);
+		$demo = $this->stygen;
 		$nonce = $demo ? '' : \esc_attr(\wp_create_nonce('lws_woorewards_socialshare'));
 		$hash = '';
 		if( !$demo && $userId )

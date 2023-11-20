@@ -84,6 +84,11 @@ class PointsBalance
 						'desc' => __("(Optional) If set, will force the display of the points and rewards system name", 'woorewards-lite'),
 						'example' => '[wr_points_balance showname="yes"]',
 					),
+					'showcurrency' => array(
+						'option' => 'showcurrency',
+						'desc' => __("(Optional) Set to 'off' to do not append points currency but show only the number", 'woorewards-lite'),
+						'example' => '[wr_points_balance showcurrency="yes"]',
+					),
 				),
 				'flags' => array('current_user_id'),
 			)
@@ -133,24 +138,31 @@ class PointsBalance
 
 	/** Shows one or several points balances
 	 * [wr_points_balance systems='poolname1, poolname2']
-	 * @param $system 	→ Default: ''
+	 * * system 	→ Default: ''
 	 * 					  The points and rewards systems for which the balance is displayed. If empty, show all active systems
 	 * 					  One value or several ones, comma separated
-	 * @param $layout 	→ Default: 'none'
+	 * * layout 	→ Default: 'none'
 	 * 					  Defines the presentation of the wrapper.
 	 * 					  4 possible values : grid, vertical, horizontal, none.
-	 * @param $element 	→ Default: 'none'
+	 * * element 	→ Default: 'none'
 	 * 					  Defines the presentation of the elements.
 	 * 					  3 possible values : tile, line, none.
-	 * @param $display	→ Default: 'formatted'
+	 * * display	→ Default: 'formatted'
 	 * 					  'simple'    → only the points balance numeric value is displayed.
 	 * 					  'formatted' → points are formatted with the points currency/name.
-	 * @param $showname	→ Default: false
+	 * * showname	→ Default: false
 	 * 					  Force the display of the system name even if there's only one system
 	 */
 	public function shortcode($atts = array(), $content = null)
 	{
-		$atts = \wp_parse_args($atts, array('system' => '', 'layout' => 'none', 'element' => 'none', 'display' => 'formatted', 'showname' => ''));
+		$atts = \wp_parse_args($atts, array(
+			'system'       => '',
+			'layout'       => 'none',
+			'element'      => 'none',
+			'display'      => 'formatted',
+			'showname'     => '',
+			'showcurrency' => 'true',
+		));
 		$userId = \apply_filters('lws_woorewards_shortcode_current_user_id', \get_current_user_id(), $atts, 'wr_points_balance');
 
 		/** Basic verifications */
@@ -177,8 +189,9 @@ class PointsBalance
 		foreach ($pools->asArray() as $pool) {
 			// info
 			$points = $pool->getPoints($userId);
-			if ($atts['display'] == 'formatted')
-				$points = \LWS_WooRewards::formatPointsWithSymbol($points, $pool->getName());
+			if ($atts['display'] == 'formatted') {
+				$points = $pool->formatPoints($points, \LWS\Adminpanel\Tools\Conveniences::argIsTrue($atts['showcurrency']));
+			}
 			$name = \esc_attr($pool->getName());
 
 			if ($atts['element'] == 'tile') {

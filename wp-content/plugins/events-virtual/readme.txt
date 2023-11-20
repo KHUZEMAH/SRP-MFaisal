@@ -4,8 +4,8 @@ Contributors: theeventscalendar, aguseo, borkweb, bordoni, brianjessee, Camwyn, 
 Tags: virtual events, events, calendar, event, venue, organizer, dates, date, schema, conference, online events, concert, meeting, seminar, summit, class, the events calendar, tec, zoom, livestream
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Tested up to: 6.3.2
-Stable tag: 1.15.4
+Tested up to: 6.4.1
+Stable tag: 1.15.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,11 @@ Our premium products:
 * <a href="https://evnt.is/1ako" target="_blank">Image Widget Plus</a>
 
 == Changelog ==
+
+= [1.15.5] 2023-11-16 =
+
+* Feature - Include support for Virtual Events on Event Tickets Wallet Plus
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [1.15.4] 2023-09-13 =
 

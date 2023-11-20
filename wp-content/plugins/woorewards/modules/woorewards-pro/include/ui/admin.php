@@ -12,7 +12,6 @@ class Admin
 {
 	const POOL_OPTION_PREFIX = 'lws-wr-pool-option-';
 
-	public $standardPages = array();
 	private $wcStyles = array();
 
 	public function __construct()
@@ -117,18 +116,21 @@ class Admin
 	/** Reorganise pages from the free version to the pro version */
 	function managePages($pages)
 	{
-		$this->standardPages = $pages;
+		foreach ($pages as &$page) {
+			if (isset($page['prebuild']) && $page['prebuild']) return $pages;
+		}
+
 		$proPages = array();
-		if (isset($this->standardPages['wr_resume'])) {
-			$proPages['wr_resume'] = $this->standardPages['wr_resume'];
+		if (isset($pages['wr_resume'])) {
+			$proPages['wr_resume'] = $pages['wr_resume'];
 			$proPages['wr_resume']['title'] = __('WooRewards', 'woorewards-pro');
 		}
 
-		$proPages['wr_customers'] = $this->getCustomerPage();
+		$proPages['wr_customers'] = $this->getCustomerPage($pages);
 		$proPages['wr_settings'] = $this->getSettingsPage();
-		$proPages['wr_wizard'] = $this->getWizardPage();
-		$proPages['wr_appearance'] = $this->getAppearancePage();
-		$proPages['wr_system'] = $this->getSystemPage();
+		$proPages['wr_wizard'] = $this->getWizardPage($pages);
+		$proPages['wr_appearance'] = $this->getAppearancePage($pages);
+		$proPages['wr_system'] = $this->getSystemPage($pages);
 		$proPages['wr_teaser'] = array(
 			'id'     => 'wr_teaser',
 			'title'  => __('Add-ons', 'woorewards-pro'),
@@ -138,9 +140,9 @@ class Admin
 		return $proPages;
 	}
 
-	function getCustomerPage()
+	function getCustomerPage(&$freePages)
 	{
-		$customerPage = $this->standardPages['wr_customers'];
+		$customerPage = $freePages['wr_customers'];
 
 		$customerPage['description'] = __("Use this page to see your customers activity, manage their points and their rewards", 'woorewards-pro');
 		return $customerPage;
@@ -343,9 +345,9 @@ class Admin
 		);
 	}
 
-	function getWizardPage()
+	function getWizardPage(&$freePages)
 	{
-		$customerPage = $this->standardPages['wr_wizard'];
+		$customerPage = $freePages['wr_wizard'];
 		$customerPage['description'] = __("Use the wizard to set up your loyalty program in no time. Answer some questions, set some values and let the magic operate", 'woorewards-pro');
 
 		return $customerPage;
@@ -361,24 +363,24 @@ class Admin
 		return false;
 	}
 
-	function getAppearancePage()
+	function getAppearancePage(&$freePages)
 	{
-		$this->standardPages['wr_appearance']['description'] = __("Set the appearance of everything your customers will see on your website regarding your loyalty program ", 'woorewards-pro');
+		$freePages['wr_appearance']['description'] = __("Set the appearance of everything your customers will see on your website regarding your loyalty program ", 'woorewards-pro');
 
 		if (!$this->isIn('.appearance'))
-			return $this->standardPages['wr_appearance'];
+			return $freePages['wr_appearance'];
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/shortcodes.php';
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/woocommerce.php';
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/popups.php';
 
 		$appearancePage = array_merge(
-			$this->standardPages['wr_appearance'],
+			$freePages['wr_appearance'],
 			array(
 				'tabs'     => array(
-					'woocommerce' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\WooCommerce::getTab($this->standardPages['wr_appearance']),
+					'woocommerce' => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\WooCommerce::getTab($freePages['wr_appearance']),
 					'shortcodes'  => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Shortcodes::getTab(),
-					'emails'      => $this->getEmailsTab(),
+					'emails'      => $this->getEmailsTab($freePages),
 					'popups'      => \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Popups::getTab(),
 					'styling'     => \LWS\WOOREWARDS\Ui\AdminScreens\Styling::getTab(true),
 				)
@@ -386,7 +388,7 @@ class Admin
 		);
 
 		require_once LWS_WOOREWARDS_PRO_INCLUDES . '/ui/adminscreens/legacy.php';
-		$legacy = \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Legacy::getTab($this->standardPages['wr_appearance']);
+		$legacy = \LWS\WOOREWARDS\PRO\Ui\AdminScreens\Legacy::getTab($freePages['wr_appearance']);
 		if ($legacy['groups']) {
 			$appearancePage['tabs']['legacy'] = $legacy;
 		}
@@ -518,9 +520,9 @@ class Admin
 		return $apiTab;
 	}
 
-	function getEmailsTab()
+	function getEmailsTab(&$freePages)
 	{
-		$emailsTab = $this->standardPages['wr_appearance']['tabs']['sty_mails'];
+		$emailsTab = $freePages['wr_appearance']['tabs']['sty_mails'];
 		$emailsTab['vertnav'] = true;
 		return $emailsTab;
 	}
@@ -1038,14 +1040,28 @@ class Admin
 				'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
 			);
 
-			if (\apply_filters('lws_coupon_individual_use_solver_exists', false)) {
+			$group['fields']['prod_cats'] = array(
+				'id'    => self::POOL_OPTION_PREFIX . 'direct_reward_prod_cats',
+				'title' => __("Product categories", 'woorewards-pro'),
+				'type'  => 'lacchecklist',
+				'extra' => array(
+					'comprehensive' => true,
+					'predefined'    => 'taxonomy',
+					'spec'          => array('taxonomy' => 'product_cat'),
+					'value'         => $pool->getOption('direct_reward_prod_cats'),
+					'help'          => __("If set, the points can be used only for discount on products of the given categories.", 'woorewards-pro'),
+				),
+				'require' => array('selector' => '#direct_reward_mode', 'value' => 'on'),
+			);
+
+			if (\apply_filters('lwsdev_coupon_individual_use_solver_exists', false)) {
 				$group['fields']['discount_cats'] = array(
 					'id'    => self::POOL_OPTION_PREFIX . 'direct_reward_discount_cats',
 					'title' => __("Exclusive categories", 'woorewards-pro'),
 					'type'  => 'lacchecklist',
 					'extra' => array(
 						'comprehensive' => true,
-						'ajax'          => 'lws_coupon_individual_use_solver_categories',
+						'ajax'          => 'lwsdev_coupon_individual_use_solver_categories',
 						'value'         => $pool->getOption('direct_reward_discount_cats'),
 						'help'          => __("Exclusive categories that the coupon will be applied to. Extends the <i>“Individual use only”</i> rule.", 'woorewards-pro'),
 					),
@@ -1311,12 +1327,12 @@ EOT;
 		return $points;
 	}
 
-	function getSystemPage()
+	function getSystemPage(&$freePages)
 	{
 		if (!$this->isIn('.system'))
-			return $this->standardPages['wr_system'];
+			return $freePages['wr_system'];
 
-		$system = $this->standardPages['wr_system'];
+		$system = $freePages['wr_system'];
 
 		$system['tabs']['data_management']['groups']['historydel'] = array(
 			'id'    => 'historydel',

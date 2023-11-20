@@ -19,5 +19,4 @@ class Tribe__Tickets_Plus__REST__V1__Main extends Tribe__Tickets__REST__V1__Main
 		}
 
 	}
-
 }

@@ -633,6 +633,38 @@
 				color: var(--tec-color-accent-primary-background);
 			}
 
+.tribe-common .tec-tickets__attendees-list-wrapper, .event-tickets .tec-tickets__attendees-list-wrapper {
+		margin-top: var(--tec-spacer-8);
+	}
+
+.tribe-common .tec-tickets__attendees-list, .event-tickets .tec-tickets__attendees-list {
+		background-color: var(--tec-color-background);
+		margin-top: var(--tec-spacer-3);
+	}
+
+.tribe-common .tec-tickets__attendees-list-item, .event-tickets .tec-tickets__attendees-list-item {
+		align-items: center;
+		border-left: 1px solid var(--tec-color-border-secondary);
+		border-right: 1px solid var(--tec-color-border-secondary);
+		border-top: 1px solid var(--tec-color-border-secondary);
+		container-type: inline-size;
+		display: flex;
+		flex-direction: column;
+		grid-gap: var(--tec-spacer-1);
+		gap: var(--tec-spacer-1);
+		margin: 0;
+		padding: var(--tec-spacer-4);
+	}
+
+.tribe-common .tec-tickets__attendees-list-item:last-child, .event-tickets .tec-tickets__attendees-list-item:last-child {
+			border-bottom: 1px solid var(--tec-color-border-secondary);
+		}
+
+.tribe-common .tec-tickets__attendees-list-item-attendee-details, .event-tickets .tec-tickets__attendees-list-item-attendee-details {
+		align-self: center;
+		flex-grow: 1;
+	}
+
 /**
  * Event Tickets - Tickets Orders Stylesheet.
  *
@@ -668,6 +700,7 @@
 	}
 
 .tribe-tickets ul.tribe-orders-list > .tribe-item {
+			container-type: inline-size;
 			margin: 0;
 			padding: 0;
 		}
@@ -683,10 +716,17 @@
 		}
 
 .tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item {
+				align-items: center;
 				background-color: var(--tec-color-background);
 				border: 1px solid var(--tec-color-border-default);
 				border-bottom: 0;
+				display: flex;
+				flex-wrap: wrap;
+				grid-gap: var(--tec-spacer-4);
+				gap: var(--tec-spacer-4);
+				justify-content: space-between;
 				margin: 0;
+				min-height: 105px;
 				padding: var(--tec-spacer-5);
 			}
 
@@ -705,18 +745,10 @@
 					}
 
 .tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item .tribe-ticket-information {
-					display: inline-block;
-					float: right;
 					font-family: var(--tec-font-family-sans-serif);
 					font-size: var(--tec-font-size-3);
 					font-weight: var(--tec-font-weight-regular);
 					line-height: var(--tec-line-height-0);
-					margin-bottom: var(--tec-spacer-5);
-				}
-
-.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item .tribe-answer {
-					display: block;
-					float: right;
 				}
 
 .tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item table {
@@ -726,6 +758,10 @@
 
 .tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item td {
 					border: 0;
+				}
+
+.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div {
+					flex: 1 0 100%;
 				}
 
 @media (min-width: 768px) {
@@ -743,4 +779,53 @@
 				background-color: transparent;
 				width: auto
 		}
+
+.tribe-common .tec-tickets__attendees-list-item, .event-tickets .tec-tickets__attendees-list-item {
+			flex-direction: row
+	}
+
+.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item {
+					align-items: center;
+					flex-direction: row
+			}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div {
+						flex: 0 1 auto;
+						order: 2;
+						white-space: nowrap;
+					}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div.list-attendee {
+						flex: 1 0 auto;
+						order: 1;
+					}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div.tribe-ticket-information {
+						flex: 0 1 100%;
+						order: 3;
+						white-space: wrap;
+					}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div:last-child {
+						flex: 0 1 auto;
+						order: 2;
+					}
 		}
+
+@media(min-width: 960px) {
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div {
+						flex: 0 1 auto;
+						order: 3;
+					}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div.list-attendee {
+						flex: 0 1 auto;
+						order: 1;
+					}
+
+					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div.tribe-ticket-information {
+						flex: 0 1 auto;
+						order: 2;
+					}
+				}

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit21a576846805bcaa49add0b200fe1fb4
+class ComposerStaticInit43ec74747c68c7396bedc0a710526d75
 {
     public static $prefixLengthsPsr4 = array (
         'l' => 
@@ -136,6 +136,7 @@ class ComposerStaticInit21a576846805bcaa49add0b200fe1fb4
         'TEC\\Common\\Site_Health\\Provider' => __DIR__ . '/../..' . '/src/Common/Site_Health/Provider.php',
         'TEC\\Common\\Storage\\Timed_Option' => __DIR__ . '/../..' . '/src/Common/Storage/Timed_Option.php',
         'TEC\\Common\\Telemetry\\Migration' => __DIR__ . '/../..' . '/src/Common/Telemetry/Migration.php',
+        'TEC\\Common\\Telemetry\\Opt_In' => __DIR__ . '/../..' . '/src/Common/Telemetry/Opt_In.php',
         'TEC\\Common\\Telemetry\\Provider' => __DIR__ . '/../..' . '/src/Common/Telemetry/Provider.php',
         'TEC\\Common\\Telemetry\\Telemetry' => __DIR__ . '/../..' . '/src/Common/Telemetry/Telemetry.php',
         'TEC\\Common\\Translations_Loader' => __DIR__ . '/../..' . '/src/Common/Translations_Loader.php',
@@ -227,9 +228,9 @@ class ComposerStaticInit21a576846805bcaa49add0b200fe1fb4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit21a576846805bcaa49add0b200fe1fb4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit21a576846805bcaa49add0b200fe1fb4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit21a576846805bcaa49add0b200fe1fb4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit43ec74747c68c7396bedc0a710526d75::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit43ec74747c68c7396bedc0a710526d75::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit43ec74747c68c7396bedc0a710526d75::$classMap;
 
         }, null, ClassLoader::class);
     }

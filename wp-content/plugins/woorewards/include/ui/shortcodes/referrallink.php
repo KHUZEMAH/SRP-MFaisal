@@ -86,6 +86,17 @@ class ReferralLink
 						'desc' => __("(Optional) Set the text customers will see when the code is copied to the clipboard", 'woorewards-lite'),
 						'example' => '[wr_referral_link copied="Your link has been copied"]',
 					),
+					'layout' => array(
+						'option' => 'layout',
+						'desc' => array(
+							__("Select the type of referral link your customers will get :", 'woorewards-lite'),
+							array(
+								'tag' => 'ul',
+								array('default', __("The default layout displays a block", 'woorewards-lite')),
+								array('inline', __("Try to follow the text flow", 'woorewards-lite')),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -116,13 +127,15 @@ class ReferralLink
 			'url'        => '',
 			'button'     => '',
 			'copied'     => '',
+			'layout'     => '',
 		));
 		$userId = \get_current_user_id();
 		if (!$userId) {
 			return \do_shortcode($content);
 		}
-		$atts['mode'] = \strtolower($atts['mode']);
-		if ($atts['mode'] !== 'link' && $atts['mode'] !== 'qrcode') {
+		$atts['layout'] = \strtolower($atts['layout']);
+		$atts['mode']   = \strtolower($atts['mode']);
+		if (!\in_array($atts['mode'], array('link', 'qrcode'), true)) {
 			return \do_shortcode($content);
 		}
 		$this->enqueueScripts();
@@ -164,9 +177,13 @@ class ReferralLink
 		if (!$atts['copied']) {
 			$atts['copied'] = __('Your code has been copied !', 'woorewards-lite');
 		}
+		$wrapper = 'wr-referral-code-wrapper';
+		if ('i' === \substr($atts['layout'], 0, 1)) {
+			$wrapper .= ' refinline';
+		}
 
 		return <<<EOT
-		<div class='wr-referral-code-wrapper'>
+		<div class='{$wrapper}'>
 			{$content}
 			<div class='link-button-wrapper wr_refl_button_copy{$showbtn}'>
 				<div class='copy-button wr_refl_button_copy'>{$atts['button']}</div>

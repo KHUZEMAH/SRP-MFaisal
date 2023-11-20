@@ -164,7 +164,7 @@ class Tribe__Tickets__Editor extends Tribe__Editor {
 		$replace = $this->get_tickets_as_blocks( $post->ID );
 		// Do the actual replace for tickets blocks
 		$content = str_replace( $search, implode( "\n\r", $replace ), $content );
-	$content = preg_replace("/<!--(.|\s)*?-->/", '', $content);
+		$content = preg_replace("/<!--(.|\s)*?-->/", '', $content);
 		$content = trim($content);
 		return $content;
 	}

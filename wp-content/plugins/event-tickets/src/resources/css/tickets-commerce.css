@@ -633,6 +633,38 @@
 				color: var(--tec-color-accent-primary-background);
 			}
 
+.tribe-common .tec-tickets__attendees-list-wrapper, .event-tickets .tec-tickets__attendees-list-wrapper {
+		margin-top: var(--tec-spacer-8);
+	}
+
+.tribe-common .tec-tickets__attendees-list, .event-tickets .tec-tickets__attendees-list {
+		background-color: var(--tec-color-background);
+		margin-top: var(--tec-spacer-3);
+	}
+
+.tribe-common .tec-tickets__attendees-list-item, .event-tickets .tec-tickets__attendees-list-item {
+		align-items: center;
+		border-left: 1px solid var(--tec-color-border-secondary);
+		border-right: 1px solid var(--tec-color-border-secondary);
+		border-top: 1px solid var(--tec-color-border-secondary);
+		container-type: inline-size;
+		display: flex;
+		flex-direction: column;
+		grid-gap: var(--tec-spacer-1);
+		gap: var(--tec-spacer-1);
+		margin: 0;
+		padding: var(--tec-spacer-4);
+	}
+
+.tribe-common .tec-tickets__attendees-list-item:last-child, .event-tickets .tec-tickets__attendees-list-item:last-child {
+			border-bottom: 1px solid var(--tec-color-border-secondary);
+		}
+
+.tribe-common .tec-tickets__attendees-list-item-attendee-details, .event-tickets .tec-tickets__attendees-list-item-attendee-details {
+		align-self: center;
+		flex-grow: 1;
+	}
+
 /**
  * Event Tickets - Tickets Commerce Stylesheet
  *
@@ -1004,6 +1036,33 @@
 		font-weight: bold;
 	}
 
+.event-tickets .tribe-tickets__commerce-order-attendees {
+		margin-top: var(--tec-spacer-8);
+	}
+
+.event-tickets .tribe-tickets__commerce-order-attendees-list {
+		background-color: var(--tec-color-background);
+		margin-top: var(--tec-spacer-3);
+	}
+
+.event-tickets .tribe-tickets__commerce-order-attendees-list-attendee {
+		align-items: center;
+		border: 1px solid var(--tec-color-border-default);
+		border-bottom: 0;
+		display: flex;
+		justify-content: space-between;
+		margin: 0;
+		padding: var(--tec-spacer-3);
+	}
+
+.event-tickets .tribe-tickets__commerce-order-attendees-list-attendee:last-of-type {
+		border-bottom: 1px solid var(--tec-color-border-default);
+	}
+
+.event-tickets .tribe-tickets__commerce-order-attendees-list-attendee-details {
+		flex: 1;
+	}
+
 .event-tickets .tribe-tickets__commerce-order-footer-link:not(:first-of-type) {
 		margin-left: var(--tec-spacer-2);
 	}
@@ -1045,6 +1104,10 @@
 				background-color: transparent;
 				width: auto
 		}
+
+.tribe-common .tec-tickets__attendees-list-item, .event-tickets .tec-tickets__attendees-list-item {
+			flex-direction: row
+	}
 			.tribe-tickets.tribe-common .tribe-tickets__commerce-checkout-cart-item-details-button--more, .tribe-tickets.tribe-common .tribe-tickets__commerce-checkout-cart-item-details-button--less, .tribe-tickets.event-tickets .tribe-tickets__commerce-checkout-cart-item-details-button--more, .tribe-tickets.event-tickets .tribe-tickets__commerce-checkout-cart-item-details-button--less {
 				display: none !important;
 				visibility: hidden;

@@ -26,5 +26,6 @@ class Provider extends Service_Provider {
 		$this->container->singleton( static::class, $this );
 
 		$this->container->register( Plugins\Event_Tickets\Provider::class );
+		$this->container->register_on_action( 'tec_container_registered_provider_TEC\Tickets_Wallet_Plus\Controller', Plugins\Tickets_Wallet_Plus\Controller::class );
 	}
 }

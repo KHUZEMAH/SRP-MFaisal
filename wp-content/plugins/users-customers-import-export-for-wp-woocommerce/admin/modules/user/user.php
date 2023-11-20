@@ -567,36 +567,6 @@ class Wt_Import_Export_For_Woo_basic_User {
                 'target'=>'wt_iew_found_action'
             )
         );  
-          
-             
-        $out['use_same_password'] = array(
-            'label' => __("Retain user passwords"),
-            'type' => 'radio',
-            'radio_fields' => array(
-                '1' => __('Yes'),
-                '0' => __('No')
-            ),
-            'value' => '1',
-			'merge_right' => true,
-            'field_name' => 'use_same_password',
-            'help_text' => __("WordPress encrypts passwords and stores the hashed value in database."),
-            'help_text_conditional'=>array(
-                array(
-                    'help_text'=> __('Choose ‘Yes’ to import hashed passwords(that were exported from another WordPress install) as is.'),
-                    'condition'=>array(
-                        array('field'=>'wt_iew_use_same_password', 'value'=>'1')
-                    )
-                ),
-                array(
-                    'help_text'=> __('Choose ‘No’ to import a plaintext password.'),
-                    'condition'=>array(
-                        array('field'=>'wt_iew_use_same_password', 'value'=>'0')
-                    )
-                )
-            ),
-        );
-
-        
         foreach ($fields as $fieldk => $fieldv) {
             $out[$fieldk] = $fieldv;
         }

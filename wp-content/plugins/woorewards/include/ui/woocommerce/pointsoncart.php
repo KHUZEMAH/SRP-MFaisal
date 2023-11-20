@@ -303,6 +303,18 @@ class PointsOnCart
 		}
 	}
 
+	/** @return bool
+	 *	@param $pool string|\LWS\WOOREWARDS\Core\Pool pool instance or pool name
+	 */
+	function isCouponAppliedOnCart($pool)
+	{
+		if (\WC()->cart) {
+			$code = 'wr_points_on_cart-' . (\is_string($pool) ? $pool : $pool->getName());
+			return \WC()->cart->has_discount($code);
+		}
+		return false;
+	}
+
 	function template()
 	{
 		$this->stygen = true;
@@ -590,8 +602,8 @@ class PointsOnCart
 
 		$applydisabled = ' disabled';
 		$maxdisabled = ($info['used'] < $info['max']) ? '' : ' disabled';
-		if ($this->stygen)
-		{
+		// check on cart for coupons, do not disabled if none or amount is different
+		if ($this->stygen || ($info['used'] && !$this->isCouponAppliedOnCart($info['pool']))) {
 			$applydisabled = '';
 			$maxdisabled = '';
 		}

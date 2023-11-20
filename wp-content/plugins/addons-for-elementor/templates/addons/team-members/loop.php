@@ -17,7 +17,9 @@ if (!defined('ABSPATH')) {
 $class_attr = $data_attr = '';
 $dir = is_rtl() ? ' dir="rtl"' : '';
 
-if ($settings['style'] == 'style1'):
+$styles = array('style1', 'style6', 'style7', 'style8', 'style9');
+
+if (in_array($settings['style'], $styles)):
 
     if ($settings['layout'] == 'carousel') :
 

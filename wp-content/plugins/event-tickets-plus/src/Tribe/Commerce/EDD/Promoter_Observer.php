@@ -125,7 +125,10 @@ class Tribe__Tickets_Plus__Commerce__EDD__Promoter_Observer {
 		$customer = new EDD_Customer( $customer_id );
 		$payments = [];
 
-		if ( method_exists( $customer, 'get_payment_ids' ) ) {
+		// Updated for EDD 3.2 keeping backwards compatibility.
+		if ( method_exists( $customer, 'get_order_ids' ) ) {
+			$payments = $customer->get_order_ids();
+		} else if ( method_exists( $customer, 'get_payment_ids' ) ) {
 			$payments = $customer->get_payment_ids();
 		}
 
