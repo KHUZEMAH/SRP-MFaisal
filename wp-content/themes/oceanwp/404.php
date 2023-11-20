@@ -4,7 +4,7 @@
  *
  * @package OceanWP WordPress theme
  */
-
+ 
 // Get ID.
 $get_id = get_theme_mod( 'ocean_error_page_template' );
 

@@ -8,7 +8,7 @@
  *
  * @package OceanWP WordPress theme
  */
-
+ 
 get_header(); ?>
 
 	<?php do_action( 'ocean_before_content_wrap' ); ?>

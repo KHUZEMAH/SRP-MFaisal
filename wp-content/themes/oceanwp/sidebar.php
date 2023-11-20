@@ -8,7 +8,7 @@
 // Retunr if full width or full screen.
 if ( in_array( oceanwp_post_layout(), array( 'full-screen', 'full-width' ), true ) ) {
 	return;
-} ?>
+} ?> 
 
 <?php do_action( 'ocean_before_sidebar' ); ?>
 

@@ -6,7 +6,7 @@ if(!isset($_SESSION))
 }
 
 get_header(); 
-
+ 
 ?> 
 <style>
    .page-template-gift-card{

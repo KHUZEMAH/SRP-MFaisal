@@ -7,7 +7,7 @@ if(!isset($_SESSION))
 
 get_header(); 
 ?>
-<style>
+<style> 
 .page-template-response #main{
     color: #D1CCCC;
 	font-size:18px;

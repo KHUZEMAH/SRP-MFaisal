@@ -6,7 +6,7 @@
 ?>
 <section class="add-testimonail">
   <div class="container">
-    <div>
+    <div> 
           <br>
           <?php if( "yes" == $_GET['success'] ){ //if(isset($_SESSION["successtestimonialMsg"]) && $_SESSION["successtestimonialMsg"]!=''){?>
           <div class="alert-success-text" role="alert">

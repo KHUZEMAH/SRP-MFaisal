@@ -8,7 +8,7 @@
     
    ?>
    
- 
+  
 <style>
    .page-template-explore-templates{
    position: relative;

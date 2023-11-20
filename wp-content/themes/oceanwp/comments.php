@@ -7,7 +7,7 @@
  * oceanwp_comment() which is located at functions/comments-callback.php
  *
  * @package OceanWP WordPress theme
- */
+ */ 
 
 // Return if password is required.
 if ( post_password_required() ) {
